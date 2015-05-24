@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+<template id="get_subcategories" name="Subcategory list">
+  <ul t-att-class="'dropdown-menu'">
+    <t t-foreach="c.child_id" t-as="c">
+      <li> 
+        <a t-att-href="keep('/shop/category/' + slug(c), category=0)" t-field="c.name"></a>
+      </li>
+    </t>
+  </ul>                  
+</template>
+
+<template id="top_menu_products_categories"  inherit_id="website_sale.products">
+  <xpath expr="//div[@class='row']" position="after">
+    <div t-att-class="'ig_top_menu'">
+      <ul t-att-class="'nav navbar-nav navbar-collapse collapse'"> 
+        <t t-foreach="categories" t-as="c">
+          <li t-att-class="'dropdown active'">
+            <a t-att-data-toggle="'dropdown'" t-att-href="keep('/shop/category/' + slug(c), category=0)" t-field="c.name" t-att-class="'dropdown-toggle hidden-xs'"></a>
+            <t t-call="website_sale_top_menu.get_subcategories"/>
+          </li>
+        </t>
+      </ul>
+    </div>
+  </xpath>
+</template>
+
+<!--<template id="categories_recursive" name="Category list">
+  
+  <li t-att-class="'active' if c.id == int(category or 0) else ''">
+      <a t-att-href="keep('/shop/category/' + slug(c), category=0)" t-field="c.name"></a>
+      <ul t-if="c.child_id" class="nav nav-pills nav-stacked nav-hierarchy">
+          <t t-foreach="c.child_id" t-as="c">
+              <t t-call="website_sale.categories_recursive"/>
+          </t>
+      </ul>
+  </li>
+</template> -->
+
+<!--  <template id="products_categories" inherit_id="website_sale.products">
+  <xpath expr="//div[@id='products_grid_before']" position="replace">
+      <div t-att-class="'col-md-3 hidden-xs'" t-att-id="'products_grid_before'">
+          <t t-foreach="categories_parent" t-as="cp">
+               <h1><t t-esc="cp.name"/></h1> 
+          </t>
+
+      </div>
+  </xpath>
+</template>  -->
+
+</data>
+</openerp>
