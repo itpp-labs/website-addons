@@ -12,6 +12,7 @@
   </ul>                  
 </template>
 
+
 <template id="top_menu_products_categories"  inherit_id="website_sale.products">
   <xpath expr="//div[@class='row']" position="after">
     <div t-att-class="'ig_top_menu'">
@@ -27,7 +28,7 @@
   </xpath>
 </template>
 
-  <template id="left_menu_products_categories" inherit_id="website_sale.products_categories">
+  <template id="top_left_products_categories" inherit_id="website_sale.products">
     <xpath expr="//div[@id='products_grid_before']" position="replace">
       <div t-att-class="'col-md-3 hidden-xs' if category else ''" t-att-id="'products_grid_before'">
         <t t-if="category">
@@ -45,15 +46,10 @@
         </t>
       </div>
   </xpath>
-<!--  <xpath expr="//div[@id='products_grid']" position="attributes">
-     <t t-if="not category"> 
-         <attributes name="style">width: 100%</attributes>
-     </t>
-     <t t-if="category"> 
-         <attributes name="style">width: 75%</attributes>
-     </t>
-  </xpath>
-</template> -->
+  <xpath expr="//div[@id='products_grid']" position="attributes">
+      <attribute name="t-att-class">'col-md-9' if category  else 'col-md-12'</attribute>
+  </xpath> 
+ </template> 
 
 </data>
 </openerp>
