@@ -7,8 +7,5 @@
     'version': '1.0.0',
     'depends': ['base'],
     # always loaded
-    'data': [
-        'templates.xml',
-    ],
-
+    'data': ['templates.xml'],
 }
