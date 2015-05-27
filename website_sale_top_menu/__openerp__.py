@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "website_sale_top_menu",
+    'name': "Top menu for Product Categories",
     'author': "Ivan Yelizariev",
-    'website': "http://",
-    'category': 'Uncategorized',
+    'website' : 'https://yelizariev.github.io',
+    'category': 'Sale',
     'version': '1.0.0',
-    'depends': ['base'],
+    'depends': ['website_sale'],
     # always loaded
     'data': ['templates.xml'],
+    'installable': True
 }

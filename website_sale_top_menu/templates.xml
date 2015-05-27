@@ -26,6 +26,7 @@
 </template>
 
 <template id="top_menu_products_categories"  inherit_id="website_sale.products_categories">
+  <!-- TOP MENU -->
   <xpath expr="//div[@id='wrap']/div[2]/div[1]/div" position="after">
     <div t-att-class="'ig_top_menu'">
       <ul t-att-class="'nav navbar-nav navbar-collapse collapse'"> 
@@ -42,7 +43,7 @@
       </ul>
     </div>
   </xpath>
-
+  <!-- LEFT MENU -->
   <xpath expr="//div[@id='products_grid_before']" position="replace">
       <div t-att-class="'col-md-3 hidden-xs' if category else ''" t-att-id="'products_grid_before'">
         <t t-if="category">
@@ -54,7 +55,7 @@
         </t>
       </div>
   </xpath>
-
+  <!-- STYLE -->
   <xpath expr="//div[@id='products_grid']" position="attributes">
       <!-- <attribute name="t-att-class">'col-md-9' if category  else 'col-md-12'</attribute> -->
       <attribute name="t-att-style">'width: 75%;' if category else 'width: 100%'</attribute>
