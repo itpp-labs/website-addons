@@ -27,9 +27,10 @@
 
 <template id="top_menu_products_categories"  inherit_id="website_sale.products_categories">
   <!-- TOP MENU -->
-  <xpath expr="//div[@id='wrap']/div[2]/div[1]/div" position="after">
-    <div t-att-class="'ig_top_menu'">
-      <ul t-att-class="'nav navbar-nav navbar-collapse collapse'"> 
+  <xpath expr="//div[@id='wrap']/div" position="before">
+    <div>
+      <ul t-att-class="'nav navbar-nav navbar-default navbar-static-top navbar-collapse collapse'"
+          t-att-style="'width:100%; padding: 0 50px 0 50px;'"> 
         <t t-foreach="categories" t-as="mc">
           <li t-if="mc.child_id" t-att-class="'dropdown active'">
             <a t-att-data-toggle="'dropdown'" 
