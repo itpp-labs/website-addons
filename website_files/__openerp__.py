@@ -4,7 +4,10 @@
     'author': 'Ivan Yelizariev',
     'category': 'Website',
     'website': 'https://yelizariev.github.io',
+    'price': 9.00,
+    'currency': 'EUR',
     'depends': ['website'],
+    'images': ['images/result.png'],
     'data': [
         'website_files_views.xml',
         ],
