@@ -2,7 +2,7 @@
     'name': "Website debranding",
     'version': '1.0.0',
     'author': 'Ivan Yelizariev',
-    'category': 'Custom',
+    'category': 'Debranding',
     'website': 'https://yelizariev.github.io',
     'depends': ['website'],
     'data': [
