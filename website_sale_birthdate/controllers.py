@@ -12,13 +12,10 @@ class WebsiteSaleBirthdate(main.website_sale):
         values = super(WebsiteSaleBirthdate, self).checkout_values(data)
 
         current_user = request.env.user
-        orm_partner = request.env['res.partner']
 
         # if user is activated
         if current_user.active:
-            partner_id = current_user.partner_id
-
-            partner_birthdate = orm_partner.browse(int(partner_id)).birthdate
+            partner_birthdate = current_user.partner_id.birthdate
 
             if partner_birthdate:
                 values['checkout']['birthdate'] = partner_birthdate
