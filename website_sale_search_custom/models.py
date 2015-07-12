@@ -24,12 +24,9 @@ class Product(models.Model):
     _inherit = 'product.template'
 
     def _extend_domain(self, domain, context):
-        print '_extend_domain', domain, context
         if not (context and context.get('search_tags')):
             return domain
-        print 'old domain', domain
         domain = ['|', ('tag_ids', 'ilike', context.get('search_tags'))] + domain
-        print 'new domain', domain
         return domain
 
     def search_count(self, cr, uid, domain, context=None):
