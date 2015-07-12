@@ -1,4 +1,5 @@
 from openerp import api, models, fields, SUPERUSER_ID, http
+from openerp.http import request
 
 from openerp.addons.website_sale.controllers.main import website_sale as controller
 from openerp.addons.website_sale.controllers import main as main_file
@@ -13,9 +14,32 @@ class website_sale(controller):
         '/shop/category/<model("product.public.category"):category>/page/<int:page>'
     ], type='http', auth="public", website=True)
     def shop(self, page=0, category=None, search='', **post):
+        request.context['search_tags'] = search
         if category and search:
             category = None
         return super(website_sale, self).shop(page, category, search, **post)
+
+
+class Product(models.Model):
+    _inherit = 'product.template'
+
+    def _extend_domain(self, domain, context):
+        print '_extend_domain', domain, context
+        if not (context and context.get('search_tags')):
+            return domain
+        print 'old domain', domain
+        domain = ['|', ('tag_ids', 'ilike', context.get('search_tags'))] + domain
+        print 'new domain', domain
+        return domain
+
+    def search_count(self, cr, uid, domain, context=None):
+        domain = self._extend_domain(domain, context)
+        return super(Product, self).search_count(cr, uid, domain, context=context)
+
+    def search(self, cr, uid, domain, context=None, **kwargs):
+        domain = self._extend_domain(domain, context)
+        return super(Product, self).search(cr, uid, domain, context=context, **kwargs)
+
 
 class QueryURL(object):
     def __init__(self, path='', **args):
