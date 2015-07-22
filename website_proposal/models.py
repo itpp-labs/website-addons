@@ -7,7 +7,13 @@ from openerp import tools, SUPERUSER_ID
 
 import openerp.addons.decimal_precision as dp
 
-from openerp.addons.email_template.email_template import mako_template_env
+try:
+    from openerp.addons.email_template.email_template import mako_template_env
+except ImportError:
+    try:
+        from openerp.addons.mail.mail_template import mako_template_env
+    except ImportError:
+        pass
 
 class website_proposal_template(osv.osv):
     _name = "website_proposal.template"
