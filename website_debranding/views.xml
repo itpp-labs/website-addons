@@ -6,4 +6,55 @@
     </xpath>
 </template>
 
+<record id="view_website_config_settings" model="ir.ui.view">
+    <field name="model">website.config.settings</field>
+    <field name="inherit_id" ref="website.view_website_config_settings"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='social_twitter']" position="attributes">
+            <attribute name="placeholder"></attribute>
+        </xpath>
+        <xpath expr="//field[@name='social_facebook']" position="attributes">
+            <attribute name="placeholder"></attribute>
+        </xpath>
+        <xpath expr="//field[@name='social_github']" position="attributes">
+            <attribute name="placeholder"></attribute>
+        </xpath>
+        <xpath expr="//field[@name='social_linkedin']" position="attributes">
+            <attribute name="placeholder"></attribute>
+        </xpath>
+        <xpath expr="//field[@name='social_youtube']" position="attributes">
+            <attribute name="placeholder"></attribute>
+        </xpath>
+        <xpath expr="//field[@name='social_googleplus']" position="attributes">
+            <attribute name="placeholder"></attribute>
+        </xpath>
+    </field>
+</record>
+
+<record id="view_website_form" model="ir.ui.view">
+    <field name="model">website</field>
+    <field name="inherit_id" ref="website.view_website_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='social_twitter']" position="attributes">
+            <attribute name="placeholder"></attribute>
+        </xpath>
+        <xpath expr="//field[@name='social_facebook']" position="attributes">
+            <attribute name="placeholder"></attribute>
+        </xpath>
+        <xpath expr="//field[@name='social_github']" position="attributes">
+            <attribute name="placeholder"></attribute>
+        </xpath>
+        <xpath expr="//field[@name='social_linkedin']" position="attributes">
+            <attribute name="placeholder"></attribute>
+        </xpath>
+        <xpath expr="//field[@name='social_youtube']" position="attributes">
+            <attribute name="placeholder"></attribute>
+        </xpath>
+        <xpath expr="//field[@name='social_googleplus']" position="attributes">
+            <attribute name="placeholder"></attribute>
+        </xpath>
+    </field>
+</record>
+
+
 </data></openerp>
