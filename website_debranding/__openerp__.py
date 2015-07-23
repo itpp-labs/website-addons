@@ -4,9 +4,10 @@
     'author': 'Ivan Yelizariev',
     'category': 'Debranding',
     'website': 'https://yelizariev.github.io',
-    'depends': ['website'],
+    'depends': ['website', 'web_debranding'],
     'data': [
         'views.xml',
+        'pre_install.yml',
         ],
     'installable': True
 }

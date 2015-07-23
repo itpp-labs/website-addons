@@ -1,0 +1,8 @@
+-
+  !python {model: ir.ui.view}: |
+    new_name = self.pool['ir.config_parameter'].get_param(cr, uid, 'web_debranding.new_name', '') 
+
+    res_id = self.pool['ir.model.data'].xmlid_to_res_id(cr, uid, 'website.snippets')
+    r = self.browse(cr, uid, res_id)
+    arch = r.arch.replace('Odoo', new_name)
+    self.write(cr, uid, res_id, {'arch': arch})

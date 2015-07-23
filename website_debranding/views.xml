@@ -56,5 +56,35 @@
     </field>
 </record>
 
+<template id="snippets" inherit_id="website.snippets">
+    <xpath expr="//div[@class='o_block_image_float']//div[@class='container']/div[@class='row']/div" position="replace">
+
+
+        <div class="o_image_floating o_margin_l pull-right">
+            <div class="o_container">
+                <img class="img img-rounded img-responsive" src="/website/static/src/img/library/ipad.png" alt="Odoo CMS- Sample image floating"/>
+                <mark class="text-center"><a href="#"><strong>Click Here</strong></a></mark>
+            </div>
+            <div class="o_footer">
+                <small class="text-muted">A great way to catch your reader's attention is to tell a story. Everything you consider writing can be told as a story.</small>
+            </div>
+        </div>
+
+        <p style="text-align: justify;">
+            A great way to catch your reader's attention is to tell a story. <br/>Everything you consider writing can be told as a story.
+        </p>
+        <h3>Great stories have personality.</h3>
+        <p style="text-align: justify;">
+Consider telling a great story that provides personality. Writing a story with personality for potential clients will asist with making a relationship connection. This shows up in small quirks like word choices or phrases. Write from your point of view, not from someone else's experience.
+        </p>
+
+        <h3>Great stories are for everyone even when only written for just one person.</h3>
+        <p style="text-align: justify;">
+If you try to write with a wide general audience in mind, your story will ring false and be bland. No one will be interested. Write for one person. If it’s genuine for the one, it’s genuine for the rest.
+        </p>
+
+
+    </xpath>
+</template>
 
 </data></openerp>
