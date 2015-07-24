@@ -56,8 +56,8 @@
     </field>
 </record>
 
-<template id="snippets" inherit_id="website.snippets">
-    <xpath expr="//div[@class='o_block_image_float']//div[@class='container']/div[@class='row']/div" position="replace">
+<template id="s_text_image_floating" inherit_id="website.s_text_image_floating">
+    <xpath expr="//div[@class='container']/div[@class='row']/div" position="replace">
 
 
         <div class="o_image_floating o_margin_l pull-right">
