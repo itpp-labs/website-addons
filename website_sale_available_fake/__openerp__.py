@@ -1,12 +1,12 @@
 {
-    'name': "Sale only available products on Website",
+    'name': "Sale limited quantity of products and restrict sale of private products",
     'version': '1.0.0',
     'author': 'Ivan Yelizariev',
     'category': 'Custom',
     'website': 'https://yelizariev.github.io',
-    'depends': ['website_sale'],
+    'depends': ['website_sale_available'],
     'data': [
-        'website_sale_available_views.xml',
+        'website_sale_available_fake_views.xml',
         ],
     'installable': True,
 }
