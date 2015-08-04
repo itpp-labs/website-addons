@@ -42,7 +42,10 @@ class ir_http(models.AbstractModel):
         if www == 'www':
             host = h
         for redirect in request.env['website.redirect'].sudo().search(['|', ('domain', '=', False), ('domain', '=', host)]):
+            query_string = request.httprequest.query_string
             path = request.httprequest.path
+            if query_string:
+                path = '%s?%s' % (path, query_string)
             if not redirect.case_sensitive:
                 path = path.lower()
             for rule in redirect.rule_ids:
