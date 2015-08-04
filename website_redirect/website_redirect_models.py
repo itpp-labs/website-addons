@@ -20,8 +20,8 @@ class website_redirect(models.Model):
 
     _order = 'sequence,id'
     sequence = fields.Integer('Sequence')
-    pattern = fields.Char('From', help='Unix shell-style wildcards. Check https://docs.python.org/2/library/fnmatch.html for details')
-    target = fields.Char('To')
+    pattern = fields.Char('From', help='Unix shell-style wildcards. Check https://docs.python.org/2/library/fnmatch.html for details', required=True)
+    target = fields.Char('To', required=True)
     redirect_id = fields.Many2one('website.redirect')
 
 class ir_http(models.AbstractModel):
