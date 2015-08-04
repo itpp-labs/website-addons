@@ -87,4 +87,7 @@ If you try to write with a wide general audience in mind, your story will ring f
     </xpath>
 </template>
 
+
+<delete id="website.info" model="ir.ui.view"/>
+
 </data></openerp>
