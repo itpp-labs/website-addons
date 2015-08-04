@@ -13,6 +13,7 @@ class website_redirect(models.Model):
     active = fields.Boolean('Active', default=True)
     sequence = fields.Integer('Sequence')
     domain = fields.Char('Domain Name', placeholder='odoo.com', help='keep empty to apply rules for any domain')
+    case_sensitive = fields.Boolean('Case-sensitive', default=False)
 
     rule_ids = fields.One2many('website.redirect.rule', 'redirect_id', string='Rules')
 
@@ -40,10 +41,15 @@ class ir_http(models.AbstractModel):
         www, _, h = host.partition('.')
         if www == 'www':
             host = h
-        path = request.httprequest.path
         for redirect in request.env['website.redirect'].sudo().search(['|', ('domain', '=', False), ('domain', '=', host)]):
+            path = request.httprequest.path
+            if not redirect.case_sensitive:
+                path = path.lower()
             for rule in redirect.rule_ids:
-                if fnmatch.fnmatch(path, rule.pattern):
+                pattern = rule.pattern
+                if not redirect.case_sensitive:
+                    pattern = pattern.lower()
+                if fnmatch.fnmatch(path, pattern):
                     code = 302
                     return werkzeug.utils.redirect(rule.target, code)
         return None
