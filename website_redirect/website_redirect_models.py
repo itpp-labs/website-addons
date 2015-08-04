@@ -41,7 +41,6 @@ class ir_http(models.AbstractModel):
         if www == 'www':
             host = h
         path = request.httprequest.path
-        print 'try_redirect', host, path
         for redirect in request.env['website.redirect'].sudo().search(['|', ('domain', '=', False), ('domain', '=', host)]):
             for rule in redirect.rule_ids:
                 if fnmatch.fnmatch(path, rule.pattern):
