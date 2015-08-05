@@ -13,14 +13,13 @@ class product_template(models.Model):
 
     def _product_available(self, cr, uid, ids, field_names=None, arg=False, context=None):
         context = context or {}
-        product_obj = self.pool.get('product.template')
-
         res = super(product_template, self)._product_available(cr, uid, ids, field_names, arg, context)
 
-        product_limits = product_obj.read(cr, uid, res.keys(), ['limit_per_order'], context=context)
-        product_limits = dict((p['id'], p['limit_per_order']) for p in product_limits)
-
         if context.get('product_available_fake', False):
+            product_obj = self.pool.get('product.template')
+            product_limits = product_obj.read(cr, uid, res.keys(), ['limit_per_order'], context=context)
+            product_limits = dict((p['id'], p['limit_per_order']) for p in product_limits)
+
             for id, product in res.iteritems():
                 limit = product_limits.get(id, 0)
                 if limit > 0 and limit < product['qty_available']:
@@ -51,14 +50,13 @@ class product_product(models.Model):
 
     def _product_available(self, cr, uid, ids, field_names=None, arg=False, context=None):
         context = context or {}
-        product_obj = self.pool.get('product.product')
-
         res = super(product_product, self)._product_available(cr, uid, ids, field_names, arg, context)
 
-        product_limits = product_obj.read(cr, uid, res.keys(), ['limit_per_order'], context=context)
-        product_limits = dict((p['id'], p['limit_per_order']) for p in product_limits)
-
         if context.get('product_available_fake', False):
+            product_obj = self.pool.get('product.product')
+            product_limits = product_obj.read(cr, uid, res.keys(), ['limit_per_order'], context=context)
+            product_limits = dict((p['id'], p['limit_per_order']) for p in product_limits)
+
             for id, product in res.iteritems():
                 limit = product_limits.get(id, 0)
                 if limit > 0 and limit < product['qty_available']:
