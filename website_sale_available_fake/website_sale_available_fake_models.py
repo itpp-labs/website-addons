@@ -7,7 +7,7 @@ class product_template(models.Model):
     _inherit = 'product.template'
 
     limit_per_order = fields.Integer('Limit per order', default=0)
-    private_sale = fields.Boolean('Private Sale', default=False)
+    private_sale = fields.Boolean('Private Sale', default=False, help='Sale only to selected Partners')
     private_sale_partner_ids = fields.Many2many('res.partner', 'product_private_sale_partner_rel', 'template_id', 
         'partner_id', string='Private Sale Partners')
 
