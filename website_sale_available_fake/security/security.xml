@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-    
+
+        <record id="private_products_access" model="ir.rule">
+            <field name="name">private product access</field>
+            <field name="model_id" ref="product.model_product_template"/>
+            <field name="domain_force">[('private_sale', '=', True), ('id', 'in', [p.id for p in user.partner_id.private_sale_product_ids])]</field>
+            <field name="groups" eval="[(4, ref('base.group_portal')), (4, ref('base.group_public'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
     </data>
 </openerp>
