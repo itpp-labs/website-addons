@@ -18,3 +18,9 @@ class controller(website_sale):
         order.check_cheat_on_limited_products()
         r = super(controller, self).confirm_order(**post)
         return r
+
+    @http.route(['/shop/cart'], type='http', auth="public", website=True)
+    def cart(self, **post):
+        request.context.update({'product_available_fake': 1})
+        r = super(controller, self).cart(**post)
+        return r
