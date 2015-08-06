@@ -4,6 +4,8 @@
     'author': 'Ivan Yelizariev',
     'category': 'Debranding',
     'website': 'https://yelizariev.github.io',
+    'price': 60.00,
+    'currency': 'EUR',
     'depends': ['website', 'web_debranding'],
     'data': [
         'views.xml',
