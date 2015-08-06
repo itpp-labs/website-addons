@@ -1,8 +1,10 @@
-from datetime import timedelta
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 from openerp import api, models, fields
 import openerp.addons.decimal_precision as dp
 from openerp.osv import osv, fields as old_fields
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 
 class website(osv.Model):
@@ -24,23 +26,25 @@ class product_template(models.Model):
     qty_sale_recently = fields.Float(compute='_compute_qty_sale_recently', default=0)
 
     def _compute_qty_sale_recently(self):
-        order_line_obj = self.env['sale.order.line']
-        domain = []
-        date_last_24h = fields.Date.from_string(fields.Date.today()) - timedelta(days=1)
+        order_obj = self.env['sale.order']
+
+        recent_order_date = datetime.now() - relativedelta(days=1)
+        domain = [('state', '!=', 'cancel'), ('date_order', '>', recent_order_date.strftime(DEFAULT_SERVER_DATETIME_FORMAT))]
         if self.env.context.get('order_id', False):
-            domain.append(('order_id', '!=', self.env.context['order_id']))
-        partner_id = self.env.context.get('partner_id', False)
+            domain.append(('id', '!=', self.env.context['order_id']))
+        if self.env.context.get('partner_id', False):
+            domain.append(('partner_id', '=', self.env.context['partner_id']))
+
+        orders = order_obj.search(domain)
+
         for record in self:
+            record.qty_sale_recently = 0
             product_ids = [p.id for p in record.product_variant_ids]
-            _domain = domain + [('product_id', 'in', product_ids)]
-            order_lines = order_line_obj.search(_domain)
-            qty = 0
-            for line in order_lines:
-                if line.order_id.state != 'cancel' \
-                and fields.Date.from_string(line.order_id.date_order) > date_last_24h \
-                and (not partner_id or line.order_id.partner_id.id == partner_id):
-                    qty += line.product_uom_qty
-            record.qty_sale_recently = qty
+
+        for order in orders:
+            for line in order.order_line:
+                if line.product_id.id in product_ids:
+                    line.product_id.product_tmpl_id.qty_sale_recently += line.product_uom_qty
 
     def _product_available(self, cr, uid, ids, field_names=None, arg=False, context=None):
         context = context or {}
