@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from openerp import api, models, fields
 import openerp.addons.decimal_precision as dp
 from openerp.osv import osv, fields as old_fields
@@ -19,6 +21,26 @@ class product_template(models.Model):
     private_sale = fields.Boolean('Private Sale', default=False, help='Sale only to selected Partners')
     private_sale_partner_ids = fields.Many2many('res.partner', 'product_private_sale_partner_rel', 'template_id', 
         'partner_id', string='Private Sale Partners')
+    qty_sale_recently = fields.Float(compute='_compute_qty_sale_recently', default=0)
+
+    def _compute_qty_sale_recently(self):
+        order_line_obj = self.env['sale.order.line']
+        domain = []
+        date_last_24h = fields.Date.from_string(fields.Date.today()) - timedelta(days=1)
+        if self.env.context.get('order_id', False):
+            domain.append(('order_id', '!=', self.env.context['order_id']))
+        partner_id = self.env.context.get('partner_id', False)
+        for record in self:
+            product_ids = [p.id for p in record.product_variant_ids]
+            _domain = domain + [('product_id', 'in', product_ids)]
+            order_lines = order_line_obj.search(_domain)
+            qty = 0
+            for line in order_lines:
+                if line.order_id.state != 'cancel' \
+                and fields.Date.from_string(line.order_id.date_order) > date_last_24h \
+                and (not partner_id or line.order_id.partner_id.id == partner_id):
+                    qty += line.product_uom_qty
+            record.qty_sale_recently = qty
 
     def _product_available(self, cr, uid, ids, field_names=None, arg=False, context=None):
         context = context or {}
@@ -88,25 +110,14 @@ class sale_order(models.Model):
     _inherit = 'sale.order'
 
     def check_cheat_on_limited_products(self):
-        product_ids = [l.product_id.id for l in self.order_line]
-        # select limited product quantities for last 24  hours for the customer
-        self.env.cr.execute("""SELECT p.id, SUM(l.product_uom_qty) as qty, t.limit_per_order 
-                            FROM product_product p 
-                            INNER JOIN product_template t ON p.product_tmpl_id = t.id 
-                            LEFT JOIN sale_order_line l ON l.product_id = p.id AND l.order_id != %(order_id)s
-                            LEFT JOIN sale_order o ON l.order_id = o.id  
-                            AND o.partner_id = %(partner_id)s AND o.date_confirm > (NOW() - '1 day'::INTERVAL)
-                            WHERE p.id IN %(product_ids)s 
-                            AND t.limit_per_order > 0 
-                            GROUP BY p.id, t.id""",
-                            {'partner_id': self.partner_id.id, 'product_ids': tuple(product_ids), 'order_id': self.id})
-        product_info = dict([(p[0], p) for p in self.env.cr.fetchall()])
-
         for l in self.order_line:
-            product = product_info.get(l.product_id.id, False)
-            if product:
-                if l.product_uom_qty + product[1] > product[2]:
-                    available_qty = product[2] - product[1]
+            if l.product_id.limit_per_order:
+                qty_sale_recently = l.product_id.product_tmpl_id.with_context({
+                    'partner_id': self.partner_id.id,
+                    'order_id': self.id
+                }).qty_sale_recently
+                if l.product_uom_qty + qty_sale_recently > l.product_id.limit_per_order:
+                    available_qty = l.product_id.limit_per_order - qty_sale_recently
                     if available_qty > 0:
                         # decrease quantity of product
                         self.write({'order_line': [(1, l.id, {'product_uom_qty': available_qty})]})
