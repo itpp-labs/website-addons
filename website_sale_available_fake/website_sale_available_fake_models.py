@@ -3,6 +3,15 @@ import openerp.addons.decimal_precision as dp
 from openerp.osv import osv, fields as old_fields
 
 
+class website(osv.Model):
+    _inherit = 'website'
+
+    def sale_get_order(self, cr, uid, ids, force_create=False, code=None, update_pricelist=None, context=None):
+        context = (context or {}).copy()
+        context['product_available_fake'] = 1
+        return super(website, self).sale_get_order(cr, uid, ids, force_create, code, update_pricelist, context)
+
+
 class product_template(models.Model):
     _inherit = 'product.template'
 
@@ -32,9 +41,9 @@ class product_template(models.Model):
         return super(product_template, self)._search_product_quantity(cr, uid, obj, name, domain, context)
 
     _columns = {
-        'qty_available': old_fields.function(_product_available, multi='qty_available',
+        'virtual_available': old_fields.function(_product_available, multi='qty_available',
             type='float', digits_compute=dp.get_precision('Product Unit of Measure'),
-            fnct_search=_search_product_quantity, string='Quantity On Hand'),
+            fnct_search=_search_product_quantity, string='Quantity Available'),
     }
 
 
@@ -69,9 +78,9 @@ class product_product(models.Model):
         return super(product_product, self)._search_product_quantity(cr, uid, obj, name, domain, context)
 
     _columns = {
-        'qty_available': old_fields.function(_product_available, multi='qty_available',
+        'virtual_available': old_fields.function(_product_available, multi='qty_available',
             type='float', digits_compute=dp.get_precision('Product Unit of Measure'),
-            fnct_search=_search_product_quantity, string='Quantity On Hand'),
+            fnct_search=_search_product_quantity, string='Quantity Available'),
     }
 
 
