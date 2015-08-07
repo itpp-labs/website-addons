@@ -1,5 +1,5 @@
 Sale limited and private products on Website
-=======================================
+============================================
 
 Module makes it impossible to define limit for products and assign private products to any customers.
 
