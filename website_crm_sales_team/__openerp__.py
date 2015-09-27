@@ -1,7 +1,7 @@
 {
     "name" : "Add sales team to website leads (OBSOLETE)",
     "version" : "0.1",
-    "author" : "Ivan Yelizariev",
+    "author" : "IT-Projects LLC, Ivan Yelizariev",
     "category" : "Website",
     "website" : "https://yelizariev.github.io",
     "depends" : ["website_crm"],

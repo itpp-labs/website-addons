@@ -16,6 +16,7 @@
                 </div>
                 <group>
                     <field name="domain"/>
+                    <field name="case_sensitive"/>
                     <field name="active"/>
                 </group>
                 <notebook>

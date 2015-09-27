@@ -1,7 +1,7 @@
 {
     'name' : 'Sales team in eCommerce (custom)',
     'version' : '1.0.0',
-    'author' : 'Ivan Yelizariev',
+    'author' : 'IT-Projects LLC, Ivan Yelizariev',
     'category' : 'Sale',
     'website' : 'https://yelizariev.github.io',
     'description': """

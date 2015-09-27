@@ -1,12 +1,13 @@
 {
-    'name': "eCommerce: autoconfirm order",
+    'name': "Product tags at eCommerce",
     'version': '1.0.0',
     'author': 'IT-Projects LLC, Ivan Yelizariev',
     'category': 'Custom',
     'website': 'https://yelizariev.github.io',
-    'depends': ['website_sale'],
+    'depends': ['website_sale', 'product_tags'],
     'data': [
-        'views.xml',
+        'website_sale_product_tags_views.xml',
+        'website_sale_product_tags_templates.xml',
         ],
     'installable': True,
 }

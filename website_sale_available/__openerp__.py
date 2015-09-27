@@ -1,10 +1,10 @@
 {
     'name': "Sale only available products on Website",
     'version': '1.0.0',
-    'author': 'Ivan Yelizariev',
+    'author': 'IT-Projects LLC, Ivan Yelizariev',
     'category': 'Custom',
     'website': 'https://yelizariev.github.io',
-    'depends': [],
+    'depends': ['website_sale'],
     'data': [
         'website_sale_available_views.xml',
         ],
