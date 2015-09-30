@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Page -->
+        <template id="index" name="BookingCalendar">&lt;!DOCTYPE html&gt;
+            <html t-att-lang="lang and lang.replace('_', '-')"
+                t-att-data-website-id="website.id if editable and website else None"
+                t-att-data-editable="'1' if editable else None"
+                t-att-data-translatable="'1' if translatable else None"
+                t-att-data-view-xmlid="xmlid if editable else None"
+                t-att-data-main-object="repr(main_object) if editable else None"
+                t-att-data-oe-company-name="res_company.name">
+                <head>
+                    <meta charset="utf-8" />
+                    <title>Booking Calendar</title>
+                    <t t-set="languages" t-value="website.get_languages() if website else None"/>
+                    <t t-if="request and request.website_multilang and website">
+                        <t t-foreach="website.get_alternate_languages(request.httprequest)" t-as="lg">
+                            <link rel="alternate" t-att-hreflang="lg['hreflang']" t-att-href="lg['href']"/>
+                        </t>
+                    </t>
+                    <t t-if="order_line">
+                        <input type="hidden" id="order_line" t-value="order_line"/>
+                    </t>
+                    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.css"/>
+                    <link rel="stylesheet" href="/website_booking_calendar/static/src/css/website_booking_calendar.css"/>
+                </head>
+                <body>
+                    <div id='wrap'>
+                        <div id='external-events'>
+                            <h4>Book resources</h4>
+                            <t t-foreach="resources" t-as="r">
+                                <div class='fc-event' t-att-data-resource="r.id"><t t-esc="r.name"/></div>
+                            </t>
+                        </div>
+
+                        <div id='calendar'></div>
+                        <div style='clear:both'></div>
+
+                    </div>
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+                    <script type="text/javascript" src="/website_booking_calendar/static/src/js/jquery-ui.min.js"></script>
+                    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+                    <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.js"></script>
+                    <script type="text/javascript" src="/website_booking_calendar/static/src/js/website_booking_calendar.js"></script>
+                </body>
+            </html>
+
+        </template>
+
+
+        <record id="resource_resource_form" model="ir.ui.view">
+            <field name="model">resource.resource</field>
+            <field name="inherit_id" ref="resource.resource_resource_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//form/group" position="inside">
+                    <group>
+                       <field name="to_calendar" icon="calendar"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
