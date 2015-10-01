@@ -38,7 +38,7 @@ class sale_order_line(models.Model):
         return [{
             'id': b.id,
             'title': b.resource_id.name,
-            'start': b.date_start,
+            'start': b.booking_start,
             'end': b.booking_end,
             'editable': False,
         } for b in bookings]
