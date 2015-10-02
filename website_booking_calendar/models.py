@@ -30,15 +30,15 @@ class sale_order_line(models.Model):
 
     @api.model
     def get_bookings(self, start, end):
-        bookings = self.env['resource.booking'].search([
-            ('date_start', '>=', start), 
+        bookings = self.search([
+            ('booking_start', '>=', start), 
             ('booking_end', '<=', end),
-            ('date_start', '>=', fields.Datetime.now())
+            ('booking_start', '>=', fields.Datetime.now())
             ])
         return [{
             'id': b.id,
             'title': b.resource_id.name,
-            'start': b.date_start,
+            'start': b.booking_start,
             'end': b.booking_end,
             'editable': False,
         } for b in bookings]

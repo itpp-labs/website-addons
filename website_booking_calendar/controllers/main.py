@@ -19,10 +19,10 @@ class website_booking_calendar(http.Controller):
     @http.route('/booking/calendar/events', type='json', auth='public', website=True)
     def events(self, start, end):
         cr, uid, context = request.cr, request.uid, request.context
-        return request.registry["resource.booking"].get_bookings(cr, uid, start, end, context=context)
+        return request.registry["sale.order.line"].get_bookings(cr, uid, start, end, context=context)
 
     @http.route('/booking/calendar/events/add', type='json', auth='public', website=True)
     def add_event(self, start, resource_id, end=None, order_line=None):
         cr, uid, context = request.cr, request.uid, request.context
-        return request.registry["resource.booking"].add_backend_booking(cr, uid, resource_id, start, end, order_line, context=context)
+        return request.registry["sale.order.line"].add_backend_booking(cr, uid, resource_id, start, end, order_line, context=context)
 
