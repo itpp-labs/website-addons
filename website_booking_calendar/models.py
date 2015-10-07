@@ -29,12 +29,15 @@ class sale_order_line(models.Model):
             raise ValidationError('There already is booking at that time.')
 
     @api.model
-    def get_bookings(self, start, end):
-        bookings = self.search([
+    def get_bookings(self, start, end, resource_ids):
+        domain  = [
             ('booking_start', '>=', start), 
             ('booking_end', '<=', end),
-            ('booking_start', '>=', fields.Datetime.now())
-            ])
+            ('booking_start', '>=', fields.Datetime.now()),
+            ]
+        if resource_ids:
+            domain.append(('resource_id', 'in', resource_ids))
+        bookings = self.search(domain)
         return [{
             'id': b.id,
             'title': b.resource_id.name,

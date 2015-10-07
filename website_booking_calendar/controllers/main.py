@@ -4,25 +4,35 @@ from openerp.http import request
 
 class website_booking_calendar(http.Controller):
 
-    @http.route(['/booking/calendar'], type='http', auth="public", website=True)
-    def calendar(self, order_line=None):
+    def _get_resources(self, params):
         cr, uid, context = request.cr, request.uid, request.context
         resource_obj = request.registry['resource.resource']
-
-        resource_ids = resource_obj.search(cr, uid, [('to_calendar','=',True)], context=context)
+        domain=[('to_calendar','=',True)]
+        resource_ids = resource_obj.search(cr, uid, domain, context=context)
         resources = resource_obj.browse(cr, uid, resource_ids, context=context)
+        return resources
+
+    def _get_values(self, params):
         values = {
-            'resources': resources,
+            'resources': self._get_resources(params)
         }
-        return request.website.render("website_booking_calendar.index", values)
+        return values
+
+    def _get_template(self, params):
+        return 'website_booking_calendar.index'
+
+
+    @http.route(['/booking/calendar'], type='http', auth="public", website=True)
+    def calendar(self, **kwargs):
+        return request.website.render(self._get_template(kwargs), self._get_values(kwargs))
 
     @http.route('/booking/calendar/events', type='json', auth='public', website=True)
-    def events(self, start, end):
+    def events(self, start, end, resources=[]):
         cr, uid, context = request.cr, request.uid, request.context
-        return request.registry["sale.order.line"].get_bookings(cr, uid, start, end, context=context)
+        return request.registry["sale.order.line"].get_bookings(cr, uid, start, end, resources, context=context)
 
     @http.route('/booking/calendar/events/add', type='json', auth='public', website=True)
-    def add_event(self, start, resource_id, end=None, order_line=None):
+    def add_event(self, start, resource_id, end=None):
         cr, uid, context = request.cr, request.uid, request.context
-        return request.registry["sale.order.line"].add_backend_booking(cr, uid, resource_id, start, end, order_line, context=context)
+        return request.registry["sale.order.line"].add_backend_booking(cr, uid, resource_id, start, end, context=context)
 
