@@ -1067,24 +1067,19 @@ be a descendant of the grid when it is being dragged.
 .fc-time-grid-event .fc-resizer:after {
     content: "=";
 }
-
-
-body {
-    margin-top: 40px;
+    
+#cal_wrap {
+    margin: 40px auto;
     text-align: center;
     font-size: 14px;
     font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-}
-    
-#wrap {
     width: 90%;
-    margin: 0 auto;
 }
     
 #external-events {
     float: left;
     width: 15%;
-    padding: 0 10px;
+    padding: 10px;
     border: 1px solid #ccc;
     background: #eee;
     text-align: left;

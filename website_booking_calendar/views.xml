@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        <!-- Page -->
-        <template id="index" name="BookingCalendar">&lt;!DOCTYPE html&gt;
-            <html t-att-lang="lang and lang.replace('_', '-')"
-                t-att-data-website-id="website.id if editable and website else None"
-                t-att-data-editable="'1' if editable else None"
-                t-att-data-translatable="'1' if translatable else None"
-                t-att-data-view-xmlid="xmlid if editable else None"
-                t-att-data-main-object="repr(main_object) if editable else None"
-                t-att-data-oe-company-name="res_company.name">
+        <template id="resources">
+            <h4>Book resources</h4>
+            <t t-foreach="resources" t-as="r">
+                <div class='fc-event' t-att-data-resource="r.id"><t t-esc="r.name"/></div>
+            </t>
+        </template>
+        <template id="assets">
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.css"/>
+            <link rel="stylesheet" href="/website_booking_calendar/static/src/css/website_booking_calendar.css"/>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+            <script type="text/javascript" src="/web/static/lib/jquery.ui/js/jquery-ui-1.9.1.custom.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.js"></script>
+            <script type="text/javascript" src="/website_booking_calendar/static/src/js/website_booking_calendar.js"></script>
+        </template>
+
+         <!-- IFrame Page -->
+        <template id="iframe" name="BookingCalendar">&lt;!DOCTYPE html&gt;
+            <html t-att-lang="lang and lang.replace('_', '-')">
                 <head>
                     <meta charset="utf-8" />
                     <title>Booking Calendar</title>
@@ -19,33 +29,50 @@
                             <link rel="alternate" t-att-hreflang="lg['hreflang']" t-att-href="lg['href']"/>
                         </t>
                     </t>
-                    <t t-if="order_line">
-                        <input type="hidden" id="order_line" t-value="order_line"/>
-                    </t>
-                    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.css"/>
-                    <link rel="stylesheet" href="/website_booking_calendar/static/src/css/website_booking_calendar.css"/>
+                    <t t-call="website_booking_calendar.assets"/>
                 </head>
                 <body>
-                    <div id='wrap'>
+                    <div id="cal_wrap">
                         <div id='external-events'>
-                            <h4>Book resources</h4>
-                            <t t-foreach="resources" t-as="r">
-                                <div class='fc-event' t-att-data-resource="r.id"><t t-esc="r.name"/></div>
-                            </t>
+                            <t t-call="website_booking_calendar.resources"/>
                         </div>
-
-                        <div id='calendar'></div>
-                        <div style='clear:both'></div>
-
+                        <t t-call="website_booking_calendar.calendar"/>
                     </div>
-                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-                    <script type="text/javascript" src="/website_booking_calendar/static/src/js/jquery-ui.min.js"></script>
-                    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
-                    <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.js"></script>
-                    <script type="text/javascript" src="/website_booking_calendar/static/src/js/website_booking_calendar.js"></script>
                 </body>
             </html>
 
+        </template>
+
+        <template id="calendar">
+            <div id='calendar'></div>
+            <div style='clear:both'></div>    
+        </template>
+
+        <!-- Public page -->
+        <template id="index" name="Booking Calendar Public">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div id="cal_wrap">
+                        <div id='external-events'>
+                            <t t-call="website_booking_calendar.resources"/>
+                        </div>
+                        <t t-call="website_booking_calendar.calendar"/>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="assets_frontend" inherit_id="website.assets_frontend" name="Booking Calendar Assets Include">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/website_booking_calendar/static/src/css/fullcalendar.min.css"/>
+                <link rel="stylesheet" href="/website_booking_calendar/static/src/css/website_booking_calendar.css"/>
+                <t t-call="web.jqueryui_conflict">
+                    <script type="text/javascript" src="/web/static/lib/jquery.ui/js/jquery-ui-1.9.1.custom.js"></script>
+                </t>
+                <script src="/website_booking_calendar/static/src/js/moment.min.js"></script>
+                <script src="/website_booking_calendar/static/src/js/fullcalendar.min.js"></script>
+                <script type="text/javascript" src="/website_booking_calendar/static/src/js/website_booking_calendar.js"></script>
+            </xpath>
         </template>
 
 
