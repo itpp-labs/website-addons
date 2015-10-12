@@ -3,7 +3,7 @@
 from openerp import models, fields, api
 
 
-class WebLoginBackground(models.Model):
+class IRAttachmentBackground(models.Model):
     _inherit = 'ir.attachment'
 
     use_as_background = fields.Boolean("Use as login page background", default=False)
@@ -19,4 +19,4 @@ class WebLoginBackground(models.Model):
                     ids.remove(id)
             if not ids:
                 return
-        return super(WebLoginBackground, self).check(cr, uid, ids, mode, context, values)
+        return super(IRAttachmentBackground, self).check(cr, uid, ids, mode, context, values)
