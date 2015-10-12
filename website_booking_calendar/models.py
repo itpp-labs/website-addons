@@ -3,14 +3,12 @@ from openerp.exceptions import ValidationError
 
 
 class resource_resource(models.Model):
-    
     _inherit = 'resource.resource'
 
     to_calendar = fields.Boolean('Display on calendar')
 
 
 class sale_order_line(models.Model):
-    
     _inherit = 'sale.order.line'    
 
     resource_id = fields.Many2one('resource.resource', 'Resource')
@@ -20,13 +18,21 @@ class sale_order_line(models.Model):
     @api.one
     @api.constrains('resource_id', 'booking_start', 'booking_end')
     def _check_date_overlap(self):
-        overlaps = self.search(['&',('id', '!=', self.id),
-                                '&',('resource_id', '=', self.resource_id.id),
-                                '|','&',('booking_start', '>=', self.booking_start), ('booking_start', '<=', self.booking_end),
-                                '&',('booking_end', '>=', self.booking_start), ('booking_end', '<=', self.booking_end),
-                                ])
-        if overlaps:
-            raise ValidationError('There already is booking at that time.')
+        if self.resource_id and self.booking_start and self.booking_end:
+            overlaps = self.search_count(['&','|','&',('booking_start', '>', self.booking_start), ('booking_start', '<', self.booking_end),
+                                          '&',('booking_end', '>', self.booking_start), ('booking_end', '<', self.booking_end),
+                                          ('id', '!=', self.id),
+                                          ('resource_id', '!=', False),
+                                          ('resource_id', '=', self.resource_id.id)
+            ])
+            overlaps += self.search_count([('id', '!=', self.id),
+                                           ('booking_start', '=', self.booking_start),
+                                           ('booking_end', '=', self.booking_end),
+                                           ('resource_id', '=', self.resource_id.id)])
+            if overlaps:
+                raise ValidationError('There already is booking at that time.')
+        elif self.resource_id or self.booking_start or self.booking_end:
+            raise ValidationError('Provide all of booking parameters')
 
     @api.model
     def get_bookings(self, start, end, resource_ids):
@@ -56,3 +62,4 @@ class sale_order_line(models.Model):
         })
 
         return booking_id.id
+
