@@ -11,9 +11,10 @@ class Background(Home):
     def web_login(self, redirect=None, **kw):
         pictures = request.env['ir.attachment'].search([
             ('use_as_background', '=', True)])
-        picture_url = r'/web/binary/saveas?id=' + \
-                      str(choice(pictures.mapped('id'))) + \
-                      r'&model=ir.attachment&field=datas&fieldname_field=datas_fname'
-        request.params['picture_url'] = picture_url
+        if pictures:
+            picture_url = r'/web/binary/saveas?id=' + \
+                          str(choice(pictures.mapped('id'))) + \
+                          r'&model=ir.attachment&field=datas&fieldname_field=datas_fname'
+            request.params['picture_url'] = picture_url
 
         return super(Background, self).web_login(**kw)
