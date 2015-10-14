@@ -1,4 +1,4 @@
-from openerp import http
+from openerp import http, SUPERUSER_ID
 from openerp.http import request
 
 
@@ -8,8 +8,8 @@ class website_booking_calendar(http.Controller):
         cr, uid, context = request.cr, request.uid, request.context
         resource_obj = request.registry['resource.resource']
         domain=[('to_calendar','=',True)]
-        resource_ids = resource_obj.search(cr, uid, domain, context=context)
-        resources = resource_obj.browse(cr, uid, resource_ids, context=context)
+        resource_ids = resource_obj.search(cr, SUPERUSER_ID, domain, context=context)
+        resources = resource_obj.browse(cr, SUPERUSER_ID, resource_ids, context=context)
         return resources
 
     def _get_values(self, params):
@@ -29,7 +29,7 @@ class website_booking_calendar(http.Controller):
     @http.route('/booking/calendar/events', type='json', auth='public', website=True)
     def events(self, start, end, resources=[]):
         cr, uid, context = request.cr, request.uid, request.context
-        return request.registry["sale.order.line"].get_bookings(cr, uid, start, end, resources, context=context)
+        return request.registry["sale.order.line"].get_bookings(cr, SUPERUSER_ID, start, end, resources, context=context)
 
     @http.route('/booking/calendar/events/add', type='json', auth='public', website=True)
     def add_event(self, start, resource_id, end=None):
