@@ -1,6 +1,7 @@
 (function (self, $) {
 
     self.resources = [];
+    self.bookings = [];
 
     self.loadEvents = function(start, end, timezone, callback) {
         $.ajax({
@@ -21,27 +22,8 @@
         });
     };
 
-    self.addEvent = function(event) {
-        $.ajax({
-            url: '/booking/calendar/events/add',
-            dataType: 'json',
-            contentType: 'application/json',
-            type: 'POST',
-            data: JSON.stringify({params: {
-                // our hypothetical feed requires UNIX timestamps
-                resource_id: event.resourceId,
-                start: event.start.format("YYYY-MM-DD HH:mm:ss"),
-                end: event.start.add(1, 'hours').format("YYYY-MM-DD HH:mm:ss"),
-            }}),
-            success: function(response) {
-                event.id = response;
-                self.$calendar.fullCalendar('updateEvent', event);
-            }
-        });
-    };
-
     self.eventReceive = function(event) {
-        self.addEvent(event);
+        self.bookings.push(event);
     };
 
     /* initialize the external events
@@ -73,6 +55,7 @@
               right: 'month,agendaWeek,agendaDay'
             },
             handleWindowResize: true,
+            height: 'auto',
             editable: true,
             eventLimit: true,
             droppable: true, // this allows things to be dropped onto the calendar
