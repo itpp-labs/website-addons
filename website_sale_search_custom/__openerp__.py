@@ -5,6 +5,9 @@
     'author': 'IT-Projects LLC, Ivan Yelizariev',
     'category': 'Custom',
     'website': 'https://yelizariev.github.io',
+    'price': 1.00,
+    'currency': 'EUR',
+    'images': ['images/search.png'],
     'depends': ['website_sale', 'product_tags'],
     'data': [
         'views.xml',
