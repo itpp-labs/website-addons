@@ -8,5 +8,5 @@
     'data': [
         'website_redirect_views.xml',
         ],
-    'installable': True
+    'installable': False
 }

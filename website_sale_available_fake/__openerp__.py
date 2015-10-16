@@ -9,5 +9,5 @@
         'website_sale_available_fake_views.xml',
         'security/security.xml',
         ],
-    'installable': True,
+    'installable': False,
 }

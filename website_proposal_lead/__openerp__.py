@@ -12,7 +12,7 @@ Web-based proposals for leads
         'views.xml',
         'report.xml',
         ],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
     'application': True,
 }

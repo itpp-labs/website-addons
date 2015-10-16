@@ -23,7 +23,7 @@ Also module allows convert proposal to pdf.
         'security/ir.model.access.csv',
         'security/security.xml',
         ],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
     'application': False,
 }

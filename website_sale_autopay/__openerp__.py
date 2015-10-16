@@ -8,5 +8,5 @@
     'data':[
         'website_sale_autopay_views.xml',
         ],
-    'installable': True
+    'installable': False
 }

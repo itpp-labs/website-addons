@@ -16,5 +16,5 @@ Tested on Odoo 8.0 f8d5a6727d3e8d428d9bef93da7ba6b11f344284.
         'website_sale_special_offer_views.xml',
         'security/ir.model.access.csv',
         ],
-    'installable': True
+    'installable': False
 }

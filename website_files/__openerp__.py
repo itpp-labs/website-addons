@@ -11,5 +11,5 @@
     'data': [
         'website_files_views.xml',
         ],
-    'installable': True
+    'installable': False
 }

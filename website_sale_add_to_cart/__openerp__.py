@@ -11,5 +11,5 @@
     'data':[
         'website_sale_add_to_cart_views.xml',
         ],
-    'installable': True
+    'installable': False
 }

@@ -9,5 +9,5 @@
         'website_sale_product_tags_views.xml',
         'website_sale_product_tags_templates.xml',
         ],
-    'installable': True,
+    'installable': False,
 }

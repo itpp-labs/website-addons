@@ -10,5 +10,5 @@
     'data':[
         'website_sale_order_templates.xml',
         ],
-    'installable': True
+    'installable': False
 }
