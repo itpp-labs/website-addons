@@ -10,4 +10,4 @@ WARNING
 
 Due to odoo restriction, this module should be installed on all databases in odoo instance.
 
-Tested on Odoo 8.0 f8d5a6727d3e8d428d9bef93da7ba6b11f344284
+Tested on Odoo 9.0 04c6ee54d86013bc2995778f62074115c1bd9ed3
