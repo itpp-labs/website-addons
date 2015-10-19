@@ -62,7 +62,7 @@
 
         <div class="o_image_floating o_margin_l pull-right">
             <div class="o_container">
-                <img class="img img-rounded img-responsive" src="/website/static/src/img/library/ipad.png" alt="Odoo CMS- Sample image floating"/>
+                <img class="img img-rounded img-responsive" src="/website/static/src/img/library/ipad.png" alt="CMS- Sample image floating"/>
                 <mark class="text-center"><a href="#"><strong>Click Here</strong></a></mark>
             </div>
             <div class="o_footer">
