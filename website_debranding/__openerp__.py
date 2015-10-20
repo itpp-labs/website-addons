@@ -9,7 +9,6 @@
     'depends': ['website', 'web_debranding'],
     'data': [
         'views.xml',
-        'pre_install.yml',
         ],
     'auto_install': True,
     'installable': True
