@@ -55,9 +55,25 @@
                     <div id="cal_wrap">
                         <div id='external-events'>
                             <t t-call="website_booking_calendar.resources"/>
+                            <a id="add-to-cart" href="#">Confirm Booking</a>
                         </div>
                         <t t-call="website_booking_calendar.calendar"/>
                     </div>
+                </div>
+                <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="booking-dialog">
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Choose Packages and Confirm</h4>
+                        </div>
+                        <div class="modal-body">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="booking-dialog-confirm">Confirm</button>
+                        </div>
+                    </div>
+                  </div>
                 </div>
             </t>
         </template>
@@ -75,6 +91,50 @@
             </xpath>
         </template>
 
+        <template id="confirm_form">
+            <form method="POST" action="/booking/calendar/confirm">
+                <table class="table table-hover booking-confirm-table">
+                    <thead>
+                        <tr>
+                            <th>Resource</th>
+                            <th>Date and Time</th>
+                            <th>Package</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <t t-foreach="bookings" t-as="b">
+                        <tr>
+                            <td>
+                                <t t-esc="b['resource'].name"/>
+                            </td>
+                            <td>
+                                <fieldset disabled="">
+                                    <input type="text" t-att-value="b['start_f']" class="form-control"/> - <input type="text" t-att-value="b['end_f']" class="form-control"/>
+                                </fieldset>
+                            </td>
+                            <td>
+                                <select t-att-name="'product_id[%s][%s-%s]' % (b['resource'].id, b['start'], b['end'])" t-if="b['products']" class="form-control booking-product">
+                                    <option></option>
+                                    <t t-set="products" t-value="b['products'].values()"/>
+                                    <t t-foreach="products" t-as="p">
+                                        <option t-att-value="p['id']" t-att-data-price="p['price']" t-att-data-currency="p['currency']" t-att-selected="'selected' if p['id'] == products[0]['id'] else ''">
+                                            <t t-esc="p['name']"/>
+                                        </option>
+                                    </t>
+                                </select>
+                            </td>
+                            <td>
+                                <span class="booking-price"><t t-esc="(b['products'] and products[0]['price']) or ''"/></span>
+                                <span class="booking-currency" t-esc="(b['products'] and products[0]['currency']) or ''"></span>
+                            </td>
+                        </tr>
+                    </t>
+                    </tbody>
+                </table>
+            </form>
+        </template>
+
 
         <record id="resource_resource_form" model="ir.ui.view">
             <field name="model">resource.resource</field>
@@ -87,5 +147,19 @@
                 </xpath>
             </field>
         </record>
+
+        <record id="product_template_form_view" model="ir.ui.view">
+            <field name="name">product.template.common.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='description_sale']" position="after">
+                    <group>
+                        <field name="calendar_id"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
     </data>
 </openerp>
