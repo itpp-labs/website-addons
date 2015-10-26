@@ -4,7 +4,7 @@
     'author' : 'IT-Projects LLC, Veronika Kotovich',
     'website' : 'https://twitter.com/vkotovi4',
     'category' : 'Website',
-    'depends' : ['website', 'resource', 'sale'],
+    'depends' : ['website_sale', 'resource'],
     'data': ['views.xml'],
     'active': True,
     'installable': True

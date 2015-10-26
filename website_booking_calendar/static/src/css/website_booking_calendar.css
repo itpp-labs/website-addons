@@ -1115,3 +1115,13 @@ be a descendant of the grid when it is being dragged.
 .fc-event .closeon {
     float: right;
 }
+
+#add_to_cart {
+    margin-top: 10px;
+    text-decoration: none;
+}
+
+.booking-confirm-table input.form-control {
+    display: inline;
+    width: 45%;
+}

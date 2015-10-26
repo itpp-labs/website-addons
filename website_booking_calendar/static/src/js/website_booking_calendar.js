@@ -1,30 +1,62 @@
 (function (self, $) {
 
+    self.DTF = 'YYYY-MM-DD HH:mm:ss';
+    self.MIN_TIME_SLOT = 1; //hours
     self.resources = [];
     self.bookings = [];
 
-    self.loadEvents = function(start, end, timezone, callback) {
+    self.jsonRpc = function(url, data, callback) {
         $.ajax({
-            url: '/booking/calendar/events',
+            url: url,
             dataType: 'json',
             contentType: 'application/json',
             type: 'POST',
-            data: JSON.stringify({params: {
-                // our hypothetical feed requires UNIX timestamps
-                start: start.format("YYYY-MM-DD HH:mm:ss"),
-                end: end.format("YYYY-MM-DD HH:mm:ss"),
+            data: JSON.stringify({
+                params: data,
+                jsonrpc: '2.0',
+                id: Math.floor(Math.random() * 1000 * 1000 * 1000)
+            }),
+            success: callback
+        });
+    }
+
+    self.loadEvents = function(start, end, timezone, callback) {
+        self.jsonRpc('/booking/calendar/events', {
+                start: start.format(self.DTF),
+                end: end.format(self.DTF),
                 resources: self.resources
-            }}),
-            success: function(response) {
-                var events = response;
-                callback(events['result']);
-            }
+        }, function(response) {
+            var events = response;
+            callback(events['result']);
         });
     };
 
     self.eventReceive = function(event) {
         self.bookings.push(event);
+
     };
+
+    self.eventOverlap = function(stillEvent, movingEvent) {
+        return stillEvent.resourceId != movingEvent.resourceId;
+    };
+
+    self.getBookingsInfo = function(toUTC) {
+        var res = [];
+        for(var i=0, len=self.bookings.length; i<len; i++) {
+            var start = self.bookings[i].start.clone();
+            var end = self.bookings[i].end ? self.bookings[i].end.clone() : start.clone().add(1, 'hours');
+            if(toUTC) {
+                start.utc();
+                end.utc();
+            }
+            res.push({
+                'resource': self.bookings[i].resourceId,
+                'start': start.format(self.DTF),
+                'end': end.format(self.DTF)
+            });
+        }
+        return res;
+    }
 
     /* initialize the external events
     -----------------------------------------------------------------*/
@@ -57,7 +89,6 @@
             handleWindowResize: true,
             height: 'auto',
             editable: true,
-            eventLimit: true,
             droppable: true, // this allows things to be dropped onto the calendar
             eventResourceField: 'resourceId',
             slotDuration: '01:00:00',
@@ -70,22 +101,37 @@
             timezone: 'local',
             events: self.loadEvents,
             eventReceive: self.eventReceive,
-            eventDrop: function(event, delta, revertFunc) {
-
-                console.log(event.title + " was dropped on " + event.start.format());
-
-            },
-            eventOverlap: function(stillEvent, movingEvent) {
-                return stillEvent.resourceId != movingEvent.resourceId;
-            },
-
-            eventRender: function(event, element) {
-                element.find(".fc-content").append( "<span class='closeon'>x</span>" );
-                element.find(".closeon").click(function() {
-                   self.$calendar.fullCalendar('removeEvents', event._id);
-                });
-            }
+            eventOverlap: self.eventOverlap,
+            // eventResize: self.eventResize,
+            // eventDrop: self.eventDrop
+            // eventRender: function(event, element) {
+            //     element.find(".fc-content").append( "<span class='closeon'>x</span>" );
+            //     element.find(".closeon").click(function() {
+            //        self.$calendar.fullCalendar('removeEvents', event._id);
+            //     });
+            // }
         });
+
+        $('#add-to-cart').click(function(){
+            var $contentBlock = $('#booking-dialog').find('.modal-body');
+            $contentBlock.load('/booking/calendar/confirm/form', {
+                events: JSON.stringify(self.getBookingsInfo()),
+                tzOffset: moment().utcOffset()
+            }, function(){
+                $('.booking-product').change(function(){
+                    var price = $(this).find(':selected').data('price');
+                    var currency = $(this).find(':selected').data('currency');
+                    $(this).closest('tr').find('.booking-price').text(price);
+                    $(this).closest('tr').find('.booking-currency').text(currency);
+                });
+                $('#booking-dialog').modal('show');
+            });
+        });
+
+        $('#booking-dialog-confirm').click(function(){
+            $('#booking-dialog').find('form').submit();
+        })
+
     };
 }(window.booking_calendar = window.booking_calendar || {}, jQuery));
 
