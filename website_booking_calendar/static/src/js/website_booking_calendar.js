@@ -33,7 +33,6 @@
 
     self.eventReceive = function(event) {
         self.bookings.push(event);
-
     };
 
     self.eventOverlap = function(stillEvent, movingEvent) {
@@ -69,7 +68,8 @@
                 title: $.trim($(this).text()), // use the element's text as the event title
                 stick: true, // maintain when user navigates (see docs on the renderEvent method)
                 resourceId: $(this).data('resource'),
-                borderColor: 'red'
+                borderColor: 'red',
+                color: $(this).data('color'),
             });
             // make the event draggable using jQuery UI
             $(this).draggable({
@@ -102,8 +102,6 @@
             events: self.loadEvents,
             eventReceive: self.eventReceive,
             eventOverlap: self.eventOverlap,
-            // eventResize: self.eventResize,
-            // eventDrop: self.eventDrop
             // eventRender: function(event, element) {
             //     element.find(".fc-content").append( "<span class='closeon'>x</span>" );
             //     element.find(".closeon").click(function() {

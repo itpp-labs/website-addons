@@ -1,10 +1,10 @@
 {
-    'name' : 'Resource booking calendar',
+    'name' : 'Resource booking calendar Public',
     'version' : '0.1',
     'author' : 'IT-Projects LLC, Veronika Kotovich',
     'website' : 'https://twitter.com/vkotovi4',
     'category' : 'Website',
-    'depends' : ['website_sale', 'resource'],
+    'depends' : ['booking_calendar', 'website_sale'],
     'data': ['views.xml'],
     'active': True,
     'installable': True
