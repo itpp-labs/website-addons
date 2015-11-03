@@ -2,6 +2,7 @@
     'name' : 'Website proposal',
     'version' : '1.0.0',
     'author' : 'IT-Projects LLC, Ivan Yelizariev',
+    'license': 'LGPL-3',
     'category' : 'Base',
     'website' : 'https://yelizariev.github.io',
     'description': """
