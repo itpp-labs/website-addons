@@ -99,6 +99,7 @@
             firstDay: 1,
             defaultView: 'agendaWeek',
             timezone: 'local',
+            slotEventOverlap: false,
             events: self.loadEvents,
             eventReceive: self.eventReceive,
             eventOverlap: self.eventOverlap,
