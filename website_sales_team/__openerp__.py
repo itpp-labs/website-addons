@@ -2,7 +2,7 @@
     'name' : 'Sales team in eCommerce',
     'version' : '1.0.0',
     'author' : 'IT-Projects LLC, Ivan Yelizariev',
-    'license': 'LGPL-3',
+    'license': 'GPL-3',
     'category' : 'Sale',
     'website' : 'https://yelizariev.github.io',
     'description': """
