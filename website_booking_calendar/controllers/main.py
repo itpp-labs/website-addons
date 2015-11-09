@@ -1,3 +1,6 @@
+import re
+import simplejson
+
 from openerp import http, SUPERUSER_ID
 from openerp.http import request
 
@@ -36,3 +39,22 @@ class website_booking_calendar(http.Controller):
         cr, uid, context = request.cr, request.uid, request.context
         return request.registry["sale.order.line"].add_backend_booking(cr, uid, resource_id, start, end, context=context)
 
+    @http.route('/booking/calendar/confirm/form', type='http', auth='public', website=True)
+    def confirm_form(self, **kwargs):
+        events = simplejson.loads(kwargs['events'])
+        cr, uid, context = request.cr, request.uid, request.context
+        bookings = request.registry["sale.order.line"].events_to_bookings(cr, SUPERUSER_ID, events, context=context)
+        return request.website.render('website_booking_calendar.confirm_form', {
+            'bookings': bookings
+        })
+
+    @http.route('/booking/calendar/confirm', type='http', auth='public', website=True)
+    def order(self, **kwargs):
+        for key, arg in kwargs.iteritems():
+            if key.startswith('product_id'):
+                m = re.match('^product_id\[(\d+)\]\[([\d-]+ [\d:]+)\-([\d-]+ [\d:]+)\]$', key)
+                resource_id = m.group(1)
+                start = m.group(2)
+                end = m.group(3)
+                request.website.sale_get_order(force_create=1)._add_booking_line(int(arg), int(resource_id), start, end)
+        return request.redirect("/shop/checkout")
