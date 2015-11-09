@@ -4,6 +4,8 @@ import pytz
 from openerp import api, models, fields
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
 
+from openerp.addons.resource.resource import seconds
+
 MIN_TIMESLOT_HOURS = 1
 
 
@@ -38,9 +40,11 @@ class sale_order_line(models.Model):
                         'resource': resource_obj.browse(int(event['resource'])),
                         'products': {}
                     }
+                    hour_end_dt = hour_dt+timedelta(hours=MIN_TIMESLOT_HOURS)
+                    duration = seconds(hour_end_dt - hour_dt)/3600
                     for product in products:
-                        duration = product.calendar_id.get_working_hours(hour_dt, hour_dt+timedelta(hours=MIN_TIMESLOT_HOURS))
-                        if duration and duration[0] == MIN_TIMESLOT_HOURS:
+                        hours = product.calendar_id.get_working_accurate_hours(hour_dt, hour_end_dt)
+                        if hours == duration:
                             bookings[r][hour]['products'][str(product.id)] = {
                                 'id': product.id,
                                 'name': product.name,
