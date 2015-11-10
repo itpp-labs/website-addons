@@ -5,6 +5,9 @@
     'website': "https://twitter.com/nasyrov_ildar",
     'category': 'Base',
     'images': ['images/module_pic.png'],
+    'license': 'GPL-3',
+    'website': "https://twitter.com/nasyrov_ildar",
+    'category': 'Base',
     'version': '1.0.0',
     'depends': ['base'],
     'data': [
