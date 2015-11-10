@@ -1,5 +1,5 @@
 Web Login Background
 ====================
 
-Tested on Odoo 8.0 a0797d3b35cc235048e7947dd7a3d38e18c3e350
+Tested on Odoo 9.0 bc0986f53bc03bb958f3acce10ec23805afb7b6a
 
