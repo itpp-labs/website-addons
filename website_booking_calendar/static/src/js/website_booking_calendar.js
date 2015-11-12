@@ -2,6 +2,7 @@
 
     self.DTF = 'YYYY-MM-DD HH:mm:ss';
     self.MIN_TIME_SLOT = 1; //hours
+    self.SLOT_START_DELAY_MINS = 15 //minutes
     self.resources = [];
     self.bookings = [];
 
@@ -31,12 +32,30 @@
         });
     };
 
+    self.warn = function(text) {
+        var $bookingWarningDialog = $('#booking_warning_dialog');
+        $bookingWarningDialog.find('.modal-body').text(text);
+        $bookingWarningDialog.modal('show');
+    }
+
     self.eventReceive = function(event) {
+        if (event.start < moment().add(-self.SLOT_START_DELAY_MINS, 'minutes')){
+            self.warn('Please book on time in ' + self.SLOT_START_DELAY_MINS + ' minutes from now.');
+            self.$calendar.fullCalendar('removeEvents', [event._id]);
+            return;
+        }
         self.bookings.push(event);
     };
 
     self.eventOverlap = function(stillEvent, movingEvent) {
         return stillEvent.resourceId != movingEvent.resourceId;
+    };
+
+    self.eventDrop = function(event, delta, revertFunc, jsEvent, ui, view){
+        if (event.start < moment().add(-self.SLOT_START_DELAY_MINS, 'minutes')){
+            self.warn('Please book on time in ' + self.SLOT_START_DELAY_MINS + ' minutes from now.');
+            revertFunc(event);
+        }
     };
 
     self.getBookingsInfo = function(toUTC) {
@@ -99,9 +118,11 @@
             firstDay: 1,
             defaultView: 'agendaWeek',
             timezone: 'local',
+            slotEventOverlap: false,
             events: self.loadEvents,
             eventReceive: self.eventReceive,
             eventOverlap: self.eventOverlap,
+            eventDrop: self.eventDrop
             // eventRender: function(event, element) {
             //     element.find(".fc-content").append( "<span class='closeon'>x</span>" );
             //     element.find(".closeon").click(function() {
@@ -114,7 +135,6 @@
             var $contentBlock = $('#booking-dialog').find('.modal-body');
             $contentBlock.load('/booking/calendar/confirm/form', {
                 events: JSON.stringify(self.getBookingsInfo()),
-                tzOffset: moment().utcOffset()
             }, function(){
                 $('.booking-product').change(function(){
                     var price = $(this).find(':selected').data('price');
