@@ -76,6 +76,49 @@
         return res;
     }
 
+    self.dayClick = function(date, jsEvent, view) {
+        if (view.name == 'month' && $(jsEvent.target).hasClass('fc-day-number')) {
+            view.calendar.changeView('agendaDay');
+            view.calendar.gotoDate(date);
+        }
+    };
+    self.viewRender = function(view, element) {
+        // make week names clickable for quick navigation
+        if (view.name == 'month') {
+            var $td = $(element).find('td.fc-week-number');
+            $td.each(function () {
+                var week = parseInt($(this).find('span').text());
+                if (week) {
+                    $(this).data('week', week)
+                        .css({'cursor': 'pointer'})
+                        .find('span').html('&rarr;');
+                }
+            });
+            $td.click(function(){
+                var week = $(this).data('week');
+                if (week) {
+                    var m = moment();
+                    m.week(week);
+                    if (week < view.start.week()) {
+                        m.year(view.end.year());
+                    }
+                    view.calendar.changeView('agendaWeek');
+                    view.calendar.gotoDate(m);
+                }
+           });
+        } else if (view.name == 'agendaWeek') {
+            $(element).find('th.fc-day-header').css({'cursor': 'pointer'})
+                .click(function(){
+                    var m = moment($(this).text(), view.calendar.option('dayOfMonthFormat'));
+                    if (m < view.start) {
+                        m.year(view.end.year());
+                    }
+                    view.calendar.changeView('agendaDay');
+                    view.calendar.gotoDate(m);
+                });
+        }
+    };
+
     /* initialize the external events
     -----------------------------------------------------------------*/
     self.init = function() {
@@ -118,17 +161,14 @@
             firstDay: 1,
             defaultView: 'agendaWeek',
             timezone: 'local',
+            weekNumbers: true,
             slotEventOverlap: false,
             events: self.loadEvents,
             eventReceive: self.eventReceive,
             eventOverlap: self.eventOverlap,
-            eventDrop: self.eventDrop
-            // eventRender: function(event, element) {
-            //     element.find(".fc-content").append( "<span class='closeon'>x</span>" );
-            //     element.find(".closeon").click(function() {
-            //        self.$calendar.fullCalendar('removeEvents', event._id);
-            //     });
-            // }
+            eventDrop: self.eventDrop,
+            dayClick: self.dayClick,
+            viewRender:self.viewRender
         });
 
         $('#add-to-cart').click(function(){
