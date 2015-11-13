@@ -6,6 +6,7 @@
     'category': 'Base',
     'images': ['images/module_pic.png'],
     'license': 'GPL-3',
+    'category': 'Base',
     'version': '1.0.0',
     'depends': ['base'],
     'data': [
