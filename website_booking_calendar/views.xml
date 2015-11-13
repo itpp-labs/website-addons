@@ -28,7 +28,10 @@
                 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="booking-dialog">
                   <div class="modal-dialog modal-lg">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header alert alert-info">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">x</span>
+                            </button>
                             <h4 class="modal-title">Choose Packages and Confirm</h4>
                         </div>
                         <div class="modal-body">
@@ -40,6 +43,7 @@
                     </div>
                   </div>
                 </div>
+                <t t-call="website_booking_calendar.warning_dialog"/>
             </t>
         </template>
 
@@ -100,5 +104,19 @@
             </form>
         </template>
 
+        <template id="warning_dialog">
+            <div class="modal fade" id="booking_warning_dialog">
+                <div class="modal-dialog modal-content">
+                <div class="modal-header alert alert-warning">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">x</span>
+                    </button>
+                    <h4 class="modal-title">Warning!</h4>
+                </div>
+                <div class="modal-body">
+                </div>
+            </div>
+            </div>
+        </template>
     </data>
 </openerp>
