@@ -159,7 +159,7 @@
             defaultTimedEventDuration: '01:00:00',
             displayEventTime: false,
             firstDay: 1,
-            defaultView: 'agendaWeek',
+            defaultView: 'month',
             timezone: 'local',
             weekNumbers: true,
             slotEventOverlap: false,
