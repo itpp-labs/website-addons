@@ -1,4 +1,4 @@
-Web Login Background
+Website Login Background
 ====================
 Set your background on odoo login screen while you got website module installed.
 
