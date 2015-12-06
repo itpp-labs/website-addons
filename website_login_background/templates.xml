@@ -1,0 +1,30 @@
+<openerp>
+    <data>
+        <template id="website_login_background_template" inherit_id="website.login_layout">
+            <xpath expr="//div[@class='oe_website_login_container']" position="after">
+                <t t-if="picture_url">
+                    <style type="text/css">
+                        main {
+                        background: none;
+                        background-image: url(<t t-raw="picture_url"/>);
+                        background-size: cover;
+                        }
+                    </style>
+                </t>
+            </xpath>
+            <xpath expr="//div[@class='oe_website_login_container']" position="attributes">
+                <attribute name="class">oe_website_login_container modal-content</attribute>
+            </xpath>
+        </template>
+        <template id="assets_frontend" inherit_id="website.assets_frontend" name="loginborder">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/website_login_background/static/src/css/login.css"/>
+                <script src="/website_login_background/static/src/js/login.js"></script>
+            </xpath>
+        </template>
+    </data>
+</openerp>
+
+
+
+
