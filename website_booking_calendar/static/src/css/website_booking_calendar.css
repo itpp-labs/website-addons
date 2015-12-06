@@ -1125,3 +1125,7 @@ be a descendant of the grid when it is being dragged.
     display: inline;
     width: 45%;
 }
+
+.fc-basic-view .fc-day-number {
+    cursor: pointer;
+}

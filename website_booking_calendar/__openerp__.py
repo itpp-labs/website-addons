@@ -7,6 +7,5 @@
     'category' : 'Website',
     'depends' : ['booking_calendar', 'website_sale'],
     'data': ['views.xml'],
-    'active': True,
     'installable': True
 }
