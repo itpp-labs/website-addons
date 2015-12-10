@@ -6,7 +6,7 @@
     'license': 'LGPL-3',
     'category': 'Custom',
     'website': 'https://twitter.com/yelizariev',
-    'price': 1.00,
+    'price': 9.00,
     'currency': 'EUR',
     'images': ['images/search.png'],
     'depends': ['website_sale', 'product_tags'],
