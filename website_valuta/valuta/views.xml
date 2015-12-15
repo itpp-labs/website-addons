@@ -3,9 +3,9 @@
   <data>
     <!-- explicit list view definition -->
     <!--
-    <record model="ir.ui.view" id="currencies.list">
-      <field name="name">Currencies list</field>
-      <field name="model">currencies.currencies</field>
+    <record model="ir.ui.view" id="valuta.list">
+      <field name="name">Valuta list</field>
+      <field name="model">valuta.valuta</field>
       <field name="arch" type="xml">
         <tree>
           <field name="name"/>
@@ -18,18 +18,18 @@
 
     <!-- actions opening views on models -->
     <!--
-    <record model="ir.actions.act_window" id="currencies.action_window">
-      <field name="name">Currencies window</field>
-      <field name="res_model">currencies.currencies</field>
+    <record model="ir.actions.act_window" id="valuta.action_window">
+      <field name="name">Valuta window</field>
+      <field name="res_model">valuta.valuta</field>
       <field name="view_mode">tree,form</field>
     </record>
     -->
 
     <!-- server action to the one above -->
     <!--
-    <record model="ir.actions.server" id="currencies.action_server">
-      <field name="name">Currencies server</field>
-      <field name="model_id" ref="model_currencies_currencies"/>
+    <record model="ir.actions.server" id="valuta.action_server">
+      <field name="name">Valuta server</field>
+      <field name="model_id" ref="model_valuta_valuta"/>
       <field name="code">
         action = {
           "type": "ir.actions.act_window",
@@ -42,19 +42,19 @@
   
     <!-- Top menu item -->
     <!--
-    <menuitem name="Currencies" id="currencies.menu_root"/>
+    <menuitem name="Valuta" id="valuta.menu_root"/>
     -->
     <!-- menu categories -->
     <!--
-    <menuitem name="Menu 1" id="currencies.menu_1" parent="currencies.menu_root"/>
-    <menuitem name="Menu 2" id="currencies.menu_2" parent="currencies.menu_root"/>
+    <menuitem name="Menu 1" id="valuta.menu_1" parent="valuta.menu_root"/>
+    <menuitem name="Menu 2" id="valuta.menu_2" parent="valuta.menu_root"/>
     -->
     <!-- actions -->
     <!--
-    <menuitem name="List" id="currencies.menu_1_list" parent="currencies.menu_1"
-              action="currencies.action_window"/>
-    <menuitem name="Server to list" id="currencies" parent="currencies.menu_2"
-              action="currencies.action_server"/>
+    <menuitem name="List" id="valuta.menu_1_list" parent="valuta.menu_1"
+              action="valuta.action_window"/>
+    <menuitem name="Server to list" id="valuta" parent="valuta.menu_2"
+              action="valuta.action_server"/>
     -->
   </data>
 </openerp>
