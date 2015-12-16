@@ -1,0 +1,35 @@
+<openerp>
+    <data>
+        <template id="index">
+            <t t-call="website.layout">
+                <t t-set="title">Currencies</t>
+                <div class="oe_structure">
+                    <div class="container">
+                        <t t-foreach="currencies" t-as="currency">
+                            <p><a t-attf-href="/currencies/{{ slug(currency) }}">
+                              <t t-esc="currency.name"/></a>
+                            </p>
+
+                        </t>
+                    </div>
+                </div>
+            </t>
+        </template> 
+        <template id="biography">
+            <t t-call="website.layout">
+                <t t-set="title">Currencies</t>
+                <div class="oe_structure"/>
+                <div class="oe_structure">
+                    <div class="container">
+                        <h3 t-field="valuta.name"/>
+                        <p>Last modified: <i t-field="valuta.write_date" t-field-options='{"widget": "relative"}'/></p>
+                        <p><t t-esc="valuta.rate_ids.rate"/></p>
+                        
+                    </div>
+                </div>
+                <div class="oe_structure"/>
+            </t>
+        </template>
+
+    </data>
+</openerp>

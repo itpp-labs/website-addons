@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Valuta",
+    'name': "Website page currencies",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
         subtitle on modules listing or apps.openerp.com""",
 
     'description': """
-        First module
+        web page currencies
     """,
 
-    'author': "IT-Projects, Gabbasov D.A.",
+    'author': "IT-projects, Gabbasov D.A.",
     'website': "http://www.it-projects.info",
 
     # Categories can be used to filter modules in modules listing
@@ -24,12 +24,12 @@
 
     # always loaded
     'data': [
-        'security/ir.model.access.csv',
+        # 'security/ir.model.access.csv',
         'views.xml',
         'templates.xml',
     ],
     # only loaded in demonstration mode
-    'demo': [
-        'demo.xml',
-    ],
+    #'demo': [
+        #'demo.xml',
+    #],
 }
