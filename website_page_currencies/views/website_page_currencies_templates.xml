@@ -1,0 +1,26 @@
+<openerp>
+    <data>
+        <template id="index">
+            <t t-call="website.layout">
+                <t t-set="title">Currencies</t>
+                <div class="oe_structure">
+                    <div class="container">
+                        <t t-foreach="currencyline" t-as="currencyline">
+                            <h3><t t-esc="currencyline.name"/></h3>
+                        </t>
+                        <t t-foreach="currencies" t-as="currency">  
+                            <p><t t-foreach="currencyline" t-as="currencyline">
+                                1.0 <t t-esc="currencyline.name"/> =  
+                            </t>
+                             
+                                <a t-attf-href="/currencies/{{ slug(currency) }}">
+                                <t t-esc="currency.name"/></a>
+                                <t t-esc="currency.rate"/>
+                            </p>
+                        </t>
+                    </div>
+                </div>
+            </t>
+        </template> 
+    </data>
+</openerp>

@@ -1,35 +1,15 @@
 # -*- coding: utf-8 -*-
 {
     'name': "Website page currencies",
-
-    'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
-
-    'description': """
-        web page currencies
-    """,
-
-    'author': "IT-projects, Gabbasov D.A.",
-    'website': "http://www.it-projects.info",
-
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/master/openerp/addons/base/module/module_data.xml
-    # for the full list
+    'summary': """Web page currencies""",
+    'description': """Web page currencies""",
+    'author': "IT-Projects LLC, Dinar Gabbasov",
+    'website': "https://twitter.com/gabbasov_dinar",
     'category': 'Uncategorized',
-    'version': '0.1',
-
-    # any module necessary for this one to work correctly
-    'depends': ['website'],
-
-    # always loaded
+    'version': '1.0',
+    'depends': ['website', 'base'],
     'data': [
-        # 'security/ir.model.access.csv',
-        'views.xml',
-        'templates.xml',
+        'views/website_page_currencies_views.xml',
+        'views/website_page_currencies_templates.xml',
     ],
-    # only loaded in demonstration mode
-    #'demo': [
-        #'demo.xml',
-    #],
 }
