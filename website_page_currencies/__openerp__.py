@@ -6,7 +6,7 @@
     'author': "IT-Projects LLC, Dinar Gabbasov",
     'website': "https://twitter.com/gabbasov_dinar",
     'category': 'Uncategorized',
-    'version': '1.0',
+    'version': '0.1',
     'depends': ['website', 'base'],
     'data': [
         'views/website_page_currencies_views.xml',

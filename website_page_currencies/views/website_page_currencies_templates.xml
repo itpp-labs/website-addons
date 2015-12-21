@@ -9,14 +9,34 @@
                             <h3><t t-esc="currencyline.name"/></h3>
                         </t>
                         <t t-foreach="currencies" t-as="currency">  
-                            <p><t t-foreach="currencyline" t-as="currencyline">
-                                1.0 <t t-esc="currencyline.name"/> =  
-                            </t>
-                             
+                            <p>                            
                                 <a t-attf-href="/currencies/{{ slug(currency) }}">
-                                <t t-esc="currency.name"/></a>
-                                <t t-esc="currency.rate"/>
+                                1.0 <t t-esc="currency.name"/></a> =
+
+                                <t t-foreach="currencyline" t-as="currencyline">
+                                <!--1/<t t-esc="currency.rate"/>
+                                получаем значение переводимой единицы валюты в евро
+                                например (1 доллар = результат деления в евро)
+                      
+                                1/<t t-esc="currencyline.rate"/>
+                                получаем значение единицы волюты в которую нужно
+                                перевести в евро
+                                (1 рубль = результат деления в евро)
+                                
+                                1/<t t-esc="currency.rate"/> /  1/<t t-esc="currencyline.rate"/>
+                                
+                                результат получаем в нужной нам валюте
+                                (в нашем примере 1 доллар в рублях)
+                                (так происходит конвертация всех валют в рубли)
+                                -->
+                                = <t t-set="currency_value" t-value="((1/currency.rate)/(1/currencyline.rate))"/> 
+                                  <t t-esc="currency_value"/> <t t-esc="currencyline.name"/> 
+                                
+                                
+                            </t>
                             </p>
+                            <p></p>
+                            
                         </t>
                     </div>
                 </div>
