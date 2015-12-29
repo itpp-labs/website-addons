@@ -1,0 +1,14 @@
+<openerp>
+    <data>
+        <template id="index">
+            <title>Chess</title>
+            <t t-foreach="chess" t-as="chess">
+                <p>
+                    <t t-esc="chess.id"/>) 
+                    <t t-esc="chess.game_type"/>, 
+                    <t t-esc="chess.game_win"/> is win.
+                </p>
+            </t>
+        </template>
+    </data>
+</openerp>

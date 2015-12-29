@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <record id="action_chess_game" model="ir.actions.act_window">
+      <field name="name">Chess game</field>
+      <field name="res_model">chess.game</field>
+    </record>
+    
+    <record id="chess_game_form" model="ir.ui.view">
+      <field name="name">Chess game: form</field>
+      <field name="model">chess.game</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <label for="game_type"/> <field name="game_type"/>
+            <label for="players_ids"/><field name="players_ids"/>
+            <label for="date_start"/> <field name="date_start"/>
+            <label for="date_finish"/> <field name="date_finish"/>
+            <label for="game_win"/><field name="game_win"/>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    
+    <menuitem sequence="0" id="menu_chess" name="Chess"/>
+    <menuitem id="menu_chess_content" parent="menu_chess"
+            name="Chess Content"/>
+    <menuitem id="menu_chess_content_game"
+            parent="menu_chess_content"
+            action="action_chess_game"/>
+
+  </data>
+</openerp>
