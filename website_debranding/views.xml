@@ -6,6 +6,11 @@
     </xpath>
 </template>
 
+<template id="user_navbar" inherit_id="website.user_navbar" groups="base.group_user">
+<xpath expr="//a[@href='https://www.adspike.com']/.." position="replace">
+</xpath>
+</template>
+
 <record id="view_website_config_settings" model="ir.ui.view">
     <field name="model">website.config.settings</field>
     <field name="inherit_id" ref="website.view_website_config_settings"/>
