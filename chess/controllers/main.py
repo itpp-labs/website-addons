@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 from openerp import http
+from openerp.addons.base import res
 
 class Chess(http.Controller):
-    @http.route('/chess/', auth='public')
+    @http.route('/', type='http', auth="public", website=True)
     def index(self, **kw):
-        return http.request.render('chess.index', {
-            'chess': http.request.env['chess.game'].search([])})
+        users = http.request.env['res.users']
+        return http.request.render('chess.homepage', {
+            'users': users.search([])
+        })

@@ -5,7 +5,7 @@
       <field name="name">Chess game</field>
       <field name="res_model">chess.game</field>
     </record>
-    
+
     <record id="chess_game_form" model="ir.ui.view">
       <field name="name">Chess game: form</field>
       <field name="model">chess.game</field>
@@ -13,21 +13,83 @@
         <form>
           <sheet>
             <label for="game_type"/> <field name="game_type"/>
-            <label for="players_ids"/><field name="players_ids"/>
+            <label for="time_game"/> <field name="time_game"/>
             <label for="date_start"/> <field name="date_start"/>
+            <label for="first_user_id"/> <field name="first_user_id"/>
+            <label for="first_color_figure"/> <field name="first_color_figure"/>
+            <label for="second_user_id"/> <field name="second_user_id"/>
+            <label for="second_color_figure"/> <field name="second_color_figure"/>
+            <field name="move_game_ids">
+              <tree string="Move game list" editable="bottom">
+                <field name="move_game"/>
+              </tree>
+            </field>
             <label for="date_finish"/> <field name="date_finish"/>
-            <label for="game_win"/><field name="game_win"/>
+            <label for="game_win"/> <field name="game_win"/>
           </sheet>
         </form>
       </field>
     </record>
-    
+
+    <record id="action_chess_game_line" model="ir.actions.act_window">
+      <field name="name">Chess game line</field>
+      <field name="res_model">chess.game.line</field>
+    </record>
+
+    <record id="chess_game_line_search" model="ir.ui.view">
+      <field name="name">Chess game line: search</field>
+      <field name="model">chess.game.line</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="game_id"/>
+          <field name="move_game"/>
+        </search>
+      </field>
+    </record>
+
+    <record id="chess_game_line_list" model="ir.ui.view">
+      <field name="name">Chess game line: list</field>
+      <field name="model">chess.game.line</field>
+      <field name="arch" type="xml">
+        <tree string="game_line">
+          <field name="game_id"/>
+          <field name="move_game"/>
+        </tree>
+      </field>
+    </record>
+    <!--ds-->
+    <record id="chess_game_line_form" model="ir.ui.view">
+      <field name="name">Chess game line: form</field>
+      <field name="model">chess.game.line</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <label for="game_id"/><field name="game_id"/>
+            <label for="move_game"/><field name="move_game"/>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="services_page_link" model="website.menu">
+    <field name="name">Board test</field>
+    <field name="url">/page/game</field>
+    <field name="parent_id" ref="website.main_menu" />
+    <field name="sequence" type="int">99</field>
+    </record>
+
     <menuitem sequence="0" id="menu_chess" name="Chess"/>
     <menuitem id="menu_chess_content" parent="menu_chess"
             name="Chess Content"/>
+    <menuitem id="menu_chess_content_game_line"
+            parent="menu_chess_content"
+            action="action_chess_game_line"/>
     <menuitem id="menu_chess_content_game"
             parent="menu_chess_content"
             action="action_chess_game"/>
+
+
+
 
   </data>
 </openerp>

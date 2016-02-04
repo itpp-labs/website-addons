@@ -2,11 +2,13 @@
     <data>
         <record id="type1" model="chess.game">
             <field name="game_type">Blitz</field>
-            <field name="game_win">Alexandr</field>
+            <field name="first_user_id">1</field>
+            <field name="second_user_id">1</field>  
         </record>
         <record id="type2" model="chess.game">
             <field name="game_type">Time</field>
-            <field name="game_win">Michail</field>
+            <field name="first_user_id">1</field>
+            <field name="second_user_id">1</field> 
         </record>
     </data>
 </openerp>

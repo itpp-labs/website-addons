@@ -6,14 +6,14 @@
     'website': "https://twitter.com/gabbasov_dinar",
     'category': 'Uncategorized',
     'version': '1.0.0',
-    'depends': ['base'],
+    'depends': ['base', 'website', 'bus'],
     'data': [
-        'security/ir.model.access.csv',
+        #'security/ir.model.access.csv',
         'views/chess_views.xml',
         'views/chess_templates.xml',
     ],
     'demo': [
-        'data/chess_demo.xml',
+        #'data/chess_demo.xml',
     ],
     'application': True,
 }

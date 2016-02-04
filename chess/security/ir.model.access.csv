@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_chess_game,access_chess_game,model_chess_game,,1,0,0,0
+access_chess_chess,chess.chess,model_chess_chess,,1,0,0,0
