@@ -1,7 +1,8 @@
 <openerp>
     <data>
-        <template id="homepage" name="Homepage" inherit_id="website.layout">
-            <xpath expr="//div[@id='wrapwrap']/main/" position="replace">
+
+        <template name="Chess Page" id="chesspage" page="True">
+            <t t-call="website.layout">
                     <div class="oe_structure">
                         <div class="container">
                             <h1>Chess Services</h1>
@@ -30,13 +31,6 @@
                                 <h2>Play with a friend</h2>
                                 <div class="popup_content">
                                     <h3>Users:</h3>
-
-                                   <!-- <t t-foreach='users' t-as='user'>
-                                        <t t-esc="user.name"/>
-                                    </t>-->
-
-
-
                                     <select>
                                         <option>User 1</option>
                                         <option>User 2</option>
@@ -60,77 +54,31 @@
                             </div>
                         </div>
                     </div>
-            </xpath>
-            <xpath expr="//div[@id='footer']/div" position="replace">
-            </xpath>
-        </template>
-        <template id="mystyle" name="My style" inherit_id="website.assets_frontend">
-            <xpath expr="link[last()]" position="after">
-                <link href="/chess/static/less/style.less" rel="stylesheet" type="text/less"/>
-                <link href="/chess/static/less/winmodal.less" rel="stylesheet" type="text/less"/>
-                <link href="/chess/static/less/chessboard.less" rel="stylesheet" type="text/less"/>
-                <link href="/chess/static/less/sweet-alert.less" rel="stylesheet" type="text/less"/>
-                <link href="/chess/static/less/common.less" rel="stylesheet" type="text/less"/>
-
-            </xpath>
-            <xpath expr="script[last()]" position="after">
-                <script type="text/javascript" src="/chess/static/js/dm-modal.js"></script>
-                <script type="text/javascript" src="/chess/static/js/chess.js"></script>
-                <script type="text/javascript" src="/chess/static/js/chessboard.js"></script>
-                <script type="text/javascript" src="/chess/static/js/common.js"></script>
-                <script type="text/javascript" src="/chess/static/js/sweet-alert.js"></script>
-
-                <!--<script type="text/javascript" src="/chess/static/js/jquery-1.10.1.min.js"></script>
-                <script type="text/javascript" src="/chess/static/js/json3.min.js"></script>-->
-            </xpath>
-
+            </t>
         </template>
 
-        <template name="Game page" id="website.game" page="True">
+        <template name="Game Page" id="gamepage" page="True">
             <t t-call="website.layout">
-                <div id="wrap">
+                <div class="oe_structure">
                     <div class="container">
-                        <div class="site_header">
-                            <div class="side">
-                                <div class="side_box padded">
-                                    <div class="game_infos">
-                                        <div class="header">
-                                            <span class="setup">
-                                                <p>CLASSICAL</p>
-                                                <p>+ not rating</p>
-                                            </span>
-                                            <p>activ partia</p>
-                                        </div>
-                                    </div>
-                                    <div class="players">
-                                        <div class="player_color_icon_is_white">
-                                            <span class="user_link">Alex</span>
-                                        </div>
-                                        <div class="player_color_icon_is_black">
-                                            <span class="user_link">Olga</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="chat_menu">
-                                <a class="message_container active">
-                                    Window chat
-                                    <input title="show chat" class="toggle_chat" type="checkbox" />
-                                </a>
-                            </div>
-                            <div class="chat">
-                                <div class="chat_panel">
-                                </div>
-                            </div>
-                        </div>
+                        <h1>game game game</h1>
                     </div>
                 </div>
             </t>
         </template>
 
-
-
-
-
+        <template id="mystyle" name="My style" inherit_id="website.assets_frontend">
+             <xpath expr="link[last()]" position="after">
+                 <link href="/chess/static/less/winmodal.less" rel="stylesheet" type="text/less"/>
+                 <link href="/chess/static/less/chessboard.less" rel="stylesheet" type="text/less"/>
+                 <link href="/chess/static/less/sweet-alert.less" rel="stylesheet" type="text/less"/>
+                 <link href="/chess/static/less/style.less" rel="stylesheet" type="text/less"/>
+             </xpath>
+            <xpath expr="script[last()]" position="after">
+                <script type="text/javascript" src="/chess/static/js/dm-modal.js"></script>
+                <script type="text/javascript" src="/chess/static/js/common.js"></script>
+                <script type="text/javascript" src="/chess/static/js/sweet-alert.js"></script>
+            </xpath>
+        </template>
     </data>
 </openerp>

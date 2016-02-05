@@ -101,11 +101,11 @@ var init = function() {
 		
 		if (WhiteArr.length > 0) {
 			var imagesHTML = {
-				P: "<img src='img/chesspieces/wikipedia/wP.png' alt='white pawn'>",
-				B: "<img src='img/chesspieces/wikipedia/wB.png' alt='white bishop'>",
-				N: "<img src='img/chesspieces/wikipedia/wN.png' alt='white kNight'>",
-				R: "<img src='img/chesspieces/wikipedia/wR.png' alt='white rook'>",
-				Q: "<img src='img/chesspieces/wikipedia/wQ.png' alt='white queen'>"
+				P: "<img src='/chess/static/img/chesspieces/wikipedia/wP.png' alt='white pawn'>",
+				B: "<img src='/chess/static/img/chesspieces/wikipedia/wB.png' alt='white bishop'>",
+				N: "<img src='/chess/static/img/chesspieces/wikipedia/wN.png' alt='white kNight'>",
+				R: "<img src='/chess/static/img/chesspieces/wikipedia/wR.png' alt='white rook'>",
+				Q: "<img src='/chess/static/img/chesspieces/wikipedia/wQ.png' alt='white queen'>"
 			};
 
 			var data = WhiteArr.reduce(function (result, imageKey) {
@@ -133,11 +133,11 @@ var init = function() {
 		if (BlackArr.length > 0) {
 			
 			var imagesHTML = {
-				p: "<img src='img/chesspieces/wikipedia/bP.png' alt='black pawn'>",
-				b: "<img src='img/chesspieces/wikipedia/bB.png' alt='black bishop'>",
-				n: "<img src='img/chesspieces/wikipedia/bN.png' alt='black kNight'>",
-				r: "<img src='img/chesspieces/wikipedia/bR.png' alt='black rook'>",
-				q: "<img src='img/chesspieces/wikipedia/bQ.png' alt='black queen'>"
+				p: "<img src='/chess/static/img/chesspieces/wikipedia/bP.png' alt='black pawn'>",
+				b: "<img src='/chess/static/img/chesspieces/wikipedia/bB.png' alt='black bishop'>",
+				n: "<img src='/chess/static/img/chesspieces/wikipedia/bN.png' alt='black kNight'>",
+				r: "<img src='/chess/static/img/chesspieces/wikipedia/bR.png' alt='black rook'>",
+				q: "<img src='/chess/static/img/chesspieces/wikipedia/bQ.png' alt='black queen'>"
 			};
 
 			var data = BlackArr.reduce(function (result, imageKey) {
@@ -385,6 +385,16 @@ window.onload= function() {
 	  openbox('box', this);
 	  return false;
   };
+	document.getElementById('cancel_game').onclick = function() {
+		swal({   title: 'Warnning',   text: 'Game canceled',   timer: 2000,   showConfirmButton: false });
+  		var board = ChessBoard('board', 'start');
+  		$('#cancel_game').hide();
+  		$('.canceled').show();
+		$('#surrender').hide();
+		$('#suggest_a_draw').hide();
+		$('#toggler').hide();
+		$('#box').hide();
+	};
 };
 function openbox(id, toggler) {
   var div = document.getElementById(id);
@@ -397,15 +407,5 @@ function openbox(id, toggler) {
 	  toggler.innerHTML = 'Close';
 	}
 }
-// down for example
-var usr2 = false;
-//if user 2 is connected then hidden div "cancel"
-if (usr2) $('.canceled_game').hide();
-$('#cancel_game').click(function(){
-  swal({   title: 'Warnning',   text: 'Game canceled',   timer: 2000,   showConfirmButton: false });
-  var board = ChessBoard('board', 'start');
-  $('#cancel_game').hide();
-  $('.canceled').show();
-});
 
 $(document).ready(init);

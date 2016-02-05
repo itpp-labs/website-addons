@@ -13,7 +13,7 @@
         'views/chess_templates.xml',
     ],
     'demo': [
-        #'data/chess_demo.xml',
+        'data/chess_demo.xml',
     ],
     'application': True,
 }
