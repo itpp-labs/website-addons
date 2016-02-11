@@ -1,95 +1,9 @@
 <openerp>
     <data>
         <template name="Game page" id="website.game" page="True">
-            <xpath expr="link[last()]" position="replace">
-                <link href="/chess/static/less/common.less" rel="stylesheet" type="text/less"/>
-            </xpath>
             <t t-call="website.layout">
-                <xpath expr="script[last()]" position="after">
-                    <script type="text/javascript" src="/chess/static/js/chess.js"></script>
-                    <script type="text/javascript" src="/chess/static/js/chessboard.js"></script>
-                </xpath>
-
                 <div class="conteiner">
-                    <div class="content">
-                        <div class="site_header">
-                            <div class="side">
-                                <div class="side_box padded">
-                                    <div class="game_infos">
-                                        <div class="header">
-                                            <span class="setup">
-                                                <p>TEST</p>
-                                                <p> + not rating </p>
-                                            </span>
-                                            <p>test partia</p>
-                                        </div>
-                                    </div>
-                                    <div class="players">
-                                        <div class="player_color_icon_is_white">
-                                            <span class="user_link">Test User 1</span>
-                                        </div>
-                                        <div class="player_color_icon_is_black">
-                                            <span class="user_link">Test User 2</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="chat_menu">
-                                <a class="message_container active">
-                                    Window chat
-                                    <input title="show chat" class="toggle_chat" type="checkbox" />
-                                </a>
-                            </div>
-                            <div class="chat">
-                                <div class="chat_panel">
-                                </div>
-                            </div>
-                        </div>
-                        <!--chess board-->
-                        <div class="chess_board">
-                            <div class="chess_game">
-                                <div class="eliminated_pieces">
-                                    <div class="figure_white" id="figure_white"></div>
-                                    <div class="figure_black" id="figure_black"></div>
-                                </div>
-                                <div id="board"></div>
-                            </div>
-                        </div>
-                        <!--chess status, FEN, PGN etc-->
-                        <div class="chess_information">
-                            <div class="chess_time_usr2">
-                                Time: <span id="chess_time"></span>
-                            </div>
-                            <div class="chess_ground">
-                                <p class="status">Status: <span id="status"></span></p>
-                                <div class="pgn">
-                                    <p>PGN: <span id="pgn"></span></p>
-                                </div>
-                                <div class="end_game">
-                                    <a id="surrender" data-title="Surrender" href="#"></a>
-						            <a id="suggest_a_draw" data-title="Suggest a draw" href="#"></a>
-                                    <!--<input type="button" id="moveBtn" value="e2-e4" />-->
-                                </div>
-                                <div class="canceled_game">
-						            <a href="#" id="cancel_game" data-title="Cancel the game">Cancel</a>
-						            <div class="canceled">Canceled</div>
-                                </div>
-                                <a id="toggler" href="#">Setting</a>
-                                <div id="box">
-						            <div class="user_button">
-							            <input type="button" id="flipOrientationBtn" value="Flip orientation" />
-						            </div>
-						            <div class="fen">
-							            <span id="fen"></span>
-						            </div>
-					            </div>
-                            </div>
-                            <div class="chess_time_usr1">
-                                Time: <span id="chess_time"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="clear: both; margin-bottom: 50px;"></div>
+
                 </div>
             </t>
         </template>

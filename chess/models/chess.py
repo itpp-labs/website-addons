@@ -7,10 +7,10 @@ class ChessGame(models.Model):
     _name = 'chess.game'
     _description = 'chess game'
 
-    game_type = fields.Selection([('blitz', 'Blitz'), ('time', 'Time'),
-                                  ('free', 'Free')],'Game type')
-    time_game = fields.Float(string="Game time") #If game type = time
-    date_start = fields.Datetime(string='Start date') #Start game
+    game_type = fields.Selection([('blitz', 'Blitz'), ('limited time', 'Limited time'),
+                                  ('standart', 'Standart')],'Game type')
+    time_game = fields.Float(string="Game time") #If game type = limited time or blitz
+    date_start = fields.Datetime(string='Start date', default=datetime.datetime.now()) #Start game
     date_finish = fields.Datetime(string='Finish date') #Finish game
     first_user_id = fields.Many2one('res.users', 'First user', required=True)
     second_user_id = fields.Many2one('res.users', 'Second user', required=True)

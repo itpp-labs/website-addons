@@ -407,5 +407,12 @@ function openbox(id, toggler) {
 	  toggler.innerHTML = 'Close';
 	}
 }
-
+function func_hide_chat() {
+    if (document.getElementById("toggle_chat").checked) {
+        $('.chat').show();
+    }
+    else {
+		$('.chat').hide();
+    }
+}
 $(document).ready(init);
