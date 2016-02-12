@@ -415,4 +415,5 @@ function func_hide_chat() {
 		$('.chat').hide();
     }
 }
+
 $(document).ready(init);
