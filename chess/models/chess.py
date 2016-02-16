@@ -18,8 +18,9 @@ class ChessGame(models.Model):
                              'Select color for first figure')
     second_color_figure = fields.Selection([('white', 'White'), ('black', 'Black')],
                              'Select color for second figure')
-    game_win = fields.Char()
+    game_win = fields.Char(default=None)
     move_game_ids = fields.One2many('chess.game.line', 'game_id', 'Game Move')
+    message_game_ids = fields.One2many('chess.chat', 'game_id', 'Chat message')
 
 class ChessGameLine(models.Model):
     _name = 'chess.game.line'
@@ -27,3 +28,11 @@ class ChessGameLine(models.Model):
 
     game_id = fields.Many2one('chess.game', 'Game', required=True)
     move_game = fields.Char()
+
+class ChatMessage(models.Model):
+    _name = 'chess.chat'
+    _description = 'chess chat message'
+
+    game_id = fields.Many2one('chess.game','Game')
+    message = fields.Char(string='Message')
+    date_message = fields.Datetime(string='Date message', default = datetime.datetime.now())

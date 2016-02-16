@@ -2,7 +2,7 @@
 <openerp>
   <data>
     <record id="action_chess_game" model="ir.actions.act_window">
-      <field name="name">Chess game</field>
+      <field name="name">Chess</field>
       <field name="res_model">chess.game</field>
     </record>
 
@@ -24,6 +24,12 @@
                 <field name="move_game"/>
               </tree>
             </field>
+            <field name ="message_game_ids">
+              <tree string="Message game list" editable="bottom">
+                <field name="message"/>
+                <field name="date_message"/>
+              </tree>
+            </field>
             <label for="date_finish"/> <field name="date_finish"/>
             <label for="game_win"/> <field name="game_win"/>
           </sheet>
@@ -34,6 +40,11 @@
     <record id="action_chess_game_line" model="ir.actions.act_window">
       <field name="name">Chess game line</field>
       <field name="res_model">chess.game.line</field>
+    </record>
+
+    <record id="action_chess_chat" model="ir.actions.act_window">
+      <field name="name">Chess chat</field>
+      <field name="res_model">chess.chat</field>
     </record>
 
     <record id="chess_game_line_search" model="ir.ui.view">
@@ -47,42 +58,23 @@
       </field>
     </record>
 
-    <record id="chess_game_line_list" model="ir.ui.view">
-      <field name="name">Chess game line: list</field>
-      <field name="model">chess.game.line</field>
+    <record id="chess_chat_search" model="ir.ui.view">
+      <field name="name">Chess chat: search</field>
+      <field name="model">chess.chat</field>
       <field name="arch" type="xml">
-        <tree string="game_line">
+        <search>
           <field name="game_id"/>
-          <field name="move_game"/>
-        </tree>
-      </field>
-    </record>
-    <!--ds-->
-    <record id="chess_game_line_form" model="ir.ui.view">
-      <field name="name">Chess game line: form</field>
-      <field name="model">chess.game.line</field>
-      <field name="arch" type="xml">
-        <form>
-          <sheet>
-            <label for="game_id"/><field name="game_id"/>
-            <label for="move_game"/><field name="move_game"/>
-          </sheet>
-        </form>
+          <field name="message"/>
+          <field name="date_message"/>
+        </search>
       </field>
     </record>
 
     <menuitem sequence="0" id="menu_chess" name="Chess"/>
     <menuitem id="menu_chess_content" parent="menu_chess"
-            name="Chess Content"/>
-    <menuitem id="menu_chess_content_game_line"
-            parent="menu_chess_content"
-            action="action_chess_game_line"/>
+            name="Game"/>
     <menuitem id="menu_chess_content_game"
             parent="menu_chess_content"
             action="action_chess_game"/>
-
-
-
-
   </data>
 </openerp>
