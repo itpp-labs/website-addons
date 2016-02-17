@@ -18,7 +18,7 @@ $(document).ready(function () {
             if (!enough)
                 available = false;
         })
-        $('a[href="/shop/checkout"]').toggleClass('disabled', !available);
+        $('a[href$="/shop/checkout"]').toggleClass('disabled', !available);
     }
     
     $(input_selector).on('change', function(){
