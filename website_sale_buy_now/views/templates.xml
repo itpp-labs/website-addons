@@ -14,9 +14,11 @@
     <attribute name="t-attf-style">margin-right: 1em;#{product.sale_button == 'buy_now' and 'display:none' or ''}</attribute>
   </xpath>
   <xpath expr="//a[@id='add_to_cart']" position="after">
-    <a class="btn btn-danger btn-lg mt8 js_check_product a-submit-buy-now">Buy Now</a>
-    <!-- buy_now value is updated in js -->
-    <input name="buy_now" type="hidden"/>
+    <t t-if="product.sale_button != 'add_to_cart'">
+      <a class="btn btn-danger btn-lg mt8 js_check_product a-submit-buy-now">Buy Now</a>
+      <!-- buy_now value is updated in js -->
+      <input name="buy_now" type="hidden"/>
+    </t>
   </xpath>
 </template>
 

@@ -18,7 +18,6 @@ class website_sale(website_sale_controller):
         if buy_now:
             order = request.website.sale_get_order()
             order.buy_now = True
-            print 'order', order, order.buy_now
             return request.redirect("/shop/checkout")
 
         return res
