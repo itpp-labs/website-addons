@@ -1,4 +1,4 @@
-'Buy now' button in web shop
+'Buy Now' button in web shop
 ============================
 
 Add a settings to Product, that allows to sale:
