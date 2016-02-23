@@ -13,3 +13,9 @@ class product_template(models.Model):
 
     sale_one_only = fields.Boolean('Sale max 1 item',  help='Makes impossible to add more than one item to cart',
                                           default=False)
+
+    @api.onchange('select_quantity')
+    def onchange_select_quantity(self):
+        self.ensure_one()
+        if self.select_quantity:
+            self.sale_one_only = False
