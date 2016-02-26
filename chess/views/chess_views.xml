@@ -44,7 +44,7 @@
 
     <record id="action_chess_chat" model="ir.actions.act_window">
       <field name="name">Chess chat</field>
-      <field name="res_model">chess.chat</field>
+      <field name="res_model">chess.game.chat</field>
     </record>
 
     <record id="chess_game_line_search" model="ir.ui.view">
@@ -60,7 +60,7 @@
 
     <record id="chess_chat_search" model="ir.ui.view">
       <field name="name">Chess chat: search</field>
-      <field name="model">chess.chat</field>
+      <field name="model">chess.game.chat</field>
       <field name="arch" type="xml">
         <search>
           <field name="game_id"/>

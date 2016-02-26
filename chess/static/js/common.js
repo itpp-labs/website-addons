@@ -378,14 +378,27 @@ var init = function() {
   board = ChessBoard('board', cfg);
   $('#flipOrientationBtn').on('click', board.flip);
   };
-}; 
 
-window.onload= function() {
-  document.getElementById('toggler').onclick = function() {
-	  openbox('box', this);
-	  return false;
-  };
-	document.getElementById('cancel_game').onclick = function() {
+	$("#chat_form").submit(function(event) {
+		return false;
+	});
+	/*$("#chat_form").submit(function(event) {
+		ChessChat.init();
+		return false;
+	});
+
+	$("#message_text").keydown(function(event) {
+		if (event.keyCode == 13 && event.ctrlKey) {
+			$("#chat_form").submit()
+		}
+	});*/
+
+	$("#toggler").click(function(){
+		openbox('box', this);
+		return false;
+	});
+
+	$("#cancel_game").click(function(){
 		swal({   title: 'Warnning',   text: 'Game canceled',   timer: 2000,   showConfirmButton: false });
   		var board = ChessBoard('board', 'start');
   		$('#cancel_game').hide();
@@ -394,26 +407,28 @@ window.onload= function() {
 		$('#suggest_a_draw').hide();
 		$('#toggler').hide();
 		$('#box').hide();
+	});
+
+	function openbox(id, toggler) {
+	  var div = document.getElementById(id);
+		if(div.style.display == 'block') {
+		  div.style.display = 'none';
+		  toggler.innerHTML = 'Setting';
+		}
+		else {
+		  div.style.display = 'block';
+		  toggler.innerHTML = 'Close';
+		}
 	};
 };
-function openbox(id, toggler) {
-  var div = document.getElementById(id);
-	if(div.style.display == 'block') {
-	  div.style.display = 'none';
-	  toggler.innerHTML = 'Setting';
-	}
-	else {
-	  div.style.display = 'block';
-	  toggler.innerHTML = 'Close';
-	}
-}
-function func_hide_chat() {
-    if (document.getElementById("toggle_chat").checked) {
-        $('.chat').show();
-    }
-    else {
-		$('.chat').hide();
-    }
-}
+
+	function func_hide_chat() {
+		if (document.getElementById("toggle_chat").checked) {
+			$('.chat').show();
+		}
+		else {
+			$('.chat').hide();
+		}
+	};
 
 $(document).ready(init);

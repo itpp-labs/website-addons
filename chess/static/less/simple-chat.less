@@ -4,12 +4,31 @@
 	border: 1px solid #ccc;
 	padding: 5px;
 }
+.chat #user_name {
+	float: right;
+	margin-top: -20px;
+}
 .window_chat {
+	overflow-y: auto;
+	overflow-x: hidden;
+	word-wrap: break-word;
 	height: 190px;
 	border: 1px solid #ccc;
-	padding: 10px;
+	padding: 5px;
 	margin-bottom: 10px;
 	background-color: rgba(181, 174, 174, 0.29);
+	p {
+		margin: 3px;
+		padding-bottom: 15px;
+	}
+	.user {
+		color: #A5DC86;
+	}
+}
+.time_message{
+	float: right;
+	font-size: 8px;
+	color: #D2D2D2;
 }
 .chat_line {
 	border: 1px solid #ccc;

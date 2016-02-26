@@ -114,15 +114,17 @@
                                     <div class="chat" id="chat">
                                         <div class="window_chat" id="window_chat"></div>
                                         <div class="chat_line"></div>
-                                        <form name="chat_message" method="post" data-model_name="chess.chat" id="chat_form">
+                                        <form name="chat_message" method="post" data-model_name="chess.game.chat" id="chat_form">
                                             <div class="message_chat">
                                                 <textarea type="text" name="message_text" id="message_text" cols="18" rows="3"></textarea>
                                             </div>
                                             <div class="button_chat">
-                                                <input type="button" name="submit" id="message_btn" value="send" />
+                                                <input type="submit" name="submit" id="message_btn" value="send" />
                                             </div>
                                         </form>
                                     </div>
+
+
                             </div>
                             <!--chess board-->
                             <div class="chess_board">
@@ -185,6 +187,7 @@
             <xpath expr="script[last()]" position="after">
                 <script type="text/javascript" src="/chess/static/js/dm-modal.js"></script>
                 <script type="text/javascript" src="/chess/static/js/common.js"></script>
+                <script type="text/javascript" src="/chess/static/js/chesschat.js"></script>
                 <script type="text/javascript" src="/chess/static/js/sweet-alert.js"></script>
             </xpath>
         </template>

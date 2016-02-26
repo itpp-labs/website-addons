@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import datetime
-from openerp import models, fields, api
+from openerp import models, fields, api, SUPERUSER_ID
 
 class ChessGame(models.Model):
     _name = 'chess.game'
@@ -20,7 +20,7 @@ class ChessGame(models.Model):
                              'Select color for second figure')
     game_win = fields.Char(default=None)
     move_game_ids = fields.One2many('chess.game.line', 'game_id', 'Game Move')
-    message_game_ids = fields.One2many('chess.chat', 'game_id', 'Chat message')
+    message_game_ids = fields.One2many('chess.game.chat', 'game_id', 'Chat message')
 
 class ChessGameLine(models.Model):
     _name = 'chess.game.line'
@@ -30,9 +30,21 @@ class ChessGameLine(models.Model):
     move_game = fields.Char()
 
 class ChatMessage(models.Model):
-    _name = 'chess.chat'
+    _name = 'chess.game.chat'
     _description = 'chess chat message'
 
     game_id = fields.Many2one('chess.game','Game')
     message = fields.Char(string='Message')
     date_message = fields.Datetime(string='Date message', default = datetime.datetime.now())
+
+    @api.one
+    def broadcast(self, message):
+        notifications = []
+
+        for ps in self.env['chess.game'].search([('message_game_ids.game_id', '=', self.id)]):
+            if ps.first_user_id.id != self.env.user.id:
+                notifications.append([(self._cr.dbname, 'chess.game.chat', ps.first_user_id.id), message])
+            else:
+                notifications.append([(self._cr.dbname, 'chess.game.chat', ps.second_user_id.id), message])
+        self.env['bus.bus'].sendmany(notifications)
+        return 1
