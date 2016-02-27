@@ -14,9 +14,15 @@ class Controller(BusController):
         return super(Controller, self)._poll(dbname, channels, last, options)
 
     @http.route('/chess/game/send/', type="json", auth="public")
-    def chat_message_update(self, game_id, message):
+    def chat_message_send(self, game_id, message):
         res = request.env["chess.game.chat"].browse(int(game_id)).broadcast(message)
         return res
+
+    @http.route('/chess/game/load_history', type="json", auth="none")
+    def load_chat_history(self, game_id):
+        hist = request.env["chess.game.chat"].browse(int(game_id)).load_message(game_id)
+        return hist
+
 
 class Chess(http.Controller):
     @http.route('/chess/', auth="public", website=True)

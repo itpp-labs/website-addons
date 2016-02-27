@@ -48,3 +48,8 @@ class ChatMessage(models.Model):
                 notifications.append([(self._cr.dbname, 'chess.game.chat', ps.second_user_id.id), message])
         self.env['bus.bus'].sendmany(notifications)
         return 1
+
+    @api.multi
+    def load_message(self,game_id):
+        hist = []
+        return 1
