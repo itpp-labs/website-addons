@@ -114,12 +114,12 @@
                                     <div class="chat" id="chat">
                                         <div class="window_chat" id="window_chat"></div>
                                         <div class="chat_line"></div>
-                                        <form name="chat_message" method="post" data-model_name="chess.game.chat" id="chat_form">
+                                        <form name="chat_message" method="post" data-model_name="chess.game.chat" id="chat_form" class="chat_form">
                                             <div class="message_chat">
-                                                <textarea type="text" name="message_text" id="message_text" cols="18" rows="3"></textarea>
+                                                <textarea type="text" name="message_text" class="message_text" id="message_text" cols="18" rows="3"></textarea>
                                             </div>
                                             <div class="button_chat">
-                                                <input type="submit" name="submit" id="message_btn" value="send" />
+                                                <input type="submit" name="submit" id="message_btn" class="message_btn" value="send" />
                                             </div>
                                         </form>
                                     </div>

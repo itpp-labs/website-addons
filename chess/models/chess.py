@@ -50,6 +50,10 @@ class ChatMessage(models.Model):
         return 1
 
     @api.multi
-    def load_message(self,game_id):
-        hist = []
-        return 1
+    def load_message(self,game_id, limit=20):
+        hist = self.env['chess.game.chat'].search([('game_id', '=', game_id)])
+        if len(hist)>0:
+            hist = [e.message for e in hist]
+            return hist
+        else:
+            return False
