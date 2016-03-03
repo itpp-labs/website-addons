@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+<template id="myid" name="myname" inherit_id="website_sale.cart">
+    <xpath expr="//div[@class='row']" position="replace">
+        <form action="/shop/checkout" name="myform" method="post">
+            <div class="row">
+              <div class="col-md-8 col-sm-9 oe_cart">
+
+                  <t t-call="website_sale.cart_lines"/>
+
+                  <div class="clearfix"/>
+                  <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                  <div class="row">
+                        <div class="pull-right">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="rad" id="opt1" value="Pickup and pay at store" checked="true"/>Pickup and pay at store
+                                </label>
+                            </div>
+                            <div class="radio">
+                            <label>
+                                <input type="radio" name="rad" id="opt2" value="Pay now and get delivery"/>Pay now and get delivery
+                            </label>
+                        </div>
+                            <div class="radio">
+                            <label>
+                                <input type="radio" name="rad" id="opt3" value="Pickup at store but pay now"/>Pickup at store but pay now
+                            </label>
+                        </div>
+                        </div>
+                  </div>
+                  <a t-if="not optional_products and website_sale_order and website_sale_order.website_order_line" class="btn btn-primary pull-right mb32 a-submit"><span class="hidden-xs">Process Checkout</span><span class="visible-xs-inline">Checkout</span> <span class="fa fa-long-arrow-right"/></a>
+
+                  <div class="oe_structure"/>
+              </div>
+              <div class="col-lg-3 col-lg-offset-1 col-sm-3 col-md-3 text-muted" id="right_column">
+                  <h4>Policies</h4>
+                  <ul class="list-unstyled mb32">
+                      <li>&#9745; 30-days money-back guarantee</li>
+                      <li>&#9745; Invoice sent by e-Mail</li>
+                  </ul>
+                  <h4>Secure Payment</h4>
+                  <ul class="list-unstyled mb32">
+                      <li>&#9745; 256 bit encryption</li>
+                      <li>&#9745; Processed by Ogone</li>
+                  </ul>
+              </div>
+          </div>
+        </form>
+    </xpath>
+</template>
+<template id="myid1" name="myname1" inherit_id="website_sale.checkout">
+    <xpath expr="//input[@name='street2']/.." position="replace">
+        <div t-attf-class="form-group #{error.get('street2') and 'has-error' or ''} col-lg-6"
+             t-if="checkout.get('rad') != 'Pickup and pay at store'">
+            <label class="control-label" for="street2">Street</label>
+            <input type="text" name="street2" class="form-control"
+                   t-att-value="checkout.get('street2')"/>
+        </div>
+    </xpath>
+    <xpath expr="//input[@name='city']/.." position="replace">
+        <div t-attf-class="form-group #{error.get('city') and 'has-error' or ''} col-lg-6"
+             t-if="checkout.get('rad') != 'Pickup and pay at store'">
+            <label class="control-label" for="city">City</label>
+            <input type="text" name="city" class="form-control"
+                   t-att-value="checkout.get('city')"/>
+        </div>
+    </xpath>
+    <xpath expr="//input[@name='zip']/.." position="replace">
+        <div t-attf-class="form-group #{error.get('zip') and 'has-error' or ''} col-lg-6"
+             t-if="checkout.get('rad') != 'Pickup and pay at store'">
+            <label class="control-label label-optional" for="zip">Zip / Postal
+                Code
+            </label>
+            <input type="text" name="zip" class="form-control"
+                   t-att-value="checkout.get('zip')"/>
+        </div>
+    </xpath>
+    <xpath expr="//select[@name='country_id']/.." position="replace">
+        <div t-attf-class="form-group #{error.get('country_id') and 'has-error' or ''} col-lg-6"
+             t-if="checkout.get('rad') != 'Pickup and pay at store'">
+            <label class="control-label" for="country_id">Country</label>
+            <select name="country_id" class="form-control">
+                <option value="">Country...</option>
+                <t t-foreach="countries or []" t-as="country">
+                    <option t-att-value="country.id"
+                            t-att-selected="country.id == checkout.get('country_id')">
+                        <t t-esc="country.name"/>
+                    </option>
+                </t>
+            </select>
+        </div>
+    </xpath>
+</template>
+</data>
+</openerp>
