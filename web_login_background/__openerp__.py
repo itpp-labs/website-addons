@@ -4,6 +4,8 @@
     'summary': """Get a random background at the login page""",
     'author': "IT-Projects LLC, Ildar Nasyrov",
     'website': "https://twitter.com/nasyrov_ildar",
+    'price': 15.00,
+    'currency': 'EUR',
     'category': 'Base',
     'images': ['images/login.png'],
     'license': 'GPL-3',
