@@ -12,8 +12,5 @@
         'views/chess_views.xml',
         'views/chess_templates.xml',
     ],
-    'demo': [
-        'data/chess_demo.xml',
-    ],
     'application': True,
 }

@@ -106,9 +106,7 @@
                                 <!--chat-->
                                 <div class="chat_menu">
                                     <div class="messages_container">
-                                        Window chat
-                                        <input title="show chat" id="toggle_chat" type="checkbox" checked="checked" onclick="func_hide_chat()"/>
-
+                                        <input title="show chat" id="toggle_chat" class="toggle_chat" type="checkbox" onclick="func_hide_chat()"><label for="toggle_chat"> Window chat </label></input>
                                     </div>
                                 </div>
                                     <div class="chat" id="chat">
@@ -206,7 +204,7 @@
                                     VS
                                     <t t-esc="game_completed.second_user_id.name"/>
                                     win is
-                                    <t t-esc="game_completed.game_win"/>
+                                    <t t-esc="game_completed.status"/>
                                 </a> </li>
                             </t>
                             </ul>

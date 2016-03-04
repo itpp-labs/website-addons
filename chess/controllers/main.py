@@ -13,24 +13,22 @@ class Controller(BusController):
             channels.append((request.db, 'chess.game.chat', request.uid))
         return super(Controller, self)._poll(dbname, channels, last, options)
 
-    @http.route('/chess/game/init', type="json", auth="none")
-    def load_chat_history(self, game_id, limit=20):
-        result = request.env["chess.game.chat"].browse(int(game_id)).load_message(game_id, limit)
-        return result
+    @http.route('/chess/game/chat/init', type="json", auth="public")
+    def init(self, game_id):
+        ChessChatChannel = request.env["chess.game.chat"].browse(game_id)
+        result = {}
+        return {'other_user_name': other_user_name, 'current_user_name': current_user_name, 'game_id': game_id}
 
+    @http.route('/chess/game/chat/history', type="json", auth="public")
+    def load_history(self, game_id, limit):
+        history = request.env["chess.game.chat"].browse(game_id).load_message(limit=limit)
+        return history
 
-    @http.route('/chess/game/send/', type="json", auth="none")
+    @http.route('/chess/game/chat/send/', type="json", auth="none")
     def chat_message_send(self, game_id, message):
         res = request.env["chess.game.chat"].browse(int(game_id)).broadcast(message)
         return res
-
-    @http.route('/chess/game/load_history', type="json", auth="none")
-    def load_chat_history(self, game_id):
-        hist = request.env["chess.game.chat"].browse(int(game_id)).load_message(game_id)
-        return hist
-
-
-
+#____________________________________________________________________________________________
 
 class Chess(http.Controller):
     @http.route('/chess/', auth="public", website=True)
@@ -76,6 +74,6 @@ class Chess(http.Controller):
 
     @http.route('/chess/list/', auth='public', website=True)
     def user_list(self, **kw):
-        games_completed = http.request.env['chess.game'].search([('game_win', '!=', None)])
-        current_games = http.request.env['chess.game'].search([('game_win', '=', None)])
+        games_completed = http.request.env['chess.game'].search([('status', '!=', None)])
+        current_games = http.request.env['chess.game'].search([('status', '=', None)])
         return http.request.render('chess.listpage', {'games_completed': games_completed, 'current_games': current_games})

@@ -31,7 +31,7 @@
               </tree>
             </field>
             <label for="date_finish"/> <field name="date_finish"/>
-            <label for="game_win"/> <field name="game_win"/>
+            <label for="status"/> <field name="status"/>
           </sheet>
         </form>
       </field>

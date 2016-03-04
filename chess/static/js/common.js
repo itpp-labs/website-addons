@@ -8,7 +8,7 @@ var init = function() {
   
   var other_user_surrender=false;
   var this_user_surrender=false;
-  
+  var chat_status=false;
   other_user=true; //for example
   
   var board,
@@ -393,7 +393,7 @@ var init = function() {
 		}
 	});*/
 
-	$("#toggler").click(function(){
+	$("#toggler").click(function(e){
 		openbox('box', this);
 		return false;
 	});
@@ -407,6 +407,17 @@ var init = function() {
 		$('#suggest_a_draw').hide();
 		$('#toggler').hide();
 		$('#box').hide();
+	});
+
+	$("#toggle_chat").click(function(){
+		if($("#toggle_chat").prop("checked")) {
+			if (!chat_status) {
+				console.log("open new chat server");
+				chat_status = true;
+			} else {
+				console.log("connection");
+			}
+		}
 	});
 
 	function openbox(id, toggler) {
