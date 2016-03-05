@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data  noupdate="0">
+<template id="my_assets_frontend" name="website_sale_checkout_store assets" inherit_id="website_sale.assets_frontend">
+    <xpath expr="//link[@rel='stylesheet']" position="after">
+        <link rel="stylesheet" href="/website_sale_checkout_store/static/src/css/wscs.css"/>
+    </xpath>
+</template>
+<template id="myid" name="myname" inherit_id="website_sale.cart">
+    <xpath expr="//div[@class='row']" position="replace">
+        <form action="/shop/checkout" name="myform" method="post">
+            <div class="row">
+              <div class="col-md-8 col-sm-9 oe_cart">
+
+                  <t t-call="website_sale.cart_lines"/>
+
+                  <div class="clearfix"/>
+                  <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                  <div class="row">
+                        <div class="pull-right">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="buyMethod" id="opt1" value="Pickup and pay at store" checked="true"/>Pickup and pay at store
+                                </label>
+                            </div>
+                            <div class="radio">
+                            <label>
+                                <input type="radio" name="buyMethod" id="opt2" value="Pay now and get delivery"/>Pay now and get delivery
+                            </label>
+                        </div>
+                            <div class="radio">
+                            <label>
+                                <input type="radio" name="buyMethod" id="opt3" value="Pickup at store but pay now"/>Pickup at store but pay now
+                            </label>
+                        </div>
+                        </div>
+                  </div>
+                  <a t-if="not optional_products and website_sale_order and website_sale_order.website_order_line" class="btn btn-primary pull-right mb32 a-submit"><span class="hidden-xs">Process Checkout</span><span class="visible-xs-inline">Checkout</span> <span class="fa fa-long-arrow-right"/></a>
+                  <div class="oe_structure"/>
+              </div>
+              <div class="col-lg-3 col-lg-offset-1 col-sm-3 col-md-3 text-muted" id="right_column">
+                  <h4>Policies</h4>
+                  <ul class="list-unstyled mb32">
+                      <li>&#9745; 30-days money-back guarantee</li>
+                      <li>&#9745; Invoice sent by e-Mail</li>
+                  </ul>
+                  <h4>Secure Payment</h4>
+                  <ul class="list-unstyled mb32">
+                      <li>&#9745; 256 bit encryption</li>
+                      <li>&#9745; Processed by Ogone</li>
+                  </ul>
+              </div>
+          </div>
+        </form>
+    </xpath>
+</template>
+<template id="myid1" name="myname1" inherit_id="website_sale.checkout">
+    <xpath expr="//div[@class='container oe_website_sale']" position="attributes">
+        <attribute name="t-att-bill">checkout.get('buyMethod') != 'Pickup and pay at store' and '1' or '0'</attribute>
+        <attribute name="t-att-delivery">checkout.get('buyMethod') != 'Pickup and pay at store' and '1' or '0' </attribute>
+    </xpath>
+    <xpath expr="//input[@name='street']/.." position="attributes">
+        <attribute name="bill">1</attribute>
+    </xpath>
+    <xpath expr="//input[@name='street2']/.." position="attributes">
+        <attribute name="bill">1</attribute>
+    </xpath>
+    <xpath expr="//input[@name='city']/.." position="attributes">
+    </xpath>
+    <xpath expr="//input[@name='zip']/.." position="attributes">
+        <attribute name="bill">1</attribute>
+    </xpath>
+    <xpath expr="//select[@name='country_id']/.." position="attributes">
+        <attribute name="bill">1</attribute>
+    </xpath>
+    <xpath expr="//select[@name='shipping_id']/.." position="attributes">
+        <attribute name="bill">1</attribute>
+    </xpath>
+</template>
+</data>
+</openerp>

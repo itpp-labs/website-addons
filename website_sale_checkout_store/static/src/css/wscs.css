@@ -1,0 +1,8 @@
+/*.no_bill [bill='1']{*/
+/*display:none;*/
+/*}*/
+
+
+.oe_website_sale[bill='0'] [bill='1']{
+    display:none;
+}
