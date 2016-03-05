@@ -8,7 +8,9 @@ If it's possible the Pickup and pay at store option would disable the
 billing information but require a name, phone number, and email address.
 
 The Pickup at store but pay now would continue through the pay online process but not include
-shipping information. All options would create a Sales Order that alerts the company
+shipping information.
+
+All options would create a Sales Order that alerts the company
 there is an order. The "Pay now and get delivery" option will just use usual workflow.
 
 Finally, on the admin side there would be an addition to the configuration page where

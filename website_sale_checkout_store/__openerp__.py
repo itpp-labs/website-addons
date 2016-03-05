@@ -9,11 +9,10 @@
     'website': 'https://yelizariev.github.io',
     # 'price': 30.00,
     # 'currency': 'EUR',
-    'depends': ['website'],
+    'depends': ['website_sale'],
     'data': [
         'templates.xml'
     ],
-    'demo': [
-    ],
     'installable': True,
+    'auto_install': False,
 }
