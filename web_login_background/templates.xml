@@ -4,7 +4,7 @@
         <xpath expr="//head" position="inside">
           <t t-if="picture_url">
             <style type="text/css">
-              body.oe_single_form {
+              body.container {
               background: none;
               background-image: url(<t t-raw="picture_url"/>);
               background-size: cover;
