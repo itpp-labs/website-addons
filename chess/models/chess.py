@@ -22,6 +22,13 @@ class ChessGame(models.Model):
     move_game_ids = fields.One2many('chess.game.line', 'game_id', 'Game Move')
     message_game_ids = fields.One2many('chess.game.chat', 'game_id', 'Chat message')
 
+class Users(models.Model):
+    _inherit = ['res.users']
+    _name = 'chess.users'
+    #it's for random game
+    rnd_game_status = fields.Boolean(default=False) #for random game
+    game_rating = fields.Float(default=0) # default value of rating in the game
+
 class ChessGameLine(models.Model):
     _name = 'chess.game.line'
     _description = 'chess game line'
@@ -35,13 +42,27 @@ class ChatMessage(models.Model):
 
     author_id = fields.Many2one('res.users', 'Author')
     game_id = fields.Many2one('chess.game','Game')
-    message = fields.Char(string='Message')
+    message = fields.Text(string='Message')
     date_message = fields.Datetime(string='Date message', default = datetime.datetime.now())
 
     @api.one
     def broadcast(self, message):
         notifications = []
+
         for ps in self.env['chess.game'].search([('message_game_ids.game_id', '=', self.id)]):
+
+            #build the new message
+            author_id = self.env.user.id
+            vals = {
+                "author_id": author_id,
+                "game_id": self.id,
+                "message": message['data'],
+                "date_message": datetime.datetime.now(),
+            }
+
+            # save it
+            self.create(vals)
+
             if ps.first_user_id.id != self.env.user.id:
                 notifications.append([(self._cr.dbname, 'chess.game.chat', ps.first_user_id.id), message])
             else:
@@ -49,36 +70,6 @@ class ChatMessage(models.Model):
         self.env['bus.bus'].sendmany(notifications)
         return 1
 
-    @api.multi
-    def load_message(self, limit=20):
-        self.ensure_one()
-        return self.env['chess.game.chat'].message_fetch(limit=limit)
-
     @api.model
-    def message_fetch(self, limit=20):
-        return self.search(limit=limit).message_format()
-
-    @api.multi
-    def message_format(self):
-        message_values = self.read([
-            'id', 'date_message', 'author_id', 'game_id'
-        ])
-        """ for example
-        {
-            1: {
-                date_message: 19.02.2016,
-                author_id: Alex,
-                game_id: 5,
-                message: "hello, how are you?",
-            },
-
-            2: {
-                date_message: 20.02.2016,
-                author_id: Nikola,
-                game_id: 5,
-                message: "Hi, I'm fine",
-            },
-        }
-        1,2, ... - it's ChatMessage.id
-        """
-        return message_values
+    def message_fetch(self, game_id, limit=20):
+        return self.search([('game_id', '=', game_id)], limit=limit).sorted(key=lambda r: r.id)

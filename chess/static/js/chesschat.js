@@ -40,7 +40,7 @@ odoo.define('chess.chesschat', function (require) {
 
         on_notification_do: function (channel, message) {
             var error = false;
-            if(Array.isArray(channel) && channel[1] === 'chess'){
+            if(Array.isArray(channel) && channel[1] === 'chess.game.chat'){
                 try{
                     this.received_message(message);
                 }catch(err){
@@ -82,9 +82,10 @@ odoo.define('chess.chesschat', function (require) {
         className: "chat_form",
 
         events: {
+
+            "click .toggle_chat": "checked_chat",
             "keydown .message_text": "keydown",
             "click .message_btn": "click_send",
-            "click .toggle_chat": "checked_chat",
         },
 
         init: function() {
@@ -99,22 +100,20 @@ odoo.define('chess.chesschat', function (require) {
             this.opening_chat = true;
 
             var self = this;
-            /*в кукки буду хранить ID игры,
-            если игра уже была когда то загружена то мы показываем историю переписки
-            если игра впервые то инициализируем переменные */
             var cookie = utils.get_cookie('chesschat_session');
             var ready;
             if (!cookie) {
             ready = session.rpc("/chess/game/chat/init", {game_id: self.chess.game.message_game_ids.game_id}).then(function (result) {
-                self.author_name = result.author_name; // имя текущего игрока
-                self.game_id = game_id;
-                utils.set_cookie('chesschat_session', JSON.stringify(self.game_id), 60*60);
+                self.author_name = result.author_name; // current user
+                self.game_id = result.game_id;
+                utils.set_cookie('chesschat_session', JSON.stringify({'game_id': self.game_id, 'author_name': author_name}), 60*60);
             });
             } else {
                 var game = JSON.parse(cookie);
-                ready = session.rpc("/chess/game/chat/history", {game_id: game.id, limit: 100}).then(function (history) {
+                ready = session.rpc("/chess/game/chat/history", {game_id: game.game_id, limit: 100}).then(function (history) {
                     self.history = history;
                 });
+                self.author_name = game.author_name // current user
             }
             ready.always(function () {
                 self.opening_chat = false;
@@ -127,13 +126,17 @@ odoo.define('chess.chesschat', function (require) {
         start: function(){
             if (this.history) {
                 console.log("load history");
-                //show_history()
+                history = this.history
+                history.forEach(function(item, i, history) {
+                    $("#window_chat").append("<p><span class='user'>" + (item['author_name']) +
+                        "</span>: " + (item['message']) + "<br> <span class='time_message'>" +
+                        (item['date_message']) + "</span></p>");
+                    $("#window_chat").each(function () {
+                        this.scrollTop = this.scrollHeight;
+			        });
+                });
             }
         },
-
-        /*show_history:function(){
-
-        },*/
 
         checked_chat: function(){
             if($("#toggle_chat").prop("checked")) {
@@ -141,7 +144,7 @@ odoo.define('chess.chesschat', function (require) {
             } else {
                 console.log("chat is not open");
             }
-        };
+        },
 
         received_message: function(message) {
             var error = false;
@@ -209,7 +212,7 @@ odoo.define('chess.chesschat', function (require) {
 			}
             $('#error').hide();
             $('#message_text').val('');
-            message.author_name = this.author_name;
+            message.author_name = this.author_name; /*????*/
             send_message(message);
         }
     });

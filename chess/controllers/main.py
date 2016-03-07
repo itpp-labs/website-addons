@@ -15,13 +15,21 @@ class Controller(BusController):
 
     @http.route('/chess/game/chat/init', type="json", auth="public")
     def init(self, game_id):
-        ChessChatChannel = request.env["chess.game.chat"].browse(game_id)
-        result = {}
-        return {'other_user_name': other_user_name, 'current_user_name': current_user_name, 'game_id': game_id}
+        #res = request.env["chess.game.chat"].search([('game_id', '=', game_id)])
+        #if (len(res)>0):
+            #author_name = http.request.env.user.name
+            #return {'author_name': author_name, 'game_id': game_id}
+        author_name = http.request.env.user.name # current user
+        return {'author_name': author_name, 'game_id': game_id}
 
     @http.route('/chess/game/chat/history', type="json", auth="public")
     def load_history(self, game_id, limit):
-        history = request.env["chess.game.chat"].browse(game_id).load_message(limit=limit)
+        history = request.env["chess.game.chat"].message_fetch(game_id, limit)
+        hist = []
+        for e in history:
+            d = {'author_name': e.author_id.name, 'message': str(e.message), 'date_message': date_message}
+            hist.append(d)
+        history = hist
         return history
 
     @http.route('/chess/game/chat/send/', type="json", auth="none")
@@ -75,5 +83,10 @@ class Chess(http.Controller):
     @http.route('/chess/list/', auth='public', website=True)
     def user_list(self, **kw):
         games_completed = http.request.env['chess.game'].search([('status', '!=', None)])
+        print("____________________________")
+
+
+
+        print("____________________________")
         current_games = http.request.env['chess.game'].search([('status', '=', None)])
         return http.request.render('chess.listpage', {'games_completed': games_completed, 'current_games': current_games})
