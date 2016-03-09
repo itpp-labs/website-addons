@@ -3,6 +3,10 @@
 /*}*/
 
 
-.oe_website_sale[bill='0'] [bill='1']{
+.oe_website_sale[nobill='0'] [nobill='1']{
+    display:none;
+}
+
+.oe_website_sale[noship='0'] [noship='1']{
     display:none;
 }
