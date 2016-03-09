@@ -10,7 +10,7 @@ from openerp.addons.website.models.website import slug
 from openerp.addons.website_sale.controllers.main import website_sale
 
 class website_sale(website_sale):
-    @http.route()
+    @http.route(['/shop/checkout'], type='http', auth="public", website=True)
     def checkout(self, **post):
         cr, uid, context = request.cr, request.uid, request.context
 
@@ -23,10 +23,10 @@ class website_sale(website_sale):
         vals = {'buy_way': post['buyMethod']}
         order.write(vals)
         values = self.checkout_values()
-        values['checkout'].update(post)
+        values['order'] = order
         return request.website.render("website_sale.checkout", values)
 
-    @http.route()
+    @http.route(['/shop/confirmation'], type='http', auth="public", website=True)
     def payment_confirmation(self, **post):
         """ End of checkout process controller. Confirmation is basically seing
         the status of a sale.order. State at this point :
@@ -39,9 +39,8 @@ class website_sale(website_sale):
 
         sale_order_id = request.session.get('sale_last_order_id')
         if sale_order_id:
-            order = request.registry['sale.order'].browse(cr, SUPERUSER_ID, sale_order_id, context=context)
+            order = request.website.sale_get_order(context=context)
         else:
             return request.redirect('/shop')
-        order = request.website.sale_get_order(context=context)
         values = {'order': order}
         return request.website.render("website_sale.confirmation", values)
