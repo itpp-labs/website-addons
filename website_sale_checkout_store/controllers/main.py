@@ -19,7 +19,28 @@ class website_sale(website_sale):
         redirection = self.checkout_redirection(order)
         if redirection:
             return redirection
-
+       # order.buy_way = post['buyMethod']
+       #  vals = {'buy_way': post['buyMethod']}
+       #  order.write(vals)
         values = self.checkout_values()
         values['checkout'].update(post)
         return request.website.render("website_sale.checkout", values)
+
+    @http.route(['/shop/confirmation'], type='http', auth="public", website=True)
+    def payment_confirmation(self, **post):
+            """ End of checkout process controller. Confirmation is basically seing
+            the status of a sale.order. State at this point :
+
+             - should not have any context / session info: clean them
+             - take a sale.order id, because we request a sale.order and are not
+               session dependant anymore
+            """
+            cr, uid, context = request.cr, request.uid, request.context
+
+            sale_order_id = request.session.get('sale_last_order_id')
+            if sale_order_id:
+                order = request.registry['sale.order'].browse(cr, SUPERUSER_ID, sale_order_id, context=context)
+            else:
+                return request.redirect('/shop')
+            values = {'order': order}
+            return request.website.render("website_sale.confirmation", values)
