@@ -3,7 +3,7 @@
 <data  noupdate="0">
 <template id="my_assets_frontend" name="website_sale_checkout_store assets" inherit_id="website_sale.assets_frontend">
     <xpath expr="//link[@rel='stylesheet']" position="after">
-        <link rel="stylesheet" href="/website_sale_checkout_store/static/src/css/wscs.css"/>
+        <link rel="stylesheet" href="/website_sale_checkout_store/static/src/css/website_sale_checkout_store.css"/>
     </xpath>
 </template>
 <template id="myid" name="myname" inherit_id="website_sale.cart">
@@ -56,43 +56,43 @@
 </template>
 <template id="myid1" name="myname1" inherit_id="website_sale.checkout">
     <xpath expr="//div[@class='container oe_website_sale']" position="attributes">
-        <attribute name="t-att-nobill">'nobill' not in checkout.get('buyMethod') and '1' or '0'</attribute>
-        <attribute name="t-att-noship">'noship' not in checkout.get('buyMethod') and '1' or '0'</attribute>
+        <attribute name="t-att-bill">'bill' not in checkout.get('buyMethod') and '1' or '0'</attribute>
+        <attribute name="t-att-ship">'ship' not in checkout.get('buyMethod') and '1' or '0'</attribute>
     </xpath>
     <xpath expr="//input[@name='street']/.." position="attributes">
-        <attribute name="nobill">1</attribute>
+        <attribute name="bill">1</attribute>
     </xpath>
     <xpath expr="//input[@name='street2']/.." position="attributes">
-        <attribute name="nobill">1</attribute>
+        <attribute name="bill">1</attribute>
     </xpath>
     <xpath expr="//input[@name='city']/.." position="attributes">
     </xpath>
     <xpath expr="//input[@name='zip']/.." position="attributes">
-        <attribute name="nobill">1</attribute>
+        <attribute name="bill">1</attribute>
     </xpath>
     <xpath expr="//select[@name='country_id']/.." position="attributes">
-        <attribute name="nobill">1</attribute>
+        <attribute name="bill">1</attribute>
     </xpath>
     <xpath expr="//select[@name='shipping_id']/.." position="attributes">
-        <attribute name="nobill">1</attribute>
+        <attribute name="bill">1</attribute>
     </xpath>
     <xpath expr="//a[@class='btn btn-default btn-primary pull-right mb32 a-submit']" position="after">
-            <a t-if="'nobill' not in checkout.get('buyMethod') and '1' or '0'" href="/shop/confirmation" class="btn btn-default btn-primary pull-right mb32">Confirm <span class="fa fa-long-arrow-right"/></a>
+            <a t-if="'bill' not in checkout.get('buyMethod') and '1' or '0'" href="/shop/confirmation" class="btn btn-default btn-primary pull-right mb32">Confirm <span class="fa fa-long-arrow-right"/></a>
     </xpath>
     <xpath expr="//a[@class='btn btn-default btn-primary pull-right mb32 a-submit']" position="attributes">
-        <attribute name="nobill">1</attribute>
+        <attribute name="bill">1</attribute>
     </xpath>
 </template>
 <template id="myid2" name="myname2" inherit_id="website_sale.wizard_checkout">
     <xpath expr="//li[@id='step40']" position="attributes">
-        <attribute name="nobill">1</attribute>
+        <attribute name="bill">1</attribute>
     </xpath>
 </template>
 <template id="myid3" name="myname3" inherit_id="website_sale.confirmation">
-    <!--<xpath expr="//div[@class='container oe_website_sale']" position="attributes">-->
-        <!--<attribute name="t-att-nobill">'nobill' not in checkout.get('buyMethod') and '1' or '0'</attribute>-->
-        <!--<attribute name="t-att-noship">'noship' not in checkout.get('buyMethod') and '1' or '0'</attribute>-->
-    <!--</xpath>-->
+    <xpath expr="//div[@class='container oe_website_sale']" position="attributes">
+        <attribute name="t-att-bill">'bill' not in order.buy_way and '1' or '0'</attribute>
+        <attribute name="t-att-ship">'ship' not in order.buy_way and '1' or '0'</attribute>
+    </xpath>
 </template>
 
 </data>
