@@ -1,5 +1,5 @@
 Different ways of checkout in web store
-==============================
+=======================================
 
 Checkout options: "Pickup and pay at store", "Pay now and get delivery", and "Pickup at store but pay now".
 

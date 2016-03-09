@@ -11,7 +11,7 @@
     # 'currency': 'EUR',
     'depends': ['website_sale'],
     'data': [
-        # 'templates.xml'
+         'templates.xml'
     ],
     'installable': True,
     'auto_install': False,
