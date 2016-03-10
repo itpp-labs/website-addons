@@ -3,9 +3,9 @@ Different ways of checkout in web store
 
 Checkout options: "Pickup and pay at store", "Pay now and get delivery", and "Pickup at store but pay now".
 
-Pickup and pay at store option disable the billing information but require a name, phone number, and email address.
+The *Pickup and pay at store* option disable the billing information hide and skip payment but require a name, phone number, and email address.
 
-The Pickup at store but pay now would continue through the pay online process but not include shipping information.
+The *Pickup at store but pay now* would continue through the pay online process but not include shipping information.
 
 All options creates a Sales Order that alerts the company there is an order. 
 The "Pay now and get delivery" option use usual workflow.
