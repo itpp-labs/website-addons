@@ -81,30 +81,6 @@ class website_sale(website_sale):
             return request.website.render("website_sale.confirmation", values)
         return request.website.render("website_sale.payment", values)
 
-    @http.route(['/shop/confirmation'], type='http', auth="public", website=True)
-    def payment_confirmation(self, **post):
-        """ End of checkout process controller. Confirmation is basically seing
-        the status of a sale.order. State at this point :
-
-         - should not have any context / session info: clean them
-         - take a sale.order id, because we request a sale.order and are not
-           session dependant anymore
-        """
-        cr, uid, context = request.cr, request.uid, request.context
-        try:
-            order = request.website.sale_get_order(context=context)
-            if 'nobill' in order.buy_way:
-                return request.website.render("website_sale.confirmation", {'order': order})
-        except:
-            pass
-        sale_order_id = request.session.get('sale_last_order_id')
-        if sale_order_id:
-            order = request.registry['sale.order'].browse(cr, SUPERUSER_ID, sale_order_id, context=context)
-        else:
-            return request.redirect('/shop')
-
-        return request.website.render("website_sale.confirmation", {'order': order})
-
     @http.route(['/shop/confirm_order'], type='http', auth="public", website=True)
     def confirm_order(self, **post):
         cr, uid, context, registry = request.cr, request.uid, request.context, request.registry
@@ -121,8 +97,9 @@ class website_sale(website_sale):
 
         values["error"], values["error_message"] = self.checkout_form_validate(values["checkout"])
         if values["error"]:
+            order = request.website.sale_get_order(force_create=1, context=context)
+            values['order'] = order
             return request.website.render("website_sale.checkout", values)
-
         self.checkout_form_save(values["checkout"])
 
         if not int(post.get('shipping_id', 0)):
