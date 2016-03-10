@@ -6,13 +6,7 @@
 .oe_website_sale[bill_enabled='0'] [bill='1']{
     display:none;
 }
-.oe_website_sale[bill_enabled='1'] [bill='0']{
-    display:none;
-}
 
 .oe_website_sale[ship_enabled='0'] [ship='1']{
-    display:none;
-}
-.oe_website_sale[ship_enabled='1'] [ship='0']{
     display:none;
 }
