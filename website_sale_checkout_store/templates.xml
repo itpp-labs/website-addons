@@ -77,6 +77,9 @@
     <xpath expr="//select[@name='shipping_id']/.." position="attributes">
         <attribute name="ship">1</attribute>
     </xpath>
+    <xpath expr="//div[@class='js_shipping row mb16']" position="attributes">
+        <attribute name="ship">1</attribute>
+    </xpath>
     <!--<xpath expr="//a[@class='btn btn-default btn-primary pull-right mb32 a-submit']" position="after">-->
             <!--<a bill = '0' href="/shop/confirmation" class="btn btn-default btn-primary pull-right mb32">Confirm <span class="fa fa-long-arrow-right"/></a>-->
     <!--</xpath>-->
