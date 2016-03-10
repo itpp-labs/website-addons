@@ -17,23 +17,23 @@
                   <div class="clearfix"/>
                   <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                   <div class="row">
-                        <div class="pull-right">
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="buyMethod" id="opt1" value="nobill_noship" checked="true"/>Pickup and pay at store
-                                </label>
-                            </div>
-                            <div class="radio">
-                            <label>
-                                <input type="radio" name="buyMethod" id="opt2" value="bill_ship"/>Pay now and get delivery
-                            </label>
-                        </div>
-                            <div class="radio">
-                            <label>
-                                <input type="radio" name="buyMethod" id="opt3" value="bill_noship"/>Pickup at store but pay now
-                            </label>
-                        </div>
-                        </div>
+                      <div class="pull-right">
+                          <div class="radio">
+                              <label>
+                                  <input type="radio" name="buyMethod" id="opt1" value="nobill_noship" checked="true"/>Pickup and pay at store
+                              </label>
+                          </div>
+                          <div class="radio">
+                              <label>
+                                  <input type="radio" name="buyMethod" id="opt3" value="bill_noship"/>Pickup at store but pay now
+                              </label>
+                          </div>
+                          <div class="radio">
+                              <label>
+                                  <input type="radio" name="buyMethod" id="opt2" value="bill_ship"/>Pay now and get delivery
+                              </label>
+                          </div>
+                      </div>
                   </div>
                   <a t-if="not optional_products and website_sale_order and website_sale_order.website_order_line" class="btn btn-primary pull-right mb32 a-submit"><span class="hidden-xs">Process Checkout</span><span class="visible-xs-inline">Checkout</span> <span class="fa fa-long-arrow-right"/></a>
                   <div class="oe_structure"/>
@@ -56,32 +56,33 @@
 </template>
 <template id="myid1" name="myname1" inherit_id="website_sale.checkout">
     <xpath expr="//div[@class='container oe_website_sale']" position="attributes">
-        <attribute name="t-att-bill">not 'nobill' in order.buy_way and '1' or '0'</attribute>
-        <attribute name="t-att-ship">'noship' in order.buy_way and '1' or '0'</attribute>
+        <attribute name="t-att-bill_enabled">not 'nobill' in order.buy_way and '1' or '0'</attribute>
+        <attribute name="t-att-ship_enabled">not 'noship' in order.buy_way and '1' or '0'</attribute>
     </xpath>
     <xpath expr="//input[@name='street']/.." position="attributes">
-        <attribute name="bill">1</attribute>
+        <attribute name="ship">1</attribute>
     </xpath>
     <xpath expr="//input[@name='street2']/.." position="attributes">
-        <attribute name="bill">1</attribute>
+        <attribute name="ship">1</attribute>
     </xpath>
     <xpath expr="//input[@name='city']/.." position="attributes">
+        <attribute name="ship">1</attribute>
     </xpath>
     <xpath expr="//input[@name='zip']/.." position="attributes">
-        <attribute name="bill">1</attribute>
+        <attribute name="ship">1</attribute>
     </xpath>
     <xpath expr="//select[@name='country_id']/.." position="attributes">
-        <attribute name="bill">1</attribute>
+        <attribute name="ship">1</attribute>
     </xpath>
     <xpath expr="//select[@name='shipping_id']/.." position="attributes">
-        <attribute name="bill">1</attribute>
+        <attribute name="ship">1</attribute>
     </xpath>
-    <xpath expr="//a[@class='btn btn-default btn-primary pull-right mb32 a-submit']" position="after">
-            <a t-if=" not 'nobill' in order.buy_way and '0' or '1'" href="/shop/confirmation" class="btn btn-default btn-primary pull-right mb32">Confirm <span class="fa fa-long-arrow-right"/></a>
-    </xpath>
-    <xpath expr="//a[@class='btn btn-default btn-primary pull-right mb32 a-submit']" position="attributes">
-        <attribute name="bill">1</attribute>
-    </xpath>
+    <!--<xpath expr="//a[@class='btn btn-default btn-primary pull-right mb32 a-submit']" position="after">-->
+            <!--<a bill = '0' href="/shop/confirmation" class="btn btn-default btn-primary pull-right mb32">Confirm <span class="fa fa-long-arrow-right"/></a>-->
+    <!--</xpath>-->
+    <!--<xpath expr="//a[@class='btn btn-default btn-primary pull-right mb32 a-submit']" position="attributes">-->
+        <!--<attribute name="bill">1</attribute>-->
+    <!--</xpath>-->
 </template>
 <template id="myid2" name="myname2" inherit_id="website_sale.wizard_checkout">
     <xpath expr="//li[@id='step40']" position="attributes">
@@ -90,8 +91,8 @@
 </template>
 <template id="myid3" name="myname3" inherit_id="website_sale.confirmation">
     <xpath expr="//div[@class='container oe_website_sale']" position="attributes">
-        <attribute name="t-att-bill">'bill' in order.buy_way and '1' or '0'</attribute>
-        <attribute name="t-att-ship">'ship' in order.buy_way and '1' or '0'</attribute>
+        <attribute name="t-att-bill_enabled">not 'nobill' in order.buy_way and '1' or '0'</attribute>
+        <attribute name="t-att-ship_enabled">not 'noship' in order.buy_way and '1' or '0'</attribute>
     </xpath>
 </template>
 
