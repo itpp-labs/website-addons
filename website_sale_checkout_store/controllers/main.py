@@ -16,9 +16,9 @@ class website_sale(website_sale):
         redirection = self.checkout_redirection(order)
         if redirection:
             return redirection
-
+        order.buy_way = post['buyMethod']
         values = self.checkout_values()
-
+        values['order'] = order
         return request.website.render("website_sale.checkout", values)
 
     @http.route(['/shop/payment'], type='http', auth="public", website=True)
@@ -73,5 +73,6 @@ class website_sale(website_sale):
                         'billing_partner_id': order.partner_invoice_id.id,
                     },
                     context=render_ctx)
-
+        if 'nobill' in order.buy_way:
+            return request.website.render("website_sale.confirmation", values)
         return request.website.render("website_sale.payment", values)
