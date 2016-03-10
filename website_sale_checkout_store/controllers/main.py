@@ -17,8 +17,9 @@ class website_sale(website_sale):
         if redirection:
             return redirection
         order.buy_way = post['buyMethod']
-        vals = {'buy_way': post['buyMethod']}
-        order.write(vals)
+        if 'noship' in order.buy_way:
+            website_sale.mandatory_billing_fields = ["name", "phone", "email"]
+            website_sale.mandatory_shipping_fields = ["name", "phone", "email"]
         values = self.checkout_values()
         values['order'] = order
 
@@ -90,7 +91,12 @@ class website_sale(website_sale):
            session dependant anymore
         """
         cr, uid, context = request.cr, request.uid, request.context
-
+        try:
+            order = request.website.sale_get_order(context=context)
+            if 'nobill' in order.buy_way:
+                return request.website.render("website_sale.confirmation", {'order': order})
+        except:
+            pass
         sale_order_id = request.session.get('sale_last_order_id')
         if sale_order_id:
             order = request.registry['sale.order'].browse(cr, SUPERUSER_ID, sale_order_id, context=context)
@@ -98,3 +104,36 @@ class website_sale(website_sale):
             return request.redirect('/shop')
 
         return request.website.render("website_sale.confirmation", {'order': order})
+
+    @http.route(['/shop/confirm_order'], type='http', auth="public", website=True)
+    def confirm_order(self, **post):
+        cr, uid, context, registry = request.cr, request.uid, request.context, request.registry
+
+        order = request.website.sale_get_order(context=context)
+        if not order:
+            return request.redirect("/shop")
+
+        redirection = self.checkout_redirection(order)
+        if redirection:
+            return redirection
+
+        values = self.checkout_values(post)
+
+        values["error"], values["error_message"] = self.checkout_form_validate(values["checkout"])
+        if values["error"]:
+            return request.website.render("website_sale.checkout", values)
+
+        self.checkout_form_save(values["checkout"])
+
+        if not int(post.get('shipping_id', 0)):
+            order.partner_shipping_id = order.partner_invoice_id
+
+        request.session['sale_last_order_id'] = order.id
+
+        request.website.sale_get_order(update_pricelist=True, context=context)
+
+        extra_step = registry['ir.model.data'].xmlid_to_object(cr, uid, 'website_sale.extra_info_option', raise_if_not_found=True)
+        if extra_step.active:
+            return request.redirect("/shop/extra_info")
+
+        return request.redirect("/shop/payment")
