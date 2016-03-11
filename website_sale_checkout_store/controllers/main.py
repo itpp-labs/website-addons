@@ -84,7 +84,8 @@ class website_sale(website_sale):
                     },
                     context=render_ctx)
         if 'nobill' in order.buy_way:
-            return request.website.render("website_sale.confirmation", values)
+            request.website.sale_reset(context=context)
+            return request.redirect('/shop/confirmation')
         return request.website.render("website_sale.payment", values)
 
     @http.route(['/shop/confirm_order'], type='http', auth="public", website=True)
