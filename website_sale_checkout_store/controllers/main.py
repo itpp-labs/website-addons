@@ -16,7 +16,10 @@ class website_sale(website_sale):
         redirection = self.checkout_redirection(order)
         if redirection:
             return redirection
-        order.buy_way = post['buyMethod']
+        try:
+            order.buy_way = post['buyMethod']
+        except:
+            pass
         if 'noship' in order.buy_way:
             website_sale.mandatory_billing_fields = ["name", "phone", "email"]
             website_sale.mandatory_shipping_fields = ["name", "phone", "email"]
