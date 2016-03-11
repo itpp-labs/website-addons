@@ -20,6 +20,9 @@ class website_sale(website_sale):
         if 'noship' in order.buy_way:
             website_sale.mandatory_billing_fields = ["name", "phone", "email"]
             website_sale.mandatory_shipping_fields = ["name", "phone", "email"]
+        else:
+            mandatory_billing_fields = ["name", "phone", "email", "street2", "city", "country_id"]
+            mandatory_shipping_fields = ["name", "phone", "street", "city", "country_id"]
         values = self.checkout_values()
         values['order'] = order
 
