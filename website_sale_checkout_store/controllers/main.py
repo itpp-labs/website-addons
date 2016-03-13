@@ -39,7 +39,7 @@ class website_sale(website_sale):
             request.website.sale_reset(context=context)
             return request.redirect('/shop/confirmation')
         else:
-            super(website_sale, self).payment(post)
+            return super(website_sale, self).payment()
 
     @http.route(['/shop/confirm_order'], type='http', auth="public", website=True)
     def confirm_order(self, **post):
