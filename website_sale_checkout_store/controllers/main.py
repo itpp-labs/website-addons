@@ -43,8 +43,14 @@ class website_sale(website_sale):
 
     @http.route(['/shop/confirm_order'], type='http', auth="public", website=True)
     def confirm_order(self, **post):
-        cr, uid, context, registry = request.cr, request.uid, request.context, request.registry
-
-        order = request.website.sale_get_order(context=context)
+        order = request.website.sale_get_order(context=request.context)
         post['order'] = order
         return super(website_sale, self).confirm_order(**post)
+
+    def checkout_values(self, data=None):
+        res = super(website_sale, self).checkout_values(data)
+        if data:
+            order = data.get('order')
+            if order:
+                res['order'] = order
+        return res
