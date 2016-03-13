@@ -46,31 +46,5 @@ class website_sale(website_sale):
         cr, uid, context, registry = request.cr, request.uid, request.context, request.registry
 
         order = request.website.sale_get_order(context=context)
-        if not order:
-            return request.redirect("/shop")
-
-        redirection = self.checkout_redirection(order)
-        if redirection:
-            return redirection
-
-        values = self.checkout_values(post)
-
-        values["error"], values["error_message"] = self.checkout_form_validate(values["checkout"])
-        if values["error"]:
-            order = request.website.sale_get_order(force_create=1, context=context)
-            values['order'] = order
-            return request.website.render("website_sale.checkout", values)
-        self.checkout_form_save(values["checkout"])
-
-        if not int(post.get('shipping_id', 0)):
-            order.partner_shipping_id = order.partner_invoice_id
-
-        request.session['sale_last_order_id'] = order.id
-
-        request.website.sale_get_order(update_pricelist=True, context=context)
-
-        extra_step = registry['ir.model.data'].xmlid_to_object(cr, uid, 'website_sale.extra_info_option', raise_if_not_found=True)
-        if extra_step.active:
-            return request.redirect("/shop/extra_info")
-
-        return request.redirect("/shop/payment")
+        post['order'] = order
+        return super(website_sale, self).confirm_order(**post)
