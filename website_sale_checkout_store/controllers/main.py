@@ -36,7 +36,49 @@ class website_sale(website_sale):
         cr, uid, context = request.cr, request.uid, request.context
         order = request.website.sale_get_order(context=context)
         if 'nobill' in order.buy_way:
+            acquirer_id = 1
+            transaction_obj = request.registry.get('payment.transaction')
+            tx_id = transaction_obj.create(cr, SUPERUSER_ID, {
+                'acquirer_id': acquirer_id,
+                'type': 'form',
+                'amount': order.amount_total,
+                'currency_id': order.pricelist_id.currency_id.id,
+                'partner_id': order.partner_id.id,
+                'partner_country_id': order.partner_id.country_id.id,
+                'reference': request.env['payment.transaction'].get_next_reference(order.name),
+                'sale_order_id': order.id,
+            }, context=context)
+            request.session['sale_transaction_id'] = tx_id
+            tx = transaction_obj.browse(cr, SUPERUSER_ID, tx_id, context=context)
+            # update quotation
+            request.registry['sale.order'].write(
+                cr, SUPERUSER_ID, [order.id], {
+                    'payment_acquirer_id': acquirer_id,
+                    'payment_tx_id': request.session['sale_transaction_id']
+                }, context=context)
+            # confirm the quotation
+            if tx.acquirer_id.auto_confirm == 'at_pay_now':
+                request.registry['sale.order'].action_confirm(cr, SUPERUSER_ID, [order.id], context=dict(request.context, send_email=True))
+            order.with_context(dict(context, send_email=True)).action_confirm()
             request.website.sale_reset(context=context)
             return request.redirect('/shop/confirmation')
         else:
             return super(website_sale, self).payment()
+
+    @http.route(['/shop/confirmation'], type='http', auth="public", website=True)
+    def payment_confirmation(self, **post):
+        """ End of checkout process controller. Confirmation is basically seing
+        the status of a sale.order. State at this point :
+
+         - should not have any context / session info: clean them
+         - take a sale.order id, because we request a sale.order and are not
+           session dependant anymore
+        """
+        cr, uid, context = request.cr, request.uid, request.context
+
+        sale_order_id = request.session.get('sale_last_order_id')
+        if sale_order_id:
+            order = request.registry['sale.order'].browse(cr, SUPERUSER_ID, sale_order_id, context=context)
+        else:
+            return request.redirect('/shop')
+        return request.website.render("website_sale.confirmation", {'order': order})
