@@ -74,6 +74,9 @@
     <xpath expr="//select[@name='country_id']/.." position="attributes">
         <attribute name="ship">1</attribute>
     </xpath>
+    <xpath expr="//select[@name='state_id']/.." position="attributes">
+        <attribute name="ship">1</attribute>
+    </xpath>
     <xpath expr="//select[@name='shipping_id']/.." position="attributes">
         <attribute name="ship">1</attribute>
     </xpath>
