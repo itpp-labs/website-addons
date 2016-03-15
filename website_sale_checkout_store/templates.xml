@@ -16,16 +16,17 @@
 
                   <div class="clearfix"/>
                   <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                  <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
                   <div class="row">
                       <div class="pull-right">
                           <div class="radio">
                               <label>
-                                  <input type="radio" name="buyMethod" id="opt1" value="nobill_noship" checked="true"/>Pickup and pay at store
+                                  <input t-if="website_sale_order.nobill_noship" type="radio" name="buyMethod" id="opt1" value="nobill_noship" checked="true"/>Pickup and pay at store
                               </label>
                           </div>
                           <div class="radio">
                               <label>
-                                  <input type="radio" name="buyMethod" id="opt3" value="bill_noship"/>Pickup at store but pay now
+                                  <input t-if="website_sale_order.bill_noship" type="radio" name="buyMethod" id="opt3" value="bill_noship"/>Pickup at store but pay now
                               </label>
                           </div>
                           <div class="radio">
@@ -107,6 +108,5 @@
         <attribute name="t-att-ship_enabled">not 'noship' in order.buy_way and '1' or '0'</attribute>
     </xpath>
 </template>
-
 </data>
 </openerp>

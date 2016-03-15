@@ -1,18 +1,27 @@
+# -*- coding: utf-8 -*-
 {
-    'name': "Website sale checkout store",
-    'version': '1.0.0',
-    'summary': """Website sale checkout store""",
-    'author': 'IT-Projects LLC',
-    'license': 'LGPL-3',
-    'category': 'Website',
-    # 'images': ['images/pos-multi-session.png'],
-    'website': 'https://yelizariev.github.io',
-    # 'price': 30.00,
-    # 'currency': 'EUR',
-    'depends': ['website_sale'],
-    'data': [
-         'templates.xml'
-    ],
-    'installable': True,
-    'auto_install': False,
-}
+     'name': """Website sale checkout store""",
+     'summary': """Select shipping and billing variants in web shop""",
+     'category': 'Website',
+     'images': [],
+     'version': '1.0.0',
+
+     'author': 'IT-Projects LLC',
+     'website': 'https://it-projects.info',
+     'license': 'LGPL-3',
+     #'price': 9.00,
+     #'currency': 'EUR',
+
+     'depends': [
+         'website_sale',
+     ],
+     'external_dependencies': {'python': [], 'bin': []},
+     'data': [
+         'templates.xml',
+         'views.xml',
+     ],
+     'demo': [
+     ],
+     'installable': True,
+     'auto_install': False,
+ }
