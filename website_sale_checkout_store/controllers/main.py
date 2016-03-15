@@ -36,31 +36,18 @@ class website_sale(website_sale):
         cr, uid, context = request.cr, request.uid, request.context
         order = request.website.sale_get_order(context=context)
         if 'nobill' in order.buy_way:
-            acquirer_id = 1
-            transaction_obj = request.registry.get('payment.transaction')
-            tx_id = transaction_obj.create(cr, SUPERUSER_ID, {
-                'acquirer_id': acquirer_id,
-                'type': 'form',
-                'amount': order.amount_total,
-                'currency_id': order.pricelist_id.currency_id.id,
-                'partner_id': order.partner_id.id,
-                'partner_country_id': order.partner_id.country_id.id,
-                'reference': request.env['payment.transaction'].get_next_reference(order.name),
-                'sale_order_id': order.id,
-            }, context=context)
-            request.session['sale_transaction_id'] = tx_id
-            tx = transaction_obj.browse(cr, SUPERUSER_ID, tx_id, context=context)
-            # update quotation
-            request.registry['sale.order'].write(
-                cr, SUPERUSER_ID, [order.id], {
-                    'payment_acquirer_id': acquirer_id,
-                    'payment_tx_id': request.session['sale_transaction_id']
-                }, context=context)
-            # confirm the quotation
-            if tx.acquirer_id.auto_confirm == 'at_pay_now':
-                request.registry['sale.order'].action_confirm(cr, SUPERUSER_ID, [order.id], context=dict(request.context, send_email=True))
-            order.with_context(dict(context, send_email=True)).action_confirm()
+            order.force_quotation_send()
             request.website.sale_reset(context=context)
             return request.redirect('/shop/confirmation')
         else:
             return super(website_sale, self).payment()
+
+    @http.route('/shop/payment/get_status/<int:sale_order_id>', type='json', auth="public", website=True)
+    def payment_get_status(self, sale_order_id, **post):
+        cr, uid, context = request.cr, request.uid, request.context
+
+        order = request.registry['sale.order'].browse(cr, SUPERUSER_ID, sale_order_id, context=context)
+        if 'nobill' in order.buy_way:
+            return {'recall': False, 'message':''}
+        else:
+            return super(website_sale, self).payment_get_status(sale_order_id, **post)
