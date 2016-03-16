@@ -21,6 +21,10 @@
                             <field name="bill_ship" />
                             <label for="bill_ship"/>
                         </div>
+                        <div>
+                            <field name="nobill_ship" />
+                            <label for="nobill_ship"/>
+                        </div>
                     </div>
                 </group>
             </group>
