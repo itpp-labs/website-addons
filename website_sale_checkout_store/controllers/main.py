@@ -18,12 +18,16 @@ class website_sale(website_sale):
             order.buy_way = post['buyMethod']
         except:
             pass
-        if 'noship' in order.buy_way:
-            website_sale.mandatory_billing_fields = ["name", "phone", "email"]
-            website_sale.mandatory_shipping_fields = ["name", "phone", "email"]
+        if order.buy_way:
+            if 'noship' in order.buy_way:
+                website_sale.mandatory_billing_fields = ["name", "phone", "email"]
+                website_sale.mandatory_shipping_fields = ["name", "phone", "email"]
+            else:
+                website_sale.mandatory_billing_fields = ["name", "phone", "email", "street2", "city", "country_id"]
+                website_sale.mandatory_shipping_fields = ["name", "phone", "street", "city", "country_id"]
         else:
-            website_sale.mandatory_billing_fields = ["name", "phone", "email", "street2", "city", "country_id"]
-            website_sale.mandatory_shipping_fields = ["name", "phone", "street", "city", "country_id"]
+            # Means no one radio button on cart form. Use regular variant.
+            order.buy_way = 'bill_ship'
         values = self.checkout_values()
         values['order'] = order
 
