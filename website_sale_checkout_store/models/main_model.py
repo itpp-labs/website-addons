@@ -12,5 +12,33 @@ class sale_order(osv.Model):
 
 class website_config_settings(models.TransientModel):
     _inherit = 'website.config.settings'
-    module_nobill_noship = fields_new_api.Boolean("Pickup and pay at store")
-    module_bill_noship = fields_new_api.Boolean("Pickup at store but pay now")
+    nobill_noship = fields_new_api.Boolean("Pickup and pay at store")
+    bill_noship = fields_new_api.Boolean("Pickup at store but pay now")
+    bill_ship = fields_new_api.Boolean("Pay now and get delivery")
+
+    def set_nobill_noship(self, cr, uid, ids, context=None):
+        config_parameters = self.pool.get("ir.config_parameter")
+        for record in self.browse(cr, uid, ids, context=context):
+            config_parameters.set_param(cr, uid, "website_sale_checkout_store.nobill_noship", record.nobill_noship or '', context=context)
+
+    def set_bill_noship(self, cr, uid, ids, context=None):
+        config_parameters = self.pool.get("ir.config_parameter")
+        for record in self.browse(cr, uid, ids, context=context):
+            config_parameters.set_param(cr, uid, "website_sale_checkout_store.bill_noship", record.bill_noship or '', context=context)
+
+    def set_bill_ship(self, cr, uid, ids, context=None):
+        config_parameters = self.pool.get("ir.config_parameter")
+        for record in self.browse(cr, uid, ids, context=context):
+            config_parameters.set_param(cr, uid, "website_sale_checkout_store.bill_ship", record.bill_ship or '', context=context)
+
+    def get_default_nobill_noship(self, cr, uid, ids, context=None):
+        nobill_noship = self.pool.get("ir.config_parameter").get_param(cr, uid, "website_sale_checkout_store.nobill_noship", default=True, context=context)
+        return {'nobill_noship': nobill_noship}
+
+    def get_default_bill_noship(self, cr, uid, ids, context=None):
+        bill_noship = self.pool.get("ir.config_parameter").get_param(cr, uid, "website_sale_checkout_store.bill_noship", default=True, context=context)
+        return {'bill_noship': bill_noship}
+
+    def get_default_bill_ship(self, cr, uid, ids, context=None):
+        bill_ship = self.pool.get("ir.config_parameter").get_param(cr, uid, "website_sale_checkout_store.bill_ship", default=True, context=context)
+        return {'bill_ship': bill_ship}

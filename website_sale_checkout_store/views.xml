@@ -7,15 +7,19 @@
         <field name="arch" type="xml">
             <group name="social" position="before">
                 <group name="shipping_billing" string="Shipping and billing">
-                    <label for="module_nobill_noship" string="Ways of sale"/>
+                    <label for="nobill_noship" string="Ways of sale"/>
                     <div>
                         <div>
-                            <field name="module_nobill_noship"/>
-                            <label for="module_nobill_noship"/>
+                            <field name="nobill_noship"/>
+                            <label for="nobill_noship"/>
                         </div>
                         <div>
-                            <field name="module_bill_noship" />
-                            <label for="module_bill_noship"/>
+                            <field name="bill_noship" />
+                            <label for="bill_noship"/>
+                        </div>
+                        <div>
+                            <field name="bill_ship" />
+                            <label for="bill_ship"/>
                         </div>
                     </div>
                 </group>
