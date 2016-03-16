@@ -11,15 +11,14 @@
         <form action="/shop/checkout" name="myform" method="post">
             <div class="row">
               <div class="col-md-8 col-sm-9 oe_cart">
-
                   <t t-call="website_sale.cart_lines"/>
-
                   <div class="clearfix"/>
                   <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                   <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
                   <t t-set="nobill_noship" t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.nobill_noship')"/>
                   <t t-set="bill_noship" t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.bill_noship')"/>
                   <t t-set="bill_ship" t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.bill_ship')"/>
+                  <t t-set="nobill_ship" t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.nobill_ship')"/>
                   <!--<p>nobill_noship <t t-esc="nobill_noship"/></p>-->
                   <!--<p>bill_noship <t t-esc="bill_noship or 'FALSE'"/></p>-->
                   <!--<p>bill_ship <t t-esc="bill_ship"/></p>-->
@@ -38,6 +37,11 @@
                           <div class="radio">
                               <label t-if="bill_ship">
                                   <input type="radio" name="buyMethod" id="opt2" value="bill_ship"/>Pay now and get delivery
+                              </label>
+                          </div>
+                          <div class="radio">
+                              <label t-if="nobill_ship">
+                                  <input type="radio" name="buyMethod" id="opt4" value="nobill_ship"/>Pay on delivery
                               </label>
                           </div>
                       </div>
