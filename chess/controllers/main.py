@@ -1,24 +1,22 @@
 # -*- coding: utf-8 -*-
+import openerp
 from openerp import http
-from openerp.addons.base import res
 from openerp.http import request
-from openerp.addons.bus.controllers.main import BusController
+from openerp.addons.base import res
 import werkzeug
 import datetime
 import random
 
-class Controller(BusController):
+class Controller(openerp.addons.bus.bus.Controller):
     def _poll(self, dbname, channels, last, options):
         if request.session.uid:
             channels.append((request.db, 'chess.game.chat', request.uid))
         return super(Controller, self)._poll(dbname, channels, last, options)
 
+    #server chess chat
+
     @http.route('/chess/game/chat/init', type="json", auth="public")
-    def init(self, game_id):
-        #res = request.env["chess.game.chat"].search([('game_id', '=', game_id)])
-        #if (len(res)>0):
-            #author_name = http.request.env.user.name
-            #return {'author_name': author_name, 'game_id': game_id}
+    def init_game(self, game_id):
         author_name = http.request.env.user.name # current user
         return {'author_name': author_name, 'game_id': game_id}
 
@@ -27,7 +25,7 @@ class Controller(BusController):
         history = request.env["chess.game.chat"].message_fetch(game_id, limit)
         hist = []
         for e in history:
-            d = {'author_name': e.author_id.name, 'message': str(e.message), 'date_message': date_message}
+            d = {'author_name': e.author_id.name, 'message': str(e.message), 'date_message': e.date_message}
             hist.append(d)
         history = hist
         return history
@@ -36,6 +34,18 @@ class Controller(BusController):
     def chat_message_send(self, game_id, message):
         res = request.env["chess.game.chat"].browse(int(game_id)).broadcast(message)
         return res
+
+    #server chess game
+
+    @http.route('/chess/game/move/', type="json", auth="none")
+    def move_send(self, game_id, message):
+        return res
+
+    @http.route('/chess/game/load_move/', type="json", auth="none")
+    def move_load(self, game_id, message):
+        return res
+
+
 #____________________________________________________________________________________________
 
 class Chess(http.Controller):
@@ -59,10 +69,11 @@ class Chess(http.Controller):
             from werkzeug.exceptions import NotFound
             raise NotFound()
         if second_user_id=='0':
-            users = http.request.env['res.users'].search([('id', '!=', http.request.env.user.id)])
+            users = http.request.env['res.users'].search([('id', '!=', http.request.env.user.id),('rnd_game_status', '=', True)])
             users = [e.id for e in users]
             user_list = random.sample(users,1)
             second_user_id = user_list[0]
+            request.env['res.users'].message_fetch(second_user_id)
 
         if first_color_figure=='white':
             second_color_figure='black'
@@ -80,13 +91,19 @@ class Chess(http.Controller):
         location = '/chess/game/'+str(new_game.id)
         return werkzeug.utils.redirect(location)
 
-    @http.route('/chess/list/', auth='public', website=True)
-    def user_list(self, **kw):
-        games_completed = http.request.env['chess.game'].search([('status', '!=', None)])
-        print("____________________________")
+    #it's for examples
+    # @http.route('/resultat/', auth='public', website=True)
+    # def user(self, **kw):
+    #     user = http.request.env['res.users'].search([('id', '!=', http.request.env.user.id),('rnd_game_status', '=', True)])
+    #     print(user)
+    #     print("_________________________")
+    #     return http.request.render('chess.userpage', {'user': user})
 
-
-
-        print("____________________________")
-        current_games = http.request.env['chess.game'].search([('status', '=', None)])
-        return http.request.render('chess.listpage', {'games_completed': games_completed, 'current_games': current_games})
+    @http.route('/chess/random_game/', auth='none')
+    def user_list(self, status=None, **kw):
+        if status==None:
+            from werkzeug.exceptions import NotFound
+            raise NotFound()
+        user_id = http.request.env.user.id
+        request.env['res.users'].message_fetch(user_id)
+        return 1

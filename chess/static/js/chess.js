@@ -1273,6 +1273,10 @@ window['Chess'] = window['Chess'] || function(fen) {
 		  move_string = pgn_move_number + '.';
           pgn_move_number++;
         }
+          if (!dt_move){
+			var dt_move = [make_pretty(move).from + '-' + make_pretty(move).to];
+			var temp = reversed_history.slice(-1);
+          }
         move_string = move_string + ' ' +'<a href="#" data-move="'+dt_move+'">' + move_to_san(move) + '</a>';
 		dt_move.pop();
 		if(temp.length) dt_move.push(make_pretty(temp[0]).from + '-' + make_pretty(temp[0]).to);

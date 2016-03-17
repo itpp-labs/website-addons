@@ -9,8 +9,11 @@ var init = function() {
   var other_user_surrender=false;
   var this_user_surrender=false;
   var chat_status=false;
-  other_user=true; //for example
-  
+  other_user=true;
+	var element = document.getElementById('board')
+	if (!element) {
+		return;
+	}
   var board,
   game = new Chess(),
   statusEl = $('#status'),
@@ -362,7 +365,6 @@ var init = function() {
 	  compelled_game_over(status);
   };
 
-  
   var board = ChessBoard('board', cfg);
   $('#flipOrientationBtn').on('click', board.flip);
   updateStatus();

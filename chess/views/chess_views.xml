@@ -6,6 +6,21 @@
       <field name="res_model">chess.game</field>
     </record>
 
+    <record id="action_new_chess_game" model="ir.actions.act_window">
+      <field name="name">New games</field>
+      <field name="res_model">chess.game</field>
+    </record>
+
+    <record id="action_active_chess_game" model="ir.actions.act_window">
+      <field name="name">Active games</field>
+      <field name="res_model">chess.game</field>
+    </record>
+
+    <record id="action_completed_chess_game" model="ir.actions.act_window">
+      <field name="name">Completed games</field>
+      <field name="res_model">chess.game</field>
+    </record>
+
     <record id="chess_game_form" model="ir.ui.view">
       <field name="name">Chess game: form</field>
       <field name="model">chess.game</field>
@@ -36,6 +51,7 @@
         </form>
       </field>
     </record>
+
 
     <record id="action_chess_game_line" model="ir.actions.act_window">
       <field name="name">Chess game line</field>
@@ -70,11 +86,29 @@
       </field>
     </record>
 
+
+
     <menuitem sequence="0" id="menu_chess" name="Chess"/>
+    <menuitem id="adm_chess_content" parent="menu_chess"
+            name="Administration"/>
     <menuitem id="menu_chess_content" parent="menu_chess"
-            name="Game"/>
+            name="Chess"/>
+
+    <!--only for super user-->
     <menuitem id="menu_chess_content_game"
-            parent="menu_chess_content"
+            parent="adm_chess_content"
             action="action_chess_game"/>
+
+    <!--for all user-->
+    <menuitem id="menu_new_chess_content"
+            parent="menu_chess_content"
+            action="action_new_chess_game"/>
+    <menuitem id="menu_active_chess_content"
+            parent="menu_chess_content"
+            action="action_active_chess_game"/>
+    <menuitem id="menu_completed_chess_content"
+            parent="menu_chess_content"
+            action="action_completed_chess_game"/>
+
   </data>
 </openerp>

@@ -6,16 +6,16 @@
                         <div class="container">
                             <h1>Chess Services</h1>
                             <div class='menu'>
-                                <ul class="services">
+                                <ul class="chess_services">
 				                    <li><a href="#?w=400" rel="popup1" class="poplight">Create game</a></li>
 				                    <li><a href="#?w=400" rel="popup2" class="poplight">Play with a friend</a></li>
-				                    <li><a href="#?w=400" rel="popup3" class="poplight">Play with a random player</a></li>
+				                    <li><a href="#?w=400" rel="popup3" class="poplight" onclick="rnd_game()">Play with a random player</a></li>
 			                    </ul>
                             </div>
                             <div id="popup1" class="popup_block">
                                 <h2>Create game</h2>
                                 <form name="create_game" action="/chess/game/" method="post" data-model_name="chess.game">
-                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <!--<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
                                     <div class="popup_content">
                                         <h3>Game type:</h3>
                                          <p>
@@ -39,7 +39,7 @@
                                 <div class="popup_content">
                                     <h3>Users:</h3>
                                     <form name="play_with_a_friend" action="/chess/game/" method="post" data-model_name="chess.game">
-                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <!--<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
                                         <select name="second_user_id" size="1">
                                             <t t-foreach="users" t-as="user">
                                                 <option t-attf-value="{{ user.id }}"><t t-esc="user.name"/></option>
@@ -74,11 +74,6 @@
         </template>
         <template name="Game Page" id="gamepage" page="True">
             <t t-call="website.layout">
-                <xpath expr="script[last()]" position="after">
-                    <script type="text/javascript" src="/chess/static/js/chess.js"></script>
-                    <script type="text/javascript" src="/chess/static/js/chessboard.js"></script>
-                </xpath>
-
                 <div class="conteiner">
                     <div class="content">
                         <div class='box'>
@@ -172,24 +167,25 @@
                 </div>
             </t>
         </template>
-        <template id="mystyle" name="My style" inherit_id="website.assets_frontend">
-             <xpath expr="link[last()]" position="after">
-                 <link href="/chess/static/less/winmodal.less" rel="stylesheet" type="text/less"/>
-                 <link href="/chess/static/less/chessboard.less" rel="stylesheet" type="text/less"/>
-                 <link href="/chess/static/less/sweet-alert.less" rel="stylesheet" type="text/less"/>
-                 <link href="/chess/static/less/style.less" rel="stylesheet" type="text/less"/>
-                 <link href="/chess/static/less/common.less" rel="stylesheet" type="text/less"/>
-                 <link href="/chess/static/less/simple-chat.less" rel="stylesheet" type="text/less"/>
-                 <link href="http://localhost:8069/im_livechat/external_lib.css" rel="stylesheet"/>
+        <template id="assets_frontend" name="chess assets frontend" inherit_id="website.assets_frontend">
+             <xpath expr="." position="inside">
+                 <link rel="stylesheet" type="text/less" href="/chess/static/less/winmodal.less"/>
+                 <link rel="stylesheet" type="text/less" href="/chess/static/less/chessboard.less"/>
+                 <link rel="stylesheet" type="text/less" href="/chess/static/less/sweet-alert.less"/>
+                 <link rel="stylesheet" type="text/less" href="/chess/static/less/style.less"/>
+                 <link rel="stylesheet" type="text/less" href="/chess/static/less/common.less"/>
+                 <link rel="stylesheet" type="text/less" href="/chess/static/less/simple-chat.less"/>
+                 <script type="text/javascript" src="/bus/static/src/js/bus.js"></script>
+                 <script type="text/javascript" src="/chess/static/js/dm-modal.js"></script>
+                 <script type="text/javascript" src="/chess/static/js/common.js"></script>
+                 <script type="text/javascript" src="/chess/static/js/chesschat.js"></script>
+                 <script type="text/javascript" src="/chess/static/js/sweet-alert.js"></script>
+                 <script type="text/javascript" src="/chess/static/js/chess.js"></script>
+                 <script type="text/javascript" src="/chess/static/js/chessboard.js"></script>
+                 <script type="text/javascript" src="/chess/static/js/random_game.js"></script>
              </xpath>
-            <xpath expr="script[last()]" position="after">
-                <script type="text/javascript" src="/chess/static/js/dm-modal.js"></script>
-                <script type="text/javascript" src="/chess/static/js/common.js"></script>
-                <script type="text/javascript" src="/chess/static/js/chesschat.js"></script>
-                <script type="text/javascript" src="/chess/static/js/sweet-alert.js"></script>
-            </xpath>
         </template>
-        <template name="User list" id="listpage" page="True">
+        <template name="User list" id="userpage" page="True">
             <t t-call="website.layout">
                 <t t-set="title">Game list</t>
                 <div class="oe_structure">
@@ -205,19 +201,6 @@
                                     <t t-esc="game_completed.second_user_id.name"/>
                                     win is
                                     <t t-esc="game_completed.status"/>
-                                </a> </li>
-                            </t>
-                            </ul>
-                        </div>
-
-                        <div class="chess_list">
-                            <h3>Current games</h3>
-                            <ul>
-                            <t t-foreach="current_games" t-as="current_game">
-                                <li> <a t-attf-href="/chess/game/{{ current_game.id }}/">
-                                    <t t-esc="current_game.first_user_id.name"/>
-                                    VS
-                                    <t t-esc="current_game.second_user_id.name"/>
                                 </a> </li>
                             </t>
                             </ul>

@@ -20,7 +20,7 @@ $(document).ready(function(){
 		return false;
 	});
 
-	$(document).on('click', 'a.close, #fade', function() { 
+	$(document).on('click', 'a.close', function() {
     $('#fade , .popup_block').fadeOut(function() {
         $('#fade, a.close').remove(); 
     });   
