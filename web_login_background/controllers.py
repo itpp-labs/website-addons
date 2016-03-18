@@ -30,4 +30,4 @@ class BackgroundSignup(Home):
                           r'&model=ir.attachment&field=datas&fieldname_field=datas_fname'
             request.params['picture_url'] = picture_url
 
-        return super(Background, self).web_auth_signup(**kw)
+        return super(BackgroundSignup, self).web_auth_signup(**kw)
