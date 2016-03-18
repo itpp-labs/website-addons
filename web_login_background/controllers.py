@@ -18,13 +18,13 @@ class Background(Home):
 
         return super(Background, self).web_login(**kw)
 
-class BackgroundSignup(Home):
+class BackgroundSignup(AuthSignupHome):
     @http.route('/web/signup', type='http', auth="none")
     def web_auth_signup(self, redirect=None, **kw):
         pictures = request.env['ir.attachment'].search([
             ('use_as_background', '=', True)])
         if pictures:
-            picture_url = r'/web/binary/saveas?id=' + \
+            picture_url = r'/web/image/saveas?id=' + \
                           str(choice(pictures.mapped('id'))) + \
                           r'&model=ir.attachment&field=datas&fieldname_field=datas_fname'
             request.params['picture_url'] = picture_url
