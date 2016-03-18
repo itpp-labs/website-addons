@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 {
      "name": """Web login background""",
-     "summary": """Set your background for odoo login page""",
+     "summary": """Get a random background at the login page""",
      "category": "Base",
-     "images": [],
+     "images": ['images/login.png'],
      "version": "1.0.1",
 
      "author": "IT-Projects LLC, Ildar Nasyrov",
      "website": "https://it-projects.info",
      "license": "GPL-3",
-     #"price": 9.00,
-     #"currency": "EUR",
+     "price": 15.00,
+     "currency": "EUR",
 
      "depends": [
          "base",
