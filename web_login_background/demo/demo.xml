@@ -1,0 +1,10 @@
+<openerp>
+    <data>
+        <record id="demo_web_login_background" model="ir.attachment">
+            <field name="name">Demo attachment picture</field>
+            <field name="datas_fname">demo.jpg</field>
+            <field name="use_as_background">True</field>
+            <field name="datas" type="base64" file="web_login_background/static/img/demo.jpg"/>
+        </record>
+    </data>
+</openerp>

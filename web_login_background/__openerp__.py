@@ -15,6 +15,7 @@
     'data': [
         'templates.xml',
         'views/attachment.xml',
+        'demo/demo.xml',
     ],
     'installabe' : True,
     'auto_install' : False
