@@ -24,9 +24,7 @@ class BackgroundSignup(AuthSignupHome):
         pictures = request.env['ir.attachment'].search([
             ('use_as_background', '=', True)])
         if pictures:
-            picture_url = r'/web/image/saveas?id=' + \
-                          str(choice(pictures.mapped('id'))) + \
-                          r'&model=ir.attachment&field=datas&fieldname_field=datas_fname'
+            picture_url = r'/web/image/' + str(choice(pictures.mapped('id')))
             request.params['picture_url'] = picture_url
 
         return super(BackgroundSignup, self).web_auth_signup(**kw)

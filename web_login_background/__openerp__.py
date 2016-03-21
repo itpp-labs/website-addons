@@ -10,10 +10,12 @@
     'category': 'Base',
     'images': ['images/login.png'],
     'license': 'GPL-3',
-    'version': '1.0.0',
+    'version': '1.0.1',
     'depends': ['base'],
     'data': [
         'templates.xml',
         'views/attachment.xml',
     ],
+    'installabe' : True,
+    'auto_install' : False
 }

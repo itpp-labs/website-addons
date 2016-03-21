@@ -1,6 +1,6 @@
 <openerp>
     <data>
-      <template id="web_login_background_template" inherit_id="web.layout">
+      <template id="_template" inherit_id="web.layout">
         <xpath expr="//head" position="inside">
           <t t-if="picture_url">
             <style type="text/css">
@@ -11,6 +11,28 @@
               }
             </style>
           </t>
+        </xpath>
+      </template>
+      <template id="web_login_background_loginborder" inherit_id="web.login_layout" name="loginborder">
+        <xpath expr="//link[@href = '/web/static/lib/fontawesome/css/font-awesome.css']" position="after">
+          <link rel="stylesheet" href="/web_login_background/static/css/login.css"/>
+        </xpath>
+        <xpath expr="//div[@class='col-md-6 col-md-offset-3 o_database_list']" position="replace">
+          <div class="o_database_list">
+              <div class="text-center">
+                <img t-attf-src="/web/binary/company_logo{{ '?dbname='+db if db else '' }}"/>
+              </div>
+              <t t-raw="0"/>
+              <div class="text-center" t-if="not disable_footer">
+                  <t t-if="not disable_database_manager">
+                    <a class="" href="/web/database/manager">Manage Databases</a> |
+                  </t>
+                    <a href="https://www.odoo.com" target="_blank">Powered by <span>Odoo</span></a>
+              </div>
+          </div>
+        </xpath>
+        <xpath expr="//div[@class='o_database_list']/.." position="attributes">
+            <attribute name="class">web_login_background</attribute>
         </xpath>
       </template>
     </data>
