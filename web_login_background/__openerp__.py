@@ -17,6 +17,7 @@
         'views/attachment.xml',
         'demo/demo.xml',
     ],
+    'post_init_hook': 'init_web_login_background',
     'installabe' : True,
     'auto_install' : False
 }

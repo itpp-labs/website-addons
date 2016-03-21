@@ -1,6 +1,6 @@
 <openerp>
     <data>
-      <template id="_template" inherit_id="web.layout">
+      <template id="web_login_background_template" inherit_id="web.layout">
         <xpath expr="//head" position="inside">
           <t t-if="picture_url">
             <style type="text/css">
