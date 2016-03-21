@@ -14,7 +14,7 @@
         </xpath>
       </template>
       <template id="web_login_background_loginborder" inherit_id="web.login_layout" name="loginborder">
-        <xpath expr="//link[@href = '/web/static/lib/fontawesome/css/font-awesome.css']" position="after">
+        <xpath expr="//script[@src = '/web/static/lib/jquery/jquery.js']" position="after">
           <link rel="stylesheet" href="/web_login_background/static/css/login.css"/>
         </xpath>
         <xpath expr="//div[@class='col-md-6 col-md-offset-3 o_database_list']" position="replace">
