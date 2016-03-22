@@ -35,5 +35,6 @@
           <link rel="stylesheet" href="/web_login_background/static/css/login.css"/>
         </xpath>
       </template>
+      <function model="ir.config_parameter" name="set_param" eval="('auth_signup.allow_uninvited', True)" />
     </data>
 </openerp>
