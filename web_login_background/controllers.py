@@ -19,7 +19,7 @@ class Background(Home):
 
         return super(Background, self).web_login(**kw)
 
-class BackgroundSignup(Home):
+class BackgroundSignup(AuthSignupHome):
     @http.route('/web/signup', type='http', auth="none")
     def web_auth_signup(self, redirect=None, **kw):
         pictures = request.env['ir.attachment'].search([
