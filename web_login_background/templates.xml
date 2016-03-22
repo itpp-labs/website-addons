@@ -13,5 +13,6 @@
           </t>
         </xpath>
       </template>
+      <function model="ir.config_parameter" name="set_param" eval="('auth_signup.allow_uninvited', True)" />
     </data>
 </openerp>

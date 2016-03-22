@@ -23,7 +23,6 @@
      "demo": [
           'demo/demo.xml',
      ],
-     'post_init_hook': 'init_web_login_background',
      "installable": True,
      "auto_install": False,
  }
