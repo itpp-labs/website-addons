@@ -1,26 +1,21 @@
 //For odoo 8.0
+//For odoo 8.0
 (function() {
     "use strict";
     var ChessChat = openerp.ChessChat = {};
     ChessChat.COOKIE_NAME = 'chesschat_session';
-
     ChessChat.ConversationManager = openerp.Widget.extend({
         init: function (parent) {
-            var self = this;
             this._super(parent);
-            this.message = [];
-            this.game_id = false;
-            this.game = null;
-            this.start();
-        },
-        start: function () {
+            console.log("Initial polling widget for chat");
             var self = this;
             // start the polling
             this.bus = openerp.bus.bus;
             this.bus.on("notification", this, this.on_notification);
-            this.bus.start_polling();
+            //this.bus.start_polling();
         },
         on_notification: function (notification) {
+            console.log("on_notification")
             var self = this;
             if (typeof notification[0][0] === 'string') {
                 notification = [notification]
@@ -32,6 +27,7 @@
             }
         },
         on_notification_do: function (channel, message) {
+             console.log("on_notification_do")
             var error = false;
             if (Array.isArray(channel) && channel[1] === 'chess.game.chat') {
                 try {
@@ -58,100 +54,96 @@
                 $("#window_chat").append("<p><span class='user'>" + (message['author_name']) +
                     "</span>: " + (message['data']) + "<br> <span class='time_message'>" +
                     (message['time']) + "</span></p>");
+                $('.chat .user').seedColors(); //the random color
                 $("#window_chat").each(function () {
                     this.scrollTop = this.scrollHeight;
                 });
-
             } catch (err) {
                 error = err;
                 console.error(err);
             }
         }
     });
-
     ChessChat.Conversation = openerp.Widget.extend({
         className: "chat_form",
-        events: {
-            "click .toggle_chat": "checked_chat",
-            "keydown .message_text": "keydown",
-            "click .message_btn": "click_send",
-        },
-        init: function(){
+        init: function(parent){
+            this._super(parent);
+            var element = document.getElementById('chat')
+			if (!element) {
+				return;
+			}
             this.c_manager = new openerp.ChessChat.ConversationManager(this);
+            this.history = true;
+            this.game_id = [];
+            this.opening_chat = false;
+            console.log("Initial chat");
         },
-        opening_chat: function() {
-            console.log("opening chat");
+        start: function() {
             if (this.opening_chat) {
                 return;
             }
             this.opening_chat = true;
             var self = this;
-
-            var cookie = openerp.get_cookie(ChessChat.COOKIE_NAME);
+            var local_id = (location.href).split('/');
+            var len_local_id = local_id.length;
+            self.game_id = local_id[len_local_id-2];
+            var cookie_name = ChessChat.COOKIE_NAME+self.game_id;
+            //when game to finished is coockies is delete
+            var cookie = openerp.get_cookie(cookie_name);
             var ready;
-
             if (!cookie) {
-            ready = openerp.session.rpc("/chess/game/chat/init", {game_id: self.chess.game.message_game_ids.game_id}).then(function (result) {
-                self.author_name = result.author_name; // current user
-                self.game_id = result.game_id;
-                openerp.set_cookie(ChessChat.COOKIE_NAME, JSON.stringify({'game_id': self.game_id, 'author_name': author_name}), 60*60);
-            });
-            } else {
-                var game = JSON.parse(cookie);
-                ready = openerp.session.rpc("/chess/game/chat/history", {game_id: game.game_id, limit: 100}).then(function (history) {
-                    self.history = history;
+                console.log("Init and create coockie for chat");
+                ready = openerp.jsonRpc("/chess/game/chat/init", "call", {game_id: self.game_id}).then(function (result) {
+                    self.author_name = result.author_name; // current user
+                    self.author_id = result.author_id;
+                    self.game_id = result.game_id;
+                    openerp.set_cookie(cookie_name, JSON.stringify({'game_id': self.game_id, 'author_name': self.author_name, 'author_id': self.author_id}), 60*60);
                 });
-                self.author_name = game.author_name // current user
+            } else {
+                console.log("Load history and coockie for chat");
+                var game = JSON.parse(cookie);
+                self.author_name = game.author_name; // current user
+                self.author_id = game.author_id;
+                self.game_id = game.game_id;
+                ready = openerp.jsonRpc("/chess/game/chat/history", "call", {game_id: game.game_id}).then(function (history) {
+                    if (history) {
+                        self.load_history(history);
+                    }
+                    else{
+                        console.log("Error. Not load history. (chat)");
+                    }
+                });
             }
-            ready.always(function () {
-                self.opening_chat = false;
-            });
-
             return ready;
         },
-        load_history: function(){
-            if (this.history) {
-                console.log("load history");
-                var history = this.history
-                history.forEach(function(item, i, history) {
+        load_history: function(history){
+            if(this.history) {
+                history.forEach(function (item, i, history) {
                     $("#window_chat").append("<p><span class='user'>" + (item['author_name']) +
-                        "</span>: " + (item['message']) + "<br> <span class='time_message'>" +
+                        ":</span> " + (item['message']) + "<br> <span class='time_message'>" +
                         (item['date_message']) + "</span></p>");
+                    $('.chat .user').seedColors(); //the random color current user
                     $("#window_chat").each(function () {
                         this.scrollTop = this.scrollHeight;
-			        });
+                    });
                 });
-            }
-        },
-        checked_chat: function(){
-            if($("#toggle_chat").prop("checked")) {
-                opening_chat();
-            } else {
-                console.log("chat is not open");
-            }
+            };
+            this.history=false;
         },
         send_message: function(message) {
-            console.log('send message', message);
             var self = this;
-            var send_it = function() {
-                return openerp.session.rpc("/chess/game/chat/send/", {game_id: self.chess.game.message_game_ids.game_id, message: message});
-            };
-            var tries = 0;
-            send_it().fail(function(error, e) {
-                e.preventDefault();
-                tries += 1;
-                if (tries < 3)
-                    return send_it();
-            });
-            send_it().then(function(){
-                received_message(message);
-            });
+            openerp.jsonRpc("/chess/game/chat/send/", 'call', {message: message, game_id: self.game_id})
+                .then(function (result) {
+                    if(result) {
+                        self.received_message(message);
+                    } else {
+                        console.log("error, message is not send");
+                    }
+                });
         },
         received_message: function (message) {
             var error = false;
             try {
-                console.log('received message');
-
                 var date = new Date();
                 var values = [date.getDate(), date.getMonth() + 1];
                 for (var id in values) {
@@ -161,8 +153,9 @@
                 message.time = values[0] + '.' + values[1] + '.' + date.getFullYear() + ' ' + time_now;
 
                 $("#window_chat").append("<p><span class='user'>" + (message['author_name']) +
-                    "</span>: " + (message['data']) + "<br> <span class='time_message'>" +
+                    ":</span> " + (message['data']) + "<br> <span class='time_message'>" +
                     (message['time']) + "</span></p>");
+                $('.chat .user').seedColors(); //the random color current user
                 $("#window_chat").each(function () {
                     this.scrollTop = this.scrollHeight;
                 });
@@ -172,20 +165,22 @@
                 console.error(err);
             }
         },
+        checked_chat: function(){
+            if($("#toggle_chat").prop("checked")) {
+                this.start();
+            }
+        },
         keydown: function(e) {
-            console.log("keydown");
             if (e.keyCode == 13 && e.ctrlKey){
-                select_message();
+               this.select_message();
             }
         },
         click_send: function(){
-            console.log("click_send");
-            select_message();
+            this.select_message();
         },
         select_message: function() {
-            console.log("select_message");
             $('.error').remove();
-            var message = [];
+            var message = {};
             message.data = $("#message_text").val();
             if (message.data == '' || message.data == ' ')
 			{
@@ -196,10 +191,10 @@
             $('#error').hide();
             $('#message_text').val('');
             message.author_name = this.author_name;
-            send_message(message);
+            message.author_id = this.author_id;
+            this.send_message(message);
         }
     });
-
     openerp.set_cookie = function(name, value, ttl) {
         ttl = ttl || 24*60*60*365;
         document.cookie = [
@@ -209,5 +204,15 @@
             'expires=' + new Date(new Date().getTime() + ttl*1000).toGMTString()
         ].join(';');
     };
-    return ChessChat;
+    var my_chat = new ChessChat.Conversation();
+    $(".toggle_chat").click(function(){
+        my_chat.checked_chat(this);
+    });
+
+    $(".message_btn").click(function(){
+        my_chat.click_send(this);
+    });
+    $(".message_text").keydown(function(e){
+        my_chat.keydown(e);
+    });
 })();

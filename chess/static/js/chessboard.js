@@ -174,9 +174,7 @@ function objToFen(obj) {
 }
 
 window['ChessBoard'] = window['ChessBoard'] || function(containerElOrId, cfg) {
-
 cfg = cfg || {};
-
 //------------------------------------------------------------------------------
 // Constants
 //------------------------------------------------------------------------------

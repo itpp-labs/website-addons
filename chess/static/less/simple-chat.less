@@ -1,9 +1,12 @@
 .chat {
 	margin-top:10px;
 	height: 320px;
+	width: 196px;
 	border: 1px solid #ccc;
 	padding: 5px;
 	display: none;
+	white-space: normal;
+	word-wrap:break-word;
 }
 .chat #toggle_chat:checked {
 	display: block;
@@ -21,13 +24,10 @@
 	padding: 5px;
 	margin-bottom: 10px;
 	background-color: rgba(181, 174, 174, 0.29);
-	p {
-		margin: 3px;
-		padding-bottom: 15px;
-	}
-	.user {
-		color: #A5DC86;
-	}
+}
+.window_chat p {
+	margin: 3px;
+	padding-bottom: 15px;
 }
 .time_message{
 	float: right;

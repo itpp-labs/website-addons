@@ -9,6 +9,7 @@
     'depends': ['base', 'website', 'bus'],
     'data': [
         'security/ir.model.access.csv',
+        'security/security.xml',
         'views/chess_views.xml',
         'views/chess_templates.xml',
     ],

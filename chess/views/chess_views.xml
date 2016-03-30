@@ -36,7 +36,8 @@
             <label for="second_color_figure"/> <field name="second_color_figure"/>
             <field name="move_game_ids">
               <tree string="Move game list" editable="bottom">
-                <field name="move_game"/>
+                <field name="source"/>
+                <field name="target"/>
               </tree>
             </field>
             <field name ="message_game_ids">
@@ -69,7 +70,8 @@
       <field name="arch" type="xml">
         <search>
           <field name="game_id"/>
-          <field name="move_game"/>
+          <field name="source"/>
+          <field name="target"/>
         </search>
       </field>
     </record>
