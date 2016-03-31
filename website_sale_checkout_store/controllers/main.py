@@ -19,9 +19,12 @@ class website_sale(website_sale):
         except:
             pass
         if order.buy_way:
-            if 'noship' in order.buy_way:
+            if 'nobill_noship' in order.buy_way:
                 website_sale.mandatory_billing_fields = ["name", "phone", "email"]
                 website_sale.mandatory_shipping_fields = ["name", "phone", "email"]
+            elif 'bill_noship' in order.buy_way:
+                website_sale.mandatory_billing_fields = ["name", "phone", "email", "country_id"]
+                website_sale.mandatory_shipping_fields = ["name", "phone", "email", "country_id"]
             else:
                 website_sale.mandatory_billing_fields = ["name", "phone", "email", "street2", "city", "country_id"]
                 website_sale.mandatory_shipping_fields = ["name", "phone", "street", "city", "country_id"]
@@ -54,12 +57,3 @@ class website_sale(website_sale):
         else:
             return super(website_sale, self).payment_get_status(sale_order_id, **post)
 
-    @http.route(['/shop/payment/transaction/<int:acquirer_id>'], type='json', auth="public", website=True)
-    def payment_transaction(self, acquirer_id):
-        cr, uid, context = request.cr, request.uid, request.context
-        order = request.website.sale_get_order(context=context)
-        if 'noship' not in order.buy_way:
-            return super(website_sale, self).payment_transaction(acquirer_id)
-        else:
-            order.partner_id.country_id = request.env['res.country'].browse(1)
-            return super(website_sale, self).payment_transaction(acquirer_id)
