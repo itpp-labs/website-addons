@@ -20,8 +20,8 @@ class website_sale(website_sale):
             pass
         if order.buy_way:
             if 'noship' in order.buy_way:
-                website_sale.mandatory_billing_fields = ["name", "phone", "email"]
-                website_sale.mandatory_shipping_fields = ["name", "phone", "email"]
+                website_sale.mandatory_billing_fields = ["name", "phone", "email", "country_id"]
+                website_sale.mandatory_shipping_fields = ["name", "phone", "email", "country_id"]
             else:
                 website_sale.mandatory_billing_fields = ["name", "phone", "email", "street2", "city", "country_id"]
                 website_sale.mandatory_shipping_fields = ["name", "phone", "street", "city", "country_id"]
