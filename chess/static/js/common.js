@@ -16,7 +16,6 @@
             //this.bus.start_polling();
         },
         on_notification: function (notification) {
-            console.log("on_notification")
             var self = this;
             if (typeof notification[0][0] === 'string') {
                 notification = [notification]
@@ -28,9 +27,8 @@
             }
         },
         on_notification_do: function (channel, message) {
-             console.log("on_notification_do")
             var error = false;
-            if (Array.isArray(channel) && channel[1] === 'chess.game.chat') {
+            if (Array.isArray(channel) && (channel[1] === 'chess.game.line' || channel[1] === 'chess.game')) {
                 try {
                     this.received_message();
                 } catch (err) {
@@ -40,11 +38,88 @@
             }
         },
         received_message: function(message) {
-            var error = false;
+			var self = this;
+			var error = false;
             try {
                 console.log('received message');
-            } catch (err) {
-                error = err;
+				if (message.type == 'move') {
+					/*сделать проверку (правильно я написал или нет)
+					проверка после настройки long polling*/
+					ChessGame.GameConversation.onDrop(message.data['source'], message.data['target']);
+					ChessGame.GameConversation.onSnapEnd();
+				}
+				if (message.type == 'system'){
+					if (message.data['status'] == 'surrender') {
+						swal({
+							title: "You win!",
+							text: message.data['user'] + ' surrendered',
+							timer: 2000,
+							type: "success",
+							showConfirmButton: false
+						});
+						$('#surrender').hide();
+						$('#suggest_a_draw').hide();
+						// call function which fixate figures in board
+						/*
+						*
+						* THERE
+						*
+						* */
+					}
+					if (message.data['status'] == 'draw') {
+						swal({
+							title: "Draw",
+							text: "The "+ message.data['user']+" proposed a draw",
+							type: "warning",
+							showCancelButton: true,
+							confirmButtonColor: "#DD6B55",
+							confirmButtonText: "Yes",
+							cancelButtonText: "No",
+							closeOnConfirm: false
+						},
+							function(isConfirm){
+								if (isConfirm) {
+									/*If the user accepts the draw then
+									call function which fixate figures in board + status='Draw position'
+									call function which will send system message for
+									another user */
+									swal({
+										title: "Game over",
+										text: "Drawn position",
+										timer: 2000,
+										type: "success",
+										showConfirmButton: false
+									});
+									$('#surrender').hide();
+									$('#suggest_a_draw').hide();
+									//send system message (agreement)
+									/*ошибка в вызовах фукции так как они не определены
+									* в этом виджете
+									* нужно либо объединить виджет либо придумать
+									* что нибудь другое */
+									var data = {'status': 'agreement', 'user': self.author_name};
+									var message = {'type': 'system', 'data': data};
+									self.send_move(message);
+								}
+							});
+					}
+					if (message.data['status'] == 'agreement') {
+						/*when another user agreed to a draw
+						message(draw) and fixate figures in board + status='Draw position'*/
+						swal({
+							title: "Game over",
+							text: "Drawn position",
+							timer: 2000,
+							type: "success",
+							showConfirmButton: false
+						});
+						$('#surrender').hide();
+						$('#suggest_a_draw').hide();
+					}
+
+				}
+			} catch (err) {
+				error = err;
                 console.error(err);
             }
         }
@@ -151,22 +226,29 @@
 				self.game_type = game.information.type;
 				self.game_time = game.information.time;
 				self.game_status = game.information.status;
-				self.call_load_history(game.information.id);
+				self.call_load_system_message(game.information.id);
             }
 		},
-		call_load_history: function(game_id){
+		call_load_system_message: function(game_id) {
 			var self = this;
-			openerp.jsonRpc("/chess/game/history", "call", {game_id: self.game_id }).then(function (history) {
+			openerp.jsonRpc("/chess/game/system_history", "call", {game_id: game_id }).then(function (result) {
+				self.call_load_history(game_id, result);
+			});
+		},
+		call_load_history: function(game_id, result){
+			var self = this;
+			openerp.jsonRpc("/chess/game/history", "call", {game_id: game_id }).then(function (history) {
 				if(history){
+					console.log("History load. (game)");
 					self.history_loading = true;
-					self.load_move_history(history);
+					self.load_move_history(history, result);
 				}
 				else{
 					console.log("Not load history. (game)");
 				}
 			});
 		},
-		load_move_history: function (history) {
+		load_move_history: function (history, result) {
 			var self = this;
             var error = false;
 			if(this.history) {
@@ -174,6 +256,59 @@
 					self.onDrop(item['source'], item['target']);
                 });
 				self.onSnapEnd();
+				if (result.type == 'system') {
+					switch (result.data['status']) {
+						case 'surrender': {
+							if (result.data['user']==self.author_name) {
+								var status = 'Game over, you lose.';
+								self.user_surrender(status);
+							}
+							else {
+								var status = 'Game over, you win!';
+								self.user_surrender(status);
+							}
+						} break
+						case 'draw': {
+							if (result.data['user']!=self.author_name) {
+								swal({
+									title: "Draw",
+									text: "The "+ self.another_user_name + " proposed a draw",
+									type: "warning",
+									showCancelButton: true,
+									confirmButtonColor: "#DD6B55",
+									confirmButtonText: "Yes",
+									cancelButtonText: "No",
+									closeOnConfirm: false
+								},
+									function(isConfirm){
+										if (isConfirm) {
+											swal({
+												title: "Game over",
+												text: "Drawn position",
+												timer: 2000,
+												type: "success",
+												showConfirmButton: false
+											});
+											$('#surrender').hide();
+											$('#suggest_a_draw').hide();
+											var data = {'status': 'agreement', 'user': self.author_name};
+											var message = {'type': 'system', 'data': data};
+											self.send_move(message);
+										}
+									});
+							}
+
+						} break
+						case 'agreement':{
+							var status = 'Game over, drawn position';
+							self.user_surrender(status);
+						} break
+						default:{
+							console.log("No match in the system messages");
+						} break
+					}
+				}
+				else {console.log("No system messages");}
             };
             this.history=false;
         },
@@ -203,10 +338,7 @@
 					var data = {'source': source, 'target': target};
 					var message = {'type': 'move', 'data': data};
 					new_game.send_move(message);
-					console.log("Source: " + source);
-					console.log("Target: " + target);
 					console.log("Move: " + source + "-" + target);
-					console.log("____________________________");
 				}
 			}
 			new_game.onDelFigure();
@@ -218,16 +350,12 @@
 			openerp.jsonRpc("/chess/game/send/", 'call', {message: message, game_id: self.game_id})
 				.then(function(result){
 					if(result){
-						console.log("Move is send!!!");
+						console.log("Move is TRUE");
+					}
+					else{
+						console.log("ERROR, please make the right move");
 					}
 				});
-             //   .then(function (result) {
-             //       if(result) {
-             //           self.received_message(message);
-             //       } else {
-             //           console.log("error, message is not send");
-             //       }
-             //   });
 		},
 		onSnapEnd: function () {
 			// update the board position after the piece snap
@@ -278,8 +406,6 @@
 			if (this.surrender_status==false){
 				$('.end_game #surrender').click(function () {
 					this.surrender_status=true;
-					//отправка системного сообщения о том что, пользователь сдался (записывается кто сдался
-					//и то, что он сдался
 					swal({
 						title: "Are you sure?",
 						text: "You will lose",
@@ -302,6 +428,10 @@
 								$('#surrender').hide();
 								$('#suggest_a_draw').hide();
 								status = 'Game over, you lose';
+								//send system message (user is surrender)
+								var data = {'status': 'surrender', 'user': self.author_name};
+								var message = {'type': 'system', 'data': data};
+								self.send_move(message);
 								self.user_surrender(status);
 							}
 						});
@@ -335,6 +465,11 @@
 								showConfirmButton: false
 							});
 							$('#suggest_a_draw').hide();
+
+							//send system message (offer a draw)
+							var data = {'status': 'draw', 'user': self.author_name};
+							var message = {'type': 'system', 'data': data};
+							self.send_move(message);
 						}
 					});
 			});
@@ -345,6 +480,13 @@
 			this.pgnEl.html(load_pgn.replace(game.fen(), ''));
 
 		},
+		//game_over: function() {
+		//	var self = this;
+		//	openerp.jsonRpc("/chess/game/gameover/", 'call', {'game_id': self.game_id})
+		//		.then(function(result){
+		//			if(result) console.log("Game over!");
+		//		});
+		//},
 		onDelFigure: function () {
 			/* It is only important as a shortened post we will use
 			 only to determine the remote pieces on the board */

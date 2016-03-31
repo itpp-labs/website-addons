@@ -8,7 +8,8 @@ class ChessGame(models.Model):
 
     game_type = fields.Selection([('blitz', 'Blitz'), ('limited time', 'Limited time'),
                                   ('standart', 'Standart')],'Game type')
-    time_game = fields.Float(string="Game time", default=0) #If game type = limited time or blitz
+    first_user_time = fields.Float(string="First user time", default=0)
+    second_user_time = fields.Float(string="Second user time", default=0)
     date_start = fields.Datetime(string='Start date', default=datetime.datetime.now()) #Start game
     date_finish = fields.Datetime(string='Finish date') #Finish game
     first_user_id = fields.Many2one('res.users', 'First user')
@@ -21,41 +22,70 @@ class ChessGame(models.Model):
     move_game_ids = fields.One2many('chess.game.line', 'game_id', 'Game Move')
     message_game_ids = fields.One2many('chess.game.chat', 'game_id', 'Chat message')
 
+    @api.model
+    def system_fetch(self, game_id):
+        return self.search([('id', '=', game_id)])
+
+    @api.model
+    def system_broadcast(self, message, game_id):
+        return self.search([('id', '=', game_id)]).write_game_status(message,game_id)
+
+    @api.one
+    def write_game_status(self, message, game_id):
+        notifications = []
+        data = message['data']
+        if self.first_user_id.id != self.env.user.id:
+            notifications.append([(self._cr.dbname, 'chess.game', self.first_user_id.id), message])
+        else:
+            notifications.append([(self._cr.dbname, 'chess.game', self.second_user_id.id), message])
+        self.env['bus.bus'].sendmany(notifications)
+        # write it
+        return self.write({"status": data['status']+':'+data['user']})
+
+    # @api.one
+    # def game_over(self):
+    #     return self.write({'date_finish': datetime.datetime.now()})
+
     @api.one
     def game_information(self):
         if self.first_user_id.id == self.env.user.id:
             author_id = self.first_user_id.id
             author_name = self.first_user_id.name
             author_color_figure = self.first_color_figure
+            author_game_time = self.first_user_time
 
             another_user_name = self.second_user_id.name
             another_user_id = self.second_user_id.id
             another_user_color_figure = self.second_color_figure
+            another_user_time = self.second_user_time
         else:
             author_id = self.second_user_id.id
             author_name = self.second_user_id.name
             author_color_figure = self.second_color_figure
+            author_game_time = self.second_user_time
 
             another_user_name = self.first_user_id.name
             another_user_id = self.first_user_id.id
             another_user_color_figure = self.first_color_figure
+            another_user_time = self.first_user_time
 
         data = {
             'author':{
                 'name': str(author_name),
                 'id': int(author_id),
-                'color': str(author_color_figure)
+                'color': str(author_color_figure),
+                'time': float(author_game_time)
             },
             'information': {
                 'id': self.ids[0],
                 'type': str(self.game_type),
-                'time': self.time_game,
                 'status': str(self.status)
             },
             'another_user': {
                 'name': str(another_user_name),
                 'id': int(another_user_id),
-                'color': str(another_user_color_figure)
+                'color': str(another_user_color_figure),
+                'time': float(another_user_time)
             }
         }
         return data
@@ -102,17 +132,12 @@ class ChessGameLine(models.Model):
             # save it
             self.create(vals)
             print(" # save it")
-            #     if ps.first_user_id.id != self.env.user.id:
-            #         notifications.append([(self._cr.dbname, 'chess.game.chat', ps.first_user_id.id), message])
-            #     else:
-            #         notifications.append([(self._cr.dbname, 'chess.game.chat', ps.second_user_id.id), message])
-            # print("send notifications in bus")
-            # print(notifications)
-            # self.env['bus.bus'].sendmany(notifications)
-            # #self.env['openerp.bus.bus'].sendmany(notifications)
-            # print("it's ok!")
+            if ps.first_user_id.id != self.env.user.id:
+                notifications.append([(self._cr.dbname, 'chess.game.line', ps.first_user_id.id), message])
+            else:
+                notifications.append([(self._cr.dbname, 'chess.game.line', ps.second_user_id.id), message])
+        self.env['bus.bus'].sendmany(notifications)
         return 1
-
 
     @api.model
     def move_fetch(self, game_id):
@@ -133,7 +158,6 @@ class ChatMessage(models.Model):
         notifications = []
         print('broadcast')
         for ps in self.env['chess.game'].search([('id', '=', game_id)]):
-            print("build the new message")
             #build the new message
             author_id = message['author_id']
             vals = {
@@ -144,16 +168,11 @@ class ChatMessage(models.Model):
             }
             # save it
             self.create(vals)
-            print(" # save it")
             if ps.first_user_id.id != self.env.user.id:
                 notifications.append([(self._cr.dbname, 'chess.game.chat', ps.first_user_id.id), message])
             else:
                 notifications.append([(self._cr.dbname, 'chess.game.chat', ps.second_user_id.id), message])
-        print("send notifications in bus")
-        print(notifications)
         self.env['bus.bus'].sendmany(notifications)
-        #self.env['openerp.bus.bus'].sendmany(notifications)
-        print("it's ok!")
         return 1
 
     @api.model

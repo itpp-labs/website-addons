@@ -14,6 +14,7 @@ class Controller(openerp.addons.bus.bus.Controller):
             registry, cr, uid, context = request.registry, request.cr, request.session.uid, request.context
             channels.append((request.db, 'chess.game.chat', request.uid))
             channels.append((request.db, 'chess.game.line', request.uid))
+            channels.append((request.db, 'chess.game', request.uid))
         return super(Controller, self)._poll(dbname, channels, last, options)
 
     #server chess chat
@@ -59,13 +60,22 @@ class Controller(openerp.addons.bus.bus.Controller):
         history = hist
         return history
 
+    @http.route('/chess/game/system_history', type="json", auth="public")
+    def load_system_message(self, game_id):
+        history = request.env["chess.game"].system_fetch(game_id)
+        history = history.status.split(":")
+        status = str(history[0])
+        user = str(history[1])
+        result = {'type': 'system', 'data': {'status': str(status), 'user': str(user)}}
+        return result
+
     @http.route('/chess/game/send/', type="json", auth="public")
     def move_send(self, message, game_id):
         print(message['type'])
         if message['type']=='move':
             result = request.env["chess.game.line"].move_broadcast(message, game_id)
-        #elif message['type']=='system':
-            #result = request.env["chess.game"].system_broadcast(message, game_id)
+        elif message['type']=='system':
+            result = request.env["chess.game"].system_broadcast(message, game_id)
         print("__________________________________********************_______________")
         print("message")
         print(message)
@@ -75,6 +85,10 @@ class Controller(openerp.addons.bus.bus.Controller):
         #res = request.env["chess.game.chat"].broadcast(message, game_id)
         return True
 
+    # @http.route('/chess/game/gameover/', type="json", auth="public")
+    # def game_over(self, game_id):
+    #     request.env["chess.game"].browse(int(game_id)).game_over()
+    #     return True
 
 #____________________________________________________________________________________________
 

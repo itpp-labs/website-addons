@@ -28,12 +28,13 @@
         <form>
           <sheet>
             <label for="game_type"/> <field name="game_type"/>
-            <label for="time_game"/> <field name="time_game"/>
             <label for="date_start"/> <field name="date_start"/>
             <label for="first_user_id"/> <field name="first_user_id"/>
             <label for="first_color_figure"/> <field name="first_color_figure"/>
+            <label for="first_user_time"/> <field name="first_user_time"/>
             <label for="second_user_id"/> <field name="second_user_id"/>
             <label for="second_color_figure"/> <field name="second_color_figure"/>
+            <label for="second_user_time"/> <field name="second_user_time"/>
             <field name="move_game_ids">
               <tree string="Move game list" editable="bottom">
                 <field name="source"/>
