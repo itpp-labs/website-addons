@@ -19,28 +19,25 @@
                   <t t-set="bill_noship" t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.bill_noship')"/>
                   <t t-set="bill_ship" t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.bill_ship')"/>
                   <t t-set="nobill_ship" t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.nobill_ship')"/>
-                  <!--<p>nobill_noship <t t-esc="nobill_noship"/></p>-->
-                  <!--<p>bill_noship <t t-esc="bill_noship or 'FALSE'"/></p>-->
-                  <!--<p>bill_ship <t t-esc="bill_ship"/></p>-->
                   <div class="row">
                       <div class="pull-right">
-                          <div class="radio">
-                              <label t-if="nobill_noship">
+                          <div class="radio" t-if="nobill_noship">
+                              <label>
                                   <input type="radio" name="buyMethod" id="opt1" value="nobill_noship" checked="true"/>Pickup and pay at store
                               </label>
                           </div>
-                          <div class="radio">
-                              <label t-if="bill_noship">
+                          <div class="radio" t-if="bill_noship">
+                              <label>
                                   <input  type="radio" name="buyMethod" id="opt3" value="bill_noship"/>Pickup at store but pay now
                               </label>
                           </div>
-                          <div class="radio">
-                              <label t-if="bill_ship">
+                          <div class="radio" t-if="bill_ship">
+                              <label>
                                   <input type="radio" name="buyMethod" id="opt2" value="bill_ship"/>Pay now and get delivery
                               </label>
                           </div>
-                          <div class="radio">
-                              <label t-if="nobill_ship">
+                          <div class="radio" t-if="nobill_ship">
+                              <label>
                                   <input type="radio" name="buyMethod" id="opt4" value="nobill_ship"/>Pay on delivery
                               </label>
                           </div>
