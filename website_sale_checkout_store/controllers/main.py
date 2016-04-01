@@ -45,6 +45,14 @@ class website_sale(website_sale):
             return super(website_sale, self).payment_get_status(sale_order_id, **post)
 
     def checkout_form_validate(self, data):
+        self.set_custom_mandatory_fields()
+        return super(website_sale, self).checkout_form_validate(data)
+
+    def checkout_parse(self, address_type, data, remove_prefix=False):
+        self.set_custom_mandatory_fields()
+        return super(website_sale, self).checkout_parse(address_type, data, remove_prefix)
+
+    def set_custom_mandatory_fields(self):
         cr, uid, context = request.cr, request.uid, request.context
         order = request.website.sale_get_order(force_create=1, context=context)
         if order.buy_way:
@@ -60,4 +68,4 @@ class website_sale(website_sale):
         else:
             # Means no one radio button on cart form. Use regular variant.
             order.buy_way = 'bill_ship'
-        super(website_sale, self).checkout_form_validate(data)
+        return
