@@ -18,16 +18,6 @@ class website_sale(website_sale):
             order.buy_way = post['buyMethod']
         except:
             pass
-        if order.buy_way:
-            if 'noship' in order.buy_way:
-                website_sale.mandatory_billing_fields = ["name", "phone", "email"]
-                website_sale.mandatory_shipping_fields = ["name", "phone", "email"]
-            else:
-                website_sale.mandatory_billing_fields = ["name", "phone", "email", "street2", "city", "country_id"]
-                website_sale.mandatory_shipping_fields = ["name", "phone", "street", "city", "country_id"]
-        else:
-            # Means no one radio button on cart form. Use regular variant.
-            order.buy_way = 'bill_ship'
         values = self.checkout_values()
         values['order'] = order
 
@@ -53,3 +43,29 @@ class website_sale(website_sale):
             return {'recall': False, 'message':''}
         else:
             return super(website_sale, self).payment_get_status(sale_order_id, **post)
+
+    def checkout_form_validate(self, data):
+        self.set_custom_mandatory_fields()
+        return super(website_sale, self).checkout_form_validate(data)
+
+    def checkout_parse(self, address_type, data, remove_prefix=False):
+        self.set_custom_mandatory_fields()
+        return super(website_sale, self).checkout_parse(address_type, data, remove_prefix)
+
+    def set_custom_mandatory_fields(self):
+        cr, uid, context = request.cr, request.uid, request.context
+        order = request.website.sale_get_order(force_create=1, context=context)
+        if order.buy_way:
+            if 'nobill_noship' in order.buy_way:
+                website_sale.mandatory_billing_fields = ["name", "phone", "email"]
+                website_sale.mandatory_shipping_fields = ["name", "phone", "email"]
+            elif 'bill_noship' in order.buy_way:
+                website_sale.mandatory_billing_fields = ["name", "phone", "email", "country_id"]
+                website_sale.mandatory_shipping_fields = ["name", "phone", "email", "country_id"]
+            else:
+                website_sale.mandatory_billing_fields = ["name", "phone", "email", "street2", "city", "country_id"]
+                website_sale.mandatory_shipping_fields = ["name", "phone", "street", "city", "country_id"]
+        else:
+            # Means no one radio button on cart form. Use regular variant.
+            order.buy_way = 'bill_ship'
+        return
