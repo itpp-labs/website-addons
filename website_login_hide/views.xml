@@ -2,15 +2,8 @@
 <openerp>
     <data>
 
-        <record id="hide_sign_in" model="ir.ui.view">
-            <field name="name">website.show_sign_in.inherit</field>
-            <field name="model">ir.ui.view</field>
-            <field name="inherit_id" ref="website.show_sign_in"/>
-            <field name="arch" type="xml">
-                <field name="active" position="replace">
-                    <field name="active" eval="False"/>
-                </field>
-            </field>
+        <record id="website.show_sign_in" model="ir.ui.view">
+            <field name="active" eval="False"/>
         </record>
 
     </data>
