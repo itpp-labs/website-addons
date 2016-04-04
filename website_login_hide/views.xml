@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="website.show_sign_in" model="ir.ui.view">
+            <field name="active" eval="False"/>
+        </record>
+
+    </data>
+</openerp>
