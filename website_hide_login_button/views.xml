@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+        <delete id="website.show_sign_in" model="ir.ui.view"/>
+
+    </data>
+</openerp>
