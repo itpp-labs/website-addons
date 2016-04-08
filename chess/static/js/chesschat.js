@@ -119,11 +119,11 @@
         load_history: function(history){
             if(this.history) {
                 history.forEach(function (item, i, history) {
-                    $("#window_chat").append("<p><span class='user'>" + (item['author_name']) +
+                    $(".chat #window_chat").append("<p><span class='user'>" + (item['author_name']) +
                         ":</span> " + (item['message']) + "<br> <span class='time_message'>" +
                         (item['date_message']) + "</span></p>");
                     $('.chat .user').seedColors(); //the random color current user
-                    $("#window_chat").each(function () {
+                    $(".chat #window_chat").each(function () {
                         this.scrollTop = this.scrollHeight;
                     });
                 });
@@ -152,11 +152,11 @@
                 var time_now = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
                 message.time = values[0] + '.' + values[1] + '.' + date.getFullYear() + ' ' + time_now;
 
-                $("#window_chat").append("<p><span class='user'>" + (message['author_name']) +
+                $(".chat #window_chat").append("<p><span class='user'>" + (message['author_name']) +
                     ":</span> " + (message['data']) + "<br> <span class='time_message'>" +
                     (message['time']) + "</span></p>");
                 $('.chat .user').seedColors(); //the random color current user
-                $("#window_chat").each(function () {
+                $(".chat #window_chat").each(function () {
                     this.scrollTop = this.scrollHeight;
                 });
 
@@ -179,17 +179,17 @@
             this.select_message();
         },
         select_message: function() {
-            $('.error').remove();
+            $('.chat .error').remove();
             var message = {};
-            message.data = $("#message_text").val();
+            message.data = $(".chat #message_text").val();
             if (message.data == '' || message.data == ' ')
 			{
-				$('#window_chat')
+				$('.chat #window_chat')
 				.append('<div class="error">error: input message</div>');
 				return false;
 			}
-            $('#error').hide();
-            $('#message_text').val('');
+            $('.chat #error').hide();
+            $('.chat #message_text').val('');
             message.author_name = this.author_name;
             message.author_id = this.author_id;
             this.send_message(message);
@@ -209,10 +209,10 @@
         my_chat.checked_chat(this);
     });
 
-    $(".message_btn").click(function(){
+    $(".chat .message_btn").click(function(){
         my_chat.click_send(this);
     });
-    $(".message_text").keydown(function(e){
+    $(".chat .message_text").keydown(function(e){
         my_chat.keydown(e);
     });
 })();

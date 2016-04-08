@@ -43,6 +43,7 @@
             </field>
             <field name ="message_game_ids">
               <tree string="Message game list" editable="bottom">
+                <field name="author_id"/>
                 <field name="message"/>
                 <field name="date_message"/>
               </tree>

@@ -3,6 +3,7 @@
 	var pos = [];
 	var game = {};
 	var board ={};
+	var turn = '';
 	var ChessGame = openerp.ChessGame = {};
     ChessGame.COOKIE_NAME = 'chessgame_session';
 	ChessGame.GameManager = openerp.Widget.extend({
@@ -134,6 +135,10 @@
 			this.history = true;
 			this.history_loading = false;
 			this.surrender_status = false;
+			this.coockie_status = false;
+			this.check_status = false;
+			this.game_over_status = '';
+
 			game = new Chess();
 			this.statusEl = $('#status');
 			this.fenEl = $('#fen');
@@ -144,19 +149,6 @@
 			this.OLD_FEN_POSITION = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR';
 			this.lenOldFen = ((this.OLD_FEN_POSITION.split('/')).join('')).replace(/[0-9]/g, '').length;
 			this.start();
-			this.cfg = {
-				moveSpeed: 'slow',
-				snapbackSpeed: 500,
-				snapSpeed: 100,
-				draggable: true,
-				position: 'start',
-				onDragStart: this.onDragStart,
-				onDrop: this.onDrop,
-				onSnapEnd: this.onSnapEnd
-			};
-			board = ChessBoard('board', this.cfg);
-			$('#flipOrientationBtn').on('click', board.flip);
-			self.updateStatus();
 		},
 		start: function(){
 			var self = this;
@@ -175,86 +167,197 @@
 						self.author_name = result.author.name;
 						self.author_id = result.author.id;
 						self.author_color = result.author.color;
+						self.author_time = result.author.time;
 
+						turn = self.author_color;
 						//another user
 						self.another_user_name = result.another_user.name;
 						self.another_user_id = result.another_user.id;
 						self.another_user_color = result.another_user.color;
+						self.another_user_time = result.another_user.time;
 
 						//game information
 						self.game_id = result.information.id;
 						self.game_type = result.information.type;
-						self.game_time = result.information.time;
+						self.onGameType(self.game_type, self.author_time, self.another_user_time);
 						self.game_status = result.information.status;
+						self.orientation = self.onOrientation();
 
 						//save all data in coockie
 						openerp.set_cookie(cookie_name, JSON.stringify({
 							'author': {
 								'name': self.author_name,
 								'id':self.author_id,
-								'color':self.author_color
+								'color':self.author_color,
+								'time':self.author_time
 							},
 							'information': {
 								'id': self.game_id,
 								'type': self.game_type,
-								'time': self.game_time,
 								'status': self.game_status
 							},
 							'another_user': {
 								'name': self.another_user_name,
 								'id': self.another_user_id,
-								'color': self.another_user_color
+								'color': self.another_user_color,
+								'time': self.another_user_time
 							}
 						}), 60*60);
-						self.call_load_history(result.information.id);
+						self.onBoard();
+						self.call_load_system_message(result.information.id);
 					});
             } else {
                 console.log("Load history and coockie for game");
-                var game = JSON.parse(cookie);
+                var coockie_game = JSON.parse(cookie);
 				//author
-				self.author_name = game.author.name;
-				self.author_id = game.author.id;
-				self.author_color = game.author.color;
+				self.author_name = coockie_game.author.name;
+				self.author_id = coockie_game.author.id;
+				self.author_color = coockie_game.author.color;
+				turn = self.author_color;
 
 				//another user
-				self.another_user_name = game.another_user.name;
-				self.another_user_id = game.another_user.id;
-				self.another_user_color = game.another_user.color;
+				self.another_user_name = coockie_game.another_user.name;
+				self.another_user_id = coockie_game.another_user.id;
+				self.another_user_color = coockie_game.another_user.color;
+				//self.another_user_time = coockie_game.another_user.time;
 
 				//game information
-				self.game_id = game.information.id;
-				self.game_type = game.information.type;
-				self.game_time = game.information.time;
-				self.game_status = game.information.status;
-				self.call_load_system_message(game.information.id);
+				self.game_id = coockie_game.information.id;
+				self.game_type = coockie_game.information.type;
+				self.game_status = coockie_game.information.status;
+				if(self.game_type!='blitz') {$('.chess_information .chess_time_usr').hide();}
+				self.orientation = self.onOrientation();
+				self.onBoard();
+				self.call_load_system_message(coockie_game.information.id);
             }
+		},
+		onOrientation: function(){
+			if (this.author_color==='black') return 'black';
+			else return 'white';
+		},
+		onBoard: function(){;
+			this.cfg = {
+				moveSpeed: 'slow',
+				snapbackSpeed: 500,
+				snapSpeed: 100,
+				draggable: true,
+				position: 'start',
+				orientation: this.orientation,
+				onDragStart: this.onDragStart,
+				onDrop: this.onDrop,
+				onSnapEnd: this.onSnapEnd
+			};
+			board = ChessBoard('board', this.cfg);
+			$('#flipOrientationBtn').on('click', board.flip);
+			this.updateStatus();
+		},
+		onGameType: function(game_type, author_time, another_user_time){
+			var self = this;
+			if(game_type=='blitz' || game_type=='limited time') {
+				$('.chess_information .chess_time_usr').show();
+				if (game.turn() === 'b') {
+					self.reset(Math.round(another_user_time), Math.round(author_time));
+				}
+				if (game.turn() === 'w') {
+					self.reset(Math.round(author_time), Math.round(another_user_time));
+				}
+			} else {
+				$('.chess_information .chess_time_usr').hide();
+			}
 		},
 		call_load_system_message: function(game_id) {
 			var self = this;
-			openerp.jsonRpc("/chess/game/system_history", "call", {game_id: game_id }).then(function (result) {
+			openerp.jsonRpc("/chess/game/system_history", "call", {'game_id': game_id }).then(function (result) {
 				self.call_load_history(game_id, result);
 			});
 		},
 		call_load_history: function(game_id, result){
 			var self = this;
-			openerp.jsonRpc("/chess/game/history", "call", {game_id: game_id }).then(function (history) {
+			openerp.jsonRpc("/chess/game/history", "call", {'game_id': game_id }).then(function (history) {
 				if(history){
 					console.log("History load. (game)");
 					self.history_loading = true;
-					self.load_move_history(history, result);
+					self.check_status = true;
+					self.coockie_status = true;
+               	 	history.forEach(function (item, i, history) {
+						self.onDrop(item['source'], item['target']);
+						self.onSnapEnd();
+						//board.move()
+                	});
+					self.load_time_history(history, result);
 				}
 				else{
 					console.log("Not load history. (game)");
+					var cookie_name = ChessGame.COOKIE_NAME+self.game_id;
+            		var cookie = openerp.get_cookie(cookie_name);
+					var coockie_game = JSON.parse(cookie);
+					self.author_time = coockie_game.author.time;
+					self.another_user_time = coockie_game.another_user.time;
+					console.log("Move is TRUE");
+					self.onGameType(self.game_type, self.author_time, self.another_user_time);
 				}
 			});
 		},
-		load_move_history: function (history, result) {
+		load_time_history: function (history, resultat) {
 			var self = this;
-            var error = false;
-			if(this.history) {
-                history.forEach(function (item, i, history) {
-					self.onDrop(item['source'], item['target']);
-                });
+			var error = false;
+			if (this.history) {
+				//call load time
+
+				var time_turn = '';
+				if (game.turn() === 'w' && turn === 'white') {
+					time_turn = 'ww'
+				}
+				if (game.turn() === 'w' && turn === 'black') {
+					time_turn = 'wb'
+				}
+				if (game.turn() === 'b' && turn === 'white') {
+					time_turn = 'bw'
+				}
+				if (game.turn() === 'b' && turn === 'black') {
+					time_turn = 'bb'
+				}
+				if (self.game_type == 'blitz' || self.game_type == 'limited time') {
+					openerp.jsonRpc("/chess/game/load_time", "call", {'game_id': self.game_id, 'turn': time_turn, 'author': self.author_name, 'color': self.author_color})
+						.then(function (result) {
+							self.author_time = result.author_time;
+							self.another_user_time = result.another_user_time;
+							if (self.author_time==0 || self.another_user_time==0) {
+								self.onGameType(self.game_type, self.author_time, self.another_user_time);
+								self.clockStop();
+								var status = '';
+								if ((game.turn() === 'w' && turn === 'white') || (game.turn() === 'b' && turn === 'black')) {
+									status = 'Game over, time limit. You lose';
+									self.game_over_status = self.author_color;
+
+								}
+								if ((game.turn() === 'w' && turn === 'black') || (game.turn() === 'b' && turn === 'white')) {
+									status = 'Game over, time limit. You win!';
+									self.game_over_status = self.another_user_color;
+								}
+								self.game_over(status);
+							} else {
+								self.onGameType(self.game_type, self.author_time, self.another_user_time);
+								self.showConfirmation(history, resultat);
+							}
+						});
+				}
+			}
+		},
+		showConfirmation: function(history, result){
+			var self = this;
+			if (this.history){
+				if(self.game_type=='blitz') {
+					if((game.turn()=== 'b' && self.author_color=='black') || (game.turn() === 'b' && self.author_color=='white')) {
+						self.clockClicked(1);
+					}
+					if((game.turn()=== 'w' && self.author_color=='white') || (game.turn()=== 'w' && self.author_color=='black')) {
+						self.clockClicked(0);
+					}
+				}
+				if(self.game_type=='limited game'){
+					//call for this game
+				}
 				self.onSnapEnd();
 				if (result.type == 'system') {
 					switch (result.data['status']) {
@@ -262,14 +365,18 @@
 							if (result.data['user']==self.author_name) {
 								var status = 'Game over, you lose.';
 								self.user_surrender(status);
+								self.game_over_status = self.author_color;
 							}
 							else {
 								var status = 'Game over, you win!';
+								self.game_over_status = self.another_user_color;
 								self.user_surrender(status);
 							}
+							//self.game_over(status);
 						} break
 						case 'draw': {
 							if (result.data['user']!=self.author_name) {
+								setTimeout(function () {
 								swal({
 									title: "Draw",
 									text: "The "+ self.another_user_name + " proposed a draw",
@@ -289,19 +396,26 @@
 												type: "success",
 												showConfirmButton: false
 											});
-											$('#surrender').hide();
-											$('#suggest_a_draw').hide();
 											var data = {'status': 'agreement', 'user': self.author_name};
 											var message = {'type': 'system', 'data': data};
+											var status = 'Game over, drawn position';
 											self.send_move(message);
+											self.user_surrender(status);
 										}
-									});
+									});},1000);
 							}
 
 						} break
 						case 'agreement':{
 							var status = 'Game over, drawn position';
+							self.game_over_status='drawn';
 							self.user_surrender(status);
+							//self.game_over(status);
+						} break
+						case 'Game over': {
+							var status = 'Game over';
+							self.user_surrender(status);
+							//self.game_over(status);
 						} break
 						default:{
 							console.log("No match in the system messages");
@@ -315,11 +429,23 @@
 		onDragStart: function (source, piece, position, orientation) {
 			var self = this;
 			board.position(game.fen());
-			if (game.game_over() === true ||
-				(game.turn() === 'w' && piece.search(/^b/) !== -1) ||
-				(game.turn() === 'b' && piece.search(/^w/) !== -1)) {
-				//(orientation === 'white' && piece.search(/^b/) !== -1) ||
-				//(orientation === 'black' && piece.search(/^w/) !== -1)) {
+			var game_queue=false;
+			if(game.turn() === 'w' && turn == 'white')
+			{
+				game_queue=true;
+			}
+			if(game.turn() === 'b' && turn == 'black')
+			{
+				game_queue=true;
+			}
+			if(game_queue==true) {
+				if (game.game_over() === true ||
+					(game.turn() === 'w' && piece.search(/^b/) !== -1) ||
+					(game.turn() === 'b' && piece.search(/^w/) !== -1)) {
+					return false;
+				}
+			}
+			else{
 				return false;
 			}
 		},
@@ -338,7 +464,6 @@
 					var data = {'source': source, 'target': target};
 					var message = {'type': 'move', 'data': data};
 					new_game.send_move(message);
-					console.log("Move: " + source + "-" + target);
 				}
 			}
 			new_game.onDelFigure();
@@ -347,12 +472,38 @@
 		send_move: function(message){
 			var self = this;
 			console.log("send_move");
+			self.check_status = false;
+			self.coockie_status = true;
 			openerp.jsonRpc("/chess/game/send/", 'call', {message: message, game_id: self.game_id})
 				.then(function(result){
-					if(result){
-						console.log("Move is TRUE");
+					if(result=='move'){
+						if(self.game_type=='blitz') {
+							if (game.turn() === 'w') {
+								self.clockClicked(1);
+								var data = {'status': 'time', 'user': self.author_name, 'value': self.times[1]};
+							    var message = {'type': 'system', 'data': data};
+								self.send_move(message);
+							}
+							if (game.turn() === 'b') {
+								if (self.history_loading!=true) {
+									self.clockClicked(1);
+								}else {
+									self.clockClicked(0);
+									var data = {
+										'status': 'time',
+										'user': self.author_name,
+										'value': self.times[0]
+									};
+									var message = {'type': 'system', 'data': data};
+									self.send_move(message);
+								}
+							}
+						}
 					}
-					else{
+					else if (result=='system') {
+						console.log("Send system message");
+					}
+					else {
 						console.log("ERROR, please make the right move");
 					}
 				});
@@ -378,14 +529,18 @@
 			if (game.in_checkmate() === true) {
 				status = moveColor + ' is in checkmate.';
 				if (self.history_loading != true) {
-					swal("Game Over", moveColor + " is in checkmate.", "error");
+					setTimeout(function () {swal("Game Over", moveColor + " is in checkmate.", "error");}, 100);
+					self.game_over_status = moveColor;
+					self.game_over('chekmate');
 				}
 			}
 			// draw?
 			else if (game.in_draw() === true) {
-				status = 'Game over, drawn position';
+				status = 'Game over, drawn position =)';
 				if (self.history_loading != true){
 					swal("Game Over", "is drawn position", "error");
+					self.game_over_status='drawn';
+					self.game_over('drawn');
 				}
 			}
 			// game still on
@@ -393,55 +548,66 @@
 				status = moveColor + ' to move';
 				// check?
 				if (game.in_check() === true) {
-					status += ', ' + moveColor + ' is in check';
-					swal({
-						title: moveColor + ' is in check',
-						text: moveColor + ' to move',
-						timer: 1000,
-						showConfirmButton: false
-					});
+					if (self.check_status == false) {
+						status += ', ' + moveColor + ' is in check';
+						setTimeout(function () {
+							swal({
+								title: moveColor + ' is in check',
+								text: moveColor + ' to move',
+								timer: 1000,
+								showConfirmButton: false
+							});
+							var data = {'status': 'check', 'user': self.author_name};
+							var message = {'type': 'system', 'data': data};
+							self.send_move(message);
+
+						}, 100);
+					}
+					status = moveColor + ' is in check'
 				}
 			}
 			//surrender?
 			if (this.surrender_status==false){
 				$('.end_game #surrender').click(function () {
 					this.surrender_status=true;
-					swal({
-						title: "Are you sure?",
-						text: "You will lose",
-						type: "warning",
-						showCancelButton: true,
-						confirmButtonColor: "#DD6B55",
-						confirmButtonText: "Yes",
-						cancelButtonText: "No",
-						closeOnConfirm: false
-					},
-						function(isConfirm){
-							if (isConfirm) {
-								swal({
-									title: "Game over",
-									text: 'You lose',
-									timer: 2000,
-									type: "error",
-									showConfirmButton: false
-								});
-								$('#surrender').hide();
-								$('#suggest_a_draw').hide();
-								status = 'Game over, you lose';
-								//send system message (user is surrender)
-								var data = {'status': 'surrender', 'user': self.author_name};
-								var message = {'type': 'system', 'data': data};
-								self.send_move(message);
-								self.user_surrender(status);
-							}
-						});
+					setTimeout(function () {
+						swal({
+								title: "Are you sure?",
+								text: "You will lose",
+								type: "warning",
+								showCancelButton: true,
+								confirmButtonColor: "#DD6B55",
+								confirmButtonText: "Yes",
+								cancelButtonText: "No",
+								closeOnConfirm: false
+							},
+							function (isConfirm) {
+								if (isConfirm) {
+									swal({
+										title: "Game over",
+										text: 'You lose',
+										timer: 2000,
+										type: "error",
+										showConfirmButton: false
+									});
+									status = 'Game over, you lose';
+									//send system message (user is surrender)
+									if (self.coockie_status) {
+										var data = {'status': 'surrender', 'user': self.author_name};
+										var message = {'type': 'system', 'data': data};
+										self.send_move(message);
+										self.game_over_status=self.author_color;
+										self.game_over(status);
+									}
+								}
+							});
+					}, 100);
 				});
 
 			} else {
-				$('#surrender').hide();
-				$('#suggest_a_draw').hide();
 				status = 'Game over, you lose';
-				self.user_surrender(status);
+				self.game_over_status=self.author_color;
+				self.game_over(status);
 			}
 
 			// suggest a draw?
@@ -478,15 +644,24 @@
 			this.fenEl.html(game.fen());
 			var load_pgn = game.pgn()
 			this.pgnEl.html(load_pgn.replace(game.fen(), ''));
-
 		},
-		//game_over: function() {
-		//	var self = this;
-		//	openerp.jsonRpc("/chess/game/gameover/", 'call', {'game_id': self.game_id})
-		//		.then(function(result){
-		//			if(result) console.log("Game over!");
-		//		});
-		//},
+		game_over: function(status) {
+			var self = this;
+			$('.chess_information .chess_time_usr').hide();
+			if (this.game_type=='blitz') {
+				console.log("call clock Stop");
+				self.clockStop();
+			}
+			var status_game = self.game_over_status;
+			openerp.jsonRpc("/chess/game/gameover/", 'call', {'game_id': self.game_id, 'status': status_game})
+				.then(function(result){
+					if(result) {
+						$('#surrender').hide();
+						$('#suggest_a_draw').hide();
+						self.user_surrender(status);
+					}
+				});
+		},
 		onDelFigure: function () {
 			/* It is only important as a shortened post we will use
 			 only to determine the remote pieces on the board */
@@ -581,15 +756,158 @@
 			}
 		},
 		user_surrender: function (status) {
+			var self = this;
 			this.statusEl.html(status);
-			this. cfg = {
+			this.cfg = {
 				moveSpeed: 'slow',
 				snapbackSpeed: 500,
 				snapSpeed: 100,
+				orientation: this.orientation,
 				position: game.fen(),
 			};
 			board = ChessBoard('board', this.cfg);
 			$('#flipOrientationBtn').on('click', board.flip);
+			self.clockStop();
+		},
+		status : "stopped",
+		currentClock : 0,
+		times : [ 0, 0 ],
+		clockStop: function() {
+			console.log("called clock stop");
+			//this.clearInterval();
+			this.removeClass(this.currentClock, 'expired');
+		},
+		clockClicked : function(id) {
+			if (game.game_over()==false) {
+				var self = this;
+				if (this.status == "stopped") {
+					/* start the clock */
+					this.status = "running";
+					this.currentClock = id;
+					this.setInterval();
+					this.addClass(this.currentClock, "running");
+					console.log("clock started: " + id);
+				} else if (this.status == "running") {
+					/* clock is already running */
+					if (this.currentClock == id) {
+						/* change the current clock */
+						this.removeClass(this.currentClock, "running");
+						if (this.currentClock == 0) {
+							this.currentClock = 1;
+						} else {
+							this.currentClock = 0;
+						}
+						this.addClass(this.currentClock, "running");
+						console.log("clock changed: " + id);
+					}
+				} else {
+					self.status = 'expired';
+					/* status is "expired", do nothing */
+					//call Game over
+				}
+			}
+		},
+		setInterval : function() {
+			this.timer = window.setInterval(this.countDown, 1000);
+		},
+
+		clearInterval : function() {
+			if ( this.timer ) {
+				window.clearInterval(this.timer);
+				this.timer = null;
+			}
+		},
+		countDown : function() {
+			var self = this;
+			new_game.times[new_game.currentClock]--;
+			new_game.updateClock(
+					new_game.currentClock,
+					new_game.times[new_game.currentClock]);
+			/* check if zero has been reached */
+			if ( Number(new_game.times[new_game.currentClock]) == 0) {
+				/* stop the interval */
+				new_game.clearInterval();
+				new_game.status = "expired";
+				console.log("timer suspended");
+				var status = '';
+				if ((game.turn() === 'w' && turn === 'white') || (game.turn() === 'b' && turn === 'black')) {
+					status = 'Game over, time limit. You lose';
+					swal({
+						title: "Game over",
+						text: "Time limit. You lose",
+						timer: 2000,
+						type: "error",
+						showConfirmButton: false
+					});
+					self.game_over_status = self.author_color;
+				}
+				if ((game.turn() === 'w' && turn === 'black') || (game.turn() === 'b' && turn === 'white')) {
+					swal({
+						title: "Game over",
+						text: "Time limit. You win!",
+						timer: 2000,
+						type: "success",
+						showConfirmButton: false
+					});
+					status = 'Game over, time limit. You win!';
+				};
+				new_game.game_over(status);
+			}
+		},
+		reset : function(author_time, another_user_time) {
+			/* reset the times */
+			this.times = [ author_time, another_user_time];
+
+			/* stop the clock */
+			this.status = "stopped";
+
+			this.clearInterval();
+
+			this.removeClass(0, "running");
+			this.removeClass(1, "running");
+
+			/* update the view */
+			this.updateView();
+		},
+		updateView : function() {
+			this.updateClock(0, this.times[0]);
+			this.updateClock(1, this.times[1]);
+		},
+		updateClock : function(id, time) {
+			var self = this;
+			element = document.getElementById("clock"+id);
+			var formattedTime = this.formatTime(time);
+			element.innerHTML = formattedTime;
+
+			/* change the class if time is up */
+			if ( time == 0 ) {
+				this.clockStop();
+				this.addClass(id, "expired");
+				this.clearInterval();
+			} else {
+				/* remove the class "expired" */
+				this.removeClass(id, "expired");
+			}
+		},
+		addClass : function(id, className) {
+			element = document.getElementById("clock"+id);
+			element.className += " " + className;
+		},
+
+		removeClass : function(id, className) {
+			element = document.getElementById("clock"+id);
+			var exp = new RegExp(className);
+			element.className = element.className.replace( exp , '' );
+		},
+		formatTime : function(time) {
+			var minutes = Math.floor(time / 60);
+			var seconds = Math.floor(time % 60);
+			var result = "";
+			if (minutes < 10) result += "0";
+			result += minutes + ":";
+			if (seconds < 10) result += "0";
+			result += seconds;
+			return result;
 		}
 	});
 
@@ -630,4 +948,7 @@
 			toggler.innerHTML = 'Close';
 		}
 	}
+	jQuery(document).ready(function(){
+		jQuery('.window_chat').scrollbar();
+	});
 })();
