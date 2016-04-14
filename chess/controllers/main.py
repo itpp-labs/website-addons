@@ -74,8 +74,8 @@ class Controller(openerp.addons.bus.bus.Controller):
         return result
 
     @http.route('/chess/game/load_time', type='json', auth='public')
-    def load_time(self, game_id, turn, author, color):
-        result = request.env['chess.game'].load_time(game_id, turn, author, color)
+    def load_time(self, game_id, turn):
+        result = request.env['chess.game'].load_time(game_id, turn)
         return result[0]
 
     @http.route('/chess/game/send/', type="json", auth="public")
@@ -91,7 +91,7 @@ class Controller(openerp.addons.bus.bus.Controller):
                 result = request.env["chess.game"].system_broadcast(message, game_id)
             return 'system'
 
-    @http.route('/chess/game/gameover/', type="json", auth="public")
+    @http.route('/chess/game/game_over/', type="json", auth="public")
     def game_over(self, game_id, status=None):
         request.env["chess.game"].browse(int(game_id)).game_over(status)
         return True

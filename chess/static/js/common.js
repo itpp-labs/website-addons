@@ -138,6 +138,7 @@
 			this.coockie_status = false;
 			this.check_status = false;
 			this.game_over_status = '';
+			this.system_status = '';
 
 			game = new Chess();
 			this.statusEl = $('#status');
@@ -181,7 +182,16 @@
 						self.game_type = result.information.type;
 						self.onGameType(self.game_type, self.author_time, self.another_user_time);
 						self.game_status = result.information.status;
+						self.system_status = result.information.system_status;
 						self.orientation = self.onOrientation();
+						if(self.system_status=='Game Over'){
+							$('.chess_information .chess_time_usr').hide();
+							self.clockStop();
+						}
+										console.log('_____________________________________');
+				console.log(self.game_status);
+				console.log(self.system_status);
+				console.log('_____________________________________');
 
 						//save all data in coockie
 						openerp.set_cookie(cookie_name, JSON.stringify({
@@ -194,7 +204,8 @@
 							'information': {
 								'id': self.game_id,
 								'type': self.game_type,
-								'status': self.game_status
+								'status': self.game_status,
+								'system_status': self.system_status
 							},
 							'another_user': {
 								'name': self.another_user_name,
@@ -225,7 +236,15 @@
 				self.game_id = coockie_game.information.id;
 				self.game_type = coockie_game.information.type;
 				self.game_status = coockie_game.information.status;
-				if(self.game_type!='blitz') {$('.chess_information .chess_time_usr').hide();}
+				self.system_status = coockie_game.information.system_status;
+				if(self.system_status=='Game Over'){
+					$('.chess_information .chess_time_usr').hide();
+					self.clockStop();
+				}
+				console.log('_____________________________________');
+				console.log(self.game_status);
+				console.log(self.system_status);
+				console.log('_____________________________________');
 				self.orientation = self.onOrientation();
 				self.onBoard();
 				self.call_load_system_message(coockie_game.information.id);
@@ -253,16 +272,21 @@
 		},
 		onGameType: function(game_type, author_time, another_user_time){
 			var self = this;
-			if(game_type=='blitz' || game_type=='limited time') {
-				$('.chess_information .chess_time_usr').show();
-				if (game.turn() === 'b') {
-					self.reset(Math.round(another_user_time), Math.round(author_time));
-				}
-				if (game.turn() === 'w') {
-					self.reset(Math.round(author_time), Math.round(another_user_time));
-				}
-			} else {
+			if(self.system_status=='Game Over'){
 				$('.chess_information .chess_time_usr').hide();
+			}
+			else {
+				if (game_type == 'blitz' || game_type == 'limited time') {
+					$('.chess_information .chess_time_usr').show();
+					if (game.turn() === 'b') {
+						self.reset(Math.round(another_user_time), Math.round(author_time));
+					}
+					if (game.turn() === 'w') {
+						self.reset(Math.round(author_time), Math.round(another_user_time));
+					}
+				} else {
+					$('.chess_information .chess_time_usr').hide();
+				}
 			}
 		},
 		call_load_system_message: function(game_id) {
@@ -282,9 +306,14 @@
                	 	history.forEach(function (item, i, history) {
 						self.onDrop(item['source'], item['target']);
 						self.onSnapEnd();
-						//board.move()
                 	});
-					self.load_time_history(history, result);
+					if(self.system_status=='Game Over'){
+						$('.chess_information .chess_time_usr').hide();
+						self.load_time_history(history, result);
+
+					}else {
+						self.load_time_history(history, result);
+					}
 				}
 				else{
 					console.log("Not load history. (game)");
@@ -299,11 +328,10 @@
 			});
 		},
 		load_time_history: function (history, resultat) {
+			console.log("load time history");
 			var self = this;
 			var error = false;
 			if (this.history) {
-				//call load time
-
 				var time_turn = '';
 				if (game.turn() === 'w' && turn === 'white') {
 					time_turn = 'ww'
@@ -318,36 +346,53 @@
 					time_turn = 'bb'
 				}
 				if (self.game_type == 'blitz' || self.game_type == 'limited time') {
-					openerp.jsonRpc("/chess/game/load_time", "call", {'game_id': self.game_id, 'turn': time_turn, 'author': self.author_name, 'color': self.author_color})
+					openerp.jsonRpc("/chess/game/load_time", "call", {'game_id': self.game_id, 'turn': time_turn})
 						.then(function (result) {
 							self.author_time = result.author_time;
 							self.another_user_time = result.another_user_time;
-							if (self.author_time==0 || self.another_user_time==0) {
-								self.onGameType(self.game_type, self.author_time, self.another_user_time);
-								self.clockStop();
-								var status = '';
-								if ((game.turn() === 'w' && turn === 'white') || (game.turn() === 'b' && turn === 'black')) {
-									status = 'Game over, time limit. You lose';
-									self.game_over_status = self.author_color;
-
+							if (self.system_status=='Game Over') {
+								if (self.author_time == 0 || self.another_user_time == 0) {
+									var status = '';
+									if ((game.turn() === 'w' && turn === 'white') || (game.turn() === 'b' && turn === 'black')) {
+										status = 'Game over, time limit. You lose';
+									}
+									if ((game.turn() === 'w' && turn === 'black') || (game.turn() === 'b' && turn === 'white')) {
+										status = 'Game over, time limit. You win!';
+									}
+									self.user_surrender(status);
+								}else {
+									self.onGameType(self.game_type, self.author_time, self.another_user_time);
+									self.showConfirmation(history, resultat);
 								}
-								if ((game.turn() === 'w' && turn === 'black') || (game.turn() === 'b' && turn === 'white')) {
-									status = 'Game over, time limit. You win!';
-									self.game_over_status = self.another_user_color;
-								}
-								self.game_over(status);
 							} else {
-								self.onGameType(self.game_type, self.author_time, self.another_user_time);
-								self.showConfirmation(history, resultat);
+								if (self.author_time == 0 || self.another_user_time == 0) {
+									self.onGameType(self.game_type, self.author_time, self.another_user_time);
+									var status = '';
+									if ((game.turn() === 'w' && turn === 'white') || (game.turn() === 'b' && turn === 'black')) {
+										status = 'Game over, time limit. You lose';
+										self.game_over_status = self.author_color;
+									}
+									if ((game.turn() === 'w' && turn === 'black') || (game.turn() === 'b' && turn === 'white')) {
+										status = 'Game over, time limit. You win!';
+										self.game_over_status = self.another_user_color;
+									}
+									self.game_over(status);
+								} else {
+									self.onGameType(self.game_type, self.author_time, self.another_user_time);
+									self.showConfirmation(history, resultat);
+								}
 							}
 						});
+				}
+				else {
+					self.showConfirmation(history, resultat);
 				}
 			}
 		},
 		showConfirmation: function(history, result){
 			var self = this;
 			if (this.history){
-				if(self.game_type=='blitz') {
+				if(self.game_type=='blitz' || self.game_type=='limited time') {
 					if((game.turn()=== 'b' && self.author_color=='black') || (game.turn() === 'b' && self.author_color=='white')) {
 						self.clockClicked(1);
 					}
@@ -355,24 +400,20 @@
 						self.clockClicked(0);
 					}
 				}
-				if(self.game_type=='limited game'){
-					//call for this game
-				}
 				self.onSnapEnd();
 				if (result.type == 'system') {
 					switch (result.data['status']) {
 						case 'surrender': {
 							if (result.data['user']==self.author_name) {
-								var status = 'Game over, you lose.';
+								var status = 'Game over, you lose. You surrender';
 								self.user_surrender(status);
 								self.game_over_status = self.author_color;
 							}
 							else {
-								var status = 'Game over, you win!';
+								var status = 'Game over, you win! '+self.another_user_name + ' is surrender';
 								self.game_over_status = self.another_user_color;
 								self.user_surrender(status);
 							}
-							//self.game_over(status);
 						} break
 						case 'draw': {
 							if (result.data['user']!=self.author_name) {
@@ -410,12 +451,10 @@
 							var status = 'Game over, drawn position';
 							self.game_over_status='drawn';
 							self.user_surrender(status);
-							//self.game_over(status);
 						} break
 						case 'Game over': {
 							var status = 'Game over';
 							self.user_surrender(status);
-							//self.game_over(status);
 						} break
 						default:{
 							console.log("No match in the system messages");
@@ -499,6 +538,18 @@
 								}
 							}
 						}
+						if(self.game_type=='limited time') {
+							if (game.turn() === 'w') {
+								self.clockClicked(1);
+							}
+							if (game.turn() === 'b') {
+								if (self.history_loading!=true) {
+									self.clockClicked(1);
+								}else {
+									self.clockClicked(0);
+								}
+							}
+						}
 					}
 					else if (result=='system') {
 						console.log("Send system message");
@@ -527,20 +578,27 @@
 			}
 			// checkmate?
 			if (game.in_checkmate() === true) {
-				status = moveColor + ' is in checkmate.';
-				if (self.history_loading != true) {
-					setTimeout(function () {swal("Game Over", moveColor + " is in checkmate.", "error");}, 100);
-					self.game_over_status = moveColor;
-					self.game_over('chekmate');
+				if((game.turn()=== 'b' && self.author_color=='black') || (game.turn() === 'w' && self.author_color=='white')) {
+					setTimeout(function () {swal("Game Over", moveColor + " is in checkmate. You lose", "error");}, 100);
+					status = moveColor + ' is in checkmate. You lose';
+				}
+				if((game.turn()=== 'b' && self.author_color=='white') || (game.turn()=== 'w' && self.author_color=='black')) {
+					setTimeout(function () {swal("Game Over", moveColor + " is in checkmate. You win!", "success");}, 100);
+					status = moveColor + ' is in checkmate. You win!';
+				}
+				self.game_over_status = moveColor;
+				$('.chess_information .chess_time_usr').hide();
+				if (self.game_status!='Game Over') {
+					self.game_over(moveColor + " is in checkmate.");
 				}
 			}
 			// draw?
 			else if (game.in_draw() === true) {
-				status = 'Game over, drawn position =)';
-				if (self.history_loading != true){
-					swal("Game Over", "is drawn position", "error");
-					self.game_over_status='drawn';
-					self.game_over('drawn');
+				status = 'Game over, drawn position.';
+				setTimeout(function () {swal("Game Over", "is drawn position", "error");}, 100);
+				self.game_over_status='drawn';
+				if (self.game_status!='Game Over') {
+					self.game_over("Game Over, is drawn position");
 				}
 			}
 			// game still on
@@ -590,7 +648,7 @@
 										type: "error",
 										showConfirmButton: false
 									});
-									status = 'Game over, you lose';
+									status = 'Game over, you lose. You surrender';
 									//send system message (user is surrender)
 									if (self.coockie_status) {
 										var data = {'status': 'surrender', 'user': self.author_name};
@@ -646,14 +704,18 @@
 			this.pgnEl.html(load_pgn.replace(game.fen(), ''));
 		},
 		game_over: function(status) {
-			var self = this;
-			$('.chess_information .chess_time_usr').hide();
-			if (this.game_type=='blitz') {
-				console.log("call clock Stop");
-				self.clockStop();
+			if (this.system_status=='Game Over') {
+				return false;
 			}
+			$('.chess_information .chess_time_usr').hide();
+			console.log('Game Over');
+			//delete cookie
+			var cookie_name = ChessGame.COOKIE_NAME+this.game_id;
+			document.cookie = cookie_name + "=" + "; expires=-1";
+
+			var self = this;
 			var status_game = self.game_over_status;
-			openerp.jsonRpc("/chess/game/gameover/", 'call', {'game_id': self.game_id, 'status': status_game})
+			openerp.jsonRpc("/chess/game/game_over/", 'call', {'game_id': self.game_id, 'status': status_game})
 				.then(function(result){
 					if(result) {
 						$('#surrender').hide();
@@ -757,6 +819,7 @@
 		},
 		user_surrender: function (status) {
 			var self = this;
+			$('.chess_information .chess_time_usr').hide();
 			this.statusEl.html(status);
 			this.cfg = {
 				moveSpeed: 'slow',
@@ -765,6 +828,8 @@
 				orientation: this.orientation,
 				position: game.fen(),
 			};
+			$('#surrender').hide();
+			$('#suggest_a_draw').hide();
 			board = ChessBoard('board', this.cfg);
 			$('#flipOrientationBtn').on('click', board.flip);
 			self.clockStop();
@@ -773,9 +838,16 @@
 		currentClock : 0,
 		times : [ 0, 0 ],
 		clockStop: function() {
-			console.log("called clock stop");
-			//this.clearInterval();
+			var self = this;
+			console.log("clock stop");
+			this.clearInterval();
 			this.removeClass(this.currentClock, 'expired');
+			if ((game.turn() === 'b' && turn=='black') ||  (game.turn() === 'w' && turn=='black')) {
+					self.reset(Math.round(self.another_user_time), Math.round(self.author_time));
+			}
+			if ((game.turn() === 'w' && turn=='white') || (game.turn() === 'b' && turn=='white')) {
+				self.reset(Math.round(self.author_time), Math.round(self.another_user_time));
+			}
 		},
 		clockClicked : function(id) {
 			if (game.game_over()==false) {
@@ -803,7 +875,6 @@
 				} else {
 					self.status = 'expired';
 					/* status is "expired", do nothing */
-					//call Game over
 				}
 			}
 		},
@@ -824,7 +895,7 @@
 					new_game.currentClock,
 					new_game.times[new_game.currentClock]);
 			/* check if zero has been reached */
-			if ( Number(new_game.times[new_game.currentClock]) == 0) {
+			if (new_game.times[new_game.currentClock] == 0) {
 				/* stop the interval */
 				new_game.clearInterval();
 				new_game.status = "expired";
@@ -850,12 +921,16 @@
 						showConfirmButton: false
 					});
 					status = 'Game over, time limit. You win!';
+					self.game_over_status = self.another_user_color;
 				};
-				new_game.game_over(status);
+				if (self.system_status!='Game Over') {
+					new_game.game_over(status);
+				}
 			}
 		},
 		reset : function(author_time, another_user_time) {
 			/* reset the times */
+
 			this.times = [ author_time, another_user_time];
 
 			/* stop the clock */
@@ -881,7 +956,7 @@
 
 			/* change the class if time is up */
 			if ( time == 0 ) {
-				this.clockStop();
+				//this.clockStop();
 				this.addClass(id, "expired");
 				this.clearInterval();
 			} else {

@@ -84,15 +84,21 @@
                                                 <span class="setup">
                                                     <p><t t-esc="games.game_type"/></p>
                                                 </span>
-                                                <p>activ partia</p>
+                                                <p><t t-esc="games.system_status"/></p>
                                             </div>
                                         </div>
                                         <div class="players">
                                             <div t-attf-class="player_color_icon_is_{{games.first_color_figure }}">
                                                 <t t-esc="games.first_user_id.name"/>
+                                                <div class="rating">
+                                                    <t t-esc="games.first_user_id.game_rating"/>
+                                                </div>
                                             </div>
                                             <div t-attf-class="player_color_icon_is_{{games.second_color_figure }}">
                                                 <t t-esc="games.second_user_id.name"/>
+                                                <div class="rating">
+                                                    <t t-esc="games.second_user_id.game_rating"/>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

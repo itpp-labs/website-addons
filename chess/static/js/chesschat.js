@@ -97,7 +97,7 @@
                     self.author_name = result.author_name; // current user
                     self.author_id = result.author_id;
                     self.game_id = result.game_id;
-                    openerp.set_cookie(cookie_name, JSON.stringify({'game_id': self.game_id, 'author_name': self.author_name, 'author_id': self.author_id}), 60*60);
+                    openerp.set_cookie(cookie_name, JSON.stringify({'game_id': self.game_id, 'author_name': self.author_name, 'author_id': self.author_id}), 30*24*60*60);
                 });
             } else {
                 console.log("Load history and coockie for chat");

@@ -22,6 +22,7 @@ class ChessGame(models.Model):
     second_color_figure = fields.Selection([('white', 'White'), ('black', 'Black')],
                              'Select color for second figure')
     status = fields.Char(default='New Game')
+    system_status = fields.Char(default='Waiting')
     move_game_ids = fields.One2many('chess.game.line', 'game_id', 'Game Move')
     message_game_ids = fields.One2many('chess.game.chat', 'game_id', 'Chat message')
 
@@ -38,16 +39,16 @@ class ChessGame(models.Model):
         return self.search([('id', '=', game_id)]).write_time(message, game_id)
 
     @api.model
-    def load_time(self, game_id, turn, author, color):
-        return self.search([('id', '=', game_id)]).search_time(turn, author, color)
+    def load_time(self, game_id, turn):
+        return self.search([('id', '=', game_id)]).search_time(turn)
 
     @api.one
-    def search_time(self, turn, author, color):
+    def search_time(self, turn):
         author_time = self.first_user_time
         another_user_time = self.second_user_time
         author_last_time = self.first_time_date
         another_last_time = self.second_time_date
-        if self.env.user.id==self.first_user_id.id:
+        if self.env.user.id == self.first_user_id.id:
             author_time  = self.first_user_time
             another_user_time = self.second_user_time
             author_last_time = self.first_time_date
@@ -58,7 +59,7 @@ class ChessGame(models.Model):
             author_last_time = self.second_time_date
             another_last_time = self.first_time_date
         current_time = int(time.time())
-        if(self.status=='Game Over'):
+        if(self.system_status == 'Game Over'):
             return {'author_time':  author_time, 'another_user_time': another_user_time}
         else:
             if turn == 'ww' or turn == 'bb':
@@ -96,16 +97,18 @@ class ChessGame(models.Model):
 
     @api.one
     def game_over(self, status):
+        if self.system_status == 'Game Over':
+            return False
         #status for rating ELO
-        if len(status)<=0:
+        if len(status) > 0:
             rating_first = self.first_user_id.game_rating #rating for first user
             rating_second = self.second_user_id.game_rating #rating for second use
             # #all game for first user
             all_game_f = len(self.env["chess.game"].search([('first_user_id.id', '=', self.first_user_id.id)]))\
-                         +len(self.env["chess.game"].search([('second_user_id.id', '=', self.first_user_id.id)]))
+                         + len(self.env["chess.game"].search([('second_user_id.id', '=', self.first_user_id.id)]))
             #all game for second user
             all_game_s = len(self.env["chess.game"].search([('first_user_id.id', '=', self.second_user_id.id)]))\
-                         +len(self.env["chess.game"].search([('second_user_id.id', '=', self.second_user_id.id)]))
+                         + len(self.env["chess.game"].search([('second_user_id.id', '=', self.second_user_id.id)]))
             K_f = 0
             if rating_first>2400:
                 K_f = 10
@@ -133,36 +136,24 @@ class ChessGame(models.Model):
                 first_game_result = 0.5
                 second_game_result = 0.5
             #rating formule
-            print("------------------first user-----------------")
-            print('rating_first', rating_first)
-            print('rating_second', rating_second)
-            print('all_game_f', all_game_f)
-            print('K_f', K_f)
             import math
             #new rating for first user
             E_first = (1.0/(1.0+math.pow(10,((rating_second - rating_first)/400.0))))
             new_rating_first = rating_first + K_f * (first_game_result - E_first)
-            print('result game', first_game_result)
-            print('result game second', second_game_result)
-            print('status', status)
-            print('E_first', E_first)
-            print('new_rating_first', new_rating_first)
-            print("---------------------------------------------")
-
             #new rating for second user
             E_second = (1.0/(1.0+math.pow(10,((rating_first - rating_second)/400.0))))
             new_rating_second = rating_second + K_s * (second_game_result - E_second)
             #write it
-            print("_________________________________")
-            print(new_rating_first)
-            print(new_rating_second)
-            print("_________________________________")
             self.env['res.users'].search([('id', '=', self.first_user_id.id)]).write({
-                 'game_rating': new_rating_first
+                 'game_rating': round(new_rating_first, 2)
             })
             self.env['res.users'].search([('id', '=', self.second_user_id.id)]).write({
-                 'game_rating': new_rating_second})
-        return self.write({'date_finish': datetime.datetime.now(), 'status': 'Game Over'})
+                 'game_rating': round(new_rating_second,2)})
+        return self.write(
+            {
+                'date_finish': datetime.datetime.now(),
+                'system_status': 'Game Over'
+            })
 
     @api.one
     def game_information(self):
@@ -197,7 +188,8 @@ class ChessGame(models.Model):
             'information': {
                 'id': self.ids[0],
                 'type': str(self.game_type),
-                'status': str(self.status)
+                'status': str(self.status),
+                'system_status': str(self.system_status)
             },
             'another_user': {
                 'name': str(another_user_name),
@@ -240,7 +232,7 @@ class ChessGameLine(models.Model):
                 ps.write({'first_time_date': int(time.time())})
             # save it
             self.create(vals)
-            ps.write({'status': 'Active game'})
+            ps.write({'status': 'Active game', 'system_status': 'Active game'})
             if ps.first_user_id.id != self.env.user.id:
                 notifications.append([(self._cr.dbname, 'chess.game.line', ps.first_user_id.id), message])
             else:
