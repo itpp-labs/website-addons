@@ -104,6 +104,7 @@ class AuthorizeForm(PaymentAcquirerCommon):
 
         # validate it
         self.payment_transaction.form_feedback(cr, uid, authorize_post_data, 'authorize', context=context)
-        # check state
-        self.assertEqual(tx.state, 'done', 'Authorize: validation did not put tx into done state')
+        created_invoice_id = self.env['sale.order'].browse(so_id).invoice_ids[0].id
+        created_ivoice = self.env['account.invoice'].browse(created_invoice_id)
+        self.assertEqual(created_ivoice.state, 'paid', 'Invoice state wrong')
 
