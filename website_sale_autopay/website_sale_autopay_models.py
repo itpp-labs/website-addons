@@ -13,8 +13,8 @@ class sale_order(models.Model):
     def action_button_confirm(self, cr, uid, ids, context=None):
         super(sale_order, self).action_button_confirm(cr, uid, ids, context=context)
         r = self.browse(cr, uid, ids[0], context=context)
-        if r.payment_tx_id and r.payment_tx_id.state == 'done' and r.payment_acquirer_id and r.payment_acquirer_id.journal_id:
-            journal_id = r.payment_acquirer_id.journal_id.id
+        if r.payment_tx_id and r.payment_tx_id.state == 'done' and r.payment_acquirer_id:
+            journal_id = r.payment_acquirer_id.journal_id.id or self.pool['account.invoice'].default_get(cr, uid, ['journal_id'], context=context)['journal_id']
 
             # [create invoice]
             res = self.pool['sale.order'].manual_invoice(cr, uid, [r.id], context)
