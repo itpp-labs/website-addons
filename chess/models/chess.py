@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
 import time
+import serverchess
 from openerp import models, fields, api, SUPERUSER_ID
 
 class ChessGame(models.Model):
@@ -23,6 +24,7 @@ class ChessGame(models.Model):
                              'Select color for second figure')
     status = fields.Char(default='New Game')
     system_status = fields.Char(default='Waiting')
+    fen = fields.Char(default = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1')
     move_game_ids = fields.One2many('chess.game.line', 'game_id', 'Game Move')
     message_game_ids = fields.One2many('chess.game.chat', 'game_id', 'Chat message')
 
@@ -225,11 +227,18 @@ class ChessGameLine(models.Model):
                 "source": data['source'],
                 "target": data['target'],
             }
-            #if send move fist user then on time for second user
+            # chess server for legal move
+            board = serverchess.Board(ps.fen)
+            legal_move = serverchess.Move.from_uci(data['source']+data['target']) in board.legal_moves
+            # if move not legal then fixed board
+            if legal_move is False:
+                return False
+            # if send move fist user then on time for second user
             if ps.first_user_id.id==self.env.user.id:
                 ps.write({'second_time_date': int(time.time())})
             else:
                 ps.write({'first_time_date': int(time.time())})
+            ps.write({'fen': data['fen']})
             # save it
             self.create(vals)
             ps.write({'status': 'Active game', 'system_status': 'Active game'})
@@ -238,7 +247,7 @@ class ChessGameLine(models.Model):
             else:
                 notifications.append([(self._cr.dbname, 'chess.game.line', ps.second_user_id.id), message])
         self.env['bus.bus'].sendmany(notifications)
-        return 1
+        return 'move'
 
     @api.model
     def move_fetch(self, game_id):

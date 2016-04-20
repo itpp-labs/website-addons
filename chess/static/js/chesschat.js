@@ -5,14 +5,14 @@
     var ChessChat = openerp.ChessChat = {};
     ChessChat.COOKIE_NAME = 'chesschat_session';
     ChessChat.ConversationManager = openerp.Widget.extend({
-        init: function (parent) {
+        init: function (parent, channel) {
             this._super(parent);
             console.log("Initial polling widget for chat");
             var self = this;
             // start the polling
             this.bus = openerp.bus.bus;
             this.bus.on("notification", this, this.on_notification);
-            //this.bus.start_polling();
+            this.bus.start_polling();
         },
         on_notification: function (notification) {
             console.log("on_notification")
@@ -66,13 +66,17 @@
     });
     ChessChat.Conversation = openerp.Widget.extend({
         className: "chat_form",
-        init: function(parent){
-            this._super(parent);
-            var element = document.getElementById('chat')
+        init: function(server_url, db, channel){
+            var element = document.getElementById('chat');
 			if (!element) {
 				return;
 			}
-            this.c_manager = new openerp.ChessChat.ConversationManager(this);
+            console.log("server url, db, channel");
+            console.log(server_url);
+            console.log(db);
+            console.log(channel);
+            openerp.session = new openerp.Session(null, server_url, { use_cors: false });
+            this.c_manager = new openerp.ChessChat.ConversationManager(null, channel);
             this.history = true;
             this.game_id = [];
             this.opening_chat = false;

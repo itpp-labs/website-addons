@@ -82,7 +82,7 @@ class Controller(openerp.addons.bus.bus.Controller):
     def move_send(self, message, game_id):
         if message['type']=='move':
             result = request.env["chess.game.line"].move_broadcast(message, game_id)
-            return 'move'
+            return result
         elif message['type']=='system':
             t = message['data']
             if t['status']=='time':

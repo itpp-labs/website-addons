@@ -76,6 +76,7 @@
                 <div class="conteiner">
                     <div class="content">
                         <div class='box'>
+                            <t t-call="chess.external_loader"/>
                             <div class="site_header">
                                 <div class="side">
                                     <div class="side_box padded">
@@ -173,7 +174,31 @@
                 </div>
             </t>
         </template>
-        <template id="external_lib" name="External Librairies of the Livechat, required to make it work">
+
+        <!-- Template rendering all the scripts required to execute the Chess from an external page (which not contain Odoo) -->
+        <template id="external_loader" name="All the scripts to launch the chess from an external Web Page">
+            <!-- css style -->
+            <!--<link t-att-href="'%s/web/css/chess.external_lib' % (url)" rel="stylesheet"/>-->
+            <!-- less style -->
+            <link t-att-href="'%s/web/less/chess.external_lib' % (url)" rel="stylesheet"/>
+            <!-- js of all the required lib (internal and external) -->
+            <script t-att-src="'%s/web/js/chess.external_lib' % (url)" type="text/javascript" />
+            <!-- the loader -->
+            <script t-att-src="'%s/chess/loader/%s/%s' % (url, dbname, channel)" type="text/javascript" />
+        </template>
+
+        <!-- Template rendering all the scripts required to execute the Chess from a page containing Odoo -->
+        <template id="internal_loader" name="All the scripts to launch the chess from an internal Web Page">
+            <!-- css style -->
+            <link property='stylesheet' t-att-href="'%s/web/css/chess.internal_lib' % (url)" rel="stylesheet"/>
+            <!-- js of all the required lib (internal and external) -->
+            <script t-att-src="'%s/web/js/chess.internal_lib' % (url)" type="text/javascript" />
+            <!-- the loader -->
+            <script t-att-src="'%s/chess/loader/%s/%s' % (url, dbname, channel)" type="text/javascript" />
+        </template>
+
+        <!-- Bundle of External Librairies of the Chess -->
+        <template id="external_lib" name="External Librairies of the chess, required to make it work">
             <!-- OpenERP minimal lib -->
             <script type="text/javascript" src="/web/static/lib/underscore/underscore.js"></script>
             <script type="text/javascript" src="/web/static/lib/underscore.string/lib/underscore.string.js"></script>
@@ -181,55 +206,78 @@
             <script type="text/javascript" src="/web/static/lib/qweb/qweb2.js"></script>
             <script type="text/javascript" src="/web/static/src/js/openerpframework.js"></script>
             <!-- add the internal lib -->
-            <t t-call="im_livechat.internal_lib"/>
+            <t t-call="chess.internal_lib"/>
         </template>
+
+        <!-- Bundle of Librairies of the Bus, Chat, Chess -->
+        <template id="internal_lib" name="Librairies of the chess">
+            <!-- Datejs -->
+            <script type="text/javascript" t-att-src="'/web/static/lib/datejs/globalization/%s.js'
+                % (request.session.context.get('lang').replace('_','-'))"></script>
+            <script type="text/javascript" src="/web/static/lib/datejs/core.js"></script>
+            <script type="text/javascript" src="/web/static/lib/datejs/parser.js"></script>
+            <script type="text/javascript" src="/web/static/lib/datejs/sugarpak.js"></script>
+            <script type="text/javascript" src="/web/static/lib/datejs/extras.js"></script>
+            <!-- CSS -->
+            <!--<link rel="stylesheet" href="/im_chat/static/src/css/im_common.css"></link>-->
+            <link rel="stylesheet" type="text/less" href="/chess/static/less/winmodal.less"/>
+            <link rel="stylesheet" type="text/less" href="/chess/static/less/chessboard.less"/>
+            <link rel="stylesheet" type="text/less" href="/chess/static/less/chessclock.less"/>
+            <link rel="stylesheet" type="text/less" href="/chess/static/less/sweet-alert.less"/>
+            <link rel="stylesheet" type="text/less" href="/chess/static/less/style.less"/>
+            <link rel="stylesheet" type="text/less" href="/chess/static/less/common.less"/>
+            <link rel="stylesheet" type="text/css" href="/chess/static/css/jquery.scrollbar.css"/>
+            <link rel="stylesheet" type="text/less" href="/chess/static/less/simple-chat.less"/>
+            <!-- IM module -->
+            <script type="text/javascript" src="/bus/static/src/js/bus.js"></script>
+            <!--<script type="text/javascript" src="/im_chat/static/src/js/im_chat.js"></script>-->
+            <script type="text/javascript" src="/chess/static/js/sweet-alert.js"></script>
+            <script type="text/javascript" src="/chess/static/js/chessboard.js"></script>
+            <script type="text/javascript" src="/chess/static/js/chess.js"></script>
+            <script type="text/javascript" src="/chess/static/js/dm-modal.js"></script>
+            <script type="text/javascript" src="/chess/static/js/common.js"></script>
+            <script type="text/javascript" src="/chess/static/js/jquery.scrollbar.min.js"></script>
+            <script type="text/javascript" src="/chess/static/js/chesschat.js"></script>
+            <script type="text/javascript" src="/chess/static/js/create_game.js"></script>
+            <script type="text/javascript" src="/chess/static/js/seedrandom-min.js"></script>
+            <script type="text/javascript" src="/chess/static/js/jquery.seed-colors.js"></script>
+        </template>
+
+        <!-- the js code to initialize the Chess object -->
+        <template id="loader" name="Javascript initializing the LiveSupport">
+            <t t-translate="off">
+                (function() {
+                    window.my_chat = new openerp.ChessChat.Conversation(
+                        "<t t-esc="url"/>",
+                        "<t t-esc="dbname"/>",
+                        <t t-esc="channel"/>,);
+                })();
+            </t>
+        </template>
+
+
         <template id="assets_frontend" name="chess assets frontend" inherit_id="website.assets_frontend">
              <xpath expr="." position="inside">
                  <link rel="stylesheet" type="text/less" href="/chess/static/less/winmodal.less"/>
-                 <link rel="stylesheet" type="text/less" href="/chess/static/less/chessboard.less"/>
-                 <link rel="stylesheet" type="text/less" href="/chess/static/less/chessclock.less"/>
-                 <link rel="stylesheet" type="text/less" href="/chess/static/less/sweet-alert.less"/>
+                 <!--<link rel="stylesheet" type="text/less" href="/chess/static/less/chessboard.less"/>-->
+                 <!--<link rel="stylesheet" type="text/less" href="/chess/static/less/chessclock.less"/>-->
+                 <!--<link rel="stylesheet" type="text/less" href="/chess/static/less/sweet-alert.less"/>-->
                  <link rel="stylesheet" type="text/less" href="/chess/static/less/style.less"/>
                  <link rel="stylesheet" type="text/less" href="/chess/static/less/common.less"/>
-                 <link rel="stylesheet" type="text/css" href="/chess/static/css/jquery.scrollbar.css"/>
-                 <link rel="stylesheet" type="text/less" href="/chess/static/less/simple-chat.less"/>
-                 <script type="text/javascript" src="/chess/static/js/sweet-alert.js"></script>
-                 <script type="text/javascript" src="/chess/static/js/chessboard.js"></script>
-                 <script type="text/javascript" src="/chess/static/js/chess.js"></script>
-                 <script type="text/javascript" src="/bus/static/src/js/bus.js"></script>
+                 <!--<link rel="stylesheet" type="text/css" href="/chess/static/css/jquery.scrollbar.css"/>-->
+                 <!--<link rel="stylesheet" type="text/less" href="/chess/static/less/simple-chat.less"/>-->
+                 <!--<script type="text/javascript" src="/chess/static/js/sweet-alert.js"></script>-->
+                 <!--<script type="text/javascript" src="/chess/static/js/chessboard.js"></script>-->
+                 <!--<script type="text/javascript" src="/chess/static/js/chess.js"></script>-->
+                 <!--<script type="text/javascript" src="/bus/static/src/js/bus.js"></script>-->
                  <script type="text/javascript" src="/chess/static/js/dm-modal.js"></script>
-                 <script type="text/javascript" src="/chess/static/js/common.js"></script>
-                 <script type="text/javascript" src="/chess/static/js/jquery.scrollbar.min.js"></script>
-                 <script type="text/javascript" src="/chess/static/js/chesschat.js"></script>
-                 <script type="text/javascript" src="/chess/static/js/create_game.js"></script>
-                 <script type="text/javascript" src="/chess/static/js/seedrandom-min.js"></script>
-                 <script type="text/javascript" src="/chess/static/js/jquery.seed-colors.js"></script>
+                 <!--<script type="text/javascript" src="/chess/static/js/common.js"></script>-->
+                 <!--<script type="text/javascript" src="/chess/static/js/jquery.scrollbar.min.js"></script>-->
+                 <!--<script type="text/javascript" src="/chess/static/js/chesschat.js"></script>-->
+                 <!--<script type="text/javascript" src="/chess/static/js/create_game.js"></script>-->
+                 <!--<script type="text/javascript" src="/chess/static/js/seedrandom-min.js"></script>-->
+                 <!--<script type="text/javascript" src="/chess/static/js/jquery.seed-colors.js"></script>-->
              </xpath>
-        </template>
-        <template name="User list" id="userpage" page="True">
-            <t t-call="website.layout">
-                <t t-set="title">Game list</t>
-                <div class="oe_structure">
-                    <div class="container">
-                        <div class="game_list">
-                        <div class="chess_list">
-                            <h3>Games completed</h3>
-                            <ul>
-                            <t t-foreach="games_completed" t-as="game_completed">
-                                <li> <a t-attf-href="/chess/game/{{ game_completed.id }}/">
-                                    <t t-esc="game_completed.first_user_id.name"/>
-                                    VS
-                                    <t t-esc="game_completed.second_user_id.name"/>
-                                    win is
-                                    <t t-esc="game_completed.status"/>
-                                </a> </li>
-                            </t>
-                            </ul>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            </t>
         </template>
     </data>
 </openerp>

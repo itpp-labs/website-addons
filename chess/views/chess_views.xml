@@ -1,6 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
   <data>
+    <record id="view_new_chess_game" model="ir.ui.view">
+      <field name="name">chess.game.new</field>
+      <field name="model">chess.game</field>
+      <field name="arch" type="xml">
+        <tree string="New games">
+          <field name="game_type" />
+          <field name="date_start" />
+          <field name="first_user_id" string="User name"/>
+          <field name="first_color_figure" string="Figure color"/>
+          <field name="second_user_time" string="Time"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="view_active_chess_game" model="ir.ui.view">
+      <field name="name">chess.game.active</field>
+      <field name="model">chess.game</field>
+      <field name="arch" type="xml">
+        <tree string="Active games">
+          <field name="game_type" />
+          <field name="date_start" />
+          <field name="first_user_id" string="User name"/>
+          <field name="first_color_figure" string="Figure color"/>
+          <field name="second_user_time" string="Time"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="view_completed_chess_game" model="ir.ui.view">
+      <field name="name">chess.game.completed</field>
+      <field name="model">chess.game</field>
+      <field name="arch" type="xml">
+        <tree string="Completed games">
+          <field name="game_type" />
+          <field name="date_start" />
+          <field name="date_finish" />
+          <field name="second_user_id" string="User name"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="view_denied_chess_game" model="ir.ui.view">
+      <field name="name">chess.game.denied</field>
+      <field name="model">chess.game</field>
+      <field name="arch" type="xml">
+        <tree string="Denied games">
+          <field name="game_type" />
+          <field name="date_start" />
+          <field name="second_user_id" string="User name"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="view_invitations_chess_game" model="ir.ui.view">
+      <field name="name">chess.game.invitations</field>
+      <field name="model">chess.game</field>
+      <field name="arch" type="xml">
+        <tree string="My invitations">
+          <field name="game_type" />
+          <field name="date_start" />
+          <field name="second_user_id" string="User name"/>
+          <field name="second_color_figure" string="Figure color"/>
+          <field name="second_user_time" string="Time"/>
+        </tree>
+      </field>
+    </record>
     <record id="action_chess_game" model="ir.actions.act_window">
       <field name="name">Chess</field>
       <field name="res_model">chess.game</field>
@@ -13,8 +79,9 @@
       <field name="type">ir.actions.act_window</field>
       <field name="res_model">chess.game</field>
       <field name="view_type">form</field>
+      <field name="view_id" ref="chess.view_new_chess_game"/>
       <field name="view_mode">tree</field>
-      <field name="domain">[('system_status', '=', 'Waiting')]</field>
+      <field name="domain">[('system_status', '=', 'Waiting'), ('first_user_id', '!=', uid)]</field>
     </record>
 
     <record id="action_active_chess_game" model="ir.actions.act_window">
@@ -22,6 +89,7 @@
       <field name="type">ir.actions.act_window</field>
       <field name="res_model">chess.game</field>
       <field name="view_type">form</field>
+      <field name="view_id" ref="chess.view_active_chess_game"/>
       <field name="view_mode">tree</field>
       <field name="domain">[('system_status', '=', 'Active game')]</field>
     </record>
@@ -31,6 +99,7 @@
       <field name="type">ir.actions.act_window</field>
       <field name="res_model">chess.game</field>
       <field name="view_type">form</field>
+      <field name="view_id" ref="chess.view_denied_chess_game"/>
       <field name="view_mode">tree</field>
       <field name="domain">[('system_status', '=', 'Denied')]</field>
     </record>
@@ -40,100 +109,20 @@
       <field name="type">ir.actions.act_window</field>
       <field name="res_model">chess.game</field>
       <field name="view_type">form</field>
+      <field name="view_id" ref="chess.view_completed_chess_game"/>
       <field name="view_mode">tree</field>
       <field name="domain">[('system_status', '=', 'Game Over')]</field>
     </record>
 
-    <record id="action_my_bid_chess_game" model="ir.actions.act_window">
-      <field name="name">My bind</field>
+    <record id="action_my_invitations_chess_game" model="ir.actions.act_window">
+      <field name="name">My invitations</field>
       <field name="type">ir.actions.act_window</field>
       <field name="res_model">chess.game</field>
       <field name="view_type">form</field>
+      <field name="view_id" ref="chess.view_invitations_chess_game"/>
       <field name="view_mode">tree</field>
-      <field name="domain">[('system_status', '=', 'Waiting')]</field>
+      <field name="domain">[('system_status', '=', 'Waiting'), ('first_user_id', '=', uid)]</field>
     </record>
-
-    <!--<record id="chess_game_form" model="ir.ui.view">-->
-      <!--<field name="name">Chess game: form</field>-->
-      <!--<field name="model">chess.game</field>-->
-      <!--<field name="arch" type="xml">-->
-        <!--<form>-->
-          <!--<sheet>-->
-            <!--<label for="date_start"/> <field name="date_start"/>-->
-            <!--<label for="first_user_id"/> <field name="first_user_id"/>-->
-            <!--<label for="first_color_figure"/> <field name="first_color_figure"/>-->
-            <!--<label for="first_user_time"/> <field name="first_user_time"/>-->
-            <!--<label for="second_user_id"/> <field name="second_user_id"/>-->
-            <!--<label for="second_color_figure"/> <field name="second_color_figure"/>-->
-            <!--<label for="second_user_time"/> <field name="second_user_time"/>-->
-            <!--<field name="move_game_ids">-->
-              <!--<tree string="Move game list" editable="bottom">-->
-                <!--<field name="source"/>-->
-                <!--<field name="target"/>-->
-              <!--</tree>-->
-            <!--</field>-->
-            <!--<field name ="message_game_ids">-->
-              <!--<tree string="Message game list" editable="bottom">-->
-                <!--<field name="author_id"/>-->
-                <!--<field name="message"/>-->
-                <!--<field name="date_message"/>-->
-              <!--</tree>-->
-            <!--</field>-->
-            <!--<label for="date_finish"/> <field name="date_finish"/>-->
-            <!--<label for="system_status"/> <field name="system_status"/>-->
-          <!--</sheet>-->
-        <!--</form>-->
-      <!--</field>-->
-    <!--</record>-->
-
-
-    <!--<record id="action_chess_game_line" model="ir.actions.act_window">-->
-      <!--<field name="name">Chess game line</field>-->
-      <!--<field name="res_model">chess.game.line</field>-->
-    <!--</record>-->
-
-    <!--<record id="action_chess_chat" model="ir.actions.act_window">-->
-      <!--<field name="name">Chess chat</field>-->
-      <!--<field name="res_model">chess.game.chat</field>-->
-    <!--</record>-->
-
-    <!--<record id="chess_game_line_search" model="ir.ui.view">-->
-      <!--<field name="name">Chess game line: search</field>-->
-      <!--<field name="model">chess.game.line</field>-->
-      <!--<field name="arch" type="xml">-->
-        <!--<search>-->
-          <!--<field name="game_id"/>-->
-          <!--<field name="source"/>-->
-          <!--<field name="target"/>-->
-        <!--</search>-->
-      <!--</field>-->
-    <!--</record>-->
-
-    <!--<record id="chess_chat_search" model="ir.ui.view">-->
-      <!--<field name="name">Chess chat: search</field>-->
-      <!--<field name="model">chess.game.chat</field>-->
-      <!--<field name="arch" type="xml">-->
-        <!--<search>-->
-          <!--<field name="game_id"/>-->
-          <!--<field name="message"/>-->
-          <!--<field name="date_message"/>-->
-        <!--</search>-->
-      <!--</field>-->
-    <!--</record>-->
-    <record id="view_chess_tree" model="ir.ui.view">
-      <field name="name">chess.game.tree</field>
-      <field name="model">chess.game</field>
-      <field name="arch" type="xml">
-        <tree>
-          <field name="game_type" />
-          <field name="date_start" />
-          <field name="first_user_id" string="User name"/>
-          <field name="first_color_figure" string="Figure color"/>
-          <field name="second_user_time" string="Time"/>
-        </tree>
-      </field>
-    </record>
-
 
     <menuitem sequence="0" id="menu_chess" name="Chess"/>
     <menuitem id="menu_chess_content" parent="menu_chess"
@@ -144,6 +133,7 @@
 
     <menuitem id="menu_new_chess_content"
               parent="menu_chess_content"
+
               action="action_new_chess_game"/>
     <menuitem id="menu_active_chess_content"
               parent="menu_chess_content"
@@ -151,9 +141,9 @@
     <menuitem id="menu_completed_chess_content"
               parent="menu_chess_content"
               action="action_completed_chess_game"/>
-    <menuitem id="menu_bid_games_content"
+    <menuitem id="menu_invitations_games_content"
               parent="menu_games_content"
-              action="action_my_bid_chess_game"/>
+              action="action_my_invitations_chess_game"/>
     <menuitem id="menu_denied_games_content"
               parent="menu_games_content"
               action="action_denied_chess_game"/>

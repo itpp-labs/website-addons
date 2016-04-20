@@ -188,11 +188,6 @@
 							$('.chess_information .chess_time_usr').hide();
 							self.clockStop();
 						}
-										console.log('_____________________________________');
-				console.log(self.game_status);
-				console.log(self.system_status);
-				console.log('_____________________________________');
-
 						//save all data in coockie
 						openerp.set_cookie(cookie_name, JSON.stringify({
 							'author': {
@@ -241,10 +236,6 @@
 					$('.chess_information .chess_time_usr').hide();
 					self.clockStop();
 				}
-				console.log('_____________________________________');
-				console.log(self.game_status);
-				console.log(self.system_status);
-				console.log('_____________________________________');
 				self.orientation = self.onOrientation();
 				self.onBoard();
 				self.call_load_system_message(coockie_game.information.id);
@@ -500,7 +491,7 @@
 			if (move === null) return 'snapback';
 			else {
 				if (self.history_loading != true) {
-					var data = {'source': source, 'target': target};
+					var data = {'source': source, 'target': target, 'fen': game.fen()};
 					var message = {'type': 'move', 'data': data};
 					new_game.send_move(message);
 				}
@@ -556,6 +547,7 @@
 					}
 					else {
 						console.log("ERROR, please make the right move");
+						return self.user_surrender('ERROR, please make the right move');
 					}
 				});
 		},
@@ -700,7 +692,7 @@
 			pos.push(game.fen());
 			this.statusEl.html(status);
 			this.fenEl.html(game.fen());
-			var load_pgn = game.pgn()
+			var load_pgn = game.pgn();
 			this.pgnEl.html(load_pgn.replace(game.fen(), ''));
 		},
 		game_over: function(status) {
