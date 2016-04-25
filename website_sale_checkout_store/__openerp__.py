@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
-     'name': """Website sale checkout store""",
-     'summary': """Select shipping and billing variants in web shop""",
+     'name': """Pickup and pay at store""",
+     'summary': """Simplify checkout process by excluding shipping and\or payment information""",
      'category': 'Website',
      'images': ['images/1.png'],
      'version': '1.0.0',
