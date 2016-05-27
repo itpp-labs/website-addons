@@ -1,5 +1,6 @@
 Web Login Background
 ====================
 
-Tested on Odoo 8.0 a9f27add088d9ce0b9853796cb433950e46d27ec
+Set your background picture on odoo login and signup screens.
 
+Tested on Odoo 9.0 4dbc81f910d872ddb48d855396fcc7d91ddc9410
