@@ -1,4 +1,4 @@
-(function() {
+$(document).ready(function() {
 	"use strict";
 	var pos = [];
 	var game = {};
@@ -9,12 +9,12 @@
 	ChessGame.GameManager = openerp.Widget.extend({
 		init: function (parent) {
             this._super(parent);
-            console.log("Initial polling widget for game");
             var self = this;
+			this.game_id = '';
             // start the polling
             this.bus = openerp.bus.bus;
             this.bus.on("notification", this, this.on_notification);
-            //this.bus.start_polling();
+            this.bus.start_polling();
         },
         on_notification: function (notification) {
             var self = this;
@@ -28,26 +28,45 @@
             }
         },
         on_notification_do: function (channel, message) {
+			var self = this;
             var error = false;
             if (Array.isArray(channel) && (channel[1] === 'chess.game.line' || channel[1] === 'chess.game')) {
                 try {
-                    this.received_message();
+					self.this_game_message(message)
                 } catch (err) {
                     error = err;
                     console.error(err);
                 }
             }
         },
+		this_game_message: function(message) {
+			var self = this;
+			var local_id = (location.href).split('/');
+			var len_local_id = local_id.length;
+			self.game_id = local_id[len_local_id-2];
+			var cookie_name = ChessGame.COOKIE_NAME+self.game_id;
+			var cookie = openerp.get_cookie(cookie_name);
+			if(cookie) {
+				var coockie_game = JSON.parse(cookie);
+				self.game_id = coockie_game.information.id;
+				if (message.game_id == self.game_id) {
+					message = message.message;
+					this.received_message(message);
+				}
+			}
+		},
         received_message: function(message) {
 			var self = this;
 			var error = false;
+			console.log("call polling");
+			console.log(message);
             try {
-                console.log('received message');
+				if(!message) {
+					return false;
+				}
 				if (message.type == 'move') {
-					/*сделать проверку (правильно я написал или нет)
-					проверка после настройки long polling*/
-					ChessGame.GameConversation.onDrop(message.data['source'], message.data['target']);
-					ChessGame.GameConversation.onSnapEnd();
+					self.onDrop(message.data['source'], message.data['target']);
+					board.position(game.fen());
 				}
 				if (message.type == 'system'){
 					if (message.data['status'] == 'surrender') {
@@ -60,12 +79,8 @@
 						});
 						$('#surrender').hide();
 						$('#suggest_a_draw').hide();
-						// call function which fixate figures in board
-						/*
-						*
-						* THERE
-						*
-						* */
+						var status = 'You win, ' + message.data['user'] + ' surrendered';
+						new_game.user_surrender(status);
 					}
 					if (message.data['status'] == 'draw') {
 						swal({
@@ -80,10 +95,6 @@
 						},
 							function(isConfirm){
 								if (isConfirm) {
-									/*If the user accepts the draw then
-									call function which fixate figures in board + status='Draw position'
-									call function which will send system message for
-									another user */
 									swal({
 										title: "Game over",
 										text: "Drawn position",
@@ -93,20 +104,15 @@
 									});
 									$('#surrender').hide();
 									$('#suggest_a_draw').hide();
-									//send system message (agreement)
-									/*ошибка в вызовах фукции так как они не определены
-									* в этом виджете
-									* нужно либо объединить виджет либо придумать
-									* что нибудь другое */
-									var data = {'status': 'agreement', 'user': self.author_name};
+									var data = {'status': 'agreement'};
 									var message = {'type': 'system', 'data': data};
-									self.send_move(message);
+									console.log("call Game Over");
+									new_game.send_move(message);
+									new_game.game_over("Game over, draw position");
 								}
 							});
 					}
 					if (message.data['status'] == 'agreement') {
-						/*when another user agreed to a draw
-						message(draw) and fixate figures in board + status='Draw position'*/
 						swal({
 							title: "Game over",
 							text: "Drawn position",
@@ -116,6 +122,14 @@
 						});
 						$('#surrender').hide();
 						$('#suggest_a_draw').hide();
+						var status = 'Game over, draw position';
+						//delete cookie
+						var cookie_name = ChessGame.COOKIE_NAME+self.game_id;
+						document.cookie = cookie_name + "=" + "; expires=-1";
+						new_game.user_surrender(status);
+					}
+					if (message.data['status'] == '') {
+						return false;
 					}
 
 				}
@@ -123,13 +137,25 @@
 				error = err;
                 console.error(err);
             }
-        }
+        },
 
+		onDrop: function (source, target) {
+			var self = this;
+			var move = game.move({
+				from: source,
+				to: target,
+				promotion: 'q'
+			});
+			console.log("fen", game.fen());
+			new_game.onDelFigure();
+			new_game.updateStatus();
+		}
 	});
 	ChessGame.GameConversation = openerp.Widget.extend({
 		init: function(parent){
 			this._super(parent);
 			var self = this;
+			openerp.session = new openerp.Session();
 			this.c_manager = new openerp.ChessGame.GameManager(this);
 			console.log("Initial chess game");
 			this.history = true;
@@ -188,6 +214,12 @@
 							$('.chess_information .chess_time_usr').hide();
 							self.clockStop();
 						}
+						//if(self.game_status=='agreement')
+						//{
+						//	if(self.system_status=='Game Over'){
+						//		self.game_over(status)
+						//	}
+						//}
 						//save all data in coockie
 						openerp.set_cookie(cookie_name, JSON.stringify({
 							'author': {
@@ -208,7 +240,7 @@
 								'color': self.another_user_color,
 								'time': self.another_user_time
 							}
-						}), 60*60);
+						}), 90*24*60*60);
 						self.onBoard();
 						self.call_load_system_message(result.information.id);
 					});
@@ -313,7 +345,6 @@
 					var coockie_game = JSON.parse(cookie);
 					self.author_time = coockie_game.author.time;
 					self.another_user_time = coockie_game.another_user.time;
-					console.log("Move is TRUE");
 					self.onGameType(self.game_type, self.author_time, self.another_user_time);
 				}
 			});
@@ -393,6 +424,9 @@
 				}
 				self.onSnapEnd();
 				if (result.type == 'system') {
+					console.log("==================");
+					console.log(result.data['status']);
+					console.log("==================");
 					switch (result.data['status']) {
 						case 'surrender': {
 							if (result.data['user']==self.author_name) {
@@ -449,6 +483,7 @@
 						} break
 						default:{
 							console.log("No match in the system messages");
+							console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!no match system message");
 						} break
 					}
 				}
@@ -583,6 +618,7 @@
 				if (self.game_status!='Game Over') {
 					self.game_over(moveColor + " is in checkmate.");
 				}
+				self.user_surrender(status);
 			}
 			// draw?
 			else if (game.in_draw() === true) {
@@ -696,9 +732,11 @@
 			this.pgnEl.html(load_pgn.replace(game.fen(), ''));
 		},
 		game_over: function(status) {
+			console.log('Game Over ВЫЗОООООООООООООВ');
 			if (this.system_status=='Game Over') {
 				return false;
 			}
+			openerp.bus.bus.stop_polling();
 			$('.chess_information .chess_time_usr').hide();
 			console.log('Game Over');
 			//delete cookie
@@ -810,6 +848,7 @@
 			}
 		},
 		user_surrender: function (status) {
+			console.log("aaaaaaaaaaaaaa");
 			var self = this;
 			$('.chess_information .chess_time_usr').hide();
 			this.statusEl.html(status);
@@ -982,6 +1021,7 @@
 	if (!element) {
 		return;
 	}
+	console.log("сработало");
 
 	var new_game = new ChessGame.GameConversation();
 	new_game.pgnEl.on('click', 'a',function(event) {
@@ -1018,4 +1058,4 @@
 	jQuery(document).ready(function(){
 		jQuery('.window_chat').scrollbar();
 	});
-})();
+});

@@ -5,8 +5,8 @@
     var ChessChat = openerp.ChessChat = {};
     ChessChat.COOKIE_NAME = 'chesschat_session';
     ChessChat.ConversationManager = openerp.Widget.extend({
-        init: function (parent, channel) {
-            this._super(parent);
+        init: function () {
+            this._super();
             console.log("Initial polling widget for chat");
             var self = this;
             // start the polling
@@ -17,6 +17,8 @@
         on_notification: function (notification) {
             console.log("on_notification")
             var self = this;
+            console.log('notification');
+            console.log(notification);
             if (typeof notification[0][0] === 'string') {
                 notification = [notification]
             }
@@ -31,7 +33,7 @@
             var error = false;
             if (Array.isArray(channel) && channel[1] === 'chess.game.chat') {
                 try {
-                    this.received_message();
+                    this.received_message(message);
                 } catch (err) {
                     error = err;
                     console.error(err);
@@ -52,7 +54,7 @@
                 message.time = values[0] + '.' + values[1] + '.' + date.getFullYear() + ' ' + time_now;
 
                 $("#window_chat").append("<p><span class='user'>" + (message['author_name']) +
-                    "</span>: " + (message['data']) + "<br> <span class='time_message'>" +
+                    ":</span> " + (message['data']) + "<br> <span class='time_message'>" +
                     (message['time']) + "</span></p>");
                 $('.chat .user').seedColors(); //the random color
                 $("#window_chat").each(function () {
@@ -66,17 +68,16 @@
     });
     ChessChat.Conversation = openerp.Widget.extend({
         className: "chat_form",
-        init: function(server_url, db, channel){
+        init: function(){
             var element = document.getElementById('chat');
 			if (!element) {
-				return;
-			}
-            console.log("server url, db, channel");
-            console.log(server_url);
-            console.log(db);
-            console.log(channel);
-            openerp.session = new openerp.Session(null, server_url, { use_cors: false });
-            this.c_manager = new openerp.ChessChat.ConversationManager(null, channel);
+                return;
+            }
+            console.log("init chat");
+            openerp.session = new openerp.Session();
+            //openerp.session = new openerp.Session(null, "http://client-6.odoo.local", { use_cors: false });
+            this.c_manager = new openerp.ChessChat.ConversationManager(this);
+            console.log("запуск");
             this.history = true;
             this.game_id = [];
             this.opening_chat = false;
@@ -140,8 +141,10 @@
                 .then(function (result) {
                     if(result) {
                         self.received_message(message);
+                        console.log("Message is send.");
                     } else {
-                        console.log("error, message is not send");
+                        console.log("Error. Message is not send.");
+                        console.log("No response from the server.");
                     }
                 });
         },
@@ -189,7 +192,10 @@
             if (message.data == '' || message.data == ' ')
 			{
 				$('.chat #window_chat')
-				.append('<div class="error">error: input message</div>');
+				.append('<div class="error"><span class="fa fa-times">ERROR. Input message.</span></div>');
+                $(".chat #window_chat").each(function () {
+                    this.scrollTop = this.scrollHeight;
+                });
 				return false;
 			}
             $('.chat #error').hide();

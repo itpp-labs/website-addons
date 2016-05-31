@@ -46,12 +46,8 @@ class ChessGame(models.Model):
 
     @api.one
     def search_time(self, turn):
-        author_time = self.first_user_time
-        another_user_time = self.second_user_time
-        author_last_time = self.first_time_date
-        another_last_time = self.second_time_date
         if self.env.user.id == self.first_user_id.id:
-            author_time  = self.first_user_time
+            author_time = self.first_user_time
             another_user_time = self.second_user_time
             author_last_time = self.first_time_date
             another_last_time = self.second_time_date
@@ -61,7 +57,7 @@ class ChessGame(models.Model):
             author_last_time = self.second_time_date
             another_last_time = self.first_time_date
         current_time = int(time.time())
-        if(self.system_status == 'Game Over'):
+        if self.system_status == 'Game Over':
             return {'author_time':  author_time, 'another_user_time': another_user_time}
         else:
             if turn == 'ww' or turn == 'bb':
@@ -89,13 +85,17 @@ class ChessGame(models.Model):
     def write_game_status(self, message, game_id):
         notifications = []
         data = message['data']
+        mes = {'game_id': game_id, 'message': message}
         if self.first_user_id.id != self.env.user.id:
-            notifications.append([(self._cr.dbname, 'chess.game', self.first_user_id.id), message])
+            notifications.append([(self._cr.dbname, 'chess.game', self.first_user_id.id), mes])
         else:
-            notifications.append([(self._cr.dbname, 'chess.game', self.second_user_id.id), message])
+            notifications.append([(self._cr.dbname, 'chess.game', self.second_user_id.id), mes])
         self.env['bus.bus'].sendmany(notifications)
         # write it
-        return self.write({"status": data['status']+':'+data['user']})
+        if len(data) == 2:
+            return self.write({"status": data['status']+':'+data['user']})
+        else:
+            return self.write({"status": data['status']})
 
     @api.one
     def game_over(self, status):
@@ -111,7 +111,6 @@ class ChessGame(models.Model):
             #all game for second user
             all_game_s = len(self.env["chess.game"].search([('first_user_id.id', '=', self.second_user_id.id)]))\
                          + len(self.env["chess.game"].search([('second_user_id.id', '=', self.second_user_id.id)]))
-            K_f = 0
             if rating_first>2400:
                 K_f = 10
             elif rating_first<2400 and all_game_f>30:
@@ -119,15 +118,12 @@ class ChessGame(models.Model):
             elif all_game_f<30:
                 K_f = 40
 
-            K_s = 0
             if rating_second>2400:
                 K_s = 10
             elif rating_second<2400 and all_game_s>30:
                 K_s = 20
             elif all_game_s<30:
                 K_s = 40
-            first_game_result = 0.0
-            second_game_result = 0.0
             if self.first_color_figure == status:
                 first_game_result = 0.0 #he is not win
                 second_game_result = 1.0 #he is win
@@ -230,11 +226,14 @@ class ChessGameLine(models.Model):
             # chess server for legal move
             board = serverchess.Board(ps.fen)
             legal_move = serverchess.Move.from_uci(data['source']+data['target']) in board.legal_moves
-            # if move not legal then fixed board
+            # if move not legal then maybe Queen?
             if legal_move is False:
-                return False
+                legal_Q = board.parse_san(data['target']+'=Q') in board.legal_moves
+                # if not Queen then fix board
+                if legal_Q is False:
+                    return False
             # if send move fist user then on time for second user
-            if ps.first_user_id.id==self.env.user.id:
+            if ps.first_user_id.id == self.env.user.id:
                 ps.write({'second_time_date': int(time.time())})
             else:
                 ps.write({'first_time_date': int(time.time())})
@@ -242,10 +241,12 @@ class ChessGameLine(models.Model):
             # save it
             self.create(vals)
             ps.write({'status': 'Active game', 'system_status': 'Active game'})
+            mes = {'game_id': game_id, 'message': message}
             if ps.first_user_id.id != self.env.user.id:
-                notifications.append([(self._cr.dbname, 'chess.game.line', ps.first_user_id.id), message])
+                notifications.append([(self._cr.dbname, 'chess.game.line', ps.first_user_id.id), mes])
             else:
-                notifications.append([(self._cr.dbname, 'chess.game.line', ps.second_user_id.id), message])
+                notifications.append([(self._cr.dbname, 'chess.game.line', ps.second_user_id.id), mes])
+        print(str(notifications))
         self.env['bus.bus'].sendmany(notifications)
         return 'move'
 

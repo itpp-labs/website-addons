@@ -62,8 +62,6 @@
 .content {
 	width: 100%;
 }
-
-/*___________________*/
 .user_button{
     margin-bottom: 10px;
     color: black;
@@ -71,15 +69,14 @@
 .site_header {
 	float: left;
     margin-right: 20px;
-    a {
+}
+.site_header a {
       color: #ccc;
-    }
 }
 .chess_board {
 	width: 450px;
 	float: left;
 }
-
 .chess_information {
 	width: 250px;
 	float: left;
@@ -87,14 +84,12 @@
     margin-top: 57px;
 	/*position: relative;*/
 }
-
 .chess_ground {
 	height: 450px;
 	border: 1px solid #ccc;
 	padding: 10px;
 	position: relative;
 }
-
 .chess_ground  #status, .status{
 	font-size:14px;
 	margin-top:-5px;
@@ -104,36 +99,34 @@
 .player_color_icon_is_white {
   margin-bottom: 5px;
 }
-.player_color_icon_is_white:before { 
-	content: url(../img/ww.png); 
+.player_color_icon_is_white:before {
+	content: url(../img/ww.png);
 }
-.player_color_icon_is_black:before { 
-	content: url(../img/bb.png); 
+.player_color_icon_is_black:before {
+	content: url(../img/bb.png);
 }
 .players .rating {
   float: right;
   padding-top: 10px;
 }
-
 #pgn a {
 	text-decoration: none;
 	color: rgba(250, 160, 55, 1);
 }
 .pgn {
 	background: rgba(236, 236, 236, 0.12);
-	
 }
-
 .pgn {
-	overflow: auto; 
-    height: 230px; 
-    padding: 5px; 
+	overflow: auto;
+    height: 230px;
+    padding: 5px;
     border: solid 1px #ccc;
     white-space: normal;
-    a {
-      padding-bottom: 5px;
-    }
 }
+.pgn a {
+    padding-bottom: 5px;
+}
+
 #toggler {
   color: #ccc;
 }
@@ -143,45 +136,39 @@
 #toggler {
 	float: right;
 	padding: 10px 10px;
-    a {
-      color: #ccc;
-    }
 }
-
-
+#toggler a {
+    color: #ccc;
+}
 .end_game {
-	display: inline-block; 
-    position: relative; 
+	display: inline-block;
+    position: relative;
     padding-top: 10px;
 }
-
-#surrender:before { 
-	content: url(../img/surrender.png); 
+#surrender:before {
+	content: url(../img/surrender.png);
 }
-#suggest_a_draw:before { 
-	content: url(../img/suggest.png); 
+#suggest_a_draw:before {
+	content: url(../img/suggest.png);
 }
-
-#surrender:hover::after, #suggest_a_draw:hover::after, #cancel_game:hover::after { 
-	content: attr(data-title); 
-	position: absolute; 
-	left: 20%; top: 75%; 
-	z-index: 1; 
-	background: white; 
-	font-family: Arial, sans-serif; 
-    font-size: 11px; 
-    padding: 5px 10px; 
-    border: 1px solid #333; 
+#surrender:hover::after, #suggest_a_draw:hover::after, #cancel_game:hover::after {
+	content: attr(data-title);
+	position: absolute;
+	left: 20%; top: 75%;
+	z-index: 1;
+	background: white;
+	font-family: Arial, sans-serif;
+    font-size: 11px;
+    padding: 5px 10px;
+    border: 1px solid #333;
 }
-
 .fen {
-	overflow: auto; 
+	overflow: auto;
     border: solid 1px #ccc;
 	padding: 5px;
 	margin-top: 10px;
     white-space: normal;
 	word-wrap:break-word;
-	
 }
 .chess_time_usr2,  .chess_time_usr1, #box {
 	display: none;
@@ -189,13 +176,12 @@
 #box {
 	padding-top: 15px;
 }
-
 .canceled_game {
 	float: right;
 	padding: 10px 10px;
-    a {
-      color: #ccc;
-    }
+}
+.canceled_game a {
+    color: #ccc;
 }
 .canceled_game .canceled{
 	display: none;
@@ -217,24 +203,20 @@
 }
 .figure_white {
 	float: left;
-} 
+}
 .figure_black {
 	float: right;
 }
-/*___________________*/
-
 .side_box.padded {
     padding: 10px;
 }
-
 .side_box, #site_header a.stream {
     margin-left: 0!important;
     width: 196px!important;
 }
 
-.side_box, .box {
+.side_box {
     border: 1px solid #ccc;
-
 }
 .side_box {
     margin-top: 12px;
@@ -243,7 +225,6 @@
     box-sizing: border-box;
     height: 140px;
 }
-
 .side_box .game_infos {
     border-bottom: 1px solid #ccc;
     padding-bottom: 8px;

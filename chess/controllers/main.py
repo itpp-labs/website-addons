@@ -63,13 +63,17 @@ class Controller(openerp.addons.bus.bus.Controller):
     @http.route('/chess/game/system_history', type="json", auth="public")
     def load_system_message(self, game_id):
         history = request.env["chess.game"].system_fetch(game_id)
-        if ":" in history.status:
-            history = history.status.split(":")
-            user = str(history[1])
-            status = str(history[0])
-        else:
-            status = str(history[0])
+        if history.status == 'agreement':
+            status = str(history.status)
             user = None
+        else:
+            if ":" in history.status:
+                history = history.status.split(":")
+                user = str(history[1])
+                status = str(history[0])
+            else:
+                status = str(history[0])
+                user = None
         result = {'type': 'system', 'data': {'status': str(status), 'user': str(user)}}
         return result
 
