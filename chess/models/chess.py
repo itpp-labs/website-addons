@@ -3,6 +3,7 @@ import datetime
 import time
 import serverchess
 from openerp import models, fields, api, SUPERUSER_ID
+import json
 
 class ChessGame(models.Model):
     _name = 'chess.game'
@@ -279,9 +280,18 @@ class ChatMessage(models.Model):
             # save it
             self.create(vals)
             if ps.first_user_id.id != self.env.user.id:
-                notifications.append([(self._cr.dbname, 'chess.game.chat', ps.first_user_id.id), message])
+                secound_user_id = ps.first_user_id.id
             else:
-                notifications.append([(self._cr.dbname, 'chess.game.chat', ps.second_user_id.id), message])
+                secound_user_id = ps.second_user_id.id
+
+            channel = json.dumps([self._cr.dbname, 'chess.game.chat', secound_user_id])
+            notifications.append([channel, message])
+
+        print("++++++++++++++++++++++++++++++++++++++++++++++++")
+        print(notifications)
+        print(channel)
+        print(len(channel))
+        print("++++++++++++++++++++++++++++++++++++++++++++++++")
         self.env['bus.bus'].sendmany(notifications)
         return 1
 

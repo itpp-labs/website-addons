@@ -8,14 +8,19 @@ import datetime
 import random
 import time
 
-class Controller(openerp.addons.bus.bus.Controller):
-    def _poll(self, dbname, channels, last, options):
-        if request.session.uid:
-            registry, cr, uid, context = request.registry, request.cr, request.session.uid, request.context
-            channels.append((request.db, 'chess.game.chat', request.uid))
-            channels.append((request.db, 'chess.game.line', request.uid))
-            channels.append((request.db, 'chess.game', request.uid))
-        return super(Controller, self)._poll(dbname, channels, last, options)
+# class Controller(openerp.addons.bus.bus.Controller):
+#     # def _poll(self, dbname, channels, last, options):
+#     #     if request.session.uid:
+#     #         registry, cr, uid, context = request.registry, request.cr, request.session.uid, request.context
+#             # channels.append((request.db, 'chess.game.line', request.uid))
+#             # channels.append((request.db, 'chess.game', request.uid))
+#         # return super(Controller, self)._poll(dbname, channels, last, options)
+#
+#
+
+#____________________________________________________________________________________________
+
+class Chess(http.Controller):
 
     #server chess chat
     @http.route('/chess/game/chat/init', type="json", auth="public")
@@ -100,9 +105,6 @@ class Controller(openerp.addons.bus.bus.Controller):
         request.env["chess.game"].browse(int(game_id)).game_over(status)
         return True
 
-#____________________________________________________________________________________________
-
-class Chess(http.Controller):
     @http.route('/chess/', auth="public", website=True)
     def index(self, **kw):
         users = http.request.env['res.users'].search([('id', '!=', http.request.env.user.id)])
@@ -115,7 +117,11 @@ class Chess(http.Controller):
         if len(games_object) == 0:
             from werkzeug.exceptions import NotFound
             raise NotFound()
-        return http.request.render('chess.gamepage', {'games': games_object, 'user': user})
+        return http.request.render('chess.gamepage', {
+            'games': games_object,
+            'user': user,
+            'dbname': request.cr.dbname
+        })
 
     @http.route('/chess/game/', auth='public', website=True)
     def create_game(self, game_type=None, second_user_id=None, first_color_figure=None, time=None, **kwargs):

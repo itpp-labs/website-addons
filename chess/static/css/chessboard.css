@@ -62,7 +62,7 @@
 .content {
 	width: 100%;
 }
-.user_button{
+.usrating_button{
     margin-bottom: 10px;
     color: black;
 }
@@ -97,7 +97,11 @@
 	word-wrap:break-word;
 }
 .player_color_icon_is_white {
-  margin-bottom: 5px;
+    margin-bottom: 5px;
+    position: relative;
+}
+.player_color_icon_is_black {
+    position: relative;
 }
 .player_color_icon_is_white:before {
 	content: url(../img/ww.png);
@@ -106,8 +110,15 @@
 	content: url(../img/bb.png);
 }
 .players .rating {
-  float: right;
-  padding-top: 10px;
+    display: inline-block;
+    display: -moz-inline-box;
+    position: absolute;
+    right: 0;
+    padding-top: 10px;
+}
+.players .user_name {
+    display: inline-block;
+    display: -moz-inline-box;
 }
 #pgn a {
 	text-decoration: none;

@@ -152,7 +152,7 @@ $(document).ready(function() {
 		}
 	});
 	ChessGame.GameConversation = openerp.Widget.extend({
-		init: function(parent){
+		init: function(parent, game_id){
 			this._super(parent);
 			var self = this;
 			openerp.session = new openerp.Session();
@@ -165,6 +165,7 @@ $(document).ready(function() {
 			this.check_status = false;
 			this.game_over_status = '';
 			this.system_status = '';
+			this.game_id = game_id;
 
 			game = new Chess();
 			this.statusEl = $('#status');
@@ -179,9 +180,6 @@ $(document).ready(function() {
 		},
 		start: function(){
 			var self = this;
-			var local_id = (location.href).split('/');
-            var len_local_id = local_id.length;
-            self.game_id = local_id[len_local_id-2];
             var cookie_name = ChessGame.COOKIE_NAME+self.game_id;
             //when game to finished is coockies is delete
             var cookie = openerp.get_cookie(cookie_name);
@@ -1023,7 +1021,7 @@ $(document).ready(function() {
 	}
 	console.log("сработало");
 
-	var new_game = new ChessGame.GameConversation();
+	var new_game = new ChessGame.GameConversation(parent, model_game_id);
 	new_game.pgnEl.on('click', 'a',function(event) {
 		event.preventDefault();
 		var data = $(this).data('move').split(',');
@@ -1045,6 +1043,11 @@ $(document).ready(function() {
 			$('.chat').hide();
 		}
 	});
+
+	/* delet checked attribut, when page is referech */
+	var allCheckboxes = $(".messages_container input:checkbox:enabled");
+    allCheckboxes.removeAttr('checked');
+
 	function openbox(id, toggler) {
 		var div = document.getElementById(id);
 		if(div.style.display == 'block') {

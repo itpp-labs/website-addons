@@ -89,13 +89,17 @@
                                         </div>
                                         <div class="players">
                                             <div t-attf-class="player_color_icon_is_{{games.first_color_figure }}">
-                                                <t t-esc="games.first_user_id.name"/>
+                                                <span class="user_name">
+                                                    <t t-esc="games.first_user_id.name"/>
+                                                </span>
                                                 <div class="rating">
                                                     <t t-esc="games.first_user_id.game_rating"/>
                                                 </div>
                                             </div>
                                             <div t-attf-class="player_color_icon_is_{{games.second_color_figure }}">
-                                                <t t-esc="games.second_user_id.name"/>
+                                                <span class="user_name">
+                                                    <t t-esc="games.second_user_id.name"/>
+                                                </span>
                                                 <div class="rating">
                                                     <t t-esc="games.second_user_id.game_rating"/>
                                                 </div>
@@ -165,6 +169,13 @@
                                     </div>
                                 </div>
                             </div>
+                            <script type="text/javascript">
+                                (function() {
+                                    window.model_game_id = "<t t-esc="games.id"/>";
+                                    window.model_dbname = "<t t-esc="dbname"/>";
+                                    window.model_author_id = "<t t-esc="user.id"/>";
+                                })();
+                            </script>
                         </div>
                     </div>
                 </div>
@@ -195,7 +206,6 @@
                  <script type="text/javascript" src="/chess/static/js/create_game.js"></script>
                  <script type="text/javascript" src="/chess/static/js/seedrandom-min.js"></script>
                  <script type="text/javascript" src="/chess/static/js/jquery.seed-colors.js"></script>
-
              </xpath>
         </template>
     </data>
