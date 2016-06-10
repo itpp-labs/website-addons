@@ -8,21 +8,10 @@ import datetime
 import random
 import time
 
-# class Controller(openerp.addons.bus.bus.Controller):
-#     # def _poll(self, dbname, channels, last, options):
-#     #     if request.session.uid:
-#     #         registry, cr, uid, context = request.registry, request.cr, request.session.uid, request.context
-#             # channels.append((request.db, 'chess.game.line', request.uid))
-#             # channels.append((request.db, 'chess.game', request.uid))
-#         # return super(Controller, self)._poll(dbname, channels, last, options)
-#
-#
-
-#____________________________________________________________________________________________
 
 class Chess(http.Controller):
 
-    #server chess chat
+    #chess chat
     @http.route('/chess/game/chat/init', type="json", auth="public")
     def init_chat(self, game_id):
         author_name = http.request.env.user.name # current user
@@ -46,8 +35,7 @@ class Chess(http.Controller):
         res = request.env["chess.game.chat"].broadcast(message, game_id)
         return res
 
-    #____________________________________________________________________
-    #server chess game
+    #chess game
     @http.route('/chess/game/init/', type="json", auth="public")
     def init_game(self, game_id):
         result = request.env["chess.game"].browse(int(game_id)).game_information()
@@ -105,6 +93,7 @@ class Chess(http.Controller):
         request.env["chess.game"].browse(int(game_id)).game_over(status)
         return True
 
+    #create game
     @http.route('/chess/', auth="public", website=True)
     def index(self, **kw):
         users = http.request.env['res.users'].search([('id', '!=', http.request.env.user.id)])

@@ -8,8 +8,8 @@
             this._super();
             console.log("Initial polling widget for chat");
             var self = this;
-            var channel = JSON.stringify([dbname, 'chess.game.chat', uid]);
-            console.log("ДЛИНА", channel.length);
+            var game_id = model_game_id;
+            var channel = JSON.stringify([dbname, 'chess.game.chat', [uid, game_id]]);
             this.bus = openerp.bus.bus;
             this.bus.add_channel(channel);
             this.bus.on("notification", this, this.on_notification);
@@ -30,7 +30,8 @@
             }
         },
         on_notification_do: function (channel, message) {
-             console.log("on_notification_do")
+            console.log("on_notification_do");
+            var channel = JSON.parse(channel);
             var error = false;
             if (Array.isArray(channel) && channel[1] === 'chess.game.chat') {
                 try {

@@ -88,9 +88,12 @@ class ChessGame(models.Model):
         data = message['data']
         mes = {'game_id': game_id, 'message': message}
         if self.first_user_id.id != self.env.user.id:
-            notifications.append([(self._cr.dbname, 'chess.game', self.first_user_id.id), mes])
+            secound_user_id = self.first_user_id.id
         else:
-            notifications.append([(self._cr.dbname, 'chess.game', self.second_user_id.id), mes])
+            secound_user_id = self.second_user_id.id
+
+        channel = '["%s","%s",["%s","%s"]]' % (self._cr.dbname, "chess.game", secound_user_id, game_id)
+        notifications.append([str(channel), message])
         self.env['bus.bus'].sendmany(notifications)
         # write it
         if len(data) == 2:
@@ -242,13 +245,26 @@ class ChessGameLine(models.Model):
             # save it
             self.create(vals)
             ps.write({'status': 'Active game', 'system_status': 'Active game'})
-            mes = {'game_id': game_id, 'message': message}
+            # mes = {'game_id': game_id, 'message': message}
+
             if ps.first_user_id.id != self.env.user.id:
-                notifications.append([(self._cr.dbname, 'chess.game.line', ps.first_user_id.id), mes])
+                secound_user_id = ps.first_user_id.id
             else:
-                notifications.append([(self._cr.dbname, 'chess.game.line', ps.second_user_id.id), mes])
-        print(str(notifications))
+                secound_user_id = ps.second_user_id.id
+            print("----------------------------------------")
+            print("formirovanie polzovatelya")
+            print("----------------------------------------")
+
+            channel = '["%s","%s",["%s","%s"]]' % (self._cr.dbname, "chess.game.line", secound_user_id, game_id)
+            notifications.append([str(channel), message])
+            print("----------------------------------------")
+            print("dobavlenie kanala i message")
+            print("----------------------------------------")
+
         self.env['bus.bus'].sendmany(notifications)
+        print("----------------------------------------")
+        print("otpravka message")
+        print("----------------------------------------")
         return 'move'
 
     @api.model
@@ -284,14 +300,9 @@ class ChatMessage(models.Model):
             else:
                 secound_user_id = ps.second_user_id.id
 
-            channel = json.dumps([self._cr.dbname, 'chess.game.chat', secound_user_id])
-            notifications.append([channel, message])
+            channel = '["%s","%s",["%s","%s"]]' % (self._cr.dbname, "chess.game.chat", secound_user_id, game_id)
+            notifications.append([str(channel), message])
 
-        print("++++++++++++++++++++++++++++++++++++++++++++++++")
-        print(notifications)
-        print(channel)
-        print(len(channel))
-        print("++++++++++++++++++++++++++++++++++++++++++++++++")
         self.env['bus.bus'].sendmany(notifications)
         return 1
 

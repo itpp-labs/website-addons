@@ -7,16 +7,22 @@ $(document).ready(function() {
 	var ChessGame = openerp.ChessGame = {};
     ChessGame.COOKIE_NAME = 'chessgame_session';
 	ChessGame.GameManager = openerp.Widget.extend({
-		init: function (parent) {
-            this._super(parent);
+		init: function (model_game_id, dbname, uid) {
+            this._super();
             var self = this;
-			this.game_id = '';
+			this.game_id = model_game_id;
+			var channel_line = JSON.stringify([dbname, 'chess.game.line', [uid, this.game_id]]);
+			var channel_game = JSON.stringify([dbname, 'chess.game', [uid, this.game_id]]);
             // start the polling
             this.bus = openerp.bus.bus;
+			this.bus.add_channel(channel_line);
+			this.bus.add_channel(channel_game);
             this.bus.on("notification", this, this.on_notification);
+			console.log("start polling");
             this.bus.start_polling();
         },
         on_notification: function (notification) {
+			console.log("polling notification call");
             var self = this;
             if (typeof notification[0][0] === 'string') {
                 notification = [notification]
@@ -29,41 +35,32 @@ $(document).ready(function() {
         },
         on_notification_do: function (channel, message) {
 			var self = this;
+			var channel = JSON.parse(channel);
             var error = false;
+			console.log(channel);
+			console.log(channel[1]);
             if (Array.isArray(channel) && (channel[1] === 'chess.game.line' || channel[1] === 'chess.game')) {
                 try {
-					self.this_game_message(message)
+					this.received_message(message);
                 } catch (err) {
                     error = err;
                     console.error(err);
                 }
             }
         },
-		this_game_message: function(message) {
-			var self = this;
-			var local_id = (location.href).split('/');
-			var len_local_id = local_id.length;
-			self.game_id = local_id[len_local_id-2];
-			var cookie_name = ChessGame.COOKIE_NAME+self.game_id;
-			var cookie = openerp.get_cookie(cookie_name);
-			if(cookie) {
-				var coockie_game = JSON.parse(cookie);
-				self.game_id = coockie_game.information.id;
-				if (message.game_id == self.game_id) {
-					message = message.message;
-					this.received_message(message);
-				}
-			}
-		},
         received_message: function(message) {
 			var self = this;
 			var error = false;
-			console.log("call polling");
+			console.log("call polling recived message");
 			console.log(message);
+			console.log(message.data);
+			console.log(message.type);
             try {
 				if(!message) {
 					return false;
 				}
+				console.log("resive message!!!!!");
+				console.log(message.type);
 				if (message.type == 'move') {
 					self.onDrop(message.data['source'], message.data['target']);
 					board.position(game.fen());
@@ -152,11 +149,11 @@ $(document).ready(function() {
 		}
 	});
 	ChessGame.GameConversation = openerp.Widget.extend({
-		init: function(parent, game_id){
-			this._super(parent);
+		init: function(model_game_id, dbname, uid){
+			this._super();
 			var self = this;
 			openerp.session = new openerp.Session();
-			this.c_manager = new openerp.ChessGame.GameManager(this);
+			this.c_manager = new openerp.ChessGame.GameManager(model_game_id, dbname, uid);
 			console.log("Initial chess game");
 			this.history = true;
 			this.history_loading = false;
@@ -165,7 +162,7 @@ $(document).ready(function() {
 			this.check_status = false;
 			this.game_over_status = '';
 			this.system_status = '';
-			this.game_id = game_id;
+			this.game_id = model_game_id;
 
 			game = new Chess();
 			this.statusEl = $('#status');
@@ -734,7 +731,7 @@ $(document).ready(function() {
 			if (this.system_status=='Game Over') {
 				return false;
 			}
-			openerp.bus.bus.stop_polling();
+			//openerp.bus.bus.stop_polling();
 			$('.chess_information .chess_time_usr').hide();
 			console.log('Game Over');
 			//delete cookie
@@ -1015,13 +1012,13 @@ $(document).ready(function() {
 		}
 	});
 
-	var element = document.getElementById('board')
+	var element = document.getElementById('board');
 	if (!element) {
 		return;
 	}
 	console.log("сработало");
 
-	var new_game = new ChessGame.GameConversation(parent, model_game_id);
+	var new_game = new ChessGame.GameConversation(model_game_id, model_dbname, model_author_id);
 	new_game.pgnEl.on('click', 'a',function(event) {
 		event.preventDefault();
 		var data = $(this).data('move').split(',');
