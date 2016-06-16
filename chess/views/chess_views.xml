@@ -11,6 +11,8 @@
           <field name="first_user_id" string="User name"/>
           <field name="first_color_figure" string="Figure color"/>
           <field name="second_user_time" string="Time"/>
+          <button name="accept_chess_game" string="Accept" type="object"/>
+          <button name="refuse_chess_game" string="Refuse" type="object"/>
         </tree>
       </field>
     </record>
@@ -25,6 +27,7 @@
           <field name="first_user_id" string="User name"/>
           <field name="first_color_figure" string="Figure color"/>
           <field name="second_user_time" string="Time"/>
+          <button name="open_chess_game" string="Go to the game" type="object"/>
         </tree>
       </field>
     </record>
@@ -37,7 +40,8 @@
           <field name="game_type" />
           <field name="date_start" />
           <field name="date_finish" />
-          <field name="second_user_id" string="User name"/>
+          <field name="first_user_id" string="First user name"/>
+          <field name="second_user_id" string="Second user name"/>
         </tree>
       </field>
     </record>
@@ -46,7 +50,7 @@
       <field name="name">chess.game.denied</field>
       <field name="model">chess.game</field>
       <field name="arch" type="xml">
-        <tree string="Denied games">
+        <tree string="Refusals of games">
           <field name="game_type" />
           <field name="date_start" />
           <field name="second_user_id" string="User name"/>
@@ -64,9 +68,26 @@
           <field name="second_user_id" string="User name"/>
           <field name="second_color_figure" string="Figure color"/>
           <field name="second_user_time" string="Time"/>
+          <button name="cancel_chess_game" string="Cancel" type="object"/>
         </tree>
       </field>
     </record>
+
+    <record id="view_canceled_chess_game" model="ir.ui.view">
+      <field name="name">chess.game.canceled</field>
+      <field name="model">chess.game</field>
+      <field name="arch" type="xml">
+        <tree string="Canceled games">
+          <field name="game_type" />
+          <field name="date_start" />
+          <field name="second_user_id" string="User name"/>
+          <field name="second_color_figure" string="Figure color"/>
+          <field name="second_user_time" string="Time"/>
+          <field name="status" string="Status"/>
+        </tree>
+      </field>
+    </record>
+
     <record id="action_chess_game" model="ir.actions.act_window">
       <field name="name">Chess</field>
       <field name="res_model">chess.game</field>
@@ -95,13 +116,13 @@
     </record>
 
     <record id="action_denied_chess_game" model="ir.actions.act_window">
-      <field name="name">Denied games</field>
+      <field name="name">Refusals of games</field>
       <field name="type">ir.actions.act_window</field>
       <field name="res_model">chess.game</field>
       <field name="view_type">form</field>
       <field name="view_id" ref="chess.view_denied_chess_game"/>
       <field name="view_mode">tree</field>
-      <field name="domain">[('system_status', '=', 'Denied')]</field>
+      <field name="domain">[('system_status', '=', 'Denied'), ('first_user_id', '=', uid)]</field>
     </record>
 
     <record id="action_completed_chess_game" model="ir.actions.act_window">
@@ -124,11 +145,24 @@
       <field name="domain">[('system_status', '=', 'Waiting'), ('first_user_id', '=', uid)]</field>
     </record>
 
+    <record id="action_canceled_chess_game" model="ir.actions.act_window">
+      <field name="name">Canceled games</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">chess.game</field>
+      <field name="view_type">form</field>
+      <field name="view_id" ref="chess.view_canceled_chess_game"/>
+      <field name="view_mode">tree</field>
+      <field name="domain">[('system_status', '=', 'Canceled'), ('first_user_id', '=', uid)]</field>
+    </record>
+
     <menuitem sequence="0" id="menu_chess" name="Chess"/>
+
     <menuitem id="menu_chess_content" parent="menu_chess"
               name="Chess"/>
     <menuitem id="menu_games_content" parent="menu_chess"
               name="My invitations"/>
+    <menuitem id="menu_all_games_content" parent="menu_chess"
+              name="Games"/>
 
 
     <menuitem id="menu_new_chess_content"
@@ -145,7 +179,10 @@
               parent="menu_games_content"
               action="action_my_invitations_chess_game"/>
     <menuitem id="menu_denied_games_content"
-              parent="menu_games_content"
+              parent="menu_all_games_content"
               action="action_denied_chess_game"/>
+    <menuitem id="menu_canceled_games_content"
+              parent="menu_all_games_content"
+              action="action_canceled_chess_game"/>
   </data>
 </openerp>

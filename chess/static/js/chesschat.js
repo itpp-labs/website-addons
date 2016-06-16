@@ -6,20 +6,17 @@
     ChessChat.ConversationManager = openerp.Widget.extend({
         init: function (model_game_id, dbname, uid) {
             this._super();
-            console.log("Initial polling widget for chat");
+            console.log("Initial Chat");
             var self = this;
             var game_id = model_game_id;
             var channel = JSON.stringify([dbname, 'chess.game.chat', [uid, game_id]]);
             this.bus = openerp.bus.bus;
             this.bus.add_channel(channel);
             this.bus.on("notification", this, this.on_notification);
-            this.bus.start_polling();
+            //this.bus.start_polling();
         },
         on_notification: function (notification) {
-            console.log("on_notification");
             var self = this;
-            console.log('notification');
-            console.log(notification);
             if (typeof notification[0][0] === 'string') {
                 notification = [notification]
             }
@@ -30,7 +27,6 @@
             }
         },
         on_notification_do: function (channel, message) {
-            console.log("on_notification_do");
             var channel = JSON.parse(channel);
             var error = false;
             if (Array.isArray(channel) && channel[1] === 'chess.game.chat') {
@@ -45,8 +41,6 @@
         received_message: function(message) {
             var error = false;
             try {
-                console.log('received message');
-
                 var date = new Date();
                 var values = [date.getDate(), date.getMonth() + 1];
                 for (var id in values) {
@@ -75,13 +69,11 @@
 			if (!element) {
                 return;
             }
-            console.log("init chat");
             this.game_id = model_game_id;
             openerp.session = new openerp.Session();
             this.c_manager = new openerp.ChessChat.ConversationManager(model_game_id, dbname, uid);
             this.history = true;
             this.opening_chat = false;
-            console.log("Initial chat");
         },
         start: function() {
             if (this.opening_chat) {
@@ -94,7 +86,6 @@
             var cookie = openerp.get_cookie(cookie_name);
             var ready;
             if (!cookie) {
-                console.log("Init and create coockie for chat");
                 ready = openerp.session.rpc("/chess/game/chat/init", {game_id: self.game_id}).then(function (result) {
                     self.author_name = result.author_name; // current user
                     self.author_id = result.author_id;
@@ -102,7 +93,6 @@
                     openerp.set_cookie(cookie_name, JSON.stringify({'game_id': self.game_id, 'author_name': self.author_name, 'author_id': self.author_id}), 30*24*60*60);
                 });
             } else {
-                console.log("Load history and coockie for chat");
                 var game = JSON.parse(cookie);
                 self.author_name = game.author_name; // current user
                 self.author_id = game.author_id;
@@ -212,7 +202,12 @@
             'expires=' + new Date(new Date().getTime() + ttl*1000).toGMTString()
         ].join(';');
     };
-    var my_chat = new ChessChat.Conversation(model_game_id, model_dbname, model_author_id);
+    if (window.model_game_id===undefined) {
+        return false;
+    } else {
+        var my_chat = new ChessChat.Conversation(model_game_id, model_dbname, model_author_id);
+    }
+
     $(".toggle_chat").click(function(){
         my_chat.checked_chat(this);
     });
@@ -223,4 +218,36 @@
     $(".chat .message_text").keydown(function(e){
         my_chat.keydown(e);
     });
+    	$("#chat_form").submit(function(event) {
+		return false;
+	});
+	$("#toggler").click(function(e){
+		openbox('box', this);
+		return false;
+	});
+	$("#toggle_chat").click(function(){
+		if($("#toggle_chat").prop("checked")) {
+			$('.chat').show();
+		}else {
+			$('.chat').hide();
+		}
+	});
+
+	/* delet checked attribut, when page is referech */
+	var allCheckboxes = $(".messages_container input:checkbox:enabled");
+    allCheckboxes.removeAttr('checked');
+
+	function openbox(id, toggler) {
+		var div = document.getElementById(id);
+		if(div.style.display == 'block') {
+			div.style.display = 'none';
+			toggler.innerHTML = 'Setting';
+		} else {
+			div.style.display = 'block';
+			toggler.innerHTML = 'Close';
+		}
+	}
+	jQuery(document).ready(function(){
+		jQuery('.window_chat').scrollbar();
+	});
 })();

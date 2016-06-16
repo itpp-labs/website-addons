@@ -12,7 +12,7 @@
 	position:relative;
 }
 .running {
-	background-color: green;
+	color: rgba(250, 160, 55, 1);
 }
 .expired {
 	background-color: red;

@@ -4,7 +4,12 @@ $(document).ready(function() {
 	var game = {};
 	var board ={};
 	var turn = '';
+	var storage = localStorage;
 	var ChessGame = openerp.ChessGame = {};
+	var first_step_move = true;
+	var author_player_color = '';
+	var another_player_color = '';
+	var not_win_user_id = '';
     ChessGame.COOKIE_NAME = 'chessgame_session';
 	ChessGame.GameManager = openerp.Widget.extend({
 		init: function (model_game_id, dbname, uid) {
@@ -13,16 +18,18 @@ $(document).ready(function() {
 			this.game_id = model_game_id;
 			var channel_line = JSON.stringify([dbname, 'chess.game.line', [uid, this.game_id]]);
 			var channel_game = JSON.stringify([dbname, 'chess.game', [uid, this.game_id]]);
+			var bus_last = 0;
+			Number(storage.getItem("bus_last"))==null ? bus_last=this.bus.last : bus_last=Number(storage.getItem("bus_last"));
+
             // start the polling
             this.bus = openerp.bus.bus;
+			this.bus.last = bus_last;
 			this.bus.add_channel(channel_line);
 			this.bus.add_channel(channel_game);
             this.bus.on("notification", this, this.on_notification);
-			console.log("start polling");
             this.bus.start_polling();
         },
         on_notification: function (notification) {
-			console.log("polling notification call");
             var self = this;
             if (typeof notification[0][0] === 'string') {
                 notification = [notification]
@@ -37,8 +44,6 @@ $(document).ready(function() {
 			var self = this;
 			var channel = JSON.parse(channel);
             var error = false;
-			console.log(channel);
-			console.log(channel[1]);
             if (Array.isArray(channel) && (channel[1] === 'chess.game.line' || channel[1] === 'chess.game')) {
                 try {
 					this.received_message(message);
@@ -51,19 +56,23 @@ $(document).ready(function() {
         received_message: function(message) {
 			var self = this;
 			var error = false;
-			console.log("call polling recived message");
-			console.log(message);
-			console.log(message.data);
-			console.log(message.type);
             try {
 				if(!message) {
 					return false;
 				}
-				console.log("resive message!!!!!");
-				console.log(message.type);
 				if (message.type == 'move') {
 					self.onDrop(message.data['source'], message.data['target']);
 					board.position(game.fen());
+					if(new_game.game_type=='blitz' || new_game.game_type=='limited time') {
+						if(game.turn()=== 'b') {
+							new_game.clockClicked(1);
+							new_game.clockClicked(0);
+						}
+						if(game.turn()=== 'w') {
+							new_game.clockClicked(0);
+							new_game.clockClicked(1);
+						}
+					}
 				}
 				if (message.type == 'system'){
 					if (message.data['status'] == 'surrender') {
@@ -103,7 +112,6 @@ $(document).ready(function() {
 									$('#suggest_a_draw').hide();
 									var data = {'status': 'agreement'};
 									var message = {'type': 'system', 'data': data};
-									console.log("call Game Over");
 									new_game.send_move(message);
 									new_game.game_over("Game over, draw position");
 								}
@@ -128,7 +136,7 @@ $(document).ready(function() {
 					if (message.data['status'] == '') {
 						return false;
 					}
-
+					storage.setItem("bus_last", this.bus.last);
 				}
 			} catch (err) {
 				error = err;
@@ -143,7 +151,6 @@ $(document).ready(function() {
 				to: target,
 				promotion: 'q'
 			});
-			console.log("fen", game.fen());
 			new_game.onDelFigure();
 			new_game.updateStatus();
 		}
@@ -154,7 +161,7 @@ $(document).ready(function() {
 			var self = this;
 			openerp.session = new openerp.Session();
 			this.c_manager = new openerp.ChessGame.GameManager(model_game_id, dbname, uid);
-			console.log("Initial chess game");
+			console.log("Initial Game");
 			this.history = true;
 			this.history_loading = false;
 			this.surrender_status = false;
@@ -182,8 +189,7 @@ $(document).ready(function() {
             var cookie = openerp.get_cookie(cookie_name);
             var ready;
 			if (!cookie) {
-                console.log("Init and create coockie for game");
-                openerp.jsonRpc("/chess/game/init", "call", {game_id: self.game_id})
+                openerp.session.rpc("/chess/game/init", {game_id: self.game_id})
 					.then(function(result) {
 						//author
 						self.author_name = result.author.name;
@@ -209,6 +215,8 @@ $(document).ready(function() {
 							$('.chess_information .chess_time_usr').hide();
 							self.clockStop();
 						}
+						author_player_color = self.author_id;
+						another_player_color = self.another_user_id;
 						//if(self.game_status=='agreement')
 						//{
 						//	if(self.system_status=='Game Over'){
@@ -240,7 +248,6 @@ $(document).ready(function() {
 						self.call_load_system_message(result.information.id);
 					});
             } else {
-                console.log("Load history and coockie for game");
                 var coockie_game = JSON.parse(cookie);
 				//author
 				self.author_name = coockie_game.author.name;
@@ -259,6 +266,8 @@ $(document).ready(function() {
 				self.game_type = coockie_game.information.type;
 				self.game_status = coockie_game.information.status;
 				self.system_status = coockie_game.information.system_status;
+				author_player_color = self.author_id;
+				another_player_color = self.another_user_id;
 				if(self.system_status=='Game Over'){
 					$('.chess_information .chess_time_usr').hide();
 					self.clockStop();
@@ -309,21 +318,21 @@ $(document).ready(function() {
 		},
 		call_load_system_message: function(game_id) {
 			var self = this;
-			openerp.jsonRpc("/chess/game/system_history", "call", {'game_id': game_id }).then(function (result) {
+			openerp.session.rpc("/chess/game/system_history", {'game_id': game_id }).then(function (result) {
 				self.call_load_history(game_id, result);
 			});
 		},
 		call_load_history: function(game_id, result){
 			var self = this;
-			openerp.jsonRpc("/chess/game/history", "call", {'game_id': game_id }).then(function (history) {
+			openerp.session.rpc("/chess/game/history", {'game_id': game_id }).then(function (history) {
 				if(history){
-					console.log("History load. (game)");
 					self.history_loading = true;
 					self.check_status = true;
 					self.coockie_status = true;
                	 	history.forEach(function (item, i, history) {
 						self.onDrop(item['source'], item['target']);
 						self.onSnapEnd();
+						first_step_move = false;
                 	});
 					if(self.system_status=='Game Over'){
 						$('.chess_information .chess_time_usr').hide();
@@ -334,7 +343,6 @@ $(document).ready(function() {
 					}
 				}
 				else{
-					console.log("Not load history. (game)");
 					var cookie_name = ChessGame.COOKIE_NAME+self.game_id;
             		var cookie = openerp.get_cookie(cookie_name);
 					var coockie_game = JSON.parse(cookie);
@@ -345,7 +353,6 @@ $(document).ready(function() {
 			});
 		},
 		load_time_history: function (history, resultat) {
-			console.log("load time history");
 			var self = this;
 			var error = false;
 			if (this.history) {
@@ -362,11 +369,14 @@ $(document).ready(function() {
 				if (game.turn() === 'b' && turn === 'black') {
 					time_turn = 'bb'
 				}
+				console.log("game type",self.game_type);
 				if (self.game_type == 'blitz' || self.game_type == 'limited time') {
-					openerp.jsonRpc("/chess/game/load_time", "call", {'game_id': self.game_id, 'turn': time_turn})
+					openerp.session.rpc("/chess/game/load_time", {'game_id': self.game_id, 'turn': time_turn})
 						.then(function (result) {
+							console.log("result", result);
 							self.author_time = result.author_time;
 							self.another_user_time = result.another_user_time;
+							console.log("system status", self.system_status);
 							if (self.system_status=='Game Over') {
 								if (self.author_time == 0 || self.another_user_time == 0) {
 									var status = '';
@@ -410,18 +420,15 @@ $(document).ready(function() {
 			var self = this;
 			if (this.history){
 				if(self.game_type=='blitz' || self.game_type=='limited time') {
-					if((game.turn()=== 'b' && self.author_color=='black') || (game.turn() === 'b' && self.author_color=='white')) {
+					if(game.turn()=== 'b') {
 						self.clockClicked(1);
 					}
-					if((game.turn()=== 'w' && self.author_color=='white') || (game.turn()=== 'w' && self.author_color=='black')) {
+					if(game.turn()=== 'w') {
 						self.clockClicked(0);
 					}
 				}
 				self.onSnapEnd();
 				if (result.type == 'system') {
-					console.log("==================");
-					console.log(result.data['status']);
-					console.log("==================");
 					switch (result.data['status']) {
 						case 'surrender': {
 							if (result.data['user']==self.author_name) {
@@ -478,7 +485,6 @@ $(document).ready(function() {
 						} break
 						default:{
 							console.log("No match in the system messages");
-							console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!no match system message");
 						} break
 					}
 				}
@@ -531,31 +537,30 @@ $(document).ready(function() {
 		},
 		send_move: function(message){
 			var self = this;
-			console.log("send_move");
 			self.check_status = false;
 			self.coockie_status = true;
-			openerp.jsonRpc("/chess/game/send/", 'call', {message: message, game_id: self.game_id})
+			openerp.session.rpc("/chess/game/send/", {message: message, game_id: self.game_id})
 				.then(function(result){
 					if(result=='move'){
 						if(self.game_type=='blitz') {
 							if (game.turn() === 'w') {
-								self.clockClicked(1);
 								var data = {'status': 'time', 'user': self.author_name, 'value': self.times[1]};
 							    var message = {'type': 'system', 'data': data};
 								self.send_move(message);
+								self.clockClicked(1);
 							}
 							if (game.turn() === 'b') {
-								if (self.history_loading!=true) {
+								var data = {
+									'status': 'time',
+									'user': self.author_name,
+									'value': self.times[0]
+								};
+								var message = {'type': 'system', 'data': data};
+								self.send_move(message);
+								if (first_step_move) {
 									self.clockClicked(1);
-								}else {
+								} else {
 									self.clockClicked(0);
-									var data = {
-										'status': 'time',
-										'user': self.author_name,
-										'value': self.times[0]
-									};
-									var message = {'type': 'system', 'data': data};
-									self.send_move(message);
 								}
 							}
 						}
@@ -564,16 +569,17 @@ $(document).ready(function() {
 								self.clockClicked(1);
 							}
 							if (game.turn() === 'b') {
-								if (self.history_loading!=true) {
+								if (first_step_move) {
 									self.clockClicked(1);
-								}else {
+								} else {
 									self.clockClicked(0);
 								}
 							}
 						}
+						first_step_move = false;
 					}
 					else if (result=='system') {
-						console.log("Send system message");
+						//console.log("Send system message");
 					}
 					else {
 						console.log("ERROR, please make the right move");
@@ -598,6 +604,7 @@ $(document).ready(function() {
 			if (moveColor == "White") {
 				typea = "warning";
 			}
+
 			// checkmate?
 			if (game.in_checkmate() === true) {
 				if((game.turn()=== 'b' && self.author_color=='black') || (game.turn() === 'w' && self.author_color=='white')) {
@@ -727,20 +734,21 @@ $(document).ready(function() {
 			this.pgnEl.html(load_pgn.replace(game.fen(), ''));
 		},
 		game_over: function(status) {
-			console.log('Game Over ВЫЗОООООООООООООВ');
 			if (this.system_status=='Game Over') {
 				return false;
 			}
-			//openerp.bus.bus.stop_polling();
+			console.log("Вызов Game over");
 			$('.chess_information .chess_time_usr').hide();
 			console.log('Game Over');
+
 			//delete cookie
 			var cookie_name = ChessGame.COOKIE_NAME+this.game_id;
 			document.cookie = cookie_name + "=" + "; expires=-1";
 
 			var self = this;
 			var status_game = self.game_over_status;
-			openerp.jsonRpc("/chess/game/game_over/", 'call', {'game_id': self.game_id, 'status': status_game})
+
+			openerp.session.rpc("/chess/game/game_over/", {'game_id': self.game_id, 'status': status_game, 'time_limit_id': not_win_user_id})
 				.then(function(result){
 					if(result) {
 						$('#surrender').hide();
@@ -843,8 +851,8 @@ $(document).ready(function() {
 			}
 		},
 		user_surrender: function (status) {
-			console.log("aaaaaaaaaaaaaa");
 			var self = this;
+			console.log("Вызов user surrendered");
 			$('.chess_information .chess_time_usr').hide();
 			this.statusEl.html(status);
 			this.cfg = {
@@ -859,13 +867,13 @@ $(document).ready(function() {
 			board = ChessBoard('board', this.cfg);
 			$('#flipOrientationBtn').on('click', board.flip);
 			self.clockStop();
+			console.log("Game over");
 		},
 		status : "stopped",
 		currentClock : 0,
 		times : [ 0, 0 ],
 		clockStop: function() {
 			var self = this;
-			console.log("clock stop");
 			this.clearInterval();
 			this.removeClass(this.currentClock, 'expired');
 			if ((game.turn() === 'b' && turn=='black') ||  (game.turn() === 'w' && turn=='black')) {
@@ -884,7 +892,7 @@ $(document).ready(function() {
 					this.currentClock = id;
 					this.setInterval();
 					this.addClass(this.currentClock, "running");
-					console.log("clock started: " + id);
+					//console.log("clock started: " + id);
 				} else if (this.status == "running") {
 					/* clock is already running */
 					if (this.currentClock == id) {
@@ -896,7 +904,7 @@ $(document).ready(function() {
 							this.currentClock = 0;
 						}
 						this.addClass(this.currentClock, "running");
-						console.log("clock changed: " + id);
+						//console.log("clock changed: " + id);
 					}
 				} else {
 					self.status = 'expired';
@@ -928,7 +936,7 @@ $(document).ready(function() {
 				console.log("timer suspended");
 				var status = '';
 				if ((game.turn() === 'w' && turn === 'white') || (game.turn() === 'b' && turn === 'black')) {
-					status = 'Game over, time limit. You lose';
+					status = 'Game over, time limit. You lose =(';
 					swal({
 						title: "Game over",
 						text: "Time limit. You lose",
@@ -936,18 +944,20 @@ $(document).ready(function() {
 						type: "error",
 						showConfirmButton: false
 					});
-					self.game_over_status = self.author_color;
+					not_win_user_id = author_player_color;
 				}
 				if ((game.turn() === 'w' && turn === 'black') || (game.turn() === 'b' && turn === 'white')) {
 					swal({
 						title: "Game over",
-						text: "Time limit. You win!",
+						text: "Time limit. You win! =)",
 						timer: 2000,
 						type: "success",
 						showConfirmButton: false
 					});
 					status = 'Game over, time limit. You win!';
-					self.game_over_status = self.another_user_color;
+					not_win_user_id = another_player_color;
+					console.log("вакыт бетте");
+					console.log(self.game_over_status);
 				};
 				if (self.system_status!='Game Over') {
 					new_game.game_over(status);
@@ -1003,11 +1013,20 @@ $(document).ready(function() {
 		formatTime : function(time) {
 			var minutes = Math.floor(time / 60);
 			var seconds = Math.floor(time % 60);
+			var hours = Math.floor(minutes / 60);
+			minutes = Math.floor(minutes % 60);
+			var days = Math.floor(hours / 24);
+			hours = Math.floor(hours % 24)
+
 			var result = "";
+			if (days != 0) result += days + "d ";
+			if (hours < 10) result +="0";
+			result += hours + ":";
 			if (minutes < 10) result += "0";
 			result += minutes + ":";
 			if (seconds < 10) result += "0";
 			result += seconds;
+
 			return result;
 		}
 	});
@@ -1016,46 +1035,29 @@ $(document).ready(function() {
 	if (!element) {
 		return;
 	}
-	console.log("сработало");
 
-	var new_game = new ChessGame.GameConversation(model_game_id, model_dbname, model_author_id);
-	new_game.pgnEl.on('click', 'a',function(event) {
-		event.preventDefault();
-		var data = $(this).data('move').split(',');
-		var i = $(this).index();
-		board.position(pos[i],false);
-		board.move.apply(null,data);
-	});
-	$("#chat_form").submit(function(event) {
+	openerp.set_cookie = function(name, value, ttl) {
+        ttl = ttl || 24*60*60*365;
+        document.cookie = [
+            name + '=' + value,
+            'path=/',
+            'max-age=' + ttl,
+            'expires=' + new Date(new Date().getTime() + ttl*1000).toGMTString()
+        ].join(';');
+    };
+
+	if (window.model_game_id===undefined) {
+        return false;
+    } else {
+        //var new_game = new ChessGame.GameConversation(model_game_id, model_dbname, model_author_id);
 		return false;
-	});
-	$("#toggler").click(function(e){
-		openbox('box', this);
-		return false;
-	});
-	$("#toggle_chat").click(function(){
-		if($("#toggle_chat").prop("checked")) {
-			$('.chat').show();
-		}else {
-			$('.chat').hide();
-		}
-	});
+    }
 
-	/* delet checked attribut, when page is referech */
-	var allCheckboxes = $(".messages_container input:checkbox:enabled");
-    allCheckboxes.removeAttr('checked');
-
-	function openbox(id, toggler) {
-		var div = document.getElementById(id);
-		if(div.style.display == 'block') {
-			div.style.display = 'none';
-			toggler.innerHTML = 'Setting';
-		} else {
-			div.style.display = 'block';
-			toggler.innerHTML = 'Close';
-		}
-	}
-	jQuery(document).ready(function(){
-		jQuery('.window_chat').scrollbar();
-	});
+	//new_game.pgnEl.on('click', 'a',function(event) {
+	//	event.preventDefault();
+	//	var data = $(this).data('move').split(',');
+	//	var i = $(this).index();
+	//	board.position(pos[i],false);
+	//	board.move.apply(null,data);
+	//});
 });

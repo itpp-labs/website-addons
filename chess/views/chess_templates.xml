@@ -23,7 +23,7 @@
                                             <input type="radio" name="game_type" value="limited time" id="limited time" class="limited_time"> Limited time </input>
                                          </p>
                                         <p id="time">
-                                        Time: <input type = "text" name="time" value="100"></input>
+                                            Time: D:<input type="number" min="0" max="364" name="time_d" value="0"></input>  H:<input type="number" min="0" max="23" name="time_h" value="0"></input> M:<input type="number" min="0" max="59" name="time_m" value="15"></input> S:<input type="number" min="0" max="59" name="time_s" value="0"></input>
                                         </p>
                                         <h3>Figure color:</h3>
                                         <p>
@@ -54,7 +54,7 @@
                                             <input type="radio" name="game_type" value="limited time" id="limited time" class="limited_time"> Limited time </input>
                                         </p>
                                         <p id="time">
-                                            Time: <input type = "text" name="time" id="time" value="100"></input>
+                                            Time: D:<input type="number" min="0" max="364" name="time_d" value="0"></input>  H:<input type="number" min="0" max="23" name="time_h" value="0"></input> M:<input type="number" min="0" max="59" name="time_m" value="15"></input> S:<input type="number" min="0" max="59" name="time_s" value="0"></input>
                                         </p>
 
                                         <h3>Figure color:</h3>

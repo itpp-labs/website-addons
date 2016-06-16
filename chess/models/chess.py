@@ -3,6 +3,7 @@ import datetime
 import time
 import serverchess
 from openerp import models, fields, api, SUPERUSER_ID
+from openerp import http
 import json
 
 class ChessGame(models.Model):
@@ -28,6 +29,10 @@ class ChessGame(models.Model):
     fen = fields.Char(default = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1')
     move_game_ids = fields.One2many('chess.game.line', 'game_id', 'Game Move')
     message_game_ids = fields.One2many('chess.game.chat', 'game_id', 'Chat message')
+
+    @api.model
+    def create_game_status(self, game_id):
+        return self.search([('id', '=', game_id)])
 
     @api.model
     def system_fetch(self, game_id):
@@ -102,9 +107,20 @@ class ChessGame(models.Model):
             return self.write({"status": data['status']})
 
     @api.one
-    def game_over(self, status):
+    def game_over(self, status, time_limit_id):
         if self.system_status == 'Game Over':
             return False
+        if time_limit_id is not None:
+            if time_limit_id == self.first_user_id.id:
+                self.write({'first_user_time': 0})
+                first_game_result=0
+                second_game_result=1.0
+                status = self.first_color_figure
+            else:
+                self.write({'second_user_time': 0})
+                first_game_result=1.0
+                second_game_result=0
+                status = self.second_color_figure
         #status for rating ELO
         if len(status) > 0:
             rating_first = self.first_user_id.game_rating #rating for first user
@@ -137,6 +153,10 @@ class ChessGame(models.Model):
             elif status=='drawn':
                 first_game_result = 0.5
                 second_game_result = 0.5
+            elif time_limit_id>0:
+                first_game_result=first_game_result
+                second_game_result=second_game_result
+
             #rating formule
             import math
             #new rating for first user
@@ -156,6 +176,58 @@ class ChessGame(models.Model):
                 'date_finish': datetime.datetime.now(),
                 'system_status': 'Game Over'
             })
+
+    @api.multi
+    def accept_chess_game(self):
+        vals = {
+            'status': 'Active game',
+            'system_status': 'Active game'
+        }
+        self.write(vals)
+        notifications = []
+        if self.first_user_id.id != self.env.user.id:
+            secound_user_id = self.first_user_id.id
+        else:
+            secound_user_id = self.second_user_id.id
+
+        channel = '["%s","%s",["%s","%s"]]' % (self._cr.dbname, "chess.game.info", secound_user_id, self.id)
+        message = {'system_status':'Active game'}
+        notifications.append([str(channel), message])
+        self.env['bus.bus'].sendmany(notifications)
+
+        url = '/chess/game/%d/' % (self.id)
+        return {
+            'name': 'Chess game page',
+            'type': 'ir.actions.act_url',
+            'url': url,
+            'target': 'self',
+        }
+
+    @api.multi # после нажатия на кнопку запись должна перенестись в раздел Denied
+    def refuse_chess_game(self):
+        vals = {
+            'status': 'Denied',
+            'system_status': 'Denied'
+        }
+        self.write(vals)
+
+    @api.multi
+    def open_chess_game(self):
+        url = '/chess/game/%d/' % (self.id)
+        return {
+            'name': 'Chess game page',
+            'type': 'ir.actions.act_url',
+            'url': url,
+            'target': 'self',
+        }
+
+    @api.multi # после нажатия на кнопку кнопка длелается не активной и игра отменяется
+    def cancel_chess_game(self):
+        vals = {
+            'status': 'Canceled',
+            'system_status': 'Canceled'
+        }
+        self.write(vals)
 
     @api.one
     def game_information(self):
@@ -245,26 +317,16 @@ class ChessGameLine(models.Model):
             # save it
             self.create(vals)
             ps.write({'status': 'Active game', 'system_status': 'Active game'})
-            # mes = {'game_id': game_id, 'message': message}
 
             if ps.first_user_id.id != self.env.user.id:
                 secound_user_id = ps.first_user_id.id
             else:
                 secound_user_id = ps.second_user_id.id
-            print("----------------------------------------")
-            print("formirovanie polzovatelya")
-            print("----------------------------------------")
 
             channel = '["%s","%s",["%s","%s"]]' % (self._cr.dbname, "chess.game.line", secound_user_id, game_id)
             notifications.append([str(channel), message])
-            print("----------------------------------------")
-            print("dobavlenie kanala i message")
-            print("----------------------------------------")
 
         self.env['bus.bus'].sendmany(notifications)
-        print("----------------------------------------")
-        print("otpravka message")
-        print("----------------------------------------")
         return 'move'
 
     @api.model

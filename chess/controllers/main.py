@@ -35,6 +35,13 @@ class Chess(http.Controller):
         res = request.env["chess.game.chat"].broadcast(message, game_id)
         return res
 
+    #game status
+    @http.route('/chess/game/status/', type="json", auth="public")
+    def game_status(self, game_id):
+        result = request.env['chess.game'].create_game_status(game_id)
+        return result.system_status
+    # не определен "["c-chess.odoo.local","chess.game.info",["1",null]]"
+
     #chess game
     @http.route('/chess/game/init/', type="json", auth="public")
     def init_game(self, game_id):
@@ -89,8 +96,8 @@ class Chess(http.Controller):
             return 'system'
 
     @http.route('/chess/game/game_over/', type="json", auth="public")
-    def game_over(self, game_id, status=None):
-        request.env["chess.game"].browse(int(game_id)).game_over(status)
+    def game_over(self, game_id, status=None, time_limit_id=None):
+        request.env["chess.game"].browse(int(game_id)).game_over(status, time_limit_id)
         return True
 
     #create game
@@ -113,7 +120,7 @@ class Chess(http.Controller):
         })
 
     @http.route('/chess/game/', auth='public', website=True)
-    def create_game(self, game_type=None, second_user_id=None, first_color_figure=None, time=None, **kwargs):
+    def create_game(self, game_type=None, second_user_id=None, first_color_figure=None, time_d=None, time_h=None, time_m=None, time_s=None, **kwargs):
         if request.httprequest.method != 'POST':
             from werkzeug.exceptions import NotFound
             raise NotFound()
@@ -130,12 +137,11 @@ class Chess(http.Controller):
         first_user_id = http.request.env.user.id
         game_time = 0
         if game_type=='blitz' or game_type=='limited time':
-            if time!=None:
-                game_time = time
+            if  time_d!=None or time_h!=None or  time_m!=None or time_s!=None:
+                game_time = int(time_d)*24*60*60+ int(time_h)*60*60+int(time_m)*60+int(time_s)
             else:
                 print("error, not time")
                 game_time = 0
-
         import time
         new_game = http.request.env['chess.game'].create({
             'game_type': game_type,
