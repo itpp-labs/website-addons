@@ -40,7 +40,6 @@ class Chess(http.Controller):
     def game_status(self, game_id):
         result = request.env['chess.game'].create_game_status(game_id)
         return result.system_status
-    # не определен "["c-chess.odoo.local","chess.game.info",["1",null]]"
 
     #chess game
     @http.route('/chess/game/init/', type="json", auth="public")

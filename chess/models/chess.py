@@ -183,17 +183,7 @@ class ChessGame(models.Model):
             'status': 'Active game',
             'system_status': 'Active game'
         }
-        self.write(vals)
-        notifications = []
-        if self.first_user_id.id != self.env.user.id:
-            secound_user_id = self.first_user_id.id
-        else:
-            secound_user_id = self.second_user_id.id
-
-        channel = '["%s","%s",["%s","%s"]]' % (self._cr.dbname, "chess.game.info", secound_user_id, self.id)
-        message = {'system_status':'Active game'}
-        notifications.append([str(channel), message])
-        self.env['bus.bus'].sendmany(notifications)
+        self.information_chess_game(vals)
 
         url = '/chess/game/%d/' % (self.id)
         return {
@@ -203,13 +193,22 @@ class ChessGame(models.Model):
             'target': 'self',
         }
 
-    @api.multi # после нажатия на кнопку запись должна перенестись в раздел Denied
+    @api.multi
     def refuse_chess_game(self):
         vals = {
             'status': 'Denied',
             'system_status': 'Denied'
         }
-        self.write(vals)
+        self.information_chess_game(vals)
+        return {
+            'domain': "[('system_status', '=', 'Waiting'), ('first_user_id', '!=', %s)]" % (self.id),
+            'name': 'Reload page',
+            'view_mode': 'tree',
+            'view_type': 'form',
+            'res_model': 'chess.game',
+            'type': 'ir.actions.act_window',
+        }
+
 
     @api.multi
     def open_chess_game(self):
@@ -221,13 +220,35 @@ class ChessGame(models.Model):
             'target': 'self',
         }
 
-    @api.multi # после нажатия на кнопку кнопка длелается не активной и игра отменяется
+    @api.multi
     def cancel_chess_game(self):
         vals = {
             'status': 'Canceled',
             'system_status': 'Canceled'
         }
+        self.information_chess_game(vals)
+        return {
+            'domain': "[('system_status', '=', 'Waiting'), ('first_user_id', '=', %s)]" % (self.id),
+            'name': 'Reload page',
+            'view_mode': 'tree',
+            'view_type': 'form',
+            'res_model': 'chess.game',
+            'type': 'ir.actions.act_window',
+        }
+
+    @api.model
+    def information_chess_game(self, vals):
         self.write(vals)
+        notifications = []
+        if self.first_user_id.id != self.env.user.id:
+            secound_user_id = self.first_user_id.id
+        else:
+            secound_user_id = self.second_user_id.id
+
+        channel = '["%s","%s",["%s","%s"]]' % (self._cr.dbname, "chess.game.info", secound_user_id, self.id)
+        message = {'system_status':self.status}
+        notifications.append([str(channel), message])
+        self.env['bus.bus'].sendmany(notifications)
 
     @api.one
     def game_information(self):

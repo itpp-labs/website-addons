@@ -1,13 +1,13 @@
 $(document).ready(function() {
 
+    //window.new_game;
     var CreateGame = openerp.CreateGame = {};
     CreateGame.GameManager = openerp.Widget.extend({
         init: function(model_game_id, dbname, uid) {
             this._super();
             var self = this;
-
-            var channel_game_info = JSON.stringify([dbname, 'chess.game.info', [uid, this.game_id]]);
-
+            //add channel for information by game
+            var channel_game_info = JSON.stringify([dbname, 'chess.game.info', [uid, model_game_id]]);
             // start the polling
             this.bus = openerp.bus.bus;
 			this.bus.add_channel(channel_game_info);
@@ -40,9 +40,20 @@ $(document).ready(function() {
         },
         create_game: function(message){
             if(message.system_status=="Active game") {
-                this.bus.stop_polling();
-                console.log("Загрузка информации с лонг поллинга");
-                //window.new_game = new openerp.ChessGame.GameConversation(window.model_game_id, window.model_dbname, window.model_author_id);
+                create_new_game.stop_polling();
+                window.new_game = new openerp.ChessGame.GameConversation(window.model_game_id, window.model_dbname, window.model_author_id);
+                window.new_game.game_pgn_click();
+                swal({   title: "Lets go!",   timer: 1000,   showConfirmButton: false });
+            }
+            if(message.system_status=="Canceled") {
+                create_new_game.stop_polling();
+                swal("Game canceled");
+                return false;
+            }
+            if(message.system_status=="Denied") {
+                create_new_game.stop_polling();
+                swal("User refused to play");
+                return false;
             }
         }
     });
@@ -61,11 +72,33 @@ $(document).ready(function() {
             openerp.session.rpc("/chess/game/status/", {game_id: self.game_id})
                 .then(function(result) {
                     if(result=="Active game") {
-                        openerp.bus.bus.stop_polling();
-                        console.log("Загрузка информации с БД");
+                        self.stop_polling();
                         window.new_game = new openerp.ChessGame.GameConversation(window.model_game_id, window.model_dbname, window.model_author_id);
+                        window.new_game.game_pgn_click();
+                    }
+                    if(result=="Canceled") {
+                        self.stop_polling();
+                        swal("Game canceled");
+                        return false;
+                    }
+                    if(result=="Denied") {
+                        self.stop_polling();
+                        swal("User refused to play");
+                        return false;
+                    }
+                    if(result=="Waiting") {
+                        swal("Please wait");
+                    }
+                    if(result=="Game Over") {
+                        self.stop_polling();
+                        window.new_game = new openerp.ChessGame.GameConversation(window.model_game_id, window.model_dbname, window.model_author_id);
+                        window.new_game.game_pgn_click();
+                        return false;
                     }
                 })
+        },
+        stop_polling: function () {
+            openerp.bus.bus.stop_polling();
         }
     });
 
@@ -76,15 +109,6 @@ $(document).ready(function() {
     }
 
     if (window.new_game===undefined) {
-        return false;
-    } else {
-        new_game.pgnEl.on('click', 'a',function(event) {
-            event.preventDefault();
-            var data = $(this).data('move').split(',');
-            var i = $(this).index();
-            board.position(pos[i],false);
-            board.move.apply(null,data);
-	    });
         return false;
     }
 

@@ -369,14 +369,11 @@ $(document).ready(function() {
 				if (game.turn() === 'b' && turn === 'black') {
 					time_turn = 'bb'
 				}
-				console.log("game type",self.game_type);
 				if (self.game_type == 'blitz' || self.game_type == 'limited time') {
 					openerp.session.rpc("/chess/game/load_time", {'game_id': self.game_id, 'turn': time_turn})
 						.then(function (result) {
-							console.log("result", result);
 							self.author_time = result.author_time;
 							self.another_user_time = result.another_user_time;
-							console.log("system status", self.system_status);
 							if (self.system_status=='Game Over') {
 								if (self.author_time == 0 || self.another_user_time == 0) {
 									var status = '';
@@ -737,7 +734,6 @@ $(document).ready(function() {
 			if (this.system_status=='Game Over') {
 				return false;
 			}
-			console.log("Вызов Game over");
 			$('.chess_information .chess_time_usr').hide();
 			console.log('Game Over');
 
@@ -852,7 +848,6 @@ $(document).ready(function() {
 		},
 		user_surrender: function (status) {
 			var self = this;
-			console.log("Вызов user surrendered");
 			$('.chess_information .chess_time_usr').hide();
 			this.statusEl.html(status);
 			this.cfg = {
@@ -933,7 +928,6 @@ $(document).ready(function() {
 				/* stop the interval */
 				new_game.clearInterval();
 				new_game.status = "expired";
-				console.log("timer suspended");
 				var status = '';
 				if ((game.turn() === 'w' && turn === 'white') || (game.turn() === 'b' && turn === 'black')) {
 					status = 'Game over, time limit. You lose =(';
@@ -956,8 +950,6 @@ $(document).ready(function() {
 					});
 					status = 'Game over, time limit. You win!';
 					not_win_user_id = another_player_color;
-					console.log("вакыт бетте");
-					console.log(self.game_over_status);
 				};
 				if (self.system_status!='Game Over') {
 					new_game.game_over(status);
@@ -1028,6 +1020,15 @@ $(document).ready(function() {
 			result += seconds;
 
 			return result;
+		},
+		game_pgn_click: function(){
+			new_game.pgnEl.on('click', 'a',function(event) {
+				event.preventDefault();
+				var data = $(this).data('move').split(',');
+				var i = $(this).index();
+				board.position(pos[i], false);
+				board.move.apply(null, data);
+			});
 		}
 	});
 
@@ -1046,14 +1047,7 @@ $(document).ready(function() {
         ].join(';');
     };
 
-	if (window.model_game_id===undefined) {
-        return false;
-    } else {
-        //var new_game = new ChessGame.GameConversation(model_game_id, model_dbname, model_author_id);
-		return false;
-    }
-
-	//new_game.pgnEl.on('click', 'a',function(event) {
+	//window.new_game.pgnEl.on('click', 'a',function(event) {
 	//	event.preventDefault();
 	//	var data = $(this).data('move').split(',');
 	//	var i = $(this).index();
