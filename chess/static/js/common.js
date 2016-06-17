@@ -1046,12 +1046,4 @@ $(document).ready(function() {
             'expires=' + new Date(new Date().getTime() + ttl*1000).toGMTString()
         ].join(';');
     };
-
-	//window.new_game.pgnEl.on('click', 'a',function(event) {
-	//	event.preventDefault();
-	//	var data = $(this).data('move').split(',');
-	//	var i = $(this).index();
-	//	board.position(pos[i],false);
-	//	board.move.apply(null,data);
-	//});
 });

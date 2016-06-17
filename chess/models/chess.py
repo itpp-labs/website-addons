@@ -299,7 +299,7 @@ class ChessGame(models.Model):
 class Users(models.Model):
     _inherit = ['res.users']
 
-    game_rating = fields.Float(default=0.0)
+    game_rating = fields.Float(default=1000.0)
 
 
 class ChessGameLine(models.Model):

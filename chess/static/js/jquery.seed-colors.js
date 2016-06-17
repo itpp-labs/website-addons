@@ -8,7 +8,7 @@
 
     $.extend($.seedColors, {
         settings: {
-            color_bright_min: 100,
+            color_bright_min: 50,
             color_diff: 20
         },
         getColorBySeed: function(seed){
@@ -24,13 +24,13 @@
 
                 if(brightCount > 0){
                     var c = $s.color_bright_min + $s.color_diff;
-                    rgb[i] = $t.randAB(c / 2, 250);
+                    rgb[i] = $t.randAB(c * 4, 200);
                     brightCount--;
                     continue
                 }
 
                 var c = $s.color_bright_min - $s.color_diff;
-                rgb[i] = $t.randAB(0, c / 2);
+                rgb[i] = $t.randAB(0, c/10);
             }
 
             Math.seedrandom();
@@ -41,7 +41,7 @@
             return min + Math.round((max - min) * Math.random());
         },
         getColorFromRGB: function(rgb){
-            return rgb[0] << 16 | rgb[1] << 8 | rgb[2];
+            return rgb[0] << 16 | rgb[1] << 8 | rgb[2] <<4;
         },
         getHtmlColor: function(color){
             return '#' + color.toString(16);

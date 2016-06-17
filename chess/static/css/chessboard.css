@@ -122,10 +122,15 @@
 }
 #pgn a {
 	text-decoration: none;
-	color: rgba(250, 160, 55, 1);
+    color: white;
+}
+#pgn a:hover {
+    color: #33FF00;
 }
 .pgn {
 	background: rgba(236, 236, 236, 0.12);
+    font-size: 15px;
+    color: white;
 }
 .pgn {
 	overflow: auto;
