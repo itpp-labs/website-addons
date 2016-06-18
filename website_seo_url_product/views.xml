@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="product_template_extension_form_view" model="ir.ui.view">
+            <field name="name">product.template.extension.form.view</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='website_and_pos']" position="inside">
+                    <group string="SEO">
+                        <field name="seo_url"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
