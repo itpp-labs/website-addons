@@ -2,7 +2,7 @@
  SEO URLs in eCommerce
 =======================
 
-Customisable URLs for product pages, that doesn't depend on product name and product ID.
+Customisable URLs for product pages, that don't depend on product name and product ID.
 
     /shop/product/configurable-seo-url-for-the-best-product
 

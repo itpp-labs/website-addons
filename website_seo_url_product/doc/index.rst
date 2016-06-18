@@ -5,7 +5,7 @@
 Installation
 ============
 
-The module doesn't depend on eCommerce module, so you need to install it manually.
+The module doesn't depend on eCommerce module (``website_sale``), so you need to install it manually.
 
 Usage
 =====
