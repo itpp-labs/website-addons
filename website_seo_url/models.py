@@ -27,7 +27,7 @@ class SEOURL(models.AbstractModel):
     @api.multi
     def write(self, vals):
         for r in self:
-            vals = r._check_seo_url(vals, id=self.id)
+            vals = r._check_seo_url(vals, id=r.id)
             super(SEOURL, r).write(vals)
         return True
 
