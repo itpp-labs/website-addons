@@ -7,7 +7,7 @@
             <field name="inherit_id" ref="product.product_template_only_form_view"/>
             <field name="arch" type="xml">
                 <xpath expr="//group[@name='website_and_pos']" position="inside">
-                    <group>
+                    <group string="SEO">
                         <field name="seo_url"/>
                     </group>
                 </xpath>
