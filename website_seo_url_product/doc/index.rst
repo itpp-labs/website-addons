@@ -2,6 +2,14 @@
  SEO URLs in eCommerce
 =======================
 
+Installation
+============
+
+The module doesn't depend on eCommerce module, so you need to install it manually.
+
+Usage
+=====
+
 * Open ``Sales / Products``
 * Switch to some Product
 * click ``[Edit]``

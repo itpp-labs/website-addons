@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": """SEO URLs in eCommerce""",
-    "summary": """Customisable URLs for product pages, that doesn't depend on product name and product ID""",
+    "summary": """Customisable URLs for product pages, that don't depend on product name and product ID""",
     "category": "eCommerce",
     "images": [],
     "version": "1.0.0",
@@ -14,6 +14,7 @@
 
     "depends": [
         "website_seo_url",
+        "product",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
