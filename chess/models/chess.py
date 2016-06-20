@@ -110,7 +110,7 @@ class ChessGame(models.Model):
     def game_over(self, status, time_limit_id):
         if self.system_status == 'Game Over':
             return False
-        if time_limit_id is not None:
+        if time_limit_id is not False:
             if time_limit_id == self.first_user_id.id:
                 self.write({'first_user_time': 0})
                 first_game_result=0
@@ -153,10 +153,10 @@ class ChessGame(models.Model):
             elif status=='drawn':
                 first_game_result = 0.5
                 second_game_result = 0.5
-            elif time_limit_id>0:
-                first_game_result=first_game_result
-                second_game_result=second_game_result
-
+            if time_limit_id is not False:
+                if time_limit_id>0:
+                    first_game_result=first_game_result
+                    second_game_result=second_game_result
             #rating formule
             import math
             #new rating for first user

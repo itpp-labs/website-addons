@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
     //window.new_game;
+    var storage_create_game = localStorage;
     var CreateGame = openerp.CreateGame = {};
     CreateGame.GameManager = openerp.Widget.extend({
         init: function(model_game_id, dbname, uid) {
@@ -8,8 +9,11 @@ $(document).ready(function() {
             var self = this;
             //add channel for information by game
             var channel_game_info = JSON.stringify([dbname, 'chess.game.info', [uid, model_game_id]]);
+            var bus_last = 0;
+            Number(storage_create_game.getItem("bus_last"))==null ? bus_last=this.bus.last : bus_last=Number(storage_create_game.getItem("bus_last"));
             // start the polling
             this.bus = openerp.bus.bus;
+            this.bus.last = bus_last;
 			this.bus.add_channel(channel_game_info);
             this.bus.on("notification", this, this.on_notification);
             this.bus.start_polling();
@@ -44,6 +48,7 @@ $(document).ready(function() {
                 window.new_game = new openerp.ChessGame.GameConversation(window.model_game_id, window.model_dbname, window.model_author_id);
                 window.new_game.game_pgn_click();
                 swal({   title: "Lets go!",   timer: 1000,   showConfirmButton: false });
+                storage_create_game.setItem("bus_last", this.bus.last);
             }
             if(message.system_status=="Canceled") {
                 create_new_game.stop_polling();
@@ -112,16 +117,15 @@ $(document).ready(function() {
         return false;
     }
 });
-
-$('#create_game #blitz, #play_with_a_friend #blitz').click(function () {
-    $('#create_game #time').show();
-    $('#play_with_a_friend #time').show();
-});
-$('#create_game .limited_time, #play_with_a_friend .limited_time').click(function () {
-    $('#create_game #time').show();
-    $('#play_with_a_friend #time').show();
-});
-$('#create_game #standart, #play_with_a_friend #standart').click(function () {
-    $('#create_game #time').hide();
-    $('#play_with_a_friend #time').hide();
-});
+    $('#create_game #blitz, #play_with_a_friend #blitz').click(function () {
+        $('#create_game #time').show();
+        $('#play_with_a_friend #time').show();
+    });
+    $('#create_game .limited_time, #play_with_a_friend .limited_time').click(function () {
+        $('#create_game #time').show();
+        $('#play_with_a_friend #time').show();
+    });
+    $('#create_game #standart, #play_with_a_friend #standart').click(function () {
+        $('#create_game #time').hide();
+        $('#play_with_a_friend #time').hide();
+    });

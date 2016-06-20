@@ -10,6 +10,9 @@ $(document).ready(function() {
 	var author_player_color = '';
 	var another_player_color = '';
 	var not_win_user_id = '';
+	var time_limited = false;
+	var start_time_refer = true;
+	var ref_bw = true;
     ChessGame.COOKIE_NAME = 'chessgame_session';
 	ChessGame.GameManager = openerp.Widget.extend({
 		init: function (model_game_id, dbname, uid) {
@@ -63,7 +66,7 @@ $(document).ready(function() {
 				if (message.type == 'move') {
 					self.onDrop(message.data['source'], message.data['target']);
 					board.position(game.fen());
-					if(new_game.game_type=='blitz' || new_game.game_type=='limited time') {
+					if(new_game.game_type=='blitz') {
 						if(game.turn()=== 'b') {
 							new_game.clockClicked(1);
 							new_game.clockClicked(0);
@@ -73,6 +76,18 @@ $(document).ready(function() {
 							new_game.clockClicked(1);
 						}
 					}
+					if(new_game.game_type=='limited time' && ref_bw) {
+						if(game.turn()=== 'b') {
+							new_game.clockClicked(1);
+							new_game.clockClicked(0);
+						}
+						if(game.turn()=== 'w') {
+							new_game.clockClicked(0);
+							new_game.clockClicked(1);
+						}
+						ref_bw = false;
+					}
+					storage.setItem("bus_last", this.bus.last);
 				}
 				if (message.type == 'system'){
 					if (message.data['status'] == 'surrender') {
@@ -281,7 +296,7 @@ $(document).ready(function() {
 			if (this.author_color==='black') return 'black';
 			else return 'white';
 		},
-		onBoard: function(){;
+		onBoard: function(){
 			this.cfg = {
 				moveSpeed: 'slow',
 				snapbackSpeed: 500,
@@ -303,7 +318,7 @@ $(document).ready(function() {
 				$('.chess_information .chess_time_usr').hide();
 			}
 			else {
-				if (game_type == 'blitz' || game_type == 'limited time') {
+				if (game_type == 'blitz') {
 					$('.chess_information .chess_time_usr').show();
 					if (game.turn() === 'b') {
 						self.reset(Math.round(another_user_time), Math.round(author_time));
@@ -312,7 +327,18 @@ $(document).ready(function() {
 						self.reset(Math.round(author_time), Math.round(another_user_time));
 					}
 				} else {
-					$('.chess_information .chess_time_usr').hide();
+					if (game_type == 'limited time') {
+						$('.chess_information .chess_time_usr').show();
+						if (game.turn() === 'b') {
+							self.reset(Math.round(another_user_time), Math.round(author_time));
+						}
+						if (game.turn() === 'w') {
+							self.reset(Math.round(author_time), Math.round(another_user_time));
+						}
+
+					} else {
+						$('.chess_information .chess_time_usr').hide();
+					}
 				}
 			}
 		},
@@ -416,7 +442,7 @@ $(document).ready(function() {
 		showConfirmation: function(history, result){
 			var self = this;
 			if (this.history){
-				if(self.game_type=='blitz' || self.game_type=='limited time') {
+				if(self.game_type=='blitz') {
 					if(game.turn()=== 'b') {
 						self.clockClicked(1);
 					}
@@ -424,6 +450,16 @@ $(document).ready(function() {
 						self.clockClicked(0);
 					}
 				}
+
+				if (self.game_type=='limited time' && start_time_refer) {
+					if(game.turn()=== 'b') {
+						self.clockClicked(1);
+					}
+					if(game.turn()=== 'w') {
+						self.clockClicked(0);
+					}
+				}
+				start_time_refer = false;
 				self.onSnapEnd();
 				if (result.type == 'system') {
 					switch (result.data['status']) {
@@ -536,6 +572,7 @@ $(document).ready(function() {
 			var self = this;
 			self.check_status = false;
 			self.coockie_status = true;
+			ref_bw = true;
 			openerp.session.rpc("/chess/game/send/", {message: message, game_id: self.game_id})
 				.then(function(result){
 					if(result=='move'){
@@ -563,14 +600,16 @@ $(document).ready(function() {
 						}
 						if(self.game_type=='limited time') {
 							if (game.turn() === 'w') {
-								self.clockClicked(1);
+								//self.clockClicked(1);
+								self.reset(Math.round(self.another_user_time), Math.round(self.author_time));
+								self.clockClicked(0);
+
 							}
 							if (game.turn() === 'b') {
-								if (first_step_move) {
-									self.clockClicked(1);
-								} else {
-									self.clockClicked(0);
-								}
+								//self.clockClicked(0);
+								self.reset(Math.round(self.author_time), Math.round(self.another_user_time));
+								self.clockClicked(1);
+
 							}
 						}
 						first_step_move = false;
@@ -601,7 +640,6 @@ $(document).ready(function() {
 			if (moveColor == "White") {
 				typea = "warning";
 			}
-
 			// checkmate?
 			if (game.in_checkmate() === true) {
 				if((game.turn()=== 'b' && self.author_color=='black') || (game.turn() === 'w' && self.author_color=='white')) {
@@ -744,7 +782,12 @@ $(document).ready(function() {
 			var self = this;
 			var status_game = self.game_over_status;
 
-			openerp.session.rpc("/chess/game/game_over/", {'game_id': self.game_id, 'status': status_game, 'time_limit_id': not_win_user_id})
+			if (time_limited) {
+				not_win_user_id = not_win_user_id
+			} else {
+				not_win_user_id = false
+			}
+			openerp.session.rpc("/chess/game/game_over/", {'game_id': self.game_id, 'status': status_game.toLowerCase(), 'time_limit_id': not_win_user_id})
 				.then(function(result){
 					if(result) {
 						$('#surrender').hide();
@@ -887,7 +930,6 @@ $(document).ready(function() {
 					this.currentClock = id;
 					this.setInterval();
 					this.addClass(this.currentClock, "running");
-					//console.log("clock started: " + id);
 				} else if (this.status == "running") {
 					/* clock is already running */
 					if (this.currentClock == id) {
@@ -899,7 +941,6 @@ $(document).ready(function() {
 							this.currentClock = 0;
 						}
 						this.addClass(this.currentClock, "running");
-						//console.log("clock changed: " + id);
 					}
 				} else {
 					self.status = 'expired';
@@ -939,6 +980,7 @@ $(document).ready(function() {
 						showConfirmButton: false
 					});
 					not_win_user_id = author_player_color;
+					time_limited = true;
 				}
 				if ((game.turn() === 'w' && turn === 'black') || (game.turn() === 'b' && turn === 'white')) {
 					swal({
@@ -950,6 +992,7 @@ $(document).ready(function() {
 					});
 					status = 'Game over, time limit. You win!';
 					not_win_user_id = another_player_color;
+					time_limited = true;
 				};
 				if (self.system_status!='Game Over') {
 					new_game.game_over(status);
@@ -1046,4 +1089,5 @@ $(document).ready(function() {
             'expires=' + new Date(new Date().getTime() + ttl*1000).toGMTString()
         ].join(';');
     };
+
 });
