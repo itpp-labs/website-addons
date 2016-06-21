@@ -1,6 +1,5 @@
 $(document).ready(function() {
 
-    //window.new_game;
     var storage_create_game = localStorage;
     var CreateGame = openerp.CreateGame = {};
     CreateGame.GameManager = openerp.Widget.extend({
@@ -14,7 +13,7 @@ $(document).ready(function() {
             // start the polling
             this.bus = openerp.bus.bus;
             this.bus.last = bus_last;
-			this.bus.add_channel(channel_game_info);
+            this.bus.add_channel(channel_game_info);
             this.bus.on("notification", this, this.on_notification);
             this.bus.start_polling();
         },
@@ -30,12 +29,12 @@ $(document).ready(function() {
             }
         },
         on_notification_do: function (channel, message) {
-			var self = this;
-			var channel = JSON.parse(channel);
+            var self = this;
+            var channel = JSON.parse(channel);
             var error = false;
             if (Array.isArray(channel) && channel[1] === 'chess.game.info') {
                 try {
-					this.create_game(message);
+                    this.create_game(message);
                 } catch (err) {
                     error = err;
                     console.error(err);
@@ -66,9 +65,9 @@ $(document).ready(function() {
     CreateGame.GameStatusManager = openerp.Widget.extend({
         init: function(model_game_id, dbname, uid){
             this._super();
-			var self = this;
+            var self = this;
             this.game_id = model_game_id;
-			openerp.session = new openerp.Session();
+            openerp.session = new openerp.Session();
             this.c_manager = new openerp.CreateGame.GameManager(model_game_id, dbname, uid);
             this.start();
         },
@@ -117,15 +116,15 @@ $(document).ready(function() {
         return false;
     }
 });
-    $('#create_game #blitz, #play_with_a_friend #blitz').click(function () {
-        $('#create_game #time').show();
-        $('#play_with_a_friend #time').show();
-    });
-    $('#create_game .limited_time, #play_with_a_friend .limited_time').click(function () {
-        $('#create_game #time').show();
-        $('#play_with_a_friend #time').show();
-    });
-    $('#create_game #standart, #play_with_a_friend #standart').click(function () {
-        $('#create_game #time').hide();
-        $('#play_with_a_friend #time').hide();
-    });
+$('#create_game #blitz, #play_with_a_friend #blitz').click(function () {
+    $('#create_game #time').show();
+    $('#play_with_a_friend #time').show();
+});
+$('#create_game .limited_time, #play_with_a_friend .limited_time').click(function () {
+    $('#create_game #time').show();
+    $('#play_with_a_friend #time').show();
+});
+$('#create_game #standart, #play_with_a_friend #standart').click(function () {
+    $('#create_game #time').hide();
+    $('#play_with_a_friend #time').hide();
+});
