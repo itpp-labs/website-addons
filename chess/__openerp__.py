@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": """Chess""",
-    "summary": """Chess is online game""",
+    "summary": """Play Chess with other users in Odoo!""",
     "category": "Website",
     "version": "1.0.0",
 

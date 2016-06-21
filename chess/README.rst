@@ -1,15 +1,8 @@
-============
- Chess Game
-============
+=======
+ Chess
+=======
 
-**Chess Game for website**
-
-**Interface**
-
-* 1 Chess board
-* 2 Eaten figures
-* 3 Moves history with the possibility to watch moves
-* 4 Chat
+Multiplayer Chess Game in Odoo with longpolling via built-in ``bus`` module.
 
 Credits
 =======
@@ -25,4 +18,12 @@ Sponsors
 Further information
 ===================
 
+Demo: http://runbot.it-projects.info/demo/website-addons/8.0
+
+HTML Description: https://apps.odoo.com/apps/modules/8.0/chess/
+
 Usage instructions: `<doc/index.rst>`_
+
+Changelog: `<doc/changelog.rst>`_
+
+Tested on Odoo 8.0 bdf93910c324b17033f6215e217a0d13a64d2456
