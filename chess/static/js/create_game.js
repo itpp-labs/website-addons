@@ -91,7 +91,7 @@ $(document).ready(function() {
                         return false;
                     }
                     if(result=="Waiting") {
-                        swal("Please wait");
+                        swal("Wait for invitation acceptance", "Your opponent can do it via Chess menu at the backend");
                     }
                     if(result=="Game Over") {
                         self.stop_polling();

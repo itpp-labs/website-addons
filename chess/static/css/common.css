@@ -16,5 +16,7 @@
 }
 #create_game #time, #play_with_a_friend #time{
     display: none;
-
+}
+.chess_services a:first-child {
+    display: none;
 }
