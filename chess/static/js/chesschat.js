@@ -66,7 +66,7 @@
         className: "chat_form",
         init: function(model_game_id, dbname, uid){
             var element = document.getElementById('chat');
-			if (!element) {
+            if (!element) {
                 return;
             }
             this.game_id = model_game_id;
@@ -178,14 +178,14 @@
             message.data = $(".chat #message_text").val();
 
             if (message.data == '' || message.data == ' ')
-			{
-				$('.chat #window_chat')
-				.append('<div class="error"><span class="fa fa-times">ERROR. Input message.</span></div>');
+            {
+                $('.chat #window_chat')
+                .append('<div class="error"><span class="fa fa-times">ERROR. Input message.</span></div>');
                 $(".chat #window_chat").each(function () {
                     this.scrollTop = this.scrollHeight;
                 });
-				return false;
-			}
+                return false;
+            }
             $('.chat #error').hide();
             $('.chat #message_text').val('');
             message.author_name = this.author_name;
@@ -218,36 +218,36 @@
     $(".chat .message_text").keydown(function(e){
         my_chat.keydown(e);
     });
-    	$("#chat_form").submit(function(event) {
-		return false;
-	});
-	$("#toggler").click(function(e){
-		openbox('box', this);
-		return false;
-	});
-	$("#toggle_chat").click(function(){
-		if($("#toggle_chat").prop("checked")) {
-			$('.chat').show();
-		}else {
-			$('.chat').hide();
-		}
-	});
+        $("#chat_form").submit(function(event) {
+        return false;
+    });
+    $("#toggler").click(function(e){
+        openbox('box', this);
+        return false;
+    });
+    $("#toggle_chat").click(function(){
+        if($("#toggle_chat").prop("checked")) {
+            $('.chat').show();
+        }else {
+            $('.chat').hide();
+        }
+    });
 
-	/* delet checked attribut, when page is referech */
-	var allCheckboxes = $(".messages_container input:checkbox:enabled");
+    /* delet checked attribut, when page is referech */
+    var allCheckboxes = $(".messages_container input:checkbox:enabled");
     allCheckboxes.removeAttr('checked');
 
-	function openbox(id, toggler) {
-		var div = document.getElementById(id);
-		if(div.style.display == 'block') {
-			div.style.display = 'none';
-			toggler.innerHTML = 'Setting';
-		} else {
-			div.style.display = 'block';
-			toggler.innerHTML = 'Close';
-		}
-	}
-	jQuery(document).ready(function(){
-		jQuery('.window_chat').scrollbar();
-	});
+    function openbox(id, toggler) {
+        var div = document.getElementById(id);
+        if(div.style.display == 'block') {
+            div.style.display = 'none';
+            toggler.innerHTML = 'Setting';
+        } else {
+            div.style.display = 'block';
+            toggler.innerHTML = 'Close';
+        }
+    }
+    jQuery(document).ready(function(){
+        jQuery('.window_chat').scrollbar();
+    });
 })();

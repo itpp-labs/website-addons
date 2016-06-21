@@ -7,8 +7,8 @@
                             <h1>Chess Services</h1>
                             <div class='menu'>
                                 <ul class="chess_services">
-				                    <li><a href="#?w=400" rel="popup1" class="poplight">Create game</a></li>
-				                    <li><a href="#?w=400" rel="popup2" class="poplight">Play with a friend</a></li>
+				                    <a href="#?w=400" rel="popup1" class="poplight"><li>Create game</li></a>
+				                    <a href="#?w=400" rel="popup2" class="poplight"><li>Play with a friend</li></a>
 			                    </ul>
                             </div>
                             <div id="popup1" class="popup_block">
