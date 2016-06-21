@@ -232,6 +232,7 @@ $(document).ready(function() {
                         }
                         author_player_color = self.author_id;
                         another_player_color = self.another_user_id;
+
                         //save all data in coockie
                         openerp.set_cookie(cookie_name, JSON.stringify({
                             'author': {
@@ -606,8 +607,11 @@ $(document).ready(function() {
                         }
                         first_step_move = false;
                     }
+                    else if (result=='system') {
+                        //console.log("Send system message");
+                    }
                     else {
-                        console.error("ERROR, please make the right move");
+                        console.log("ERROR, please make the right move");
                         return self.user_surrender('ERROR, please make the right move');
                     }
                 });
