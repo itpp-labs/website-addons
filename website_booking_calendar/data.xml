@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Cron job for automatically remove booking that have not been paid during 15 min -->
+        <record forcecreate="True" id="ir_cron_clean_booking"
+                model="ir.cron">
+            <field name="name">Booking Auto Remove</field>
+            <field eval="True" name="active" />
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall" />
+            <field eval="'sale.order'" name="model" />
+            <field eval="'_remove_unpaid_bookings'" name="function" />
+            <field eval="'()'" name="args" />
+        </record>
+    </data>
+</openerp>
