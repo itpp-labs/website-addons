@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        <template id="resources">
-            <h4>Book resources</h4>
-            <t t-foreach="resources" t-as="r">
-                <div class='fc-event' t-att-data-resource="r.id" t-att-data-color="r.color" t-att-style="'background-color:%s;border-color:%s;' % (r.color, r.color)"><t t-esc="r.name"/></div>
-            </t>
-        </template>
-
         <template id="calendar">
             <div id='calendar'></div>
             <div style='clear:both'></div>
@@ -18,10 +11,6 @@
             <t t-call="website.layout">
                 <div id="wrap">
                     <div id="cal_wrap">
-                        <div id='external-events'>
-                            <t t-call="website_booking_calendar.resources"/>
-                            <a id="add-to-cart" href="#">Confirm Booking</a>
-                        </div>
                         <t t-call="website_booking_calendar.calendar"/>
                     </div>
                 </div>
@@ -69,6 +58,7 @@
                             <th>Date and Time</th>
                             <th>Package</th>
                             <th>Price</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -96,6 +86,11 @@
                             <td>
                                 <span class="booking-price"><t t-esc="(b['products'] and products[0]['price']) or ''"/></span>
                                 <span class="booking-currency" t-esc="(b['products'] and products[0]['currency']) or ''"></span>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default" onclick="$(this).closest('tr').remove() ">
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </button>
                             </td>
                         </tr>
                     </t>

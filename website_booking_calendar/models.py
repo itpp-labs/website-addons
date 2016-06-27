@@ -7,7 +7,7 @@ from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
 from openerp.addons.resource.resource import seconds
 
 MIN_TIMESLOT_HOURS = 1
-
+MIN_RESERVATION_MINUTES = 15
 
 class sale_order_line(models.Model):
     _inherit = 'sale.order.line'  
@@ -101,3 +101,13 @@ class sale_order(models.Model):
             })
             line = rec.env['sale.order.line'].sudo().create(values)
         return line
+
+    @api.model
+    def _remove_unpaid_bookings(self):
+        print 'OK'*10
+        for order in self.search([('state', '=', 'draft')]):
+            if order.section_id and order.section_id.code == 'WS':
+                print order.name
+                if fields.Datetime.from_string(order.date_order) \
+                        + timedelta(minutes=MIN_RESERVATION_MINUTES) < datetime.now():
+                    order.action_cancel();
