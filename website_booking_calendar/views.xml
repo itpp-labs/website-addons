@@ -33,6 +33,7 @@
                   </div>
                 </div>
                 <t t-call="website_booking_calendar.warning_dialog"/>
+                <input type="hidden" name="is_logged" t-att-value="1 if user_id != website.user_id else 0"/>
             </t>
         </template>
 
@@ -96,6 +97,7 @@
                     </t>
                     </tbody>
                 </table>
+                <input type="hidden" name="timezone" />
             </form>
         </template>
 
