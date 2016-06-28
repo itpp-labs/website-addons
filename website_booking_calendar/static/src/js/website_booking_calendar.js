@@ -117,7 +117,7 @@
 
     self.eventClick = function(calEvent, jsEvent, view) {
         if (!($("[name=is_logged]").val())) {
-            window.location = '/web/login';
+            window.location = '/web/login?redirect='+encodeURIComponent(window.location);
             return;
         }
         var booked = false;
