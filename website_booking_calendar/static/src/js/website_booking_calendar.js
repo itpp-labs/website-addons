@@ -92,7 +92,10 @@
         });
 
         $('#booking-dialog-confirm').click(function(){
-            $('#booking-dialog').find('form').submit();
+            var $form = $('#booking-dialog').find('form');
+            var d = new Date();
+            $form.find("[name=timezone]").val(d.getTimezoneOffset());
+            $form.submit();
         })
 
     };
@@ -113,7 +116,7 @@
     }
 
     self.eventClick = function(calEvent, jsEvent, view) {
-        if (!openerp.website.session) {
+        if (!($("[name=is_logged]").val())) {
             window.location = '/web/login';
             return;
         }
