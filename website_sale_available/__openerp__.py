@@ -9,7 +9,10 @@
     'images': ['images/available.png'],
     'price': 9.00,
     'currency': 'EUR',
-    'depends': ['website_sale'],
+    'depends': [
+        'website_sale',
+        'stock',
+    ],
     'data': [
         'website_sale_available_views.xml',
         ],
