@@ -22,5 +22,5 @@
         "views/chess_templates.xml",
     ],
 
-    "installable": True,
+    "installable": False,
 }
