@@ -10,7 +10,7 @@ from openerp.addons.website.models.ir_http import ModelConverter
 
 def slug(value):
     field = getattr(value, '_seo_url_field', None)
-    if isinstance(value, orm.browse_record) and hasattr(value, field):
+    if field and isinstance(value, orm.browse_record) and hasattr(value, field):
         id, name = value.id, getattr(value, field)
         if name:
             return name
