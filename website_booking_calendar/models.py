@@ -7,7 +7,7 @@ from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
 from openerp.addons.resource.resource import seconds
 
 MIN_TIMESLOT_HOURS = 1
-
+MIN_RESERVATION_MINUTES = 15
 
 class sale_order_line(models.Model):
     _inherit = 'sale.order.line'  
@@ -84,13 +84,17 @@ class sale_order(models.Model):
     _inherit = 'sale.order'
 
     @api.multi
-    def _add_booking_line(self, product_id, resource, start, end):
+    def _add_booking_line(self, product_id, resource, start, end, tz_offset=0):
         set_qty = 1
         for rec in self:
             if start and end:
-                user_tz = pytz.timezone(rec.env.context.get('tz', 'UTC'))
-                start = user_tz.localize(fields.Datetime.from_string(start)).astimezone(pytz.utc)
-                end = user_tz.localize(fields.Datetime.from_string(end)).astimezone(pytz.utc)
+                if not rec.env.context.get('tz'):
+                    start = datetime.strptime(start, DTF) + timedelta(minutes=tz_offset)
+                    end = datetime.strptime(end, DTF) + timedelta(minutes=tz_offset)
+                else:
+                    user_tz = pytz.timezone(rec.env.context.get('tz') or 'UTC')
+                    start = user_tz.localize(fields.Datetime.from_string(start)).astimezone(pytz.utc)
+                    end = user_tz.localize(fields.Datetime.from_string(end)).astimezone(pytz.utc)
                 set_qty = (end - start).seconds/3600
             values = self.sudo()._website_product_id_change(rec.id, product_id, qty=set_qty)
             values.update({
@@ -99,5 +103,13 @@ class sale_order(models.Model):
                 'booking_start': start,
                 'booking_end': end,
             })
-            line = rec.env['sale.order.line'].sudo().create(values)
+            line = rec.env['sale.order.line'].sudo().with_context(tz_offset=tz_offset).create(values)
         return line
+
+    @api.model
+    def _remove_unpaid_bookings(self):
+        for order in self.search([('state', '=', 'draft')]):
+            if order.section_id and order.section_id.code == 'WS':
+                if fields.Datetime.from_string(order.date_order) \
+                        + timedelta(minutes=MIN_RESERVATION_MINUTES) < datetime.now():
+                    order.action_cancel();

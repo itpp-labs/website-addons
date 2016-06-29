@@ -6,6 +6,6 @@
     'website' : 'https://twitter.com/vkotovi4',
     'category' : 'Website',
     'depends' : ['booking_calendar', 'website_sale'],
-    'data': ['views.xml'],
-    'installable': False
+    'data': ['views.xml', 'data.xml'],
+    'installable': False,
 }

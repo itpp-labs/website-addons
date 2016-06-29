@@ -50,11 +50,18 @@ class website_booking_calendar(http.Controller):
 
     @http.route('/booking/calendar/confirm', type='http', auth='public', website=True)
     def order(self, **kwargs):
+        tz = int(kwargs.get('timezone', '0'));
         for key, arg in kwargs.iteritems():
             if key.startswith('product_id'):
                 m = re.match('^product_id\[(\d+)\]\[([\d-]+ [\d:]+)\-([\d-]+ [\d:]+)\]$', key)
                 resource_id = m.group(1)
                 start = m.group(2)
                 end = m.group(3)
-                request.website.sale_get_order(force_create=1)._add_booking_line(int(arg), int(resource_id), start, end)
+                request.website.sale_get_order(force_create=1)._add_booking_line(int(arg), int(resource_id), start, end, tz)
         return request.redirect("/shop/checkout")
+
+    @http.route('/booking/calendar/slots', type='json', auth='public', website=True)
+    def get_free_slots(self, **kwargs):
+        cr, uid, context = request.cr, SUPERUSER_ID, request.context
+        return request.registry["sale.order.line"].get_free_slots(cr, uid, kwargs.get('start'),
+            kwargs.get('end'), kwargs.get('tz'), kwargs.get('domain', []), context=context)
