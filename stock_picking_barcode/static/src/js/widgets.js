@@ -186,9 +186,9 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                 self.on_searchbox('');
                 self.$('.oe_searchbox').val('');
             });
-            this.$('.oe_searchbox').focus(function(){
-                self.getParent().barcode_scanner.disconnect();
-            });
+            //this.$('.oe_searchbox').focus(function(){
+            //    self.getParent().barcode_scanner.disconnect();
+            //});
             this.$('.oe_searchbox').blur(function(){
                 core.bus.on('barcode_scanned', this, function (barcode) {
                     self.get_Parent().scan(barcode);
@@ -245,7 +245,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                 self.$('.js_lot_scan').val('');
                 var $lot_modal = self.$el.siblings('#js_LotChooseModal');
                 //disconnect scanner to prevent scanning a product in the back while dialog is open
-                self.getParent().barcode_scanner.disconnect();
+                //self.getParent().barcode_scanner.disconnect();
                 $lot_modal.modal();
                 //focus input
                 $lot_modal.on('shown.bs.modal', function(){
@@ -293,9 +293,9 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                 $("input", this).val("");
                 return false;
             });
-            this.$('.js_qty').focus(function(){
-                self.getParent().barcode_scanner.disconnect();
-            });
+            //this.$('.js_qty').focus(function(){
+            //    self.getParent().barcode_scanner.disconnect();
+            //});
             this.$('.js_qty').blur(function(){
                 var op_id = $(this).parents("[data-id]:first").data('id');
                 var value = parseFloat($(this).val());
