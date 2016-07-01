@@ -1,29 +1,15 @@
-=======================
- Stock Picking Barcode
-=======================
-
-Installation
-============
-
-Nothing special is needed to install this module.
+===========================================
+ Barcode scanner support for Stock Picking
+===========================================
 
 Usage
 =====
 
-To use this module, you need to:
+* Open barcode scanning page
 
-* Go to Warehouse > Operations > All Operations;
+  * either click barcode icon at ``Inventory / Dashboard`` menu
+  * or select some Stock Picking and click barcode icon there
 
-* Click barcode icon in the appropriate card;
+* Scan product barcode;
 
-* Open page with product table;
-
-* Scanning barcode on the product;
-
-* If scanned barcode there is in the database and appropriate product, it show in the product table.
-
-
-Uninstallation
-==============
-
-Nothing special is needed to uninstall this module.
+* Quantity of scanned product is increased;
