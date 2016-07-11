@@ -19,7 +19,7 @@ Sponsors
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/misc-addons/9.0-stock_picking_barcode
+Demo: http://runbot.it-projects.info/demo/website-addons/9.0
 
 HTML Description: https://apps.odoo.com/apps/modules/9.0/stock_picking_barcode/
 
