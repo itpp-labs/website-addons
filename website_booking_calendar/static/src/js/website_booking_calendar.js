@@ -80,7 +80,7 @@
             eventClick: self.eventClick,
             customButtons: {
                 confirm: {
-                    text: 'Confirm Bookings',
+                    text: 'Add to Cart',
                     click: self.confirm
                 }
             },
