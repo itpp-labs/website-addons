@@ -25,6 +25,8 @@ class sale_order_line(models.Model):
         user_df = ('%s %s' % (lang.date_format, lang.time_format)) if lang else DTF
         products = self.env['product.product'].search([('calendar_id','!=',False)])
         bookings = {}
+        partner = self.env.user.partner_id
+        pricelist_id = partner.property_product_pricelist.id
         for event in events:
             r = event['resource']
             if not r in bookings:
@@ -52,7 +54,7 @@ class sale_order_line(models.Model):
                             bookings[r][hour]['products'][str(product.id)] = {
                                 'id': product.id,
                                 'name': product.name,
-                                'price': product.lst_price or product.price,
+                                'quantity': 1,
                                 'currency': product.company_id.currency_id.name
                             }
                     #join adjacent hour intervals to one SO position
@@ -74,10 +76,19 @@ class sale_order_line(models.Model):
                             })
                         if adjacent:
                             for id, p in bookings[r][h]['products'].iteritems():
-                                bookings[r][h]['products'][id]['price'] += bookings[r][hour]['products'][id]['price']
+                                bookings[r][h]['products'][id]['quantity'] += bookings[r][hour]['products'][id]['quantity']
                             del bookings[r][hour]
                             break
                 hour_dt += timedelta(hours=MIN_TIMESLOT_HOURS)
+        # calculate prices according to pricelists
+        for k1, v1 in bookings.iteritems():
+            for k2, v2 in v1.iteritems():
+                for id, product in v2['products'].iteritems():
+                    bookings[k1][k2]['products'][id]['price'] = self.env['product.product'].browse(product['id']).with_context({
+                        'quantity': product['quantity'],
+                        'pricelist': pricelist_id,
+                        'partner': partner.id
+                        }).price * product['quantity']
         res = []
         for r in bookings.values():
             res += r.values()
