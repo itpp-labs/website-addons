@@ -1128,3 +1128,8 @@ be a descendant of the grid when it is being dragged.
     border-color: red;
     background-color: #F4C430;
 }
+
+.booked_slot {
+    opacity: .2;
+    filter: alpha(opacity=20); /* for IE */
+}

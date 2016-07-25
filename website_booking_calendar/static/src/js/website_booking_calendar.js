@@ -8,9 +8,20 @@
     self.session = openerp.website.session || new openerp.Session();
     self.domain = [];
 
-    self.loadEvents = function(start, end, timezone, callback) {
+    self.loadSlots = function(start, end, timezone, callback) {
         var d = new Date();
         self.session.rpc("/booking/calendar/slots", {
+           start: start.format(self.DTF),
+           end: end.format(self.DTF),
+           tz: d.getTimezoneOffset(),
+           domain: self.domain
+        }).then(function (response) {
+            callback(response);
+        });
+    };
+    self.loadBookings = function(start, end, timezone, callback) {
+        var d = new Date();
+        self.session.rpc("/booking/calendar/slots/booked", {
            start: start.format(self.DTF),
            end: end.format(self.DTF),
            tz: d.getTimezoneOffset(),
@@ -75,7 +86,10 @@
             defaultView: 'agendaWeek',
             timezone: 'local',
             weekNumbers: true,
-            events: self.loadEvents,
+            eventSources: [
+                { events: self.loadSlots },
+                { events: self.loadBookings }
+            ],
             viewRender: self.viewRender,
             eventClick: self.eventClick,
             customButtons: {
@@ -88,7 +102,8 @@
                 left: 'confirm prev,next today',
                 center: 'title',
                 right: 'agendaWeek,agendaDay'
-            }
+            },
+            slotEventOverlap: false
         });
 
         $('#booking-dialog-confirm').click(function(){
@@ -116,6 +131,9 @@
     }
 
     self.eventClick = function(calEvent, jsEvent, view) {
+        if ($(this).hasClass('booked_slot')) {
+            return;
+        }
         if (!($("[name=is_logged]").val())) {
             window.location = '/web/login?redirect='+encodeURIComponent(window.location);
             return;

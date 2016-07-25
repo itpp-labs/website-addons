@@ -21,23 +21,9 @@ class website_booking_calendar(http.Controller):
         }
         return values
 
-    def _get_template(self, params):
-        return 'website_booking_calendar.index'
-
-
     @http.route(['/booking/calendar'], type='http', auth="public", website=True)
     def calendar(self, **kwargs):
-        return request.website.render(self._get_template(kwargs), self._get_values(kwargs))
-
-    @http.route('/booking/calendar/events', type='json', auth='public', website=True)
-    def events(self, start, end, resources=[]):
-        cr, uid, context = request.cr, request.uid, request.context
-        return request.registry["sale.order.line"].get_bookings(cr, SUPERUSER_ID, start, end, resources, context=context)
-
-    @http.route('/booking/calendar/events/add', type='json', auth='public', website=True)
-    def add_event(self, start, resource_id, end=None):
-        cr, uid, context = request.cr, request.uid, request.context
-        return request.registry["sale.order.line"].add_backend_booking(cr, uid, resource_id, start, end, context=context)
+        return request.website.render('website_booking_calendar.index', self._get_values(kwargs))
 
     @http.route('/booking/calendar/confirm/form', type='http', auth='public', website=True)
     def confirm_form(self, **kwargs):
@@ -64,4 +50,11 @@ class website_booking_calendar(http.Controller):
     def get_free_slots(self, **kwargs):
         cr, uid, context = request.cr, SUPERUSER_ID, request.context
         return request.registry["sale.order.line"].get_free_slots(cr, uid, kwargs.get('start'),
+            kwargs.get('end'), kwargs.get('tz'), kwargs.get('domain', []), context=context)
+
+
+    @http.route('/booking/calendar/slots/booked', type='json', auth='public', website=True)
+    def get_booked_slots(self, **kwargs):
+        cr, uid, context = request.cr, SUPERUSER_ID, request.context
+        return request.registry["sale.order.line"].get_bookings(cr, uid, kwargs.get('start'),
             kwargs.get('end'), kwargs.get('tz'), kwargs.get('domain', []), context=context)
