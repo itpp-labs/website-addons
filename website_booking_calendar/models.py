@@ -13,6 +13,10 @@ class sale_order_line(models.Model):
     _inherit = 'sale.order.line'  
 
     @api.model
+    def get_booking_available_products(self, event, products):
+        return products
+
+    @api.model
     def events_to_bookings(self, events):
         calendar_obj = self.env['resource.calendar']
         resource_obj = self.env['resource.resource']
@@ -42,7 +46,7 @@ class sale_order_line(models.Model):
                     }
                     hour_end_dt = hour_dt+timedelta(hours=MIN_TIMESLOT_HOURS)
                     duration = seconds(hour_end_dt - hour_dt)/3600
-                    for product in products:
+                    for product in self.get_booking_available_products(event, products):
                         hours = product.calendar_id.get_working_accurate_hours(hour_dt, hour_end_dt)
                         if hours == duration:
                             bookings[r][hour]['products'][str(product.id)] = {
