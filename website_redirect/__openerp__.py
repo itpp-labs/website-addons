@@ -3,7 +3,7 @@
     'version': '1.0.0',
     'author': 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'LGPL-3',
-    'category': 'Custom',
+    'category': 'Website',
     'website': 'https://yelizariev.github.io',
     'depends': ['website'],
     'data': [
