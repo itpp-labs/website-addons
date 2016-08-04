@@ -3,7 +3,7 @@
     'version' : '1.0.0',
     'author' : 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'GPL-3',
-    'category' : 'Website',
+    'category' : 'eCommerce',
     'website' : 'https://twitter.com/yelizariev',
     'price': 30.00,
     'currency': 'EUR',

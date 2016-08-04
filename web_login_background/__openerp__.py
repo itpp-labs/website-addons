@@ -2,7 +2,7 @@
 {
      "name": """Web login background""",
      "summary": """Get a random background at the login page""",
-     "category": "Base",
+     "category": "Extra Tools",
      "images": ['images/login.png'],
      "version": "1.0.1",
 
