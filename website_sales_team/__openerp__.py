@@ -3,7 +3,7 @@
     'version' : '1.0.0',
     'author' : 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'LGPL-3',
-    'category' : 'Sale',
+    'category' : 'eCommerce',
     'website' : 'https://yelizariev.github.io',
     'description': """
 Split products by sales team.
