@@ -1,10 +1,9 @@
 {
     'name': "Custom website search",
-    'summary': 'Check WARNING before installing!',
     'version': '1.0.0',
     'author': 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'GPL-3',
-    'category': 'Custom',
+    'category': 'eCommerce',
     'website': 'https://twitter.com/yelizariev',
     'price': 9.00,
     'currency': 'EUR',

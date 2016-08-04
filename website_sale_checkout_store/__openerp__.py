@@ -2,7 +2,7 @@
 {
      'name': """Pickup and pay at store""",
      'summary': """Simplify checkout process by excluding shipping and\or payment information""",
-     'category': 'Website',
+     'category': 'eCommerce',
      'images': ['images/1.png'],
      'version': '1.0.0',
 

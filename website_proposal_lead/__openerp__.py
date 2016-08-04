@@ -3,7 +3,7 @@
     'version' : '1.0.0',
     'author' : 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'GPL-3',
-    'category' : 'Base',
+    'category' : 'Website',
     'website' : 'https://yelizariev.github.io',
     'description': """
 Web-based proposals for leads
