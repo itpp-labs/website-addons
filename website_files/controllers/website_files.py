@@ -4,11 +4,14 @@ import json
 import openerp
 from openerp import http
 from openerp.http import request
+
+from openerp.addons.website.controllers.main import Website
+
 import logging
 _logger = logging.getLogger(__name__)
 
 
-class WebsiteFile(openerp.addons.website.controllers.main.Website):
+class WebsiteFile(Website):
     def _find_website_filename(self, filename):
         name = ext = ''
         res = re.match('(.*)(\.[^.]+)', filename)
