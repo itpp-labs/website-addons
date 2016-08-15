@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': "Files uploading on Website",
     'version': '1.0.0',
@@ -11,6 +12,6 @@
     'images': ['images/result.png'],
     'data': [
         'website_files_views.xml',
-        ],
+    ],
     'installable': True
 }

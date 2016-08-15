@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import re
 import json
-import openerp
 from openerp import http
 from openerp.http import request
 
@@ -12,6 +11,7 @@ _logger = logging.getLogger(__name__)
 
 
 class WebsiteFile(Website):
+
     def _find_website_filename(self, filename):
         name = ext = ''
         res = re.match('(.*)(\.[^.]+)', filename)
@@ -31,7 +31,7 @@ class WebsiteFile(Website):
 
         count = request.cr.fetchone()[0]
 
-        return '%s-%s%s' % (name, count+1, ext)
+        return '%s-%s%s' % (name, count + 1, ext)
 
     @http.route('/website/attach_file', type='http', auth='user',
                 methods=['POST'], website=True)
@@ -63,7 +63,7 @@ class WebsiteFile(Website):
                 print 'create attachment', attachment.id, filename
 
             website_file_url = attachment.website_file_url
-        except Exception, e:
+        except Exception as e:
             _logger.exception("Failed to upload file to attachment")
             message = unicode(e)
 

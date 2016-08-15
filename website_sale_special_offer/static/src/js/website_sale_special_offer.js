@@ -9,11 +9,11 @@ $('.oe_website_sale').each(function () {
             openerp.jsonRpc("/website_sale_special_offer/get_cart_lines", 'call', {
             }).then(function (data){
                 $.each(data, function(key, line){
-                    var $tr = $('.js_quantity[data-line-id='+line.id+']').parent().parent().parent()
-                    $tr.find("[name='price_total']").html(line.price_total)
-                })
-            })
-        }, 1000)
-    })
-})
-})
+                    var $tr = $('.js_quantity[data-line-id='+line.id+']').parent().parent().parent();
+                    $tr.find("[name='price_total']").html(line.price_total);
+                });
+            });
+        }, 1000);
+    });
+});
+});

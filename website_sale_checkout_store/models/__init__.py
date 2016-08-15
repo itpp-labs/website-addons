@@ -1,2 +1,2 @@
 # -*- coding: utf-8 -*
-import main_model
+from . import main_model

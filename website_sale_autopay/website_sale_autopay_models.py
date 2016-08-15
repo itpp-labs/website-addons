@@ -1,10 +1,14 @@
-from openerp import api, models, fields, SUPERUSER_ID
+# -*- coding: utf-8 -*-
+from openerp import fields
+from openerp import models
 import re
+
 
 class PaymentAcquirer(models.Model):
     _inherit = 'payment.acquirer'
 
     journal_id = fields.Many2one('account.journal', 'Payment method', help='This journal is used to auto pay invoice when online payment is received')
+
 
 class sale_order(models.Model):
 
@@ -37,16 +41,15 @@ class sale_order(models.Model):
                 update[key] = voucher_context[dkey]
             voucher_context.update(update)
 
-
-            field_list = ["comment","line_cr_ids","is_multi_currency","paid_amount_in_company_currency","line_dr_ids","journal_id","currency_id","narration","partner_id","payment_rate_currency_id","reference","writeoff_acc_id","state","pre_line","type","payment_option","account_id","company_id","period_id","date","payment_rate","name","writeoff_amount","analytic_id","amount"]
+            field_list = ["comment", "line_cr_ids", "is_multi_currency", "paid_amount_in_company_currency", "line_dr_ids", "journal_id", "currency_id", "narration", "partner_id", "payment_rate_currency_id", "reference", "writeoff_acc_id", "state", "pre_line", "type", "payment_option", "account_id", "company_id", "period_id", "date", "payment_rate", "name", "writeoff_amount", "analytic_id", "amount"]
             voucher_values = self.pool['account.voucher'].default_get(cr, uid, field_list, context=voucher_context)
 
             res = self.pool['account.voucher'].onchange_journal(
                 cr, uid, False,
 
                 journal_id,
-                [], #line_ids
-                False, # tax_id
+                [],  # line_ids
+                False,  # tax_id
                 voucher_values.get('partner_id'),
                 voucher_values.get('date'),
                 voucher_values.get('amount'),
@@ -55,7 +58,7 @@ class sale_order(models.Model):
 
                 context=voucher_context)
             voucher_values.update(res['value'])
-            voucher_values.update({'journal_id':journal_id})
+            voucher_values.update({'journal_id': journal_id})
 
             for key in ['line_dr_ids', 'line_cr_ids']:
                 array = []

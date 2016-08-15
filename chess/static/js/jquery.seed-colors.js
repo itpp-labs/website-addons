@@ -2,7 +2,7 @@
 
     $.seedColors = function(seed){
         return $.seedColors.getColorBySeed(seed);
-    }
+    };
 
     var $t = $.seedColors;
 
@@ -26,7 +26,7 @@
                     var c = $s.color_bright_min + $s.color_diff;
                     rgb[i] = $t.randAB(c * 4, 200);
                     brightCount--;
-                    continue
+                    continue;
                 }
 
                 var c = $s.color_bright_min - $s.color_diff;

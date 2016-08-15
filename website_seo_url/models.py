@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from openerp import models, api
 from openerp.addons.website.models.website import slugify
 

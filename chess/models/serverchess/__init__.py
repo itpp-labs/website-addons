@@ -106,13 +106,16 @@ SQUARE_NAMES = [
     "a7", "b7", "c7", "d7", "e7", "f7", "g7", "h7",
     "a8", "b8", "c8", "d8", "e8", "f8", "g8", "h8"]
 
+
 def file_index(square):
     """Gets the file index of square where ``0`` is the a file."""
     return square & 7
 
+
 def rank_index(square):
     """Gets the rank index of the square where ``0`` is the first rank."""
     return square >> 3
+
 
 def square(file_index, rank_index):
     """Gets a square number by file and rank index."""
@@ -248,38 +251,50 @@ except ImportError:
             else:
                 return l - r - 1
 
+
 def shift_down(b):
     return b >> 8
+
 
 def shift_2_down(b):
     return b >> 16
 
+
 def shift_up(b):
     return (b << 8) & BB_ALL
+
 
 def shift_2_up(b):
     return (b << 16) & BB_ALL
 
+
 def shift_right(b):
     return (b << 1) & ~BB_FILE_A
+
 
 def shift_2_right(b):
     return (b << 2) & ~BB_FILE_A & ~BB_FILE_B
 
+
 def shift_left(b):
     return (b >> 1) & ~BB_FILE_H
+
 
 def shift_2_left(b):
     return (b >> 2) & ~BB_FILE_G & ~BB_FILE_H
 
+
 def shift_up_left(b):
     return (b << 7) & ~BB_FILE_H
+
 
 def shift_up_right(b):
     return (b << 9) & ~BB_FILE_A
 
+
 def shift_down_left(b):
     return (b >> 9) & ~BB_FILE_H
+
 
 def shift_down_right(b):
     return (b >> 7) & ~BB_FILE_A
@@ -318,6 +333,7 @@ for bb_square in BB_SQUARES:
     mask |= shift_down_right(bb_square)
     BB_KING_ATTACKS.append(mask & BB_ALL)
     KING_MOVES[bb_square] = mask & BB_ALL
+
 
 def _attack_table(square_lists):
     attack_table = {}
@@ -359,39 +375,39 @@ def _attack_table(square_lists):
 
 DIAG_ATTACKS_NE = _attack_table([
                                 [BB_H1],
-                            [BB_H2, BB_G1],
-                        [BB_H3, BB_G2, BB_F1],
-                    [BB_H4, BB_G3, BB_F2, BB_E1],
-                [BB_H5, BB_G4, BB_F3, BB_E2, BB_D1],
-            [BB_H6, BB_G5, BB_F4, BB_E3, BB_D2, BB_C1],
-        [BB_H7, BB_G6, BB_F5, BB_E4, BB_D3, BB_C2, BB_B1],
-    [BB_H8, BB_G7, BB_F6, BB_E5, BB_D4, BB_C3, BB_B2, BB_A1],
-        [BB_G8, BB_F7, BB_E6, BB_D5, BB_C4, BB_B3, BB_A2],
-            [BB_F8, BB_E7, BB_D6, BB_C5, BB_B4, BB_A3],
-                [BB_E8, BB_D7, BB_C6, BB_B5, BB_A4],
-                    [BB_D8, BB_C7, BB_B6, BB_A5],
-                        [BB_C8, BB_B7, BB_A6],
-                            [BB_B8, BB_A7],
+                                [BB_H2, BB_G1],
+                                [BB_H3, BB_G2, BB_F1],
+                                [BB_H4, BB_G3, BB_F2, BB_E1],
+                                [BB_H5, BB_G4, BB_F3, BB_E2, BB_D1],
+                                [BB_H6, BB_G5, BB_F4, BB_E3, BB_D2, BB_C1],
+                                [BB_H7, BB_G6, BB_F5, BB_E4, BB_D3, BB_C2, BB_B1],
+                                [BB_H8, BB_G7, BB_F6, BB_E5, BB_D4, BB_C3, BB_B2, BB_A1],
+                                [BB_G8, BB_F7, BB_E6, BB_D5, BB_C4, BB_B3, BB_A2],
+                                [BB_F8, BB_E7, BB_D6, BB_C5, BB_B4, BB_A3],
+                                [BB_E8, BB_D7, BB_C6, BB_B5, BB_A4],
+                                [BB_D8, BB_C7, BB_B6, BB_A5],
+                                [BB_C8, BB_B7, BB_A6],
+                                [BB_B8, BB_A7],
                                 [BB_A8],
-])
+                                ])
 
 DIAG_ATTACKS_NW = _attack_table([
                                 [BB_A1],
-                            [BB_B1, BB_A2],
-                        [BB_C1, BB_B2, BB_A3],
-                    [BB_D1, BB_C2, BB_B3, BB_A4],
-                [BB_E1, BB_D2, BB_C3, BB_B4, BB_A5],
-            [BB_F1, BB_E2, BB_D3, BB_C4, BB_B5, BB_A6],
-        [BB_G1, BB_F2, BB_E3, BB_D4, BB_C5, BB_B6, BB_A7],
-    [BB_H1, BB_G2, BB_F3, BB_E4, BB_D5, BB_C6, BB_B7, BB_A8],
-        [BB_H2, BB_G3, BB_F4, BB_E5, BB_D6, BB_C7, BB_B8],
-            [BB_H3, BB_G4, BB_F5, BB_E6, BB_D7, BB_C8],
-                [BB_H4, BB_G5, BB_F6, BB_E7, BB_D8],
-                    [BB_H5, BB_G6, BB_F7, BB_E8],
-                        [BB_H6, BB_G7, BB_F8],
-                            [BB_H7, BB_G8],
+                                [BB_B1, BB_A2],
+                                [BB_C1, BB_B2, BB_A3],
+                                [BB_D1, BB_C2, BB_B3, BB_A4],
+                                [BB_E1, BB_D2, BB_C3, BB_B4, BB_A5],
+                                [BB_F1, BB_E2, BB_D3, BB_C4, BB_B5, BB_A6],
+                                [BB_G1, BB_F2, BB_E3, BB_D4, BB_C5, BB_B6, BB_A7],
+                                [BB_H1, BB_G2, BB_F3, BB_E4, BB_D5, BB_C6, BB_B7, BB_A8],
+                                [BB_H2, BB_G3, BB_F4, BB_E5, BB_D6, BB_C7, BB_B8],
+                                [BB_H3, BB_G4, BB_F5, BB_E6, BB_D7, BB_C8],
+                                [BB_H4, BB_G5, BB_F6, BB_E7, BB_D8],
+                                [BB_H5, BB_G6, BB_F7, BB_E8],
+                                [BB_H6, BB_G7, BB_F8],
+                                [BB_H7, BB_G8],
                                 [BB_H8],
-])
+                                ])
 
 FILE_ATTACKS = _attack_table([
     [BB_A1, BB_A2, BB_A3, BB_A4, BB_A5, BB_A6, BB_A7, BB_A8],

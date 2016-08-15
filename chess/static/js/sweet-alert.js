@@ -721,23 +721,23 @@
    */
 
   (function () {
-	  if (document.readyState === "complete" || document.readyState === "interactive" && document.body) {
-		  window.sweetAlertInitialize();
-	  } else {
-		  if (document.addEventListener) {
-			  document.addEventListener('DOMContentLoaded', function factorial() {
-				  document.removeEventListener('DOMContentLoaded', arguments.callee, false);
-				  window.sweetAlertInitialize();
-			  }, false);
-		  } else if (document.attachEvent) {
-			  document.attachEvent('onreadystatechange', function() {
-				  if (document.readyState === 'complete') {
-					  document.detachEvent('onreadystatechange', arguments.callee);
-					  window.sweetAlertInitialize();
-				  }
-			  });
-		  }
-	  }
+      if (document.readyState === "complete" || document.readyState === "interactive" && document.body) {
+          window.sweetAlertInitialize();
+      } else {
+          if (document.addEventListener) {
+              document.addEventListener('DOMContentLoaded', function factorial() {
+                  document.removeEventListener('DOMContentLoaded', arguments.callee, false);
+                  window.sweetAlertInitialize();
+              }, false);
+          } else if (document.attachEvent) {
+              document.attachEvent('onreadystatechange', function() {
+                  if (document.readyState === 'complete') {
+                      document.detachEvent('onreadystatechange', arguments.callee);
+                      window.sweetAlertInitialize();
+                  }
+              });
+          }
+      }
   })();
 
 })(window, document);

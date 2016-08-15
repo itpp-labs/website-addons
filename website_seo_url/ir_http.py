@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import re
 
 from openerp import models, SUPERUSER_ID
@@ -20,6 +21,7 @@ website_file.slug = slug
 
 
 class ModelConverterCustom(ModelConverter):
+
     def __init__(self, url_map, model=False, domain='[]'):
         super(ModelConverter, self).__init__(url_map, model)
         self.domain = domain
@@ -62,6 +64,7 @@ class ModelConverterCustom(ModelConverter):
 
         return request.registry[self.model].browse(
             request.cr, _uid, record_id, context=request.context)
+
 
 class ir_http(models.AbstractModel):
     _inherit = 'ir.http'

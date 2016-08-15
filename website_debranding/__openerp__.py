@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': "Website debranding",
     'version': '1.0.0',
@@ -11,7 +12,7 @@
     'data': [
         'views.xml',
         'pre_install.yml',
-        ],
+    ],
     'auto_install': True,
     'installable': True
 }
