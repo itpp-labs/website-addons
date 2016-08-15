@@ -1,27 +1,24 @@
 # -*- coding: utf-8 -*-
-import openerp
 from openerp import http
 from openerp.http import request
-from openerp.addons.base import res
 import werkzeug
 import datetime
 import random
-import time
 
 
 class Chess(http.Controller):
 
-    #chess chat
+    # chess chat
     @http.route('/chess/game/chat/init', type="json", auth="public")
     def init_chat(self, game_id):
-        author_name = http.request.env.user.name # current user
+        author_name = http.request.env.user.name  # current user
         author_id = http.request.env.user.id
         return {'author_name': author_name, 'author_id': author_id, 'game_id': game_id}
 
     @http.route('/chess/game/chat/history', type="json", auth="public")
     def load_history(self, game_id):
         history = request.env["chess.game.chat"].message_fetch(game_id, 100)
-        if len(history)==0:
+        if len(history) == 0:
             return False
         hist = []
         for e in history:
@@ -35,13 +32,13 @@ class Chess(http.Controller):
         res = request.env["chess.game.chat"].broadcast(message, game_id)
         return res
 
-    #game status
+    # game status
     @http.route('/chess/game/status/', type="json", auth="public")
     def game_status(self, game_id):
         result = request.env['chess.game'].create_game_status(game_id)
         return result.system_status
 
-    #chess game
+    # chess game
     @http.route('/chess/game/init/', type="json", auth="public")
     def init_game(self, game_id):
         result = request.env["chess.game"].browse(int(game_id)).game_information()
@@ -50,7 +47,7 @@ class Chess(http.Controller):
     @http.route('/chess/game/history', type="json", auth="public")
     def load_move(self, game_id):
         history = request.env["chess.game.line"].move_fetch(game_id)
-        if len(history)==0:
+        if len(history) == 0:
             return False
         hist = []
         for e in history:
@@ -83,12 +80,12 @@ class Chess(http.Controller):
 
     @http.route('/chess/game/send/', type="json", auth="public")
     def move_send(self, message, game_id):
-        if message['type']=='move':
+        if message['type'] == 'move':
             result = request.env["chess.game.line"].move_broadcast(message, game_id)
             return result
-        elif message['type']=='system':
+        elif message['type'] == 'system':
             t = message['data']
-            if t['status']=='time':
+            if t['status'] == 'time':
                 result = request.env["chess.game"].system_time_broadcast(message, game_id)
             else:
                 result = request.env["chess.game"].system_broadcast(message, game_id)
@@ -99,7 +96,7 @@ class Chess(http.Controller):
         request.env["chess.game"].browse(int(game_id)).game_over(status, time_limit_id)
         return True
 
-    #create game
+    # create game
     @http.route('/chess/', auth="public", website=True)
     def index(self, **kw):
         users = http.request.env['res.users'].search([('id', '!=', http.request.env.user.id)])
@@ -123,21 +120,21 @@ class Chess(http.Controller):
         if request.httprequest.method != 'POST':
             from werkzeug.exceptions import NotFound
             raise NotFound()
-        if second_user_id=='0':
+        if second_user_id == '0':
             users = http.request.env['res.users'].search([('id', '!=', http.request.env.user.id)])
             users = [e.id for e in users]
-            user_list = random.sample(users,1)
+            user_list = random.sample(users, 1)
             second_user_id = user_list[0]
 
-        if first_color_figure=='white':
-            second_color_figure='black'
+        if first_color_figure == 'white':
+            second_color_figure = 'black'
         else:
-            second_color_figure='white'
+            second_color_figure = 'white'
         first_user_id = http.request.env.user.id
         game_time = 0
-        if game_type=='blitz' or game_type=='limited time':
-            if  time_d!=None or time_h!=None or  time_m!=None or time_s!=None:
-                game_time = int(time_d)*24*60*60+ int(time_h)*60*60+int(time_m)*60+int(time_s)
+        if game_type == 'blitz' or game_type == 'limited time':
+            if time_d is not None or time_h is not None or time_m is not None or time_s is not None:
+                game_time = int(time_d) * 24 * 60 * 60 + int(time_h) * 60 * 60 + int(time_m) * 60 + int(time_s)
             else:
                 print("error, not time")
                 game_time = 0
@@ -154,5 +151,5 @@ class Chess(http.Controller):
             'first_time_date': float(time.time()),
             'second_time_date': float(time.time())
         })
-        location = '/chess/game/'+str(new_game.id)
+        location = '/chess/game/' + str(new_game.id)
         return werkzeug.utils.redirect(location)

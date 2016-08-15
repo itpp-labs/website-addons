@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': "Custom website search",
     'version': '1.0.0',
@@ -11,7 +12,7 @@
     'depends': ['website_sale', 'product_tags'],
     'data': [
         'views.xml',
-        ],
+    ],
     "post_load": 'post_load',
     'installable': True
 }

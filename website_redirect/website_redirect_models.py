@@ -1,8 +1,11 @@
-from openerp import api, models, fields, SUPERUSER_ID
+# -*- coding: utf-8 -*-
+from openerp import fields
+from openerp import models
 from openerp.http import request
 import fnmatch
 import werkzeug.utils
 from werkzeug.exceptions import NotFound
+
 
 class website_redirect(models.Model):
     _name = 'website.redirect'
@@ -17,6 +20,7 @@ class website_redirect(models.Model):
 
     rule_ids = fields.One2many('website.redirect.rule', 'redirect_id', string='Rules')
 
+
 class website_redirect(models.Model):
     _name = 'website.redirect.rule'
 
@@ -25,6 +29,7 @@ class website_redirect(models.Model):
     pattern = fields.Char('From', help='Unix shell-style wildcards. Check https://docs.python.org/2/library/fnmatch.html for details', required=True)
     target = fields.Char('To', required=True)
     redirect_id = fields.Many2one('website.redirect')
+
 
 class ir_http(models.AbstractModel):
     _inherit = 'ir.http'

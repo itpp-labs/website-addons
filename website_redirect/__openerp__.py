@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': "Page redirections",
     'version': '1.0.0',
@@ -8,6 +9,6 @@
     'depends': ['website'],
     'data': [
         'website_redirect_views.xml',
-        ],
+    ],
     'installable': True
 }

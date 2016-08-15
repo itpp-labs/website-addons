@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
-from openerp import api, models, fields
+from openerp import fields
+from openerp import models
 import openerp.addons.decimal_precision as dp
 from openerp.osv import osv, fields as old_fields
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
@@ -21,8 +23,8 @@ class product_template(models.Model):
 
     limit_per_order = fields.Integer('Limit per order', default=0)
     private_sale = fields.Boolean('Private Sale', default=False, help='Sale only to selected Partners')
-    private_sale_partner_ids = fields.Many2many('res.partner', 'product_private_sale_partner_rel', 'template_id', 
-        'partner_id', string='Private Sale Partners')
+    private_sale_partner_ids = fields.Many2many('res.partner', 'product_private_sale_partner_rel', 'template_id',
+                                                'partner_id', string='Private Sale Partners')
     qty_sale_recently = fields.Float(compute='_compute_qty_sale_recently', default=0)
 
     def _compute_qty_sale_recently(self):
@@ -68,16 +70,16 @@ class product_template(models.Model):
 
     _columns = {
         'virtual_available': old_fields.function(_product_available, multi='qty_available',
-            type='float', digits_compute=dp.get_precision('Product Unit of Measure'),
-            fnct_search=_search_product_quantity, string='Quantity Available'),
+                                                 type='float', digits_compute=dp.get_precision('Product Unit of Measure'),
+                                                 fnct_search=_search_product_quantity, string='Quantity Available'),
     }
 
 
 class res_partner(models.Model):
     _inherit = 'res.partner'
 
-    private_sale_product_ids = fields.Many2many('product.template', 'product_private_sale_partner_rel', 'partner_id', 
-        'template_id', string='Private Sale Products')
+    private_sale_product_ids = fields.Many2many('product.template', 'product_private_sale_partner_rel', 'partner_id',
+                                                'template_id', string='Private Sale Products')
 
 
 class product_product(models.Model):
@@ -105,8 +107,8 @@ class product_product(models.Model):
 
     _columns = {
         'virtual_available': old_fields.function(_product_available, multi='qty_available',
-            type='float', digits_compute=dp.get_precision('Product Unit of Measure'),
-            fnct_search=_search_product_quantity, string='Quantity Available'),
+                                                 type='float', digits_compute=dp.get_precision('Product Unit of Measure'),
+                                                 fnct_search=_search_product_quantity, string='Quantity Available'),
     }
 
 

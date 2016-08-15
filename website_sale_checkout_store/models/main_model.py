@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-from openerp.osv import osv, orm
+from openerp.osv import osv
 from openerp.osv import fields as fields
 from openerp import models
 from openerp import fields as fields_new_api
+
+
 class sale_order(osv.Model):
     _inherit = "sale.order"
     _columns = {
@@ -31,7 +33,7 @@ class website_config_settings(models.TransientModel):
         config_parameters = self.pool.get("ir.config_parameter")
         for record in self.browse(cr, uid, ids, context=context):
             config_parameters.set_param(cr, uid, "website_sale_checkout_store.bill_ship", record.bill_ship or '', context=context)
-    
+
     def set_nobill_ship(self, cr, uid, ids, context=None):
         config_parameters = self.pool.get("ir.config_parameter")
         for record in self.browse(cr, uid, ids, context=context):

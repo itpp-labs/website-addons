@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import re
 import simplejson
 
@@ -10,7 +11,7 @@ class website_booking_calendar(http.Controller):
     def _get_resources(self, params):
         cr, uid, context = request.cr, request.uid, request.context
         resource_obj = request.registry['resource.resource']
-        domain=[('to_calendar','=',True)]
+        domain = [('to_calendar', '=', True)]
         resource_ids = resource_obj.search(cr, SUPERUSER_ID, domain, context=context)
         resources = resource_obj.browse(cr, SUPERUSER_ID, resource_ids, context=context)
         return resources
@@ -36,7 +37,7 @@ class website_booking_calendar(http.Controller):
 
     @http.route('/booking/calendar/confirm', type='http', auth='public', website=True)
     def order(self, **kwargs):
-        tz = int(kwargs.get('timezone', '0'));
+        tz = int(kwargs.get('timezone', '0'))
         for key, arg in kwargs.iteritems():
             if key.startswith('product_id'):
                 m = re.match('^product_id\[(\d+)\]\[([\d-]+ [\d:]+)\-([\d-]+ [\d:]+)\]$', key)
@@ -50,11 +51,10 @@ class website_booking_calendar(http.Controller):
     def get_free_slots(self, **kwargs):
         cr, uid, context = request.cr, SUPERUSER_ID, request.context
         return request.registry["sale.order.line"].get_free_slots(cr, uid, kwargs.get('start'),
-            kwargs.get('end'), kwargs.get('tz'), kwargs.get('domain', []), context=context)
-
+                                                                  kwargs.get('end'), kwargs.get('tz'), kwargs.get('domain', []), context=context)
 
     @http.route('/booking/calendar/slots/booked', type='json', auth='public', website=True)
     def get_booked_slots(self, **kwargs):
         cr, uid, context = request.cr, SUPERUSER_ID, request.context
         return request.registry["sale.order.line"].get_bookings(cr, uid, kwargs.get('start'),
-            kwargs.get('end'), kwargs.get('tz'), kwargs.get('domain', []), context=context)
+                                                                kwargs.get('end'), kwargs.get('tz'), kwargs.get('domain', []), context=context)

@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 from openerp.tests.common import TransactionCase
+
 
 class test_website_seo_url_product(TransactionCase):
     post_install = True

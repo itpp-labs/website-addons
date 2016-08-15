@@ -1,7 +1,9 @@
-from openerp import api,models,fields,SUPERUSER_ID,exceptions
+# -*- coding: utf-8 -*-
+from openerp import api, models, fields, SUPERUSER_ID, exceptions
 import openerp.addons.decimal_precision as dp
 from openerp.osv import osv, orm, fields as old_fields
 from openerp.addons.web.http import request
+
 
 class sale_order_line(models.Model):
     _inherit = "sale.order.line"
@@ -22,8 +24,9 @@ class sale_order_line(models.Model):
         return res
 
     _columns = {
-        'price_total': old_fields.function(_get_price_total, string='Total', digits_compute= dp.get_precision('Account')),
+        'price_total': old_fields.function(_get_price_total, string='Total', digits_compute=dp.get_precision('Account')),
     }
+
 
 class sale_order(models.Model):
     _inherit = "sale.order"
@@ -40,7 +43,7 @@ class sale_order(models.Model):
         for so in self.browse(cr, uid, ids, context=context):
             quantity = 0
             line = None
-            if line_id != False:
+            if line_id:
                 line_ids = so._cart_find_product_line(product_id, line_id, context=context, **kwargs)
                 if line_ids:
                     line_id = line_ids[0]
@@ -59,14 +62,14 @@ class sale_order(models.Model):
                     add_qty -= 1
             sline = special_offer_line or line.special_offer_line_id
             # compute new quantity
-            if set_qty or set_qty != None and sline:
+            if set_qty or set_qty is not None and sline:
                 quantity = set_qty
-            elif add_qty != None:
+            elif add_qty is not None:
                 quantity = sol.browse(cr, SUPERUSER_ID, line_id, context=context).product_uom_qty + (add_qty or 0)
 
             # Remove zero of negative lines
             if quantity < 0:
-                quantity=0
+                quantity = 0
             if sline and sline.mandatory and quantity < sline.product_uom_qty:
                 quantity = sline.product_uom_qty
             if quantity <= 0 and not sline:
@@ -90,8 +93,8 @@ class sale_order(models.Model):
             if line.discount:
                 line.discount = 0
         amount_total = self.amount_total
-        items = dict( (line.product_id.id, line.product_uom_qty) for line in self.order_line)
-        sort = lambda line: 0 if not (line.special_offer_line_id and line.special_offer_line_id.rule_id) else {'free_when_others_ordered': 1, 'free_when_over':2}[line.special_offer_line_id.rule_id.type]
+        items = dict((line.product_id.id, line.product_uom_qty) for line in self.order_line)
+        sort = lambda line: 0 if not (line.special_offer_line_id and line.special_offer_line_id.rule_id) else {'free_when_others_ordered': 1, 'free_when_over': 2}[line.special_offer_line_id.rule_id.type]
 
         for line in sorted(self.order_line, key=sort):
             sline = line.special_offer_line_id
@@ -102,7 +105,7 @@ class sale_order(models.Model):
             free_quantity = sline.rule_quantity or 1
             if rule.type == 'free_when_over':
                 discount_total = free_quantity * sline.price_unit
-                if amount_total -  discount_total < rule.value:
+                if amount_total - discount_total < rule.value:
                     free_quantity = 0
             elif rule.type == 'free_when_others_ordered':
                 for r in rule.product_ids:
@@ -116,10 +119,11 @@ class sale_order(models.Model):
                 discount_total = free_quantity * sline.price_unit
                 discount = 100
                 if line_total > discount_total:
-                    discount = 100 * discount_total/line_total
+                    discount = 100 * discount_total / line_total
                 line.discount = discount
             else:
                 line.discount = 0
+
 
 class website_sale_special_offer(models.Model):
     _name = 'website_sale_special_offer.special_offer'
@@ -154,6 +158,7 @@ class website_sale_special_offer(models.Model):
         self.check_urls(vals)
         return super(website_sale_special_offer, self).create(vals)
 
+
 class website_sale_special_offer_line(models.Model):
     _name = 'website_sale_special_offer.special_offer.line'
 
@@ -167,6 +172,7 @@ class website_sale_special_offer_line(models.Model):
     rule_quantity = fields.Integer('Quantaty for rule', help='E.g. how much free items when some condition is passed')
     sequence = fields.Integer('Sequence')
 
+
 class website_sale_special_offer_line_rule(models.Model):
     _name = 'website_sale_special_offer.special_offer.line.rule'
 
@@ -178,6 +184,7 @@ class website_sale_special_offer_line_rule(models.Model):
     ], string='Type')
     value = fields.Float('Value', help='meaning depends on type of rule')
     product_ids = fields.One2many('website_sale_special_offer.special_offer.line.rule.p', 'rule_id', string='Products')
+
 
 class website_sale_special_offer_line_rule_p(models.Model):
     _name = 'website_sale_special_offer.special_offer.line.rule.p'
@@ -202,7 +209,6 @@ class product_template(osv.osv):
     _defaults = {
         'special_offer_ok': False,
     }
-
 
 
 class website(orm.Model):

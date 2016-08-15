@@ -25,8 +25,8 @@ $(document).ready(function () {
                 $q.html(data.cart_quantity).hide().fadeIn(600);
                 //$input.val(data.quantity);
                 $("#cart_total").replaceWith(data['website_sale.total']);
-            })
-        })
+            });
+        });
     });
     /*
     $('.oe_website_sale .oe_product_cart .oe_product_image a').on('click', function (ev) {
@@ -50,8 +50,8 @@ $(document).ready(function () {
                     $('input.js_quantity').val(num);
                 }
             } else
-                $('input[data-product-id="'+product_id+'"]').val(num)
-        })
-    })
+                $('input[data-product-id="'+product_id+'"]').val(num);
+        });
+    });
 
-})
+});

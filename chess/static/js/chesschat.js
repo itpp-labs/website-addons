@@ -18,7 +18,7 @@
         on_notification: function (notification) {
             var self = this;
             if (typeof notification[0][0] === 'string') {
-                notification = [notification]
+                notification = [notification];
             }
             for (var i = 0; i < notification.length; i++) {
                 var channel = notification[i][0];
@@ -49,9 +49,9 @@
                 var time_now = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
                 message.time = values[0] + '.' + values[1] + '.' + date.getFullYear() + ' ' + time_now;
 
-                $("#window_chat").append("<p><span class='user'>" + (message['author_name']) +
-                    ":</span> " + (message['data'].replace(/&/gm,'&amp;').replace(/</gm,'&lt;').replace(/>/gm,'&gt;')) + "<br> <span class='time_message'>" +
-                    (message['time']) + "</span></p>");
+                $("#window_chat").append("<p><span class='user'>" + (message.author_name) +
+                    ":</span> " + (message.data.replace(/&/gm,'&amp;').replace(/</gm,'&lt;').replace(/>/gm,'&gt;')) + "<br> <span class='time_message'>" +
+                    (message.time) + "</span></p>");
                 $('.chat .user').seedColors(); //the random color
                 $("#window_chat").each(function () {
                     this.scrollTop = this.scrollHeight;
@@ -111,15 +111,15 @@
         load_history: function(history){
             if(this.history) {
                 history.forEach(function (item, i, history) {
-                    $(".chat #window_chat").append("<p><span class='user'>" + (item['author_name']) +
-                        ":</span> " + (item['message'].replace(/&/gm,'&amp;').replace(/</gm,'&lt;').replace(/>/gm,'&gt;')) + "<br> <span class='time_message'>" +
-                        (item['date_message']) + "</span></p>");
+                    $(".chat #window_chat").append("<p><span class='user'>" + (item.author_name) +
+                        ":</span> " + (item.message.replace(/&/gm,'&amp;').replace(/</gm,'&lt;').replace(/>/gm,'&gt;')) + "<br> <span class='time_message'>" +
+                        (item.date_message) + "</span></p>");
                     $('.chat .user').seedColors(); //the random color current user
                     $(".chat #window_chat").each(function () {
                         this.scrollTop = this.scrollHeight;
                     });
                 });
-            };
+            }
             this.history=false;
         },
         send_message: function(message) {
@@ -146,9 +146,9 @@
                 var time_now = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
                 message.time = values[0] + '.' + values[1] + '.' + date.getFullYear() + ' ' + time_now;
 
-                $(".chat #window_chat").append("<p><span class='user'>" + (message['author_name']) +
-                    ":</span> " + (message['data'].replace(/&/gm,'&amp;').replace(/</gm,'&lt;').replace(/>/gm,'&gt;')) + "<br> <span class='time_message'>" +
-                    (message['time']) + "</span></p>");
+                $(".chat #window_chat").append("<p><span class='user'>" + (message.author_name) +
+                    ":</span> " + (message.data.replace(/&/gm,'&amp;').replace(/</gm,'&lt;').replace(/>/gm,'&gt;')) + "<br> <span class='time_message'>" +
+                    (message.time) + "</span></p>");
                 $('.chat .user').seedColors(); //the random color current user
                 $(".chat #window_chat").each(function () {
                     this.scrollTop = this.scrollHeight;

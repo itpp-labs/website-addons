@@ -1,17 +1,20 @@
-from openerp import api, models, fields, SUPERUSER_ID, http
+# -*- coding: utf-8 -*-
+from openerp import http
+from openerp import models
 from openerp.http import request
 
 from openerp.addons.website_sale.controllers.main import website_sale as controller
 
 import werkzeug
 
+
 class website_sale(controller):
 
     @http.route(['/shop',
-        '/shop/page/<int:page>',
-        '/shop/category/<model("product.public.category"):category>',
-        '/shop/category/<model("product.public.category"):category>/page/<int:page>'
-    ], type='http', auth="public", website=True)
+                 '/shop/page/<int:page>',
+                 '/shop/category/<model("product.public.category"):category>',
+                 '/shop/category/<model("product.public.category"):category>/page/<int:page>'
+                 ], type='http', auth="public", website=True)
     def shop(self, page=0, category=None, search='', **post):
         request.context['search_tags'] = search
         if category and search:

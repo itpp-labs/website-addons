@@ -173,7 +173,7 @@ function objToFen(obj) {
   return fen;
 }
 
-window['ChessBoard'] = window['ChessBoard'] || function(containerElOrId, cfg) {
+window.ChessBoard = window.ChessBoard || function(containerElOrId, cfg) {
 cfg = cfg || {};
 //------------------------------------------------------------------------------
 // Constants
@@ -927,7 +927,7 @@ function calculateAnimations(pos1, pos2) {
       type: 'add',
       square: i,
       piece: pos2[i]
-    })
+    });
 
     delete pos2[i];
   }

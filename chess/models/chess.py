@@ -2,31 +2,32 @@
 import datetime
 import time
 import serverchess
-from openerp import models, fields, api, SUPERUSER_ID
-from openerp import http
-import json
+from openerp import api
+from openerp import fields
+from openerp import models
+
 
 class ChessGame(models.Model):
     _name = 'chess.game'
     _description = 'chess game'
 
     game_type = fields.Selection([('blitz', 'Blitz'), ('limited time', 'Limited time'),
-                                  ('standart', 'Standart')],'Game type')
+                                  ('standart', 'Standart')], 'Game type')
     first_user_time = fields.Float(string="First user time", default=0)
     first_time_date = fields.Float(default=0)
     second_user_time = fields.Float(string="Second user time", default=0)
     second_time_date = fields.Float(default=0)
-    date_start = fields.Datetime(string='Start date', default=datetime.datetime.now()) #Start game
-    date_finish = fields.Datetime(string='Finish date') #Finish game
+    date_start = fields.Datetime(string='Start date', default=datetime.datetime.now())  # Start game
+    date_finish = fields.Datetime(string='Finish date')  # Finish game
     first_user_id = fields.Many2one('res.users', 'First user')
     second_user_id = fields.Many2one('res.users', 'Second user')
     first_color_figure = fields.Selection([('white', 'White'), ('black', 'Black')],
-                             'Select color for first figure')
+                                          'Select color for first figure')
     second_color_figure = fields.Selection([('white', 'White'), ('black', 'Black')],
-                             'Select color for second figure')
+                                           'Select color for second figure')
     status = fields.Char(default='New Game')
     system_status = fields.Char(default='Waiting')
-    fen = fields.Char(default = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1')
+    fen = fields.Char(default='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1')
     move_game_ids = fields.One2many('chess.game.line', 'game_id', 'Game Move')
     message_game_ids = fields.One2many('chess.game.chat', 'game_id', 'Chat message')
 
@@ -40,7 +41,7 @@ class ChessGame(models.Model):
 
     @api.model
     def system_broadcast(self, message, game_id):
-        return self.search([('id', '=', game_id)]).write_game_status(message,game_id)
+        return self.search([('id', '=', game_id)]).write_game_status(message, game_id)
 
     @api.model
     def system_time_broadcast(self, message, game_id):
@@ -58,26 +59,26 @@ class ChessGame(models.Model):
             author_last_time = self.first_time_date
             another_last_time = self.second_time_date
         else:
-            author_time  = self.second_user_time
+            author_time = self.second_user_time
             another_user_time = self.first_user_time
             author_last_time = self.second_time_date
             another_last_time = self.first_time_date
         current_time = int(time.time())
         if self.system_status == 'Game Over':
-            return {'author_time':  author_time, 'another_user_time': another_user_time}
+            return {'author_time': author_time, 'another_user_time': another_user_time}
         else:
             if turn == 'ww' or turn == 'bb':
-                result = current_time-author_last_time
-                new_result = author_time-result
+                result = current_time - author_last_time
+                new_result = author_time - result
                 if new_result < 0:
-                    new_result=0
-                return {'author_time':  new_result, 'another_user_time': another_user_time}
+                    new_result = 0
+                return {'author_time': new_result, 'another_user_time': another_user_time}
             elif turn == 'bw' or turn == 'wb':
-                result = current_time-another_last_time
-                new_result = another_user_time-result
+                result = current_time - another_last_time
+                new_result = another_user_time - result
                 if new_result < 0:
-                    new_result=0
-                return {'author_time':  int(new_result), 'another_user_time': int(author_time)}
+                    new_result = 0
+                return {'author_time': int(new_result), 'another_user_time': int(author_time)}
 
     @api.one
     def write_time(self, message, game_id):
@@ -102,7 +103,7 @@ class ChessGame(models.Model):
         self.env['bus.bus'].sendmany(notifications)
         # write it
         if len(data) == 2:
-            return self.write({"status": data['status']+':'+data['user']})
+            return self.write({"status": data['status'] + ':' + data['user']})
         else:
             return self.write({"status": data['status']})
 
@@ -113,64 +114,64 @@ class ChessGame(models.Model):
         if time_limit_id is not False:
             if time_limit_id == self.first_user_id.id:
                 self.write({'first_user_time': 0})
-                first_game_result=0
-                second_game_result=1.0
+                first_game_result = 0
+                second_game_result = 1.0
                 status = self.first_color_figure
             else:
                 self.write({'second_user_time': 0})
-                first_game_result=1.0
-                second_game_result=0
+                first_game_result = 1.0
+                second_game_result = 0
                 status = self.second_color_figure
-        #status for rating ELO
+        # status for rating ELO
         if len(status) > 0:
-            rating_first = self.first_user_id.game_rating #rating for first user
-            rating_second = self.second_user_id.game_rating #rating for second use
-            # #all game for first user
+            rating_first = self.first_user_id.game_rating  # rating for first user
+            rating_second = self.second_user_id.game_rating  # rating for second use
+            # # all game for first user
             all_game_f = len(self.env["chess.game"].search([('first_user_id.id', '=', self.first_user_id.id)]))\
-                         + len(self.env["chess.game"].search([('second_user_id.id', '=', self.first_user_id.id)]))
-            #all game for second user
+                + len(self.env["chess.game"].search([('second_user_id.id', '=', self.first_user_id.id)]))
+            # all game for second user
             all_game_s = len(self.env["chess.game"].search([('first_user_id.id', '=', self.second_user_id.id)]))\
-                         + len(self.env["chess.game"].search([('second_user_id.id', '=', self.second_user_id.id)]))
-            if rating_first>2400:
+                + len(self.env["chess.game"].search([('second_user_id.id', '=', self.second_user_id.id)]))
+            if rating_first > 2400:
                 K_f = 10
-            elif rating_first<2400 and all_game_f>30:
+            elif rating_first < 2400 and all_game_f > 30:
                 K_f = 20
-            elif all_game_f<30:
+            elif all_game_f < 30:
                 K_f = 40
 
-            if rating_second>2400:
+            if rating_second > 2400:
                 K_s = 10
-            elif rating_second<2400 and all_game_s>30:
+            elif rating_second < 2400 and all_game_s > 30:
                 K_s = 20
-            elif all_game_s<30:
+            elif all_game_s < 30:
                 K_s = 40
             if self.first_color_figure == status:
-                first_game_result = 0.0 #he is not win
-                second_game_result = 1.0 #he is win
+                first_game_result = 0.0  # he is not win
+                second_game_result = 1.0  # he is win
             elif self.second_color_figure == status:
-                first_game_result = 1.0 #he is win
+                first_game_result = 1.0  # he is win
                 second_game_result = 0.0
-            elif status=='drawn':
+            elif status == 'drawn':
                 first_game_result = 0.5
                 second_game_result = 0.5
             if time_limit_id is not False:
-                if time_limit_id>0:
-                    first_game_result=first_game_result
-                    second_game_result=second_game_result
-            #rating formule
+                if time_limit_id > 0:
+                    first_game_result = first_game_result
+                    second_game_result = second_game_result
+            # rating formule
             import math
-            #new rating for first user
-            E_first = (1.0/(1.0+math.pow(10,((rating_second - rating_first)/400.0))))
+            # new rating for first user
+            E_first = (1.0 / (1.0 + math.pow(10, ((rating_second - rating_first) / 400.0))))
             new_rating_first = rating_first + K_f * (first_game_result - E_first)
-            #new rating for second user
-            E_second = (1.0/(1.0+math.pow(10,((rating_first - rating_second)/400.0))))
+            # new rating for second user
+            E_second = (1.0 / (1.0 + math.pow(10, ((rating_first - rating_second) / 400.0))))
             new_rating_second = rating_second + K_s * (second_game_result - E_second)
-            #write it
+            # write it
             self.env['res.users'].search([('id', '=', self.first_user_id.id)]).write({
-                 'game_rating': round(new_rating_first, 2)
+                'game_rating': round(new_rating_first, 2)
             })
             self.env['res.users'].search([('id', '=', self.second_user_id.id)]).write({
-                 'game_rating': round(new_rating_second,2)})
+                'game_rating': round(new_rating_second, 2)})
         return self.write(
             {
                 'date_finish': datetime.datetime.now(),
@@ -209,7 +210,6 @@ class ChessGame(models.Model):
             'type': 'ir.actions.act_window',
         }
 
-
     @api.multi
     def open_chess_game(self):
         url = '/chess/game/%d/' % (self.id)
@@ -246,7 +246,7 @@ class ChessGame(models.Model):
             secound_user_id = self.second_user_id.id
 
         channel = '["%s","%s",["%s","%s"]]' % (self._cr.dbname, "chess.game.info", secound_user_id, self.id)
-        message = {'system_status':self.status}
+        message = {'system_status': self.status}
         notifications.append([str(channel), message])
         self.env['bus.bus'].sendmany(notifications)
 
@@ -274,7 +274,7 @@ class ChessGame(models.Model):
             another_user_time = self.first_user_time
 
         data = {
-            'author':{
+            'author': {
                 'name': str(author_name),
                 'id': int(author_id),
                 'color': str(author_color_figure),
@@ -322,10 +322,10 @@ class ChessGameLine(models.Model):
             }
             # chess server for legal move
             board = serverchess.Board(ps.fen)
-            legal_move = serverchess.Move.from_uci(data['source']+data['target']) in board.legal_moves
+            legal_move = serverchess.Move.from_uci(data['source'] + data['target']) in board.legal_moves
             # if move not legal then maybe Queen?
             if legal_move is False:
-                legal_Q = board.parse_san(data['target']+'=Q') in board.legal_moves
+                legal_Q = board.parse_san(data['target'] + '=Q') in board.legal_moves
                 # if not Queen then fix board
                 if legal_Q is False:
                     return False
@@ -360,15 +360,15 @@ class ChatMessage(models.Model):
     _description = 'chess chat message'
 
     author_id = fields.Many2one('res.users', 'Author')
-    game_id = fields.Many2one('chess.game','Game')
+    game_id = fields.Many2one('chess.game', 'Game')
     message = fields.Text(string='Message')
-    date_message = fields.Datetime(string='Date message', default = datetime.datetime.now())
+    date_message = fields.Datetime(string='Date message', default=datetime.datetime.now())
 
     @api.model
     def broadcast(self, message, game_id):
         notifications = []
         for ps in self.env['chess.game'].search([('id', '=', game_id)]):
-            #build the new message
+            # build the new message
             author_id = message['author_id']
             vals = {
                 "author_id": author_id,
