@@ -25,7 +25,8 @@ class sale_order_line(models.Model):
         lang_obj = self.env['res.lang']
         lang = lang_obj.search([('code', '=', self.env.context.get('lang'))])
         user_df = ('%s %s' % (lang.date_format, lang.time_format)) if lang else DTF
-        products = self.env['product.product'].search([('calendar_id', '!=', False)])
+        products = self.env['product.product'].search([('calendar_id', '!=', False),
+                                                       ('website_published', '=', True)])
         bookings = {}
         partner = self.env.user.partner_id
         pricelist_id = partner.property_product_pricelist.id
