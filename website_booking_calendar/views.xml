@@ -26,7 +26,7 @@
                         <div class="modal-body">
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Continue Booking</button>
                             <button type="button" class="btn btn-primary" id="booking-dialog-confirm">Add to Cart</button>
                         </div>
                     </div>
