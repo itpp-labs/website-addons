@@ -7,9 +7,9 @@
             var def = this._super.apply(this, arguments);
             def.then(function(){
                 $("[forced-contenteditable=false]").attr('contenteditable', false);
-            })
+            });
             return def;
         }
-    })
+    });
 
-})()
+})();

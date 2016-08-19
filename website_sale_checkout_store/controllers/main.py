@@ -4,7 +4,9 @@ from openerp import http
 from openerp.http import request
 from openerp.addons.website_sale.controllers.main import website_sale
 
+
 class website_sale(website_sale):
+
     @http.route(['/shop/checkout'], type='http', auth="public", website=True)
     def checkout(self, **post):
         cr, uid, context = request.cr, request.uid, request.context
@@ -40,7 +42,7 @@ class website_sale(website_sale):
 
         order = request.registry['sale.order'].browse(cr, SUPERUSER_ID, sale_order_id, context=context)
         if 'nobill' in order.buy_way:
-            return {'recall': False, 'message':''}
+            return {'recall': False, 'message': ''}
         else:
             return super(website_sale, self).payment_get_status(sale_order_id, **post)
 

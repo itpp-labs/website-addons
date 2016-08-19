@@ -16,5 +16,5 @@
             <field name="relation_field">section_id</field>
         </record>
 
-	</data>
+    </data>
 </openerp>

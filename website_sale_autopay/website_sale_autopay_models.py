@@ -1,10 +1,14 @@
-from openerp import api, models, fields, SUPERUSER_ID
+# -*- coding: utf-8 -*-
+from openerp import fields
+from openerp import models
 import re
+
 
 class PaymentAcquirer(models.Model):
     _inherit = 'payment.acquirer'
 
     journal_id = fields.Many2one('account.journal', 'Payment method', help='This journal is used to auto pay invoice when online payment is received')
+
 
 class sale_order(models.Model):
 

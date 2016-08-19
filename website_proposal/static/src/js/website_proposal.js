@@ -69,7 +69,7 @@ $(document).ready(function () {
             $('#modelaccept').modal('hide');
             window.location.href = '/website_proposal/'+proposal_id[1]+'/'+token+'?message=3';
         });
-        return false
+        return false;
     });
 
     // automatically generate a menu from h1 and h2 tag in content
@@ -79,18 +79,18 @@ $(document).ready(function () {
     $("section h1, section h2").each(function() {
         switch (this.tagName.toLowerCase()) {
             case "h1":
-                id = _.uniqueId('quote_header_')
+                id = _.uniqueId('quote_header_');
                 $(this.parentNode).attr('id',id);
                 sub_li = $("<li>").html('<a href="#'+id+'">'+$(this).text()+'</a>').appendTo(ul);
                 sub_ul = null;
                 break;
             case "h2":
-                id = _.uniqueId('quote_')
+                id = _.uniqueId('quote_');
                 if (sub_li) {
                     if (!sub_ul) {
                         sub_ul = $("<ul class='nav'>").appendTo(sub_li);
                     }
-                    $(this.parentNode).attr('id',id)
+                    $(this.parentNode).attr('id',id);
                     $("<li>").html('<a href="#'+id+'">'+$(this).text()+'</a>').appendTo(sub_ul);
                 }
                 break;

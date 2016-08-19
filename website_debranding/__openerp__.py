@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': "Website debranding",
     'version': '1.0.0',
@@ -10,7 +11,7 @@
     'depends': ['website', 'web_debranding'],
     'data': [
         'views.xml',
-        ],
+    ],
     'auto_install': True,
     'installable': True
 }

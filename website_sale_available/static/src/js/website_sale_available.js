@@ -12,20 +12,20 @@ $(document).ready(function () {
         $(el).each(function(){
             var quantity =  parseInt($(this).val());
             $tr = $(this).parent().parent().parent();
-            var virtual_available = parseInt($tr.find('[name="virtual_available"]').text())
-            var enough = quantity <= virtual_available
+            var virtual_available = parseInt($tr.find('[name="virtual_available"]').text());
+            var enough = quantity <= virtual_available;
             $tr.toggleClass('warning', !enough);
             if (!enough)
                 available = false;
-        })
+        });
         $('a[href$="/shop/checkout"]').toggleClass('disabled', !available);
     }
     
     $(input_selector).on('change', function(){
-        check(this)
-    })
+        check(this);
+    });
 
     check();
 
-})
+});
 

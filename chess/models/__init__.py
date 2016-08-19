@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 
-import chess
+from . import chess

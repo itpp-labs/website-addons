@@ -7,9 +7,9 @@
                             <h1>Chess Services</h1>
                             <div class='menu'>
                                 <ul class="chess_services">
-				                    <a href="#?w=400" rel="popup1" class="poplight"><li>Create game</li></a>
-				                    <a href="#?w=400" rel="popup2" class="poplight"><li>Create Game</li></a>
-			                    </ul>
+                                    <a href="#?w=400" rel="popup1" class="poplight"><li>Create game</li></a>
+                                    <a href="#?w=400" rel="popup2" class="poplight"><li>Create Game</li></a>
+                                </ul>
                             </div>
                             <div id="popup1" class="popup_block">
                                 <h2>Create game</h2>
@@ -141,11 +141,11 @@
                                 <div class="chess_time_usr">
                                     <div class="chess_time">
                                         <div id="clock0" class="clock upper rotated">
-  	                                        00:00
+                                              00:00
                                         </div>
                                         <div class="time">Time:</div>
                                         <div id="clock1" class="clock lower">
-  	                                        00:00
+                                              00:00
                                         </div>
                                     </div>
                                 </div>

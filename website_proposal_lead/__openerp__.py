@@ -1,18 +1,19 @@
+# -*- coding: utf-8 -*-
 {
-    'name' : 'Website proposal for leads',
-    'version' : '1.0.0',
-    'author' : 'IT-Projects LLC, Ivan Yelizariev',
+    'name': 'Website proposal for leads',
+    'version': '1.0.0',
+    'author': 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'LGPL-3',
-    'category' : 'Website',
-    'website' : 'https://yelizariev.github.io',
+    'category': 'Website',
+    'website': 'https://yelizariev.github.io',
     'description': """
 Web-based proposals for leads
     """,
-    'depends' : ['website_proposal', 'crm', 'sale_crm', 'sale',],
-    'data':[
+    'depends': ['website_proposal', 'crm', 'sale_crm', 'sale', ],
+    'data': [
         'views.xml',
         'report.xml',
-        ],
+    ],
     'installable': False,
     'auto_install': False,
     'application': True,

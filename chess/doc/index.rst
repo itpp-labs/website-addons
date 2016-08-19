@@ -66,4 +66,4 @@ End of the game is determined by game rules or by such possible actions of playe
 Result of a game is player’s new rating, which is calculated according to Elo system and is written of the left of chess board.
 
 **Note.** To use the module, you need to be sure that your odoo instance support longpolling, i.e. Instant Messaging works.
-Read more about how to use the `longpolling  <https://odoo-development.readthedocs.io/en/latest/admin/longpolling.html>`_
+Read more about how to use the `longpolling  <https://odoo-development.readthedocs.io/en/latest/admin/longpolling.html>`__

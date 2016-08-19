@@ -35,7 +35,7 @@ $(document).ready(function() {
         on_notification: function (notification) {
             var self = this;
             if (typeof notification[0][0] === 'string') {
-                notification = [notification]
+                notification = [notification];
             }
             for (var i = 0; i < notification.length; i++) {
                 var channel = notification[i][0];
@@ -64,7 +64,7 @@ $(document).ready(function() {
                     return false;
                 }
                 if (message.type == 'move') {
-                    self.onDrop(message.data['source'], message.data['target']);
+                    self.onDrop(message.data.source, message.data.target);
                     board.position(game.fen());
                     if(new_game.game_type=='blitz') {
                         if(game.turn()=== 'b') {
@@ -90,23 +90,23 @@ $(document).ready(function() {
                     storage.setItem("bus_last", this.bus.last);
                 }
                 if (message.type == 'system'){
-                    if (message.data['status'] == 'surrender') {
+                    if (message.data.status == 'surrender') {
                         swal({
                             title: "You win!",
-                            text: message.data['user'] + ' surrendered',
+                            text: message.data.user + ' surrendered',
                             timer: 2000,
                             type: "success",
                             showConfirmButton: false
                         });
                         $('#surrender').hide();
                         $('#suggest_a_draw').hide();
-                        var status = 'You win, ' + message.data['user'] + ' surrendered';
+                        var status = 'You win, ' + message.data.user + ' surrendered';
                         new_game.user_surrender(status);
                     }
-                    if (message.data['status'] == 'draw') {
+                    if (message.data.status == 'draw') {
                         swal({
                             title: "Draw",
-                            text: "The "+ message.data['user']+" proposed a draw",
+                            text: "The "+ message.data.user+" proposed a draw",
                             type: "warning",
                             showCancelButton: true,
                             confirmButtonColor: "#DD6B55",
@@ -132,7 +132,7 @@ $(document).ready(function() {
                                 }
                             });
                     }
-                    if (message.data['status'] == 'agreement') {
+                    if (message.data.status == 'agreement') {
                         swal({
                             title: "Game over",
                             text: "Drawn position",
@@ -148,7 +148,7 @@ $(document).ready(function() {
                         document.cookie = cookie_name + "=" + "; expires=-1";
                         new_game.user_surrender(status);
                     }
-                    if (message.data['status'] == '') {
+                    if (message.data.status == '') {
                         return false;
                     }
                     storage.setItem("bus_last", this.bus.last);
@@ -351,7 +351,7 @@ $(document).ready(function() {
                     self.check_status = true;
                     self.coockie_status = true;
                     history.forEach(function (item, i, history) {
-                        self.onDrop(item['source'], item['target']);
+                        self.onDrop(item.source, item.target);
                         self.onSnapEnd();
                         first_step_move = false;
                     });
@@ -379,16 +379,16 @@ $(document).ready(function() {
             if (this.history) {
                 var time_turn = '';
                 if (game.turn() === 'w' && turn === 'white') {
-                    time_turn = 'ww'
+                    time_turn = 'ww';
                 }
                 if (game.turn() === 'w' && turn === 'black') {
-                    time_turn = 'wb'
+                    time_turn = 'wb';
                 }
                 if (game.turn() === 'b' && turn === 'white') {
-                    time_turn = 'bw'
+                    time_turn = 'bw';
                 }
                 if (game.turn() === 'b' && turn === 'black') {
-                    time_turn = 'bb'
+                    time_turn = 'bb';
                 }
                 if (self.game_type == 'blitz' || self.game_type == 'limited time') {
                     openerp.session.rpc("/chess/game/load_time", {'game_id': self.game_id, 'turn': time_turn})
@@ -457,9 +457,9 @@ $(document).ready(function() {
                 start_time_refer = false;
                 self.onSnapEnd();
                 if (result.type == 'system') {
-                    switch (result.data['status']) {
+                    switch (result.data.status) {
                         case 'surrender': {
-                            if (result.data['user']==self.author_name) {
+                            if (result.data.user==self.author_name) {
                                 var status = 'Game over, you lose. You surrender';
                                 self.user_surrender(status);
                                 self.game_over_status = self.author_color;
@@ -469,9 +469,9 @@ $(document).ready(function() {
                                 self.game_over_status = self.another_user_color;
                                 self.user_surrender(status);
                             }
-                        } break
+                        } break;
                         case 'draw': {
-                            if (result.data['user']!=self.author_name) {
+                            if (result.data.user!=self.author_name) {
                                 setTimeout(function () {
                                 swal({
                                     title: "Draw",
@@ -501,23 +501,23 @@ $(document).ready(function() {
                                     });},1000);
                             }
 
-                        } break
+                        } break;
                         case 'agreement':{
                             var status = 'Game over, drawn position';
                             self.game_over_status='drawn';
                             self.user_surrender(status);
-                        } break
+                        } break;
                         case 'Game over': {
                             var status = 'Game over';
                             self.user_surrender(status);
-                        } break
+                        } break;
                         default:{
                             console.log("No match in the system messages");
-                        } break
+                        } break;
                     }
                 }
                 else {console.log("No system messages");}
-            };
+            }
             this.history=false;
         },
         onDragStart: function (source, piece, position, orientation) {
@@ -679,7 +679,7 @@ $(document).ready(function() {
 
                         }, 100);
                     }
-                    status = moveColor + ' is in check'
+                    status = moveColor + ' is in check';
                 }
             }
             //surrender?
@@ -776,9 +776,9 @@ $(document).ready(function() {
             var status_game = self.game_over_status;
 
             if (time_limited) {
-                not_win_user_id = not_win_user_id
+                not_win_user_id = not_win_user_id;
             } else {
-                not_win_user_id = false
+                not_win_user_id = false;
             }
             openerp.session.rpc("/chess/game/game_over/", {'game_id': self.game_id, 'status': status_game.toLowerCase(), 'time_limit_id': not_win_user_id})
                 .then(function(result){
@@ -846,7 +846,7 @@ $(document).ready(function() {
                     var DelWF = html;
                     this.DelWEl.html(DelWF);
                 }
-                ;
+                
 
                 if (BlackArr.length > 0) {
                     var imagesHTML = {
@@ -986,7 +986,7 @@ $(document).ready(function() {
                     status = 'Game over, time limit. You win!';
                     not_win_user_id = another_player_color;
                     time_limited = true;
-                };
+                }
                 if (self.system_status!='Game Over') {
                     new_game.game_over(status);
                 }
@@ -1043,7 +1043,7 @@ $(document).ready(function() {
             var hours = Math.floor(minutes / 60);
             minutes = Math.floor(minutes % 60);
             var days = Math.floor(hours / 24);
-            hours = Math.floor(hours % 24)
+            hours = Math.floor(hours % 24);
 
             var result = "";
             if (days != 0) result += days + "d ";

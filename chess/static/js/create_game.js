@@ -20,7 +20,7 @@ $(document).ready(function() {
         on_notification: function (notification) {
             var self = this;
             if (typeof notification[0][0] === 'string') {
-                notification = [notification]
+                notification = [notification];
             }
             for (var i = 0; i < notification.length; i++) {
                 var channel = notification[i][0];
@@ -99,7 +99,7 @@ $(document).ready(function() {
                         window.new_game.game_pgn_click();
                         return false;
                     }
-                })
+                });
         },
         stop_polling: function () {
             openerp.bus.bus.stop_polling();

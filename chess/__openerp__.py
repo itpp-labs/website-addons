@@ -7,7 +7,7 @@
 
     "author": "IT-Projects LLC, Dinar Gabbasov",
     'website': "https://twitter.com/gabbasov_dinar",
-    "license": "GPL-3",
+    "license": "LGPL-3",
 
     "depends": [
         "base",

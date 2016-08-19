@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import datetime
 
 from openerp.http import request
 import openerp.addons.website_sale.controllers.main as main

@@ -48,30 +48,26 @@ LOGGER = logging.getLogger(__name__)
 
 class EngineStateException(Exception):
     """Unexpected UCI engine state."""
-    pass
 
 
 class EngineTerminatedException(Exception):
     """The engine has been terminated."""
-    pass
 
 
 class Option(collections.namedtuple("Option", ["name", "type", "default", "min", "max", "var"])):
     """Information about an available option for an UCI engine."""
-    pass
 
 
 class Score(collections.namedtuple("Score", ["cp", "mate", "lowerbound", "upperbound"])):
     """A centipawns or mate score sent by an UCI engine."""
-    pass
 
 
 class BestMove(collections.namedtuple("BestMove", ["bestmove", "ponder"])):
     """A bestmove and ponder move sent by an UCI engine."""
-    pass
 
 
 class OptionMap(collections.MutableMapping):
+
     def __init__(self, data=None, **kwargs):
         self._store = dict()
         if data is None:
@@ -132,6 +128,7 @@ class InfoHandler(object):
     ...         super(MyHandler, self).post_info()
     ...         print(self.info)
     """
+
     def __init__(self):
         self.lock = threading.Lock()
 
@@ -271,7 +268,6 @@ class InfoHandler(object):
 
     def on_bestmove(self, bestmove, ponder):
         """A new bestmove and pondermove have been received."""
-        pass
 
     def on_go(self):
         """
@@ -302,6 +298,7 @@ class InfoHandler(object):
 
 
 class MockProcess(object):
+
     def __init__(self):
         self._expectations = collections.deque()
         self._is_dead = threading.Event()
@@ -367,6 +364,7 @@ class MockProcess(object):
 
 
 class PopenProcess(object):
+
     def __init__(self, command):
         self.command = command
 
@@ -415,6 +413,7 @@ class PopenProcess(object):
 
 
 class SpurProcess(object):
+
     def __init__(self, shell, command):
         self.shell = shell
         self.command = command
@@ -479,6 +478,7 @@ class SpurProcess(object):
 
 
 class Engine(object):
+
     def __init__(self, process, Executor=concurrent.futures.ThreadPoolExecutor):
         self.process = process
 

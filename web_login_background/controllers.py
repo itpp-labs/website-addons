@@ -5,6 +5,7 @@ from openerp.addons.web.controllers.main import Home
 from openerp.http import request
 from openerp.addons.auth_signup.controllers.main import AuthSignupHome
 
+
 class Background(Home):
 
     @http.route('/web/login', type='http', auth="none")
@@ -18,7 +19,9 @@ class Background(Home):
 
         return super(Background, self).web_login(**kw)
 
+
 class BackgroundSignup(AuthSignupHome):
+
     @http.route('/web/signup', type='http', auth="none")
     def web_auth_signup(self, redirect=None, **kw):
         pictures = request.env['ir.attachment'].search([
