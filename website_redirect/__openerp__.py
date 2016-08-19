@@ -9,6 +9,7 @@
     'depends': ['website'],
     'data': [
         'website_redirect_views.xml',
+        'security/ir.model.access.csv',
     ],
     'installable': True
 }
