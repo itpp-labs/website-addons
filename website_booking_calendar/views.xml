@@ -50,6 +50,31 @@
             </xpath>
         </template>
 
+        <template id="cart" inherit_id="website_sale.cart" name="Booking Shopping Cart">
+          <xpath expr="//table[@id='cart_products']/thead/tr/th[1]" position="before">
+            <th width="50">Pitch</th>
+            <th width="100">Date Start</th>
+            <th width="100">Date End</th>
+          </xpath>
+          <xpath expr="//table[@id='cart_products']/tbody/t/tr/td[1]" position="before">
+            <td class="text-center">
+              <span t-field="line.pitch_id" />
+            </td>
+            <td class="text-center">
+              <span t-field="line.booking_start" />
+            </td>
+            <td class="text-center">
+              <span t-field="line.booking_end" />
+            </td>
+          </xpath>
+          <xpath expr="//table[@id='cart_products']/tbody/t/tr/td[last()]/div" position="attributes">
+            <attribute name="style">visibility:hidden</attribute>
+          </xpath>
+          <xpath expr="//table[@id='cart_products']/tbody/t/tr/td[last()]" position="inside">
+            <span t-field="line.product_uom_qty" />
+          </xpath>
+        </template>
+
         <template id="confirm_form">
             <form method="POST" action="/booking/calendar/confirm">
                 <table class="table table-hover booking-confirm-table">
