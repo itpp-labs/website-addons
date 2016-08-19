@@ -2,7 +2,7 @@
 
     self.DTF = 'YYYY-MM-DD HH:mm:ss';
     self.MIN_TIME_SLOT = 1; //hours
-    self.SLOT_START_DELAY_MINS = 15 //minutes
+    self.SLOT_START_DELAY_MINS = 15; //minutes
     self.resources = [];
     self.bookings = [];
     self.session = openerp.website.session || new openerp.Session();
@@ -35,7 +35,7 @@
         var $bookingWarningDialog = $('#booking_warning_dialog');
         $bookingWarningDialog.find('.modal-body').text(text);
         $bookingWarningDialog.modal('show');
-    }
+    };
 
    self.getBookingsInfo = function(toUTC) {
         var res = [];
@@ -51,9 +51,9 @@
                 'start': start.format(self.DTF),
                 'end': end.format(self.DTF)
             });
-        })
+        });
         return res;
-    }
+    };
 
     self.viewRender = function(view, element) {
         if (view.name == 'agendaWeek') {
@@ -111,7 +111,7 @@
             var d = new Date();
             $form.find("[name=timezone]").val(d.getTimezoneOffset());
             $form.submit();
-        })
+        });
 
     };
 
@@ -128,7 +128,7 @@
             });
             $('#booking-dialog').modal('show');
         });
-    }
+    };
 
     self.eventClick = function(calEvent, jsEvent, view) {
         if ($(this).hasClass('booked_slot')) {
@@ -152,7 +152,7 @@
             $(this).addClass('selected');
         }
 
-    }
+    };
 }(window.booking_calendar = window.booking_calendar || {}, jQuery));
 
 $(document).ready(function() {

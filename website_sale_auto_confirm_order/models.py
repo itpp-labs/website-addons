@@ -1,4 +1,7 @@
-from openerp import api, models, fields, SUPERUSER_ID
+# -*- coding: utf-8 -*-
+from openerp import SUPERUSER_ID
+from openerp import models
+
 
 class PaymentTransaction(models.Model):
     _inherit = 'payment.transaction'

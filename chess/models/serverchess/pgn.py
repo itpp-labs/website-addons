@@ -446,42 +446,33 @@ class BaseVisitor(object):
 
     def begin_game(self):
         """Called at the start of a game."""
-        pass
 
     def end_game(self):
         """Called at the end of a game."""
-        pass
 
     def begin_headers(self):
         """Called at the start of the game headers."""
-        pass
 
     def visit_header(self, tagname, tagvalue):
         """Called for each game header."""
-        pass
 
     def end_headers(self):
         """Called at the end of the game headers."""
-        pass
 
     def begin_variation(self):
         """
         Called at the start of a new variation. It is not called for the
         mainline of the game.
         """
-        pass
 
     def end_variation(self):
         """Concludes a variation."""
-        pass
 
     def visit_comment(self, comment):
         """Called for each comment."""
-        pass
 
     def visit_nag(self, nag):
         """Called for each NAG."""
-        pass
 
     def visit_move(self, board, move):
         """
@@ -490,11 +481,9 @@ class BaseVisitor(object):
         *board* is the board state before the move. The board state must be
         restored before the traversal continues.
         """
-        pass
 
     def visit_result(self, result):
         """Called at the end of the game with the *Result*-header."""
-        pass
 
     def handle_error(self, error):
         """Called for errors encountered. Defaults to raising an exception."""

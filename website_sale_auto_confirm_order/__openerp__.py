@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': "eCommerce: autoconfirm order",
     'version': '1.0.0',
@@ -8,6 +9,6 @@
     'depends': ['website_sale'],
     'data': [
         'views.xml',
-        ],
+    ],
     'installable': False,
 }

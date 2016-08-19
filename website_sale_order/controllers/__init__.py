@@ -1,1 +1,2 @@
-import website_sale_order_controller
+# -*- coding: utf-8 -*-
+from . import website_sale_order_controller

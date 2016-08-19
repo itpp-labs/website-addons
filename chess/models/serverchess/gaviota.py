@@ -128,17 +128,22 @@ def map24_b(s):
     s = s - 8
     return ((s & 3) + s) >> 1
 
+
 def in_queenside(x):
     return (x & (1 << 2)) == 0
+
 
 def flip_we(x):
     return x ^ 7
 
+
 def flip_ns(x):
     return x ^ 56
 
+
 def flip_nw_se(x):
     return ((x & 7) << 3) | (x >> 3)
+
 
 def idx_is_empty(x):
     return x == -1
@@ -147,8 +152,10 @@ def idx_is_empty(x):
 def getcol(x):
     return x & 7
 
+
 def getrow(x):
     return x >> 3
+
 
 def flip_type(x, y):
     ret = 0
@@ -179,6 +186,7 @@ def flip_type(x, y):
         ret |= 4
 
     return ret
+
 
 def init_flipt():
     return [[flip_type(j, i) for i in range(64)] for j in range(64)]
@@ -343,6 +351,7 @@ def pp_putanchorfirst(a, b):
 
     return anchor, loosen
 
+
 def wsq_to_pidx24(pawn):
     sq = pawn
 
@@ -352,6 +361,7 @@ def wsq_to_pidx24(pawn):
     idx24 = (sq + (sq & 3)) >> 1
     return idx24
 
+
 def wsq_to_pidx48(pawn):
     sq = pawn
 
@@ -360,6 +370,7 @@ def wsq_to_pidx48(pawn):
 
     idx48 = sq
     return idx48
+
 
 def init_ppidx():
     ppidx = [[-1] * 48 for i in range(24)]
@@ -397,16 +408,19 @@ PPIDX, PP_HI24, PP_LO48 = init_ppidx()
 
 
 def bb_isbiton(bb, bit):
-        return 0 != (bb >> bit) & 1
+    return 0 != (bb >> bit) & 1
+
 
 def map88(x):
-        return x + (x & 56)
+    return x + (x & 56)
+
 
 def unmap88(x):
-        return x + (x & 7) >> 1
+    return x + (x & 7) >> 1
+
 
 def mapx88(x):
-        return ((x & 56) << 1) | (x & 7)
+    return ((x & 56) << 1) | (x & 7)
 
 BSTEP = [17, 15, -15, -17, 0]
 RSTEP = [1, 16, -1, -16, 0]
@@ -432,6 +446,7 @@ PSLIDER = [
     True,
     False,
 ]
+
 
 def gen_rev(occ, input_piece, sq):
     # Get list of reversible piece moves. Yields squares.
@@ -463,6 +478,7 @@ def gen_rev(occ, input_piece, sq):
                 us = unmap88(s)
                 if 0 == (0x1 & (occ >> us)):
                     yield us
+
 
 def reach_init():
     stp_a = [15, -15]
@@ -504,6 +520,7 @@ def reach_init():
     return reach
 
 REACH = reach_init()
+
 
 def attack_maps_init():
     attmsk = [0] * 256
@@ -566,8 +583,10 @@ def attack_maps_init():
 
 ATTMSK, ATTMAP = attack_maps_init()
 
+
 def possible_attack(from_, to_, piece):
     return 0 != ATTMAP[to_][from_] & ATTMSK[piece]
+
 
 def norm_kkindex(x, y):
     if getcol(x) > 3:
@@ -593,6 +612,7 @@ def norm_kkindex(x, y):
         y = flip_nw_se(y)
 
     return x, y
+
 
 def init_kkidx():
     kkidx = [[-1] * 64 for x in range(64)]
@@ -645,6 +665,7 @@ def kxk_pctoindex(c):
 
     return ki * BLOCK_Ax + ws[1]
 
+
 def kapkb_pctoindex(c):
     BLOCK_A = 64 * 64 * 64 * 64
     BLOCK_B = 64 * 64 * 64
@@ -675,6 +696,7 @@ def kapkb_pctoindex(c):
 
     return pslice * BLOCK_A + wk * BLOCK_B + bk * BLOCK_C + wa * BLOCK_D + ba
 
+
 def kabpk_pctoindex(c):
     BLOCK_A = 64 * 64 * 64 * 64
     BLOCK_B = 64 * 64 * 64
@@ -698,6 +720,7 @@ def kabpk_pctoindex(c):
     pslice = wsq_to_pidx24(pawn)
 
     return pslice * BLOCK_A + wk * BLOCK_B + bk * BLOCK_C + wa * BLOCK_D + wb
+
 
 def kabkp_pctoindex(c):
     BLOCK_A = 64 * 64 * 64 * 64
@@ -728,6 +751,7 @@ def kabkp_pctoindex(c):
 
     return pslice * BLOCK_A + wk * BLOCK_B + bk * BLOCK_C + wa * BLOCK_D + wb
 
+
 def kaapk_pctoindex(c):
     BLOCK_C = MAX_AAINDEX
     BLOCK_B = 64 * BLOCK_C
@@ -755,6 +779,7 @@ def kaapk_pctoindex(c):
         return NOINDEX
 
     return pslice * BLOCK_A + wk * BLOCK_B + bk * BLOCK_C + aa_combo
+
 
 def kaakp_pctoindex(c):
     BLOCK_C = MAX_AAINDEX
@@ -784,6 +809,7 @@ def kaakp_pctoindex(c):
         return NOINDEX
 
     return pslice * BLOCK_A + wk * BLOCK_B + bk * BLOCK_C + aa_combo
+
 
 def kapkp_pctoindex(c):
     BLOCK_A = 64 * 64 * 64
@@ -816,6 +842,7 @@ def kapkp_pctoindex(c):
 
     return pp_slice * BLOCK_A + wk * BLOCK_B + bk * BLOCK_C + wa
 
+
 def kappk_pctoindex(c):
     BLOCK_A = 64 * 64 * 64
     BLOCK_B = 64 * 64
@@ -847,6 +874,7 @@ def kappk_pctoindex(c):
 
     return pp_slice * BLOCK_A + wk * BLOCK_B + bk * BLOCK_C + wa
 
+
 def kppka_pctoindex(c):
     BLOCK_A = 64 * 64 * 64
     BLOCK_B = 64 * 64
@@ -876,6 +904,7 @@ def kppka_pctoindex(c):
         return NOINDEX
 
     return pp_slice * BLOCK_A + wk * BLOCK_B + bk * BLOCK_C + ba
+
 
 def kabck_pctoindex(c):
     N_WHITE = 4
@@ -908,6 +937,7 @@ def kabck_pctoindex(c):
 
     return ki * BLOCK_A + ws[1] * BLOCK_B + ws[2] * BLOCK_C + ws[3]
 
+
 def kabbk_pctoindex(c):
     N_WHITE = 4
     N_BLACK = 1
@@ -938,6 +968,7 @@ def kabbk_pctoindex(c):
         return NOINDEX
 
     return ki * BLOCK_Ax + ai * BLOCK_Bx + ws[1]
+
 
 def kaabk_pctoindex(c):
     N_WHITE = 4
@@ -970,10 +1001,12 @@ def kaabk_pctoindex(c):
 
     return ki * BLOCK_Ax + ai * BLOCK_Bx + ws[3]
 
+
 def aaa_getsubi(x, y, z):
     bse = AAA_BASE[z]
     calc_idx = x + (y - 1) * y // 2 + bse
     return calc_idx
+
 
 def kaaak_pctoindex(c):
     N_WHITE = 4
@@ -1022,6 +1055,7 @@ def kaaak_pctoindex(c):
 
     return ki * BLOCK_Ax + ai
 
+
 def kppkp_pctoindex(c):
     BLOCK_Ax = MAX_PP48_INDEX * 64 * 64
     BLOCK_Bx = 64 * 64
@@ -1053,6 +1087,7 @@ def kppkp_pctoindex(c):
 
     return k * BLOCK_Ax + pp48_slice * BLOCK_Bx + wk * BLOCK_Cx + bk
 
+
 def kaakb_pctoindex(c):
     N_WHITE = 3
     N_BLACK = 2
@@ -1083,6 +1118,7 @@ def kaakb_pctoindex(c):
         return NOINDEX
 
     return ki * BLOCK_Ax + ai * BLOCK_Bx + bs[1]
+
 
 def kabkc_pctoindex(c):
     N_WHITE = 3
@@ -1116,6 +1152,7 @@ def kabkc_pctoindex(c):
 
     return ki * BLOCK_Ax + ws[1] * BLOCK_Bx + ws[2] * BLOCK_Cx + bs[1]
 
+
 def kpkp_pctoindex(c):
     BLOCK_Ax = 64 * 64
     BLOCK_Bx = 64
@@ -1144,6 +1181,7 @@ def kpkp_pctoindex(c):
 
     return pp_slice * BLOCK_Ax + wk * BLOCK_Bx + bk
 
+
 def kppk_pctoindex(c):
     BLOCK_Ax = 64 * 64
     BLOCK_Bx = 64
@@ -1170,6 +1208,7 @@ def kppk_pctoindex(c):
 
     return pp_slice * BLOCK_Ax + wk * BLOCK_Bx + bk
 
+
 def kapk_pctoindex(c):
     BLOCK_Ax = 64 * 64 * 64
     BLOCK_Bx = 64 * 64
@@ -1195,6 +1234,7 @@ def kapk_pctoindex(c):
     pslice = ((sq + (sq & 3)) >> 1)
 
     return pslice * BLOCK_Ax + wk * BLOCK_Bx + bk * BLOCK_Cx + wa
+
 
 def kabk_pctoindex(c):
     BLOCK_Ax = 64 * 64
@@ -1224,6 +1264,7 @@ def kabk_pctoindex(c):
 
     return ki * BLOCK_Ax + ws[1] * BLOCK_Bx + ws[2]
 
+
 def kakp_pctoindex(c):
     BLOCK_Ax = 64 * 64 * 64
     BLOCK_Bx = 64 * 64
@@ -1248,6 +1289,7 @@ def kakp_pctoindex(c):
     pslice = (sq + (sq & 3)) >> 1
 
     return pslice * BLOCK_Ax + wk * BLOCK_Bx + bk * BLOCK_Cx + wa
+
 
 def kaak_pctoindex(c):
     N_WHITE = 3
@@ -1278,6 +1320,7 @@ def kaak_pctoindex(c):
         return NOINDEX
 
     return ki * BLOCK_Ax + ai
+
 
 def kakb_pctoindex(c):
     BLOCK_Ax = 64 * 64
@@ -1313,6 +1356,7 @@ def kakb_pctoindex(c):
 
     return ki * BLOCK_Ax + ws[1] * BLOCK_Bx + bs[1]
 
+
 def kpk_pctoindex(c):
     BLOCK_A = 64 * 64
     BLOCK_B = 64
@@ -1336,6 +1380,7 @@ def kpk_pctoindex(c):
 
     res = pslice * BLOCK_A + wk * BLOCK_B + bk
     return res
+
 
 def kpppk_pctoindex(c):
     BLOCK_A = 64 * 64
@@ -1549,11 +1594,13 @@ def sortlists(ws, wp):
     wp2, ws2 = zip(*z)
     return list(ws2), list(wp2)
 
+
 def egtb_block_unpack(side, n, bp):
     try:
         return [dtm_unpack(side, i) for i in bp[:n]]
     except TypeError:
         return [dtm_unpack(side, ord(i)) for i in bp[:n]]
+
 
 def split_index(i):
     return divmod(i, ENTRIES_PER_BLOCK)
@@ -1576,12 +1623,15 @@ iUNKNOWN = tb_UNKNOWN
 
 iUNKNBIT = (1 << 2)
 
+
 def removepiece(ys, yp, j):
     del ys[j]
     del yp[j]
 
+
 def opp(side):
     return 1 if side == 0 else 0
+
 
 def adjust_up(dist):
     udist = dist
@@ -1591,6 +1641,7 @@ def adjust_up(dist):
         udist += (1 << PLYSHIFT)
 
     return udist
+
 
 def bestx(side, a, b):
     # 0 = selectfirst
@@ -1621,8 +1672,10 @@ def bestx(side, a, b):
     key = comparison[a & 3][b & 3] ^ xorkey[side]
     return retu[key]
 
+
 def unpackdist(d):
     return d >> PLYSHIFT, d & INFOMASK
+
 
 def dtm_unpack(stm, packed):
     p = packed
@@ -1691,6 +1744,7 @@ def dtm_unpack(stm, packed):
 
 
 class TableBlock(object):
+
     def __init__(self, egkey, side, offset, age):
         self.egkey = egkey
         self.side = side
@@ -1700,6 +1754,7 @@ class TableBlock(object):
 
 
 class Request(object):
+
     def __init__(self, white_squares, white_types, black_squares, black_types, side, epsq):
         self.white_squares, self.white_types = sortlists(white_squares, white_types)
         self.black_squares, self.black_types = sortlists(black_squares, black_types)

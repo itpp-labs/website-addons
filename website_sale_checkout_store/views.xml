@@ -26,6 +26,7 @@
                             <label for="nobill_ship"/>
                         </div>
                     </div>
+                    <field name="default_option" />
                 </group>
             </group>
         </field>

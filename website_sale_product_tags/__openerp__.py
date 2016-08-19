@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': "Product tags at eCommerce",
     'version': '1.0.0',
@@ -9,6 +10,6 @@
     'data': [
         'website_sale_product_tags_views.xml',
         'website_sale_product_tags_templates.xml',
-        ],
+    ],
     'installable': False,
 }

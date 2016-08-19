@@ -19,7 +19,7 @@ Contributors
 
 Sponsors
 --------
-* `IT-Projects LLC <https://it-projects.info>`_
+* `IT-Projects LLC <https://it-projects.info>`__
 
 Further information
 ===================
@@ -28,8 +28,8 @@ Demo: http://runbot.it-projects.info/demo/website-addons/8.0
 
 HTML Description: https://apps.odoo.com/apps/modules/8.0/website_seo_url_product/
 
-Usage instructions: `<doc/index.rst>`_
+Usage instructions: `<doc/index.rst>`__
 
-Changelog: `<doc/changelog.rst>`_
+Changelog: `<doc/changelog.rst>`__
 
 Tested on Odoo 8.0 bde083a5f91a659430b1227f240872f912f23c12

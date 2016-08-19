@@ -61,22 +61,22 @@
 
 
   <template id="layout" inherit_id="website.user_navbar" groups="base.group_user">
-	  <xpath expr="//ul[@id='oe_editzone']" position="replace">
+      <xpath expr="//ul[@id='oe_editzone']" position="replace">
           <ul t-if="not is_proposal" id="oe_editzone" class="nav navbar-nav hidden-xs" style="padding-left: 20px; display: none;" groups="base.group_website_publisher">
               <li><button type="button" data-action="edit" class="btn btn-primary btn-xs">Edit</button></li>
           </ul>
           <ul t-if="is_proposal" id="oe_editzone" class="nav navbar-nav hidden-xs" style="padding-left: 20px; display: none;" groups="base.group_sale_salesman">
               <li><button type="button" data-action="edit" class="btn btn-primary btn-xs">Edit</button></li>
           </ul>
-	  </xpath>
+      </xpath>
   </template>
 
   <template id="proposal" name="Proposal">
       <t t-call="website.layout">
-		<t t-set="is_proposal" t-value="True"/>
+        <t t-set="is_proposal" t-value="True"/>
         <t t-set="head">
             <t t-raw="head or ''"/>
-			<t t-raw="proposal.head"/>
+            <t t-raw="proposal.head"/>
         </t>
         <body data-spy="scroll" data-target=".navspy">
             <div class="container">
@@ -151,7 +151,7 @@
                       </div>
                       <a id="introduction"/>
                       <h1 class="page-header mt16">
-						  <span>Proposal</span>
+                          <span>Proposal</span>
                           <em t-esc="proposal.res_name"/>
                           <div groups="base.group_website_publisher" t-ignore="true" class="pull-right css_editable_mode_hidden">
                               <!-- <a class="btn btn-info hidden-print" t-att-href="'/web#return_label=Website&amp;model=%s&amp;id=%s' % (proposal._name, proposal.id)">Update Quote</a> -->
@@ -167,15 +167,15 @@
                             </div>
                             <div class="modal-body" id="sign-dialog">
                               <p>
-								  I accept this proposal
-								  <!--
+                                  I accept this proposal
+                                  <!--
                                   I agree that by signing this proposal, I
                                   accept it on the behalf of <b t-field="proposal.company_id"/>,
                                   for an amount of 
                                   <b data-id="total_amount" t-field="proposal.amount_total"
                                     t-field-options='{"widget": "monetary", "display_currency": "proposal.pricelist_id.currency_id"}'/>
                                   with payment terms: <b t-field="proposal.payment_term"/>.
-								  -->
+                                  -->
                               </p>
                               <div id="signer" class="form-group">
                                   <label class="control-label" for="name">Your Name:</label>
@@ -183,7 +183,7 @@
                               </div>
                             </div>
                             <div class="modal-footer">
-								<span class="status_label" style="color:grey; margin-right:1em; display:none;">Loading... </span>
+                                <span class="status_label" style="color:grey; margin-right:1em; display:none;">Loading... </span>
                                 <button t-att-type="not user_id.is_employee and 'submit' or ''" t-attf-class="btn btn-primary" t-att-onclick="user_id.is_employee and 'alert(\'Employee cannot sign proposal\'); return false;' or ''">Sign Proposal</button> or
                                 <button type="button" class="btn btn-link" data-dismiss="modal" style="padding: 0">Cancel</button>
                             </div>
@@ -217,7 +217,7 @@
                         </div>
                       </div>
 
-					  <!--
+                      <!--
                       <div class="row mt32">
                           <div class="col-md-6">
                               <div class="row">
@@ -273,11 +273,11 @@
 -->
 
                       <a id="offer"/>
-					  <div class="header report-only" t-field="proposal.page_header"/>
+                      <div class="header report-only" t-field="proposal.page_header"/>
                       <div class="page" t-field="proposal.website_description"/>
-					  <div class="footer report-only" t-field="proposal.page_header"/>
+                      <div class="footer report-only" t-field="proposal.page_header"/>
 
-					  <t t-call="website_proposal.quotation_toolbar"/>
+                      <t t-call="website_proposal.quotation_toolbar"/>
 
 
                       <a id="discussion"/>
@@ -333,7 +333,7 @@
         <t t-set="head">
             <link rel='stylesheet' href='/website_proposal/static/src/css/website_proposal_template.css'/>
             <t t-raw="head or ''"/>
-			<t t-raw="template.head"/>
+            <t t-raw="template.head"/>
         </t>
         <body data-spy="scroll" data-target=".navspy">
             <div class="container">
@@ -362,23 +362,23 @@
 
                         <div class="alert alert-info alert-dismissable" t-ignore="True">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&amp;times;</button>
-							Header in exported document (pdf)
+                            Header in exported document (pdf)
                         </div>
-						<div t-field="template.page_header"/>
-						
+                        <div t-field="template.page_header"/>
+                        
 
                         <div class="alert alert-info alert-dismissable" t-ignore="True">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&amp;times;</button>
-							Document content
+                            Document content
                         </div>
 
                         <div id="template_introduction" t-field="template.website_description"/>
 
                         <div class="alert alert-info alert-dismissable" t-ignore="True">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&amp;times;</button>
-							Footer in exported document (pdf)
+                            Footer in exported document (pdf)
                         </div>
-						<div t-field="template.page_footer"/>
+                        <div t-field="template.page_footer"/>
 
                     </div>
                 </div>
@@ -407,25 +407,25 @@
                           <field name="res_model"/> 
                       </group>
                   </group>
-				  <notebook>
-					  <page string="Body">
-						  <p>Note, that this view doesn't include "Head (technical)" value. Use "Edit Template" button to edit (or see) final version.</p>
-						  <separator string="Body"/>
-						  <field name="website_description"/>
-					  </page>
-					  <page string="Header">
-						  <field name="page_header"/>
-					  </page>
-					  <page string="Footer">
-						  <field name="page_footer"/>
-					  </page>
-					  <page string="Head (technical)">
-						  <field name="head"/>
-					  </page>
-				  </notebook>
-			  </sheet>
-		  </form>
-	  </field>
+                  <notebook>
+                      <page string="Body">
+                          <p>Note, that this view doesn't include "Head (technical)" value. Use "Edit Template" button to edit (or see) final version.</p>
+                          <separator string="Body"/>
+                          <field name="website_description"/>
+                      </page>
+                      <page string="Header">
+                          <field name="page_header"/>
+                      </page>
+                      <page string="Footer">
+                          <field name="page_footer"/>
+                      </page>
+                      <page string="Head (technical)">
+                          <field name="head"/>
+                      </page>
+                  </notebook>
+              </sheet>
+          </form>
+      </field>
   </record>
 
 
@@ -456,10 +456,10 @@
       <field name="model">mail.message.subtype</field>
       <field name="inherit_id" ref="mail.view_mail_message_subtype_form"/>
       <field name="arch" type="xml">
-		  <xpath expr="//field[@name='hidden']" position="after">
-			  <field name="internal"/>
-		  </xpath>
-	  </field>
+          <xpath expr="//field[@name='hidden']" position="after">
+              <field name="internal"/>
+          </xpath>
+      </field>
   </record>
 
 </data>
