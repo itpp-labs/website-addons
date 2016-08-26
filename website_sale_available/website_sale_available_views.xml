@@ -8,8 +8,8 @@
     </xpath>
 </template>
 
-
-<template id="cart" inherit_id="website_sale.cart">
+<!-- priority 99 for compatibility with sale options, first load sale options view and then this one -->
+<template id="cart" inherit_id="website_sale.cart" priority="99">
     <xpath expr="//table[@id='cart_products']//thead/tr" position="inside">
         <th  width="60">Available</th>
     </xpath>
