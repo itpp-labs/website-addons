@@ -7,13 +7,15 @@
     self.bookings = [];
     self.session = openerp.website.session || new openerp.Session();
     self.domain = [];
+    self.colors = {};
 
     self.loadSlots = function(start, end, timezone, callback) {
         var d = new Date();
+        var offset = d.getTimezoneOffset();
         self.session.rpc("/booking/calendar/slots", {
-           start: start.format(self.DTF),
-           end: end.format(self.DTF),
-           tz: d.getTimezoneOffset(),
+           start: start.add(offset, 'minutes').format(self.DTF),
+           end: end.add(offset, 'minutes').format(self.DTF),
+           tz: offset,
            domain: self.domain
         }).then(function (response) {
             callback(response);
@@ -21,9 +23,10 @@
     };
     self.loadBookings = function(start, end, timezone, callback) {
         var d = new Date();
+        var offset = d.getTimezoneOffset();
         self.session.rpc("/booking/calendar/slots/booked", {
-           start: start.format(self.DTF),
-           end: end.format(self.DTF),
+           start: start.add(offset, 'minutes').format(self.DTF),
+           end: end.add(offset, 'minutes').format(self.DTF),
            tz: d.getTimezoneOffset(),
            domain: self.domain
         }).then(function (response) {
@@ -131,7 +134,8 @@
     };
 
     self.eventClick = function(calEvent, jsEvent, view) {
-        if ($(this).hasClass('booked_slot')) {
+        $slot = $(this);
+        if ($slot.hasClass('booked_slot')) {
             return;
         }
         if (!($("[name=is_logged]").val())) {
@@ -139,17 +143,25 @@
             return;
         }
         var booked = false;
-        var slot = this;
         _.each(self.bookings, function (b, k) {
             if (b._id == calEvent._id) {
                 booked = true;
-                $(slot).removeClass('selected');
+                $slot.removeClass('selected');
+                if (self.colors[calEvent._id]) {
+                    $slot.attr(self.colors[calEvent._id]);
+                }
                 self.bookings.splice(k, 1);
             }
         });
         if ( !booked ) {
             self.bookings.push(calEvent);
-            $(this).addClass('selected');
+            $slot.addClass('selected');
+            self.colors[calEvent._id] = {
+                'background-color': $slot.attr('background-color'),
+                'border-color': $slot.attr('border-color'),
+            };
+            $slot.css('background-color', '');
+            $slot.css('border-color', '');
         }
 
     };
