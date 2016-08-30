@@ -1,24 +1,20 @@
 # -*- coding: utf-8 -*-
-from openerp.osv import osv
-from openerp.osv import fields as fields
 from openerp import models
-from openerp import fields as fields_new_api
+from openerp import fields
 
 
-class sale_order(osv.Model):
+class SaleOrder(models.Model):
     _inherit = "sale.order"
-    _columns = {
-        'buy_way': fields.char(),
-    }
+    buy_way = fields.Char()
 
 
-class website_config_settings(models.TransientModel):
+class WebsiteConfigSettings(models.TransientModel):
     _inherit = 'website.config.settings'
-    nobill_noship = fields_new_api.Boolean("Pickup and pay at store")
-    bill_noship = fields_new_api.Boolean("Pickup at store but pay now")
-    bill_ship = fields_new_api.Boolean("Pay now and get delivery")
-    nobill_ship = fields_new_api.Boolean("Pay on delivery")
-    default_option = fields_new_api.Selection([
+    nobill_noship = fields.Boolean("Pickup and pay at store")
+    bill_noship = fields.Boolean("Pickup at store but pay now")
+    bill_ship = fields.Boolean("Pay now and get delivery")
+    nobill_ship = fields.Boolean("Pay on delivery")
+    default_option = fields.Selection([
         ('nobill_noship', 'Pickup and pay at store'),
         ('bill_noship', 'Pickup at store but pay now'),
         ('bill_ship', 'Pay now and get delivery'),

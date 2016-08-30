@@ -6,67 +6,55 @@
         <link rel="stylesheet" href="/website_sale_checkout_store/static/src/css/website_sale_checkout_store.css"/>
     </xpath>
 </template>
-<template id="website_sale_checkout_store_cart" name="my_cart" inherit_id="website_sale.cart">
-    <xpath expr="//div[@class='row']" position="replace">
-        <form action="/shop/checkout" name="myform" method="post">
-            <div class="row">
-              <div class="col-md-8 col-sm-9 oe_cart">
-                  <t t-call="website_sale.cart_lines"/>
-                  <div class="clearfix"/>
-                  <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                  <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
-                  <t t-set="nobill_noship" t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.nobill_noship')"/>
-                  <t t-set="bill_noship" t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.bill_noship')"/>
-                  <t t-set="bill_ship" t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.bill_ship')"/>
-                  <t t-set="nobill_ship" t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.nobill_ship')"/>
-                  <t t-set="default_option" t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.default_option')"/>
-                  <t t-set="list_options" t-value="[nobill_noship, bill_noship, bill_ship, nobill_ship]"/>
-                  <div  class="row"
-                       t-attf-style="visibility: #{'visible' if len([x for x in list_options if x]) > 1 else 'hidden'}">
-                      <div class="pull-right">
-                          <div class="radio" t-if="nobill_noship">
-                              <label>
-                                <input type="radio" name="buyMethod" id="opt1" value="nobill_noship"
-                                       t-att-checked="default_option == 'nobill_noship'"/>Pickup and pay at store
-                              </label>
-                          </div>
-                          <div class="radio" t-if="bill_noship">
-                              <label>
-                                <input  type="radio" name="buyMethod" id="opt3" value="bill_noship"
-                                        t-att-checked="default_option == 'bill_noship'"/>Pickup at store but pay now
-                              </label>
-                          </div>
-                          <div class="radio" t-if="bill_ship">
-                              <label>
-                                <input type="radio" name="buyMethod" id="opt2" value="bill_ship"
-                                       t-att-checked="default_option == 'bill_ship'"/>Pay now and get delivery
-                              </label>
-                          </div>
-                          <div class="radio" t-if="nobill_ship">
-                              <label>
-                                <input type="radio" name="buyMethod" id="opt4" value="nobill_ship"
-                                       t-att-checked="default_option == 'nobill_ship'"/>Pay on delivery
-                              </label>
-                          </div>
-                      </div>
-                  </div>
-                  <a t-if="not optional_products and website_sale_order and website_sale_order.website_order_line" class="btn btn-primary pull-right mb32 a-submit"><span class="hidden-xs">Process Checkout</span><span class="visible-xs-inline">Checkout</span> <span class="fa fa-long-arrow-right"/></a>
-                  <div class="oe_structure"/>
-              </div>
-              <div class="col-lg-3 col-lg-offset-1 col-sm-3 col-md-3 text-muted" id="right_column">
-                  <h4>Policies</h4>
-                  <ul class="list-unstyled mb32">
-                      <li>&#9745; 30-days money-back guarantee</li>
-                      <li>&#9745; Invoice sent by e-Mail</li>
-                  </ul>
-                  <h4>Secure Payment</h4>
-                  <ul class="list-unstyled mb32">
-                      <li>&#9745; 256 bit encryption</li>
-                      <li>&#9745; Processed by Ogone</li>
-                  </ul>
-              </div>
-          </div>
-        </form>
+<template id="website_sale_checkout_store_cart" name="my_cart" inherit_id="website_sale.cart" priority="50">
+    <xpath expr="//div[@class='row']//a[@class='btn btn-primary pull-right mb32'][@href='/shop/checkout']" position="replace">
+        <!--<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
+        <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
+        <t t-set="nobill_noship"
+           t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.nobill_noship')"/>
+        <t t-set="bill_noship"
+           t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.bill_noship')"/>
+        <t t-set="bill_ship"
+           t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.bill_ship')"/>
+        <t t-set="nobill_ship"
+           t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.nobill_ship')"/>
+        <t t-set="default_option"
+           t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.default_option')"/>
+        <t t-set="list_options" t-value="[nobill_noship, bill_noship, bill_ship, nobill_ship]"/>
+        <div class="pull-right">
+            <div>
+                <a t-if="nobill_noship and not optional_products and website_sale_order and website_sale_order.website_order_line"
+                   class="btn btn-primary pull-right" href="/shop/checkout?buyMethod=nobill_noship" style="width: 100%; margin-bottom: 5px">
+                    <span class="hidden-xs">Pickup and pay at store</span>
+                    <span class="visible-xs-inline">Pickup and pay at store</span>
+                    <span class="fa fa-long-arrow-right"/>
+                </a>
+            </div>
+            <div>
+                <a t-if="bill_noship and not optional_products and website_sale_order and website_sale_order.website_order_line"
+                   class="btn btn-primary pull-right" href="/shop/checkout?buyMethod=bill_noship" style="width: 100%; margin-bottom: 5px">
+                    <span class="hidden-xs">Pickup at store but pay now</span>
+                    <span class="visible-xs-inline">Pickup at store but pay now</span>
+                    <span class="fa fa-long-arrow-right"/>
+                </a>
+            </div>
+            <div>
+                <a t-if="bill_ship and not optional_products and website_sale_order and website_sale_order.website_order_line"
+                   class="btn btn-primary pull-right" href="/shop/checkout?buyMethod=bill_ship" style="width: 100%; margin-bottom: 5px">
+                    <span class="hidden-xs">Pay now and get delivery</span>
+                    <span class="visible-xs-inline">Pay now and get delivery</span>
+                    <span class="fa fa-long-arrow-right"/>
+                </a>
+            </div>
+            <div>
+                <a t-if="nobill_ship and not optional_products and website_sale_order and website_sale_order.website_order_line"
+                   class="btn btn-primary pull-right" href="/shop/checkout?buyMethod=nobill_ship" style="width: 100%; margin-bottom: 5px">
+                    <span class="hidden-xs">Pay on delivery</span>
+                    <span class="visible-xs-inline">Pay on delivery</span>
+                    <span class="fa fa-long-arrow-right"/>
+                </a>
+            </div>
+        </div>
     </xpath>
 </template>
 <template id="website_sale_checkout_store_checkout" name="my_checkout" inherit_id="website_sale.checkout">
