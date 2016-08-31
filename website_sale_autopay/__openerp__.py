@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 {
     "name": """Autopay in eCommerce""",
-    "summary": """Auto invoice creating on payment""",
+    "summary": """Auto invoice creation on payment""",
     "category": "eCommerce",
     "images": [],
-    "version": "1.0.0",
+    "version": "1.0.1",
 
     "author": "IT-Projects LLC",
     "website": "https://it-projects.info",

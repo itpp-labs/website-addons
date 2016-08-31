@@ -7,10 +7,10 @@ import re
 _logger = logging.getLogger(__name__)
 
 
-class AccountJournal(models.Model):
-    _inherit = 'account.journal'
+class PaymentAcquirer(models.Model):
+    _inherit = 'payment.acquirer'
 
-    payment_acquirer_id = fields.Many2one('payment.acquirer', 'Payment acquirer')
+    journal_id = fields.Many2one('account.journal', 'Payment method', help='This journal is used to auto pay invoice when online payment is received')
 
 
 class SaleOrder(models.Model):
@@ -20,15 +20,10 @@ class SaleOrder(models.Model):
         super(SaleOrder, self).action_button_confirm(cr, uid, ids, context=context)
         r = self.browse(cr, uid, ids[0], context=context)
         if r.payment_tx_id and r.payment_tx_id.state == 'done' and r.payment_acquirer_id:
-            journal_ids = self.pool['account.journal'].search(cr, uid,
-                                                              [('company_id', '=', r.company_id.id),
-                                                               ('payment_acquirer_id', '=',
-                                                                r.payment_acquirer_id.id)])
-            if not journal_ids:
-                _logger.warning("No journal for company_id %s and payment_acquirer_id %s.", r.company_id.id, r.payment_acquirer_id.id)
+            journal_id = r.payment_acquirer_id.journal_id.id or self.pool['account.invoice'].default_get(cr, uid, ['journal_id'], context=context)['journal_id']
+            if not journal_id:
+                _logger.warning("No journal for payment acquirer %s.", r.payment_acquirer_id)
                 return
-            else:
-                journal_id = journal_ids[0]
 
             # [create invoice]
             res = self.pool['sale.order'].manual_invoice(cr, uid, [r.id], context)
@@ -76,7 +71,6 @@ class SaleOrder(models.Model):
                     array.append([0, False, obj])
                 voucher_values[key] = array
             voucher_id = self.pool['account.voucher'].create(cr, uid, voucher_values, context=voucher_context)
-            print 'voucher_id', voucher_id
 
             # [pay]
             self.pool['account.voucher'].button_proforma_voucher(cr, uid, [voucher_id], context=voucher_context)
