@@ -1,24 +1,34 @@
 # -*- coding: utf-8 -*-
 from openerp import fields
 from openerp import models
+import logging
 import re
 
-
-class PaymentAcquirer(models.Model):
-    _inherit = 'payment.acquirer'
-
-    journal_id = fields.Many2one('account.journal', 'Payment method', help='This journal is used to auto pay invoice when online payment is received')
+_logger = logging.getLogger(__name__)
 
 
-class sale_order(models.Model):
+class AccountJournal(models.Model):
+    _inherit = 'account.journal'
 
+    payment_acquirer_id = fields.Many2one('payment.acquirer', 'Payment acquirer')
+
+
+class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     def action_button_confirm(self, cr, uid, ids, context=None):
-        super(sale_order, self).action_button_confirm(cr, uid, ids, context=context)
+        super(SaleOrder, self).action_button_confirm(cr, uid, ids, context=context)
         r = self.browse(cr, uid, ids[0], context=context)
         if r.payment_tx_id and r.payment_tx_id.state == 'done' and r.payment_acquirer_id:
-            journal_id = r.payment_acquirer_id.journal_id.id or self.pool['account.invoice'].default_get(cr, uid, ['journal_id'], context=context)['journal_id']
+            journal_ids = self.pool['account.journal'].search(cr, uid,
+                                                              [('company_id', '=', r.company_id.id),
+                                                               ('payment_acquirer_id', '=',
+                                                                r.payment_acquirer_id.id)])
+            if not journal_ids:
+                _logger.warning("No journal for company_id %s and payment_acquirer_id %s.", r.company_id.id, r.payment_acquirer_id.id)
+                return
+            else:
+                journal_id = journal_ids[0]
 
             # [create invoice]
             res = self.pool['sale.order'].manual_invoice(cr, uid, [r.id], context)
