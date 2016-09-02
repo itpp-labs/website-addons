@@ -19,9 +19,7 @@
     'data': [
         'templates.xml',
         'views.xml',
-    ],
-    'demo': [
-        'demo/demo.xml'
+        'data/data.xml',
     ],
     'installable': True,
     'auto_install': False,
