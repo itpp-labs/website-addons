@@ -56,15 +56,15 @@ class WebsiteSale(website_sale):
         order = request.website.sale_get_order(force_create=1, context=request.context)
         if order.buy_way:
             if 'nobill_noship' in order.buy_way:
-                website_sale.mandatory_billing_fields = ["name", "phone", "email"]
-                website_sale.mandatory_shipping_fields = ["name", "phone", "email"]
+                WebsiteSale.mandatory_billing_fields = ["name", "phone", "email"]
+                WebsiteSale.mandatory_shipping_fields = ["name", "phone", "email"]
             elif 'bill_noship' in order.buy_way:
-                website_sale.mandatory_billing_fields = ["name", "phone", "email", "country_id"]
-                website_sale.mandatory_shipping_fields = ["name", "phone", "email", "country_id"]
+                WebsiteSale.mandatory_billing_fields = ["name", "phone", "email"]
+                WebsiteSale.mandatory_shipping_fields = ["name", "phone", "email"]
             else:
-                website_sale.mandatory_billing_fields = ["name", "phone", "email", "street2", "city", "country_id"]
-                website_sale.mandatory_shipping_fields = ["name", "phone", "street", "city", "country_id"]
+                WebsiteSale.mandatory_billing_fields = ["name", "phone", "email", "street2", "city", "country_id"]
+                WebsiteSale.mandatory_shipping_fields = ["name", "phone", "street", "city", "country_id"]
         else:
-            # Means no one radio button on cart form. Use regular variant.
+            # Means regular variant.
             order.buy_way = 'bill_ship'
         return
