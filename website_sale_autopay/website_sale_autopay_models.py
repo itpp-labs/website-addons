@@ -20,6 +20,10 @@ class sale_order(models.Model):
         if r.payment_tx_id and r.payment_tx_id.state == 'done' and r.payment_acquirer_id:
             journal_id = r.payment_acquirer_id.journal_id.id or self.pool['account.invoice'].default_get(cr, uid, ['journal_id'], context=context)['journal_id']
 
+            sale_order_company = r.company_id
+            user_company = self.pool['res.users'].browse(cr, uid, uid, context=context).company_id
+            self.pool['res.users'].write(cr, uid, uid, {'company_id': sale_order_company.id})
+
             # [create invoice]
             res = self.pool['sale.order'].manual_invoice(cr, uid, [r.id], context)
             invoice_id = res['res_id']
@@ -70,3 +74,6 @@ class sale_order(models.Model):
 
             # [pay]
             self.pool['account.voucher'].button_proforma_voucher(cr, uid, [voucher_id], context=voucher_context)
+
+            # return user company to its original value
+            self.pool['res.users'].write(cr, uid, uid, {'company_id': user_company.id})
