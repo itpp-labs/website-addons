@@ -14,7 +14,7 @@ class controller(website_sale):
         order = request.website.sale_get_order(context=request.context)
         if not all([
                 line.product_uom_qty <= line.product_id.virtual_available
-                for line in order.order_line
+                for line in order.order_line if not line.is_delivery
         ]):
             return request.redirect("/shop/cart")
         return res
