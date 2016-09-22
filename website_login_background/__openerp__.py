@@ -9,8 +9,8 @@
     "author": "IT-Projects LLC",
     "website": "https://it-projects.info",
     "license": "LGPL-3",
-    "price": 25.00,
-    "currency": "EUR",
+    # "price": 25.00,
+    # "currency": "EUR",
 
     "depends": [
         "web_login_background",
