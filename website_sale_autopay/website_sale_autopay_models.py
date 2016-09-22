@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from openerp import fields
+from openerp import fields, api
 from openerp import models
 import re
 
@@ -9,6 +9,10 @@ class PaymentAcquirer(models.Model):
 
     journal_id = fields.Many2one('account.journal', 'Payment method', help='This journal is used to auto pay invoice when online payment is received')
 
+    @api.onchange('company_id')
+    def _onchange_company_id(self):
+        if self.company_id:
+            return {'domain': {'journal_id': [('company_id', '=', self.company_id.id)]}}
 
 class sale_order(models.Model):
 
@@ -18,6 +22,16 @@ class sale_order(models.Model):
         super(sale_order, self).action_button_confirm(cr, uid, ids, context=context)
         r = self.browse(cr, uid, ids[0], context=context)
         if r.payment_tx_id and r.payment_tx_id.state == 'done' and r.payment_acquirer_id:
+            r._autopay()
+
+    def _autopay(self, cr, uid, ids, context=None):
+            # Keep old indent to don't touch git history
+            r = self.browse(cr, uid, ids[0], context=context)
+
+            sale_order_company = r.company_id
+            user_company = self.pool['res.users'].browse(cr, uid, uid, context=context).company_id
+            self.pool['res.users'].write(cr, uid, uid, {'company_id': sale_order_company.id})
+
             journal_id = r.payment_acquirer_id.journal_id.id or self.pool['account.invoice'].default_get(cr, uid, ['journal_id'], context=context)['journal_id']
 
             # [create invoice]
@@ -45,6 +59,9 @@ class sale_order(models.Model):
             voucher_values = self.pool['account.voucher'].default_get(cr, uid, field_list, context=voucher_context)
 
             res = self.pool['account.voucher'].onchange_journal(
+                # in case we want to register the payment directly from an invoice, it's confusing to allow to switch the journal 
+                # without seeing that the amount is expressed in the journal currency, and not in the invoice currency. So to avoid
+                # this common mistake, we simply reset the amount to 0 if the currency is not the invoice currency.
                 cr, uid, False,
 
                 journal_id,
@@ -66,7 +83,9 @@ class sale_order(models.Model):
                     array.append([0, False, obj])
                 voucher_values[key] = array
             voucher_id = self.pool['account.voucher'].create(cr, uid, voucher_values, context=voucher_context)
-            print 'voucher_id', voucher_id
 
             # [pay]
             self.pool['account.voucher'].button_proforma_voucher(cr, uid, [voucher_id], context=voucher_context)
+
+            # return user company to its original value
+            self.pool['res.users'].write(cr, uid, uid, {'company_id': user_company.id})
