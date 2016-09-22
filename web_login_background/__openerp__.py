@@ -9,7 +9,7 @@
     "author": "IT-Projects LLC, Ildar Nasyrov",
     "website": "https://it-projects.info",
     "license": "LGPL-3",
-    "price": 15.00,
+    "price": 40.00,
     "currency": "EUR",
 
     "depends": [
