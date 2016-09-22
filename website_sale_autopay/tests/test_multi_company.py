@@ -30,11 +30,11 @@ class TestMultiCompany(TransactionCase):
         # Now that you have accounts for ``Odoo BE`` company with proper currency, you can start testing
         order = self.env.ref('website_sale_autopay.sale_order_1')
         company = self.env.ref('multi_company.res_company_oerp_be', raise_if_not_found=False)
-        for line in order.order_line:
-            line.product_id.company_id = company.id
-        order.company_id = company.id
         if not company:
             _logger.info("Install multi_company module to run this test")
             return
+        for line in order.order_line:
+            line.product_id.company_id = company.id
+        order.company_id = company.id
         self.assertEqual(order.company_id.id, company.id, 'Demo data are wrong')
         self._test_order(order)
