@@ -130,7 +130,7 @@ class website_proposal(http.Controller):
             self.__message_post(message, proposal, type='comment', subtype='mt_comment')
         return werkzeug.utils.redirect("/website_proposal/%s/%s?message=1" % (proposal_id, token))
 
-    def __message_post(self, message, proposal, type='comment', subtype=False, attachments=[]):
+    def __message_post(self, message, proposal, type='comment', subtype=False, attachments=None):
         request.session.body = message
         cr, uid, context = request.cr, request.uid, request.context
         user = request.registry['res.users'].browse(cr, SUPERUSER_ID, uid, context=context)
