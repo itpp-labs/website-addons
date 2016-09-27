@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
 import time
-import serverchess
+from . import serverchess
 from openerp import api
 from openerp import fields
 from openerp import models
