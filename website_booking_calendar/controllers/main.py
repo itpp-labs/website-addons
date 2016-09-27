@@ -9,7 +9,7 @@ from openerp.http import request
 class website_booking_calendar(http.Controller):
 
     def _get_resources(self, params):
-        cr, uid, context = request.cr, request.uid, request.context
+        cr, context = request.cr, request.context
         resource_obj = request.registry['resource.resource']
         domain = [('to_calendar', '=', True)]
         resource_ids = resource_obj.search(cr, SUPERUSER_ID, domain, context=context)
@@ -29,7 +29,7 @@ class website_booking_calendar(http.Controller):
     @http.route('/booking/calendar/confirm/form', type='http', auth='public', website=True)
     def confirm_form(self, **kwargs):
         events = simplejson.loads(kwargs['events'])
-        cr, uid, context = request.cr, request.uid, request.context
+        cr, context = request.cr, request.context
         bookings = request.registry["sale.order.line"].events_to_bookings(cr, SUPERUSER_ID, events, context=context)
         return request.website.render('website_booking_calendar.confirm_form', {
             'bookings': bookings

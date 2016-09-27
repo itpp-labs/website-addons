@@ -21,7 +21,7 @@ class crm_lead(osv.Model):
 
     def create_proposal(self, cr, uid, ids, context=None):
         for r in self.read(cr, uid, ids, ['proposal_template_id'], context=context):
-            proposal_id = self.pool.get('website_proposal.template').create_proposal(cr, uid, r['proposal_template_id'][0], r['id'], context=context)
+            self.pool.get('website_proposal.template').create_proposal(cr, uid, r['proposal_template_id'][0], r['id'], context=context)
         return True
 
     def open_proposal(self, cr, uid, ids, context=None):

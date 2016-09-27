@@ -20,7 +20,6 @@ class sale_order_line(models.Model):
 
     @api.model
     def events_to_bookings(self, events):
-        calendar_obj = self.env['resource.calendar']
         resource_obj = self.env['resource.resource']
         lang_obj = self.env['res.lang']
         lang = lang_obj.search([('code', '=', self.env.context.get('lang'))])

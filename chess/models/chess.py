@@ -92,7 +92,6 @@ class ChessGame(models.Model):
     def write_game_status(self, message, game_id):
         notifications = []
         data = message['data']
-        mes = {'game_id': game_id, 'message': message}
         if self.first_user_id.id != self.env.user.id:
             secound_user_id = self.first_user_id.id
         else:
