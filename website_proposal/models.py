@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from openerp.osv import osv, fields
 import uuid
-from openerp import tools
+from openerp import tools, _
 
 
 try:
