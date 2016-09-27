@@ -5,8 +5,6 @@ from openerp.http import request
 
 from openerp.addons.website_sale.controllers.main import website_sale as controller
 
-import werkzeug
-
 
 class website_sale(controller):
 
