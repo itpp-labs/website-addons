@@ -26,7 +26,7 @@ class ModelConverterCustom(ModelConverter):
         super(ModelConverter, self).__init__(url_map, model)
         self.domain = domain
         #   Original:'(?:(\w{1,2}|\w[A-Za-z0-9-_]+?\w)-)?(-?\d+)(?=$|/)')
-        self.regex = '(?:(\w{1,2}|\w[A-Za-z0-9-_]+?))(?=$|/)'
+        self.regex = r'(?:(\w{1,2}|\w[A-Za-z0-9-_]+?))(?=$|/)'
 
     def to_url(self, value):
         return slug(value)
@@ -50,7 +50,7 @@ class ModelConverterCustom(ModelConverter):
                     break
         if not record_id:
             # try to handle it as it a usual link
-            m = re.search('-?(-?\d+?)(?=$|/)', value)
+            m = re.search(r'-?(-?\d+?)(?=$|/)', value)
             if m:
                 record_id = int(m.group(1))
 

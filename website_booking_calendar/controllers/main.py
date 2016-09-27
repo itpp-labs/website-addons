@@ -40,7 +40,7 @@ class website_booking_calendar(http.Controller):
         tz = int(kwargs.get('timezone', '0'))
         for key, arg in kwargs.iteritems():
             if key.startswith('product_id'):
-                m = re.match('^product_id\[(\d+)\]\[([\d-]+ [\d:]+)\-([\d-]+ [\d:]+)\]$', key)
+                m = re.match(r'^product_id\[(\d+)\]\[([\d-]+ [\d:]+)\-([\d-]+ [\d:]+)\]$', key)
                 resource_id = m.group(1)
                 start = m.group(2)
                 end = m.group(3)
