@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import werkzeug
 
 from openerp import SUPERUSER_ID
 from openerp import http
