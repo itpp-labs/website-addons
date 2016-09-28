@@ -28,7 +28,7 @@ import time
 from openerp.tools.translate import _
 
 
-class website_proposal(http.Controller):
+class WebsiteProposal(http.Controller):
 
     def request_info(self):
         wsgienv = request.httprequest.environ

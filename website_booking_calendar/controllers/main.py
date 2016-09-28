@@ -6,7 +6,7 @@ from openerp import http, SUPERUSER_ID
 from openerp.http import request
 
 
-class website_booking_calendar(http.Controller):
+class WebsiteBookingCalendar(http.Controller):
 
     def _get_resources(self, params):
         cr, context = request.cr, request.context

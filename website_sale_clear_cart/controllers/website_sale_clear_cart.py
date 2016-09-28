@@ -4,7 +4,7 @@ from openerp.addons.web import http
 from openerp.addons.web.http import request
 
 
-class pos_website_sale(http.Controller):
+class PosWebsiteSale(http.Controller):
 
     @http.route(['/shop/clear_cart'], type='json', auth="public", website=True)
     def clear_cart(self):

@@ -66,10 +66,10 @@ class ModelConverterCustom(ModelConverter):
             request.cr, _uid, record_id, context=request.context)
 
 
-class ir_http(models.AbstractModel):
+class IrHttp(models.AbstractModel):
     _inherit = 'ir.http'
 
     def _get_converters(self):
-        res = super(ir_http, self)._get_converters()
+        res = super(IrHttp, self)._get_converters()
         res['model'] = ModelConverterCustom
         return res

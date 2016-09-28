@@ -4,7 +4,7 @@ from openerp.addons.web import http
 from openerp.addons.web.http import request
 
 
-class website_custom(http.Controller):
+class WebsiteCustom(http.Controller):
 
     @http.route(['/website_custom/ribbons'], type='json', auth="public", website=True)
     def ribbons(self, ids):
