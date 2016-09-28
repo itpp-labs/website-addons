@@ -14,6 +14,7 @@ class PaymentAcquirer(models.Model):
         if self.company_id:
             return {'domain': {'journal_id': [('company_id', '=', self.company_id.id)]}}
 
+
 class sale_order(models.Model):
 
     _inherit = 'sale.order'
@@ -59,7 +60,7 @@ class sale_order(models.Model):
             voucher_values = self.pool['account.voucher'].default_get(cr, uid, field_list, context=voucher_context)
 
             res = self.pool['account.voucher'].onchange_journal(
-                # in case we want to register the payment directly from an invoice, it's confusing to allow to switch the journal 
+                # in case we want to register the payment directly from an invoice, it's confusing to allow to switch the journal
                 # without seeing that the amount is expressed in the journal currency, and not in the invoice currency. So to avoid
                 # this common mistake, we simply reset the amount to 0 if the currency is not the invoice currency.
                 cr, uid, False,
