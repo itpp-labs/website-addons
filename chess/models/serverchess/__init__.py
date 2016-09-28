@@ -28,9 +28,9 @@ __email__ = "niklas.fiekas@backscattering.de"
 
 __version__ = "0.14.0"
 
-from . import copy
-from . import re
-from . import itertools
+import copy
+import re
+import itertools
 
 try:
     import backport_collections as collections
