@@ -125,7 +125,7 @@ class ChessGame(models.Model):
         if len(status) > 0:
             rating_first = self.first_user_id.game_rating  # rating for first user
             rating_second = self.second_user_id.game_rating  # rating for second use
-            # # all game for first user
+            # all game for first user
             all_game_f = len(self.env["chess.game"].search([('first_user_id.id', '=', self.first_user_id.id)]))\
                 + len(self.env["chess.game"].search([('second_user_id.id', '=', self.first_user_id.id)]))
             # all game for second user

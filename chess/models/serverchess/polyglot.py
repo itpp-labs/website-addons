@@ -32,6 +32,7 @@ ENTRY_STRUCT = struct.Struct(">QHHI")
 
 
 class Entry(collections.namedtuple("Entry", ["key", "raw_move", "weight", "learn"])):
+
     """An entry from a polyglot opening book."""
 
     def move(self, chess960=False):
@@ -61,6 +62,7 @@ class Entry(collections.namedtuple("Entry", ["key", "raw_move", "weight", "learn
 
 
 class MemoryMappedReader(object):
+
     """Maps a polyglot opening book to memory."""
 
     def __init__(self, filename):
