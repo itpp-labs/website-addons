@@ -2,10 +2,10 @@
 from openerp import http
 from openerp.http import request
 
-from openerp.addons.website_sale.controllers.main import website_sale
+from openerp.addons.website_sale.controllers.main import WebsiteSale
 
 
-class controller(website_sale):
+class controller(WebsiteSale):
 
     @http.route(['/shop/confirm_order'], type='http', auth="public", website=True)
     def confirm_order(self, **post):
