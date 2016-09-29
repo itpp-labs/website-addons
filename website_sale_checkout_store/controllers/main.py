@@ -2,10 +2,10 @@
 from openerp import SUPERUSER_ID
 from openerp import http
 from openerp.http import request
-from openerp.addons.website_sale.controllers.main import website_sale
+from openerp.addons.website_sale.controllers.main import WebsiteSale
 
 
-class WebsiteSale(website_sale):
+class WebsiteSaleExtended(WebsiteSale):
 
     @http.route(['/shop/checkout'], type='http', auth="public", website=True)
     def checkout(self, **post):

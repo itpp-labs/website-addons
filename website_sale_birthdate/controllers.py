@@ -4,7 +4,7 @@ from openerp.http import request
 import openerp.addons.website_sale.controllers.main as main
 
 
-class WebsiteSaleBirthdate(main.website_sale):
+class WebsiteSaleBirthdate(main.WebsiteSale):
 
     def checkout_values(self, data=None):
 
