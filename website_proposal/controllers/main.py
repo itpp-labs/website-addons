@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-##############################################################################
+#
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2013-Today OpenERP SA (<http://www.openerp.com>).
@@ -17,7 +17,7 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-##############################################################################
+#
 
 from openerp import SUPERUSER_ID, fields
 from openerp.addons.web import http
@@ -28,7 +28,7 @@ import time
 from openerp.tools.translate import _
 
 
-class website_proposal(http.Controller):
+class WebsiteProposal(http.Controller):
 
     def request_info(self):
         wsgienv = request.httprequest.environ
@@ -130,7 +130,7 @@ class website_proposal(http.Controller):
             self.__message_post(message, proposal, type='comment', subtype='mt_comment')
         return werkzeug.utils.redirect("/website_proposal/%s/%s?message=1" % (proposal_id, token))
 
-    def __message_post(self, message, proposal, type='comment', subtype=False, attachments=[]):
+    def __message_post(self, message, proposal, type='comment', subtype=False, attachments=None):
         request.session.body = message
         cr, uid, context = request.cr, request.uid, request.context
         user = request.registry['res.users'].browse(cr, SUPERUSER_ID, uid, context=context)

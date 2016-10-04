@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import logging
 from openerp.tests.common import TransactionCase
 
@@ -16,7 +17,6 @@ class TestMultiCompany(TransactionCase):
     def test_10_default_company(self):
         """Check simplest case without switching company"""
         order = self.env.ref('website_sale_autopay.sale_order_1')
-        print 'order', order.id
         self._test_order(order)
 
     def test_20_another_company(self):

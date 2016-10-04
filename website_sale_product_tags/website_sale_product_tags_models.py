@@ -4,7 +4,7 @@ from openerp import fields
 from openerp import models
 
 
-class product_tag(models.Model):
+class ProductTag(models.Model):
     _inherit = "product.tag"
 
     @api.model

@@ -4,7 +4,7 @@ from openerp import fields
 from openerp import models
 
 
-class product_template(models.Model):
+class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     def _get_default_section_id(self):
@@ -15,7 +15,7 @@ class product_template(models.Model):
     section_public_categ_ids = fields.Many2many('product.public.category', related='section_id.public_categ_ids')
 
 
-class crm_case_section(models.Model):
+class CrmCaseSection(models.Model):
     _inherit = "crm.case.section"
 
     product_ids = fields.One2many('product.template', 'section_id', string='Products')
@@ -25,7 +25,7 @@ class crm_case_section(models.Model):
     sale_description = fields.Char('Sale description', help='This text is added to email for customer')
 
 
-class res_users(models.Model):
+class ResUsers(models.Model):
     _inherit = 'res.users'
 
     section_ids = fields.Many2many('crm.case.section', 'sale_member_rel', 'member_id', 'section_id', 'Sales Team')
@@ -47,13 +47,13 @@ class res_users(models.Model):
     }
 
 
-class product_public_category(models.Model):
+class ProductPublicCategory(models.Model):
     _inherit = "product.public.category"
 
     section_ids = fields.Many2many('crm.case.section', 'section_public_categ_rel', 'category_id', 'section_id', string='Sales teams')
 
 
-class sale_order(models.Model):
+class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     parent_id = fields.Many2one('sale.order', 'Parent')

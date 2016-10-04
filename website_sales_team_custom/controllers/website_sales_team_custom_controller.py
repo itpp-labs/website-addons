@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
-import werkzeug
 
 from openerp import SUPERUSER_ID
 from openerp import http
 from openerp.http import request
 
 
-class website_sales_team_custom_controller(http.Controller):
+class WebsiteSalesTeamCustomController(http.Controller):
 
     @http.route(['/calculator/currencies'], type='json', auth='public', website=True)
     def currencies(self, names, **post):

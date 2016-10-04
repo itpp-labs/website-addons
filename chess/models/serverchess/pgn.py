@@ -311,6 +311,7 @@ class GameNode(object):
 
 
 class Game(GameNode):
+
     """
     The root node of a game with extra information such as headers and the
     starting position.
@@ -435,6 +436,7 @@ class Game(GameNode):
 
 
 class BaseVisitor(object):
+
     """
     Base class for visitors.
 
@@ -495,6 +497,7 @@ class BaseVisitor(object):
 
 
 class GameModelCreator(BaseVisitor):
+
     """
     Creates a game model. Default visitor for :func:`~chess.pgn.read_game()`.
     """
@@ -557,6 +560,7 @@ class GameModelCreator(BaseVisitor):
 
 
 class StringExporter(BaseVisitor):
+
     """
     Allows exporting a game as a string.
 
@@ -660,6 +664,7 @@ class StringExporter(BaseVisitor):
 
 
 class FileExporter(StringExporter):
+
     """
     Like a :class:`~chess.pgn.StringExporter`, but games are written directly
     to a text file.

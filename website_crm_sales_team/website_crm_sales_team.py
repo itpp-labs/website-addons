@@ -3,7 +3,7 @@ from openerp.osv import osv
 from openerp import SUPERUSER_ID
 
 
-class crm_lead(osv.Model):
+class CrmLead(osv.Model):
     _inherit = "crm.lead"
 
     def create(self, cr, uid, vals, context=None):
@@ -22,4 +22,4 @@ class crm_lead(osv.Model):
             if section_ids:
                 vals['section_id'] = section_ids[0]
 
-        return super(crm_lead, self).create(cr, uid, vals, context=context)
+        return super(CrmLead, self).create(cr, uid, vals, context=context)
