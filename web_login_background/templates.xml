@@ -13,7 +13,7 @@
           </t>
         </xpath>
       </template>
-      <template id="web_login_background_loginborder" priority="8" inherit_id="web.login_layout" name="loginborder">
+      <template id="web_login_background_loginborder" priority="4" inherit_id="web.login_layout" name="loginborder">
         <xpath expr="//div[@class='col-md-6 col-md-offset-3 o_database_list']" position="replace">
           <div class="o_database_list">
               <div class="text-center">
