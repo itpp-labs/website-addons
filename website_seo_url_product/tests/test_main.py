@@ -2,12 +2,12 @@
 from openerp.tests.common import TransactionCase
 
 
-class test_website_seo_url_product(TransactionCase):
+class TestWebsiteSeoUrlProduct(TransactionCase):
     post_install = True
 
     def setUp(self):
-        super(test_website_seo_url_product, self).setUp()
-        cr, uid, context = self.cr, self.uid, {}
+        super(TestWebsiteSeoUrlProduct, self).setUp()
+        cr, uid = self.cr, self.uid
         self.ir_model_data = self.registry('ir.model.data')
         self.usb_adapter_id = self.ir_model_data.get_object_reference(cr, uid, 'product', 'product_product_48')[1]
         self.datacard_id = self.ir_model_data.get_object_reference(cr, uid, 'product', 'product_product_46')[1]

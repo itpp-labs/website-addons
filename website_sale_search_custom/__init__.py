@@ -3,4 +3,4 @@ from . import models
 
 
 def post_load():
-    import query_url
+    from . import query_url

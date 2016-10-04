@@ -5,10 +5,8 @@ from openerp.http import request
 
 from openerp.addons.website_sale.controllers.main import website_sale as controller
 
-import werkzeug
 
-
-class website_sale(controller):
+class WebsiteSale(controller):
 
     @http.route(['/shop',
                  '/shop/page/<int:page>',
@@ -19,7 +17,7 @@ class website_sale(controller):
         request.context['search_tags'] = search
         if category and search:
             category = None
-        return super(website_sale, self).shop(page, category, search, **post)
+        return super(WebsiteSale, self).shop(page, category, search, **post)
 
 
 class Product(models.Model):

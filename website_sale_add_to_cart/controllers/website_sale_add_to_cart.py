@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
-import werkzeug
 
 from openerp.addons.web import http
 from openerp.addons.web.http import request
 
 
-class pos_website_sale(http.Controller):
+class PosWebsiteSale(http.Controller):
 
     @http.route(['/shop/get_order_numbers'], type='json', auth="public", website=True)
     def get_order_numbers(self):
