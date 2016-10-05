@@ -19,7 +19,7 @@ class WebsiteConfigSettings(models.TransientModel):
         ('bill_noship', 'Pickup at store but pay now'),
         ('bill_ship', 'Pay now and get delivery'),
         ('nobill_ship', 'Pay on delivery'),
-        ], string='Selected by default', default='nobill_noship')
+    ], string='Selected by default', default='nobill_noship')
 
     def set_nobill_noship(self, cr, uid, ids, context=None):
         config_parameters = self.pool.get("ir.config_parameter")

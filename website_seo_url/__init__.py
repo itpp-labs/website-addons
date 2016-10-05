@@ -3,4 +3,4 @@ from . import models
 
 
 def post_load():
-    import ir_http
+    from . import ir_http

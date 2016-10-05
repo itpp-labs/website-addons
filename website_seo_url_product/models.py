@@ -3,7 +3,7 @@ from openerp import fields
 from openerp import models
 
 
-class product_template(models.Model):
+class ProductTemplate(models.Model):
     _name = 'product.template'
     _inherit = ['product.template', 'website_seo_url']
 

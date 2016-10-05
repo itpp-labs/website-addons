@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
 import time
-import serverchess
+from . import serverchess
 from openerp import api
 from openerp import fields
 from openerp import models
@@ -92,7 +92,6 @@ class ChessGame(models.Model):
     def write_game_status(self, message, game_id):
         notifications = []
         data = message['data']
-        mes = {'game_id': game_id, 'message': message}
         if self.first_user_id.id != self.env.user.id:
             secound_user_id = self.first_user_id.id
         else:
@@ -126,7 +125,7 @@ class ChessGame(models.Model):
         if len(status) > 0:
             rating_first = self.first_user_id.game_rating  # rating for first user
             rating_second = self.second_user_id.game_rating  # rating for second use
-            # # all game for first user
+            # all game for first user
             all_game_f = len(self.env["chess.game"].search([('first_user_id.id', '=', self.first_user_id.id)]))\
                 + len(self.env["chess.game"].search([('second_user_id.id', '=', self.first_user_id.id)]))
             # all game for second user
