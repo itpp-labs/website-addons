@@ -1,5 +1,5 @@
 odoo.define('stock_picking_barcode.widgets', function (require) {
-	"use strict";
+    "use strict";
 
     var Widget = require('web.Widget');
     var Model = require('web.Model');
