@@ -228,7 +228,7 @@ class stock_picking(osv.osv):
     @api.cr_uid_ids_context
     def open_barcode_interface(self, cr, uid, picking_ids, context=None):
         final_url = "/barcode/web/#action=stock.ui&picking_id=" + str(picking_ids[0])
-        return {'type': 'ir.actions.act_url', 'url': final_url, 'target': 'self',}
+        return {'type': 'ir.actions.act_url', 'url': final_url, 'target': 'self', }
 
     @api.cr_uid_ids_context
     def do_partial_open_barcode(self, cr, uid, picking_ids, context=None):
