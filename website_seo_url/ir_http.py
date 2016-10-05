@@ -12,7 +12,7 @@ from openerp.addons.website.models.ir_http import ModelConverter
 def slug(value):
     field = getattr(value, '_seo_url_field', None)
     if field and isinstance(value, orm.browse_record) and hasattr(value, field):
-        id, name = value.id, getattr(value, field)
+        name = getattr(value, field)
         if name:
             return name
     return slug_super(value)
@@ -26,7 +26,7 @@ class ModelConverterCustom(ModelConverter):
         super(ModelConverter, self).__init__(url_map, model)
         self.domain = domain
         #   Original:'(?:(\w{1,2}|\w[A-Za-z0-9-_]+?\w)-)?(-?\d+)(?=$|/)')
-        self.regex = '(?:(\w{1,2}|\w[A-Za-z0-9-_]+?))(?=$|/)'
+        self.regex = r'(?:(\w{1,2}|\w[A-Za-z0-9-_]+?))(?=$|/)'
 
     def to_url(self, value):
         return slug(value)
@@ -50,7 +50,7 @@ class ModelConverterCustom(ModelConverter):
                     break
         if not record_id:
             # try to handle it as it a usual link
-            m = re.search('-?(-?\d+?)(?=$|/)', value)
+            m = re.search(r'-?(-?\d+?)(?=$|/)', value)
             if m:
                 record_id = int(m.group(1))
 
@@ -66,10 +66,10 @@ class ModelConverterCustom(ModelConverter):
             request.cr, _uid, record_id, context=request.context)
 
 
-class ir_http(models.AbstractModel):
+class IrHttp(models.AbstractModel):
     _inherit = 'ir.http'
 
     def _get_converters(self):
-        res = super(ir_http, self)._get_converters()
+        res = super(IrHttp, self)._get_converters()
         res['model'] = ModelConverterCustom
         return res

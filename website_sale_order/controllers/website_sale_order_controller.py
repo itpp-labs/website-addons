@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import werkzeug
 
 from openerp import SUPERUSER_ID
 from openerp import http
@@ -8,7 +7,7 @@ from openerp.http import request
 from openerp.addons.website_sale.controllers.main import website_sale as controller
 
 
-class website_sale(controller):
+class WebsiteSale(controller):
 
     @http.route(['/shop/checkout'], type='http', auth='public', website=True)
     def checkout(self, contact_name=None, email_from=None, phone=None):

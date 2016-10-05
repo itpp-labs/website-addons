@@ -14,12 +14,13 @@ class PaymentAcquirer(models.Model):
         if self.company_id:
             return {'domain': {'journal_id': [('company_id', '=', self.company_id.id)]}}
 
-class sale_order(models.Model):
+
+class SaleOrder(models.Model):
 
     _inherit = 'sale.order'
 
     def action_confirm(self, cr, uid, ids, context=None):
-        super(sale_order, self).action_confirm(cr, uid, ids, context=context)
+        super(SaleOrder, self).action_confirm(cr, uid, ids, context=context)
         r = self.browse(cr, uid, ids[0], context=context)
         if r.payment_tx_id and r.payment_tx_id.state == 'done' and r.payment_acquirer_id:
             r._autopay()

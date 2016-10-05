@@ -1775,6 +1775,7 @@ Zipinfo = collections.namedtuple("Zipinfo", ["extraoffset", "totalblocks", "bloc
 
 
 class PythonTablebases(object):
+
     """Provides access to Gaviota tablebases using pure Python code."""
 
     def __init__(self, directory, lzma):
@@ -2134,6 +2135,7 @@ class PythonTablebases(object):
 
 
 class NativeTablebases(object):
+
     """
     Provides access to Gaviota tablebases via the shared library libgtb.
     Has the same interface as :class:`~chess.gaviota.PythonTablebases`.

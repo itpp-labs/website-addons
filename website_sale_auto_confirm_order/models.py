@@ -7,7 +7,7 @@ class PaymentTransaction(models.Model):
     _inherit = 'payment.transaction'
 
     def form_feedback(self, cr, uid, data, acquirer_name, context=None):
-        res = super(PaymentTransaction, self).form_feedback(cr, uid, data, acquirer_name, context=context)
+        super(PaymentTransaction, self).form_feedback(cr, uid, data, acquirer_name, context=context)
 
         tx = None
         # fetch the tx, check its state, confirm the potential SO

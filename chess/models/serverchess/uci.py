@@ -47,22 +47,27 @@ LOGGER = logging.getLogger(__name__)
 
 
 class EngineStateException(Exception):
+
     """Unexpected UCI engine state."""
 
 
 class EngineTerminatedException(Exception):
+
     """The engine has been terminated."""
 
 
 class Option(collections.namedtuple("Option", ["name", "type", "default", "min", "max", "var"])):
+
     """Information about an available option for an UCI engine."""
 
 
 class Score(collections.namedtuple("Score", ["cp", "mate", "lowerbound", "upperbound"])):
+
     """A centipawns or mate score sent by an UCI engine."""
 
 
 class BestMove(collections.namedtuple("BestMove", ["bestmove", "ponder"])):
+
     """A bestmove and ponder move sent by an UCI engine."""
 
 
@@ -111,6 +116,7 @@ class OptionMap(collections.MutableMapping):
 
 
 class InfoHandler(object):
+
     """
     Chess engines may send information about their calculations with the
     *info* command. You can register info handlers to be asynchronously

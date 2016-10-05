@@ -9,7 +9,7 @@ from openerp.addons.website.models.website import slug
 from openerp.addons.website_sale.controllers.main import QueryURL, table_compute, PPG, PPR, website_sale as controller
 
 
-class website_sale(controller):
+class WebsiteSale(controller):
 
     @http.route([
         '/seller/<model("crm.case.section"):seller>'

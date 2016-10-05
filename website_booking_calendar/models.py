@@ -11,7 +11,7 @@ MIN_TIMESLOT_HOURS = 1
 MIN_RESERVATION_MINUTES = 15
 
 
-class sale_order_line(models.Model):
+class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     @api.model
@@ -20,7 +20,6 @@ class sale_order_line(models.Model):
 
     @api.model
     def events_to_bookings(self, events):
-        calendar_obj = self.env['resource.calendar']
         resource_obj = self.env['resource.resource']
         lang_obj = self.env['res.lang']
         lang = lang_obj.search([('code', '=', self.env.context.get('lang'))])
@@ -98,7 +97,7 @@ class sale_order_line(models.Model):
         return res
 
 
-class sale_order(models.Model):
+class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     @api.multi
