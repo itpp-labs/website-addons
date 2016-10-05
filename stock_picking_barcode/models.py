@@ -5,7 +5,7 @@ from openerp import SUPERUSER_ID, api
 from openerp.tools.float_utils import float_compare
 
 
-class stock_picking(osv.osv):
+class StockPicking(osv.osv):
     _inherit = "stock.picking"
 
     def process_barcode_from_ui(self, cr, uid, picking_id, barcode_str, visible_op_ids, context=None):
@@ -236,7 +236,7 @@ class stock_picking(osv.osv):
         return self.open_barcode_interface(cr, uid, picking_ids, context=context)
 
 
-class stock_picking_type(osv.osv):
+class StockPickingType(osv.osv):
     _inherit = "stock.picking.type"
 
     def open_barcode_interface(self, cr, uid, ids, context=None):
@@ -244,7 +244,7 @@ class stock_picking_type(osv.osv):
         return {'type': 'ir.actions.act_url', 'url': final_url, 'target': 'self'}
 
 
-class stock_pack_operation(osv.osv):
+class StockPackOperation(osv.osv):
     _inherit = "stock.pack.operation"
 
     def _search_and_increment(self, cr, uid, picking_id, domain, filter_visible=False, visible_op_ids=False, increment=True, context=None):
