@@ -198,6 +198,6 @@
 </template>
 
 <delete id="website.show_website_info" model="ir.ui.view"/>
-<delete id="website.info" model="ir.ui.view"/>
+<delete id="website.website_info" model="ir.ui.view"/>
 
 </data></openerp>
