@@ -5,7 +5,7 @@ from openerp import SUPERUSER_ID, api
 from openerp.tools.float_utils import float_compare
 
 
-class stock_picking(osv.osv):
+class StockPicking(osv.osv):
     _inherit = "stock.picking"
 
     def process_barcode_from_ui(self, cr, uid, picking_id, barcode_str, visible_op_ids, context=None):
@@ -144,7 +144,7 @@ class stock_picking(osv.osv):
         """ Create a package with the current pack_operation_ids of the picking that aren't yet in a pack.
         Used in the barcode scanner UI and the normal interface as well.
         operation_filter_ids is used by barcode scanner interface to specify a subset of operation to pack"""
-        if operation_filter_ids == None:
+        if operation_filter_ids is None:
             operation_filter_ids = []
         stock_operation_obj = self.pool.get('stock.pack.operation')
         package_obj = self.pool.get('stock.quant.package')
@@ -228,7 +228,7 @@ class stock_picking(osv.osv):
     @api.cr_uid_ids_context
     def open_barcode_interface(self, cr, uid, picking_ids, context=None):
         final_url = "/barcode/web/#action=stock.ui&picking_id=" + str(picking_ids[0])
-        return {'type': 'ir.actions.act_url', 'url': final_url, 'target': 'self',}
+        return {'type': 'ir.actions.act_url', 'url': final_url, 'target': 'self', }
 
     @api.cr_uid_ids_context
     def do_partial_open_barcode(self, cr, uid, picking_ids, context=None):
@@ -236,7 +236,7 @@ class stock_picking(osv.osv):
         return self.open_barcode_interface(cr, uid, picking_ids, context=context)
 
 
-class stock_picking_type(osv.osv):
+class StockPickingType(osv.osv):
     _inherit = "stock.picking.type"
 
     def open_barcode_interface(self, cr, uid, ids, context=None):
@@ -244,7 +244,7 @@ class stock_picking_type(osv.osv):
         return {'type': 'ir.actions.act_url', 'url': final_url, 'target': 'self'}
 
 
-class stock_pack_operation(osv.osv):
+class StockPackOperation(osv.osv):
     _inherit = "stock.pack.operation"
 
     def _search_and_increment(self, cr, uid, picking_id, domain, filter_visible=False, visible_op_ids=False, increment=True, context=None):
