@@ -638,6 +638,7 @@ POLYGLOT_RANDOM_ARRAY = [
 
 
 class Piece(object):
+
     """A piece with type and color."""
 
     def __init__(self, piece_type, color):
@@ -704,6 +705,7 @@ class Piece(object):
 
 
 class Move(object):
+
     """
     Represents a move from a square to a square and possibly the promotion
     piece type.
@@ -807,6 +809,7 @@ class Move(object):
 
 
 class BaseBoard(object):
+
     """
     A board representing the position of chess pieces. See
     :class:`~chess.Board()` for a full board with move generation.
@@ -1253,6 +1256,7 @@ class BaseBoard(object):
 
 
 class Board(BaseBoard):
+
     """
     A :class:`~chess.BaseBoard` and additional information representing
     a chess position.
@@ -3867,6 +3871,7 @@ class LegalMoveGenerator(object):
 
 
 class SquareSet(object):
+
     """
     A set of squares.
 

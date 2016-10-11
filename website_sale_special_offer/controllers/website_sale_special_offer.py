@@ -31,7 +31,7 @@ class Website(website_controller):
         order = request.website.sale_get_order(force_create=True)
         if not order:
             # repeat
-            print 'force to create order'
+            # print 'force to create order'
             order = request.website.sale_get_order(force_create=True)
         if order:
             from_currency = pool.get('product.price.type')._get_field_currency(cr, uid, 'list_price', context)

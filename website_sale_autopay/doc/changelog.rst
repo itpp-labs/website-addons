@@ -3,12 +3,12 @@
 Updates
 =======
 
-`1.0.1`
+`1.2.0`
 -------
 
-- IMP: Padding for signup page
+- Add mulity-compamy compliance
 
 `1.0.0`
 -------
 
-- init version
+- Init version

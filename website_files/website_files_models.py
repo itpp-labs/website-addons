@@ -5,7 +5,7 @@ from openerp.tools import html_escape as escape
 import werkzeug
 
 
-class ir_attachment(models.Model):
+class IrAttachment(models.Model):
     _inherit = 'ir.attachment'
 
     @api.one
@@ -68,10 +68,10 @@ class ir_attachment(models.Model):
                     ids.remove(id)
             if not ids:
                 return
-        return super(ir_attachment, self).check(cr, uid, ids, mode, context, values)
+        return super(IrAttachment, self).check(cr, uid, ids, mode, context, values)
 
 
-class website(models.Model):
+class Website(models.Model):
     _inherit = 'website'
 
     def file_url(self, record, field='datas',

@@ -1233,6 +1233,7 @@ class DtzTable(Table):
 
 
 class Tablebases(object):
+
     """
     Manages a collection of tablebase files for probing.
 

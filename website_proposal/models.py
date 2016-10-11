@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from openerp.osv import osv, fields
 import uuid
-from openerp import tools
+from openerp import tools, _
 
 
 try:
@@ -13,7 +13,7 @@ except ImportError:
         pass
 
 
-class website_proposal_template(osv.osv):
+class WebsiteProposalTemplate(osv.osv):
     _name = "website_proposal.template"
     _description = "Proposal Template"
     _columns = {
@@ -55,7 +55,7 @@ class website_proposal_template(osv.osv):
         return proposal_id
 
 
-class website_proposal(osv.osv):
+class WebsiteProposal(osv.osv):
     _name = 'website_proposal.proposal'
     _rec_name = 'id'
 
@@ -121,11 +121,11 @@ class website_proposal(osv.osv):
         website_description = website_description.replace('template-only-', '')
 
         vals['website_description'] = website_description
-        new_id = super(website_proposal, self).create(cr, uid, vals, context=context)
+        new_id = super(WebsiteProposal, self).create(cr, uid, vals, context=context)
         return new_id
 
 
-class mail_message_subtype(osv.osv):
+class MailMessageSubtype(osv.osv):
     _inherit = 'mail.message.subtype'
     _columns = {
         'internal': fields.boolean('Internal', help="don't publish these messages")

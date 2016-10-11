@@ -6,11 +6,6 @@
     </xpath>
 </template>
 
-<template id="user_navbar" inherit_id="website.user_navbar" groups="base.group_user">
-<xpath expr="//a[@href='https://www.adspike.com']/.." position="replace">
-</xpath>
-</template>
-
 <record id="view_website_config_settings" model="ir.ui.view">
     <field name="model">website.config.settings</field>
     <field name="inherit_id" ref="website.view_website_config_settings"/>
@@ -69,151 +64,39 @@
 </template>
 
 <template id="s_text_image" inherit_id="website.s_text_image">
-    <xpath expr="//img[@src='/website/static/src/img/text_image.png']" position="attributes">
+    <xpath expr="//img[@src='/web/image/website.s_text_image_default_image']" position="attributes">
         <attribute name="alt">Text and image block</attribute>
         <attribute name="src">/website/static/src/img/library/ipad.png</attribute>
     </xpath>
 </template>
 <template id="s_image_text" inherit_id="website.s_image_text">
-    <xpath expr="//img[@src='/website/static/src/img/image_text.jpg']" position="attributes">
+    <xpath expr="//img[@src='/web/image/website.s_image_text_default_image']" position="attributes">
         <attribute name="alt">Text and image block</attribute>
         <attribute name="src">/website/static/src/img/library/ipad.png</attribute>
     </xpath>
 </template>
-<template id="s_big_picture" inherit_id="website.s_big_picture">
-    <xpath expr="//img[@src='/website/static/src/img/big_picture.png']" position="attributes">
-        <attribute name="alt">A big picture</attribute>
-    </xpath>
-</template>
 <template id="s_three_columns" inherit_id="website.s_three_columns">
-    <xpath expr="//img[@src='/website/static/src/img/desert_thumb.jpg']" position="attributes">
+    <xpath expr="//img[@src='/web/image/website.library_image_11']" position="attributes">
         <attribute name="alt"></attribute>
     </xpath>
-    <xpath expr="//img[@src='/website/static/src/img/deers_thumb.jpg']" position="attributes">
+    <xpath expr="//img[@src='/web/image/website.library_image_13']" position="attributes">
         <attribute name="alt"></attribute>
     </xpath>
-    <xpath expr="//img[@src='/website/static/src/img/china_thumb.jpg']" position="attributes">
+    <xpath expr="//img[@src='/web/image/website.library_image_07']" position="attributes">
         <attribute name="alt"></attribute>
     </xpath>
 </template>
 <template id="s_button" inherit_id="website.s_button">
-    <xpath expr="//div[@class='col-md-9 text-muted']" position="replace">
-        <div class="col-md-9 text-muted">
+    <xpath expr="//div[@class='col-md-9']" position="replace">
+        <div class="col-md-9">
             <p class="mb0">
-                <strong>Title.</strong>
+                <strong>We provide the best software for companies.</strong>
                 </p><p class="mb0">
-                Subtitle.
+                Join us and make your company a better place.
             </p>
         </div>
     </xpath>
 </template>
-<template id="s_faq" inherit_id="website.s_faq">
-    <xpath expr="//section" position="replace">
-    <section class="s_faq">
-        <div class="container">
-            <h2 class="page-header">
-                Point of Sale Questions <small>v7</small>
-            </h2>
-            <h3>
-                Which hardware does Software POS support?
-            </h3>
-            <p>
-                Software's POS is a web application that can run on any device that
-                can display websites with little to no setup required.
-            </p><p>
-                The Point of Sale works perfectly on any kind of touch enabled
-                device, whether it's multi-touch tablets like an iPad or
-                keyboardless resistive touchscreen terminals.
-            </p>
-            <h3>
-                Does it works offline?
-            </h3>
-            <p>
-                Deploy new stores with just an internet connection: no
-                installation, no specific hardware required. It works with any
-                iPad, Tablet PC, laptop or industrial POS machine.
-            </p><p>
-                While an internet connection is required to start the Point of
-                Sale, it will stay operational even after a complete disconnection.
-            </p>
-
-            <h2 class="page-header">
-                Project Management Questions <small>v7</small>
-            </h2>
-            <h3>
-                Can I use it to manage projects based on agile methodologies?
-            </h3>
-            <p>
-                Yes.
-            </p>
-        </div>
-    </section>
-    </xpath>
-</template>
-<template id="s_faq_collapse" inherit_id="website.s_faq_collapse">
-    <xpath expr="//section" position="replace">
-    <section class="s_faq_collapse">
-        <div class="container">
-            <h2 class="page-header">Point of Sale Questions <small>v7</small></h2>
-            <div class="panel-group" role="tablist">
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" data-toggle="collapse">
-                        <h4 class="panel-title">
-                            Which hardware does Software POS support?
-                        </h4>
-                    </div>
-                    <div class="panel-collapse collapse" role="tabpanel">
-                        <div class="panel-body">
-                            <p>
-                                Software's POS is a web application that can run on any device that
-                                can display websites with little to no setup required.
-                            </p>
-                            <p>
-                                The Point of Sale works perfectly on any kind of touch enabled
-                                device, whether it's multi-touch tablets like an iPad or
-                                keyboardless resistive touchscreen terminals.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" data-toggle="collapse">
-                        <h4 class="panel-title">
-                            Does it works offline?
-                        </h4>
-                    </div>
-                    <div class="panel-collapse collapse" role="tabpanel">
-                        <div class="panel-body">
-                            <p>
-                                Deploy new stores with just an internet connection: no
-                                installation, no specific hardware required. It works with any
-                                iPad, Tablet PC, laptop or industrial POS machine.
-                            </p>
-                            <p>
-                                While an internet connection is required to start the Point of
-                                Sale, it will stay operational even after a complete disconnection.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" data-toggle="collapse">
-                        <h4 class="panel-title">
-                            Can I use it to manage projects based on agile methodologies?
-                        </h4>
-                    </div>
-                    <div class="panel-collapse collapse" role="tabpanel">
-                        <div class="panel-body">
-                            <p>Yes</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    </xpath>
-</template>
-
 <template id="s_references" inherit_id="website.s_references">
     <xpath expr="//section" position="replace">
     <section class="s_references">
@@ -269,50 +152,6 @@
     </xpath>
 </template>
 
-<template id="s_quotes_slider" inherit_id="website.s_quotes_slider">
-    <xpath expr="//div[@class='carousel-inner']" position="replace">
-        <div class="carousel-inner">
-
-            <div class="item text_only active">
-                <div class="container">
-                    <div class="content">
-
-                        <div class="row">
-                            <blockquote class="mt48 mb16 col-md-4 col-md-offset-4">
-                                    <p>
-                                        Write a quote here from one of your customers. Quotes are a
-                                        great way to build confidence in your products or services.
-                                    </p>
-                                    <small>Author of this quote</small>
-                            </blockquote>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="item text_only">
-                <div class="container">
-                    <div class="content">
-
-                        <div class="row">
-                            <blockquote class="mt48 mb16 col-md-4 col-md-offset-4">
-                                    <p>
-                                        Software provides essential platform for our project management.
-                                        Things are better organized and more visible with it.
-                                    </p>
-                                    <small>John Doe, CEO</small>
-                            </blockquote>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-    </xpath>
-</template>
 
 <template id="s_parallax_slider" inherit_id="website.s_parallax_slider">
     <xpath expr="//div[@class='carousel-inner']" position="replace">
@@ -358,38 +197,7 @@
     </xpath>
 </template>
 
-<template id="s_text_image_floating" inherit_id="website.s_text_image_floating">
-    <xpath expr="//div[@class='container']/div[@class='row']/div" position="replace">
-
-
-        <div class="o_image_floating o_margin_l pull-right">
-            <div class="o_container">
-                <img class="img img-rounded img-responsive" src="/website/static/src/img/library/ipad.png" alt="CMS- Sample image floating"/>
-                <mark class="text-center"><a href="#"><strong>Click Here</strong></a></mark>
-            </div>
-            <div class="o_footer">
-                <small class="text-muted">A great way to catch your reader's attention is to tell a story. Everything you consider writing can be told as a story.</small>
-            </div>
-        </div>
-
-        <p style="text-align: justify;">
-            A great way to catch your reader's attention is to tell a story. <br/>Everything you consider writing can be told as a story.
-        </p>
-        <h3>Great stories have personality.</h3>
-        <p style="text-align: justify;">
-Consider telling a great story that provides personality. Writing a story with personality for potential clients will asist with making a relationship connection. This shows up in small quirks like word choices or phrases. Write from your point of view, not from someone else's experience.
-        </p>
-
-        <h3>Great stories are for everyone even when only written for just one person.</h3>
-        <p style="text-align: justify;">
-If you try to write with a wide general audience in mind, your story will ring false and be bland. No one will be interested. Write for one person. If it’s genuine for the one, it’s genuine for the rest.
-        </p>
-
-
-    </xpath>
-</template>
-
 <delete id="website.show_website_info" model="ir.ui.view"/>
-<delete id="website.info" model="ir.ui.view"/>
+<delete id="website.website_info" model="ir.ui.view"/>
 
 </data></openerp>

@@ -2,7 +2,7 @@
 from openerp import api, models, fields
 
 
-class product_style(models.Model):
+class ProductStyle(models.Model):
     _inherit = "product.style"
 
     name = fields.Char(translate=True)
@@ -10,7 +10,7 @@ class product_style(models.Model):
     can_be_ordered = fields.Boolean('Can be ordered', default=True)
 
 
-class product_template(models.Model):
+class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     @api.model
