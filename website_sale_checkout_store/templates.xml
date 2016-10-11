@@ -68,10 +68,10 @@
         <attribute name="t-att-bill_enabled">not 'nobill' in website_sale_order.buy_way and '1' or '0'</attribute>
         <attribute name="t-att-ship_enabled">not 'noship' in website_sale_order.buy_way and '1' or '0'</attribute>
     </xpath>
+</template>
+
+<template id="address" name="my_checkout" inherit_id="website_sale.address">
     <xpath expr="//input[@name='street']/.." position="attributes">
-        <attribute name="ship">1</attribute>
-    </xpath>
-    <xpath expr="//input[@name='street2']/.." position="attributes">
         <attribute name="ship">1</attribute>
     </xpath>
     <xpath expr="//input[@name='city']/.." position="attributes">
@@ -86,19 +86,16 @@
     <xpath expr="//select[@name='state_id']/.." position="attributes">
         <attribute name="ship">1</attribute>
     </xpath>
+    <!--
     <xpath expr="//select[@name='shipping_id']/.." position="attributes">
         <attribute name="ship">1</attribute>
     </xpath>
     <xpath expr="//div[@class='js_shipping row mb16']" position="attributes">
         <attribute name="ship">1</attribute>
     </xpath>
-    <!--<xpath expr="//a[@class='btn btn-default btn-primary pull-right mb32 a-submit']" position="after">-->
-            <!--<a bill = '0' href="/shop/confirmation" class="btn btn-default btn-primary pull-right mb32">Confirm <span class="fa fa-long-arrow-right"/></a>-->
-    <!--</xpath>-->
-    <!--<xpath expr="//a[@class='btn btn-default btn-primary pull-right mb32 a-submit']" position="attributes">-->
-        <!--<attribute name="bill">1</attribute>-->
-    <!--</xpath>-->
+    -->
 </template>
+
 <template id="website_sale_checkout_store_wizard_checkout" name="my_wizard_checkout" inherit_id="website_sale.wizard_checkout">
     <xpath expr="//li[@id='step40']" position="attributes">
         <attribute name="bill">1</attribute>

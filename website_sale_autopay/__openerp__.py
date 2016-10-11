@@ -23,6 +23,6 @@
     "demo": [
         "demo/website_sale_autopay_demo.xml",
     ],
-    "installable": True,
+    "installable": False,
     "auto_install": False,
 }

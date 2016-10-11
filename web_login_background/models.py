@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from openerp import fields
+from openerp import fields, api
 from openerp import models
 
 
@@ -9,7 +9,10 @@ class IRAttachmentBackground(models.Model):
 
     use_as_background = fields.Boolean("Use as login page background", default=False)
 
-    def check(self, cr, uid, ids, mode, context=None, values=None):
+    @api.multi
+    def check(self, mode, values=None):
+        ids = self.ids
+        cr = self.env.cr
         if ids and mode == 'read':
             if isinstance(ids, (int, long)):
                 ids = [ids]
@@ -20,4 +23,4 @@ class IRAttachmentBackground(models.Model):
                     ids.remove(id)
             if not ids:
                 return
-        return super(IRAttachmentBackground, self).check(cr, uid, ids, mode, context, values)
+        return super(IRAttachmentBackground, self).check(mode, values=values)
