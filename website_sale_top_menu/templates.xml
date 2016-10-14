@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp><data>
+
+<template id="link_category" name="Link category">
+    <a t-att-href="keep('/shop/category/' + slug(c), category=0)" t-field="c.name"></a>
+</template>
+
+<template id="top_menu_subcategories" name="Subcategory list of top menu">
+    <ul t-att-class="'dropdown-menu'">
+      <t t-foreach="mc.child_id" t-as="c">
+        <li> 
+            <t t-call="website_sale_top_menu.link_category"/>
+        </li>
+      </t>
+    </ul>                  
+</template>
+
+<template id="left_menu_subcategories" name="Subcategory list of left menu">
+  <t t-foreach="mc.child_id" t-as="c">
+    <t t-if="c.parent_id.id == category.parent_id.id">
+      <li t-att-class="'active' if c.id == int(category or 0) else ''">
+        <t t-call="website_sale_top_menu.link_category"/>
+      </li>    
+    </t>
+  </t>
+</template>
+
+<template id="top_menu_products_categories"  inherit_id="website_sale.products_categories">
+  <!-- TOP MENU -->
+  <xpath expr="//div[@id='wrap']/div" position="before">
+    <div>
+      <ul t-att-class="'nav navbar-nav navbar-default navbar-static-top navbar-collapse collapse'"
+          t-att-style="'width:100%; padding: 0 50px 0 50px;'"> 
+        <t t-foreach="categories" t-as="mc">
+          <li t-if="mc.child_id" t-att-class="'dropdown active'">
+            <a t-att-data-toggle="'dropdown'" 
+               t-att-href="keep('/shop/category/' + slug(mc), category=0)" 
+               t-field="mc.name" 
+               t-att-class="'dropdown-toggle hidden-xs'">
+            </a>
+            <t t-call="website_sale_top_menu.top_menu_subcategories"/>
+          </li>
+        </t>
+      </ul>
+    </div>
+  </xpath>
+  <!-- LEFT MENU -->
+  <xpath expr="//div[@id='products_grid_before']" position="replace">
+      <div t-att-class="'col-md-3 hidden-xs' if category else ''" t-att-id="'products_grid_before'">
+        <t t-if="category">
+          <t t-foreach="categories" t-as="mc">
+            <ul t-if="mc.child_id" class="nav nav-pills nav-stacked nav-hierarchy">
+              <t t-call="website_sale_top_menu.left_menu_subcategories"/>
+            </ul>
+          </t>
+        </t>
+      </div>
+  </xpath>
+  <!-- STYLE -->
+  <xpath expr="//div[@id='products_grid']" position="attributes">
+      <!-- <attribute name="t-att-class">'col-md-9' if category  else 'col-md-12'</attribute> -->
+      <attribute name="t-att-style">'width: 75%;' if category else 'width: 100%'</attribute>
+  </xpath> 
+</template>
+
+</data></openerp>
