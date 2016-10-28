@@ -6,8 +6,8 @@
     'license': 'GPL-3',
     'category': 'Debranding',
     'website': 'https://twitter.com/yelizariev',
-    'price': 60.00,
-    'currency': 'EUR',
+    # 'price': 60.00,
+    # 'currency': 'EUR',
     'depends': ['website', 'web_debranding'],
     'data': [
         'views.xml',
