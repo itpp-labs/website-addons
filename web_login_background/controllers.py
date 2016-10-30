@@ -4,7 +4,7 @@ import hashlib
 from openerp import http
 from random import choice
 from openerp.addons.web.controllers.main import Home
-from openerp.http import request
+from odoo.http import request
 from openerp.addons.auth_signup.controllers.main import AuthSignupHome
 
 
