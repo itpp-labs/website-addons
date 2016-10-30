@@ -2,7 +2,7 @@
 import re
 import json
 from openerp import http
-from openerp.http import request
+from odoo.http import request
 
 from openerp.addons.website.controllers.main import Website
 

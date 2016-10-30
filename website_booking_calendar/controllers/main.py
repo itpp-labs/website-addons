@@ -3,7 +3,7 @@ import re
 import simplejson
 
 from openerp import http, SUPERUSER_ID
-from openerp.http import request
+from odoo.http import request
 
 
 class WebsiteBookingCalendar(http.Controller):
