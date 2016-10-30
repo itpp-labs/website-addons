@@ -61,4 +61,4 @@ class WebsiteBookingCalendar(http.Controller):
     def get_booked_slots(self, **kwargs):
         cr, uid, context = request.cr, SUPERUSER_ID, request.context
         return request.registry["sale.order.line"].get_bookings(cr, uid, kwargs.get('start'),
-                                                                kwargs.get('end'), kwargs.get('tz'), kwargs.get('domain', []), context=context)
+                                                                kwargs.get('end'), kwargs.get('tz'), kwargs.get('domain', []), online=True, context=context)
