@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
 import re
 
-from openerp import models, SUPERUSER_ID
-from openerp.http import request
-from openerp.osv import orm
-from openerp.addons.website.models import website as website_file
-from openerp.addons.website.models.website import slug as slug_super
-from openerp.addons.website.models.ir_http import ModelConverter
+from odoo import models, api
+from odoo.http import request
+from odoo.addons.website.models import website as website_file
+from odoo.addons.website.models.website import slug as slug_super
+from odoo.addons.website.models.ir_http import ModelConverter, RequestUID
 
 
 def slug(value):
     field = getattr(value, '_seo_url_field', None)
-    if field and isinstance(value, orm.browse_record) and hasattr(value, field):
+    if field and isinstance(value, models.BaseModel) and hasattr(value, field):
         name = getattr(value, field)
         if name:
             return name
@@ -32,10 +31,12 @@ class ModelConverterCustom(ModelConverter):
         return slug(value)
 
     def to_python(self, value):
-        _uid = SUPERUSER_ID
+        _uid = RequestUID(value=value, converter=self)
+        env = api.Environment(request.cr, _uid, request.context)
+
         record_id = None
         field = getattr(request.registry[self.model], '_seo_url_field', None)
-        if field and field in request.registry[self.model]._columns:
+        if field and field in request.registry[self.model]._fields:
             cur_lang = request.lang
             langs = []
             if request.website:
@@ -44,9 +45,9 @@ class ModelConverterCustom(ModelConverter):
             context = (request.context or {}).copy()
             for lang in langs:
                 context['lang'] = lang
-                res = request.registry[self.model].search(request.cr, _uid, [(field, '=', value)], context=context)
+                res = env[self.model].sudo().search([(field, '=', value)])
                 if res:
-                    record_id = res[0]
+                    record_id = res[0].id
                     break
         if not record_id:
             # try to handle it as it a usual link
@@ -62,14 +63,14 @@ class ModelConverterCustom(ModelConverter):
             if not request.registry[self.model].exists(request.cr, _uid, [record_id]):
                 record_id = abs(record_id)
 
-        return request.registry[self.model].browse(
-            request.cr, _uid, record_id, context=request.context)
+        return env[self.model].browse(record_id)
 
 
 class IrHttp(models.AbstractModel):
     _inherit = 'ir.http'
 
-    def _get_converters(self):
-        res = super(IrHttp, self)._get_converters()
+    @classmethod
+    def _get_converters(cls):
+        res = super(IrHttp, cls)._get_converters()
         res['model'] = ModelConverterCustom
         return res
