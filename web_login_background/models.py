@@ -38,5 +38,3 @@ class IRAttachmentBackground(models.Model):
             return picture_url
         else:
             return False
-
-    
