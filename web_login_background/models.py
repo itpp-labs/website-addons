@@ -1,7 +1,14 @@
 # -*- coding: utf-8 -*-
+from random import choice
+import hashlib
 
-from openerp import fields
+from openerp import fields, api
 from openerp import models
+
+
+def _attachment2url(att):
+    sha = hashlib.sha1(getattr(att, '__last_update')).hexdigest()[0:7]
+    return '/web/image/%s-%s' % (att.id, sha)
 
 
 class IRAttachmentBackground(models.Model):
@@ -21,3 +28,15 @@ class IRAttachmentBackground(models.Model):
             if not ids:
                 return
         return super(IRAttachmentBackground, self).check(cr, uid, ids, mode, context, values)
+
+    @api.model
+    def get_background_pic(self):
+        pictures = self.search([('use_as_background', '=', True)])
+        if pictures:
+            p = choice(pictures)
+            picture_url = p.url or _attachment2url(p)
+            return picture_url
+        else:
+            return False
+
+    
