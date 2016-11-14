@@ -8,7 +8,7 @@ from openerp.addons.auth_signup.controllers.main import AuthSignupHome
 
 class Background(Home):
 
-    @http.route('/web/login', type='http', auth="none")
+    @http.route('/web/login', type='http', auth="public")
     def web_login(self, redirect=None, **kw):
         pictures = request.env['ir.attachment'].search([
             ('use_as_background', '=', True)])
@@ -23,7 +23,7 @@ class Background(Home):
 
 class BackgroundSignup(AuthSignupHome):
 
-    @http.route('/web/signup', type='http', auth="none")
+    @http.route('/web/signup', type='http', auth="public")
     def web_auth_signup(self, redirect=None, **kw):
         pictures = request.env['ir.attachment'].search([
             ('use_as_background', '=', True)])
