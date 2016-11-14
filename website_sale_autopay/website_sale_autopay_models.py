@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from openerp import fields, api
 from openerp import models
-import re
 
 
 class PaymentAcquirer(models.Model):

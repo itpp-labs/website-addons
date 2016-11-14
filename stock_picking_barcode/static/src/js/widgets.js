@@ -1,5 +1,5 @@
 odoo.define('stock_picking_barcode.widgets', function (require) {
-	"use strict";
+    "use strict";
 
     var Widget = require('web.Widget');
     var Model = require('web.Model');
@@ -68,7 +68,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             var self = this;
             var pack_created = [];
             _.each( model.packoplines, function(packopline){
-                    var pack = undefined;
+                    var pack;
                     var color = "";
                     if (packopline.product_id[1] !== undefined){ pack = packopline.package_id[1];}
                     if (packopline.product_qty == packopline.qty_done){ color = "success "; }
@@ -398,7 +398,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             //get all visible element and if none has positive qty, disable put in pack and process button
             var self = this;
             var processed = this.$('.js_pack_op_line.processed');
-            var qties = this.$('.js_pack_op_line:not(.processed):not(.hidden) .js_qty').map(function(){return $(this).val()});
+            var qties = this.$('.js_pack_op_line:not(.processed):not(.hidden) .js_qty').map(function(){return $(this).val();});
             var container = this.$('.js_pack_op_line.container_head:not(.processed):not(.hidden)');
             var disabled = true;
             $.each(qties,function(index, value){
@@ -629,7 +629,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
         },
         quit: function(){
             return new Model("ir.model.data").call("search_read", [[['name', '=', 'stock_picking_type_action']], ['res_id']]).then(function(res) {
-                window.location = '/web#action=' + res[0]['res_id'];
+                window.location = '/web#action=' + res[0].res_id;
             });
         },
         destroy: function(){
@@ -756,9 +756,9 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                         return new Model('stock.picking').call('do_prepare_partial',[[self.picking.id]]);
                     }
                 }).then(function(){
-                        return new Model('stock.pack.operation').call('search',[[['picking_id','=',self.picking.id]]])
+                        return new Model('stock.pack.operation').call('search',[[['picking_id','=',self.picking.id]]]);
                 }).then(function(pack_op_ids){
-                        return new Model('stock.pack.operation').call('read',[pack_op_ids, [], new data.CompoundContext()])
+                        return new Model('stock.pack.operation').call('read',[pack_op_ids, [], new data.CompoundContext()]);
                 }).then(function(operations){
                     self.packoplines = operations;
                     var package_ids = [];
@@ -770,7 +770,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                             }
                         }
                     }
-                    return new Model('stock.quant.package').call('read',[package_ids, [], new data.CompoundContext()])
+                    return new Model('stock.quant.package').call('read',[package_ids, [], new data.CompoundContext()]);
                 }).then(function(packages){
                     self.packages = packages;
                 });
@@ -1055,7 +1055,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
         quit: function(){
             this.destroy();
             return new Model("ir.model.data").call("search_read", [[['name', '=', 'stock_picking_type_action']], ['res_id']]).then(function(res) {
-                    window.location = '/web#action=' + res[0]['res_id'];
+                    window.location = '/web#action=' + res[0].res_id;
                 });
         },
         destroy: function(){
