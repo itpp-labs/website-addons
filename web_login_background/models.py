@@ -6,9 +6,7 @@ from openerp import models
 
 
 def _attachment2url(att):
-    return r'/web/binary/saveas?id=' + \
-            str(att.id) + \
-            r'&model=ir.attachment&field=datas&fieldname_field=datas_fname'
+    return r'/web/binary/saveas?id=' + str(att.id) + r'&model=ir.attachment&field=datas&fieldname_field=datas_fname'
 
 
 class IRAttachmentBackground(models.Model):
