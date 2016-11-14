@@ -13,6 +13,6 @@ $('.oe_website_sale').each(function () {
         return false;
     });
 
-})
-    })
-    })
+});
+    });
+    });
