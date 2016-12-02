@@ -1,5 +1,5 @@
-Website search product tags
-===========================
+Website Sale Search Tags
+========================
 
 * adds results from searching by tags
 

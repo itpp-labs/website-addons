@@ -6,13 +6,13 @@
     'license': 'GPL-3',
     'category': 'eCommerce',
     'website': 'https://twitter.com/yelizariev',
-    'price': 9.00,
+    'price': 0.0,
     'currency': 'EUR',
     'images': ['images/search.png'],
-    'depends': ['website_sale', 'product_tags'],
+    'depends': ['website_sale_search_clear', 'website_sale_search_tags'],
     'data': [
         'views.xml',
     ],
-    "post_load": 'post_load',
+    "post_load": None,
     'installable': True
 }
