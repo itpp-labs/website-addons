@@ -13,9 +13,6 @@
     'currency': 'EUR',
     'images': ['images/search.png'],
     'depends': ['website_sale', 'product_tags'],
-    'data': [
-        'views.xml',
-    ],
     'post_load': None,
     'pre_init_hook': None,
     'post_init_hook': None,
