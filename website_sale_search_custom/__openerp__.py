@@ -10,9 +10,7 @@
     'currency': 'EUR',
     'images': ['images/search.png'],
     'depends': ['website_sale_search_clear', 'website_sale_search_tags'],
-    'data': [
-        'views.xml',
-    ],
+    'data': [],
     "post_load": None,
     'installable': True
 }
