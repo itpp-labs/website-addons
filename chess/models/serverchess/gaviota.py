@@ -191,6 +191,7 @@ def flip_type(x, y):
 def init_flipt():
     return [[flip_type(j, i) for i in range(64)] for j in range(64)]
 
+
 FLIPT = init_flipt()
 
 
@@ -216,6 +217,7 @@ def init_pp48_idx():
                 idx += 1
 
     return pp48_idx, pp48_sq_x, pp48_sq_y
+
 
 PP48_IDX, PP48_SQ_X, PP48_SQ_Y = init_pp48_idx()
 
@@ -256,6 +258,7 @@ def init_ppp48_idx():
                     idx = idx + 1
 
     return ppp48_idx, ppp48_sq_x, ppp48_sq_y, ppp48_sq_z
+
 
 PPP48_IDX, PPP48_SQ_X, PPP48_SQ_Y, PPP48_SQ_Z = init_ppp48_idx()
 
@@ -303,6 +306,7 @@ def init_aaa():
                 idx += 1
 
     return aaa_base, aaa_xyz
+
 
 AAA_BASE, AAA_XYZ = init_aaa()
 
@@ -404,6 +408,7 @@ def init_ppidx():
 
     return ppidx, pp_hi24, pp_lo48
 
+
 PPIDX, PP_HI24, PP_LO48 = init_ppidx()
 
 
@@ -421,6 +426,7 @@ def unmap88(x):
 
 def mapx88(x):
     return ((x & 56) << 1) | (x & 7)
+
 
 BSTEP = [17, 15, -15, -17, 0]
 RSTEP = [1, 16, -1, -16, 0]
@@ -519,6 +525,7 @@ def reach_init():
 
     return reach
 
+
 REACH = reach_init()
 
 
@@ -581,6 +588,7 @@ def attack_maps_init():
 
     return attmsk, attmap
 
+
 ATTMSK, ATTMAP = attack_maps_init()
 
 
@@ -634,6 +642,7 @@ def init_kkidx():
                     idx += 1
 
     return kkidx, wksq, bksq
+
 
 KKIDX, WKSQ, BKSQ = init_kkidx()
 

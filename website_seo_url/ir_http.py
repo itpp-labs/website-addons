@@ -17,6 +17,7 @@ def slug(value):
             return name
     return slug_super(value)
 
+
 website_file.slug = slug
 
 
