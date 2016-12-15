@@ -48,7 +48,7 @@ class StockPicking(osv.osv):
                 cr,
                 uid,
                 picking_id,
-                [('product_id', '=', lot.product_id.id), ('lot_id', '=', lot.id)],
+                [('product_id', '=', lot.product_id.id), ('pack_lot_ids.lot_id', '=', lot.id)],
                 filter_visible=True,
                 visible_op_ids=visible_op_ids,
                 increment=True,
@@ -261,6 +261,7 @@ class StockPackOperation(osv.osv):
         package_clause = [('result_package_id', '=', context.get('current_package_id', False))]
         existing_operation_ids = self.search(cr, uid, [('picking_id', '=', picking_id)] + domain + package_clause,
                                              context=context)
+        print '_search_and_increment', [('picking_id', '=', picking_id)], domain, package_clause, existing_operation_ids
         todo_operation_ids = []
         if existing_operation_ids:
             if filter_visible:
@@ -323,4 +324,4 @@ class StockPackOperation(osv.osv):
 
         if not new_lot_id:
             new_lot_id = self.pool.get('stock.production.lot').create(cr, uid, val, context=context)
-        self.write(cr, uid, id, {'lot_id': new_lot_id}, context=context)
+        self.write(cr, uid, id, {'pack_lot_ids': [(0, 0, {'lot_id': new_lot_id})]}, context=context)
