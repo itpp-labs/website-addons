@@ -297,7 +297,10 @@ class StockPackOperation(osv.osv):
                 uom_id = False
                 if var_name == 'product_id':
                     uom_id = self.pool.get('product.product').browse(cr, uid, value, context=context).uom_id.id
-                update_dict = {var_name: value}
+                if var_name == 'pack_lot_ids.lot_id':
+                    update_dict = {'pack_lot_ids': [(0, 0, {'lot_id': value})]}
+                else:
+                    update_dict = {var_name: value}
                 if uom_id:
                     update_dict['product_uom_id'] = uom_id
                 values.update(update_dict)
