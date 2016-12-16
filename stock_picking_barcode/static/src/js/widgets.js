@@ -518,11 +518,24 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             //remove navigation bar from default openerp GUI
             $('td.navbar').html('<div></div>');
         },
+        barcode_on: function(){
+            if (this.is_barcode_on)
+                return;
+            this.is_barcode_on = true;
+            core.bus.on('barcode_scanned', this, this._barcode_handler);
+        },
+        barcode_off: function(){
+            this.is_barcode_on = false;
+            core.bus.off('barcode_scanned', this, this._barcode_handler);
+        },
+        _barcode_handler: function(barcode){
+            this.on_scan(barcode);
+        },
         start: function(){
             this._super();
             var self = this;
             web_client.set_content_full_screen(true);
-            self.getParent().barcode_on();
+            self.barcode_on();
             this.loaded.then(function(){
                 self.renderElement();
             });
@@ -605,6 +618,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
         },
         destroy: function(){
             this._super();
+            this.barcode_off();
             web_client.set_content_full_screen(false);
         }
     });
@@ -1049,6 +1063,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
         destroy: function(){
             this._super();
             web_client.set_content_full_screen(false);
+            this.barcode_off();
         }
     });
     core.action_registry.add('stock.ui', PickingMainWidget);
