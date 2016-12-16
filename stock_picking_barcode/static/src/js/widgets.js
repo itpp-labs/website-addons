@@ -536,8 +536,9 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             $(window).trigger('hashchange');
         },
         search_picking: function(barcode){
+            var re;
             try {
-                var re = new RegExp("([0-9]+):.*?"+barcode.toUpperCase(),"gi");
+                re = new RegExp("([0-9]+):.*?"+barcode.toUpperCase(),"gi");
             }
             catch(e) {
                 //avoid crash if a not supported char is given (like '\' or ')')
@@ -714,11 +715,11 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                     });
                 }).then(function(){
                     return new Model('stock.picking').call('check_group_pack').then(function(result){
-                        return self.show_pack = result;
+                        return (self.show_pack = result);
                     });
                 }).then(function(){
                     return new Model('stock.picking').call('check_group_lot').then(function(result){
-                        return self.show_lot = result;
+                        return (self.show_lot = result);
                     });
                 }).then(function(){
                     if (self.picking.pack_operation_exist === false){
@@ -1025,13 +1026,11 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                         self.refresh_ui(self.picking.id);
                     });
             }
-
         },
         set_package_pack: function(package_id, pack){
             var self = this;
             return new Model('stock.quant.package')
                 .call('write',[[package_id],{'ul_id': pack }]);
-            return;
         },
         reload_pack_operation: function(){
             var self = this;
