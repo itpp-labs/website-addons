@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
-<data  noupdate="0">
-<template id="website_sale_checkout_store_assets_frontend" name="website_sale_checkout_store assets" inherit_id="website_sale.assets_frontend">
-    <xpath expr="//link[@rel='stylesheet']" position="after">
-        <link rel="stylesheet" href="/website_sale_checkout_store/static/src/css/website_sale_checkout_store.css"/>
-    </xpath>
-</template>
+<odoo>
+<!--<data  noupdate="0">-->
+    <data >
+    <template id="website_sale_checkout_store_assets_frontend" name="website_sale_checkout_store assets" inherit_id="website_sale.assets_frontend">
+        <xpath expr="//link[@rel='stylesheet']" position="after">
+            <link rel="stylesheet" href="/website_sale_checkout_store/static/src/css/website_sale_checkout_store.css"/>
+        </xpath>
+    </template>
+
 <template id="website_sale_checkout_store_cart" name="my_cart" inherit_id="website_sale.cart" priority="50">
     <xpath expr="//div[@class='row']//a[@class='btn btn-primary pull-right mb32'][@href='/shop/checkout']" position="replace">
         <!--<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
@@ -109,6 +111,30 @@
         <attribute name="t-att-bill_enabled">not 'nobill' in order.buy_way and '1' or '0'</attribute>
         <attribute name="t-att-ship_enabled">not 'noship' in order.buy_way and '1' or '0'</attribute>
     </xpath>
+    <xpath expr="//div[@class='oe_cart']/table[2]/tbody/tr" position="after">
+        <t t-if="order.delivery_method_information">
+            <tr>
+                <td colspan="2">
+                    <strong>Delivery Method:</strong>
+                    <t t-esc="order.delivery_method_information" />
+                </td>
+            </tr>
+        </t>
+    </xpath>
+    <xpath expr="//div[@class='oe_cart']/table[2]/tbody/tr/td" position="replace">
+        <t t-if="not order.payment_acquirer_id.name">
+            <td colspan="2">
+            <strong>Payment Method:</strong>
+            <t t-esc="order.payment_method_information" />
+            </td>
+        </t>
+        <t t-if="order.payment_acquirer_id.name">
+            <td colspan="2">
+            <strong>Payment Method:</strong>
+            <t t-esc="order.payment_acquirer_id.name" />
+            </td>
+        </t>
+    </xpath>
 </template>
 </data>
-</openerp>
+</odoo>
