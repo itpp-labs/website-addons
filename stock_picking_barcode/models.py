@@ -261,7 +261,6 @@ class StockPackOperation(osv.osv):
         package_clause = [('result_package_id', '=', context.get('current_package_id', False))]
         existing_operation_ids = self.search(cr, uid, [('picking_id', '=', picking_id)] + domain + package_clause,
                                              context=context)
-        print '_search_and_increment', [('picking_id', '=', picking_id)], domain, package_clause, existing_operation_ids
         todo_operation_ids = []
         if existing_operation_ids:
             if filter_visible:
