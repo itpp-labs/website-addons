@@ -522,7 +522,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             this._super();
             var self = this;
             web_client.set_content_full_screen(true);
-            self.barcode_on();
+            self.getParent().barcode_on();
             this.loaded.then(function(){
                 self.renderElement();
             });
@@ -755,9 +755,13 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                 });
         },
         barcode_on: function(){
+            if (this.is_barcode_on)
+                return;
+            this.is_barcode_on = true;
             core.bus.on('barcode_scanned', this, this._barcode_handler);
         },
         barcode_off: function(){
+            this.is_barcode_on = false;
             core.bus.off('barcode_scanned', this, this._barcode_handler);
         },
         _barcode_handler: function(barcode){
