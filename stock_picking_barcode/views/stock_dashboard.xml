@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-	<data>
+    <data>
        <record id="picking_stock_picking_type_kanban" model="ir.ui.view">
             <field name="name">stock.picking.type.kanban</field>
             <field name="model">stock.picking.type</field>
-			<field name="inherit_id" ref="stock.stock_picking_type_kanban"/>
+            <field name="inherit_id" ref="stock.stock_picking_type_kanban"/>
             <field name="arch" type="xml">
-				<xpath expr="//div[@class='container o_kanban_card_content o_visible']/div[@class='row']" position="before">
+                <xpath expr="//div[@class='container o_kanban_card_content o_visible']/div[@class='row']" position="before">
                     <div class="row">
                         <div class="col-xs-6 col-xs-offset-6 o_kanban_primary_right">
                             <a name="open_barcode_interface" type="object">
@@ -16,8 +16,8 @@
                             </a>
                         </div>
                     </div>
-				</xpath>
-			</field>
+                </xpath>
+            </field>
         </record>
     </data>
 </openerp>

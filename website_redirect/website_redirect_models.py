@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from openerp import fields
 from openerp import models
-from openerp.http import request
+from odoo.http import request
 import fnmatch
 import werkzeug.utils
 from werkzeug.exceptions import NotFound
