@@ -5,8 +5,8 @@ from odoo import api, models, fields, _
 class SaleOrder(models.Model):
     _inherit = "sale.order"
     buy_way = fields.Char()
-    payment_method_information = fields.Char(string="Payment")
-    delivery_method_information = fields.Char(string="Delivery Method")
+    payment_method_information = fields.Char(string="Payment", readonly=True, copy=False, index=True, track_visibility='onchange')
+    delivery_method_information = fields.Char(string="Delivery", readonly=True, copy=False, index=True, track_visibility='onchange')
 
     def payment_and_delivery_method_info(self):
         value = False
