@@ -149,6 +149,7 @@
                 </div>
             </xpath>
         </template>
+        <!--
         <template id="report_shop_saleorder_document" inherit_id="sale.report_saleorder_document">
             <xpath expr="//div[@name='payment_term']" position="after">
                 <div name="payment_information" t-if="doc.payment_method_information" class="col-xs-3">
@@ -161,5 +162,6 @@
                 </div>
             </xpath>
         </template>
+-->
     </data>
 </odoo>
