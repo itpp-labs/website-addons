@@ -4,7 +4,7 @@
     'summary': """Simplify checkout process by excluding shipping and/or payment information""",
     'category': 'eCommerce',
     'images': ['images/1.png'],
-    'version': '1.0.0',
+    'version': '1.0.1',
 
     'author': 'IT-Projects LLC',
     'website': 'https://it-projects.info',
