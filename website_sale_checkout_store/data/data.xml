@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
 <data noupdate="1">
         <record id="config_nobill_noship" model="ir.config_parameter">
             <field name="key">website_sale_checkout_store.nobill_noship</field>
@@ -18,4 +18,4 @@
             <field name="value">True</field>
         </record>
 </data>
-</openerp>
+</odoo>
