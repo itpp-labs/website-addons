@@ -3,7 +3,7 @@
     'name': "Sale only available products on Website",
     'summary': """Sale only available products on Website""",
     'version': '1.0.0',
-    'author': 'IT-Projects LLC, Ivan Yelizariev',
+    'author': ['IT-Projects LLC, Ivan Yelizariev', 'Mind And Go, Florent THOMAS'],
     'license': 'LGPL-3',
     'category': 'eCommerce',
     'website': 'https://yelizariev.github.io',
@@ -15,7 +15,7 @@
         'stock',
     ],
     'data': [
-        'website_sale_available_views.xml',
+        'views/website_sale_available_views.xml',
     ],
-    'installable': False,
+    'installable': True,
 }
