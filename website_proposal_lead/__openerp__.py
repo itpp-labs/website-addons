@@ -5,6 +5,7 @@
     'author': 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'LGPL-3',
     'category': 'Website',
+    "support": "apps@it-projects.info",
     'website': 'https://yelizariev.github.io',
     'description': """
 Web-based proposals for leads

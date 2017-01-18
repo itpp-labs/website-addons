@@ -5,6 +5,7 @@
     'author': 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'LGPL-3',
     'category': 'Website',
+    "support": "apps@it-projects.info",
     'website': 'https://yelizariev.github.io',
     'description': """
 Technical module to create web-based proposals for accepting (signing) by partner. E.g. confirmation different documents in leads.

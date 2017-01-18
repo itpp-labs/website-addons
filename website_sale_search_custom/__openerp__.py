@@ -5,6 +5,7 @@
     'author': 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'LGPL-3',
     'category': 'eCommerce',
+    "support": "apps@it-projects.info",
     'website': 'https://twitter.com/yelizariev',
     'price': 0.0,
     'currency': 'EUR',
