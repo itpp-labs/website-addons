@@ -1,26 +1,26 @@
 # -*- coding: utf-8 -*-
-from odoo import models
+from odoo import models, api
 
 
 class Product(models.Model):
     _inherit = 'product.template'
 
-    def _extend_domain(self, domain, context):
-        if not (context and context.get('search_tags')):
+    def _extend_domain(self, domain):
+        if not (self.env.context.get('search_tags')):
             return domain
-        domain = (['|', ('tag_ids', 'ilike', context.get('search_tags'))] +
+        domain = (['|', ('tag_ids', 'ilike', self.env.context.get('search_tags'))] +
                   domain)
         return domain
 
+    @api.model
     def search_count(self, domain):
-        domain = self._extend_domain(domain, context)
-        return super(Product, self).search_count(
-            cr, uid, domain)
+        domain = self._extend_domain(domain)
+        return super(Product, self).search_count(domain)
 
-    def search(self, domain, offset=0, limit=None, order=None,
-               context=None, count=False):
-        domain = self._extend_domain(domain, context)
+    @api.model
+    def search(self, domain, offset=0, limit=None, order=None, count=False):
+        domain = self._extend_domain(domain)
         return super(Product, self).search(
-            cr, uid, domain, offset=offset, limit=limit,
+            domain, offset=offset, limit=limit,
             order=order, count=count
         )
