@@ -12,8 +12,8 @@ class WebsiteBookingCalendar(http.Controller):
         cr, context = request.cr, request.context
         resource_obj = request.registry['resource.resource']
         domain = [('to_calendar', '=', True)]
-        resource_ids = resource_obj.search(cr, SUPERUSER_ID, domain, context=context)
-        resources = resource_obj.browse(cr, SUPERUSER_ID, resource_ids, context=context)
+        resource_ids = resource_obj.search(domain)
+        resources = resource_obj.browse(resource_ids)
         return resources
 
     def _get_values(self, params):
@@ -30,7 +30,7 @@ class WebsiteBookingCalendar(http.Controller):
     def confirm_form(self, **kwargs):
         events = simplejson.loads(kwargs['events'])
         cr, context = request.cr, request.context
-        bookings = request.registry["sale.order.line"].events_to_bookings(cr, SUPERUSER_ID, events, context=context)
+        bookings = request.registry["sale.order.line"].events_to_bookings(events)
         return request.website.render('website_booking_calendar.confirm_form', {
             'bookings': bookings
         })
@@ -54,11 +54,11 @@ class WebsiteBookingCalendar(http.Controller):
     @http.route('/booking/calendar/slots', type='json', auth='public', website=True)
     def get_free_slots(self, **kwargs):
         cr, uid, context = request.cr, SUPERUSER_ID, request.context
-        return request.registry["sale.order.line"].get_free_slots(cr, uid, kwargs.get('start'),
-                                                                  kwargs.get('end'), kwargs.get('tz'), kwargs.get('domain', []), online=True, context=context)
+        return request.registry["sale.order.line"].get_free_slots(kwargs.get('start'),
+                                                                  kwargs.get('end'), kwargs.get('tz'), kwargs.get('domain', []), online=True)
 
     @http.route('/booking/calendar/slots/booked', type='json', auth='public', website=True)
     def get_booked_slots(self, **kwargs):
         cr, uid, context = request.cr, SUPERUSER_ID, request.context
-        return request.registry["sale.order.line"].get_bookings(cr, uid, kwargs.get('start'),
-                                                                kwargs.get('end'), kwargs.get('tz'), kwargs.get('domain', []), online=True, context=context)
+        return request.registry["sale.order.line"].get_bookings(kwargs.get('start'),
+                                                                kwargs.get('end'), kwargs.get('tz'), kwargs.get('domain', []), online=True)

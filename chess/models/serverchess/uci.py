@@ -516,7 +516,7 @@ class Engine(object):
 
         self.process.spawn(self)
 
-        self.pool = Executor(max_workers=3)
+        self.env = Executor(max_workers=3)
 
     def send_line(self, line):
         LOGGER.debug("%s << %s", self.process, line)
@@ -551,7 +551,7 @@ class Engine(object):
 
     def on_terminated(self):
         self.return_code = self.process.wait_for_return_code()
-        self.pool.shutdown(wait=False)
+        self.env.shutdown(wait=False)
         self.terminated.set()
 
         # Wake up waiting commands.
@@ -881,7 +881,7 @@ class Engine(object):
 
     def _queue_command(self, command, async_callback):
         try:
-            future = self.pool.submit(command)
+            future = self.env.submit(command)
         except RuntimeError:
             raise EngineTerminatedException()
 
