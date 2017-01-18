@@ -16,7 +16,7 @@ class WebsiteSale(controller):
     ], type='http', auth="public", website=True)
     def seller(self, seller):
         cr, uid, context, pool = request.cr, request.uid, request.context, request.registry
-        seller = pool.get('crm.case.section').browse(cr, uid, int(seller), context=context)
+        seller = pool.get('crm.case.section').browse(int(seller))
         values = {
             'seller': seller,
         }
@@ -69,36 +69,36 @@ class WebsiteSale(controller):
             pricelist = self.get_pricelist()
             context['pricelist'] = int(pricelist)
         else:
-            pricelist = pool.get('product.pricelist').browse(cr, uid, context['pricelist'], context)
+            pricelist = pool.get('product.pricelist').browse(context['pricelist'], context)
 
         product_obj = pool.get('product.template')
 
         url = "/shop"
-        product_count = product_obj.search_count(cr, uid, domain, context=context)
+        product_count = product_obj.search_count(domain)
         if search:
             post["search"] = search
         if category:
-            category = pool['product.public.category'].browse(cr, uid, int(category), context=context)
+            category = pool['product.public.category'].browse(int(category))
             url = "/shop/category/%s" % slug(category)
         pager = request.website.pager(url=url, total=product_count, page=page, step=PPG, scope=7, url_args=post)
-        product_ids = product_obj.search(cr, uid, domain, limit=PPG, offset=pager['offset'], order='website_published desc, website_sequence desc', context=context)
-        products = product_obj.browse(cr, uid, product_ids, context=context)
+        product_ids = product_obj.search(domain, limit=PPG, offset=pager['offset'], order='website_published desc, website_sequence desc')
+        products = product_obj.browse(product_ids)
 
         style_obj = pool['product.style']
-        style_ids = style_obj.search(cr, uid, [], context=context)
-        styles = style_obj.browse(cr, uid, style_ids, context=context)
+        style_ids = style_obj.search([])
+        styles = style_obj.browse(style_ids)
 
         category_obj = pool['product.public.category']
-        category_ids = category_obj.search(cr, uid, [('parent_id', '=', False)], context=context)
-        categs = category_obj.browse(cr, uid, category_ids, context=context)
+        category_ids = category_obj.search([('parent_id', '=', False)])
+        categs = category_obj.browse(category_ids)
 
         attributes_obj = request.registry['product.attribute']
-        attributes_ids = attributes_obj.search(cr, uid, [], context=context)
-        attributes = attributes_obj.browse(cr, uid, attributes_ids, context=context)
+        attributes_ids = attributes_obj.search([])
+        attributes = attributes_obj.browse(attributes_ids)
 
-        from_currency = pool.get('product.price.type')._get_field_currency(cr, uid, 'list_price', context)
+        from_currency = pool.get('product.price.type')._get_field_currency('list_price', context)
         to_currency = pricelist.currency_id
-        compute_currency = lambda price: pool['res.currency']._compute(cr, uid, from_currency, to_currency, price, context=context)
+        compute_currency = lambda price: pool['res.currency']._compute(from_currency, to_currency, price)
 
         values = {
             'search': search,
@@ -145,7 +145,7 @@ class WebsiteSale(controller):
         partner_id = partner_obj.search(request.cr, SUPERUSER_ID, [('email', '=', values['email_from'])])
         if partner_id:
             partner_id = partner_id[0]
-            partner = partner_obj.browse(cr, SUPERUSER_ID, partner_id)
+            partner = partner_obj.browse(partner_id)
             values = {}
             for pk, k in [('name', 'contact_name'), ('phone', 'phone')]:
                 if post[k]:
@@ -175,11 +175,11 @@ class WebsiteSale(controller):
             order_id = order.copy({'parent_id': order.id, 'section_id': section_id, 'order_line': [(5, 0, 0)]})
             for line in lines:
                 line.copy({'order_id': order_id.id})
-        request.registry.get('sale.order').signal_workflow(cr, SUPERUSER_ID, order_ids, 'quotation_sent')
-        request.registry.get('sale.order').signal_workflow(cr, SUPERUSER_ID, [order.id], 'cancel')
+        request.registry.get('sale.order').signal_workflow(order_ids, 'quotation_sent')
+        request.registry.get('sale.order').signal_workflow([order.id], 'cancel')
         # send email
         ir_model_data = request.registry['ir.model.data']
-        template_id = ir_model_data.get_object_reference(cr, uid, 'website_sales_team', 'email_template_checkout')[1]
+        template_id = ir_model_data.get_object_reference('website_sales_team', 'email_template_checkout')[1]
         email_ctx = dict(context)
         email_ctx.update({
             'default_model': 'sale.order',
@@ -193,8 +193,8 @@ class WebsiteSale(controller):
         public_id = request.website.user_id.id
         if uid == public_id:
             composer_values['email_from'] = request.website.user_id.company_id.email
-        composer_id = request.registry['mail.compose.message'].create(cr, SUPERUSER_ID, composer_values, context=email_ctx)
-        request.registry['mail.compose.message'].send_mail(cr, SUPERUSER_ID, [composer_id], context=email_ctx)
+        composer_id = request.registry['mail.compose.message'].create(composer_values)
+        request.registry['mail.compose.message'].send_mail([composer_id])
 
         request.website.sale_reset(context=context)
         return request.redirect('/shop/ready')

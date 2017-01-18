@@ -34,9 +34,9 @@ class Website(website_controller):
             # print 'force to create order'
             order = request.website.sale_get_order(force_create=True)
         if order:
-            from_currency = pool.get('product.price.type')._get_field_currency(cr, uid, 'list_price', context)
+            from_currency = pool.get('product.price.type')._get_field_currency('list_price', context)
             to_currency = order.pricelist_id.currency_id
-            compute_currency = lambda price: pool['res.currency']._compute(cr, uid, from_currency, to_currency, price, context=context)
+            compute_currency = lambda price: pool['res.currency']._compute(from_currency, to_currency, price)
         else:
             compute_currency = lambda price: price
 
