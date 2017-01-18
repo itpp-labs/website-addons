@@ -52,7 +52,7 @@ class SaleOrderLine(models.Model):
                     duration = seconds(hour_end_dt - hour_dt) / 3600
                     for product in self.get_booking_available_products(event, products):
                         hours = product.calendar_id.get_working_accurate_hours(hour_dt, hour_end_dt)
-                        if hours == duration:
+                        if hours >= duration:
                             bookings[r][hour]['products'][str(product.id)] = {
                                 'id': product.id,
                                 'name': product.name,

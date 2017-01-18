@@ -48,7 +48,7 @@ class StockPicking(osv.osv):
                 cr,
                 uid,
                 picking_id,
-                [('product_id', '=', lot.product_id.id), ('lot_id', '=', lot.id)],
+                [('product_id', '=', lot.product_id.id), ('pack_lot_ids.lot_id', '=', lot.id)],
                 filter_visible=True,
                 visible_op_ids=visible_op_ids,
                 increment=True,
@@ -297,7 +297,10 @@ class StockPackOperation(osv.osv):
                 uom_id = False
                 if var_name == 'product_id':
                     uom_id = self.pool.get('product.product').browse(cr, uid, value, context=context).uom_id.id
-                update_dict = {var_name: value}
+                if var_name == 'pack_lot_ids.lot_id':
+                    update_dict = {'pack_lot_ids': [(0, 0, {'lot_id': value})]}
+                else:
+                    update_dict = {var_name: value}
                 if uom_id:
                     update_dict['product_uom_id'] = uom_id
                 values.update(update_dict)
@@ -323,4 +326,4 @@ class StockPackOperation(osv.osv):
 
         if not new_lot_id:
             new_lot_id = self.pool.get('stock.production.lot').create(cr, uid, val, context=context)
-        self.write(cr, uid, id, {'lot_id': new_lot_id}, context=context)
+        self.write(cr, uid, id, {'pack_lot_ids': [(0, 0, {'lot_id': new_lot_id})]}, context=context)

@@ -29,4 +29,5 @@ class QueryURL(object):
             path += '?' + '&'.join(l)
         return path
 
+
 main_file.QueryURL = QueryURL

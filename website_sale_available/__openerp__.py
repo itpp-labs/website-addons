@@ -15,7 +15,7 @@
         'stock',
     ],
     'data': [
-        'website_sale_available_views.xml',
+        'views/website_sale_available_views.xml',
     ],
-    'installable': False,
+    'installable': True,
 }

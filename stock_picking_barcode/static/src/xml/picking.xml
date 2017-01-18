@@ -156,7 +156,7 @@
                             <td class="brctbl-col4 js_loc">
                                 <t t-esc="row.cols.loc" />
                                 <t t-if="row.cols.pack" ><span> : <t t-esc="row.cols.pack" /></span></t>
-                                <t t-if="row.cols.lot" ><span> : <t t-esc="row.cols.lot" /></span></t>
+                                <t t-if="row.cols.lots" ><span> : <t t-esc="row.cols.lots" /></span></t>
                             </td>
                             <td class="brctbl-col5 js_loc"> <t t-esc="row.cols.dest" />
                                 <div class="pull-right btn-group">
