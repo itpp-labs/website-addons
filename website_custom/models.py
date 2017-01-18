@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from openerp import SUPERUSER_ID
-from openerp.addons.web import http
-from openerp.addons.web.http import request
+from odoo import SUPERUSER_ID
+from odoo import http
+from odoo.http import request
 
 
 class WebsiteCustom(http.Controller):

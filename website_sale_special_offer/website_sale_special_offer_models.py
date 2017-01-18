@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from openerp import api, models, fields, SUPERUSER_ID, exceptions
+from odoo import api, models, fields, SUPERUSER_ID, exceptions
 import openerp.addons.decimal_precision as dp
-from openerp.osv import osv, orm, fields as old_fields
-from openerp.addons.web.http import request
+from odoo import models, fields as old_fields
+from odoo.http import request
 
 
 class sale_order_line(models.Model):
@@ -194,14 +194,14 @@ class website_sale_special_offer_line_rule_p(models.Model):
     product_uom_qty = fields.Integer('Quantaty', help='Init value for product')
 
 
-class Website(orm.Model):
+class Website(models.Model):
     _inherit = 'website'
 
     def sale_product_domain(self, cr, uid, ids, context=None):
         return ['&'] + super(Website, self).sale_product_domain(cr, uid, ids, context=context) + [('special_offer_ok', '=', False)]
 
 
-class product_template(osv.osv):
+class product_template(models.Model):
     _inherit = 'product.template'
     _columns = {
         'special_offer_ok': old_fields.boolean('Special offer only', help='Hide product from /shop directory.'),
@@ -211,7 +211,7 @@ class product_template(osv.osv):
     }
 
 
-class website(orm.Model):
+class website(models.Model):
     _inherit = 'website'
 
     def sale_reset(self, cr, uid, ids, context=None):

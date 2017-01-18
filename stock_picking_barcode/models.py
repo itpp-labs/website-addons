@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from openerp.osv import osv
-from openerp import SUPERUSER_ID, api
-from openerp.tools.float_utils import float_compare
+from odoo import models
+from odoo import SUPERUSER_ID, api
+from odoo.tools.float_utils import float_compare
 
 
-class StockPicking(osv.osv):
+class StockPicking(models.Model):
     _inherit = "stock.picking"
 
     def process_barcode_from_ui(self, cr, uid, picking_id, barcode_str, visible_op_ids, context=None):
@@ -236,7 +236,7 @@ class StockPicking(osv.osv):
         return self.open_barcode_interface(cr, uid, picking_ids, context=context)
 
 
-class StockPickingType(osv.osv):
+class StockPickingType(models.Model):
     _inherit = "stock.picking.type"
 
     def open_barcode_interface(self, cr, uid, ids, context=None):
@@ -244,7 +244,7 @@ class StockPickingType(osv.osv):
         return {'type': 'ir.actions.act_url', 'url': final_url, 'target': 'self'}
 
 
-class StockPackOperation(osv.osv):
+class StockPackOperation(models.Model):
     _inherit = "stock.pack.operation"
 
     def _search_and_increment(self, cr, uid, picking_id, domain, filter_visible=False, visible_op_ids=False, increment=True, context=None):

@@ -2,8 +2,8 @@
 from random import choice
 import hashlib
 
-from openerp import fields, api
-from openerp import models
+from odoo import fields, api
+from odoo import models
 
 
 def _attachment2url(att):

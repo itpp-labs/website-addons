@@ -19,13 +19,13 @@
 #
 #
 
-from openerp import SUPERUSER_ID, fields
-from openerp.addons.web import http
-from openerp.addons.web.http import request
+from odoo import SUPERUSER_ID, fields
+from odoo import http
+from odoo.http import request
 import werkzeug
 import time
 
-from openerp.tools.translate import _
+from odoo.tools.translate import _
 
 
 class WebsiteProposal(http.Controller):

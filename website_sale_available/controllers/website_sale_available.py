@@ -3,7 +3,7 @@ import logging
 
 from odoo.http import request
 
-from openerp.addons.website_sale.controllers.main import WebsiteSale
+from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 _logger = logging.getLogger(__name__)
 

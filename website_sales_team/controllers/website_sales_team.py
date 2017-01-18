@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 import werkzeug
 
-from openerp import SUPERUSER_ID
-from openerp import http
+from odoo import SUPERUSER_ID
+from odoo import http
 from odoo.http import request
-from openerp.addons.website.models.website import slug
+from odoo.addons.website.models.website import slug
 
-from openerp.addons.website_sale.controllers.main import QueryURL, table_compute, PPG, PPR, WebsiteSale as controller
+from odoo.addons.website_sale.controllers.main import QueryURL, table_compute, PPG, PPR, WebsiteSale as controller
 
 
 class WebsiteSale(controller):

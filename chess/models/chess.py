@@ -2,9 +2,9 @@
 import datetime
 import time
 from . import serverchess
-from openerp import api
-from openerp import fields
-from openerp import models
+from odoo import api
+from odoo import fields
+from odoo import models
 
 
 class ChessGame(models.Model):

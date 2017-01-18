@@ -2,10 +2,10 @@
 from datetime import datetime, timedelta
 import pytz
 
-from openerp import api, models, fields
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
+from odoo import api, models, fields
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
 
-from openerp.addons.resource.resource import seconds
+from odoo.addons.resource.resource import seconds
 
 MIN_TIMESLOT_HOURS = 1
 MIN_RESERVATION_MINUTES = 15

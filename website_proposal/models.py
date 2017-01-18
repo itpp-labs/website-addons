@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
-from openerp.osv import osv, fields
+from odoo import models, fields
 import uuid
-from openerp import tools, _
+from odoo import tools, _
 
 
 try:
-    from openerp.addons.email_template.email_template import mako_template_env
+    from odoo.addons.email_template.email_template import mako_template_env
 except ImportError:
     try:
-        from openerp.addons.mail.mail_template import mako_template_env
+        from odoo.addons.mail.mail_template import mako_template_env
     except ImportError:
         pass
 
 
-class WebsiteProposalTemplate(osv.osv):
+class WebsiteProposalTemplate(models.Model):
     _name = "website_proposal.template"
     _description = "Proposal Template"
     _columns = {
@@ -55,14 +55,14 @@ class WebsiteProposalTemplate(osv.osv):
         return proposal_id
 
 
-class WebsiteProposal(osv.osv):
+class WebsiteProposal(models.Model):
     _name = 'website_proposal.proposal'
     _rec_name = 'id'
 
     def _get_default_company(self, cr, uid, context=None):
         company_id = self.pool.get('res.users')._get_company(cr, uid, context=context)
         if not company_id:
-            raise osv.except_osv(_('Error!'), _('There is no default company for the current user!'))
+            raise UserError(_('Error!'), _('There is no default company for the current user!'))
         return company_id
 
     def _get_res_name(self, cr, uid, ids, name, args, context=None):
@@ -125,7 +125,7 @@ class WebsiteProposal(osv.osv):
         return new_id
 
 
-class MailMessageSubtype(osv.osv):
+class MailMessageSubtype(models.Model):
     _inherit = 'mail.message.subtype'
     _columns = {
         'internal': fields.boolean('Internal', help="don't publish these messages")

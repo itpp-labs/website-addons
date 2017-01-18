@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from openerp import api, models, fields
+from odoo import api, models, fields
 
-from openerp.tools import html_escape as escape
+from odoo.tools import html_escape as escape
 import werkzeug
 
 

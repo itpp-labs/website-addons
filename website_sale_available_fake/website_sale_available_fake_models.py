@@ -2,14 +2,14 @@
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
-from openerp import fields
-from openerp import models
+from odoo import fields
+from odoo import models
 import openerp.addons.decimal_precision as dp
-from openerp.osv import osv, fields as old_fields
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from odoo import models, fields as old_fields
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 
-class Website(osv.Model):
+class Website(models.Model):
     _inherit = 'website'
 
     def sale_get_order(self, cr, uid, ids, force_create=False, code=None, update_pricelist=None, context=None):

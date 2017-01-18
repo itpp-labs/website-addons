@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from openerp.osv import osv, fields
+from odoo import models, fields
 import re
 
 
@@ -11,7 +11,7 @@ def _get_proposal_id(self, cr, uid, ids, name, args, context=None):
         return res
 
 
-class CrmLead(osv.Model):
+class CrmLead(models.Model):
     _inherit = 'crm.lead'
 
     _columns = {
@@ -29,7 +29,7 @@ class CrmLead(osv.Model):
         return self.pool['website_proposal.proposal'].open_proposal(cr, uid, [r.proposal_id.id], context=context)
 
 
-class CrmMakeSale(osv.osv_memory):
+class CrmMakeSale(models.TransientModel):
     _inherit = "crm.make.sale"
 
     def makeOrder(self, cr, uid, ids, context=None):
@@ -54,7 +54,7 @@ class CrmMakeSale(osv.osv_memory):
         return res
 
 
-class SaleOrder(osv.Model):
+class SaleOrder(models.Model):
     _inherit = 'sale.order'
     _columns = {
         'proposal_template_id': fields.many2one('website_proposal.template', 'Proposal template'),

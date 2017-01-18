@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from openerp import SUPERUSER_ID
-from openerp import http
+from odoo import SUPERUSER_ID
+from odoo import http
 from odoo.http import request
 
-from openerp.addons.website.controllers.main import Website as website_controller
+from odoo.addons.website.controllers.main import Website as website_controller
 
 
 class Website(website_controller):

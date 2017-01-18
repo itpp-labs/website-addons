@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
-from openerp.tests.common import TransactionCase
+from odoo.tests.common import TransactionCase
 
 _logger = logging.getLogger(__name__)
 
