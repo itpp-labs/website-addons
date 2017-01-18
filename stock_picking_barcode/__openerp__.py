@@ -7,13 +7,16 @@
     "version": "1.0.0",
 
     "author": "IT-Projects LLC, Pavel Romanchenko",
+    "support": "apps@it-projects.info",
     "website": "https://it-projects.info",
     "license": "LGPL-3",
     'price': 280.00,
     'currency': 'EUR',
 
     "depends": [
-        "stock"
+        "stock",
+        "web_editor",
+        "website",
     ],
     "external_dependencies": {"python": [], "bin": []},
 

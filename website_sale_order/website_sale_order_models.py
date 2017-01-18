@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from openerp import models
-from openerp.osv import fields as old_fields
+from odoo import models
+from odoo import fields as old_fields
 
 
 class ResPartner(models.Model):

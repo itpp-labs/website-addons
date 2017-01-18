@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from openerp import models, api
-from openerp.addons.website.models.website import slugify
+from odoo import models, api
+from odoo.addons.website.models.website import slugify
 
 
 class SEOURL(models.AbstractModel):

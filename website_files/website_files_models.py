@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from openerp import api, models, fields
+from odoo import api, models, fields
 
-from openerp.tools import html_escape as escape
+from odoo.tools import html_escape as escape
 import werkzeug
 
 
@@ -33,49 +33,46 @@ class IrAttachment(models.Model):
 
     website_file_url = fields.Char('File url', compute=_get_website_file_url)
 
-    def try_remove_file(self, cr, uid, ids, context=None):
-        Views = self.pool['ir.ui.view']
+    # TODO do we need this in odoo 10.0?
+    def try_remove_file(self):
+        Views = self.env['ir.ui.view']
         attachments_to_remove = []
         # views blocking removal of the attachment
         removal_blocked_by = {}
 
-        for attachment in self.browse(cr, uid, ids, context=context):
+        for attachment in self:
             # in-document URLs are html-escaped, a straight search will not
             # find them
             url = escape(attachment.website_file_url)
-            ids = Views.search(cr, uid,
+            views = Views.search(
                                ["|", ('arch', 'like', '"%s"' % url),
-                                ('arch', 'like', "'%s'" % url)],
-                               context=context)
+                                ('arch', 'like', "'%s'" % url)])
 
-            if ids:
-                removal_blocked_by[attachment.id] = Views.read(
-                    cr, uid, ids, ['name'], context=context)
+            for v in views:
+                removal_blocked_by[v.id] = v.name  # probably incorrect update on porting
             else:
                 attachments_to_remove.append(attachment.id)
         if attachments_to_remove:
-            self.unlink(cr, uid, attachments_to_remove, context=context)
+            self.unlink(attachments_to_remove)
         return removal_blocked_by
 
-    def check(self, cr, uid, ids, mode, context=None, values=None):
-        if ids and mode == 'read':
-            if isinstance(ids, (int, long)):
-                ids = [ids]
-            ids = ids[:]  # make a copy
-            cr.execute('SELECT id,website_file FROM ir_attachment WHERE id = ANY (%s)', (ids,))
-            for id, website_file in cr.fetchall():
+    def check(self, mode, values=None):
+        if self.ids and mode == 'read':
+            ids = self.ids[:]  # copy
+            self.env.cr.execute('SELECT id,website_file FROM ir_attachment WHERE id = ANY (%s)', (ids,))
+            for id, website_file in self.env.cr.fetchall():
                 if website_file:
                     ids.remove(id)
             if not ids:
                 return
-        return super(IrAttachment, self).check(cr, uid, ids, mode, context, values)
+        return super(IrAttachment, self).browse(ids).check(mode, values)
 
 
 class Website(models.Model):
     _inherit = 'website'
 
     def file_url(self, record, field='datas',
-                 filename_field='datas_fname', context=None):
+                 filename_field='datas_fname'):
         model = record._name
         # sudo_record = record.sudo()
         # hash_value = hashlib.sha1(sudo_record.write_date or sudo_record.create_date or '').hexdigest()[0:7]
@@ -88,11 +85,11 @@ class Website(models.Model):
         }
         return '/web/binary/saveas?%s' % werkzeug.url_encode(args)
 
-    def search_files(self, cr, uid, ids, needle=None,
-                     limit=None, context=None):
+    def search_files(self, needle=None,
+                     limit=None):
         name = (needle or "")
         res = []
-        res = self.pool['ir.attachment'].search_read(cr, uid, domain=[
+        res = self.env['ir.attachment'].search_read(domain=[
             ('website_file', '=', True),
             '|', ('datas_fname', 'ilike', name), ('name', 'ilike', name)
         ], fields=['datas_fname', 'website_file_url'], limit=limit)

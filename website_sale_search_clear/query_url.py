@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import werkzeug
 
-from openerp.addons.website_sale.controllers import main as main_file
+from odoo.addons.website_sale.controllers import main as main_file
 
 
 class QueryURL(object):
@@ -28,5 +28,6 @@ class QueryURL(object):
         if l:
             path += '?' + '&'.join(l)
         return path
+
 
 main_file.QueryURL = QueryURL

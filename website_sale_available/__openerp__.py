@@ -6,6 +6,7 @@
     'author': 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'LGPL-3',
     'category': 'eCommerce',
+    "support": "apps@it-projects.info",
     'website': 'https://yelizariev.github.io',
     'images': ['images/available.png'],
     'price': 9.00,
@@ -15,7 +16,7 @@
         'stock',
     ],
     'data': [
-        'website_sale_available_views.xml',
+        'views/website_sale_available_views.xml',
     ],
-    'installable': False,
+    'installable': True,
 }

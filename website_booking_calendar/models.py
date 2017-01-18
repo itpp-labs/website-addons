@@ -2,10 +2,10 @@
 from datetime import datetime, timedelta
 import pytz
 
-from openerp import api, models, fields
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
+from odoo import api, models, fields
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
 
-from openerp.addons.resource.resource import seconds
+from odoo.addons.resource.resource import seconds
 
 MIN_TIMESLOT_HOURS = 1
 MIN_RESERVATION_MINUTES = 15
@@ -52,7 +52,7 @@ class SaleOrderLine(models.Model):
                     duration = seconds(hour_end_dt - hour_dt) / 3600
                     for product in self.get_booking_available_products(event, products):
                         hours = product.calendar_id.get_working_accurate_hours(hour_dt, hour_end_dt)
-                        if hours == duration:
+                        if hours >= duration:
                             bookings[r][hour]['products'][str(product.id)] = {
                                 'id': product.id,
                                 'name': product.name,

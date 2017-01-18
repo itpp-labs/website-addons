@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from openerp import fields, api
-from openerp import models
+from odoo import fields, api
+from odoo import models
 
 
 class PaymentAcquirer(models.Model):
@@ -18,26 +18,26 @@ class SaleOrder(models.Model):
 
     _inherit = 'sale.order'
 
-    def action_confirm(self, cr, uid, ids, context=None):
-        super(SaleOrder, self).action_confirm(cr, uid, ids, context=context)
-        r = self.browse(cr, uid, ids[0], context=context)
+    def action_confirm(self):
+        super(SaleOrder, self).action_confirm(ids)
+        r = self.browse(ids[0])
         if r.payment_tx_id and r.payment_tx_id.state == 'done' and r.payment_acquirer_id:
             r._autopay()
 
-    def _autopay(self, cr, uid, ids, context=None):
+    def _autopay(self):
             # Keep old indent to don't touch git history
-            r = self.browse(cr, uid, ids[0], context=context)
+            r = self.browse(ids[0])
 
             sale_order_company = r.company_id
-            user_company = self.pool['res.users'].browse(cr, uid, uid, context=context).company_id
-            self.pool['res.users'].write(cr, uid, uid, {'company_id': sale_order_company.id})
+            user_company = self.env['res.users'].browse(uid).company_id
+            self.env['res.users'].write(uid, {'company_id': sale_order_company.id})
 
-            journal_id = r.payment_acquirer_id.journal_id.id or self.pool['account.invoice'].default_get(cr, uid, ['journal_id'], context=context)['journal_id']
+            journal_id = r.payment_acquirer_id.journal_id.id or self.env['account.invoice'].default_get(['journal_id'])['journal_id']
 
             for m in r.order_line:
                 m.qty_to_invoice = m.product_uom_qty
 
-            res = r.pool['sale.order'].action_invoice_create(cr, uid, [r.id], context)
+            res = r.pool['sale.order'].action_invoice_create([r.id], context)
             invoice_id = res[0]
 
             # [validate]
@@ -51,4 +51,4 @@ class SaleOrder(models.Model):
             invoice_obj.confirm_paid()
 
             # return user company to its original value
-            self.pool['res.users'].write(cr, uid, uid, {'company_id': user_company.id})
+            self.env['res.users'].write(uid, {'company_id': user_company.id})

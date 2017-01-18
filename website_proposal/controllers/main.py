@@ -19,13 +19,13 @@
 #
 #
 
-from openerp import SUPERUSER_ID, fields
-from openerp.addons.web import http
-from openerp.addons.web.http import request
+from odoo import SUPERUSER_ID, fields
+from odoo import http
+from odoo.http import request
 import werkzeug
 import time
 
-from openerp.tools.translate import _
+from odoo.tools.translate import _
 
 
 class WebsiteProposal(http.Controller):
@@ -91,8 +91,8 @@ class WebsiteProposal(http.Controller):
             pdf = request.registry.get('report').get_pdf(request.cr, SUPERUSER_ID, [proposal_id], report_name)
             attachments = [('proposal-%s.pdf' % proposal_id, pdf)]
 
-        # request.registry.get(proposal.res_model).signal_workflow(request.cr, SUPERUSER_ID, [proposal.res_id], 'proposal_confirmed', context=request.context)
-        record = request.registry.get(proposal.res_model).browse(request.cr, SUPERUSER_ID, proposal.res_id, context=request.context)
+        # request.registry.get(proposal.res_model).signal_workflow(request.cr, SUPERUSER_ID, [proposal.res_id], 'proposal_confirmed')
+        record = request.registry.get(proposal.res_model).browse(request.cr, SUPERUSER_ID, proposal.res_id)
         self.post_request_info(proposal, _('Confirmation request info'))
         record.signal_workflow('proposal_confirmed')
         message = _('Document signed by %s') % (signer,)
@@ -110,7 +110,7 @@ class WebsiteProposal(http.Controller):
         })
         # request.registry.get(proposal.res_model).action_cancel(request.cr, SUPERUSER_ID, [proposal_id])
         self.post_request_info(proposal, _('Declining request info'))
-        record = request.registry.get(proposal.res_model).browse(request.cr, SUPERUSER_ID, proposal.res_id, context=request.context)
+        record = request.registry.get(proposal.res_model).browse(request.cr, SUPERUSER_ID, proposal.res_id)
         record.signal_workflow('proposal_rejected')
         message = post.get('decline_message')
         if message:
@@ -133,9 +133,9 @@ class WebsiteProposal(http.Controller):
     def __message_post(self, message, proposal, type='comment', subtype=False, attachments=None):
         request.session.body = message
         cr, uid, context = request.cr, request.uid, request.context
-        user = request.registry['res.users'].browse(cr, SUPERUSER_ID, uid, context=context)
+        user = request.registry['res.users'].browse(uid)
         if 'body' in request.session and request.session.body:
-            request.registry.get(proposal.res_model).message_post(cr, SUPERUSER_ID, proposal.res_id,
+            request.registry.get(proposal.res_model).message_post(proposal.res_id,
                                                                   body=request.session.body,
                                                                   type=type,
                                                                   subtype=subtype,

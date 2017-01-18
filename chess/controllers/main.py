@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from openerp import http
+from odoo import http
 from odoo.http import request
 import werkzeug
 import datetime

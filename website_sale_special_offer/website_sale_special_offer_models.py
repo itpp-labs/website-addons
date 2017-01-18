@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from openerp import api, models, fields, SUPERUSER_ID, exceptions
+from odoo import api, models, fields, SUPERUSER_ID, exceptions
 import openerp.addons.decimal_precision as dp
-from openerp.osv import osv, orm, fields as old_fields
-from openerp.addons.web.http import request
+from odoo import models, fields as old_fields
+from odoo.http import request
 
 
 class sale_order_line(models.Model):
@@ -10,17 +10,17 @@ class sale_order_line(models.Model):
 
     special_offer_line_id = fields.Many2one('website_sale_special_offer.special_offer.line', string='Special offer Line')
 
-    def _get_price_total(self, cr, uid, ids, field_name, arg, context=None):
-        tax_obj = self.pool.get('account.tax')
-        cur_obj = self.pool.get('res.currency')
+    def _get_price_total(self, field_name, arg):
+        tax_obj = self.env['account.tax']
+        cur_obj = self.env['res.currency']
         res = {}
         if context is None:
             context = {}
-        for line in self.browse(cr, uid, ids, context=context):
+        for line in self.browse(ids):
             price = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
-            taxes = tax_obj.compute_all(cr, uid, line.tax_id, price, line.product_uom_qty, line.product_id, line.order_id.partner_id)
+            taxes = tax_obj.compute_all(line.tax_id, price, line.product_uom_qty, line.product_id, line.order_id.partner_id)
             cur = line.order_id.pricelist_id.currency_id
-            res[line.id] = cur_obj.round(cr, uid, cur, taxes['total_included'])
+            res[line.id] = cur_obj.round(cur, taxes['total_included'])
         return res
 
     _columns = {
@@ -31,7 +31,7 @@ class sale_order_line(models.Model):
 class sale_order(models.Model):
     _inherit = "sale.order"
 
-    def _cart_update(self, cr, uid, ids, product_id=None, line_id=None, add_qty=None, set_qty=None, context=None,
+    def _cart_update(self, product_id=None, line_id=None, add_qty=None, set_qty=None,
                      # new stuff:
                      update_existed=True,
                      special_offer_line=None,
@@ -39,25 +39,25 @@ class sale_order(models.Model):
         """ Add or set product quantity, add_qty can be negative
         (based on addons/website_sale/models/sale_order.py::_cart_update)
  """
-        sol = self.pool.get('sale.order.line')
-        for so in self.browse(cr, uid, ids, context=context):
+        sol = self.env['sale.order.line']
+        for so in self.browse(ids):
             quantity = 0
             line = None
             if line_id:
-                line_ids = so._cart_find_product_line(product_id, line_id, context=context, **kwargs)
+                line_ids = so._cart_find_product_line(product_id, line_id, **kwargs)
                 if line_ids:
                     line_id = line_ids[0]
             if line_id:
-                line = sol.browse(cr, SUPERUSER_ID, line_id, context=context)
+                line = sol.browse(line_id)
             if line and line.special_offer_line_id and not update_existed:
                 quantity = line.product_uom_qty
                 return {'line_id': line_id, 'quantity': quantity}
 
             # Create line if no line with product_id can be located
             if not line_id:
-                values = self._website_product_id_change(cr, uid, ids, so.id, product_id, qty=1, context=context)
-                line_id = sol.create(cr, SUPERUSER_ID, values, context=context)
-                line = sol.browse(cr, SUPERUSER_ID, line_id, context=context)
+                values = self._website_product_id_change(ids, so.id, product_id, qty=1)
+                line_id = sol.create(values)
+                line = sol.browse(line_id)
                 if add_qty:
                     add_qty -= 1
             sline = special_offer_line or line.special_offer_line_id
@@ -65,7 +65,7 @@ class sale_order(models.Model):
             if set_qty or set_qty is not None and sline:
                 quantity = set_qty
             elif add_qty is not None:
-                quantity = sol.browse(cr, SUPERUSER_ID, line_id, context=context).product_uom_qty + (add_qty or 0)
+                quantity = sol.browse(line_id).product_uom_qty + (add_qty or 0)
 
             # Remove zero of negative lines
             if quantity < 0:
@@ -73,15 +73,15 @@ class sale_order(models.Model):
             if sline and sline.mandatory and quantity < sline.product_uom_qty:
                 quantity = sline.product_uom_qty
             if quantity <= 0 and not sline:
-                sol.unlink(cr, SUPERUSER_ID, [line_id], context=context)
+                sol.unlink([line_id])
             else:
                 # update line
-                values = self._website_product_id_change(cr, uid, ids, so.id, product_id, qty=quantity, line_id=line_id, context=context)
+                values = self._website_product_id_change(ids, so.id, product_id, qty=quantity, line_id=line_id)
                 values['product_uom_qty'] = quantity
                 if sline:
                     values['special_offer_line_id'] = sline.id
                     values['price_unit'] = sline.price_unit
-                sol.write(cr, SUPERUSER_ID, [line_id], values, context=context)
+                sol.write([line_id], values)
 
             so.update_special_offer_rules()
 
@@ -194,14 +194,14 @@ class website_sale_special_offer_line_rule_p(models.Model):
     product_uom_qty = fields.Integer('Quantaty', help='Init value for product')
 
 
-class Website(orm.Model):
+class Website(models.Model):
     _inherit = 'website'
 
-    def sale_product_domain(self, cr, uid, ids, context=None):
-        return ['&'] + super(Website, self).sale_product_domain(cr, uid, ids, context=context) + [('special_offer_ok', '=', False)]
+    def sale_product_domain(self):
+        return ['&'] + super(Website, self).sale_product_domain(ids) + [('special_offer_ok', '=', False)]
 
 
-class product_template(osv.osv):
+class product_template(models.Model):
     _inherit = 'product.template'
     _columns = {
         'special_offer_ok': old_fields.boolean('Special offer only', help='Hide product from /shop directory.'),
@@ -211,13 +211,13 @@ class product_template(osv.osv):
     }
 
 
-class website(orm.Model):
+class website(models.Model):
     _inherit = 'website'
 
-    def sale_reset(self, cr, uid, ids, context=None):
+    def sale_reset(self):
         order = request.website.sale_get_order()
         if order:
             for line in order.website_order_line:
                 if not line.product_uom_qty:
                     line.unlink()
-        return super(website, self).sale_reset(cr, uid, ids, context=context)
+        return super(website, self).sale_reset(ids)

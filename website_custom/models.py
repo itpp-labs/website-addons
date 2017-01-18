@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from openerp import SUPERUSER_ID
-from openerp.addons.web import http
-from openerp.addons.web.http import request
+from odoo import SUPERUSER_ID
+from odoo import http
+from odoo.http import request
 
 
 class WebsiteCustom(http.Controller):
@@ -10,6 +10,6 @@ class WebsiteCustom(http.Controller):
     def ribbons(self, ids):
         cr = request.cr
         uid = SUPERUSER_ID
-        res = request.registry['product.product'].search_read(cr, uid, domain=[('default_code', 'in', ids)], fields=['id', 'website_style_ids', 'default_code'])
+        res = request.registry['product.product'].search_read(domain=[('default_code', 'in', ids)], fields=['id', 'website_style_ids', 'default_code'])
 
         return res

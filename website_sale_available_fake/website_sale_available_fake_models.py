@@ -2,20 +2,20 @@
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
-from openerp import fields
-from openerp import models
+from odoo import fields
+from odoo import models
 import openerp.addons.decimal_precision as dp
-from openerp.osv import osv, fields as old_fields
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from odoo import models, fields as old_fields
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 
-class Website(osv.Model):
+class Website(models.Model):
     _inherit = 'website'
 
-    def sale_get_order(self, cr, uid, ids, force_create=False, code=None, update_pricelist=None, context=None):
+    def sale_get_order(self, force_create=False, code=None, update_pricelist=None):
         context = (context or {}).copy()
         context['product_available_fake'] = 1
-        return super(Website, self).sale_get_order(cr, uid, ids, force_create, code, update_pricelist, context)
+        return super(Website, self).sale_get_order(ids, force_create, code, update_pricelist, context)
 
 
 class ProductTemplate(models.Model):
@@ -48,13 +48,13 @@ class ProductTemplate(models.Model):
                 if line.product_id.id in product_ids:
                     line.product_id.product_tmpl_id.qty_sale_recently += line.product_uom_qty
 
-    def _product_available(self, cr, uid, ids, field_names=None, arg=False, context=None):
+    def _product_available(self, field_names=None, arg=False):
         context = context or {}
-        res = super(ProductTemplate, self)._product_available(cr, uid, ids, field_names, arg, context)
+        res = super(ProductTemplate, self)._product_available(ids, field_names, arg, context)
 
         if context.get('product_available_fake', False):
-            product_obj = self.pool.get('product.template')
-            product_limits = product_obj.read(cr, uid, res.keys(), ['limit_per_order'], context=context)
+            product_obj = self.env['product.template']
+            product_limits = product_obj.read(res.keys(), ['limit_per_order'])
             product_limits = dict((p['id'], p['limit_per_order']) for p in product_limits)
 
             for id, product in res.iteritems():
@@ -65,8 +65,8 @@ class ProductTemplate(models.Model):
                     res[id]['virtual_available'] = limit
         return res
 
-    def _search_product_quantity(self, cr, uid, obj, name, domain, context):
-        return super(ProductTemplate, self)._search_product_quantity(cr, uid, obj, name, domain, context)
+    def _search_product_quantity(self, obj, name, domain, context):
+        return super(ProductTemplate, self)._search_product_quantity(obj, name, domain, context)
 
     _columns = {
         'virtual_available': old_fields.function(_product_available, multi='qty_available',
@@ -85,13 +85,13 @@ class ResPartner(models.Model):
 class ProductProduct(models.Model):
     _inherit = 'product.product'
 
-    def _product_available(self, cr, uid, ids, field_names=None, arg=False, context=None):
+    def _product_available(self, field_names=None, arg=False):
         context = context or {}
-        res = super(ProductProduct, self)._product_available(cr, uid, ids, field_names, arg, context)
+        res = super(ProductProduct, self)._product_available(ids, field_names, arg, context)
 
         if context.get('product_available_fake', False):
-            product_obj = self.pool.get('product.product')
-            product_limits = product_obj.read(cr, uid, res.keys(), ['limit_per_order'], context=context)
+            product_obj = self.env['product.product']
+            product_limits = product_obj.read(res.keys(), ['limit_per_order'])
             product_limits = dict((p['id'], p['limit_per_order']) for p in product_limits)
 
             for id, product in res.iteritems():
@@ -102,8 +102,8 @@ class ProductProduct(models.Model):
                     res[id]['virtual_available'] = limit
         return res
 
-    def _search_product_quantity(self, cr, uid, obj, name, domain, context):
-        return super(ProductProduct, self)._search_product_quantity(cr, uid, obj, name, domain, context)
+    def _search_product_quantity(self, obj, name, domain, context):
+        return super(ProductProduct, self)._search_product_quantity(obj, name, domain, context)
 
     _columns = {
         'virtual_available': old_fields.function(_product_available, multi='qty_available',

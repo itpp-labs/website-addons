@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from openerp import SUPERUSER_ID
-from openerp import http
+from odoo import SUPERUSER_ID
+from odoo import http
 from odoo.http import request
 
-from openerp.addons.website_sale.controllers.main import WebsiteSale as controller
+from odoo.addons.website_sale.controllers.main import WebsiteSale as controller
 
 
 class WebsiteSale(controller):
@@ -53,7 +53,7 @@ class WebsiteSale(controller):
         uid = request.uid
         context = request.context
         ir_model_data = request.registry['ir.model.data']
-        template_id = ir_model_data.get_object_reference(cr, uid, 'website_sale_order', 'email_template_checkout')[1]
+        template_id = ir_model_data.get_object_reference('website_sale_order', 'email_template_checkout')[1]
         email_ctx = dict(context)
         email_ctx.update({
             'default_model': 'sale.order',
@@ -67,8 +67,8 @@ class WebsiteSale(controller):
         public_id = request.website.user_id.id
         if uid == public_id:
             composer_values['email_from'] = request.website.user_id.company_id.email
-        composer_id = request.registry['mail.compose.message'].create(cr, SUPERUSER_ID, composer_values, context=email_ctx)
-        request.registry['mail.compose.message'].send_mail(cr, SUPERUSER_ID, [composer_id], context=email_ctx)
+        composer_id = request.registry['mail.compose.message'].create(composer_values)
+        request.registry['mail.compose.message'].send_mail([composer_id])
 
         request.website.sale_reset(context=context)
         return request.redirect('/shop/ready')

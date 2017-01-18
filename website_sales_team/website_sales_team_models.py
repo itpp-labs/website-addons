@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from openerp import SUPERUSER_ID
-from openerp import fields
-from openerp import models
+from odoo import SUPERUSER_ID
+from odoo import fields
+from odoo import models
 
 
 class ProductTemplate(models.Model):
@@ -30,13 +30,13 @@ class ResUsers(models.Model):
 
     section_ids = fields.Many2many('crm.case.section', 'sale_member_rel', 'member_id', 'section_id', 'Sales Team')
 
-    def _get_group(self, cr, uid, context=None):
-        dataobj = self.pool.get('ir.model.data')
+    def _get_group(self):
+        dataobj = self.env['ir.model.data']
         result = []
         try:
-            dummy, group_id = dataobj.get_object_reference(cr, SUPERUSER_ID, 'base', 'group_user')
+            dummy, group_id = dataobj.get_object_reference('base', 'group_user')
             result.append(group_id)
-            # dummy,group_id = dataobj.get_object_reference(cr, SUPERUSER_ID, 'base', 'group_partner_manager')
+            # dummy,group_id = dataobj.get_object_reference('base', 'group_partner_manager')
             # result.append(group_id)
         except ValueError:
             # If these groups does not exists anymore

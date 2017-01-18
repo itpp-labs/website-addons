@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
-from openerp.osv import osv, fields
+from odoo import models, fields
 import uuid
-from openerp import tools, _
+from odoo import tools, _
 
 
 try:
-    from openerp.addons.email_template.email_template import mako_template_env
+    from odoo.addons.email_template.email_template import mako_template_env
 except ImportError:
     try:
-        from openerp.addons.mail.mail_template import mako_template_env
+        from odoo.addons.mail.mail_template import mako_template_env
     except ImportError:
         pass
 
 
-class WebsiteProposalTemplate(osv.osv):
+class WebsiteProposalTemplate(models.Model):
     _name = "website_proposal.template"
     _description = "Proposal Template"
     _columns = {
@@ -27,20 +27,20 @@ class WebsiteProposalTemplate(osv.osv):
         'res_model': fields.char('Model', help="The database object this template will be applied to"),
     }
 
-    def open_template(self, cr, uid, ids, context=None):
+    def open_template(self):
         return {
             'type': 'ir.actions.act_url',
             'target': 'self',
             'url': '/website_proposal/template/%d' % ids[0]
         }
 
-    def create_proposal(self, cr, uid, template_id, res_id, context=None):
+    def create_proposal(self, template_id, res_id):
         if not template_id:
             return False
         if isinstance(template_id, list):
             template_id = template_id[0]
 
-        template = self.pool.get('website_proposal.template').browse(cr, uid, template_id, context=context)
+        template = self.env['website_proposal.template'].browse(template_id)
 
         vals = {'template_id': template_id,
                 'head': template.head,
@@ -51,24 +51,24 @@ class WebsiteProposalTemplate(osv.osv):
                 'res_model': context.get('force_res_model') or template.res_model,
                 }
 
-        proposal_id = self.pool.get('website_proposal.proposal').create(cr, uid, vals, context)
+        proposal_id = self.env['website_proposal.proposal'].create(vals, context)
         return proposal_id
 
 
-class WebsiteProposal(osv.osv):
+class WebsiteProposal(models.Model):
     _name = 'website_proposal.proposal'
     _rec_name = 'id'
 
-    def _get_default_company(self, cr, uid, context=None):
-        company_id = self.pool.get('res.users')._get_company(cr, uid, context=context)
+    def _get_default_company(self):
+        company_id = self.env['res.users']._get_company(context=context)
         if not company_id:
-            raise osv.except_osv(_('Error!'), _('There is no default company for the current user!'))
+            raise UserError(_('Error!'), _('There is no default company for the current user!'))
         return company_id
 
-    def _get_res_name(self, cr, uid, ids, name, args, context=None):
+    def _get_res_name(self, name, args):
         res = {}
-        for r in self.browse(cr, uid, ids, context=context):
-            record = self.pool[r.res_model].browse(cr, uid, r.res_id, context=context)
+        for r in self.browse(ids):
+            record = self.env[r.res_model].browse(r.res_id)
             res[r.id] = record.name
         return res
 
@@ -99,33 +99,33 @@ class WebsiteProposal(osv.osv):
         'state': 'draft',
     }
 
-    def open_proposal(self, cr, uid, ids, context=None):
+    def open_proposal(self):
         return {
             'type': 'ir.actions.act_url',
             'target': 'self',
             'url': '/website_proposal/%s' % (ids[0])
         }
 
-    def edit_proposal(self, cr, uid, ids, context=None):
+    def edit_proposal(self):
         return {
             'type': 'ir.actions.act_url',
             'target': 'self',
             'url': '/website_proposal/%s?enable_editor' % (ids[0])
         }
 
-    def create(self, cr, uid, vals, context=None):
-        record = self.pool.get(vals.get('res_model')).browse(cr, uid, vals.get('res_id'))
+    def create(self, vals):
+        record = self.env[vals.get('res_model']).browse(vals.get('res_id'))
 
         mako = mako_template_env.from_string(tools.ustr(vals.get('website_description')))
         website_description = mako.render({'record': record})
         website_description = website_description.replace('template-only-', '')
 
         vals['website_description'] = website_description
-        new_id = super(WebsiteProposal, self).create(cr, uid, vals, context=context)
+        new_id = super(WebsiteProposal, self).create(vals)
         return new_id
 
 
-class MailMessageSubtype(osv.osv):
+class MailMessageSubtype(models.Model):
     _inherit = 'mail.message.subtype'
     _columns = {
         'internal': fields.boolean('Internal', help="don't publish these messages")
