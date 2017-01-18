@@ -28,12 +28,20 @@
         <link rel="shortcut icon" href="/web/static/src/img/favicon.ico" type="image/x-icon"/>
 
         <link rel="stylesheet" href="/stock_picking_barcode/static/src/css/barcode.css" />
-        <link rel="stylesheet" href="/web/static/lib/bootstrap/css/bootstrap.css" />
-        <link rel="stylesheet" href="/web/static/lib/jquery.ui/css/smoothness/jquery-ui-1.9.1.custom.css" />
-        <link rel="stylesheet" href="/web/static/lib/fontawesome/css/font-awesome.css" />
+        <link type="text/css" rel="stylesheet" href="/web/static/lib/qunit/qunit-1.17.1.css"/>
+        <script type="text/javascript" src="/web/static/lib/qunit/qunit-1.17.1.js"></script>
 
-        <t t-call-assets="web.assets_common" t-css="false" />
-        <t t-call-assets="web.assets_backend" t-css="false" />
+            <t t-call-assets="web.assets_common" t-js="false"/>
+            <t t-call-assets="web.assets_frontend" t-js="false"/>
+            <t t-call-assets="web_editor.summernote" t-js="false" groups="website.group_website_publisher"/>
+            <t t-call-assets="web_editor.assets_editor" t-js="false" groups="website.group_website_publisher"/>
+            <t t-call-assets="website.assets_editor" t-js="false" groups="website.group_website_publisher"/>
+
+
+            <t t-call-assets="web.assets_common" t-css="false"/>
+            <t t-call-assets="web.assets_backend" t-css="false"/>
+            <t t-call-assets="web_editor.summernote" t-css="false" groups="website.group_website_publisher"/>
+            <t t-call-assets="web_editor.assets_editor" t-css="false" groups="website.group_website_publisher"/>
 
         <script type="text/javascript" id="loading-script" t-raw="init">
             odoo.define('web.web_client', function (require) {

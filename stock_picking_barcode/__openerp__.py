@@ -13,7 +13,9 @@
     'currency': 'EUR',
 
     "depends": [
-        "stock"
+        "stock",
+        "web_editor",
+        "website",
     ],
     "external_dependencies": {"python": [], "bin": []},
 
