@@ -9,5 +9,5 @@ class WebsiteSale(controller):
 
     @http.route()
     def shop(self, page=0, category=None, search='', **post):
-        request.context['search_tags'] = search
+        request.context = dict(request.context, search_tags=search)
         return super(WebsiteSale, self).shop(page, category, search, **post)
