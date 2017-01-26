@@ -13,9 +13,12 @@
         var d = new Date();
         var offset = d.getTimezoneOffset();
         self.session.rpc("/booking/calendar/slots", {
-           start: start.add(offset, 'minutes').format(self.DTF),
-           end: end.add(offset, 'minutes').format(self.DTF),
-           tz: offset,
+           // start: start.add(offset, 'minutes').format(self.DTF),
+           // end: end.add(offset, 'minutes').format(self.DTF),
+           // tz: offset,
+           start: start.format(self.DTF),
+           end: end.format(self.DTF),
+           tz: 0,
            domain: self.domain
         }).then(function (response) {
             callback(response);
@@ -25,9 +28,12 @@
         var d = new Date();
         var offset = d.getTimezoneOffset();
         self.session.rpc("/booking/calendar/slots/booked", {
-           start: start.add(offset, 'minutes').format(self.DTF),
-           end: end.add(offset, 'minutes').format(self.DTF),
-           tz: d.getTimezoneOffset(),
+           // start: start.add(offset, 'minutes').format(self.DTF),
+           // end: end.add(offset, 'minutes').format(self.DTF),
+           // tz: d.getTimezoneOffset(),
+           start: start.format(self.DTF),
+           end: end.format(self.DTF),
+           tz: 0,
            domain: self.domain
         }).then(function (response) {
             callback(response);
