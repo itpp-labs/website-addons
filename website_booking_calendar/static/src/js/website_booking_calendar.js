@@ -87,7 +87,7 @@
             displayEventTime: false,
             firstDay: 1,
             defaultView: 'agendaWeek',
-            timezone: 'local',
+            timezone: false,
             weekNumbers: true,
             eventSources: [
                 { events: self.loadSlots },
