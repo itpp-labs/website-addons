@@ -18,37 +18,44 @@ class SaleOrder(models.Model):
 
     _inherit = 'sale.order'
 
+    @api.multi
     def action_confirm(self):
-        super(SaleOrder, self).action_confirm(ids)
-        r = self.browse(ids[0])
-        if r.payment_tx_id and r.payment_tx_id.state == 'done' and r.payment_acquirer_id:
-            r._autopay()
+        res = super(SaleOrder, self).action_confirm()
+        [r._autopay()
+         for r in self
+         if r.payment_tx_id and
+         r.payment_tx_id.state == 'done' and
+         r.payment_acquirer_id]
 
+        return res
+
+    @api.multi
     def _autopay(self):
             # Keep old indent to don't touch git history
-            r = self.browse(ids[0])
+            self.ensure_one()
+            r = self
 
             sale_order_company = r.company_id
-            user_company = self.env['res.users'].browse(uid).company_id
-            self.env['res.users'].write(uid, {'company_id': sale_order_company.id})
+            user_company = self.env.user.company_id
+            self.env.user.write({'company_id': sale_order_company.id})
 
             journal_id = r.payment_acquirer_id.journal_id.id or self.env['account.invoice'].default_get(['journal_id'])['journal_id']
 
             for m in r.order_line:
                 m.qty_to_invoice = m.product_uom_qty
 
-            res = r.pool['sale.order'].action_invoice_create([r.id], context)
+            res = r.action_invoice_create()
             invoice_id = res[0]
 
             # [validate]
             invoice_obj = r.env['account.invoice'].browse(invoice_id)
             journal_obj = r.env['account.journal'].browse(journal_id)
-            invoice_obj.signal_workflow('invoice_open')
+            invoice_obj.action_invoice_open()
 
             # [register payment]
             invoice_obj.pay_and_reconcile(journal_obj, invoice_obj.amount_total)
             invoice_obj.action_move_create()
-            invoice_obj.confirm_paid()
+            invoice_obj.action_invoice_paid()
 
             # return user company to its original value
-            self.env['res.users'].write(uid, {'company_id': user_company.id})
+            self.env.user.write({'company_id': user_company.id})

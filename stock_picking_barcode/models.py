@@ -26,8 +26,10 @@ class StockPicking(models.Model):
             answer['filter_loc_id'] = matching_location_ids[0]
             return answer
         # check if the barcode correspond to a product
-        matching_product_ids = product_obj.search(['|', ('barcode', '=', barcode_str),
-                                                            ('default_code', '=', barcode_str)])
+        matching_product_ids = product_obj.search([
+            '|', ('barcode', '=', barcode_str),
+            ('default_code', '=', barcode_str)
+        ])
         if matching_product_ids:
             op_id = self._search_and_increment(
                 self.id,
@@ -85,8 +87,9 @@ class StockPicking(models.Model):
             packop_ids = [op.id for op in picking.pack_operation_ids]
             self.env['stock.pack.operation'].write(packop_ids, {'owner_id': picking.owner_id.id})
 
-    @api.cr_uid_ids_context
-    def do_prepare_partial(self, picking_ids):
+    @api.multi
+    def do_prepare_partial(self):
+        picking_ids = self.ids
         pack_operation_obj = self.env['stock.pack.operation']
         # used to avoid recomputing the remaining quantities at each new pack operation created
         ctx = self.env.context.copy()
