@@ -29,14 +29,11 @@ class TestMultiCompany(TransactionCase):
         # Now that you have accounts for ``Odoo BE`` company with proper currency, you can start testing
         order = self.env.ref('website_sale_autopay.sale_order_1')
         company = self.env.ref('website_sale_autopay.res_company_oerp_us', raise_if_not_found=False)
-        prop = self.env['ir.property']
-        rec_dom = [('name', '=', 'property_account_receivable_id'), ('company_id', '=', company.id)]
-        pay_dom = [('name', '=', 'property_account_payable_id'), ('company_id', '=', company.id)]
-        res_dom = [('res_id', '=', 'res.partner,%s' % self.env.user.partner_id)]
-        rec_prop = prop.search(rec_dom + res_dom) or prop.search(rec_dom)
-        pay_prop = prop.search(pay_dom + res_dom) or prop.search(pay_dom)
-        rec_account = rec_prop.get_by_record(rec_prop)
-        pay_account = pay_prop.get_by_record(pay_prop)
+        company_id = company.id
+        p = self.env.user.partner_id.with_context(force_company=company_id)
+        rec_account = p.property_account_receivable_id
+        pay_account = p.property_account_payable_id
+
         if not rec_account and not pay_account:
             _logger.info('Cannot find a chart of accounts for test company, You should configure it. \nPlease go to Account Configuration.')
             return
