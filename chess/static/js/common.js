@@ -1,11 +1,11 @@
-$(document).ready(function() {
+odoo.define('chess_common', function (require) {
     "use strict";
     var pos = [];
     var game = {};
     var board ={};
     var turn = '';
     var storage = localStorage;
-    var ChessGame = openerp.ChessGame = {};
+    var ChessGame = {};
     var first_step_move = true;
     var author_player_color = '';
     var another_player_color = '';
@@ -13,8 +13,17 @@ $(document).ready(function() {
     var time_limited = false;
     var start_time_refer = true;
     var ref_bw = true;
+    var Widget = require('web.Widget');
+    var bus = require('bus.bus');
+    var session = require('web.session');
+    var utils = require('web.utils');
+
+
+
+
+
     ChessGame.COOKIE_NAME = 'chessgame_session';
-    ChessGame.GameManager = openerp.Widget.extend({
+    ChessGame.GameManager = Widget.extend({
         init: function (model_game_id, dbname, uid) {
             this._super();
             var self = this;
@@ -25,7 +34,7 @@ $(document).ready(function() {
             Number(storage.getItem("bus_last"))==null ? bus_last=this.bus.last : bus_last=Number(storage.getItem("bus_last"));
 
             // start the polling
-            this.bus = openerp.bus.bus;
+            this.bus = bus.bus;
             this.bus.last = bus_last;
             this.bus.add_channel(channel_line);
             this.bus.add_channel(channel_game);
@@ -170,12 +179,12 @@ $(document).ready(function() {
             new_game.updateStatus();
         }
     });
-    ChessGame.GameConversation = openerp.Widget.extend({
+    ChessGame.GameConversation = Widget.extend({
         init: function(model_game_id, dbname, uid){
             this._super();
             var self = this;
-            openerp.session = new openerp.Session();
-            this.c_manager = new openerp.ChessGame.GameManager(model_game_id, dbname, uid);
+            session = new Session();
+            this.c_manager = new ChessGame.GameManager(model_game_id, dbname, uid);
             console.log("Initial Game");
             this.history = true;
             this.history_loading = false;
@@ -201,10 +210,10 @@ $(document).ready(function() {
             var self = this;
             var cookie_name = ChessGame.COOKIE_NAME+self.game_id;
             //when game to finished is coockies is delete
-            var cookie = openerp.get_cookie(cookie_name);
+            var cookie = utils.get_cookie(cookie_name);
             var ready;
             if (!cookie) {
-                openerp.session.rpc("/chess/game/init", {game_id: self.game_id})
+                session.rpc("/chess/game/init", {game_id: self.game_id})
                     .then(function(result) {
                         //author
                         self.author_name = result.author.name;
@@ -234,7 +243,7 @@ $(document).ready(function() {
                         another_player_color = self.another_user_id;
 
                         //save all data in coockie
-                        openerp.set_cookie(cookie_name, JSON.stringify({
+                        set_cookie(cookie_name, JSON.stringify({
                             'author': {
                                 'name': self.author_name,
                                 'id':self.author_id,
@@ -256,6 +265,7 @@ $(document).ready(function() {
                         }), 90*24*60*60);
                         self.onBoard();
                         self.call_load_system_message(result.information.id);
+
                     });
             } else {
                 var coockie_game = JSON.parse(cookie);
@@ -339,13 +349,13 @@ $(document).ready(function() {
         },
         call_load_system_message: function(game_id) {
             var self = this;
-            openerp.session.rpc("/chess/game/system_history", {'game_id': game_id }).then(function (result) {
+            session.rpc("/chess/game/system_history", {'game_id': game_id }).then(function (result) {
                 self.call_load_history(game_id, result);
             });
         },
         call_load_history: function(game_id, result){
             var self = this;
-            openerp.session.rpc("/chess/game/history", {'game_id': game_id }).then(function (history) {
+            session.rpc("/chess/game/history", {'game_id': game_id }).then(function (history) {
                 if(history){
                     self.history_loading = true;
                     self.check_status = true;
@@ -365,7 +375,7 @@ $(document).ready(function() {
                 }
                 else{
                     var cookie_name = ChessGame.COOKIE_NAME+self.game_id;
-                    var cookie = openerp.get_cookie(cookie_name);
+                    var cookie = utils.get_coockie(cookie_name);
                     var coockie_game = JSON.parse(cookie);
                     self.author_time = coockie_game.author.time;
                     self.another_user_time = coockie_game.another_user.time;
@@ -391,7 +401,7 @@ $(document).ready(function() {
                     time_turn = 'bb';
                 }
                 if (self.game_type == 'blitz' || self.game_type == 'limited time') {
-                    openerp.session.rpc("/chess/game/load_time", {'game_id': self.game_id, 'turn': time_turn})
+                    session.rpc("/chess/game/load_time", {'game_id': self.game_id, 'turn': time_turn})
                         .then(function (result) {
                             self.author_time = result.author_time;
                             self.another_user_time = result.another_user_time;
@@ -568,7 +578,7 @@ $(document).ready(function() {
             self.check_status = false;
             self.coockie_status = true;
             ref_bw = true;
-            openerp.session.rpc("/chess/game/send/", {message: message, game_id: self.game_id})
+            session.rpc("/chess/game/send/", {message: message, game_id: self.game_id})
                 .then(function(result){
                     if(result=='move'){
                         if(self.game_type=='blitz') {
@@ -780,7 +790,7 @@ $(document).ready(function() {
             } else {
                 not_win_user_id = false;
             }
-            openerp.session.rpc("/chess/game/game_over/", {'game_id': self.game_id, 'status': status_game.toLowerCase(), 'time_limit_id': not_win_user_id})
+            session.rpc("/chess/game/game_over/", {'game_id': self.game_id, 'status': status_game.toLowerCase(), 'time_limit_id': not_win_user_id})
                 .then(function(result){
                     if(result) {
                         $('#surrender').hide();
@@ -1072,7 +1082,7 @@ $(document).ready(function() {
         return;
     }
 
-    openerp.set_cookie = function(name, value, ttl) {
+    chess_common.set_cookie = function(name, value, ttl) {
         ttl = ttl || 24*60*60*365;
         document.cookie = [
             name + '=' + value,
@@ -1081,5 +1091,6 @@ $(document).ready(function() {
             'expires=' + new Date(new Date().getTime() + ttl*1000).toGMTString()
         ].join(';');
     };
+
 
 });

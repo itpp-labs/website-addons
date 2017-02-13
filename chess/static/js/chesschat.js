@@ -1,16 +1,24 @@
 //For odoo 8.0
-(function() {
+odoo.define('chesschat', function (require) {
     "use strict";
-    var ChessChat = openerp.ChessChat = {};
+    var Widget = require('web.Widget');
+    var session = require('web.session');
+    var set_cookie = require('chess_common');
+    var utils = require('web.utils');
+    var bus = require('bus.bus');
+
+
+    var ChessChat = {};
+
     ChessChat.COOKIE_NAME = 'chesschat_session';
-    ChessChat.ConversationManager = openerp.Widget.extend({
+    ChessChat.ConversationManager = Widget.extend({
         init: function (model_game_id, dbname, uid) {
             this._super();
             console.log("Initial Chat");
             var self = this;
             var game_id = model_game_id;
             var channel = JSON.stringify([dbname, 'chess.game.chat', [uid, game_id]]);
-            this.bus = openerp.bus.bus;
+            this.bus = bus.bus;
             this.bus.add_channel(channel);
             this.bus.on("notification", this, this.on_notification);
             //this.bus.start_polling();
@@ -62,7 +70,7 @@
             }
         }
     });
-    ChessChat.Conversation = openerp.Widget.extend({
+    ChessChat.Conversation = Widget.extend({
         className: "chat_form",
         init: function(model_game_id, dbname, uid){
             var element = document.getElementById('chat');
@@ -70,8 +78,8 @@
                 return;
             }
             this.game_id = model_game_id;
-            openerp.session = new openerp.Session();
-            this.c_manager = new openerp.ChessChat.ConversationManager(model_game_id, dbname, uid);
+            session = new Session();
+            this.c_manager = new ChessChat.ConversationManager(model_game_id, dbname, uid);
             this.history = true;
             this.opening_chat = false;
         },
@@ -83,21 +91,21 @@
             var self = this;
             var cookie_name = ChessChat.COOKIE_NAME+self.game_id;
             //when game to finished is coockies is delete
-            var cookie = openerp.get_cookie(cookie_name);
+            var cookie = utils.get_cookie(cookie_name);
             var ready;
             if (!cookie) {
-                ready = openerp.session.rpc("/chess/game/chat/init", {game_id: self.game_id}).then(function (result) {
+                ready = session.rpc("/chess/game/chat/init", {game_id: self.game_id}).then(function (result) {
                     self.author_name = result.author_name; // current user
                     self.author_id = result.author_id;
                     self.game_id = result.game_id;
-                    openerp.set_cookie(cookie_name, JSON.stringify({'game_id': self.game_id, 'author_name': self.author_name, 'author_id': self.author_id}), 30*24*60*60);
+                    set_cookie(cookie_name, JSON.stringify({'game_id': self.game_id, 'author_name': self.author_name, 'author_id': self.author_id}), 30*24*60*60);
                 });
             } else {
                 var game = JSON.parse(cookie);
                 self.author_name = game.author_name; // current user
                 self.author_id = game.author_id;
                 self.game_id = game.game_id;
-                ready = openerp.session.rpc("/chess/game/chat/history", {game_id: game.game_id}).then(function (history) {
+                ready = session.rpc("/chess/game/chat/history", {game_id: game.game_id}).then(function (history) {
                     if (history) {
                         self.load_history(history);
                     }
@@ -124,7 +132,7 @@
         },
         send_message: function(message) {
             var self = this;
-            openerp.session.rpc("/chess/game/chat/send/", {message: message, game_id: self.game_id})
+            session.rpc("/chess/game/chat/send/", {message: message, game_id: self.game_id})
                 .then(function (result) {
                     if(result) {
                         self.received_message(message);
@@ -193,7 +201,7 @@
             this.send_message(message);
         }
     });
-    openerp.set_cookie = function(name, value, ttl) {
+    set_cookie = function(name, value, ttl) {
         ttl = ttl || 24*60*60*365;
         document.cookie = [
             name + '=' + value,
@@ -250,4 +258,6 @@
     jQuery(document).ready(function(){
         jQuery('.window_chat').scrollbar();
     });
-})();
+    return ChessChat;
+});
+//should be callable

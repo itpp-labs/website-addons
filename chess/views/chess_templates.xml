@@ -41,7 +41,7 @@
                                 <div class="popup_content">
                                     <h3>Users:</h3>
                                     <form id="play_with_a_friend" name="play_with_a_friend" action="/chess/game/" method="post" data-model_name="chess.game">
-                                        <!--<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                         <select name="second_user_id" size="1">
                                             <t t-foreach="users" t-as="user">
                                                 <option t-attf-value="{{ user.id }}"><t t-esc="user.name"/></option>

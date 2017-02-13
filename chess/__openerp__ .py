@@ -14,6 +14,7 @@
         "base",
         "website",
         "bus",
+        "web",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
@@ -23,5 +24,5 @@
         "views/chess_templates.xml",
     ],
 
-    "installable": False,
+    "installable": True,
 }
