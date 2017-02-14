@@ -89,40 +89,6 @@ class StockPicking(models.Model):
             packop_ids = [op.id for op in picking.pack_operation_ids]
             self.env['stock.pack.operation'].write(packop_ids, {'owner_id': picking.owner_id.id})
 
-    # @api.multi
-    # def do_prepare_partial(self):
-    #     picking_ids = self.ids
-    #     pack_operation_obj = self.env['stock.pack.operation']
-    #     # used to avoid recomputing the remaining quantities at each new pack operation created
-    #     ctx = self.env.context.copy()
-    #     ctx['no_recompute'] = True
-    #
-    #     # get list of existing operations and delete them
-    #     existing_package = pack_operation_obj.search([('picking_id', 'in', picking_ids)])
-    #     if existing_package:
-    #         existing_package.unlink()
-    #     for picking in self.browse(picking_ids):
-    #         forced_qties = {}  # Quantity remaining after calculating reserved quants
-    #         picking_quants = []
-    #         # Calculate packages, reserved quants, qtys of this picking's moves
-    #         for move in picking.move_lines:
-    #             if move.state not in ('assigned', 'confirmed', 'waiting'):
-    #                 continue
-    #             move_quants = move.reserved_quant_ids
-    #             picking_quants += move_quants
-    #             forced_qty = (move.state == 'assigned') and move.product_qty - sum([x.qty for x in move_quants]) or 0
-    #             # if we used force_assign() on the move, or if the move is incoming, forced_qty > 0
-    #             if float_compare(forced_qty, 0, precision_rounding=move.product_id.uom_id.rounding) > 0:
-    #                 if forced_qties.get(move.product_id):
-    #                     forced_qties[move.product_id] += forced_qty
-    #                 else:
-    #                     forced_qties[move.product_id] = forced_qty
-    #         for vals in self._prepare_pack_ops(picking_quants, forced_qties):  # TODO: Achtung hier ist multi!
-    #             pack_operation_obj.create(vals)
-    #     # recompute the remaining quantities all at once
-    #     self.do_recompute_remaining_quantities(picking_ids)
-    #     self.write({'recompute_pack_op': False})
-
     @api.multi
     def process_product_id_from_ui(self, product_id, op_id, increment=True):
         self.ensure_one()
