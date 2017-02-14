@@ -15,6 +15,8 @@ class StockPicking(models.Model):
         package_obj = self.env['stock.quant.package']
         product_obj = self.env['product.product']
         stock_operation_obj = self.env['stock.pack.operation']
+        pack_op = self.env['stock.pack.operation'].search(
+            [('picking_id', '=', self.id)])
         stock_location_obj = self.env['stock.location']
         answer = {'filter_loc': False, 'operation_id': False}
         # check if the barcode correspond to a location
@@ -28,39 +30,39 @@ class StockPicking(models.Model):
         # check if the barcode correspond to a product
         matching_product_ids = product_obj.search(['|', ('barcode', '=', barcode_str), ('default_code', '=', barcode_str)])
         if matching_product_ids:
-            op_id = self._search_and_increment(
+            op_id = pack_op._increment(
                 self.id,
-                [('product_id', '=', matching_product_ids[0])],
+                [('product_id', '=', matching_product_ids[0].id)],
                 filter_visible=True,
                 visible_op_ids=visible_op_ids,
                 increment=True
             )
-            answer['operation_id'] = op_id
+            answer['operation_id'] = op_id.id
             return answer
         # check if the barcode correspond to a lot
         matching_lot_ids = lot_obj.search([('name', '=', barcode_str)])
         if matching_lot_ids:
-            lot = lot_obj.browse(matching_lot_ids[0])
-            op_id = stock_operation_obj._search_and_increment(
+            lot = lot_obj.browse(matching_lot_ids[0].id)
+            op_id = pack_op._increment(
                 self.id,
                 [('product_id', '=', lot.product_id.id), ('pack_lot_ids.lot_id', '=', lot.id)],
                 filter_visible=True,
                 visible_op_ids=visible_op_ids,
                 increment=True
             )
-            answer['operation_id'] = op_id
+            answer['operation_id'] = op_id.id
             return answer
         # check if the barcode correspond to a package
         matching_package_ids = package_obj.search([('name', '=', barcode_str)])
         if matching_package_ids:
-            op_id = stock_operation_obj._search_and_increment(
+            op_id = pack_op._increment(
                 self.id,
                 [('package_id', '=', matching_package_ids[0])],
                 filter_visible=True,
                 visible_op_ids=visible_op_ids,
                 increment=True
             )
-            answer['operation_id'] = op_id
+            answer['operation_id'] = op_id.id
             return answer
         return answer
 
@@ -69,12 +71,14 @@ class StockPicking(models.Model):
         domain = [('state', 'in', ('assigned', 'partially_available'))]
         if self.env.context.get('default_picking_type_id'):
             domain.append(('picking_type_id', '=', self.env.context['default_picking_type_id']))
-        return self.search(domain)
+        return self.search(domain).ids
 
+    @api.model
     def check_group_lot(self):
         """ This function will return true if we have the setting to use lots activated. """
         return self.env['res.users'].has_group('stock.group_production_lot')
 
+    @api.model
     def check_group_pack(self):
         """ This function will return true if we have the setting to use package activated. """
         return self.env['res.users'].has_group('stock.group_tracking_lot')
@@ -84,47 +88,51 @@ class StockPicking(models.Model):
             packop_ids = [op.id for op in picking.pack_operation_ids]
             self.env['stock.pack.operation'].write(packop_ids, {'owner_id': picking.owner_id.id})
 
-    @api.model
-    def do_prepare_partial(self, picking_ids):
-        pack_operation_obj = self.env['stock.pack.operation']
-        # used to avoid recomputing the remaining quantities at each new pack operation created
-        ctx = self.env.context.copy()
-        ctx['no_recompute'] = True
-
-        # get list of existing operations and delete them
-        existing_package = pack_operation_obj.search([('picking_id', 'in', picking_ids)])
-        if existing_package:
-            existing_package.unlink()
-        for picking in self.browse(picking_ids):
-            forced_qties = {}  # Quantity remaining after calculating reserved quants
-            picking_quants = []
-            # Calculate packages, reserved quants, qtys of this picking's moves
-            for move in picking.move_lines:
-                if move.state not in ('assigned', 'confirmed', 'waiting'):
-                    continue
-                move_quants = move.reserved_quant_ids
-                picking_quants += move_quants
-                forced_qty = (move.state == 'assigned') and move.product_qty - sum([x.qty for x in move_quants]) or 0
-                # if we used force_assign() on the move, or if the move is incoming, forced_qty > 0
-                if float_compare(forced_qty, 0, precision_rounding=move.product_id.uom_id.rounding) > 0:
-                    if forced_qties.get(move.product_id):
-                        forced_qties[move.product_id] += forced_qty
-                    else:
-                        forced_qties[move.product_id] = forced_qty
-            for vals in self._prepare_pack_ops(picking, picking_quants, forced_qties):
-                pack_operation_obj.create(vals)
-        # recompute the remaining quantities all at once
-        self.do_recompute_remaining_quantities(picking_ids)
-        self.write(picking_ids, {'recompute_pack_op': False})
+    # @api.multi
+    # def do_prepare_partial(self):
+    #     picking_ids = self.ids
+    #     pack_operation_obj = self.env['stock.pack.operation']
+    #     # used to avoid recomputing the remaining quantities at each new pack operation created
+    #     ctx = self.env.context.copy()
+    #     ctx['no_recompute'] = True
+    #
+    #     # get list of existing operations and delete them
+    #     existing_package = pack_operation_obj.search([('picking_id', 'in', picking_ids)])
+    #     if existing_package:
+    #         existing_package.unlink()
+    #     for picking in self.browse(picking_ids):
+    #         forced_qties = {}  # Quantity remaining after calculating reserved quants
+    #         picking_quants = []
+    #         # Calculate packages, reserved quants, qtys of this picking's moves
+    #         for move in picking.move_lines:
+    #             if move.state not in ('assigned', 'confirmed', 'waiting'):
+    #                 continue
+    #             move_quants = move.reserved_quant_ids
+    #             picking_quants += move_quants
+    #             forced_qty = (move.state == 'assigned') and move.product_qty - sum([x.qty for x in move_quants]) or 0
+    #             # if we used force_assign() on the move, or if the move is incoming, forced_qty > 0
+    #             if float_compare(forced_qty, 0, precision_rounding=move.product_id.uom_id.rounding) > 0:
+    #                 if forced_qties.get(move.product_id):
+    #                     forced_qties[move.product_id] += forced_qty
+    #                 else:
+    #                     forced_qties[move.product_id] = forced_qty
+    #         for vals in self._prepare_pack_ops(picking_quants, forced_qties):  # TODO: Achtung hier ist multi!
+    #             pack_operation_obj.create(vals)
+    #     # recompute the remaining quantities all at once
+    #     self.do_recompute_remaining_quantities(picking_ids)
+    #     self.write({'recompute_pack_op': False})
 
     @api.multi
-    def process_product_id_from_ui(self, picking_id, product_id, op_id, increment=True):
+    def process_product_id_from_ui(self, product_id, op_id, increment=True):
         self.ensure_one()
-        return self.env['stock.pack.operation']._search_and_increment(
+        pack_op = self.env['stock.pack.operation'].search(
+            [('picking_id', '=', self.id)])
+        op_obj = pack_op._increment(
             self.id,
             [('product_id', '=', product_id), ('id', '=', op_id)],
             increment=increment
         )
+        return op_obj.id
 
     @api.model
     def action_pack(self, picking_ids, operation_filter_ids=None):
@@ -193,8 +201,9 @@ class StockPicking(models.Model):
             'action_package_view',
         )
 
-    @api.model
-    def open_barcode_interface(self, picking_ids):
+    @api.multi
+    def open_barcode_interface(self):
+        picking_ids = self.ids
         final_url = "/barcode/web/#action=stock.ui&picking_id=" + str(picking_ids[0])
         return {'type': 'ir.actions.act_url', 'url': final_url, 'target': 'self', }
 
@@ -215,7 +224,8 @@ class StockPickingType(models.Model):
 class StockPackOperation(models.Model):
     _inherit = "stock.pack.operation"
 
-    def _search_and_increment(self, picking_id, domain, filter_visible=False, visible_op_ids=False, increment=True):
+    @api.multi
+    def _increment(self, picking_id, domain, filter_visible=False, visible_op_ids=False, increment=True):
         """Search for an operation with given 'domain' in a picking, if it exists increment the qty (+1) otherwise create it
 
         :param domain: list of tuple directly reusable as a domain
@@ -228,23 +238,25 @@ class StockPackOperation(models.Model):
         todo_operation_ids = []
         if existing_operation_ids:
             if filter_visible:
-                todo_operation_ids = [val for val in existing_operation_ids if val in visible_op_ids]
+                todo_operation_ids = [val for val in existing_operation_ids if val.id in visible_op_ids]
             else:
                 todo_operation_ids = existing_operation_ids
         if todo_operation_ids:
             # existing operation found for the given domain and picking => increment its quantity
-            operation_id = todo_operation_ids[0]
-            op_obj = self.browse(operation_id)
+            op_obj = todo_operation_ids[0]
+            # when op_object has a lot
             qty = op_obj.qty_done
-            if increment:
-                qty += 1
-            else:
-                qty -= 1 if qty >= 1 else 0
-                if qty == 0 and op_obj.product_qty == 0:
-                    # we have a line with 0 qty set, so delete it
-                    self.unlink([operation_id])
-                    return False
-            self.write([operation_id], {'qty_done': qty})
+            if qty == 0 or not op_obj.pack_lot_ids:
+                qty = op_obj.qty_done
+                if increment:
+                    qty += 1
+                else:
+                    qty -= 1 if qty >= 1 else 0
+                    if qty == 0 and op_obj.product_qty == 0:
+                        # we have a line with 0 qty set, so delete it
+                        self.unlink([op_obj.id])
+                        return False
+                op_obj.write({'qty_done': qty})
         else:
             # no existing operation found for the given domain and picking => create a new one
             picking_obj = self.env["stock.picking"]
@@ -268,8 +280,8 @@ class StockPackOperation(models.Model):
                 if uom_id:
                     update_dict['product_uom_id'] = uom_id
                 values.update(update_dict)
-            operation_id = self.create(values)
-        return operation_id
+            op_obj = self.create(values)
+        return op_obj
 
     @api.multi
     def create_and_assign_lot(self, name):
