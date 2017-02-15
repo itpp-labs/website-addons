@@ -1,4 +1,4 @@
-odoo.define('chess_common', function (require) {
+odoo.define('chess.common', function (require) {
     "use strict";
     var pos = [];
     var game = {};
@@ -20,8 +20,6 @@ odoo.define('chess_common', function (require) {
 
 
 
-
-
     ChessGame.COOKIE_NAME = 'chessgame_session';
     ChessGame.GameManager = Widget.extend({
         init: function (model_game_id, dbname, uid) {
@@ -40,6 +38,8 @@ odoo.define('chess_common', function (require) {
             this.bus.add_channel(channel_game);
             this.bus.on("notification", this, this.on_notification);
             this.bus.start_polling();
+
+
         },
         on_notification: function (notification) {
             var self = this;
@@ -183,7 +183,7 @@ odoo.define('chess_common', function (require) {
         init: function(model_game_id, dbname, uid){
             this._super();
             var self = this;
-            session = new Session();
+            session = session;
             this.c_manager = new ChessGame.GameManager(model_game_id, dbname, uid);
             console.log("Initial Game");
             this.history = true;
@@ -195,7 +195,7 @@ odoo.define('chess_common', function (require) {
             this.system_status = '';
             this.game_id = model_game_id;
 
-            game = new Chess();
+
             this.statusEl = $('#status');
             this.fenEl = $('#fen');
             this.pgnEl = $('#pgn');
@@ -1078,11 +1078,9 @@ odoo.define('chess_common', function (require) {
     });
 
     var element = document.getElementById('board');
-    if (!element) {
-        return;
-    }
 
-    chess_common.set_cookie = function(name, value, ttl) {
+
+    var set_cookie = function(name, value, ttl) {
         ttl = ttl || 24*60*60*365;
         document.cookie = [
             name + '=' + value,
@@ -1092,5 +1090,9 @@ odoo.define('chess_common', function (require) {
         ].join(';');
     };
 
+
+    return {
+        ChessGame: ChessGame,
+    }
 
 });

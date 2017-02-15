@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
   <data>
     <record id="view_new_chess_game" model="ir.ui.view">
       <field name="name">chess.game.new</field>
@@ -192,4 +192,4 @@
               parent="menu_all_games_content"
               action="action_canceled_chess_game"/>
   </data>
-</openerp>
+</odoo>

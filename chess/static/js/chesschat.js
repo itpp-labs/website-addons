@@ -1,12 +1,11 @@
 //For odoo 8.0
-odoo.define('chesschat', function (require) {
+odoo.define('chess.chesschat', function (require) {
     "use strict";
     var Widget = require('web.Widget');
     var session = require('web.session');
-    var set_cookie = require('chess_common');
+    var set_cookie = require('chess.common');
     var utils = require('web.utils');
     var bus = require('bus.bus');
-
 
     var ChessChat = {};
 
@@ -78,7 +77,7 @@ odoo.define('chesschat', function (require) {
                 return;
             }
             this.game_id = model_game_id;
-            session = new Session();
+            session = session;
             this.c_manager = new ChessChat.ConversationManager(model_game_id, dbname, uid);
             this.history = true;
             this.opening_chat = false;
@@ -256,8 +255,18 @@ odoo.define('chesschat', function (require) {
         }
     }
     jQuery(document).ready(function(){
+        console.log('check1');
         jQuery('.window_chat').scrollbar();
     });
-    return ChessChat;
+
+
+
+    return {
+        ChessChat : ChessChat,
+    };
+
+
+
+
 });
 //should be callable

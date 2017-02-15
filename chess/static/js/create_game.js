@@ -1,11 +1,11 @@
-odoo.define('create_game', function (require) {
-        "use strict";
+odoo.define('chess.create_game', function (require) {
+    "use strict";
     var Widget = require('web.Widget');
     var session = require('web.session');
     var storage_create_game = localStorage;
     var CreateGame = {};
-    var ChessGame = {};
     var bus = require('bus.bus');
+    var ChessGame = require('chess.common').ChessGame;
 
     CreateGame.GameManager = Widget.extend({
         init: function(model_game_id, dbname, uid) {
@@ -21,6 +21,8 @@ odoo.define('create_game', function (require) {
             this.bus.add_channel(channel_game_info);
             this.bus.on("notification", this, this.on_notification);
             this.bus.start_polling();
+
+
         },
         on_notification: function (notification) {
             var self = this;
@@ -50,6 +52,7 @@ odoo.define('create_game', function (require) {
             if(message.system_status=="Active game") {
                 create_new_game.stop_polling();
                 window.new_game = new ChessGame.GameConversation(window.model_game_id, window.model_dbname, window.model_author_id);
+
                 window.new_game.game_pgn_click();
                 swal({   title: "Lets go!",   timer: 1000,   showConfirmButton: false });
                 storage_create_game.setItem("bus_last", this.bus.last);
@@ -72,9 +75,10 @@ odoo.define('create_game', function (require) {
             this._super();
             var self = this;
             this.game_id = model_game_id;
-            session = new Session();
+            //session = session;
             this.c_manager = new CreateGame.GameManager(model_game_id, dbname, uid);
             this.start();
+
         },
         start: function(){
             var self = this;
@@ -107,20 +111,25 @@ odoo.define('create_game', function (require) {
                 });
         },
         stop_polling: function () {
-            openerp.bus.bus.stop_polling();
+            bus.bus.stop_polling();
+
         }
     });
+    $(document).ready(function() {
+        if (window.model_game_id === undefined) {
+            return false;
+        } else {
+            var create_new_game = new CreateGame.GameStatusManager(window.model_game_id, window.model_dbname, window.model_author_id);
 
-    if (window.model_game_id===undefined) {
-        return false;
-    } else {
-        var create_new_game = new CreateGame.GameStatusManager(window.model_game_id, window.model_dbname, window.model_author_id);
-    }
+        }
 
-    if (window.new_game===undefined) {
-        return false;
-    }
+        if (window.new_game === undefined) {
+            return false;
+        }
+
+    });
 });
+
 $('#create_game #blitz, #play_with_a_friend #blitz').click(function () {
     $('#create_game #time').show();
     $('#play_with_a_friend #time').show();
@@ -132,4 +141,6 @@ $('#create_game .limited_time, #play_with_a_friend .limited_time').click(functio
 $('#create_game #standart, #play_with_a_friend #standart').click(function () {
     $('#create_game #time').hide();
     $('#play_with_a_friend #time').hide();
+
+
 });
