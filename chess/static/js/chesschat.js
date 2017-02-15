@@ -209,6 +209,7 @@ odoo.define('chess.chesschat', function (require) {
             'expires=' + new Date(new Date().getTime() + ttl*1000).toGMTString()
         ].join(';');
     };
+    $(document).ready(function() {
     if (window.model_game_id===undefined) {
         return false;
     } else {
@@ -254,6 +255,8 @@ odoo.define('chess.chesschat', function (require) {
             toggler.innerHTML = 'Close';
         }
     }
+
+    });
     jQuery(document).ready(function(){
         console.log('check1');
         jQuery('.window_chat').scrollbar();

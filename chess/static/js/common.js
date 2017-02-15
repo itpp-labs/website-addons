@@ -195,7 +195,7 @@ odoo.define('chess.common', function (require) {
             this.system_status = '';
             this.game_id = model_game_id;
 
-
+            game = new Chess()
             this.statusEl = $('#status');
             this.fenEl = $('#fen');
             this.pgnEl = $('#pgn');
@@ -220,6 +220,7 @@ odoo.define('chess.common', function (require) {
                         self.author_id = result.author.id;
                         self.author_color = result.author.color;
                         self.author_time = result.author.time;
+
 
                         turn = self.author_color;
                         //another user
@@ -375,7 +376,7 @@ odoo.define('chess.common', function (require) {
                 }
                 else{
                     var cookie_name = ChessGame.COOKIE_NAME+self.game_id;
-                    var cookie = utils.get_coockie(cookie_name);
+                    var cookie = utils.get_cookie(cookie_name);
                     var coockie_game = JSON.parse(cookie);
                     self.author_time = coockie_game.author.time;
                     self.another_user_time = coockie_game.another_user.time;
