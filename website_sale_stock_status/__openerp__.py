@@ -12,5 +12,5 @@
         'website_sale_stock_status_views.xml',
         'website_sale_stock_status_data.xml',
     ],
-    'installable': True
+    'installable': False,
 }
