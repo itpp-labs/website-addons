@@ -40,12 +40,13 @@ odoo.define('chess.common', function (require) {
             this.bus.start_polling();
 
 
+
         },
         on_notification: function (notification) {
             var self = this;
-            if (typeof notification[0][0] === 'string') {
-                notification = [notification];
-            }
+            // if (typeof notification[0][0] === 'string') {
+            //     notification = [notification];
+            // }
             for (var i = 0; i < notification.length; i++) {
                 var channel = notification[i][0];
                 var message = notification[i][1];
@@ -73,6 +74,7 @@ odoo.define('chess.common', function (require) {
                     return false;
                 }
                 if (message.type == 'move') {
+
                     self.onDrop(message.data.source, message.data.target);
                     board.position(game.fen());
                     if(new_game.game_type=='blitz') {

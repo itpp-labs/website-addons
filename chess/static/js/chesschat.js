@@ -15,23 +15,22 @@ odoo.define('chess.chesschat', function (require) {
             this._super();
             console.log("Initial Chat");
             var self = this;
-            var game_id = model_game_id;
-            var channel = JSON.stringify([dbname, 'chess.game.chat', [uid, game_id]]);
+            this.game_id = model_game_id;
+            var channel = JSON.stringify([dbname, 'chess.game.chat', [uid, this.game_id]]);
             this.bus = bus.bus;
             this.bus.add_channel(channel);
             this.bus.on("notification", this, this.on_notification);
-            //this.bus.start_polling();
+            this.bus.start_polling();
         },
         on_notification: function (notification) {
+
             var self = this;
-            if (typeof notification[0][0] === 'string') {
-                notification = [notification];
-            }
+
             for (var i = 0; i < notification.length; i++) {
                 var channel = notification[i][0];
                 var message = notification[i][1];
                 this.on_notification_do(channel, message);
-            }
+            };
         },
         on_notification_do: function (channel, message) {
             var channel = JSON.parse(channel);
@@ -63,6 +62,7 @@ odoo.define('chess.chesschat', function (require) {
                 $("#window_chat").each(function () {
                     this.scrollTop = this.scrollHeight;
                 });
+
             } catch (err) {
                 error = err;
                 console.error(err);
@@ -77,7 +77,6 @@ odoo.define('chess.chesschat', function (require) {
                 return;
             }
             this.game_id = model_game_id;
-            session = session;
             this.c_manager = new ChessChat.ConversationManager(model_game_id, dbname, uid);
             this.history = true;
             this.opening_chat = false;
@@ -143,6 +142,7 @@ odoo.define('chess.chesschat', function (require) {
                 });
         },
         received_message: function (message) {
+
             var error = false;
             try {
                 var date = new Date();
@@ -159,12 +159,14 @@ odoo.define('chess.chesschat', function (require) {
                 $('.chat .user').seedColors(); //the random color current user
                 $(".chat #window_chat").each(function () {
                     this.scrollTop = this.scrollHeight;
-                });
 
+                });
+                //chess_chat_storage.setItem("bus_last", this.bus.last);
             } catch (err) {
                 error = err;
                 console.error(err);
             }
+
         },
         checked_chat: function(){
             if($("#toggle_chat").prop("checked")) {
@@ -258,7 +260,6 @@ odoo.define('chess.chesschat', function (require) {
 
     });
     jQuery(document).ready(function(){
-        console.log('check1');
         jQuery('.window_chat').scrollbar();
     });
 

@@ -7,6 +7,7 @@ odoo.define('chess.create_game', function (require) {
     var bus = require('bus.bus');
     var ChessGame = require('chess.common').ChessGame;
 
+
     CreateGame.GameManager = Widget.extend({
         init: function(model_game_id, dbname, uid) {
             this._super();
@@ -23,6 +24,7 @@ odoo.define('chess.create_game', function (require) {
             this.bus.start_polling();
 
 
+
         },
         on_notification: function (notification) {
             var self = this;
@@ -30,12 +32,13 @@ odoo.define('chess.create_game', function (require) {
                 notification = [notification];
             }
             for (var i = 0; i < notification.length; i++) {
-                var channel = notification[i][0];
-                var message = notification[i][1];
+                var channel = notification[i][0][0];
+                var message = notification[i][0][1];
                 this.on_notification_do(channel, message);
             }
         },
         on_notification_do: function (channel, message) {
+
             var self = this;
             var channel = JSON.parse(channel);
             var error = false;
@@ -56,6 +59,7 @@ odoo.define('chess.create_game', function (require) {
                 window.new_game.game_pgn_click();
                 swal({   title: "Lets go!",   timer: 1000,   showConfirmButton: false });
                 storage_create_game.setItem("bus_last", this.bus.last);
+
             }
             if(message.system_status=="Canceled") {
                 create_new_game.stop_polling();
