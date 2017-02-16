@@ -1,4 +1,4 @@
-<openerp>
+<odoo>
     <data>
         <template name="Chess Page" id="chesspage" page="True">
             <t t-call="website.layout">
@@ -14,7 +14,7 @@
                             <div id="popup1" class="popup_block">
                                 <h2>Create game</h2>
                                 <form id="create_game" name="create_game" action="/chess/game/" method="post" data-model_name="chess.game">
-                                    <!--<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                     <div class="popup_content">
                                         <h3>Game type:</h3>
                                          <p>
@@ -41,7 +41,7 @@
                                 <div class="popup_content">
                                     <h3>Users:</h3>
                                     <form id="play_with_a_friend" name="play_with_a_friend" action="/chess/game/" method="post" data-model_name="chess.game">
-                                        <!--<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                         <select name="second_user_id" size="1">
                                             <t t-foreach="users" t-as="user">
                                                 <option t-attf-value="{{ user.id }}"><t t-esc="user.name"/></option>
@@ -199,14 +199,14 @@
                  <script type="text/javascript" src="/chess/static/js/sweet-alert.js"></script>
                  <script type="text/javascript" src="/chess/static/js/chess.js"></script>
                  <script type="text/javascript" src="/chess/static/js/chessboard.js"></script>
-
                  <script type="text/javascript" src="/chess/static/js/jquery.scrollbar.min.js"></script>
                  <script type="text/javascript" src="/chess/static/js/chesschat.js"></script>
                  <script type="text/javascript" src="/chess/static/js/common.js"></script>
                  <script type="text/javascript" src="/chess/static/js/create_game.js"></script>
+
                  <script type="text/javascript" src="/chess/static/js/seedrandom-min.js"></script>
                  <script type="text/javascript" src="/chess/static/js/jquery.seed-colors.js"></script>
              </xpath>
         </template>
     </data>
-</openerp>
+</odoo>
