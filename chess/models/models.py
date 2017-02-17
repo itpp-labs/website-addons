@@ -4,11 +4,15 @@ import time
 from odoo import api
 from odoo import fields
 from odoo import models
+import logging
+
+_logger = logging.getLogger(__name__)
 
 try:
     import chess
 except (ImportError, IOError) as err:
     _logger.debug(err)
+
 
 class ChessGame(models.Model):
     _name = 'chess.game'
@@ -254,7 +258,6 @@ class ChessGame(models.Model):
         self.env['bus.bus'].sendmany(notifications)
 
     @api.multi
-
     def game_information(self):
         self.ensure_one()
         if self.first_user_id.id == self.env.user.id:
