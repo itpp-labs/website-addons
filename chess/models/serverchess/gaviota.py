@@ -24,7 +24,6 @@ import os
 import os.path
 import logging
 import struct
-import chess
 
 try:
     import backport_collections as collections

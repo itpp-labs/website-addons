@@ -16,11 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import chess
 import signal
 import logging
 import threading
-import concurrent.futures
 import os
 import sys
 
