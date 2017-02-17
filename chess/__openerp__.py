@@ -17,7 +17,12 @@
         "web",
     ],
     "external_dependencies": {
-    "python": [], "bin": [], "chess":[], "concurrent.futures":[]},
+    "python": [
+                "chess", 
+                "concurrent.futures"
+    ], 
+    "bin": []
+    },
     "data": [
         "security/ir.model.access.csv",
         "security/security.xml",
