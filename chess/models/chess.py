@@ -51,8 +51,9 @@ class ChessGame(models.Model):
     def load_time(self, game_id, turn):
         return self.search([('id', '=', game_id)]).search_time(turn)
 
-    @api.one
+    @api.multi
     def search_time(self, turn):
+        self.ensure_one()
         if self.env.user.id == self.first_user_id.id:
             author_time = self.first_user_time
             another_user_time = self.second_user_time
@@ -80,7 +81,7 @@ class ChessGame(models.Model):
                     new_result = 0
                 return {'author_time': int(new_result), 'another_user_time': int(author_time)}
 
-    @api.one
+    @api.multi
     def write_time(self, message, game_id):
         data = message['data']
         if self.first_user_id.name == data['user']:
@@ -88,7 +89,7 @@ class ChessGame(models.Model):
         else:
             return self.write({'second_user_time': int(data['value'])})
 
-    @api.one
+    @api.multi
     def write_game_status(self, message, game_id):
         notifications = []
         data = message['data']
@@ -106,7 +107,7 @@ class ChessGame(models.Model):
         else:
             return self.write({"status": data['status']})
 
-    @api.one
+    @api.multi
     def game_over(self, status, time_limit_id):
         if self.system_status == 'Game Over':
             return False
@@ -249,8 +250,10 @@ class ChessGame(models.Model):
         notifications.append([str(channel), message])
         self.env['bus.bus'].sendmany(notifications)
 
-    @api.one
+    @api.multi
+
     def game_information(self):
+        self.ensure_one()
         if self.first_user_id.id == self.env.user.id:
             author_id = self.first_user_id.id
             author_name = self.first_user_id.name

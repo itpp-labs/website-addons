@@ -42,7 +42,7 @@ class Chess(http.Controller):
     @http.route('/chess/game/init/', type="json", auth="public")
     def init_game(self, game_id):
         result = request.env["chess.game"].browse(int(game_id)).game_information()
-        return result[0]
+        return result
 
     @http.route('/chess/game/history', type="json", auth="public")
     def load_move(self, game_id):
