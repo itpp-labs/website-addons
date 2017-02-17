@@ -197,7 +197,7 @@ odoo.define('chess.common', function (require) {
             this.system_status = '';
             this.game_id = model_game_id;
 
-            game = new Chess()
+            game = new Chess();
             this.statusEl = $('#status');
             this.fenEl = $('#fen');
             this.pgnEl = $('#pgn');
@@ -859,7 +859,7 @@ odoo.define('chess.common', function (require) {
                     var DelWF = html;
                     this.DelWEl.html(DelWF);
                 }
-                
+
 
                 if (BlackArr.length > 0) {
                     var imagesHTML = {
@@ -1096,6 +1096,6 @@ odoo.define('chess.common', function (require) {
 
     return {
         ChessGame: ChessGame,
-    }
+    };
 
 });

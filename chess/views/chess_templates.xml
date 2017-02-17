@@ -193,19 +193,19 @@
                  <link rel="stylesheet" type="text/css" href="/chess/static/css/jquery.scrollbar.css"/>
                  <link rel="stylesheet" type="text/css" href="/chess/static/css/simple-chat.css"/>
 
-                 <script type="text/javascript" src="/chess/static/js/dm-modal.js"></script>
+                 <script type="text/javascript" src="/chess/static/libs/dm-modal.js"></script>
 
                  <script type="text/javascript" src="/bus/static/src/js/bus.js"></script>
-                 <script type="text/javascript" src="/chess/static/js/sweet-alert.js"></script>
-                 <script type="text/javascript" src="/chess/static/js/chess.js"></script>
-                 <script type="text/javascript" src="/chess/static/js/chessboard.js"></script>
-                 <script type="text/javascript" src="/chess/static/js/jquery.scrollbar.min.js"></script>
+                 <script type="text/javascript" src="/chess/static/libs/sweet-alert.js"></script>
+                 <script type="text/javascript" src="/chess/static/libs/chess.js"></script>
+                 <script type="text/javascript" src="/chess/static/libs/chessboard.js"></script>
+                 <script type="text/javascript" src="/chess/static/libs/jquery.scrollbar.min.js"></script>
                  <script type="text/javascript" src="/chess/static/js/chesschat.js"></script>
                  <script type="text/javascript" src="/chess/static/js/common.js"></script>
                  <script type="text/javascript" src="/chess/static/js/create_game.js"></script>
 
-                 <script type="text/javascript" src="/chess/static/js/seedrandom-min.js"></script>
-                 <script type="text/javascript" src="/chess/static/js/jquery.seed-colors.js"></script>
+                 <script type="text/javascript" src="/chess/static/libs/seedrandom-min.js"></script>
+                 <script type="text/javascript" src="/chess/static/libs/jquery.seed-colors.js"></script>
              </xpath>
         </template>
     </data>
