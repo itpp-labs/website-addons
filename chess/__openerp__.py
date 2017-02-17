@@ -21,7 +21,8 @@
                 "chess", 
                 "concurrent.futures",
                 "serverchess",
-                "copy"
+                "copy",
+                "chess"
     ], 
     "bin": []
     },

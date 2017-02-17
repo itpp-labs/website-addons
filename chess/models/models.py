@@ -5,16 +5,10 @@ from odoo import api
 from odoo import fields
 from odoo import models
 
-import os,sys,inspect
-currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-parentdir = os.path.dirname(currentdir)
-sys.path.insert(0,parentdir) 
-
 try:
-    import serverchess
+    import chess
 except (ImportError, IOError) as err:
     _logger.debug(err)
-
 
 class ChessGame(models.Model):
     _name = 'chess.game'
@@ -332,8 +326,8 @@ class ChessGameLine(models.Model):
                 "target": data['target'],
             }
             # chess server for legal move
-            board = serverchess.Board(ps.fen)
-            legal_move = serverchess.Move.from_uci(data['source'] + data['target']) in board.legal_moves
+            board = chess.Board(ps.fen)
+            legal_move = chess.Move.from_uci(data['source'] + data['target']) in board.legal_moves
             # if move not legal then maybe Queen?
             if legal_move is False:
                 legal_Q = board.parse_san(data['target'] + '=Q') in board.legal_moves
