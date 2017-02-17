@@ -10,7 +10,10 @@ currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentfram
 parentdir = os.path.dirname(currentdir)
 sys.path.insert(0,parentdir) 
 
-import serverchess
+try:
+    import serverchess
+except (ImportError, IOError) as err:
+    _logger.debug(err)
 
 
 class ChessGame(models.Model):

@@ -19,7 +19,8 @@
     "external_dependencies": {
     "python": [
                 "chess", 
-                "concurrent.futures"
+                "concurrent.futures",
+                "serverchess"
     ], 
     "bin": []
     },
