@@ -23,6 +23,10 @@ import struct
 import sys
 import threading
 
+try:
+    import chess
+except (ImportError, IOError) as err:
+    _logger.debug(err)
 
 UINT64_BE = struct.Struct(">Q")
 UINT32 = struct.Struct("<I")

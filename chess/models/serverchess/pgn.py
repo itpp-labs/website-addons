@@ -26,6 +26,11 @@ try:
 except ImportError:
     import collections
 
+try:
+    import chess
+except (ImportError, IOError) as err:
+    _logger.debug(err)
+
 
 LOGGER = logging.getLogger(__name__)
 
