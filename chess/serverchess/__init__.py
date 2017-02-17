@@ -28,7 +28,6 @@ __email__ = "niklas.fiekas@backscattering.de"
 
 __version__ = "0.14.0"
 
-import copy
 import re
 import itertools
 
@@ -36,6 +35,11 @@ try:
     import backport_collections as collections
 except ImportError:
     import collections
+
+try:
+    import copy
+except (ImportError, IOError) as err:
+    _logger.debug(err)
 
 COLORS = [WHITE, BLACK] = [True, False]
 

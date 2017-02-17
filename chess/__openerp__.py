@@ -20,7 +20,8 @@
     "python": [
                 "chess", 
                 "concurrent.futures",
-                "serverchess"
+                "serverchess",
+                "copy"
     ], 
     "bin": []
     },
