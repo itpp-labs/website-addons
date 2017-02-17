@@ -16,7 +16,8 @@
         "bus",
         "web",
     ],
-    "external_dependencies": {"python": [], "bin": []},
+    "external_dependencies": {
+    "python": [], "bin": [], "chess":[], "concurrent.futures":[]},
     "data": [
         "security/ir.model.access.csv",
         "security/security.xml",
