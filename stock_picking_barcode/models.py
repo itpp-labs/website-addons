@@ -84,7 +84,6 @@ class StockPicking(models.Model):
             packop_ids = [op.id for op in picking.pack_operation_ids]
             self.env['stock.pack.operation'].write(packop_ids, {'owner_id': picking.owner_id.id})
 
-
     @api.model
     def do_prepare_partial(self, picking_ids):
         pack_operation_obj = self.env['stock.pack.operation']
@@ -208,7 +207,7 @@ class StockPicking(models.Model):
 class StockPickingType(models.Model):
     _inherit = "stock.picking.type"
 
-    def _open_barcode_interface(self):
+    def open_barcode_interface(self):
         final_url = "/barcode/web/#action=stock.ui&picking_type_id=" + str(self.ids[0]) if len(self.ids) else '0'
         return {'type': 'ir.actions.act_url', 'url': final_url, 'target': 'self'}
 
