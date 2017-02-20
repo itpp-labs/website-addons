@@ -84,8 +84,8 @@ class StockPicking(models.Model):
             packop_ids = [op.id for op in picking.pack_operation_ids]
             self.env['stock.pack.operation'].write(packop_ids, {'owner_id': picking.owner_id.id})
 
-    @api.cr_uid_ids_context
-    def _do_prepare_partial(self, picking_ids):
+    @api.model
+    def do_prepare_partial(self, picking_ids):
         pack_operation_obj = self.env['stock.pack.operation']
         # used to avoid recomputing the remaining quantities at each new pack operation created
         ctx = self.env.context.copy()
@@ -126,8 +126,8 @@ class StockPicking(models.Model):
             increment=increment
         )
 
-    @api.cr_uid_ids_context
-    def _action_pack(self, picking_ids, operation_filter_ids=None):
+    @api.model
+    def action_pack(self, picking_ids, operation_filter_ids=None):
         """ Create a package with the current pack_operation_ids of the picking that aren't yet in a pack.
         Used in the barcode scanner UI and the normal interface as well.
         operation_filter_ids is used by barcode scanner interface to specify a subset of operation to pack"""
@@ -192,21 +192,21 @@ class StockPicking(models.Model):
             'action_package_view',
         )
 
-    @api.cr_uid_ids_context
-    def _open_barcode_interface(self, picking_ids):
+    @api.model
+    def open_barcode_interface(self, picking_ids):
         final_url = "/barcode/web/#action=stock.ui&picking_id=" + str(picking_ids[0])
         return {'type': 'ir.actions.act_url', 'url': final_url, 'target': 'self', }
 
-    @api.cr_uid_ids_context
-    def _do_partial_open_barcode(self, picking_ids):
-        self._do_prepare_partial(picking_ids)
-        return self._open_barcode_interface(picking_ids)
+    @api.model
+    def do_partial_open_barcode(self, picking_ids):
+        self.do_prepare_partial(picking_ids)
+        return self.open_barcode_interface(picking_ids)
 
 
 class StockPickingType(models.Model):
     _inherit = "stock.picking.type"
 
-    def _open_barcode_interface(self):
+    def open_barcode_interface(self):
         final_url = "/barcode/web/#action=stock.ui&picking_type_id=" + str(self.ids[0]) if len(self.ids) else '0'
         return {'type': 'ir.actions.act_url', 'url': final_url, 'target': 'self'}
 
