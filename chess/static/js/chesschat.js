@@ -30,7 +30,7 @@ odoo.define('chess.chesschat', function (require) {
                 var channel = notification[i][0];
                 var message = notification[i][1];
                 this.on_notification_do(channel, message);
-            };
+            }
         },
         on_notification_do: function (channel, message) {
             var channel = JSON.parse(channel);

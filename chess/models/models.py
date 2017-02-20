@@ -1,10 +1,17 @@
 # -*- coding: utf-8 -*-
 import datetime
 import time
-from . import serverchess
 from odoo import api
 from odoo import fields
 from odoo import models
+import logging
+
+_logger = logging.getLogger(__name__)
+
+try:
+    import chess
+except (ImportError, IOError) as err:
+    _logger.debug(err)
 
 
 class ChessGame(models.Model):
@@ -51,8 +58,9 @@ class ChessGame(models.Model):
     def load_time(self, game_id, turn):
         return self.search([('id', '=', game_id)]).search_time(turn)
 
-    @api.one
+    @api.multi
     def search_time(self, turn):
+        self.ensure_one()
         if self.env.user.id == self.first_user_id.id:
             author_time = self.first_user_time
             another_user_time = self.second_user_time
@@ -80,7 +88,7 @@ class ChessGame(models.Model):
                     new_result = 0
                 return {'author_time': int(new_result), 'another_user_time': int(author_time)}
 
-    @api.one
+    @api.multi
     def write_time(self, message, game_id):
         data = message['data']
         if self.first_user_id.name == data['user']:
@@ -88,7 +96,7 @@ class ChessGame(models.Model):
         else:
             return self.write({'second_user_time': int(data['value'])})
 
-    @api.one
+    @api.multi
     def write_game_status(self, message, game_id):
         notifications = []
         data = message['data']
@@ -106,7 +114,7 @@ class ChessGame(models.Model):
         else:
             return self.write({"status": data['status']})
 
-    @api.one
+    @api.multi
     def game_over(self, status, time_limit_id):
         if self.system_status == 'Game Over':
             return False
@@ -249,8 +257,9 @@ class ChessGame(models.Model):
         notifications.append([str(channel), message])
         self.env['bus.bus'].sendmany(notifications)
 
-    @api.one
+    @api.multi
     def game_information(self):
+        self.ensure_one()
         if self.first_user_id.id == self.env.user.id:
             author_id = self.first_user_id.id
             author_name = self.first_user_id.name
@@ -320,8 +329,8 @@ class ChessGameLine(models.Model):
                 "target": data['target'],
             }
             # chess server for legal move
-            board = serverchess.Board(ps.fen)
-            legal_move = serverchess.Move.from_uci(data['source'] + data['target']) in board.legal_moves
+            board = chess.Board(ps.fen)
+            legal_move = chess.Move.from_uci(data['source'] + data['target']) in board.legal_moves
             # if move not legal then maybe Queen?
             if legal_move is False:
                 legal_Q = board.parse_san(data['target'] + '=Q') in board.legal_moves

@@ -16,7 +16,12 @@
         "bus",
         "web",
     ],
-    "external_dependencies": {"python": [], "bin": []},
+    "external_dependencies": {
+        "python": [
+            "chess",
+        ],
+        "bin": []
+    },
     "data": [
         "security/ir.model.access.csv",
         "security/security.xml",
