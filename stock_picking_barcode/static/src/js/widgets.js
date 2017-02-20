@@ -738,7 +738,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                 }).then(function(){
                     if (self.picking.pack_operation_exist === false){
                         self.picking.recompute_pack_op = false;
-                        return new Model('stock.picking').call('do_prepare_partial',[[self.picking.id]]);
+                        return new Model('stock.picking').call('_do_prepare_partial',[[self.picking.id]]);
                     }
                 }).then(function(){
                         return new Model('stock.pack.operation').call('search',[[['picking_id','=',self.picking.id]]]);
@@ -1049,7 +1049,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
         reload_pack_operation: function(){
             var self = this;
             return new Model('stock.picking')
-                .call('do_prepare_partial',[[self.picking.id]])
+                .call('_do_prepare_partial',[[self.picking.id]])
                 .then(function(){
                     self.refresh_ui(self.picking.id);
                 });
