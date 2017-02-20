@@ -26,8 +26,7 @@ class StockPicking(models.Model):
             answer['filter_loc_id'] = matching_location_ids[0]
             return answer
         # check if the barcode correspond to a product
-        matching_product_ids = product_obj.search(['|', ('barcode', '=', barcode_str),
-                                                            ('default_code', '=', barcode_str)])
+        matching_product_ids = product_obj.search(['|', ('barcode', '=', barcode_str), ('default_code', '=', barcode_str)])
         if matching_product_ids:
             op_id = self._search_and_increment(
                 self.id,
