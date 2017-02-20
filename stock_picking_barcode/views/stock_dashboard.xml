@@ -9,7 +9,7 @@
                 <xpath expr="//div[@class='container o_kanban_card_content o_visible']/div[@class='row']" position="before">
                     <div class="row">
                         <div class="col-xs-6 col-xs-offset-6 o_kanban_primary_right">
-                            <a name="open_barcode_interface" type="object">
+                            <a name="_open_barcode_interface" type="object">
                                 <img src="/stock_picking_barcode/static/src/img/scan.png"
                                     alt="Click to launch the barcode interface"
                                     class="oe_stock_scan_image" title="Click to launch the barcode interface"/>
