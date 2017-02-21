@@ -11,29 +11,13 @@ odoo.define('chess.create_game', function (require) {
     CreateGame.GameManager = Widget.extend({
         init: function(model_game_id, dbname, uid) {
             this._super();
-            var self = this;
-            //add channel for information by game
-            var channel_game_info = JSON.stringify([dbname, 'chess.game.info', [uid, model_game_id]]);
-            var bus_last = 0;
-            Number(storage_create_game.getItem("bus_last"))==null ? bus_last=this.bus.last : bus_last=Number(storage_create_game.getItem("bus_last"));
-            // start the polling
-            this.bus = bus.bus;
-            this.bus.last = bus_last;
-            this.bus.add_channel(channel_game_info);
-            this.bus.on("notification", this, this.on_notification);
-            this.bus.start_polling();
-
-
-
         },
         on_notification: function (notification) {
             var self = this;
-            if (typeof notification[0][0] === 'string') {
-                notification = [notification];
-            }
+
             for (var i = 0; i < notification.length; i++) {
-                var channel = notification[i][0][0];
-                var message = notification[i][0][1];
+                var channel = notification[i][0];
+                var message = notification[i][1];
                 this.on_notification_do(channel, message);
             }
         },
@@ -79,7 +63,6 @@ odoo.define('chess.create_game', function (require) {
             this._super();
             var self = this;
             this.game_id = model_game_id;
-            //session = session;
             this.c_manager = new CreateGame.GameManager(model_game_id, dbname, uid);
             this.start();
 
@@ -145,6 +128,5 @@ $('#create_game .limited_time, #play_with_a_friend .limited_time').click(functio
 $('#create_game #standart, #play_with_a_friend #standart').click(function () {
     $('#create_game #time').hide();
     $('#play_with_a_friend #time').hide();
-
 
 });
