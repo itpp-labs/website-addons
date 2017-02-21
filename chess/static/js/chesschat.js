@@ -1,4 +1,3 @@
-//For odoo 8.0
 odoo.define('chess.chesschat', function (require) {
     "use strict";
     var Widget = require('web.Widget');
@@ -6,32 +5,30 @@ odoo.define('chess.chesschat', function (require) {
     var set_cookie = require('chess.common');
     var utils = require('web.utils');
     var bus = require('bus.bus');
-
     var ChessChat = {};
 
     ChessChat.COOKIE_NAME = 'chesschat_session';
-    ChessChat.ConversationManager = Widget.extend({
-        init: function (model_game_id, dbname, uid) {
-            this._super();
-            console.log("Initial Chat");
-            var self = this;
+    ChessChat.Conversation = Widget.extend({
+        className: "chat_form",
+        init: function(model_game_id, dbname, uid){
+            var element = document.getElementById('chat');
+            if (!element) {
+                return;
+            }
             this.game_id = model_game_id;
-            var channel = JSON.stringify([dbname, 'chess.game.chat', [uid, this.game_id]]);
-            this.bus = bus.bus;
-            this.bus.add_channel(channel);
-            this.bus.on("notification", this, this.on_notification);
-            this.bus.start_polling();
+            this.history = true;
+            this.opening_chat = false;
         },
+
         on_notification: function (notification) {
-
             var self = this;
-
             for (var i = 0; i < notification.length; i++) {
                 var channel = notification[i][0];
                 var message = notification[i][1];
                 this.on_notification_do(channel, message);
             }
         },
+
         on_notification_do: function (channel, message) {
             var channel = JSON.parse(channel);
             var error = false;
@@ -44,43 +41,7 @@ odoo.define('chess.chesschat', function (require) {
                 }
             }
         },
-        received_message: function(message) {
-            var error = false;
-            try {
-                var date = new Date();
-                var values = [date.getDate(), date.getMonth() + 1];
-                for (var id in values) {
-                    values[id] = values[id].toString().replace(/^([0-9])$/, '0$1');
-                }
-                var time_now = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
-                message.time = values[0] + '.' + values[1] + '.' + date.getFullYear() + ' ' + time_now;
 
-                $("#window_chat").append("<p><span class='user'>" + (message.author_name) +
-                    ":</span> " + (message.data.replace(/&/gm,'&amp;').replace(/</gm,'&lt;').replace(/>/gm,'&gt;')) + "<br> <span class='time_message'>" +
-                    (message.time) + "</span></p>");
-                $('.chat .user').seedColors(); //the random color
-                $("#window_chat").each(function () {
-                    this.scrollTop = this.scrollHeight;
-                });
-
-            } catch (err) {
-                error = err;
-                console.error(err);
-            }
-        }
-    });
-    ChessChat.Conversation = Widget.extend({
-        className: "chat_form",
-        init: function(model_game_id, dbname, uid){
-            var element = document.getElementById('chat');
-            if (!element) {
-                return;
-            }
-            this.game_id = model_game_id;
-            this.c_manager = new ChessChat.ConversationManager(model_game_id, dbname, uid);
-            this.history = true;
-            this.opening_chat = false;
-        },
         start: function() {
             if (this.opening_chat) {
                 return;
@@ -114,6 +75,7 @@ odoo.define('chess.chesschat', function (require) {
             }
             return ready;
         },
+
         load_history: function(history){
             if(this.history) {
                 history.forEach(function (item, i, history) {
@@ -130,17 +92,20 @@ odoo.define('chess.chesschat', function (require) {
         },
         send_message: function(message) {
             var self = this;
-            session.rpc("/chess/game/chat/send/", {message: message, game_id: self.game_id})
+            return session
+                .rpc("/chess/game/chat/send/", {message: message, game_id: self.game_id})
                 .then(function (result) {
                     if(result) {
                         self.received_message(message);
-                        console.log("Message is send.");
+                        console.log("Message is sent.");
                     } else {
-                        console.log("Error. Message is not send.");
+                        console.log("Error. Message not sent.");
                         console.log("No response from the server.");
                     }
                 });
+
         },
+
         received_message: function (message) {
 
             var error = false;
@@ -161,26 +126,29 @@ odoo.define('chess.chesschat', function (require) {
                     this.scrollTop = this.scrollHeight;
 
                 });
-                //chess_chat_storage.setItem("bus_last", this.bus.last);
             } catch (err) {
                 error = err;
                 console.error(err);
             }
 
         },
+
         checked_chat: function(){
             if($("#toggle_chat").prop("checked")) {
                 this.start();
             }
         },
+
         keydown: function(e) {
             if (e.keyCode == 13 && e.ctrlKey){
                this.select_message();
             }
         },
+
         click_send: function(){
             this.select_message();
         },
+
         select_message: function() {
             $('.chat .error').remove();
             var message = {};
@@ -215,7 +183,7 @@ odoo.define('chess.chesschat', function (require) {
     if (window.model_game_id===undefined) {
         return false;
     } else {
-        var my_chat = new ChessChat.Conversation(model_game_id, model_dbname, model_author_id);
+         var my_chat = new ChessChat.Conversation(model_game_id, model_dbname, model_author_id);
     }
 
     $(".toggle_chat").click(function(){
@@ -243,7 +211,7 @@ odoo.define('chess.chesschat', function (require) {
         }
     });
 
-    /* delet checked attribut, when page is referech */
+    /* deletes checked attribute, when page is refreshed */
     var allCheckboxes = $(".messages_container input:checkbox:enabled");
     allCheckboxes.removeAttr('checked');
 
@@ -263,14 +231,9 @@ odoo.define('chess.chesschat', function (require) {
         jQuery('.window_chat').scrollbar();
     });
 
-
-
     return {
         ChessChat : ChessChat,
     };
 
-
-
-
 });
-//should be callable
+

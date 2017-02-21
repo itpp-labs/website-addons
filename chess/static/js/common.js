@@ -18,8 +18,6 @@ odoo.define('chess.common', function (require) {
     var session = require('web.session');
     var utils = require('web.utils');
 
-
-
     ChessGame.COOKIE_NAME = 'chessgame_session';
     ChessGame.GameManager = Widget.extend({
         init: function (model_game_id, dbname, uid) {
@@ -28,31 +26,30 @@ odoo.define('chess.common', function (require) {
             this.game_id = model_game_id;
             var channel_line = JSON.stringify([dbname, 'chess.game.line', [uid, this.game_id]]);
             var channel_game = JSON.stringify([dbname, 'chess.game', [uid, this.game_id]]);
+            var channel_chat = JSON.stringify([dbname, 'chess.game.chat', [uid, this.game_id]]);
+            var channel_game_info = JSON.stringify([dbname, 'chess.game.info', [uid, model_game_id]]);
             var bus_last = 0;
             Number(storage.getItem("bus_last"))==null ? bus_last=this.bus.last : bus_last=Number(storage.getItem("bus_last"));
-
             // start the polling
             this.bus = bus.bus;
             this.bus.last = bus_last;
             this.bus.add_channel(channel_line);
             this.bus.add_channel(channel_game);
+            this.bus.add_channel(channel_chat);
+            this.bus.add_channel(channel_game_info);
             this.bus.on("notification", this, this.on_notification);
             this.bus.start_polling();
-
-
-
         },
+
         on_notification: function (notification) {
             var self = this;
-            // if (typeof notification[0][0] === 'string') {
-            //     notification = [notification];
-            // }
             for (var i = 0; i < notification.length; i++) {
                 var channel = notification[i][0];
                 var message = notification[i][1];
                 this.on_notification_do(channel, message);
             }
         },
+
         on_notification_do: function (channel, message) {
             var self = this;
             var channel = JSON.parse(channel);
@@ -64,8 +61,41 @@ odoo.define('chess.common', function (require) {
                     error = err;
                     console.error(err);
                 }
+            } else if (Array.isArray(channel) && (channel[1] === 'chess.game.chat')) {
+                try {
+                    this.chat_received_message(message);
+                } catch (err) {
+                    error = err;
+                    console.error(err);
+                }
             }
         },
+
+        chat_received_message: function (message) {
+            var error = false;
+            try {
+                var date = new Date();
+                var values = [date.getDate(), date.getMonth() + 1];
+                for (var id in values) {
+                    values[id] = values[id].toString().replace(/^([0-9])$/, '0$1');
+                }
+                var time_now = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+                message.time = values[0] + '.' + values[1] + '.' + date.getFullYear() + ' ' + time_now;
+
+                $("#window_chat").append("<p><span class='user'>" + (message.author_name) +
+                    ":</span> " + (message.data.replace(/&/gm,'&amp;').replace(/</gm,'&lt;').replace(/>/gm,'&gt;')) + "<br> <span class='time_message'>" +
+                    (message.time) + "</span></p>");
+                $('.chat .user').seedColors(); //the random color
+                $("#window_chat").each(function () {
+                    this.scrollTop = this.scrollHeight;
+                });
+
+            } catch (err) {
+                error = err;
+                console.error(err);
+            }
+        },
+
         received_message: function(message) {
             var self = this;
             var error = false;
@@ -185,7 +215,6 @@ odoo.define('chess.common', function (require) {
         init: function(model_game_id, dbname, uid){
             this._super();
             var self = this;
-            session = session;
             this.c_manager = new ChessGame.GameManager(model_game_id, dbname, uid);
             console.log("Initial Game");
             this.history = true;
@@ -196,7 +225,6 @@ odoo.define('chess.common', function (require) {
             this.game_over_status = '';
             this.system_status = '';
             this.game_id = model_game_id;
-
             game = new Chess();
             this.statusEl = $('#status');
             this.fenEl = $('#fen');
@@ -208,6 +236,7 @@ odoo.define('chess.common', function (require) {
             this.lenOldFen = ((this.OLD_FEN_POSITION.split('/')).join('')).replace(/[0-9]/g, '').length;
             this.start();
         },
+
         start: function(){
             var self = this;
             var cookie_name = ChessGame.COOKIE_NAME+self.game_id;
@@ -245,7 +274,7 @@ odoo.define('chess.common', function (require) {
                         author_player_color = self.author_id;
                         another_player_color = self.another_user_id;
 
-                        //save all data in coockie
+                        //save all data in cookie
                         set_cookie(cookie_name, JSON.stringify({
                             'author': {
                                 'name': self.author_name,
@@ -277,13 +306,11 @@ odoo.define('chess.common', function (require) {
                 self.author_id = coockie_game.author.id;
                 self.author_color = coockie_game.author.color;
                 turn = self.author_color;
-
                 //another user
                 self.another_user_name = coockie_game.another_user.name;
                 self.another_user_id = coockie_game.another_user.id;
                 self.another_user_color = coockie_game.another_user.color;
                 //self.another_user_time = coockie_game.another_user.time;
-
                 //game information
                 self.game_id = coockie_game.information.id;
                 self.game_type = coockie_game.information.type;
@@ -300,6 +327,7 @@ odoo.define('chess.common', function (require) {
                 self.call_load_system_message(coockie_game.information.id);
             }
         },
+
         onOrientation: function(){
             if (this.author_color==='black') return 'black';
             else return 'white';
@@ -320,6 +348,7 @@ odoo.define('chess.common', function (require) {
             $('#flipOrientationBtn').on('click', board.flip);
             this.updateStatus();
         },
+
         onGameType: function(game_type, author_time, another_user_time){
             var self = this;
             if(self.system_status=='Game Over'){
@@ -350,12 +379,14 @@ odoo.define('chess.common', function (require) {
                 }
             }
         },
+
         call_load_system_message: function(game_id) {
             var self = this;
             session.rpc("/chess/game/system_history", {'game_id': game_id }).then(function (result) {
                 self.call_load_history(game_id, result);
             });
         },
+
         call_load_history: function(game_id, result){
             var self = this;
             session.rpc("/chess/game/history", {'game_id': game_id }).then(function (history) {
@@ -386,6 +417,7 @@ odoo.define('chess.common', function (require) {
                 }
             });
         },
+
         load_time_history: function (history, resultat) {
             var self = this;
             var error = false;
@@ -447,6 +479,7 @@ odoo.define('chess.common', function (require) {
                 }
             }
         },
+
         showConfirmation: function(history, result){
             var self = this;
             if (this.history){
@@ -533,6 +566,7 @@ odoo.define('chess.common', function (require) {
             }
             this.history=false;
         },
+
         onDragStart: function (source, piece, position, orientation) {
             var self = this;
             board.position(game.fen());
@@ -556,6 +590,7 @@ odoo.define('chess.common', function (require) {
                 return false;
             }
         },
+
         onDrop: function (source, target) {
             var self = this;
             // see if the move is legal
@@ -576,6 +611,7 @@ odoo.define('chess.common', function (require) {
             new_game.onDelFigure();
             new_game.updateStatus();
         },
+
         send_move: function(message){
             var self = this;
             self.check_status = false;
@@ -629,11 +665,13 @@ odoo.define('chess.common', function (require) {
                     }
                 });
         },
+
         onSnapEnd: function () {
             // update the board position after the piece snap
             // for castling, en passant, pawn promotion
             board.position(game.fen());
         },
+
         updateStatus: function () {
             var self = this;
             var status = '';
@@ -738,7 +776,6 @@ odoo.define('chess.common', function (require) {
                 self.game_over_status=self.author_color;
                 self.game_over(status);
             }
-
             // suggest a draw?
             $('.end_game #suggest_a_draw').click(function(){
                 swal({
@@ -774,6 +811,7 @@ odoo.define('chess.common', function (require) {
             var load_pgn = game.pgn();
             this.pgnEl.html(load_pgn.replace(game.fen(), ''));
         },
+
         game_over: function(status) {
             if (this.system_status=='Game Over') {
                 return false;
@@ -802,6 +840,7 @@ odoo.define('chess.common', function (require) {
                     }
                 });
         },
+
         onDelFigure: function () {
             /* It is only important as a shortened post we will use
              only to determine the remote pieces on the board */
@@ -860,7 +899,6 @@ odoo.define('chess.common', function (require) {
                     this.DelWEl.html(DelWF);
                 }
 
-
                 if (BlackArr.length > 0) {
                     var imagesHTML = {
                         p: "<img src='/chess/static/img/chesspieces/wikipedia/bP.png' alt='black pawn'>",
@@ -895,6 +933,7 @@ odoo.define('chess.common', function (require) {
                 this.lenOldFen = this.lenOldFen - 1;
             }
         },
+
         user_surrender: function (status) {
             var self = this;
             $('.chess_information .chess_time_usr').hide();
@@ -927,6 +966,7 @@ odoo.define('chess.common', function (require) {
                 self.reset(Math.round(self.author_time), Math.round(self.another_user_time));
             }
         },
+
         clockClicked : function(id) {
             if (game.game_over()==false) {
                 var self = this;
@@ -1005,6 +1045,7 @@ odoo.define('chess.common', function (require) {
                 }
             }
         },
+
         reset : function(author_time, another_user_time) {
             /* reset the times */
 
@@ -1021,10 +1062,12 @@ odoo.define('chess.common', function (require) {
             /* update the view */
             this.updateView();
         },
+
         updateView : function() {
             this.updateClock(0, this.times[0]);
             this.updateClock(1, this.times[1]);
         },
+
         updateClock : function(id, time) {
             var self = this;
             element = document.getElementById("clock"+id);
@@ -1040,6 +1083,7 @@ odoo.define('chess.common', function (require) {
                 this.removeClass(id, "expired");
             }
         },
+
         addClass : function(id, className) {
             element = document.getElementById("clock"+id);
             element.className += " " + className;
@@ -1050,6 +1094,7 @@ odoo.define('chess.common', function (require) {
             var exp = new RegExp(className);
             element.className = element.className.replace( exp , '' );
         },
+
         formatTime : function(time) {
             var minutes = Math.floor(time / 60);
             var seconds = Math.floor(time % 60);
@@ -1069,6 +1114,7 @@ odoo.define('chess.common', function (require) {
 
             return result;
         },
+
         game_pgn_click: function(){
             new_game.pgnEl.on('click', 'a',function(event) {
                 event.preventDefault();
@@ -1081,8 +1127,6 @@ odoo.define('chess.common', function (require) {
     });
 
     var element = document.getElementById('board');
-
-
     var set_cookie = function(name, value, ttl) {
         ttl = ttl || 24*60*60*365;
         document.cookie = [
@@ -1092,7 +1136,6 @@ odoo.define('chess.common', function (require) {
             'expires=' + new Date(new Date().getTime() + ttl*1000).toGMTString()
         ].join(';');
     };
-
 
     return {
         ChessGame: ChessGame,
