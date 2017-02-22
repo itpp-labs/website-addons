@@ -120,7 +120,10 @@ class SaleOrder(models.Model):
                 'booking_start': start,
                 'booking_end': end,
             })
-            line = rec.env['sale.order.line'].sudo().with_context(tz_offset=tz_offset).create(values)
+            if not self.env['sale.order.line'].sudo().is_overlaps(int(resource), start.strftime(DTF), end.strftime(DTF)):
+                line = rec.env['sale.order.line'].sudo().with_context(tz_offset=tz_offset).create(values)
+            else:
+                line = None
         return line
 
     @api.model
