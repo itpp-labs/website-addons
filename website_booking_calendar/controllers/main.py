@@ -4,6 +4,7 @@ import simplejson
 
 from openerp import http, SUPERUSER_ID
 from openerp.http import request
+from openerp.exceptions import ValidationError
 
 
 class WebsiteBookingCalendar(http.Controller):
@@ -48,7 +49,10 @@ class WebsiteBookingCalendar(http.Controller):
                 if order.state in ['cancel', 'done']:
                     request.website.sale_reset()
                     order = request.website.sale_get_order(force_create=1)
-                order._add_booking_line(int(arg), int(resource_id), start, end, tz)
+                try:
+                    order._add_booking_line(int(arg), int(resource_id), start, end, tz)
+                except ValidationError as e:
+                    raise e
         return request.redirect("/shop/cart")
 
     @http.route('/booking/calendar/slots', type='json', auth='public', website=True)
