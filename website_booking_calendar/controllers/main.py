@@ -66,7 +66,7 @@ class WebsiteBookingCalendar(http.Controller):
                 if order.state in ['cancel', 'done']:
                     request.website.sale_reset()
                     order = request.website.sale_get_order(force_create=1)
-                line = order._add_booking_line(int(arg), int(resource_id), start, end, tz)
+                order._add_booking_line(int(arg), int(resource_id), start, end, tz)
         return request.redirect("/shop/cart")
 
     @http.route('/booking/calendar/slots', type='json', auth='public', website=True)
