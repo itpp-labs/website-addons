@@ -22,9 +22,9 @@ $(document).ready(function(){
 
     $(document).on('click', 'a.close', function() {
     $('#fade , .popup_block').fadeOut(function() {
-        $('#fade, a.close').remove(); 
-    });   
-    return false;    
+        $('#fade, a.close').remove();
+    });
+    return false;
    });
-    
+
 });
