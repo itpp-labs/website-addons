@@ -15,10 +15,10 @@
         "bus",
     ],
     "external_dependencies": {
-    "python": [
-        "chess",
-    ], 
-    "bin": []},
+        "python": [
+            "chess",
+        ],
+        "bin": []},
     "data": [
         "security/ir.model.access.csv",
         "security/security.xml",

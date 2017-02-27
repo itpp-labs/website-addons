@@ -846,7 +846,7 @@ $(document).ready(function() {
                     var DelWF = html;
                     this.DelWEl.html(DelWF);
                 }
-                
+
 
                 if (BlackArr.length > 0) {
                     var imagesHTML = {
