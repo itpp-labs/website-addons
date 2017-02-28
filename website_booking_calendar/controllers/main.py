@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 import re
 import simplejson
+import pytz
 
-from openerp import http, SUPERUSER_ID
+from openerp import http, fields, SUPERUSER_ID
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
 from openerp.http import request
 
 
@@ -34,6 +36,22 @@ class WebsiteBookingCalendar(http.Controller):
         return request.website.render('website_booking_calendar.confirm_form', {
             'bookings': bookings
         })
+
+    @http.route(['/booking/validator'], type='json', auth="public", website=True)
+    def booking_validator(self, booking):
+        m = re.match(r'^product_id\[(\d+)\]\[([\d-]+ [\d:]+)\-([\d-]+ [\d:]+)\]$', booking)
+        resource_id = m.group(1)
+        start = m.group(2)
+        end = m.group(3)
+        if start and end and resource_id:
+            user = request.env['res.users'].browse(request.session.uid)
+            user_tz = pytz.timezone(user.tz or 'UTC')
+            start = user_tz.localize(fields.Datetime.from_string(start)).astimezone(pytz.utc)
+            end = user_tz.localize(fields.Datetime.from_string(end)).astimezone(pytz.utc)
+            overlaps = request.env['sale.order.line'].sudo().is_overlaps(int(resource_id), start.strftime(DTF), end.strftime(DTF))
+            return bool(overlaps)
+
+        return True
 
     @http.route('/booking/calendar/confirm', type='http', auth='public', website=True)
     def order(self, **kwargs):

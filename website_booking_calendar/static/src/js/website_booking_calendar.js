@@ -117,9 +117,34 @@
 
         $('#booking-dialog-confirm').click(function(){
             var $form = $('#booking-dialog').find('form');
+            var $msg = $('#booking-taken-msg')
             var d = new Date();
             $form.find("[name=timezone]").val(d.getTimezoneOffset());
-            $form.submit();
+            var tr_counter = 0;
+            var validated_counter = 0;
+            var deferreds = [];
+            $form.find('tbody tr').each(function() {
+               var tr_element = $(this)
+               tr_counter = tr_counter + 1;
+               deferreds.push(
+                  openerp.jsonRpc('/booking/validator', 'call', {'booking': $(this).find('select').attr('name')}).then(function(result) {
+                     if(result) {
+                        tr_element.css({'color': 'red'});
+                        $msg.css({'visibility': 'visible'});
+                     } else {
+                        validated_counter = validated_counter + 1;
+                        // alert(validated_counter);
+                     }
+                  })
+               );
+            })
+
+            $.when.apply($, deferreds).done(function() {
+               // alert('all done!');
+               if(validated_counter) {
+                  $form.submit();
+               }
+            });
         });
 
     };
@@ -135,6 +160,7 @@
                 $(this).closest('tr').find('.booking-price').text(price);
                 $(this).closest('tr').find('.booking-currency').text(currency);
             });
+            $('#booking-taken-msg').css({'visibility': 'hidden'});
             $('#booking-dialog').modal('show');
         });
     };
