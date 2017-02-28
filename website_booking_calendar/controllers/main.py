@@ -87,7 +87,6 @@ class WebsiteBookingCalendar(http.Controller):
 class BookingWebsiteSale(WebsiteSale):
 
     def checkout_redirection(self, order):
-        cr, uid, context, registry = request.cr, request.uid, request.context, request.registry
 
         if not order or order.state != 'draft':
             if order:
