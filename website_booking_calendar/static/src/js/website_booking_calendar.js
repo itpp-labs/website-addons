@@ -145,16 +145,18 @@
                         $msg.css({'visibility': 'visible'});
                      } else {
                         validated_counter = validated_counter + 1;
-                        // alert(validated_counter);
                      }
                   })
                );
             })
 
+
             $.when.apply($, deferreds).done(function() {
-               // alert('all done!');
-               if(validated_counter) {
+               if($form.find("[name='validation_passed']").val()) {
                   $form.submit();
+               }
+               if(validated_counter) {
+                  $form.find("[name='validation_passed']").val(true);
                }
             });
         });
