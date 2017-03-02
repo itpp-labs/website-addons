@@ -124,6 +124,7 @@
                     </tbody>
                 </table>
                 <input type="hidden" name="timezone" />
+                <input type="hidden" name="validation_passed" />
             </form>
         </template>
 
