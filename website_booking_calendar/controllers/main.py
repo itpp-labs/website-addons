@@ -7,6 +7,8 @@ from openerp import http, fields, SUPERUSER_ID
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
 from openerp.http import request
 
+from openerp.addons.website_sale.controllers.main import website_sale as WebsiteSale
+
 
 class WebsiteBookingCalendar(http.Controller):
 
@@ -80,3 +82,21 @@ class WebsiteBookingCalendar(http.Controller):
         cr, uid, context = request.cr, SUPERUSER_ID, request.context
         return request.registry["sale.order.line"].get_bookings(cr, uid, kwargs.get('start'),
                                                                 kwargs.get('end'), kwargs.get('tz'), kwargs.get('domain', []), online=True, context=context)
+
+
+class BookingWebsiteSale(WebsiteSale):
+
+    def checkout_redirection(self, order):
+
+        if not order or order.state != 'draft':
+            if order:
+                lines = request.env['sale.order.line'].sudo().with_context(active_test=False).search(
+                    [('order_id', '=', order.id),
+                     ('venue_id', '!=', False)],
+                    )
+                if lines:
+                    return request.redirect('/booking/calendar?venue={}&expired=1'.format(lines[0].venue_id.id))
+            else:
+                return request.redirect('/booking/calendar?expired=1')
+
+        return super(BookingWebsiteSale, self).checkout_redirection(order)
