@@ -152,7 +152,7 @@
 
 
             $.when.apply($, deferreds).done(function() {
-               if($form.find("[name='validation_passed']").val()) {
+               if(validated_counter === tr_counter || $form.find("[name='validation_passed']").val()) {
                   $form.submit();
                }
                if(validated_counter) {
