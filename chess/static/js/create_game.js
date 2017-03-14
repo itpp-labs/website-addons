@@ -62,7 +62,6 @@ odoo.define('chess.create_game', function (require) {
         init: function(model_game_id, dbname, uid){
             this._super();
             this.game_id = model_game_id;
-            this.bus_manager = new ChessGame.GameManager(model_game_id, dbname, uid);
             this.c_manager = new CreateGame.GameManager(model_game_id, dbname, uid);
             this.start();
         },
