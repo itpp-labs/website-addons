@@ -212,6 +212,7 @@ odoo.define('chess.common', function (require) {
     ChessGame.GameConversation = Widget.extend({
         init: function(model_game_id, dbname, uid){
             this._super();
+            this.c_manager = new ChessGame.GameManager(model_game_id, dbname, uid);
             console.log("Initial Game");
             this.history = true;
             this.history_loading = false;
