@@ -160,7 +160,7 @@ class Chess(http.Controller):
             raise NotFound()
         players_clean_data = [int(x) for x in players.split(',')]
         players_clean_data.append(http.request.env.user.id)
-        new_tournament = http.request.env['chess.tournament'].create({
+        http.request.env['chess.tournament'].create({
             'tournament_type': tournament_type,
             'start_date': datetime.datetime.now(),
             'players': [(6, 0, [players_clean_data])],
