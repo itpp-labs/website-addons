@@ -1,0 +1,36 @@
+<templates xml:space="preserve">
+
+    <t t-name="TournamentsMain">
+        <div class="tournaments_main">
+        </div>
+    </t>
+
+    <t t-name="TournamentsListTemplate">
+        <div class="tournaments_list">
+        </div>
+    </t>
+
+    <t t-name="TournamentListElement">
+        <div class="tournament_list_element" t-att-data-id="item.id">
+            Started:<p><t t-esc="item.start_date"/></p>
+            Game Type:<p><t t-esc="item.tournament_type"/></p>
+        </div>
+    </t>
+
+    <t t-name="TournamentTableStartGameCell">
+        <td class="tournament-table-start-game">
+        </td>
+    </t>
+
+    <t t-name="TournamentTableToMyGameCell">
+        <td class="tournament-table-to-the-game">
+        </td>
+    </t>
+
+    <t t-name="TournamentTableTemplate">
+        <div class="tournament_table_container">
+        </div>
+    </t>
+
+
+</templates>

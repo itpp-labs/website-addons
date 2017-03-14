@@ -42,7 +42,6 @@ odoo.define('chess.common', function (require) {
         },
 
         on_notification: function (notification) {
-            var self = this;
             for (var i = 0; i < notification.length; i++) {
                 var channel = notification[i][0];
                 var message = notification[i][1];
@@ -51,7 +50,6 @@ odoo.define('chess.common', function (require) {
         },
 
         on_notification_do: function (channel, message) {
-            var self = this;
             var channel = JSON.parse(channel);
             var error = false;
             if (Array.isArray(channel) && (channel[1] === 'chess.game.line' || channel[1] === 'chess.game')) {
@@ -214,8 +212,6 @@ odoo.define('chess.common', function (require) {
     ChessGame.GameConversation = Widget.extend({
         init: function(model_game_id, dbname, uid){
             this._super();
-            var self = this;
-            this.c_manager = new ChessGame.GameManager(model_game_id, dbname, uid);
             console.log("Initial Game");
             this.history = true;
             this.history_loading = false;
@@ -240,7 +236,6 @@ odoo.define('chess.common', function (require) {
         start: function(){
             var self = this;
             var cookie_name = ChessGame.COOKIE_NAME+self.game_id;
-            //when game to finished is coockies is delete
             var cookie = utils.get_cookie(cookie_name);
             var ready;
             if (!cookie) {
@@ -818,14 +813,11 @@ odoo.define('chess.common', function (require) {
             }
             $('.chess_information .chess_time_usr').hide();
             console.log('Game Over');
-
             //delete cookie
             var cookie_name = ChessGame.COOKIE_NAME+this.game_id;
             document.cookie = cookie_name + "=" + "; expires=-1";
-
             var self = this;
             var status_game = self.game_over_status;
-
             if (time_limited) {
                 not_win_user_id = not_win_user_id;
             } else {

@@ -152,3 +152,19 @@ class Chess(http.Controller):
         })
         location = '/chess/game/' + str(new_game.id)
         return werkzeug.utils.redirect(location)
+
+    @http.route('/chess/game/tournament', auth='public', website=True)
+    def create_tournament(self, tournament_type=None, players=None, **kwargs):
+        if request.httprequest.method != 'POST':
+            from werkzeug.exceptions import NotFound
+            raise NotFound()
+        players_clean_data = [int(x) for x in players.split(',')]
+        players_clean_data.append(http.request.env.user.id)
+        new_tournament = http.request.env['chess.tournament'].create({
+            'tournament_type': tournament_type,
+            'start_date': datetime.datetime.now(),
+            'players': [(6, 0, [players_clean_data])],
+        })
+
+        location = '/web#menu_id=249&action=94'
+        return werkzeug.utils.redirect(location)

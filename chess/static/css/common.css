@@ -20,3 +20,9 @@
 .chess_services a:first-child {
     display: none;
 }
+
+.chess_services li {
+    margin-top:10px;
+}
+
+

@@ -61,11 +61,10 @@ odoo.define('chess.create_game', function (require) {
     CreateGame.GameStatusManager = Widget.extend({
         init: function(model_game_id, dbname, uid){
             this._super();
-            var self = this;
             this.game_id = model_game_id;
+            this.bus_manager = new ChessGame.GameManager(model_game_id, dbname, uid);
             this.c_manager = new CreateGame.GameManager(model_game_id, dbname, uid);
             this.start();
-
         },
         start: function(){
             var self = this;

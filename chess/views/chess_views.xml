@@ -155,12 +155,14 @@
       <field name="domain">[('system_status', '=', 'Canceled'), ('first_user_id', '=', uid)]</field>
     </record>
 
+
     <record id="services_page_link" model="website.menu">
       <field name="name">Chess</field>
       <field name="url">/chess/</field>
       <field name="parent_id" ref="website.main_menu" />
       <field name="sequence" type="int">50</field>
     </record>
+
 
     <menuitem sequence="0" id="menu_chess" name="Chess"/>
 
@@ -170,6 +172,8 @@
               name="My invitations"/>
     <menuitem id="menu_all_games_content" parent="menu_chess"
               name="Games"/>
+
+
 
 
     <menuitem id="menu_new_chess_content"

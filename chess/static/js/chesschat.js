@@ -124,13 +124,11 @@ odoo.define('chess.chesschat', function (require) {
                 $('.chat .user').seedColors(); //the random color current user
                 $(".chat #window_chat").each(function () {
                     this.scrollTop = this.scrollHeight;
-
                 });
             } catch (err) {
                 error = err;
                 console.error(err);
             }
-
         },
 
         checked_chat: function(){
