@@ -42,6 +42,7 @@ odoo.define('chess.common', function (require) {
         },
 
         on_notification: function (notification) {
+
             for (var i = 0; i < notification.length; i++) {
                 var channel = notification[i][0];
                 var message = notification[i][1];
@@ -50,6 +51,7 @@ odoo.define('chess.common', function (require) {
         },
 
         on_notification_do: function (channel, message) {
+            var self = this;
             var channel = JSON.parse(channel);
             var error = false;
             if (Array.isArray(channel) && (channel[1] === 'chess.game.line' || channel[1] === 'chess.game')) {
@@ -66,6 +68,50 @@ odoo.define('chess.common', function (require) {
                     error = err;
                     console.error(err);
                 }
+            } else if (Array.isArray(channel) && (channel[1] === 'chess.game.info')) {
+                try {
+                    self.create_game(message);
+                } catch (err) {
+                    error = err;
+                    console.error(err);
+                }
+            }
+
+        },
+
+        create_game: function(message) {
+            if(message.system_status=="Active game") {
+                window.new_game = new ChessGame.GameConversation(window.model_game_id, window.model_dbname, window.model_author_id);
+                window.new_game.game_pgn_click();
+                swal({   title: "Lets go!",   timer: 1000,   showConfirmButton: false });
+                storage.setItem("bus_last", this.bus.last);
+
+            }
+            if(message.system_status=="Canceled") {
+                window.create_new_game.stop_polling();
+                swal(
+                {
+                    title: "Game canceled",
+                    confirmButtonText: "Ok",
+                },
+                    function (isConfirm) {
+                        window.location.replace('/chess/');
+                    }
+                );
+                return false;
+            }
+            if(message.system_status=="Denied") {
+                window.create_new_game.stop_polling();
+                swal(
+                    {
+                        title: "User refused to play",
+                        confirmButtonText: "Ok",
+                    },
+                        function (isConfirm) {
+                            window.location.replace('/chess/');
+                        }
+                    );
+                return false;
             }
         },
 
@@ -133,10 +179,12 @@ odoo.define('chess.common', function (require) {
                         swal({
                             title: "You win!",
                             text: message.data.user + ' surrendered',
-                            timer: 2000,
                             type: "success",
-                            showConfirmButton: false
-                        });
+                        },
+                        function(isConfirm) {
+                            window.location.replace('/chess/');
+                            }
+                        );
                         $('#surrender').hide();
                         $('#suggest_a_draw').hide();
                         var status = 'You win, ' + message.data.user + ' surrendered';
@@ -153,14 +201,15 @@ odoo.define('chess.common', function (require) {
                             cancelButtonText: "No",
                             closeOnConfirm: false
                         },
-                            function(isConfirm){
+                            function(isConfirm) {
                                 if (isConfirm) {
                                     swal({
                                         title: "Game over",
                                         text: "Drawn position",
-                                        timer: 2000,
                                         type: "success",
-                                        showConfirmButton: false
+                                    },
+                                    function(isConfirm) {
+                                        window.location.replace('/chess/');
                                     });
                                     $('#surrender').hide();
                                     $('#suggest_a_draw').hide();
@@ -168,17 +217,25 @@ odoo.define('chess.common', function (require) {
                                     var message = {'type': 'system', 'data': data};
                                     new_game.send_move(message);
                                     new_game.game_over("Game over, draw position");
+                                } else {
+                                    swal('Canceled.');
+                                    var data = {'status': 'draw_rejection'};
+                                    var message = {'type': 'system', 'data': data};
+                                    new_game.send_move(message);
+                                    }
                                 }
-                            });
+                            );
                     }
-                    if (message.data.status == 'agreement') {
-                        swal({
-                            title: "Game over",
-                            text: "Drawn position",
+                    if (message.data.status == 'draw_rejection') {
+                            swal({
+                            title: "Refusal",
+                            text: "Your opponent refused to a draw.",
                             timer: 2000,
                             type: "success",
                             showConfirmButton: false
                         });
+                    }
+                    if (message.data.status == 'agreement') {
                         $('#surrender').hide();
                         $('#suggest_a_draw').hide();
                         var status = 'Game over, draw position';
@@ -186,6 +243,15 @@ odoo.define('chess.common', function (require) {
                         var cookie_name = ChessGame.COOKIE_NAME+self.game_id;
                         document.cookie = cookie_name + "=" + "; expires=-1";
                         new_game.user_surrender(status);
+                        swal({
+                            title: "Game over",
+                            text: "Drawn position",
+                            type: "success",
+                        },
+                        function(isConfirm) {
+                            window.location.replace('/chess/');
+                        });
+
                     }
                     if (message.data.status == '') {
                         return false;
@@ -209,10 +275,10 @@ odoo.define('chess.common', function (require) {
             new_game.updateStatus();
         }
     });
+
     ChessGame.GameConversation = Widget.extend({
         init: function(model_game_id, dbname, uid){
             this._super();
-            this.c_manager = new ChessGame.GameManager(model_game_id, dbname, uid);
             console.log("Initial Game");
             this.history = true;
             this.history_loading = false;
@@ -746,13 +812,6 @@ odoo.define('chess.common', function (require) {
                             },
                             function (isConfirm) {
                                 if (isConfirm) {
-                                    swal({
-                                        title: "Game over",
-                                        text: 'You lose',
-                                        timer: 2000,
-                                        type: "error",
-                                        showConfirmButton: false
-                                    });
                                     status = 'Game over, you lose. You surrender';
                                     //send system message (user is surrender)
                                     if (self.coockie_status) {
@@ -762,6 +821,14 @@ odoo.define('chess.common', function (require) {
                                         self.game_over_status=self.author_color;
                                         self.game_over(status);
                                     }
+                                    swal({
+                                        title: "Game over",
+                                        text: 'You lose',
+                                        type: "error",
+                                    },
+                                    function(isConfirm) {
+                                        window.location.replace('/chess/');
+                                    });
                                 }
                             });
                     }, 100);
@@ -1014,9 +1081,10 @@ odoo.define('chess.common', function (require) {
                     swal({
                         title: "Game over",
                         text: "Time limit. You lose",
-                        timer: 2000,
                         type: "error",
-                        showConfirmButton: false
+                    },
+                    function (isConfirm) {
+                        window.location.replace('/chess/');
                     });
                     not_win_user_id = author_player_color;
                     time_limited = true;
@@ -1025,9 +1093,10 @@ odoo.define('chess.common', function (require) {
                     swal({
                         title: "Game over",
                         text: "Time limit. You win! =)",
-                        timer: 2000,
                         type: "success",
-                        showConfirmButton: false
+                    },
+                        function (isConfirm) {
+                            window.location.replace('/chess/');
                     });
                     status = 'Game over, time limit. You win!';
                     not_win_user_id = another_player_color;

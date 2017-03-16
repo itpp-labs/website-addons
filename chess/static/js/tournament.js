@@ -59,6 +59,7 @@ var TournamentDetail = Widget.extend({
             .then(function(tournament_data) {
                 self.players = tournament_data.players;
                 self.tournament_type = tournament_data.tournament_type;
+                self.tournament_time = tournament_data.time_data;
                 self.fetch_game_data();
             });
     },
@@ -138,7 +139,7 @@ var TournamentDetail = Widget.extend({
         }
         if ((session.uid == rowPlayer.id)||(session.uid == columnPlayer.id)) {
             var second_player = (session.uid === rowPlayer.id) ? columnPlayer.id: rowPlayer.id;
-            var GameCell = new StartGameCell(this.res_id, second_player, this.tournament_type);
+            var GameCell = new StartGameCell(this.res_id, second_player, this.tournament_type, this.tournament_time);
             GameCell.appendTo($row);
         } else {
             this.render_have_not_started_game($row);
@@ -191,10 +192,14 @@ var TournamentDetail = Widget.extend({
 var StartGameCell = Widget.extend({
     template: 'TournamentTableStartGameCell',
     events: {'click': 'start_game'},
-    init: function(tournament_id, opponent, tournament_type) {
+    init: function(tournament_id, opponent, tournament_type, tournament_time) {
         this.tournament_id = tournament_id;
         this.opponent = opponent;
         this.tournament_type = tournament_type;
+        this.time_d = tournament_time.time_d,
+        this.time_h = tournament_time.time_h,
+        this.time_m = tournament_time.time_m,
+        this.time_s = tournament_time.time_s,
         this._super(parent);
     },
 
@@ -211,7 +216,11 @@ var StartGameCell = Widget.extend({
                     tournament_id: self.tournament_id,
                     game_type: self.tournament_type,
                     first_user_id: session.uid,
-                    second_user_id: self.opponent
+                    second_user_id: self.opponent,
+                    time_d: self.time_d,
+                    time_h: self.time_h,
+                    time_m: self.time_m,
+                    time_s: self.time_s
                 }
             ).then(function(result){
                 window.location.replace('/chess/game/'+result);

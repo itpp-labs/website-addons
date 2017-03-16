@@ -76,7 +76,7 @@ class Chess(http.Controller):
     @http.route('/chess/game/load_time', type='json', auth='public')
     def load_time(self, game_id, turn):
         result = request.env['chess.game'].load_time(game_id, turn)
-        return result[0]
+        return result
 
     @http.route('/chess/game/send/', type="json", auth="public")
     def move_send(self, message, game_id):
@@ -164,6 +164,10 @@ class Chess(http.Controller):
             'tournament_type': tournament_type,
             'start_date': datetime.datetime.now(),
             'players': [(6, 0, [players_clean_data])],
+            'time_d': kwargs['time_d'],
+            'time_h': kwargs['time_h'],
+            'time_m': kwargs['time_m'],
+            'time_s': kwargs['time_s']
         })
 
         location = '/web#menu_id=249&action=94'

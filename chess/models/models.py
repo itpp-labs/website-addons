@@ -418,6 +418,10 @@ class Tournament(models.Model):
     tournament_type = fields.Selection([('blitz', 'Blitz'), ('limited time', 'Limited time'),
                                         ('standart', 'Standart')], 'Game type')
     games = fields.One2many('chess.game', 'tournament')
+    time_d = fields.Float(default=0)
+    time_h = fields.Float(default=0)
+    time_m = fields.Float(default=0)
+    time_s = fields.Float(default=0)
 
     @api.model
     def send_tournament_players_data(self, tournament_id):
@@ -427,7 +431,13 @@ class Tournament(models.Model):
             players.append({'id': p.id, 'name': p.name})
         data = {
             'players': players,
-            'tournament_type': tournament.tournament_type
+            'tournament_type': tournament.tournament_type,
+            'time_data': {
+                'time_d': tournament.time_d,
+                'time_h': tournament.time_h,
+                'time_m': tournament.time_m,
+                'time_s': tournament.time_s
+            }
         }
         return data
 
@@ -448,7 +458,15 @@ class TournamentChessGame(models.Model):
     second_user_score = fields.Float(default=0)
 
     @api.model
-    def create_tournament_game(self, first_user_id=None, tournament_id=None, game_type=None, second_user_id=None, game_time=None):
+    def create_tournament_game(self, first_user_id=None, tournament_id=None, game_type=None, second_user_id=None,
+                               time_d=None, time_h=None, time_m=None, time_s=None, **kwargs):
+        game_time = 0
+        if game_type == 'blitz' or game_type == 'limited time':
+            if time_d is not None or time_h is not None or time_m is not None or time_s is not None:
+                game_time = int(time_d) * 24 * 60 * 60 + int(time_h) * 60 * 60 + int(time_m) * 60 + int(time_s)
+            else:
+                game_time = 0
+        import time
         new_game = self.env['chess.game'].create({
             'tournament': tournament_id,
             'game_type': game_type,
