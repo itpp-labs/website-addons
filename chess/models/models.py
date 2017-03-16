@@ -466,7 +466,6 @@ class TournamentChessGame(models.Model):
                 game_time = int(time_d) * 24 * 60 * 60 + int(time_h) * 60 * 60 + int(time_m) * 60 + int(time_s)
             else:
                 game_time = 0
-        import time
         new_game = self.env['chess.game'].create({
             'tournament': tournament_id,
             'game_type': game_type,
