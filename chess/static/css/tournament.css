@@ -16,6 +16,7 @@
 	padding: 20px;
 	text-align: center;
 	font-size: 16px;
+	box-shadow: 0 0 2px rgba(128, 179, 235, 0.5), inset 0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 
 .tournament_list_element, p {
@@ -32,7 +33,7 @@
 	margin-left: 10px;
     text-align: center;
     font-size:14px;
-    background-color: #414141;
+    background-color: #2f2b2b;
     color: #F0FFFF;
 }
 
@@ -54,7 +55,7 @@ border-color: white;
 
 
 .empty-cell {
-    background-color: grey;
+    background-color: #2f2b2b;
 }
 
 .start-game-cell {
@@ -73,6 +74,18 @@ border-color: white;
 
 .score-cell {
     width:150px;
+}
+
+.finished-game {
+    background-color: #55D6BE;
+}
+
+.in-progress {
+    background-color: #2E5EAA;
+}
+
+.have_not_started {
+    background-color: #875454;
 }
 
 

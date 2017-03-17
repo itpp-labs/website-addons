@@ -95,7 +95,6 @@
                                             Time: D:<input type="number" min="0" max="364" name="time_d" value="0"></input>  H:<input type="number" min="0" max="23" name="time_h" value="0"></input> M:<input type="number" min="0" max="59" name="time_m" value="15"></input> S:<input type="number" min="0" max="59" name="time_s" value="0"></input>
                                         </p>
 
-
                                         <input type="submit" name="submit" id="create_tournament" value="Create tournament" />
                                     </form>
                                 </div>
@@ -145,7 +144,7 @@
                                 <!--chat-->
                                 <div class="chat_menu">
                                     <div class="messages_container">
-                                        <input title="show chat" id="toggle_chat" class="toggle_chat" type="checkbox"><label for="toggle_chat"> Window chat </label></input>
+                                        <input title="show chat" id="toggle_chat" class="toggle_chat" type="checkbox" value="checked"><label for="toggle_chat"> Window Chat </label></input>
                                     </div>
                                 </div>
                                     <div class="chat" id="chat">

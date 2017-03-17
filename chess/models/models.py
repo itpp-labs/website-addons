@@ -412,11 +412,11 @@ class ChatMessage(models.Model):
 class Tournament(models.Model):
     _name = 'chess.tournament'
 
-    players = fields.Many2many('res.users')
+    players = fields.Many2many('res.users', string='Players')
     status = fields.Char(default='Active')
-    start_date = fields.Datetime(string='Start date', default=datetime.datetime.now())
+    start_date = fields.Datetime(string='Start Date', default=datetime.datetime.now())
     tournament_type = fields.Selection([('blitz', 'Blitz'), ('limited time', 'Limited time'),
-                                        ('standart', 'Standart')], 'Game type')
+                                        ('standart', 'Standart')], 'Game Type')
     games = fields.One2many('chess.game', 'tournament')
     time_d = fields.Float(default=0)
     time_h = fields.Float(default=0)

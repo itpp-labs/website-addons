@@ -148,6 +148,7 @@ var TournamentDetail = Widget.extend({
 
     render_have_not_started_game: function($row) {
         var $cell = $('<td/>').addClass('have_not_started');
+        $cell.append('<p> Game have not started yet. </p>')
         $row.append($cell);
     },
 
@@ -160,6 +161,7 @@ var TournamentDetail = Widget.extend({
             this.render_finished_game($row, game, rowPlayer, columnPlayer);
         } else {
             var $cell = $('<td/>').addClass('in-progress');
+            $cell.append('<p> Game in progress. </p>')
             $row.append($cell);
         }
 
@@ -205,7 +207,7 @@ var StartGameCell = Widget.extend({
 
     start: function() {
         this.$el.addClass('start-game-cell');
-        this.$el.append('<p>Start Game</p>');
+        this.$el.append('<h3>Start Game</h3>');
     },
 
     start_game: function() {
@@ -237,11 +239,8 @@ var ToMyGameCell = Widget.extend({
     },
     start: function() {
         this.$el.addClass('my-game-in-progress');
-        if (this.game.system_status == 'Waiting') {
-            this.$el.append('<p>Accept</p>');
-        } else {
-            this.$el.append('<p>Return to the game</p>');
-        }
+        this.$el.append('<h3>Enter the game</h3>');
+
     },
 
     to_the_game: function() {

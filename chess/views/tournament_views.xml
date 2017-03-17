@@ -27,7 +27,7 @@
                     <sheet>
                         <group>
                             <notebook>
-                                <page string="players">
+                                <page string="Players">
                                     <field name="players"/>
                                 </page>
                             </notebook>

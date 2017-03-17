@@ -103,11 +103,9 @@ odoo.define('chess.chesschat', function (require) {
                         console.log("No response from the server.");
                     }
                 });
-
         },
 
         received_message: function (message) {
-
             var error = false;
             try {
                 var date = new Date();
@@ -209,9 +207,12 @@ odoo.define('chess.chesschat', function (require) {
         }
     });
 
+
     /* deletes checked attribute, when page is refreshed */
-    var allCheckboxes = $(".messages_container input:checkbox:enabled");
-    allCheckboxes.removeAttr('checked');
+//    var allCheckboxes = $(".messages_container input:checkbox:enabled");
+//    allCheckboxes.removeAttr('checked');
+    $('#toggle_chat').trigger('click');
+    $('#toggle_chat').prop('checked');
 
     function openbox(id, toggler) {
         var div = document.getElementById(id);
