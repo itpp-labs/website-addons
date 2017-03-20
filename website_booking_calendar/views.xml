@@ -26,6 +26,7 @@
                         <div class="modal-body">
                         </div>
                         <div class="modal-footer">
+                            <p style="visibility:hidden;" id="booking-taken-msg">Some of the slots (red color) that you are trying to book is already taken. They won't be in your cart, please try another instead. Click 'Add to Cart' to add remaining valid slots</p>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Continue Booking</button>
                             <button type="button" class="btn btn-primary" id="booking-dialog-confirm">Add to Cart</button>
                         </div>
@@ -123,6 +124,7 @@
                     </tbody>
                 </table>
                 <input type="hidden" name="timezone" />
+                <input type="hidden" name="validation_passed" />
             </form>
         </template>
 
