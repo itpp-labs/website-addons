@@ -315,10 +315,7 @@ class Users(models.Model):
 class ChessGameLine(models.Model):
     _name = 'chess.game.line'
     _description = 'chess game line'
-
-
     game_id = fields.Many2one('chess.game', 'Game', required=True, ondelete='cascade')
-
     source = fields.Char()
     target = fields.Char()
 
