@@ -454,8 +454,8 @@ class TournamentChessGame(models.Model):
     _inherit = ['chess.game']
 
     tournament = fields.Many2one('chess.tournament', ondelete='cascade')
-    first_user_score = fields.Float(default=0)
-    second_user_score = fields.Float(default=0)
+    first_user_score = fields.Float(default=0, help='First user game result.')
+    second_user_score = fields.Float(default=0, help='Second user game result.')
 
     @api.model
     def create_tournament_game(self, first_user_id=None, tournament_id=None, game_type=None, second_user_id=None,
