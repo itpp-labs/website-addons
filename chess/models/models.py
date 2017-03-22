@@ -129,6 +129,7 @@ class ChessGame(models.Model):
                 first_game_result = 1.0
                 second_game_result = 0
                 status = self.second_color_figure
+
         # status for rating ELO
         if len(status) > 0:
             rating_first = self.first_user_id.game_rating  # rating for first user
@@ -152,15 +153,13 @@ class ChessGame(models.Model):
                 K_s = 20
             elif all_game_s < 30:
                 K_s = 40
+
             if self.first_color_figure == status:
                 first_game_result = 0.0  # he is not win
                 second_game_result = 1.0  # he is win
             elif self.second_color_figure == status:
                 first_game_result = 1.0  # he is win
                 second_game_result = 0.0
-            elif status == 'drawn':
-                first_game_result = 0.5
-                second_game_result = 0.5
             if time_limit_id is not False:
                 if time_limit_id > 0:
                     first_game_result = first_game_result
@@ -179,10 +178,18 @@ class ChessGame(models.Model):
             })
             self.env['res.users'].search([('id', '=', self.second_user_id.id)]).write({
                 'game_rating': round(new_rating_second, 2)})
+
+        # there is a bug in original version with lack of status in case the game were drawned
+        if not status:
+            first_game_result = 0.5
+            second_game_result = 0.5
+
         return self.write(
             {
                 'date_finish': datetime.datetime.now(),
-                'system_status': 'Game Over'
+                'system_status': 'Game Over',
+                'first_user_score': first_game_result,
+                'second_user_score': second_game_result,
             })
 
     @api.multi
@@ -400,3 +407,96 @@ class ChatMessage(models.Model):
     @api.model
     def message_fetch(self, game_id, limit=20):
         return self.search([('game_id.id', '=', game_id)], limit=limit).sorted(key=lambda r: r.id)
+
+
+class Tournament(models.Model):
+    _name = 'chess.tournament'
+
+    players = fields.Many2many('res.users', string='Players')
+    status = fields.Char(default='Active')
+    start_date = fields.Datetime(string='Start Date', default=datetime.datetime.now())
+    tournament_type = fields.Selection([('blitz', 'Blitz'), ('limited time', 'Limited time'),
+                                        ('standart', 'Standart')], 'Game Type')
+    games = fields.One2many('chess.game', 'tournament')
+    time_d = fields.Float(default=0)
+    time_h = fields.Float(default=0)
+    time_m = fields.Float(default=0)
+    time_s = fields.Float(default=0)
+
+    @api.model
+    def send_tournament_players_data(self, tournament_id):
+        tournament = self.search([('id', '=', tournament_id)])
+        players = []
+        for p in tournament.players:
+            players.append({'id': p.id, 'name': p.name})
+        data = {
+            'players': players,
+            'tournament_type': tournament.tournament_type,
+            'time_data': {
+                'time_d': tournament.time_d,
+                'time_h': tournament.time_h,
+                'time_m': tournament.time_m,
+                'time_s': tournament.time_s
+            }
+        }
+        return data
+
+    @api.model
+    def send_tournament_games_data(self, tournament_id):
+        tournament = self.search([('id', '=', tournament_id)])
+        games = []
+        for g in tournament.games:
+            games.append({'id': g.id, 'player1': g.first_user_id, 'player2:': g.second_user_id})
+        return games
+
+
+class TournamentChessGame(models.Model):
+    _inherit = ['chess.game']
+
+    tournament = fields.Many2one('chess.tournament', ondelete='cascade')
+    first_user_score = fields.Float(default=0, help='First user game result.')
+    second_user_score = fields.Float(default=0, help='Second user game result.')
+
+    @api.model
+    def create_tournament_game(self, first_user_id=None, tournament_id=None, game_type=None, second_user_id=None,
+                               time_d=None, time_h=None, time_m=None, time_s=None, **kwargs):
+        game_time = 0
+        if game_type == 'blitz' or game_type == 'limited time':
+            if time_d is not None or time_h is not None or time_m is not None or time_s is not None:
+                game_time = int(time_d) * 24 * 60 * 60 + int(time_h) * 60 * 60 + int(time_m) * 60 + int(time_s)
+            else:
+                game_time = 0
+        new_game = self.env['chess.game'].create({
+            'tournament': tournament_id,
+            'game_type': game_type,
+            'date_start': datetime.datetime.now(),
+            'first_user_id': first_user_id,
+            'second_user_id': second_user_id,
+            'first_color_figure': 'white',
+            'second_color_figure': 'black',
+            'second_user_time': game_time,
+            'first_user_time': game_time,
+            'first_time_date': float(time.time()),
+            'second_time_date': float(time.time())
+        })
+        return new_game.id
+
+    @api.model
+    def send_games_data(self, tournament_id):
+        games = self.search([('tournament', '=', tournament_id)])
+        data = []
+        for game in games:
+            data.append({
+                'id': game.id,
+                'system_status': game.system_status,
+                'player1': {'id': game.first_user_id.id, 'score': game.first_user_score},
+                'player2': {'id': game.second_user_id.id, 'score': game.second_user_score},
+                'status': game.status,
+                'date_start': game.date_start,
+                'date_finish': game.date_finish,
+            })
+        return data
+
+    @api.model
+    def accept_tournament_game(self, game_id):
+        return self.search([('id', '=', game_id)]).accept_chess_game()

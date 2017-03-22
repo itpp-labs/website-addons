@@ -26,8 +26,11 @@
         "security/ir.model.access.csv",
         "security/security.xml",
         "views/chess_views.xml",
+        "views/chess.xml",
         "views/chess_templates.xml",
+        "views/tournament_views.xml",
     ],
+    "qweb": ['static/xml/*.xml'],
 
     "installable": True,
 }

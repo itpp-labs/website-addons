@@ -76,7 +76,7 @@ class Chess(http.Controller):
     @http.route('/chess/game/load_time', type='json', auth='public')
     def load_time(self, game_id, turn):
         result = request.env['chess.game'].load_time(game_id, turn)
-        return result[0]
+        return result
 
     @http.route('/chess/game/send/', type="json", auth="public")
     def move_send(self, message, game_id):
@@ -151,4 +151,24 @@ class Chess(http.Controller):
             'second_time_date': float(time.time())
         })
         location = '/chess/game/' + str(new_game.id)
+        return werkzeug.utils.redirect(location)
+
+    @http.route('/chess/game/tournament', auth='public', website=True)
+    def create_tournament(self, tournament_type=None, players=None, **kwargs):
+        if request.httprequest.method != 'POST':
+            from werkzeug.exceptions import NotFound
+            raise NotFound()
+        players_clean_data = [int(x) for x in players.split(',')]
+        players_clean_data.append(http.request.env.user.id)
+        http.request.env['chess.tournament'].create({
+            'tournament_type': tournament_type,
+            'start_date': datetime.datetime.now(),
+            'players': [(6, 0, [players_clean_data])],
+            'time_d': kwargs['time_d'],
+            'time_h': kwargs['time_h'],
+            'time_m': kwargs['time_m'],
+            'time_s': kwargs['time_s']
+        })
+
+        location = '/web#menu_id=249&action=94'
         return werkzeug.utils.redirect(location)

@@ -41,5 +41,26 @@
             <field name="perm_read" eval="1"/>
             <field name="perm_create" eval="0"/>
         </record>
+         <record id="tournament_edit_rule" model="ir.rule">
+            <field name="name">Can only read write delete and create tournament</field>
+            <field name="model_id" ref="model_chess_tournament"/>
+            <field name="groups" eval="[(6,0,[ref('base.group_user')])]"/>
+            <field name="domain_force">[('create_uid', '=', user.id)]</field>
+            <field name="perm_unlink" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_read" eval="0"/>
+            <field name="perm_create" eval="0"/>
+        </record>
+        <record id="tgame_rule" model="ir.rule">
+            <field name="name">Can only read and write game data</field>
+            <field name="model_id" ref="model_chess_game"/>
+            <field name="groups" eval="[(6,0,[ref('base.group_user')])]"/>
+            <field name="domain_force">[('tournament.players', 'in', user.id)]</field>
+            <field name="perm_unlink" eval="0"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="0"/>
+        </record>
+
     </data>
 </openerp>

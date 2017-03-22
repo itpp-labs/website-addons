@@ -3,14 +3,18 @@
         <template name="Chess Page" id="chesspage" page="True">
             <t t-call="website.layout">
                     <div class="oe_structure">
+
                         <div class="container">
                             <h1>Chess Services</h1>
                             <div class='menu'>
                                 <ul class="chess_services">
                                     <a href="#?w=400" rel="popup1" class="poplight"><li>Create game</li></a>
                                     <a href="#?w=400" rel="popup2" class="poplight"><li>Create Game</li></a>
+                                    <a href="#?w=400" rel="tournament_creation_popup" class="poplight"><li>Create Tournament</li></a>
+
                                 </ul>
                             </div>
+
                             <div id="popup1" class="popup_block">
                                 <h2>Create game</h2>
                                 <form id="create_game" name="create_game" action="/chess/game/" method="post" data-model_name="chess.game">
@@ -36,6 +40,7 @@
                                     </div>
                                 </form>
                             </div>
+
                             <div id="popup2" class="popup_block">
                                 <h2>Play with a friend</h2>
                                 <div class="popup_content">
@@ -56,7 +61,6 @@
                                         <p id="time">
                                             Time: D:<input type="number" min="0" max="364" name="time_d" value="0"></input>  H:<input type="number" min="0" max="23" name="time_h" value="0"></input> M:<input type="number" min="0" max="59" name="time_m" value="15"></input> S:<input type="number" min="0" max="59" name="time_s" value="0"></input>
                                         </p>
-
                                         <h3>Figure color:</h3>
                                         <p>
                                             <input type="radio" name="first_color_figure" value="white" checked="true"> White </input>
@@ -67,10 +71,40 @@
                                     </form>
                                 </div>
                             </div>
+
+                            <div id="tournament_creation_popup" class="popup_block">
+                                <h2>Create Tournament</h2>
+                                <div class="popup_content">
+                                    <h3 id="users">Users:</h3>
+                                    <small>Hold the CTRL key and click the items in a list to choose them.</small>
+                                    <form id="create_tournament" name="create_tournament" action="/chess/game/tournament" method="post" data-model_name="chess.game" onsubmit="return validateForm()">
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <select multiple="multiple" id ="players_selector" name="none">
+                                            <t t-foreach="users" t-as="user">
+                                                <option t-attf-value="{{ user.id }}"><t t-esc="user.name"/></option>
+                                            </t>
+                                        </select>
+                                        <input type="hidden" name="players" id="players"/>
+                                        <h3>Game type:</h3>
+                                         <p>
+                                            <input type="radio" name="tournament_type" value="standart" id="standart" checked="true"> Standart </input>
+                                            <input type="radio" name="tournament_type" value="blitz" id="blitz"> Blitz </input>
+                                            <input type="radio" name="tournament_type" value="limited time" id="limited time" class="limited_time"> Limited time </input>
+                                        </p>
+                                        <p id="time" style="display: none">
+                                            Time: D:<input type="number" min="0" max="364" name="time_d" value="0"></input>  H:<input type="number" min="0" max="23" name="time_h" value="0"></input> M:<input type="number" min="0" max="59" name="time_m" value="15"></input> S:<input type="number" min="0" max="59" name="time_s" value="0"></input>
+                                        </p>
+
+                                        <input type="submit" name="submit" id="create_tournament" value="Create tournament" />
+                                    </form>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
             </t>
         </template>
+
         <template name="Game Page" id="gamepage" page="True">
             <t t-call="website.layout">
                 <div class="conteiner">
@@ -110,7 +144,7 @@
                                 <!--chat-->
                                 <div class="chat_menu">
                                     <div class="messages_container">
-                                        <input title="show chat" id="toggle_chat" class="toggle_chat" type="checkbox"><label for="toggle_chat"> Window chat </label></input>
+                                        <input title="show chat" id="toggle_chat" class="toggle_chat" type="checkbox" value="checked"><label for="toggle_chat"> Window Chat </label></input>
                                     </div>
                                 </div>
                                     <div class="chat" id="chat">
@@ -180,30 +214,6 @@
                     </div>
                 </div>
             </t>
-        </template>
-
-        <template id="assets_frontend" name="chess assets frontend" inherit_id="website.assets_frontend">
-             <xpath expr="." position="inside">
-                 <link rel="stylesheet" type="text/less" href="/chess/static/less/winmodal.less"/>
-                 <link rel="stylesheet" type="text/less" href="/chess/static/less/style.less"/>
-                 <link rel="stylesheet" type="text/css" href="/chess/static/css/common.css"/>
-                 <link rel="stylesheet" type="text/css" href="/chess/static/css/chessboard.css"/>
-                 <link rel="stylesheet" type="text/css" href="/chess/static/css/chessclock.css"/>
-                 <link rel="stylesheet" type="text/css" href="/chess/static/css/sweet-alert.css"/>
-                 <link rel="stylesheet" type="text/css" href="/chess/static/css/jquery.scrollbar.css"/>
-                 <link rel="stylesheet" type="text/css" href="/chess/static/css/simple-chat.css"/>
-                 <script type="text/javascript" src="/chess/static/lib/dm-modal.js"></script>
-                 <script type="text/javascript" src="/bus/static/src/js/bus.js"></script>
-                 <script type="text/javascript" src="/chess/static/lib/sweet-alert.js"></script>
-                 <script type="text/javascript" src="/chess/static/lib/chess.js"></script>
-                 <script type="text/javascript" src="/chess/static/lib/chessboard.js"></script>
-                 <script type="text/javascript" src="/chess/static/lib/jquery.scrollbar.min.js"></script>
-                 <script type="text/javascript" src="/chess/static/js/chesschat.js"></script>
-                 <script type="text/javascript" src="/chess/static/js/common.js"></script>
-                 <script type="text/javascript" src="/chess/static/js/create_game.js"></script>
-                 <script type="text/javascript" src="/chess/static/lib/seedrandom-min.js"></script>
-                 <script type="text/javascript" src="/chess/static/lib/jquery.seed-colors.js"></script>
-             </xpath>
         </template>
     </data>
 </odoo>
