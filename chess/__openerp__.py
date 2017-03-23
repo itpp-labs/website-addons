@@ -29,6 +29,7 @@
         "views/chess.xml",
         "views/chess_templates.xml",
         "views/tournament_views.xml",
+        "views/tournament_templates.xml",
     ],
     "qweb": ['static/xml/*.xml'],
 

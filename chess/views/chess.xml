@@ -11,6 +11,7 @@
                  <link rel="stylesheet" type="text/css" href="/chess/static/css/sweet-alert.css"/>
                  <link rel="stylesheet" type="text/css" href="/chess/static/css/jquery.scrollbar.css"/>
                  <link rel="stylesheet" type="text/css" href="/chess/static/css/simple-chat.css"/>
+                 <link rel="stylesheet" type="text/css" href="/chess/static/css/tournament.css"/>
                  <script type="text/javascript" src="/chess/static/lib/dm-modal.js"></script>
                  <script type="text/javascript" src="/bus/static/src/js/bus.js"></script>
                  <script type="text/javascript" src="/chess/static/lib/sweet-alert.js"></script>
@@ -23,6 +24,8 @@
                  <script type="text/javascript" src="/chess/static/lib/seedrandom-min.js"></script>
                  <script type="text/javascript" src="/chess/static/lib/jquery.seed-colors.js"></script>
                  <script type="text/javascript" src="/chess/static/js/validator.js"></script>
+                 <script type="text/javascript" src="/chess/static/js/frontend_tournament_table.js"></script>
+
              </xpath>
         </template>
 

@@ -3,7 +3,6 @@
         <template name="Chess Page" id="chesspage" page="True">
             <t t-call="website.layout">
                     <div class="oe_structure">
-
                         <div class="container">
                             <h1>Chess Services</h1>
                             <div class='menu'>
@@ -85,6 +84,7 @@
                                             </t>
                                         </select>
                                         <input type="hidden" name="players" id="players"/>
+                                        Participate <input type="checkbox" checked="true" value="True" name="participate" id="participate"> </input>
                                         <h3>Game type:</h3>
                                          <p>
                                             <input type="radio" name="tournament_type" value="standart" id="standart" checked="true"> Standart </input>
@@ -108,7 +108,7 @@
         <template name="Game Page" id="gamepage" page="True">
             <t t-call="website.layout">
                 <div class="conteiner">
-                    <div class="content">
+                    <div class="chess-content">
                         <div class='box'>
                             <div class="site_header">
                                 <div class="side">
@@ -208,6 +208,7 @@
                                     window.model_game_id = "<t t-esc="games.id"/>";
                                     window.model_dbname = "<t t-esc="dbname"/>";
                                     window.model_author_id = "<t t-esc="user.id"/>";
+                                    window.tournament = "<t t-esc="games.tournament.id"/>";
                                 })();
                             </script>
                         </div>

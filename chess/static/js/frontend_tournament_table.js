@@ -1,4 +1,4 @@
-﻿odoo.define('chess.tournament', function (require) {
+odoo.define('chess.tournament_frontend', function (require) {
 'use strict';
 var Widget = require('web.Widget');
 var Model = require('web.Model');
@@ -7,50 +7,23 @@ var session = require('web.session');
 
 var QWeb = core.qweb;
 
-var TournamentsController = Widget.extend({
-    template: 'TournamentsMain',
-    events: {'click .tournament_list_element': 'show_table'},
-
-    start: function() {
-        this.list = new TournamentsList();
-        this.list.appendTo(this.$el);
+var FrontendController = Widget.extend({
+    init: function(res_id, uid) {
+        this.res_id = res_id;
+        this.uid = uid;
     },
-
-    show_table: function(event) {
-        var res_id = $(event.currentTarget).data('id');
-        this.list.destroy();
-        this.detail = new TournamentDetail(res_id);
-        this.detail.appendTo(this.$el);
-    }
-});
-core.action_registry.add('tournament_action', TournamentsController);
-
-
-var TournamentsList = Widget.extend({
-    template: 'TournamentsListTemplate',
     start: function() {
-        this.show_tournaments_list();
-    },
-
-    show_tournaments_list: function() {
-        var self = this;
-        return new Model('chess.tournament')
-            .query(['start_date', 'tournament_type','create_uid'])
-            .filter([['status', '=', 'Active']])
-            .all().then(
-                function(results) {
-                    _(results).each(function(item) {
-                        self.$el.append(QWeb.render('TournamentListElement', {item: item}));
-                    });
-                });
+        this.Table = new TournamentDetail(this.res_id, this.uid);
+        this.Table.appendTo(this.$el);
     }
 });
 
 var TournamentDetail = Widget.extend({
-//    template: 'TournamentTableTemplate',
-    init: function(res_id) {
+    init: function(res_id, uid) {
         this._super(parent);
         this.res_id = res_id;
+        this.uid = uid;
+
     },
     start: function() {
         var self = this;
@@ -66,12 +39,11 @@ var TournamentDetail = Widget.extend({
 
     fetch_game_data: function() {
         var self = this;
-        var games = new Model('chess.game')
-            .call('send_games_data', [this.res_id])
-            .then(function(games_data){
-                self.games_data = games_data;
-                self.render_table();
-            });
+        session.rpc("/chess/game/tournament/fetch", {tournament_id: this.res_id})
+            .then(function(result) {
+            self.games_data = result;
+            self.render_table();
+        });
     },
 
     render_table: function() {
@@ -131,15 +103,16 @@ var TournamentDetail = Widget.extend({
     },
 
     render_game_cell: function($row, rowPlayer, columnPlayer) {
+
         for (var i=0; i<this.games_data.length; i++) {
             if (this.player_in_game(rowPlayer, this.games_data[i]) && this.player_in_game(columnPlayer, this.games_data[i])) {
                 this.render_game($row, this.games_data[i], rowPlayer, columnPlayer);
                 return;
             }
         }
-        if ((session.uid == rowPlayer.id)||(session.uid == columnPlayer.id)) {
-            var second_player = (session.uid === rowPlayer.id) ? columnPlayer.id: rowPlayer.id;
-            var GameCell = new StartGameCell(this.res_id, second_player, this.tournament_type, this.tournament_time);
+        if ((this.uid == rowPlayer.id)||(this.uid == columnPlayer.id)) {
+            var second_player = (Number(this.uid) === Number(rowPlayer.id)) ? Number(columnPlayer.id): Number(rowPlayer.id);
+            var GameCell = new StartGameCell(this.res_id, second_player, this.tournament_type, this.tournament_time, this.uid);
             GameCell.appendTo($row);
         } else {
             this.render_have_not_started_game($row);
@@ -154,7 +127,7 @@ var TournamentDetail = Widget.extend({
 
     render_game: function($row, game, rowPlayer, columnPlayer) {
         if (((game.system_status == 'Waiting') || (game.system_status == 'Active game')) &&
-        ((session.uid == rowPlayer.id)||(session.uid == columnPlayer.id))) {
+        ((this.uid == rowPlayer.id)||(this.uid == columnPlayer.id))) {
             new ToMyGameCell(game).appendTo($row);
             return;
         } else if (game.system_status == 'Game Over') {
@@ -192,9 +165,10 @@ var TournamentDetail = Widget.extend({
 });
 
 var StartGameCell = Widget.extend({
-    template: 'TournamentTableStartGameCell',
+    //template: 'TournamentTableStartGameCell',
+    tagName: 'td',
     events: {'click': 'start_game'},
-    init: function(tournament_id, opponent, tournament_type, tournament_time) {
+    init: function(tournament_id, opponent, tournament_type, tournament_time, uid) {
         this.tournament_id = tournament_id;
         this.opponent = opponent;
         this.tournament_type = tournament_type;
@@ -202,6 +176,7 @@ var StartGameCell = Widget.extend({
         this.time_h = tournament_time.time_h,
         this.time_m = tournament_time.time_m,
         this.time_s = tournament_time.time_s,
+        this.uid = uid;
         this._super(parent);
     },
 
@@ -212,26 +187,24 @@ var StartGameCell = Widget.extend({
 
     start_game: function() {
         var self = this;
-        new Model('chess.game')
-            .call('create_tournament_game', [],
-                {
-                    tournament_id: self.tournament_id,
-                    game_type: self.tournament_type,
-                    first_user_id: session.uid,
-                    second_user_id: self.opponent,
-                    time_d: self.time_d,
-                    time_h: self.time_h,
-                    time_m: self.time_m,
-                    time_s: self.time_s
-                }
-            ).then(function(result){
+        session.rpc("/chess/game/tournament/create_game/",
+            {
+                tournament_id: self.tournament_id,
+                game_type: self.tournament_type,
+                first_user_id: Number(self.uid),
+                second_user_id: self.opponent,
+                time_d: self.time_d,
+                time_h: self.time_h,
+                time_m: self.time_m,
+                time_s: self.time_s
+            }).then(function(result){
                 window.location.replace('/chess/game/'+result);
             });
-    }
+        }
 });
 
 var ToMyGameCell = Widget.extend({
-    template: 'TournamentTableToMyGameCell',
+    tagName: 'td',
     events: {'click': 'to_the_game'},
     init: function(game) {
         this.game = game;
@@ -256,10 +229,12 @@ var ToMyGameCell = Widget.extend({
     }
 });
 
-return { TournamentDetail: TournamentDetail,
-         StartGameCell: StartGameCell,
-         ToMyGameCell: ToMyGameCell
-         };
-
+$(document).ready(function() {
+if (window.tournament_id){
+    var x = $('#table');
+    var Tournament = new FrontendController(window.tournament_id, window.uid).appendTo(x);
+}
 });
 
+
+});

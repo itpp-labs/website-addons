@@ -112,7 +112,7 @@ class Chess(http.Controller):
         return http.request.render('chess.gamepage', {
             'games': games_object,
             'user': user,
-            'dbname': request.cr.dbname
+            'dbname': request.cr.dbname,
         })
 
     @http.route('/chess/game/', auth='public', website=True)
@@ -154,13 +154,14 @@ class Chess(http.Controller):
         return werkzeug.utils.redirect(location)
 
     @http.route('/chess/game/tournament', auth='public', website=True)
-    def create_tournament(self, tournament_type=None, players=None, **kwargs):
+    def create_tournament(self, tournament_type=None, players=None, participate=None, **kwargs):
         if request.httprequest.method != 'POST':
             from werkzeug.exceptions import NotFound
             raise NotFound()
         players_clean_data = [int(x) for x in players.split(',')]
-        players_clean_data.append(http.request.env.user.id)
-        http.request.env['chess.tournament'].create({
+        if participate:
+            players_clean_data.append(http.request.env.user.id)
+        tournament = http.request.env['chess.tournament'].create({
             'tournament_type': tournament_type,
             'start_date': datetime.datetime.now(),
             'players': [(6, 0, [players_clean_data])],
@@ -169,6 +170,24 @@ class Chess(http.Controller):
             'time_m': kwargs['time_m'],
             'time_s': kwargs['time_s']
         })
-
-        location = '/web#menu_id=249&action=94'
+        location = '/chess/tournament/' + str(tournament.id)
         return werkzeug.utils.redirect(location)
+
+    @http.route('/chess/tournament/<int:tournament>/', auth="public", website=True)
+    def tournament_table(self, tournament, **kwargs):
+        tournament = http.request.env['chess.tournament'].search([('id', '=', tournament)])
+        if len(tournament) == 0:
+            from werkzeug.exceptions import NotFound
+            raise NotFound()
+        return http.request.render('chess.tournament-page', {
+            'tournament': tournament.id,
+            'uid': http.request.env.context.get('uid')
+        })
+
+    @http.route('/chess/game/tournament/fetch', type="json", auth="public")
+    def fetch_tournament_data(self, tournament_id=None):
+        return request.env["chess.game"].send_games_data(int(tournament_id))
+
+    @http.route('/chess/game/tournament/create_game/', type="json", auth="public")
+    def frontend_create_tournament_game(self, **kwargs):
+        return request.env["chess.game"].create_tournament_game(**kwargs)

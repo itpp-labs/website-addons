@@ -27,9 +27,19 @@ CreateGame.GameStatusManager = Widget.extend({
                     swal("Wait for invitation acceptance", "Your opponent can do it via Chess menu at the backend");
                 }
                 if(result=="Game Over") {
-                    window.new_game = new ChessGame.GameConversation(window.model_game_id, window.model_dbname, window.model_author_id);
-                    window.new_game.game_pgn_click();
-                    return false;
+                    swal({title:'Finished',
+                          text:'This game is already finished.',
+                          type: 'error'
+                          },
+                    function(isConfirm) {
+                        if (window.tournament) {
+                            window.location.replace('/chess/tournament/' + window.tournament);
+                        } else {
+                        window.location.replace('/chess/');
+                    }
+                    }
+                    );
+                return false;
                 }
             });
     }
@@ -47,17 +57,24 @@ $(document).ready(function() {
     }
 
 });
+
 });
 
-$('#create_game #blitz, #play_with_a_friend #blitz').click(function () {
+$(document).ready(function() {
+$('#create_game #blitz, #play_with_a_friend #blitz, #create_tournament #blitz').click(function () {
     $('#create_game #time').show();
     $('#play_with_a_friend #time').show();
+    $('#create_tournament #time').show();
 });
-$('#create_game .limited_time, #play_with_a_friend .limited_time').click(function () {
+$('#create_game .limited_time, #play_with_a_friend .limited_time, #create_tournament .limited_time').click(function () {
     $('#create_game #time').show();
     $('#play_with_a_friend #time').show();
+    $('#create_tournament #time').show();
 });
-$('#create_game #standart, #play_with_a_friend #standart').click(function () {
+$('#create_game #standart, #play_with_a_friend #standart, #create_tournament #standart').click(function () {
     $('#create_game #time').hide();
     $('#play_with_a_friend #time').hide();
+    $('#create_tournament #time').hide();
+});
+
 });

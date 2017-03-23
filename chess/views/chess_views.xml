@@ -173,9 +173,6 @@
     <menuitem id="menu_all_games_content" parent="menu_chess"
               name="Games"/>
 
-
-
-
     <menuitem id="menu_new_chess_content"
               parent="menu_chess_content"
 

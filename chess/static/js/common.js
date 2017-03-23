@@ -94,8 +94,12 @@ odoo.define('chess.common', function (require) {
                     title: "Game canceled",
                     confirmButtonText: "Ok",
                 },
-                    function (isConfirm) {
+                    function(isConfirm) {
+                        if (window.tournament) {
+                            window.location.replace('/chess/tournament/' + window.tournament);
+                        } else {
                         window.location.replace('/chess/');
+                        }
                     }
                 );
                 return false;
@@ -107,8 +111,12 @@ odoo.define('chess.common', function (require) {
                         title: "User refused to play",
                         confirmButtonText: "Ok",
                     },
-                        function (isConfirm) {
+                        function(isConfirm) {
+                            if (window.tournament) {
+                                window.location.replace('/chess/tournament/' + window.tournament);
+                            } else {
                             window.location.replace('/chess/');
+                            }
                         }
                     );
                 return false;
@@ -182,9 +190,12 @@ odoo.define('chess.common', function (require) {
                             type: "success",
                         },
                         function(isConfirm) {
+                            if (window.tournament) {
+                                window.location.replace('/chess/tournament/' + window.tournament);
+                            } else {
                             window.location.replace('/chess/');
                             }
-                        );
+                        });
                         $('#surrender').hide();
                         $('#suggest_a_draw').hide();
                         var status = 'You win, ' + message.data.user + ' surrendered';
@@ -208,9 +219,14 @@ odoo.define('chess.common', function (require) {
                                         text: "Drawn position",
                                         type: "success",
                                     },
-                                    function(isConfirm) {
-                                        window.location.replace('/chess/');
-                                    });
+                                        function(isConfirm) {
+                                            if (window.tournament) {
+                                                window.location.replace('/chess/tournament/' + window.tournament);
+                                            } else {
+                                            window.location.replace('/chess/');
+                                            }
+                                        }
+                                    );
                                     $('#surrender').hide();
                                     $('#suggest_a_draw').hide();
                                     var data = {'status': 'agreement'};
@@ -249,9 +265,12 @@ odoo.define('chess.common', function (require) {
                             type: "success",
                         },
                         function(isConfirm) {
+                            if (window.tournament) {
+                                window.location.replace('/chess/tournament/' + window.tournament);
+                            } else {
                             window.location.replace('/chess/');
+                            }
                         });
-
                     }
                     if (message.data.status == '') {
                         return false;
@@ -277,7 +296,8 @@ odoo.define('chess.common', function (require) {
     });
 
     ChessGame.GameConversation = Widget.extend({
-        init: function(model_game_id, dbname, uid){
+        init: function(model_game_id, dbname, uid, tournament){
+            var self = this;
             this._super();
             console.log("Initial Game");
             this.history = true;
@@ -288,6 +308,7 @@ odoo.define('chess.common', function (require) {
             this.game_over_status = '';
             this.system_status = '';
             this.game_id = model_game_id;
+            this.tournament = tournament;
             game = new Chess();
             this.statusEl = $('#status');
             this.fenEl = $('#fen');
@@ -749,11 +770,37 @@ odoo.define('chess.common', function (require) {
             // checkmate?
             if (game.in_checkmate() === true) {
                 if((game.turn()=== 'b' && self.author_color=='black') || (game.turn() === 'w' && self.author_color=='white')) {
-                    setTimeout(function () {swal("Game Over", moveColor + " is in checkmate. You lose", "error");}, 100);
+                    setTimeout(function () {
+                        swal({
+                            title:"Game Over",
+                            text: moveColor + " is in checkmate. You lose",
+                            type: "error"},
+                        function(isConfirm) {
+                            if (window.tournament) {
+                                window.location.replace('/chess/tournament/' + window.tournament);
+                            } else {
+                            window.location.replace('/chess/');
+                            }
+                        }
+                        )
+                    ;}, 100);
                     status = moveColor + ' is in checkmate. You lose';
                 }
                 if((game.turn()=== 'b' && self.author_color=='white') || (game.turn()=== 'w' && self.author_color=='black')) {
-                    setTimeout(function () {swal("Game Over", moveColor + " is in checkmate. You win!", "success");}, 100);
+                    setTimeout(function () {
+                        swal({
+                            title:"Game Over",
+                            text: moveColor + " is in checkmate. You win!",
+                            type: "success"},
+                        function(isConfirm) {
+                            if (window.tournament) {
+                                window.location.replace('/chess/tournament/' + window.tournament);
+                            } else {
+                            window.location.replace('/chess/');
+                            }
+                        }
+                        )
+                    ;}, 100);
                     status = moveColor + ' is in checkmate. You win!';
                 }
                 self.game_over_status = moveColor;
@@ -766,7 +813,20 @@ odoo.define('chess.common', function (require) {
             // draw?
             else if (game.in_draw() === true) {
                 status = 'Game over, drawn position.';
-                setTimeout(function () {swal("Game Over", "is drawn position", "error");}, 100);
+                setTimeout(function () {
+                    swal({
+                        title: "Game Over",
+                        text: "is drawn position",
+                        type: "error"},
+                    function(isConfirm) {
+                        if (window.tournament) {
+                            window.location.replace('/chess/tournament/' + window.tournament);
+                        } else {
+                        window.location.replace('/chess/');
+                        }
+                    }
+                    )
+                    ;}, 100);
                 self.game_over_status='drawn';
                 if (self.game_status!='Game Over') {
                     self.game_over("Game Over, is drawn position");
@@ -827,7 +887,11 @@ odoo.define('chess.common', function (require) {
                                         type: "error",
                                     },
                                     function(isConfirm) {
+                                        if (window.tournament) {
+                                            window.location.replace('/chess/tournament/' + window.tournament);
+                                        } else {
                                         window.location.replace('/chess/');
+                                        }
                                     });
                                 }
                             });
@@ -1083,8 +1147,12 @@ odoo.define('chess.common', function (require) {
                         text: "Time limit. You lose",
                         type: "error",
                     },
-                    function (isConfirm) {
+                    function(isConfirm) {
+                        if (window.tournament) {
+                            window.location.replace('/chess/tournament/' + window.tournament);
+                        } else {
                         window.location.replace('/chess/');
+                        }
                     });
                     not_win_user_id = author_player_color;
                     time_limited = true;
@@ -1095,8 +1163,12 @@ odoo.define('chess.common', function (require) {
                         text: "Time limit. You win! =)",
                         type: "success",
                     },
-                        function (isConfirm) {
+                        function(isConfirm) {
+                            if (window.tournament) {
+                                window.location.replace('/chess/tournament/' + window.tournament);
+                            } else {
                             window.location.replace('/chess/');
+                            }
                     });
                     status = 'Game over, time limit. You win!';
                     not_win_user_id = another_player_color;
