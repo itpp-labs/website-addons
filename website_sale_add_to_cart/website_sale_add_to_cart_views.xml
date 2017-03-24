@@ -24,12 +24,19 @@
                 </div>
             </xpath>
         </template>
-        
+
         <template id="product" inherit_id="website_sale.product" customize_show="True" active="True" name="Quick add to Cart (product page)">
             <xpath expr="//a[@id='add_to_cart']" position="replace">
                 <a t-if="len(product.product_variant_ids) == 1" id="add_to_cart" class="btn btn-primary btn-lg mt8 js_check_product a-submit" href="#" style="display:none" quick-add-to-cart="1">Add to Cart</a>
                 <a t-if="len(product.product_variant_ids) != 1" id="add_to_cart" class="btn btn-primary btn-lg mt8 js_check_product a-submit" href="#">Add to Cart</a>
             </xpath>
         </template>
+
+        <template id="quantity_null" inherit_id="website_sale.product_quantity" customize_show="True" active="True" name="Quantity fix">
+            <xpath expr="//input[@name='add_qty']" position="replace">
+                <input type="text" class="form-control" data-min="0" name="add_qty" value="0"/>
+            </xpath>
+        </template>
+
     </data>
 </openerp>
