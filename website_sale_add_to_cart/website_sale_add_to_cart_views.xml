@@ -15,7 +15,7 @@
                     <a t-attf-href="#" class="mb8 input-group-addon js_add_cart_json">
                         <i class="fa fa-minus"></i>
                     </a>
-                    <input type="text" class="form-control" id="quantity_main_page_c"
+                    <input type="text" class="form-control" style="text-align:center"
                         t-att-data-product-id="product.product_variant_ids[0].id"
                         t-att-value="'0'"/>
                     <a t-attf-href="#" class="mb8 input-group-addon float_left js_add_cart_json">
@@ -30,7 +30,6 @@
                 <a t-if="len(product.product_variant_ids) != 1" id="add_to_cart" class="btn btn-primary btn-lg mt8 js_check_product a-submit" href="#">Add to Cart</a>
             </xpath>
         </template>
-
         <template id="quantity_null" inherit_id="website_sale.product_quantity" customize_show="True" active="True" name="Quantity fix">
             <xpath expr="//input[@name='add_qty']" position="replace">
                 <input type="text" class="form-control" data-min="0" name="add_qty" value="0"/>
