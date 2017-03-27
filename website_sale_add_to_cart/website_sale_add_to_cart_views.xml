@@ -34,7 +34,7 @@
 
         <template id="quantity_null" inherit_id="website_sale.product_quantity" customize_show="True" active="True" name="Quantity fix">
             <xpath expr="//input[@name='add_qty']" position="replace">
-                <input type="text" class="form-control" data-min="0" name="add_qty" value="0"/>
+                <input type="text" class="form-control js-quantity" data-min="0" name="add_qty" value="0"/>
             </xpath>
         </template>
 
