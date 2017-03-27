@@ -46,14 +46,14 @@ $(document).ready(function () {
     */
 
     if (page_product_id)
-        $('input.js_quantity').val(0);
+        $('input.form-control').val(0);
     ajax.jsonRpc("/shop/get_order_numbers", 'call').then(function(data){
         if (!data)
             return;
         $.each(data, function(product_id, num){
             if (page_product_id){
                 if (page_product_id == product_id){
-                    $('input.js_quantity').val(num);
+                    $('input.form-control').val(num);
                 }
             } else
                 $('input[data-product-id="'+product_id+'"]').val(num);
