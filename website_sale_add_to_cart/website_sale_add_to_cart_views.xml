@@ -12,28 +12,31 @@
         <template id="products_item" inherit_id="website_sale.products_item" customize_show="True" active="True" name="Quick add to Cart (product list)">
             <xpath expr="//div[@itemtype='http://schema.org/Product']" position="inside">
                 <div t-if="len(product.product_variant_ids) == 1" class="quick_add_to_cart input-group">
-                    <span class="input-group-addon">
-                        <a t-attf-href="#" class="mb8 js_add_cart_json">
-                            <i class="fa fa-minus"></i>
-                        </a>
-                    </span>
-                    <input type="text" class="js_quantity form-control"
-                           t-att-data-product-id="product.product_variant_ids[0].id"
-                           t-att-value="'0'"/>
-                    <span class="input-group-addon">
-                        <a t-attf-href="#" class="mb8 float_left js_add_cart_json">
-                            <i class="fa fa-plus"></i>
-                        </a>
-                    </span>
+                    <a t-attf-href="#" class="mb8 input-group-addon js_add_cart_json">
+                        <i class="fa fa-minus"></i>
+                    </a>
+                    <input type="text" class="form-control" style="text-align:center"
+                        t-att-data-product-id="product.product_variant_ids[0].id"
+                        t-att-value="'0'"/>
+                    <a t-attf-href="#" class="mb8 input-group-addon float_left js_add_cart_json">
+                        <i class="fa fa-plus"></i>
+                    </a>
                 </div>
-
             </xpath>
         </template>
+
         <template id="product" inherit_id="website_sale.product" customize_show="True" active="True" name="Quick add to Cart (product page)">
             <xpath expr="//a[@id='add_to_cart']" position="replace">
                 <a t-if="len(product.product_variant_ids) == 1" id="add_to_cart" class="btn btn-primary btn-lg mt8 js_check_product a-submit" href="#" style="display:none" quick-add-to-cart="1">Add to Cart</a>
                 <a t-if="len(product.product_variant_ids) != 1" id="add_to_cart" class="btn btn-primary btn-lg mt8 js_check_product a-submit" href="#">Add to Cart</a>
             </xpath>
         </template>
+
+        <template id="quantity_null" inherit_id="website_sale.product_quantity" customize_show="True" active="True" name="Quantity fix">
+            <xpath expr="//input[@name='add_qty']" position="replace">
+                <input type="text" class="form-control js-quantity" data-min="0" name="add_qty" value="0"/>
+            </xpath>
+        </template>
+
     </data>
 </openerp>
