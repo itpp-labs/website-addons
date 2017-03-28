@@ -42,7 +42,6 @@ odoo.define('chess.common', function (require) {
         },
 
         on_notification: function (notification) {
-
             for (var i = 0; i < notification.length; i++) {
                 var channel = notification[i][0];
                 var message = notification[i][1];
@@ -84,8 +83,8 @@ odoo.define('chess.common', function (require) {
                 window.new_game = new ChessGame.GameConversation(window.model_game_id, window.model_dbname, window.model_author_id);
                 window.new_game.game_pgn_click();
                 swal({   title: "Lets go!",   timer: 1000,   showConfirmButton: false });
+                $('.header p:nth-child(2)').html(message.system_status);
                 storage.setItem("bus_last", this.bus.last);
-
             }
             if(message.system_status=="Canceled") {
                 window.create_new_game.stop_polling();
@@ -334,15 +333,12 @@ odoo.define('chess.common', function (require) {
                         self.author_id = result.author.id;
                         self.author_color = result.author.color;
                         self.author_time = result.author.time;
-
-
                         turn = self.author_color;
                         //another user
                         self.another_user_name = result.another_user.name;
                         self.another_user_id = result.another_user.id;
                         self.another_user_color = result.another_user.color;
                         self.another_user_time = result.another_user.time;
-
                         //game information
                         self.game_id = result.information.id;
                         self.game_type = result.information.type;
@@ -380,7 +376,6 @@ odoo.define('chess.common', function (require) {
                         }), 90*24*60*60);
                         self.onBoard();
                         self.call_load_system_message(result.information.id);
-
                     });
             } else {
                 var coockie_game = JSON.parse(cookie);
@@ -874,13 +869,11 @@ odoo.define('chess.common', function (require) {
                                 if (isConfirm) {
                                     status = 'Game over, you lose. You surrender';
                                     //send system message (user is surrender)
-                                    if (self.coockie_status) {
                                         var data = {'status': 'surrender', 'user': self.author_name};
                                         var message = {'type': 'system', 'data': data};
                                         self.send_move(message);
                                         self.game_over_status=self.author_color;
                                         self.game_over(status);
-                                    }
                                     swal({
                                         title: "Game over",
                                         text: 'You lose',

@@ -115,13 +115,13 @@ var TournamentDetail = Widget.extend({
             var GameCell = new StartGameCell(this.res_id, second_player, this.tournament_type, this.tournament_time, this.uid);
             GameCell.appendTo($row);
         } else {
-            this.render_have_not_started_game($row);
+            this.render_has_not_started_game($row);
         }
     },
 
-    render_have_not_started_game: function($row) {
-        var $cell = $('<td/>').addClass('have_not_started');
-        $cell.append('<p> Game have not started yet. </p>');
+    render_has_not_started_game: function($row) {
+        var $cell = $('<td/>').addClass('has_not_started');
+        $cell.append('<p> Game has not started yet. </p>');
         $row.append($cell);
     },
 
