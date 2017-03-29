@@ -494,9 +494,14 @@ class TournamentChessGame(models.Model):
                 'status': game.status,
                 'date_start': game.date_start,
                 'date_finish': game.date_finish,
+                'tournament': game.tournament.id
             })
         return data
 
     @api.model
     def accept_tournament_game(self, game_id):
         return self.search([('id', '=', game_id)]).accept_chess_game()
+
+    @api.model
+    def is_tournament_game(self, game_id):
+        return self.search([('id', '=', game_id)]).tournament.id

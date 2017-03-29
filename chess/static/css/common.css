@@ -1,4 +1,4 @@
-.content
+.chess-content
 {
     font: 12px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Sans-Serif;
     color: #EEE;
@@ -23,6 +23,9 @@
 
 .chess_services li {
     margin-top:10px;
+}
+.game-infos {
+text-align: left;
 }
 
 
