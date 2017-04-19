@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+
+        <template id="categories_extend" name="extend_test" inherit_id="website_sale.products_categories">
+            <xpath expr="//t[@t-foreach='categories']" position="replace">
+                    <span t-raw="website.category_cache(categories, slug, keep)" />
+            </xpath>
+        </template>
+
+        <template id="categories_cache_template" name="cache_template">
+            <t t-foreach="categories" t-as="c">
+              <t t-call="website_sale.categories_recursive"/>
+          </t>
+        </template>
+
+    </data>
+</odoo>
