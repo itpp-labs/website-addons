@@ -1,9 +1,9 @@
 <odoo>
     <data>
 
-        <template id="categories_extend" name="extend_test" inherit_id="website_sale.products_categories">
+        <template id="category_cached" name="Categories Cached" inherit_id="website_sale.products_categories">
             <xpath expr="//t[@t-foreach='categories']" position="replace">
-                    <span t-raw="website.category_cache(categories, slug, keep)" />
+                    <span t-raw="website.category_cache(categories, slug, keep, parent_category_ids)" />
             </xpath>
         </template>
 
@@ -13,5 +13,18 @@
           </t>
         </template>
 
+        <template id="Collapsible Category List Cached" name="cache_collapsed_template" inherit_id="website_sale.option_collapse_products_categories">
+            <xpath expr="//t[@t-foreach='categories']" position="replace">
+                    <span t-raw="website.category_cache(categories, slug, keep, parent_category_ids, collapsed=True)" />
+            </xpath>
+        </template>
+
+        <template id="categories_collapsed_cache_template" name="Cache Collapse Category Recursive">
+                <t t-foreach="categories" t-as="categ">
+                    <t t-call="website_sale.option_collapse_categories_recursive"/>
+                </t>
+        </template>
+
     </data>
 </odoo>
+
