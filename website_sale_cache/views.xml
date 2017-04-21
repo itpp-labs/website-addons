@@ -1,7 +1,7 @@
 <odoo>
     <data>
 
-        <template id="category_cached" name="Categories Cached" inherit_id="website_sale.products_categories">
+        <template id="category_cached" name="Categories Cached" inherit_id="website_sale.products_categories" priority="8">
             <xpath expr="//t[@t-foreach='categories']" position="replace">
                     <span t-raw="website.category_cache(categories, slug, keep, parent_category_ids)" />
             </xpath>
@@ -13,7 +13,7 @@
           </t>
         </template>
 
-        <template id="Collapsible Category List Cached" name="cache_collapsed_template" inherit_id="website_sale.option_collapse_products_categories">
+        <template id="collapsible_categories_list_cached" name="Collapsible Category List Cached" inherit_id="website_sale.option_collapse_products_categories" priority="8">
             <xpath expr="//t[@t-foreach='categories']" position="replace">
                     <span t-raw="website.category_cache(categories, slug, keep, parent_category_ids, collapsed=True)" />
             </xpath>
