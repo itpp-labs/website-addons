@@ -9,7 +9,7 @@
     "author": "IT-Projects LLC, Pavel Romanchenko",
     "website": "https://it-projects.info",
     "license": "LGPL-3",
-    'price': 280.00,
+    'price': 89.00,
     'currency': 'EUR',
 
     "depends": [
