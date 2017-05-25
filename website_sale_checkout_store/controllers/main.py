@@ -40,9 +40,9 @@ class WebsiteSaleExtended(WebsiteSale):
         else:
             return super(WebsiteSaleExtended, self).payment_get_status(sale_order_id, **post)
 
-    def checkout_form_validate(self, data):
+    def checkout_form_validate(self, *args, **kwargs):
         self.set_custom_mandatory_fields()
-        return super(WebsiteSaleExtended, self).checkout_form_validate(data)
+        return super(WebsiteSaleExtended, self).checkout_form_validate(*args, **kwargs)
 
     def checkout_parse(self, address_type, data, remove_prefix=False):
         self.set_custom_mandatory_fields()
