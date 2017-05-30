@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "E-commerce "Buy Now"",
+    'name': "E-commerce \"Buy Now\"",
     'summary': "Quick checkout to buy product",
     'author': 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'GPL-3',
