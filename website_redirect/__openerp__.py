@@ -8,7 +8,7 @@
     "price": 15.00,
     "currency": "EUR",
     'images':['images/1.png'],
-    'website': 'https://yelizariev.github.io',
+    'website': 'https://twitter.com/yelizariev',
     'depends': ['website'],
     'data': [
         'website_redirect_views.xml',
