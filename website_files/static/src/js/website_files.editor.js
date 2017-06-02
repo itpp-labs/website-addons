@@ -40,7 +40,7 @@
             });
         },
 
-    })
+    });
 
     website.editor.MediaDialog.include({
         start: function () {
@@ -74,7 +74,7 @@
             }
             return this._super();
         }
-    })
+    });
 
     var FILES_PER_PAGE = 30;
     website.editor.FileDialog = website.editor.Media.extend({
@@ -127,7 +127,7 @@
                 url: this.link
             });
             this.media.renameNode("a");
-            this.media.$.innerHTML = this.file_name
+            this.media.$.innerHTML = this.file_name;
             $(this.media).attr('href', this.link);
             return this._super();
         },
@@ -248,8 +248,8 @@
         },
         select_existing: function (e) {
             var download = $(e.currentTarget).find('.download');
-            var link = download.attr('href')
-            var file_name = download.attr('title')
+            var link = download.attr('href');
+            var file_name = download.attr('title');
             this.link = link;
             this.file_name = file_name;
             this.selected_existing(link);

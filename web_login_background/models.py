@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
+from random import choice
 
-from openerp import models, fields, api
+from openerp import fields, api
+from openerp import models
+
+
+def _attachment2url(att):
+    return r'/web/binary/saveas?id=' + str(att.id) + r'&model=ir.attachment&field=datas&fieldname_field=datas_fname'
 
 
 class IRAttachmentBackground(models.Model):
@@ -20,3 +26,13 @@ class IRAttachmentBackground(models.Model):
             if not ids:
                 return
         return super(IRAttachmentBackground, self).check(cr, uid, ids, mode, context, values)
+
+    @api.model
+    def get_background_pic(self):
+        pictures = self.search([('use_as_background', '=', True)])
+        if pictures:
+            p = choice(pictures)
+            picture_url = p.url or _attachment2url(p)
+            return picture_url
+        else:
+            return False

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+            <template id="assets_frontend" inherit_id="website.assets_frontend" name="Shop">
+                  <xpath expr="." position="inside">
+                        <!--<script type="text/javascript" src="/website_sale_stock_status/static/src/js/website_sale_stock_status.js"></script>-->
+                        <link rel='stylesheet' href='/website_sale_stock_status/static/src/css/website_sale_stock_status.css'/>
+                  </xpath>
+            </template>
+
+            <template id="products_item" inherit_id="website_sale.products_item" name="Product item">
+            <xpath expr="//form[@action='/shop/cart/update']" position="attributes">
+                <attribute name="t-attf-class">
+                    #{'disable_to_order' if not product.sale_on_website else ''}
+                </attribute>
+            </xpath>
+            </template>
+            <template id="product" inherit_id="website_sale.product" name="Add Ribbons to product page">
+                  <xpath expr="//section[@id='product_detail']" position="attributes">
+                        <attribute name="t-attf-class">container oe_website_sale #{(compute_currency(product.lst_price) - product.price) &gt; 0.1 and 'discount'} #{'disable_to_order' if not product.sale_on_website else ''}</attribute>
+                  </xpath>
+            </template>
+      </data>
+</openerp>

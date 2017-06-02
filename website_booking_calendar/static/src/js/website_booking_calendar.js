@@ -2,33 +2,41 @@
 
     self.DTF = 'YYYY-MM-DD HH:mm:ss';
     self.MIN_TIME_SLOT = 1; //hours
-    self.SLOT_START_DELAY_MINS = 15 //minutes
+    self.SLOT_START_DELAY_MINS = 15; //minutes
     self.resources = [];
     self.bookings = [];
+    self.session = openerp.website.session || new openerp.Session();
+    self.domain = [];
+    self.colors = {};
 
-    self.jsonRpc = function(url, data, callback) {
-        $.ajax({
-            url: url,
-            dataType: 'json',
-            contentType: 'application/json',
-            type: 'POST',
-            data: JSON.stringify({
-                params: data,
-                jsonrpc: '2.0',
-                id: Math.floor(Math.random() * 1000 * 1000 * 1000)
-            }),
-            success: callback
+    self.loadSlots = function(start, end, timezone, callback) {
+        var d = new Date();
+        var offset = d.getTimezoneOffset();
+        self.session.rpc("/booking/calendar/slots", {
+           // start: start.add(offset, 'minutes').format(self.DTF),
+           // end: end.add(offset, 'minutes').format(self.DTF),
+           // tz: offset,
+           start: start.format(self.DTF),
+           end: end.format(self.DTF),
+           tz: 0,
+           domain: self.domain
+        }).then(function (response) {
+            callback(response);
         });
-    }
-
-    self.loadEvents = function(start, end, timezone, callback) {
-        self.jsonRpc('/booking/calendar/events', {
-                start: start.format(self.DTF),
-                end: end.format(self.DTF),
-                resources: self.resources
-        }, function(response) {
-            var events = response;
-            callback(events['result']);
+    };
+    self.loadBookings = function(start, end, timezone, callback) {
+        var d = new Date();
+        var offset = d.getTimezoneOffset();
+        self.session.rpc("/booking/calendar/slots/booked", {
+           // start: start.add(offset, 'minutes').format(self.DTF),
+           // end: end.add(offset, 'minutes').format(self.DTF),
+           // tz: d.getTimezoneOffset(),
+           start: start.format(self.DTF),
+           end: end.format(self.DTF),
+           tz: 0,
+           domain: self.domain
+        }).then(function (response) {
+            callback(response);
         });
     };
 
@@ -36,77 +44,28 @@
         var $bookingWarningDialog = $('#booking_warning_dialog');
         $bookingWarningDialog.find('.modal-body').text(text);
         $bookingWarningDialog.modal('show');
-    }
-
-    self.eventReceive = function(event) {
-        if (event.start < moment().add(-self.SLOT_START_DELAY_MINS, 'minutes')){
-            self.warn('Please book on time in ' + self.SLOT_START_DELAY_MINS + ' minutes from now.');
-            self.$calendar.fullCalendar('removeEvents', [event._id]);
-            return;
-        }
-        self.bookings.push(event);
     };
 
-    self.eventOverlap = function(stillEvent, movingEvent) {
-        return stillEvent.resourceId != movingEvent.resourceId;
-    };
-
-    self.eventDrop = function(event, delta, revertFunc, jsEvent, ui, view){
-        if (event.start < moment().add(-self.SLOT_START_DELAY_MINS, 'minutes')){
-            self.warn('Please book on time in ' + self.SLOT_START_DELAY_MINS + ' minutes from now.');
-            revertFunc(event);
-        }
-    };
-
-    self.getBookingsInfo = function(toUTC) {
+   self.getBookingsInfo = function(toUTC) {
         var res = [];
-        for(var i=0, len=self.bookings.length; i<len; i++) {
-            var start = self.bookings[i].start.clone();
-            var end = self.bookings[i].end ? self.bookings[i].end.clone() : start.clone().add(1, 'hours');
+        _.each(self.bookings, function(b) {
+            var start = b.start.clone();
+            var end = b.end ? b.end.clone() : start.clone().add(1, 'hours');
             if(toUTC) {
                 start.utc();
                 end.utc();
             }
             res.push({
-                'resource': self.bookings[i].resourceId,
+                'resource': b.resource_id,
                 'start': start.format(self.DTF),
                 'end': end.format(self.DTF)
             });
-        }
+        });
         return res;
-    }
-
-    self.dayClick = function(date, jsEvent, view) {
-        if (view.name == 'month' && $(jsEvent.target).hasClass('fc-day-number')) {
-            view.calendar.changeView('agendaDay');
-            view.calendar.gotoDate(date);
-        }
     };
+
     self.viewRender = function(view, element) {
-        // make week names clickable for quick navigation
-        if (view.name == 'month') {
-            var $td = $(element).find('td.fc-week-number');
-            $td.each(function () {
-                var week = parseInt($(this).find('span').text());
-                if (week) {
-                    $(this).data('week', week)
-                        .css({'cursor': 'pointer'})
-                        .find('span').html('&rarr;');
-                }
-            });
-            $td.click(function(){
-                var week = $(this).data('week');
-                if (week) {
-                    var m = moment();
-                    m.week(week);
-                    if (week < view.start.week()) {
-                        m.year(view.end.year());
-                    }
-                    view.calendar.changeView('agendaWeek');
-                    view.calendar.gotoDate(m);
-                }
-           });
-        } else if (view.name == 'agendaWeek') {
+        if (view.name == 'agendaWeek') {
             $(element).find('th.fc-day-header').css({'cursor': 'pointer'})
                 .click(function(){
                     var m = moment($(this).text(), view.calendar.option('dayOfMonthFormat'));
@@ -119,76 +78,141 @@
         }
     };
 
+    self.getParameterByName = function(name, url) {
+       if (!url) {
+         url = window.location.href;
+       }
+       name = name.replace(/[\[\]]/g, "\\$&");
+       var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+           results = regex.exec(url);
+       if (!results) return null;
+       if (!results[2]) return '';
+       return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
     /* initialize the external events
     -----------------------------------------------------------------*/
     self.init = function() {
         self.$calendar = $('#calendar');
-        $('#external-events .fc-event').each(function() {
-            self.resources.push($(this).data('resource'));
-            // store data so the calendar knows to render an event upon drop
-            $(this).data('event', {
-                title: $.trim($(this).text()), // use the element's text as the event title
-                stick: true, // maintain when user navigates (see docs on the renderEvent method)
-                resourceId: $(this).data('resource'),
-                borderColor: 'red',
-                color: $(this).data('color'),
-            });
-            // make the event draggable using jQuery UI
-            $(this).draggable({
-                zIndex: 999,
-                revert: true,      // will cause the event to go back to its
-                revertDuration: 0  //  original position after the drag
-            });
-        });
-
         // page is now ready, initialize the calendar...
         self.$calendar.fullCalendar({
-            header: {
-              left: 'prev,next today',
-              center: 'title',
-              right: 'month,agendaWeek,agendaDay'
-            },
             handleWindowResize: true,
             height: 'auto',
-            editable: true,
-            droppable: true, // this allows things to be dropped onto the calendar
-            eventResourceField: 'resourceId',
+            eventResourceField: 'resource_id',
             slotDuration: '01:00:00',
             allDayDefault: false,
             allDaySlot: false,
-            defaultTimedEventDuration: '01:00:00',
             displayEventTime: false,
             firstDay: 1,
-            defaultView: 'month',
-            timezone: 'local',
+            defaultView: 'agendaWeek',
+            timezone: false,
             weekNumbers: true,
-            slotEventOverlap: false,
-            events: self.loadEvents,
-            eventReceive: self.eventReceive,
-            eventOverlap: self.eventOverlap,
-            eventDrop: self.eventDrop,
-            dayClick: self.dayClick,
-            viewRender:self.viewRender
-        });
-
-        $('#add-to-cart').click(function(){
-            var $contentBlock = $('#booking-dialog').find('.modal-body');
-            $contentBlock.load('/booking/calendar/confirm/form', {
-                events: JSON.stringify(self.getBookingsInfo()),
-            }, function(){
-                $('.booking-product').change(function(){
-                    var price = $(this).find(':selected').data('price');
-                    var currency = $(this).find(':selected').data('currency');
-                    $(this).closest('tr').find('.booking-price').text(price);
-                    $(this).closest('tr').find('.booking-currency').text(currency);
-                });
-                $('#booking-dialog').modal('show');
-            });
+            eventSources: [
+                { events: self.loadSlots },
+                { events: self.loadBookings }
+            ],
+            viewRender: self.viewRender,
+            eventClick: self.eventClick,
+            customButtons: {
+                confirm: {
+                    text: 'Add to Cart',
+                    click: self.confirm
+                }
+            },
+            header: {
+                left: 'confirm prev,next today',
+                center: 'title',
+                right: 'agendaWeek,agendaDay'
+            },
+            slotEventOverlap: false
         });
 
         $('#booking-dialog-confirm').click(function(){
-            $('#booking-dialog').find('form').submit();
-        })
+            var $form = $('#booking-dialog').find('form');
+            var $msg = $('#booking-taken-msg')
+            var d = new Date();
+            $form.find("[name=timezone]").val(d.getTimezoneOffset());
+            var tr_counter = 0;
+            var validated_counter = 0;
+            var deferreds = [];
+            $form.find('tbody tr').each(function() {
+               var tr_element = $(this)
+               tr_counter = tr_counter + 1;
+               deferreds.push(
+                  openerp.jsonRpc('/booking/validator', 'call', {'booking': $(this).find('select').attr('name')}).then(function(result) {
+                     if(result) {
+                        tr_element.css({'color': 'red'});
+                        $msg.css({'visibility': 'visible'});
+                     } else {
+                        validated_counter = validated_counter + 1;
+                     }
+                  })
+               );
+            })
+
+
+            $.when.apply($, deferreds).done(function() {
+               if(validated_counter === tr_counter || $form.find("[name='validation_passed']").val()) {
+                  $form.submit();
+               }
+               if(validated_counter) {
+                  $form.find("[name='validation_passed']").val(true);
+               }
+            });
+        });
+
+       if (self.getParameterByName('expired')) {
+          self.warn('Your shopping cart has expired. All the bookings has been cleared')
+       }
+
+    };
+
+    self.confirm = function() {
+        var $contentBlock = $('#booking-dialog').find('.modal-body');
+        $contentBlock.load('/booking/calendar/confirm/form', {
+            events: JSON.stringify(self.getBookingsInfo()),
+        }, function(){
+            $('.booking-product').change(function(){
+                var price = $(this).find(':selected').data('price');
+                var currency = $(this).find(':selected').data('currency');
+                $(this).closest('tr').find('.booking-price').text(price);
+                $(this).closest('tr').find('.booking-currency').text(currency);
+            });
+            $('#booking-taken-msg').css({'visibility': 'hidden'});
+            $('#booking-dialog').modal('show');
+        });
+    };
+
+    self.eventClick = function(calEvent, jsEvent, view) {
+        $slot = $(this);
+        if ($slot.hasClass('booked_slot')) {
+            return;
+        }
+        if (!($("[name=is_logged]").val())) {
+            window.location = '/web/login?redirect='+encodeURIComponent(window.location);
+            return;
+        }
+        var booked = false;
+        _.each(self.bookings, function (b, k) {
+            if (b._id == calEvent._id) {
+                booked = true;
+                $slot.removeClass('selected');
+                if (self.colors[calEvent._id]) {
+                    $slot.attr(self.colors[calEvent._id]);
+                }
+                self.bookings.splice(k, 1);
+            }
+        });
+        if ( !booked ) {
+            self.bookings.push(calEvent);
+            $slot.addClass('selected');
+            self.colors[calEvent._id] = {
+                'background-color': $slot.attr('background-color'),
+                'border-color': $slot.attr('border-color'),
+            };
+            $slot.css('background-color', '');
+            $slot.css('border-color', '');
+        }
 
     };
 }(window.booking_calendar = window.booking_calendar || {}, jQuery));

@@ -1107,11 +1107,6 @@ be a descendant of the grid when it is being dragged.
     vertical-align: middle;
 }
 
-#calendar {
-    float: right;
-    width: 80%;
-}
-
 .fc-event .closeon {
     float: right;
 }
@@ -1128,4 +1123,13 @@ be a descendant of the grid when it is being dragged.
 
 .fc-basic-view .fc-day-number {
     cursor: pointer;
+}
+.fc-event-container .selected {
+    border-color: red;
+    background-color: #F4C430;
+}
+
+.booked_slot {
+    opacity: .2;
+    filter: alpha(opacity=20); /* for IE */
 }

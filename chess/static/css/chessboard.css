@@ -1,0 +1,255 @@
+/* clearfix */
+.clearfix-7da63 {
+  clear: both;
+}
+
+/* board */
+.board-b72b1 {
+  border: 2px solid #404040;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+/* square */
+.square-55d63 {
+  float: left;
+  position: relative;
+
+  /* disable any native browser highlighting */
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
+
+/* white square */
+.white-1e1d7 {
+  background-color: #f0d9b5;
+  color: #b58863;
+}
+
+/* black square */
+.black-3c85d {
+  background-color: #b58863;
+  color: #f0d9b5;
+}
+
+/* highlighted square */
+.highlight1-32417, .highlight2-9c5d2 {
+  -webkit-box-shadow: inset 0 0 3px 3px yellow;
+  -moz-box-shadow: inset 0 0 3px 3px yellow;
+  box-shadow: inset 0 0 3px 3px yellow;
+}
+
+/* notation */
+.notation-322f9 {
+  cursor: default;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  position: absolute;
+}
+.alpha-d2270 {
+  bottom: 1px;
+  right: 3px;
+}
+.numeric-fc462 {
+  top: 2px;
+  left: 2px;
+}
+.content {
+	width: 100%;
+}
+.usrating_button{
+    margin-bottom: 10px;
+    color: black;
+}
+.site_header {
+	float: left;
+    margin-right: 20px;
+}
+.site_header a {
+      color: #ccc;
+}
+.chess_board {
+	width: 450px;
+	float: left;
+}
+.chess_information {
+	width: 250px;
+	float: left;
+    margin-left: 20px;
+    margin-top: 57px;
+}
+.chess_ground {
+	height: 450px;
+	border: 1px solid #ccc;
+	padding: 10px;
+	position: relative;
+}
+.chess_ground  #status, .status{
+	font-size:14px;
+	margin-top:-5px;
+  	white-space: normal;
+	word-wrap:break-word;
+}
+.player_color_icon_is_white {
+    margin-bottom: 5px;
+    position: relative;
+}
+.player_color_icon_is_black {
+    position: relative;
+}
+.player_color_icon_is_white:before {
+	content: url(../img/ww.png);
+}
+.player_color_icon_is_black:before {
+	content: url(../img/bb.png);
+}
+.players .rating {
+    display: inline-block;
+    display: -moz-inline-box;
+    position: absolute;
+    right: 0;
+    padding-top: 10px;
+}
+.players .user_name {
+    display: inline-block;
+    display: -moz-inline-box;
+}
+#pgn a {
+	text-decoration: none;
+    color: white;
+}
+#pgn a:hover {
+    color: #33FF00;
+}
+.pgn {
+	background: rgba(236, 236, 236, 0.12);
+    font-size: 15px;
+    color: white;
+}
+.pgn {
+	overflow: auto;
+    height: 230px;
+    padding: 5px;
+    border: solid 1px #ccc;
+    white-space: normal;
+}
+.pgn a {
+    padding-bottom: 5px;
+}
+
+#toggler {
+  color: #ccc;
+}
+.pgn p {
+	margin-top: 0;
+}
+#toggler {
+	float: right;
+	padding: 10px 10px;
+}
+#toggler a {
+    color: #ccc;
+}
+.end_game {
+	display: inline-block;
+    position: relative;
+    padding-top: 10px;
+}
+#surrender:before {
+	content: url(../img/surrender.png);
+}
+#suggest_a_draw:before {
+	content: url(../img/suggest.png);
+}
+#surrender:hover::after, #suggest_a_draw:hover::after, #cancel_game:hover::after {
+	content: attr(data-title);
+	position: absolute;
+	left: 20%; top: 75%;
+	z-index: 1;
+	background: white;
+	font-family: Arial, sans-serif;
+    font-size: 11px;
+    padding: 5px 10px;
+    border: 1px solid #333;
+}
+.fen {
+	overflow: auto;
+    border: solid 1px #ccc;
+	padding: 5px;
+	margin-top: 10px;
+    white-space: normal;
+	word-wrap:break-word;
+}
+.chess_time_usr2,  .chess_time_usr1, #box {
+	display: none;
+}
+#box {
+	padding-top: 15px;
+}
+.canceled_game {
+	float: right;
+	padding: 10px 10px;
+}
+.canceled_game a {
+    color: #ccc;
+}
+.canceled_game .canceled{
+	display: none;
+}
+.eliminated_pieces{
+	position: relative;
+	padding-top: 10px;
+	height: 57px;
+	margin-right: 5px;
+    margin-left: 5px;
+}
+.eliminated_pieces img{
+	width:35px;
+	margin-left:-5px;
+	margin-right:-5px;
+}
+.eliminated_pieces .figure_white, .eliminated_pieces .figure_black {
+	padding-top: 5px;
+}
+.figure_white {
+	float: left;
+}
+.figure_black {
+	float: right;
+}
+.side_box.padded {
+    padding: 10px;
+}
+.side_box, #site_header a.stream {
+    margin-left: 0!important;
+    width: 196px!important;
+}
+
+.side_box {
+    border: 1px solid #ccc;
+}
+.side_box {
+    margin-top: 12px;
+    margin-left: -30px;
+    width: 226px;
+    box-sizing: border-box;
+    height: 140px;
+}
+.side_box .game_infos {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 8px;
+    margin-bottom: 6px;
+}
+.notification .game_infos, .side_box .game_infos {
+    padding-left: 36px;
+    position: relative;
+}
+
+#flipOrientationBtn {
+    color: black;
+}

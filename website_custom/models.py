@@ -1,9 +1,11 @@
-from openerp import api, models, fields, SUPERUSER_ID
+# -*- coding: utf-8 -*-
+from openerp import SUPERUSER_ID
 from openerp.addons.web import http
 from openerp.addons.web.http import request
-from openerp.tools.translate import _
 
-class website_custom(http.Controller):
+
+class WebsiteCustom(http.Controller):
+
     @http.route(['/website_custom/ribbons'], type='json', auth="public", website=True)
     def ribbons(self, ids):
         cr = request.cr

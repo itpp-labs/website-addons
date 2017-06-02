@@ -1,10 +1,11 @@
+# -*- coding: utf-8 -*-
 from openerp import api, models, fields
 
 from openerp.tools import html_escape as escape
 import werkzeug
 
 
-class ir_attachment(models.Model):
+class IrAttachment(models.Model):
     _inherit = 'ir.attachment'
 
     @api.one
@@ -67,23 +68,23 @@ class ir_attachment(models.Model):
                     ids.remove(id)
             if not ids:
                 return
-        return super(ir_attachment, self).check(cr, uid, ids, mode, context, values)
+        return super(IrAttachment, self).check(cr, uid, ids, mode, context, values)
 
 
-class website(models.Model):
+class Website(models.Model):
     _inherit = 'website'
 
     def file_url(self, record, field='datas',
                  filename_field='datas_fname', context=None):
         model = record._name
-        #sudo_record = record.sudo()
-        #hash_value = hashlib.sha1(sudo_record.write_date or sudo_record.create_date or '').hexdigest()[0:7]
+        # sudo_record = record.sudo()
+        # hash_value = hashlib.sha1(sudo_record.write_date or sudo_record.create_date or '').hexdigest()[0:7]
         args = {
             'id': record.id,
             'model': model,
             'filename_field': filename_field,
             'field': field,
-            #'hash': hash_value,
+            # 'hash': hash_value,
         }
         return '/web/binary/saveas?%s' % werkzeug.url_encode(args)
 

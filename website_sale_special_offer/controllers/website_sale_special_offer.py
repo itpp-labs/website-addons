@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
-from openerp import SUPERUSER_ID, fields, http
+from openerp import SUPERUSER_ID
+from openerp import http
 from openerp.http import request
 
-from openerp.tools.translate import _
 from openerp.addons.website.controllers.main import Website as website_controller
 
+
 class Website(website_controller):
+
     @http.route('/<string:url>', type='http', auth="public", website=True)
     def top_path(self, **kw):
         url = kw.get('url')
@@ -29,7 +31,7 @@ class Website(website_controller):
         order = request.website.sale_get_order(force_create=True)
         if not order:
             # repeat
-            print 'force to create order'
+            # print 'force to create order'
             order = request.website.sale_get_order(force_create=True)
         if order:
             from_currency = pool.get('product.price.type')._get_field_currency(cr, uid, 'list_price', context)
@@ -57,12 +59,12 @@ class Website(website_controller):
         return request.website.render("website_sale.cart", values)
 
     @http.route(["/website_sale_special_offer/get_cart_lines"], type='json', auth="public", website=True)
-    def cart_lines(self,  **post):
+    def cart_lines(self, **post):
         order = request.website.sale_get_order()
         result = []
         for line in order.order_line:
             result.append({
-                'id':line.id,
-                'price_total':request.website._render("website_sale_special_offer.line_price_total", {'line':line, 'user_id':request.website.user_id})
+                'id': line.id,
+                'price_total': request.website._render("website_sale_special_offer.line_price_total", {'line': line, 'user_id': request.website.user_id})
             })
         return result

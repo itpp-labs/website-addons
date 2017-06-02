@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data  noupdate="0">
+<template id="website_sale_checkout_store_assets_frontend" name="website_sale_checkout_store assets" inherit_id="website_sale.assets_frontend">
+    <xpath expr="//link[@rel='stylesheet']" position="after">
+        <link rel="stylesheet" href="/website_sale_checkout_store/static/src/css/website_sale_checkout_store.css"/>
+    </xpath>
+</template>
+<template id="website_sale_checkout_store_cart" name="my_cart" inherit_id="website_sale.cart" priority="50">
+    <xpath expr="//div[@class='row']//a[@class='btn btn-primary pull-right mb32'][@href='/shop/checkout']" position="replace">
+        <!--<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
+        <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
+        <t t-set="nobill_noship"
+           t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.nobill_noship')"/>
+        <t t-set="bill_noship"
+           t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.bill_noship')"/>
+        <t t-set="bill_ship"
+           t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.bill_ship')"/>
+        <t t-set="nobill_ship"
+           t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.nobill_ship')"/>
+        <t t-set="default_option"
+           t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.default_option')"/>
+        <t t-set="list_options" t-value="[nobill_noship, bill_noship, bill_ship, nobill_ship]"/>
+        <div class="pull-right">
+            <div>
+                <a t-if="nobill_noship and not optional_products and website_sale_order and website_sale_order.website_order_line"
+                   class="btn btn-primary pull-right" href="/shop/checkout?buyMethod=nobill_noship" style="width: 100%; margin-bottom: 5px">
+                    <span class="hidden-xs">Pickup and pay at store</span>
+                    <span class="visible-xs-inline">Pickup and pay at store</span>
+                    <span class="fa fa-long-arrow-right"/>
+                </a>
+            </div>
+            <div>
+                <a t-if="bill_noship and not optional_products and website_sale_order and website_sale_order.website_order_line"
+                   class="btn btn-primary pull-right" href="/shop/checkout?buyMethod=bill_noship" style="width: 100%; margin-bottom: 5px">
+                    <span class="hidden-xs">Pickup at store but pay now</span>
+                    <span class="visible-xs-inline">Pickup at store but pay now</span>
+                    <span class="fa fa-long-arrow-right"/>
+                </a>
+            </div>
+            <div>
+                <a t-if="bill_ship and not optional_products and website_sale_order and website_sale_order.website_order_line"
+                   class="btn btn-primary pull-right" href="/shop/checkout?buyMethod=bill_ship" style="width: 100%; margin-bottom: 5px">
+                    <span class="hidden-xs">Pay now and get delivery</span>
+                    <span class="visible-xs-inline">Pay now and get delivery</span>
+                    <span class="fa fa-long-arrow-right"/>
+                </a>
+            </div>
+            <div>
+                <a t-if="nobill_ship and not optional_products and website_sale_order and website_sale_order.website_order_line"
+                   class="btn btn-primary pull-right" href="/shop/checkout?buyMethod=nobill_ship" style="width: 100%; margin-bottom: 5px">
+                    <span class="hidden-xs">Pay on delivery</span>
+                    <span class="visible-xs-inline">Pay on delivery</span>
+                    <span class="fa fa-long-arrow-right"/>
+                </a>
+            </div>
+        </div>
+    </xpath>
+    <xpath expr="//li[3]" position="attributes">
+        <attribute name="bill">1</attribute>
+    </xpath>
+</template>
+<template id="website_sale_checkout_store_checkout" name="my_checkout" inherit_id="website_sale.checkout">
+    <xpath expr="//div[@class='container oe_website_sale']" position="before">
+        <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
+    </xpath>
+    <xpath expr="//div[@class='container oe_website_sale']" position="attributes">
+        <attribute name="t-att-bill_enabled">not 'nobill' in website_sale_order.buy_way and '1' or '0'</attribute>
+        <attribute name="t-att-ship_enabled">not 'noship' in website_sale_order.buy_way and '1' or '0'</attribute>
+    </xpath>
+    <xpath expr="//input[@name='street']/.." position="attributes">
+        <attribute name="ship">1</attribute>
+    </xpath>
+    <xpath expr="//input[@name='street2']/.." position="attributes">
+        <attribute name="ship">1</attribute>
+    </xpath>
+    <xpath expr="//input[@name='city']/.." position="attributes">
+        <attribute name="ship">1</attribute>
+    </xpath>
+    <xpath expr="//input[@name='zip']/.." position="attributes">
+        <attribute name="ship">1</attribute>
+    </xpath>
+    <xpath expr="//select[@name='country_id']/.." position="attributes">
+        <attribute name="ship">1</attribute>
+    </xpath>
+    <xpath expr="//select[@name='country_id']/.." position="attributes">
+        <attribute name="bill">1</attribute>
+    </xpath>
+    <xpath expr="//select[@name='state_id']/.." position="attributes">
+        <attribute name="ship">1</attribute>
+    </xpath>
+    <xpath expr="//select[@name='state_id']/.." position="attributes">
+        <attribute name="bill">1</attribute>
+    </xpath>
+    <xpath expr="//select[@name='shipping_id']/.." position="attributes">
+        <attribute name="ship">1</attribute>
+    </xpath>
+    <xpath expr="//div[@class='js_shipping row mb16']" position="attributes">
+        <attribute name="ship">1</attribute>
+    </xpath>
+    <xpath expr="//li[3]" position="attributes">
+        <attribute name="bill">1</attribute>
+    </xpath>
+</template>
+<template id="website_sale_checkout_store_confirmation" name="my_confirmation" inherit_id="website_sale.confirmation">
+    <xpath expr="//div[@class='container oe_website_sale']" position="before">
+        <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
+    </xpath>
+    <xpath expr="//div[@class='container oe_website_sale']" position="attributes">
+        <attribute name="t-att-bill_enabled">not 'nobill' in order.buy_way and '1' or '0'</attribute>
+        <attribute name="t-att-ship_enabled">not 'noship' in order.buy_way and '1' or '0'</attribute>
+    </xpath>
+    <xpath expr="//li[3]" position="attributes">
+        <attribute name="bill">1</attribute>
+    </xpath>
+</template>
+</data>
+</openerp>

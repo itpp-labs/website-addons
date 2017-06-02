@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    <record id="website_sale_checkout_store_settings_view" model="ir.ui.view">
+        <field name="name">website_sale_checkout_store_settings.config.settings.form.inherit</field>
+        <field name="model">website.config.settings</field>
+        <field name="inherit_id" ref="website.view_website_config_settings"/>
+        <field name="arch" type="xml">
+            <group string="Social Media" position="before">
+                <group name="shipping_billing" string="Shipping and billing">
+                    <label for="nobill_noship" string="Ways of sale"/>
+                    <div>
+                        <div>
+                            <field name="nobill_noship"/>
+                            <label for="nobill_noship"/>
+                        </div>
+                        <div>
+                            <field name="bill_noship" />
+                            <label for="bill_noship"/>
+                        </div>
+                        <div>
+                            <field name="bill_ship" />
+                            <label for="bill_ship"/>
+                        </div>
+                        <div>
+                            <field name="nobill_ship" />
+                            <label for="nobill_ship"/>
+                        </div>
+                    </div>
+                    <field name="default_option" />
+                </group>
+            </group>
+        </field>
+    </record>
+    </data>
+</openerp>

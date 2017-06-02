@@ -1,0 +1,212 @@
+<openerp>
+    <data>
+        <template name="Chess Page" id="chesspage" page="True">
+            <t t-call="website.layout">
+                    <div class="oe_structure">
+                        <div class="container">
+                            <h1>Chess Services</h1>
+                            <div class='menu'>
+                                <ul class="chess_services">
+                                    <a href="#?w=400" rel="popup1" class="poplight"><li>Create game</li></a>
+                                    <a href="#?w=400" rel="popup2" class="poplight"><li>Create Game</li></a>
+                                </ul>
+                            </div>
+                            <div id="popup1" class="popup_block">
+                                <h2>Create game</h2>
+                                <form id="create_game" name="create_game" action="/chess/game/" method="post" data-model_name="chess.game">
+                                    <!--<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
+                                    <div class="popup_content">
+                                        <h3>Game type:</h3>
+                                         <p>
+                                            <input type="radio" name="game_type" value="standart" id="standart" checked="true"> Standart </input>
+                                            <input type="radio" name="game_type" value="blitz" id="blitz"> Blitz </input>
+                                            <input type="radio" name="game_type" value="limited time" id="limited time" class="limited_time"> Limited time </input>
+                                         </p>
+                                        <p id="time">
+                                            Time: D:<input type="number" min="0" max="364" name="time_d" value="0"></input>  H:<input type="number" min="0" max="23" name="time_h" value="0"></input> M:<input type="number" min="0" max="59" name="time_m" value="15"></input> S:<input type="number" min="0" max="59" name="time_s" value="0"></input>
+                                        </p>
+                                        <h3>Figure color:</h3>
+                                        <p>
+                                            <input type="radio" name="first_color_figure" value="white" checked="true"> White </input>
+                                            <input type="radio" name="first_color_figure" value="black"> Black </input>
+                                        </p>
+                                        <br/>
+                                        <input type="hidden" name="second_user_id" value="0"/>
+                                        <input type="submit" name="submit" id="create_game" value="Create game" />
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="popup2" class="popup_block">
+                                <h2>Play with a friend</h2>
+                                <div class="popup_content">
+                                    <h3>Users:</h3>
+                                    <form id="play_with_a_friend" name="play_with_a_friend" action="/chess/game/" method="post" data-model_name="chess.game">
+                                        <!--<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
+                                        <select name="second_user_id" size="1">
+                                            <t t-foreach="users" t-as="user">
+                                                <option t-attf-value="{{ user.id }}"><t t-esc="user.name"/></option>
+                                            </t>
+                                        </select>
+                                        <h3>Game type:</h3>
+                                         <p>
+                                            <input type="radio" name="game_type" value="standart" id="standart" checked="true"> Standart </input>
+                                            <input type="radio" name="game_type" value="blitz" id="blitz"> Blitz </input>
+                                            <input type="radio" name="game_type" value="limited time" id="limited time" class="limited_time"> Limited time </input>
+                                        </p>
+                                        <p id="time">
+                                            Time: D:<input type="number" min="0" max="364" name="time_d" value="0"></input>  H:<input type="number" min="0" max="23" name="time_h" value="0"></input> M:<input type="number" min="0" max="59" name="time_m" value="15"></input> S:<input type="number" min="0" max="59" name="time_s" value="0"></input>
+                                        </p>
+
+                                        <h3>Figure color:</h3>
+                                        <p>
+                                            <input type="radio" name="first_color_figure" value="white" checked="true"> White </input>
+                                            <input type="radio" name="first_color_figure" value="black"> Black </input>
+                                        </p>
+                                        <br/>
+                                        <input type="submit" name="submit" id="create_game_friend" value="Create game" />
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </t>
+        </template>
+        <template name="Game Page" id="gamepage" page="True">
+            <t t-call="website.layout">
+                <div class="conteiner">
+                    <div class="content">
+                        <div class='box'>
+                            <div class="site_header">
+                                <div class="side">
+                                    <div class="side_box padded">
+                                        <div class="game_infos">
+                                            <div class="header">
+                                                <span class="setup">
+                                                    <p><t t-esc="games.game_type"/></p>
+                                                </span>
+                                                <p><t t-esc="games.system_status"/></p>
+                                            </div>
+                                        </div>
+                                        <div class="players">
+                                            <div t-attf-class="player_color_icon_is_{{games.first_color_figure }}">
+                                                <span class="user_name">
+                                                    <t t-esc="games.first_user_id.name"/>
+                                                </span>
+                                                <div class="rating">
+                                                    <t t-esc="games.first_user_id.game_rating"/>
+                                                </div>
+                                            </div>
+                                            <div t-attf-class="player_color_icon_is_{{games.second_color_figure }}">
+                                                <span class="user_name">
+                                                    <t t-esc="games.second_user_id.name"/>
+                                                </span>
+                                                <div class="rating">
+                                                    <t t-esc="games.second_user_id.game_rating"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--chat-->
+                                <div class="chat_menu">
+                                    <div class="messages_container">
+                                        <input title="show chat" id="toggle_chat" class="toggle_chat" type="checkbox"><label for="toggle_chat"> Window chat </label></input>
+                                    </div>
+                                </div>
+                                    <div class="chat" id="chat">
+                                        <div class="window_chat" id="window_chat"></div>
+                                        <div class="chat_line"></div>
+                                        <form name="chat_message" method="post" data-model_name="chess.game.chat" id="chat_form" class="chat_form">
+                                            <div class="message_chat">
+                                                <textarea type="text" name="message_text" class="message_text" id="message_text" cols="18" rows="3"></textarea>
+                                            </div>
+                                            <div class="button_chat">
+                                                <input type="submit" name="submit" id="message_btn" class="message_btn" value="send" />
+                                            </div>
+                                        </form>
+                                    </div>
+                            </div>
+                            <!--chess board-->
+                            <div class="chess_board">
+                                <div class="chess_game">
+                                    <div class="eliminated_pieces">
+                                        <div class="figure_white" id="figure_white"></div>
+                                        <div class="figure_black" id="figure_black"></div>
+                                    </div>
+                                    <div id="board"></div>
+                                </div>
+                            </div>
+                            <!--chess status, FEN, PGN etc-->
+                            <div class="chess_information">
+                                <div class="chess_time_usr">
+                                    <div class="chess_time">
+                                        <div id="clock0" class="clock upper rotated">
+                                              00:00
+                                        </div>
+                                        <div class="time">Time:</div>
+                                        <div id="clock1" class="clock lower">
+                                              00:00
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="chess_ground">
+                                    <p class="status">Status: <span id="status"></span></p>
+                                    <div class="pgn">
+                                        <p>PGN: <span id="pgn"></span></p>
+                                    </div>
+                                    <div class="end_game">
+                                        <a id="surrender" data-title="Surrender" href="#"></a>
+                                        <a id="suggest_a_draw" data-title="Suggest a draw" href="#"></a>
+                                    </div>
+                                    <a id="toggler" href="#">Setting</a>
+                                    <div id="box">
+                                        <div class="user_button">
+                                            <input type="button" id="flipOrientationBtn" value="Flip orientation" />
+                                        </div>
+                                        <div class="fen">
+                                            <span id="fen"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <script type="text/javascript">
+                                (function() {
+                                    window.model_game_id = "<t t-esc="games.id"/>";
+                                    window.model_dbname = "<t t-esc="dbname"/>";
+                                    window.model_author_id = "<t t-esc="user.id"/>";
+                                })();
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="assets_frontend" name="chess assets frontend" inherit_id="website.assets_frontend">
+             <xpath expr="." position="inside">
+                 <link rel="stylesheet" type="text/less" href="/chess/static/less/winmodal.less"/>
+                 <link rel="stylesheet" type="text/less" href="/chess/static/less/style.less"/>
+                 <link rel="stylesheet" type="text/css" href="/chess/static/css/common.css"/>
+                 <link rel="stylesheet" type="text/css" href="/chess/static/css/chessboard.css"/>
+                 <link rel="stylesheet" type="text/css" href="/chess/static/css/chessclock.css"/>
+                 <link rel="stylesheet" type="text/css" href="/chess/static/css/sweet-alert.css"/>
+                 <link rel="stylesheet" type="text/css" href="/chess/static/css/jquery.scrollbar.css"/>
+                 <link rel="stylesheet" type="text/css" href="/chess/static/css/simple-chat.css"/>
+
+                 <script type="text/javascript" src="/chess/static/js/dm-modal.js"></script>
+
+                 <script type="text/javascript" src="/bus/static/src/js/bus.js"></script>
+                 <script type="text/javascript" src="/chess/static/js/sweet-alert.js"></script>
+                 <script type="text/javascript" src="/chess/static/js/chess.js"></script>
+                 <script type="text/javascript" src="/chess/static/js/chessboard.js"></script>
+
+                 <script type="text/javascript" src="/chess/static/js/jquery.scrollbar.min.js"></script>
+                 <script type="text/javascript" src="/chess/static/js/chesschat.js"></script>
+                 <script type="text/javascript" src="/chess/static/js/common.js"></script>
+                 <script type="text/javascript" src="/chess/static/js/create_game.js"></script>
+                 <script type="text/javascript" src="/chess/static/js/seedrandom-min.js"></script>
+                 <script type="text/javascript" src="/chess/static/js/jquery.seed-colors.js"></script>
+             </xpath>
+        </template>
+    </data>
+</openerp>

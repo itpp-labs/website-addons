@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': "Custom website",
     'version': '1.0.0',
@@ -8,6 +9,6 @@
     'depends': [],
     'data': [
         'views.xml',
-        ],
+    ],
     'installable': True
 }

@@ -1,26 +1,27 @@
+# -*- coding: utf-8 -*-
 {
-    'name' : 'Sales team in eCommerce',
-    'version' : '1.0.0',
-    'author' : 'IT-Projects LLC, Ivan Yelizariev',
+    'name': 'Sales team in eCommerce',
+    'version': '1.0.0',
+    'author': 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'GPL-3',
-    'category' : 'Sale',
-    'website' : 'https://yelizariev.github.io',
+    'category': 'eCommerce',
+    'website': 'https://yelizariev.github.io',
     'description': """
 Split products by sales team.
 
 Tested on Odoo 8.0 d023c079ed86468436f25da613bf486a4a17d625
     """,
-    'depends' : [
+    'depends': [
         'sales_team',
         'website_sale',
         'website_sale_order',
     ],
-    'data':[
+    'data': [
         'security/website_sales_team_security.xml',
         'security/ir.model.access.csv',
         'website_sales_team_data.xml',
         'website_sales_team_templates.xml',
         'website_sales_team_views.xml',
-        ],
-    'installable': True
+    ],
+    'installable': False,
 }

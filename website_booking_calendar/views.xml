@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        <template id="resources">
-            <h4>Book resources</h4>
-            <t t-foreach="resources" t-as="r">
-                <div class='fc-event' t-att-data-resource="r.id" t-att-data-color="r.color" t-att-style="'background-color:%s;border-color:%s;' % (r.color, r.color)"><t t-esc="r.name"/></div>
-            </t>
-        </template>
-
         <template id="calendar">
             <div id='calendar'></div>
             <div style='clear:both'></div>
@@ -18,10 +11,6 @@
             <t t-call="website.layout">
                 <div id="wrap">
                     <div id="cal_wrap">
-                        <div id='external-events'>
-                            <t t-call="website_booking_calendar.resources"/>
-                            <a id="add-to-cart" href="#">Confirm Booking</a>
-                        </div>
                         <t t-call="website_booking_calendar.calendar"/>
                     </div>
                 </div>
@@ -32,18 +21,20 @@
                             <button type="button" class="close" data-dismiss="modal">
                                 <span aria-hidden="true">x</span>
                             </button>
-                            <h4 class="modal-title">Choose Packages and Confirm</h4>
+                            <h4 class="modal-title">Choose Packages and push 'Add to Cart'</h4>
                         </div>
                         <div class="modal-body">
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" id="booking-dialog-confirm">Confirm</button>
+                            <p style="visibility:hidden;" id="booking-taken-msg">Some of the slots (red color) that you are trying to book is already taken. They won't be in your cart, please try another instead. Click 'Add to Cart' to add remaining valid slots</p>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Continue Booking</button>
+                            <button type="button" class="btn btn-primary" id="booking-dialog-confirm">Add to Cart</button>
                         </div>
                     </div>
                   </div>
                 </div>
                 <t t-call="website_booking_calendar.warning_dialog"/>
+                <input type="hidden" name="is_logged" t-att-value="1 if user_id != website.user_id else 0"/>
             </t>
         </template>
 
@@ -54,10 +45,35 @@
                 <t t-call="web.jqueryui_conflict">
                     <script type="text/javascript" src="/web/static/lib/jquery.ui/js/jquery-ui-1.9.1.custom.js"></script>
                 </t>
-                <script src="/booking_calendar/static/src/js/moment.js"></script>
+                <script src="/booking_calendar/static/lib/js/moment.js"></script>
                 <script src="/website_booking_calendar/static/src/js/fullcalendar.js"></script>
                 <script type="text/javascript" src="/website_booking_calendar/static/src/js/website_booking_calendar.js"></script>
             </xpath>
+        </template>
+
+        <template id="cart" inherit_id="website_sale.cart" name="Booking Shopping Cart">
+          <xpath expr="//table[@id='cart_products']/thead/tr/th[1]" position="before">
+            <th width="50">Pitch</th>
+            <th width="100">Date Start</th>
+            <th width="100">Date End</th>
+          </xpath>
+          <xpath expr="//table[@id='cart_products']/tbody/t/tr/td[1]" position="before">
+            <td class="text-center">
+              <span t-field="line.pitch_id" />
+            </td>
+            <td class="text-center">
+              <span t-field="line.booking_start" />
+            </td>
+            <td class="text-center">
+              <span t-field="line.booking_end" />
+            </td>
+          </xpath>
+          <xpath expr="//table[@id='cart_products']/tbody/t/tr/td[last()]/div" position="attributes">
+            <attribute name="style">visibility:hidden</attribute>
+          </xpath>
+          <xpath expr="//table[@id='cart_products']/tbody/t/tr/td[last()]" position="inside">
+            <span t-field="line.product_uom_qty" />
+          </xpath>
         </template>
 
         <template id="confirm_form">
@@ -69,6 +85,7 @@
                             <th>Date and Time</th>
                             <th>Package</th>
                             <th>Price</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -97,10 +114,17 @@
                                 <span class="booking-price"><t t-esc="(b['products'] and products[0]['price']) or ''"/></span>
                                 <span class="booking-currency" t-esc="(b['products'] and products[0]['currency']) or ''"></span>
                             </td>
+                            <td>
+                                <button type="button" class="btn btn-default" onclick="$(this).closest('tr').remove() ">
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </button>
+                            </td>
                         </tr>
                     </t>
                     </tbody>
                 </table>
+                <input type="hidden" name="timezone" />
+                <input type="hidden" name="validation_passed" />
             </form>
         </template>
 

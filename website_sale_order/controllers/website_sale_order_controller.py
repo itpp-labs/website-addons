@@ -1,22 +1,21 @@
-import werkzeug
+# -*- coding: utf-8 -*-
 
 from openerp import SUPERUSER_ID
 from openerp import http
 from openerp.http import request
-from openerp.tools.translate import _
-from openerp.addons.website.models.website import slug
-from openerp.addons.web.controllers.main import login_redirect
 
 from openerp.addons.website_sale.controllers.main import website_sale as controller
 
-class website_sale(controller):
+
+class WebsiteSale(controller):
+
     @http.route(['/shop/checkout'], type='http', auth='public', website=True)
     def checkout(self, contact_name=None, email_from=None, phone=None):
         post = {
-            'contact_name':contact_name or email_from,
-            'email_from':email_from,
+            'contact_name': contact_name or email_from,
+            'email_from': email_from,
             'phone': phone,
-            }
+        }
 
         error = set(field for field in ['email_from']
                     if not post.get(field))
@@ -25,7 +24,7 @@ class website_sale(controller):
         if error:
             return request.website.render("website_sale.checkout", values)
 
-        ## find or create partner
+        # find or create partner
         partner_obj = request.registry['res.partner']
 
         partner_id = partner_obj.search(request.cr, SUPERUSER_ID, [('email', '=', values['email_from'])])
@@ -33,23 +32,23 @@ class website_sale(controller):
             partner_id = partner_id[0]
             partner = partner_obj.browse(request.cr, SUPERUSER_ID, partner_id)
             values = {}
-            for pk, k in [('name', 'contact_name'), ('phone','phone')]:
+            for pk, k in [('name', 'contact_name'), ('phone', 'phone')]:
                 if post[k]:
                     values[pk] = post[k]
             if values:
                 partner.write(values)
         else:
             partner_id = partner_obj.create(request.cr, SUPERUSER_ID,
-                                            {'name':values['contact_name'],
-                                             'email':values['email_from'],
+                                            {'name': values['contact_name'],
+                                             'email': values['email_from'],
                                              'phone': values['phone'],
-                                         })
+                                             })
 
         order = request.website.sale_get_order()
-        #order_obj = request.registry.get('sale.order')
-        order.write({'partner_id':partner_id})
+        # order_obj = request.registry.get('sale.order')
+        order.write({'partner_id': partner_id})
 
-        ## send email
+        # send email
         cr = request.cr
         uid = request.uid
         context = request.context
@@ -71,11 +70,10 @@ class website_sale(controller):
         composer_id = request.registry['mail.compose.message'].create(cr, SUPERUSER_ID, composer_values, context=email_ctx)
         request.registry['mail.compose.message'].send_mail(cr, SUPERUSER_ID, [composer_id], context=email_ctx)
 
-
         request.website.sale_reset(context=context)
         return request.redirect('/shop/ready')
 
     @http.route(['/shop/ready'], type='http', auth='public', website=True)
     def shop_ready(self):
-        values={}
+        values = {}
         return request.website.render('website_sale_order.ready', values)

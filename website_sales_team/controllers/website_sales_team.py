@@ -1,15 +1,16 @@
+# -*- coding: utf-8 -*-
 import werkzeug
 
 from openerp import SUPERUSER_ID
 from openerp import http
 from openerp.http import request
-from openerp.tools.translate import _
 from openerp.addons.website.models.website import slug
-from openerp.addons.web.controllers.main import login_redirect
 
 from openerp.addons.website_sale.controllers.main import QueryURL, table_compute, PPG, PPR, website_sale as controller
 
-class website_sale(controller):
+
+class WebsiteSale(controller):
+
     @http.route([
         '/seller/<model("crm.case.section"):seller>'
     ], type='http', auth="public", website=True)
@@ -23,11 +24,11 @@ class website_sale(controller):
         return request.website.render("website_sales_team.seller", values)
 
     @http.route(['/shop',
-        '/shop/<model("crm.case.section"):seller>',
-        '/shop/page/<int:page>',
-        '/shop/category/<model("product.public.category"):category>',
-        '/shop/category/<model("product.public.category"):category>/page/<int:page>'
-    ], type='http', auth="public", website=True)
+                 '/shop/<model("crm.case.section"):seller>',
+                 '/shop/page/<int:page>',
+                 '/shop/category/<model("product.public.category"):category>',
+                 '/shop/category/<model("product.public.category"):category>/page/<int:page>'
+                 ], type='http', auth="public", website=True)
     def shop(self, page=0, category=None, search='', seller=None, **post):
         cr, uid, context, pool = request.cr, request.uid, request.context, request.registry
 
@@ -35,7 +36,7 @@ class website_sale(controller):
         if search:
             for srch in search.split(" "):
                 domain += ['|', '|', '|', ('name', 'ilike', srch), ('description', 'ilike', srch),
-                    ('description_sale', 'ilike', srch), ('product_variant_ids.default_code', 'ilike', srch)]
+                           ('description_sale', 'ilike', srch), ('product_variant_ids.default_code', 'ilike', srch)]
         if category:
             domain += [('public_categ_ids', 'child_of', int(category))]
 
@@ -43,7 +44,7 @@ class website_sale(controller):
             domain += [('section_id', '=', int(seller))]
 
         attrib_list = request.httprequest.args.getlist('attrib')
-        attrib_values = [map(int,v.split("-")) for v in attrib_list if v]
+        attrib_values = [map(int, v.split("-")) for v in attrib_list if v]
         attrib_set = set([v[1] for v in attrib_values])
 
         if attrib_values:
@@ -115,7 +116,7 @@ class website_sale(controller):
             'compute_currency': compute_currency,
             'keep': keep,
             'style_in_product': lambda style, product: style.id in [s.id for s in product.website_style_ids],
-            'attrib_encode': lambda attribs: werkzeug.url_encode([('attrib',i) for i in attribs]),
+            'attrib_encode': lambda attribs: werkzeug.url_encode([('attrib', i) for i in attribs]),
         }
         return request.website.render("website_sale.products", values)
 
@@ -126,10 +127,10 @@ class website_sale(controller):
         context = request.context
 
         post = {
-            'contact_name':contact_name or email_from,
-            'email_from':email_from,
-            'phone':phone,
-            }
+            'contact_name': contact_name or email_from,
+            'email_from': email_from,
+            'phone': phone,
+        }
 
         error = set(field for field in ['email_from']
                     if not post.get(field))
@@ -138,7 +139,7 @@ class website_sale(controller):
         if error:
             return request.website.render("website_sale.checkout", values)
 
-        ## find or create partner
+        # find or create partner
         partner_obj = request.registry['res.partner']
 
         partner_id = partner_obj.search(request.cr, SUPERUSER_ID, [('email', '=', values['email_from'])])
@@ -146,19 +147,19 @@ class website_sale(controller):
             partner_id = partner_id[0]
             partner = partner_obj.browse(cr, SUPERUSER_ID, partner_id)
             values = {}
-            for pk, k in [('name', 'contact_name'), ('phone','phone')]:
+            for pk, k in [('name', 'contact_name'), ('phone', 'phone')]:
                 if post[k]:
                     values[pk] = post[k]
             if values:
                 partner.write(values)
         else:
             partner_id = partner_obj.create(request.cr, SUPERUSER_ID,
-                                            {'name':values['contact_name'],
-                                             'email':values['email_from']})
+                                            {'name': values['contact_name'],
+                                             'email': values['email_from']})
 
         order = request.website.sale_get_order()
-        #order_obj = request.registry.get('sale.order')
-        order.write({'partner_id':partner_id})
+        # order_obj = request.registry.get('sale.order')
+        order.write({'partner_id': partner_id})
 
         section_ids = {}
         for line in order.order_line:
@@ -173,10 +174,10 @@ class website_sale(controller):
         for section_id, lines in section_ids.iteritems():
             order_id = order.copy({'parent_id': order.id, 'section_id': section_id, 'order_line': [(5, 0, 0)]})
             for line in lines:
-                line.copy({'order_id':order_id.id})
+                line.copy({'order_id': order_id.id})
         request.registry.get('sale.order').signal_workflow(cr, SUPERUSER_ID, order_ids, 'quotation_sent')
         request.registry.get('sale.order').signal_workflow(cr, SUPERUSER_ID, [order.id], 'cancel')
-        ## send email
+        # send email
         ir_model_data = request.registry['ir.model.data']
         template_id = ir_model_data.get_object_reference(cr, uid, 'website_sales_team', 'email_template_checkout')[1]
         email_ctx = dict(context)
@@ -186,7 +187,7 @@ class website_sale(controller):
             'default_use_template': bool(template_id),
             'default_template_id': template_id,
             'default_composition_mode': 'comment',
-            #'mark_so_as_sent': True
+            # 'mark_so_as_sent': True
         })
         composer_values = {}
         public_id = request.website.user_id.id
@@ -194,7 +195,6 @@ class website_sale(controller):
             composer_values['email_from'] = request.website.user_id.company_id.email
         composer_id = request.registry['mail.compose.message'].create(cr, SUPERUSER_ID, composer_values, context=email_ctx)
         request.registry['mail.compose.message'].send_mail(cr, SUPERUSER_ID, [composer_id], context=email_ctx)
-
 
         request.website.sale_reset(context=context)
         return request.redirect('/shop/ready')

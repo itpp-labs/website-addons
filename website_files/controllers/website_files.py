@@ -1,17 +1,20 @@
 # -*- coding: utf-8 -*-
 import re
 import json
-import openerp
 from openerp import http
 from openerp.http import request
+
+from openerp.addons.website.controllers.main import Website
+
 import logging
 _logger = logging.getLogger(__name__)
 
 
-class WebsiteFile(openerp.addons.website.controllers.main.Website):
+class WebsiteFile(Website):
+
     def _find_website_filename(self, filename):
         name = ext = ''
-        res = re.match('(.*)(\.[^.]+)', filename)
+        res = re.match(r'(.*)(\.[^.]+)', filename)
         if res:
             name = res.group(1)
             ext = res.group(2)
@@ -28,7 +31,7 @@ class WebsiteFile(openerp.addons.website.controllers.main.Website):
 
         count = request.cr.fetchone()[0]
 
-        return '%s-%s%s' % (name, count+1, ext)
+        return '%s-%s%s' % (name, count + 1, ext)
 
     @http.route('/website/attach_file', type='http', auth='user',
                 methods=['POST'], website=True)
@@ -43,11 +46,9 @@ class WebsiteFile(openerp.addons.website.controllers.main.Website):
             if attachment:
                 attachment = attachment[0]
                 if overwrite:
-                    print 'overwrite attachment',
                     attachment.datas = file_data
                 else:
                     filename = self._find_website_filename(filename)
-                    print 'new filename', filename
                     attachment = None
 
             if not attachment:
@@ -57,10 +58,9 @@ class WebsiteFile(openerp.addons.website.controllers.main.Website):
                     'datas_fname': filename,
                     'website_file': True,
                 })
-                print 'create attachment', attachment.id, filename
 
             website_file_url = attachment.website_file_url
-        except Exception, e:
+        except Exception as e:
             _logger.exception("Failed to upload file to attachment")
             message = unicode(e)
 

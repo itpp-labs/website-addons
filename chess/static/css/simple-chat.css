@@ -1,0 +1,87 @@
+.chat {
+	margin-top:10px;
+	height: 320px;
+	width: 196px;
+	border: 1px solid #ccc;
+	padding: 5px;
+	display: none;
+	white-space: normal;
+	word-wrap:break-word;
+}
+.chat #toggle_chat:checked {
+	display: block;
+}
+.chat #user_name {
+	float: right;
+	margin-top: -20px;
+}
+.window_chat {
+	overflow-y: auto;
+	overflow-x: hidden;
+	word-wrap: break-word;
+	height: 190px;
+	border: 1px solid #ccc;
+	padding: 5px;
+	margin-bottom: 10px;
+	background-color: rgba(181, 174, 174, 0.29);
+}
+.window_chat p {
+	margin: 3px;
+	padding-bottom: 15px;
+	padding-right: 5px;
+}
+.time_message{
+	float: right;
+	font-size: 8px;
+	color: #D2D2D2;
+}
+.chat_line {
+	border: 1px solid #ccc;
+	padding: 0 auto;
+}
+.message_chat #message_text{
+	margin-top: 10px;
+	border: 1px solid #ccc;
+	padding: 5px;
+	background-color: rgba(181, 174, 174, 0.29);
+	color: white;
+	width: 184px;
+}
+.button_chat {
+	margin-top: 5px;
+	text-align: right;
+}
+.button_chat #message_btn {
+	color: #333;
+}
+.button_chat button {
+	border: none;
+    color: #fff;
+    background-color: #6496c8;
+    text-shadow: -1px 1px #417cb8;
+	padding: 3px;
+	width: 45px;
+	margin-top: 5px;
+}
+
+.window_chat .error {
+	color: #520000;
+	display: inline-block;
+    padding-left: 5px;
+	padding-bottom: 10px;
+}
+.window_chat .error .fa-times:before {
+    padding-right: 5px;
+}
+
+.message_chat textarea {
+	outline: none;
+	resize: none;
+	overflow: auto;
+}
+.window_chat p:last-child {
+	padding-bottom: 25px;
+}
+.chat_menu label {
+	padding-left: 5px;
+}
