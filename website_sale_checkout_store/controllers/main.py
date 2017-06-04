@@ -19,7 +19,7 @@ class WebsiteSaleExtended(WebsiteSale):
         values = self.checkout_values()
         values['order'] = order
         sale_order_id = request.session.get('sale_order_id')
-        request.env["sale.order"].browse(sale_order_id).payment_and_delivery_method_info()
+        request.env["sale.order"].browse(sale_order_id).sudo().payment_and_delivery_method_info()
         return request.render("website_sale.checkout", values)
 
     @http.route(['/shop/payment'], type='http', auth="public", website=True)
