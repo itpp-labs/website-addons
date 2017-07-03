@@ -16,6 +16,8 @@ To work with ``website`` model, the module adds menu ``Website Admin >> Configur
 
 To have unique home page per each website, the module makes duplicates of ``website.homepage``, e.g. ``website.homepage2`` for company #2.
 
+To fix company logo (left side of top menu), the url is updated from ``/logo.png`` to ``/logo.png?company=ID``.
+
 Website Menus
 -------------
 
