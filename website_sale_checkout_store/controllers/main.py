@@ -16,6 +16,8 @@ class WebsiteSaleExtended(WebsiteSale):
             order.buy_way = post['buyMethod']
         except:
             pass
+        if order.partner_id.id == request.website.user_id.sudo().partner_id.id:
+            return request.redirect('/shop/address')
         values = self.checkout_values()
         values['order'] = order
         sale_order_id = request.session.get('sale_order_id')
