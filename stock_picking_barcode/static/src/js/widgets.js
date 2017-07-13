@@ -155,14 +155,22 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             var self = this;
             this._super();
             this.check_content_screen();
-            this.$('.js_pick_done').click(function(){ self.getParent().done(); });
-            this.$('.js_pick_print').click(function(){ self.getParent().print_picking(); });
+            this.$('.js_pick_done').click(function(){
+                self.getParent().done();
+            });
+            this.$('.js_pick_print').click(function(){
+                self.getParent().print_picking();
+            });
             this.$('.oe_pick_app_header').text(self.get_header());
             this.$('.oe_searchbox').keyup(function(event){
                 self.on_searchbox($(this).val());
             });
-            this.$('.js_putinpack').click(function(){ self.getParent().pack(); });
-            this.$('.js_drop_down').click(function(){ self.getParent().drop_down();});
+            this.$('.js_putinpack').click(function(){
+                self.getParent().pack();
+            });
+            this.$('.js_drop_down').click(function(){
+                self.getParent().drop_down();
+            });
             this.$('.js_clear_search').click(function(){
                 self.on_searchbox('');
                 self.$('.oe_searchbox').val('');
@@ -509,9 +517,15 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
         renderElement: function(){
             this._super();
             var self = this;
-            this.$('.js_pick_quit').click(function(){ self.quit(); });
-            this.$('.js_pick_scan').click(function(){ self.scan_picking($(this).data('id')); });
-            this.$('.js_pick_last').click(function(){ self.goto_last_picking_of_type($(this).data('id')); });
+            this.$('.js_pick_quit').click(function(){
+                self.quit();
+            });
+            this.$('.js_pick_scan').click(function(){
+                self.scan_picking($(this).data('id'));
+            });
+            this.$('.js_pick_last').click(function(){
+                self.goto_last_picking_of_type($(this).data('id'));
+            });
             this.$('.oe_searchbox').keyup(function(event){
                 self.on_searchbox($(this).val());
             });
@@ -642,8 +656,12 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                 }
             });
             var init_hash = $.bbq.getState();
-            this.picking_type_id = init_hash.picking_type_id ? init_hash.picking_type_id:0;
-            this.picking_id = init_hash.picking_id ? init_hash.picking_id:undefined;
+            this.picking_type_id = init_hash.picking_type_id
+                ? init_hash.picking_type_id
+                :0;
+            this.picking_id = init_hash.picking_id
+                ? init_hash.picking_id
+                :undefined;
             this.picking = null;
             this.pickings = [];
             this.packoplines = null;
@@ -695,7 +713,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             // if we have a specified picking id, we load that one, and we load the picking of the same type as the active list
             var loaded_picking;
             if( picking_id ){
-                var loaded_picking = new Model('stock.picking').
+                loaded_picking = new Model('stock.picking').
                     call('read',[[parseInt(picking_id)], []], {context:new data.CompoundContext()}).
                     then(function(picking){
                         self.picking = picking[0];
@@ -787,7 +805,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             var self = this;
             //web_client.set_content_full_screen(true);
             self.barcode_on();
-            this.$('.js_pick_quit').click(function () { 
+            this.$('.js_pick_quit').click(function () {
                 self.quit();
             });
             this.$('.js_pick_prev').click(function(){
