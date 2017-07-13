@@ -342,7 +342,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                     $('.container_head[data-package-id="'+pack_id+'"]').data('ulid', ul_id);
                 }
             });
-            
+
             //remove navigation bar from default openerp GUI
             $('td.navbar').html('<div></div>');
         },

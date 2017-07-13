@@ -101,7 +101,6 @@ class StockPicking(models.Model):
 
     @api.model
     def action_pack(self, picking_ids, operation_filter_ids=None):
-
         """ Create a package with the current pack_operation_ids of the picking that aren't yet in a pack.
         Used in the barcode scanner UI and the normal interface as well.
         operation_filter_ids is used by barcode scanner interface to specify a subset of operation to pack"""
