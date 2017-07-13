@@ -102,7 +102,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                                     package_id: myPackage.id,
                                     ul_id: myPackage.ul_id[0]
                             },
-                            classes: ('success container_head ') + (packopline.processed_boolean === "true" 
+                            classes: ('success container_head ') + (packopline.processed_boolean === "true"
                                 ? 'processed hidden '
                                 :'')
                         });
@@ -128,18 +128,16 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                                     dest: packopline.location_dest_id[1],
                                     id: packopline.id,
                                     product_id: packopline.product_id[0],
-                                    can_scan: typeof packopline.result_package_id[1] === 'undefined'
-                                        ? true 
-                                        : false,
+                                    can_scan: (typeof packopline.result_package_id[1] === 'undefined'),
                                     head_container: false,
                                     processed_boolean: packopline.processed_boolean,
                                     package_id: void 0,
                                     ul_id: -1
                             },
 
-                            classes: color + (typeof packopline.result_package_id[1] !== 'undefined'
-                                ? 'in_container_hidden ' 
-                                : '') + (packopline.processed_boolean === "true"
+                            classes: color + (typeof packopline.result_package_id[1] === 'undefined'
+                                ? ''
+                                : 'in_container_hidden ') + (packopline.processed_boolean === "true"
                                     ? 'processed hidden '
                                     :'')
                         });
@@ -522,7 +520,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                         var picking = pickings[i];
                         self.pickings_by_type[picking.picking_type_id[0]].push(picking);
                         self.pickings_by_id[picking.id] = picking;
-                        self.picking_search_string += '' + String(picking.id) + ':' + (picking.name
+                        self.picking_search_string += String(picking.id) + ':' + (picking.name
                             ? picking.name.toUpperCase()
                             : '') + '\n';
                     }
