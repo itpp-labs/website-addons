@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="layout_logo_show" inherit_id="website.layout_logo_show" priority="100">
+        <xpath expr="//header//a[@class='navbar-brand logo']/img" position="replace">
+            <img t-attf-src="/logo.png?company={{res_company.id}}" t-att-alt="'Logo of %s' % res_company.name" t-att-title="res_company.name"/>
+
+        </xpath>
+</template>
+
+</odoo>

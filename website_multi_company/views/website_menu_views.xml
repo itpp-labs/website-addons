@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="website_menu_action" model="ir.actions.act_window">
+        <field name="name">Website Menus</field>
+        <field name="res_model">website.menu</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem
+        id="website_menu_menu"
+        parent="website.menu_website_global_configuration"
+        name="Website Menus"
+        sequence="110"
+        action="website_menu_action"/>
+
+    <record id="menu_tree" model="ir.ui.view">
+        <field name="name">website.menu.tree</field>
+        <field name="model">website.menu</field>
+        <field name="inherit_id" ref="website.menu_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="editable"></attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="menu_form" model="ir.ui.view">
+        <field name="name">website.menu.form</field>
+        <field name="model">website.menu</field>
+        <field name="arch" type="xml">
+            <form string="Website menu" editable="bottom">
+                <sheet>
+                    <group>
+                        <field name="website_id" options="{'no_create': True}" required="1"/>
+                        <field name="name"/>
+                        <field name="url"/>
+                        <field name="new_window"/>
+                        <field name="parent_id"
+                               context="{'default_website_id': website_id}"
+                               domain="[('website_id', '=', website_id)]"
+                               />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_website_config_settings" model="ir.ui.view">
+        <field name="name">Website settings</field>
+        <field name="model">website.config.settings</field>
+        <field name="inherit_id" ref="website.view_website_config_settings"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='website_id']" position="attributes">
+                <attribute name="invisible"></attribute>
+                <attribute name="readonly">1</attribute>
+                <attribute name="string">Default Website</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
