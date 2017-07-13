@@ -13,7 +13,6 @@ class StockPicking(models.Model):
         lot_obj = self.env['stock.production.lot']
         package_obj = self.env['stock.quant.package']
         product_obj = self.env['product.product']
-        stock_operation_obj = self.env['stock.pack.operation']
         pack_op = self.env['stock.pack.operation'].search(
             [('picking_id', '=', self.id)])
         stock_location_obj = self.env['stock.location']
