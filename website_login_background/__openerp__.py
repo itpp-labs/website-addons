@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": """Website login background""",
-    "summary": """Random background image to your taste at the login page of your website""",
+    "summary": """Random background image to your taste at the website login page""",
     "category": "Website",
     "images": ['images/5.png'],
     "version": "1.0.1",
