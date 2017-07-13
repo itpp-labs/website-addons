@@ -4,7 +4,7 @@
     "summary": """Yes, you can set up multi-company, multi-website, multi-eCommerce on a single database!""",
     "category": "eCommerce",
     # "live_test_URL": "",
-    "images": [],
+    "images": ['images/website_multi_company_main.png'],
     "version": "1.0.0",
     "application": False,
 
@@ -12,7 +12,7 @@
     "support": "apps@it-projects.info",
     "website": "https://twitter.com/yelizariev",
     "license": "LGPL-3",
-    "price": 200.00,
+    "price": 400.00,
     "currency": "EUR",
 
     "depends": [
