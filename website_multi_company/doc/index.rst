@@ -10,7 +10,7 @@ Installation
 dbfilter
 --------
 
-No updates in odoo config is requered if you use only one database. But for multi-database
+No updates in odoo config is required if you use only one database. But for multi-database
 instance odoo has to know which database to use when handle new request without
 session information. There are two ways to do it:
 
@@ -19,7 +19,7 @@ session information. There are two ways to do it:
 
 In the latter case ``dbfilter`` is used, though it's not flexible enough.
 
-For TESTING purpose you can use following configuration:
+For TESTING purpose you can use the following configuration:
 
 * dbfilter: ^%d$
 * database name: example
@@ -43,7 +43,7 @@ For PRODUCTION we recommend to use single database installation or make modifica
         r = odoo.tools.config['dbfilter'].replace('%h', h).replace('%d', d).replace('%t', t)
         dbs = [i for i in dbs if re.match(r, i)]
 
-Then you can use following configucation
+Then you can use following configuration
 
 * dbfilter: ^%t$
 * database name: example.com
