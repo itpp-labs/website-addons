@@ -951,7 +951,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
         done: function(){
             var self = this;
             return new Model('stock.picking')
-                .call('action_done_from_ui',[self.picking.id, {'default_picking_type_id': self.picking_type_id}])
+                .call('action_done_from_ui',[self.picking.id, self.picking_type_id])
                 .then(function(new_picking_ids){
                     if (new_picking_ids){
                         return self.refresh_ui(new_picking_ids[0]);
