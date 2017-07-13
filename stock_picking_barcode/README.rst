@@ -11,6 +11,7 @@ Contributors
 ------------
 
 * Pavel Romanchenko <romanchenko@it-projects.info>
+* Mathias Francke <mathias.francke@initos.com>
 
 Sponsors
 --------

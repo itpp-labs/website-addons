@@ -93,7 +93,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                                     head_container: true,
                                     processed_boolean: packopline.processed_boolean,
                                     package_id: myPackage.id,
-                                    // ul_id: myPackage.ul_id[0]
+                                    ul_id: myPackage.ul_id[0]
                             },
                             classes: ('success container_head ') + (packopline.processed_boolean === "true" ? 'processed hidden ':'')
                         });
@@ -534,7 +534,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
         start: function(){
             this._super();
             var self = this;
-            web_client.set_content_full_screen(true);
+            //web_client.set_content_full_screen(true);
             self.barcode_on();
             this.loaded.then(function(){
                 self.renderElement();
@@ -619,7 +619,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
         destroy: function(){
             this._super();
             this.barcode_off();
-            web_client.set_content_full_screen(false);
+            //web_client.set_content_full_screen(false);
         }
     });
     core.action_registry.add('stock.menu', PickingMenuWidget);
@@ -670,7 +670,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                 new Model('stock.picking')
                     .call(
                         'get_next_picking_for_ui',
-                        [{'default_picking_type_id':parseInt(type_id)}]
+                        [parseInt(type_id)]
                     ).then(function(picking_ids){
                         if(!picking_ids || picking_ids.length === 0){
                             (new Dialog(self,{
@@ -697,7 +697,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             var loaded_picking;
             if( picking_id ){
                 loaded_picking = new Model('stock.picking')
-                    .call('read',[[parseInt(picking_id)], [], new data.CompoundContext()])
+                    .call('read',[[parseInt(picking_id)], []], {context:new data.CompoundContext()})
                     .then(function(picking){
                         self.picking = picking[0];
                         self.picking_type_id = picking[0].picking_type_id[0];
@@ -709,11 +709,11 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                 loaded_picking = new $.Deferred();
                 load_picking_list(self.picking_type_id)
                     .then(function(){
-                        return new Model('stock.picking').call('read',[self.pickings[0],[], new data.CompoundContext()]);
+                        return new Model('stock.picking').call('read',[self.pickings[0],[]], {context:new data.CompoundContext()});
                     })
                     .then(function(picking){
-                        self.picking = picking;
-                        self.picking_type_id = picking.picking_type_id[0];
+                        self.picking = picking[0];
+                        self.picking_type_id = picking[0].picking_type_id[0];
                         loaded_picking.resolve();
                     });
             }
@@ -743,7 +743,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                 }).then(function(){
                         return new Model('stock.pack.operation').call('search',[[['picking_id','=',self.picking.id]]]);
                 }).then(function(pack_op_ids){
-                        return new Model('stock.pack.operation').call('read',[pack_op_ids, [], new data.CompoundContext()]);
+                        return new Model('stock.pack.operation').call('read',[pack_op_ids, []], {context:new data.CompoundContext()});
                 }).then(function(operations){
                     self.packoplines = operations;
                     var package_ids = [];
@@ -758,10 +758,10 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                             }
                         }
                     }
-                    return new Model('stock.quant.package').call('read',[package_ids, [], new data.CompoundContext()]);
+                    return new Model('stock.quant.package').call('read',[package_ids, []], {context:new data.CompoundContext()});
                 }).then(function(packages){
                     self.packages = packages;
-                    return new Model('stock.pack.operation.lot').call('read',[self.lot_ids, [], new data.CompoundContext()]);
+                    return new Model('stock.pack.operation.lot').call('read',[self.lot_ids, []], {context:new data.CompoundContext()});
                 }).then(function(op_lots){
                     self.op_lots_index = {};
                     _.each(op_lots, function(item){
@@ -785,7 +785,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
         start: function(){
             this._super();
             var self = this;
-            web_client.set_content_full_screen(true);
+            //web_client.set_content_full_screen(true);
             self.barcode_on();
             this.$('.js_pick_quit').click(function(){ self.quit(); });
             this.$('.js_pick_prev').click(function(){ self.picking_prev(); });
@@ -951,7 +951,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
         done: function(){
             var self = this;
             return new Model('stock.picking')
-                .call('action_done_from_ui',[self.picking.id, {'default_picking_type_id': self.picking_type_id}])
+                .call('action_done_from_ui',[self.picking.id, self.picking_type_id])
                 .then(function(new_picking_ids){
                     if (new_picking_ids){
                         return self.refresh_ui(new_picking_ids[0]);
@@ -991,7 +991,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
         },
         print_picking: function(){
             var self = this;
-            return new Model('stock.picking.type').call('read', [[self.picking_type_id], ['code'], new data.CompoundContext()])
+            return new Model('stock.picking.type').call('read', [[self.picking_type_id], ['code']], {context:new data.CompoundContext()})
                 .then(function(pick_type){
                     return new Model('stock.picking').call('do_print_picking',[[self.picking.id]])
                            .then(function(action){
@@ -1062,7 +1062,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
         },
         destroy: function(){
             this._super();
-            web_client.set_content_full_screen(false);
+            //web_client.set_content_full_screen(false);
             this.barcode_off();
         }
     });
