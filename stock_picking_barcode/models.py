@@ -263,4 +263,4 @@ class StockPackOperation(models.Model):
 
         if not new_lot_id:
             new_lot_id = self.env['stock.production.lot'].create(val)
-        self.write(id, {'pack_lot_ids': [(0, 0, {'lot_id': new_lot_id})]})
+        self.write({'pack_lot_ids': new_lot_id})
