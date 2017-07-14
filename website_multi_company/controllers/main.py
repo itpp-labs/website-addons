@@ -11,7 +11,7 @@ class WebsiteSaleExtended(WebsiteSale):
         domain = super(WebsiteSaleExtended, self)._get_search_domain(*args, **kwargs)
         company = request.website.company_id
         if not company:
-            return company
+            return domain
         return [('company_id', '=', company.id)] + domain
 
 
