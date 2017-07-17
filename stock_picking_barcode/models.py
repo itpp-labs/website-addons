@@ -209,17 +209,15 @@ class StockPackOperation(models.Model):
             op_obj = todo_operation_ids[0]
             # when op_object has a lot
             qty = op_obj.qty_done
-            if qty == 0 or not op_obj.pack_lot_ids:
-                qty = op_obj.qty_done
-                if increment:
-                    qty += 1
-                else:
-                    qty -= 1 if qty >= 1 else 0
-                    if qty == 0 and op_obj.product_qty == 0:
-                        # we have a line with 0 qty set, so delete it
-                        self.unlink([op_obj.id])
-                        return False
-                op_obj.write({'qty_done': qty})
+            if increment:
+                qty += 1
+            else:
+                qty -= 1 if qty >= 1 else 0
+                if qty == 0 and op_obj.product_qty == 0:
+                    # we have a line with 0 qty set, so delete it
+                    self.unlink()
+                    return op_obj
+            op_obj.write({'qty_done': qty})
         else:
             # no existing operation found for the given domain and picking => create a new one
             picking_obj = self.env["stock.picking"]
@@ -262,5 +260,5 @@ class StockPackOperation(models.Model):
             val.update({'name': name})
 
         if not new_lot_id:
-            new_lot_id = self.env['stock.production.lot'].create(val)
-        self.write({'pack_lot_ids': new_lot_id})
+            new_lot_id = self.env['stock.production.lot'].create(val).id
+        self.write({'pack_lot_ids': [(0, 0, {'lot_id': new_lot_id})]})
