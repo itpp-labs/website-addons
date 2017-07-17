@@ -10,7 +10,7 @@ Installation
 Configuration
 =============
 
-* This module do not requires special configuration.
+* This module does not require special configuration.
 
 Usage
 =====
