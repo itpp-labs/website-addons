@@ -1,6 +1,12 @@
+========================
 Website Login Background
 ========================
 
-Set your background on odoo login and signup screens while you got website module installed.
+Random background image to your taste at the website login page
 
-Tested on Odoo 8.0 7b7f3fa76a822f05283e36b40bdbc58793f84570
+Maintainers
+-----------
+* `IT-Projects LLC <https://it-projects.info>`__
+
+
+Tested on Odoo 10.0 03bc8c5f9ac53a3349c1caac222f7619a632ccd8
