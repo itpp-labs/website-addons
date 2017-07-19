@@ -16,3 +16,5 @@ Usage
 * Upload an image file
 * Mark the "Use as a login page background" box
 * Click ``[Save]``
+* Go to your website
+* Open login page and see the image as a background
