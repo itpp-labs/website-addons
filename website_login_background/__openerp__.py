@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 {
     "name": """Website login background""",
-    "summary": """Set your background for website login page""",
+    "summary": """Random background image to your taste at the website login page""",
     "category": "Website",
-    "images": [],
+    "images": ['images/5.png'],
     "version": "1.0.1",
 
     "author": "IT-Projects LLC",
