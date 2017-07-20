@@ -69,7 +69,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="row">
                 <div>
                     <div class="col-sm-4 col-xs-6">
@@ -240,7 +240,7 @@
                             <t t-if="type.code == 'incoming'" ><span class="fa fa-sign-in fa-2x"></span></t>
                             <t t-if="type.code == 'outgoing'" ><span class="fa fa-truck fa-2x fa-flip-horizontal"></span></t>
                             <t t-if="type.code == 'internal'" ><span class="fa fa-retweet fa-2x"></span></t>
-                            <strong><span><t t-esc="type.complete_name"/></span></strong>
+                            <strong><span><t t-esc="type.display_name"/></span></strong>
                             <div><t t-if="widget.pickings_by_type[type.id].length > 0">
                                 <span class='badge'><t t-esc="widget.pickings_by_type[type.id].length" /> picking(s) </span>
                             </t></div>
