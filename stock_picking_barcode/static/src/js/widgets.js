@@ -677,7 +677,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             this.picking = null;
             this.pickings = [];
             this.packoplines = null;
-            this.selected_operation = { id: null, picking_id: null};
+            this.selected_operation = { id: null, picking_id: null };
             this.packages = null;
             this.locations = [];
             this.uls = [];
@@ -699,7 +699,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                 new Model('stock.picking').
                     call(
                         'get_next_picking_for_ui',
-                        [{'default_picking_type_id':parseInt(type_id)}]
+                        [], { picking_type_id : parseInt(type_id)}
                     ).then(function(picking_ids){
                         if(!picking_ids || picking_ids.length === 0){
                             (new Dialog(self,{

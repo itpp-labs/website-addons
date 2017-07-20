@@ -64,11 +64,12 @@ class StockPicking(models.Model):
             return answer
         return answer
 
-    def get_next_picking_for_ui(self):
+    @api.model
+    def get_next_picking_for_ui(self, picking_type_id=None):
         """ returns the next pickings to process. Used in the barcode scanner UI"""
         domain = [('state', 'in', ('assigned', 'partially_available'))]
-        if self.env.context.get('default_picking_type_id'):
-            domain.append(('picking_type_id', '=', self.env.context['default_picking_type_id']))
+        if picking_type_id:
+            domain.append(('picking_type_id', '=', picking_type_id))
         return self.search(domain).ids
 
     @api.model
