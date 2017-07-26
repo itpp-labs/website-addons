@@ -7,6 +7,21 @@ Installation
 
 `Install <https://odoo-development.readthedocs.io/en/latest/odoo/usage/install-module.html>`__ this module in a usual way.
 
+Domain Names
+------------
+
+You will be able to use any website domain names (not only subdomains), e.g. shop1.com, shop2.com, etc. In this case you need to setup DNS entries on your DNS hosting provider. 
+
+For example:
+
+ * shop1.com::   
+	
+	@   A   your_server_ip_address
+
+ * shop2.com::
+
+	@   A   your_server_ip_address
+
 Single database deployment 
 --------------------------
 
@@ -74,7 +89,7 @@ using dbfilter_from_header module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Most flexible way to deploy multi-database system is using `dbfilter_from_header <https://www.odoo.com/apps/modules/10.0/dbfilter_from_header/>`__ (check module description for installation instruction).
 
-In short, you need to add following line to your nginx config (other webservers are supported too - see description of ``dbfilter_from_header``):
+In short, you need to add following line to your nginx config (other webservers are supported too - see description of ``dbfilter_from_header``)::
 
     proxy_set_header X-Odoo-dbfilter [your filter regex]
 
@@ -107,7 +122,7 @@ Example (we use top level domain ``.example`` due to copyright issues, but it co
         proxy_set_header Host $host;
         proxy_set_header X-Odoo-dbfilter ^software_business\Z;
 
-        location /longpolling {
+        location /longpolling {        
             proxy_pass http://127.0.0.1:8072;
         }
 
@@ -150,16 +165,6 @@ Website Menus
 You can edit, duplicate or create new menu at ``Website Admin >> Configuration >> Website Menus`` -- pay attention to fields **Website**, **Parent Menu**. In most cases, **Parent Menu** is a *Top Menu* (i.e. menu record without **Parent Menu** value). If a *website* doesn't have *Top Menu* you need to create one.
 
 Note. Odoo doesn't share Website Menus (E.g. Homepage, Shop, Contact us, etc.) between websites. So, you need to have copies of them.
-
-Domain Names
-------------
-
-You will be able to use any website domain names (not only subdomains), e.g. shop1.com, shop2.com, etc. In this case you need to setup DNS entries on your DNS hosting provider. 
-
-For example::
-
- shop1.com   A   your_server_ip_address
- shop2.com   A   your_server_ip_address
 
 Usage
 =====
