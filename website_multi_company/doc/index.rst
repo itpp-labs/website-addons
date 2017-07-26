@@ -94,12 +94,12 @@ Let's assume
 
 * For the above to work, you need to configure Nginx as follows:
 
-server {
+ server {
         listen 80;
         server_name test.shop1.local, test.shop2.local, test.shop3.local;
 
         proxy_set_header Host $host;
-        proxy_set_header X-Odoo-dbfilter ^test\Z;
+        proxy_set_header X-Odoo-dbfilter ^test\\Z;
 
         location /longpolling {
             proxy_pass http://127.0.0.1:8072;
@@ -108,14 +108,14 @@ server {
         location / {
             proxy_pass http://127.0.0.1:8069;
         }
-}
+ }
 
-server {
+ server {
         listen 80;
         server_name shop1.test.com, shop2.test.com,;
 
         proxy_set_header Host $host;
-        proxy_set_header X-Odoo-dbfilter ^test.com\Z;
+        proxy_set_header X-Odoo-dbfilter ^test.com\\Z;
 
         location /longpolling {
             proxy_pass http://127.0.0.1:8072;
@@ -124,7 +124,7 @@ server {
         location / {
             proxy_pass http://127.0.0.1:8069;
         }
-}
+ }
 
 Configuration
 =============
