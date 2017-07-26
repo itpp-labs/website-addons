@@ -7,18 +7,23 @@ Installation
 
 `Install <https://odoo-development.readthedocs.io/en/latest/odoo/usage/install-module.html>`__ this module in a usual way.
 
-dbfilter
---------
+Single database deployment 
+--------------------------
 
-No updates in odoo config is required if you use only one database. But for multi-database
-instance odoo has to know which database to use when handle new request without
+No updates in odoo config is required if you use only one database.
+
+Multi database deployment 
+-------------------------
+For multi-database instance odoo has to know which database to use when handle new request without
 session information. There are two ways to do it:
 
 * Let user select database manually (bad user experience)
 * Take database depending on host name (prefered)
 
-In the latter case ``dbfilter`` is used, though it's not flexible enough.
+In the latter case ``dbfilter`` is usually used, though it's not flexible enough.
 
+using dbfilter parameter
+~~~~~~~~~~~~~~~~~~~~~~~~
 For TESTING purpose you can use the following configuration:
 
 * dbfilter: ^%d$
@@ -30,7 +35,10 @@ For TESTING purpose you can use the following configuration:
     * example.shop2.local
     * example.shop3.local
 
-For PRODUCTION we recommend to use single database installation or make modification in odoo/http.py file as following::
+patching http.py
+~~~~~~~~~~~~~~~~
+
+For PRODUCTION deployment with websites on subdomains you can use following patch. You need to update odoo/http.py file as following::
 
     # updated version of db_filter
     def db_filter(dbs, httprequest=None):
@@ -62,6 +70,68 @@ Then you can use following configuration
     * shop2.example.org
     * shop3.example.org
 
+using dbfilter_from_header module
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Most flexible way to deploy multi-database system is using `dbfilter_from_header <https://www.odoo.com/apps/modules/10.0/dbfilter_from_header/>`__ (check module description for installation instruction).
+
+In short, you need to add following line to your nginx config (other webservers are supported too - see description of ``dbfilter_from_header``):
+
+    proxy_set_header X-Odoo-dbfilter [your filter regex]
+
+Note, that you probably need to set usual ``db_filter`` to ``.*``, because ``dbfilter_from_header`` module uses that filter first and then applies filter from header.
+
+Example (we use top level domain ``.example`` due to copyright issues, but it could be any top level domains at any combinations): 
+
+* dbfilter: .*
+* database name: software_business
+
+  * host names:
+
+    * miscrosoft-products.example
+    * antivirus.example
+    * android.antivirus.example
+    
+* database name: delivery_business
+
+  * host names:
+
+    * pizzas.example
+    * china-food.example
+
+* Nginx::
+
+      server {
+        listen 80;
+        server_name miscrosoft-products.example antivirus.example android.antivirus.example;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Odoo-dbfilter ^software_business\Z;
+
+        location /longpolling {
+            proxy_pass http://127.0.0.1:8072;
+        }
+
+        location / {
+            proxy_pass http://127.0.0.1:8069;
+        }
+      }
+
+      server {
+        listen 80;
+        server_name pizzas.example china-food.example;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Odoo-dbfilter ^delivery_business\Z;
+
+        location /longpolling {
+            proxy_pass http://127.0.0.1:8072;
+        }
+
+        location / {
+            proxy_pass http://127.0.0.1:8069;
+        }
+       }
+
 Configuration
 =============
 
@@ -80,6 +150,16 @@ Website Menus
 You can edit, duplicate or create new menu at ``Website Admin >> Configuration >> Website Menus`` -- pay attention to fields **Website**, **Parent Menu**. In most cases, **Parent Menu** is a *Top Menu* (i.e. menu record without **Parent Menu** value). If a *website* doesn't have *Top Menu* you need to create one.
 
 Note. Odoo doesn't share Website Menus (E.g. Homepage, Shop, Contact us, etc.) between websites. So, you need to have copies of them.
+
+Domain Names
+------------
+
+You will be able to use any website domain names (not only subdomains), e.g. shop1.com, shop2.com, etc. In this case you need to setup DNS entries on your DNS hosting provider. 
+
+For example::
+
+ shop1.com   A   your_server_ip_address
+ shop2.com   A   your_server_ip_address
 
 Usage
 =====
