@@ -14,11 +14,11 @@ You will be able to use any website domain names (not only subdomains), e.g. sho
 
 For example:
 
-  * shop1.com::   
+ * shop1.com::   
 	
 	@   A   your_server_ip_address
 
-  * shop2.com::
+ * shop2.com::
 
 	@   A   your_server_ip_address
 
@@ -122,9 +122,8 @@ Example (we use top level domain ``.example`` due to copyright issues, but it co
         proxy_set_header Host $host;
         proxy_set_header X-Odoo-dbfilter ^software_business\Z;
 
-        location /longpolling {
-        
-    proxy_pass http://127.0.0.1:8072;
+        location /longpolling {        
+            proxy_pass http://127.0.0.1:8072;
         }
 
         location / {
