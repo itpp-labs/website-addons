@@ -74,7 +74,7 @@ using dbfilter_from_header module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Most flexible way to deploy multi-database system is using `dbfilter_from_header <https://www.odoo.com/apps/modules/10.0/dbfilter_from_header/>`__ (check module description for installation instruction).
 
-In short, you need to add following line to your nginx config (other webservers are supported to -- see description of ``dbfilter_from_header``):
+In short, you need to add following line to your nginx config (other webservers are supported too - see description of ``dbfilter_from_header``):
 
     proxy_set_header X-Odoo-dbfilter [your filter regex]
 
@@ -105,7 +105,7 @@ Example (we use top level domain ``.example`` due to copyright issues, but it co
         server_name miscrosoft-products.example antivirus.example android.antivirus.example;
 
         proxy_set_header Host $host;
-        proxy_set_header X-Odoo-dbfilter ^software_business\\Z;
+        proxy_set_header X-Odoo-dbfilter ^software_business\Z;
 
         location /longpolling {
             proxy_pass http://127.0.0.1:8072;
@@ -121,7 +121,7 @@ Example (we use top level domain ``.example`` due to copyright issues, but it co
         server_name pizzas.example china-food.example;
 
         proxy_set_header Host $host;
-        proxy_set_header X-Odoo-dbfilter ^delivery_business\\Z;
+        proxy_set_header X-Odoo-dbfilter ^delivery_business\Z;
 
         location /longpolling {
             proxy_pass http://127.0.0.1:8072;
@@ -155,9 +155,11 @@ Domain Names
 ------------
 
 You will be able to use any website domain names (not only subdomains), e.g. shop1.com, shop2.com, etc. In this case you need to setup DNS entries on your DNS hosting provider. 
-For example:
-``shop1.com   A   your_server_ip_address``
-``shop2.com   A   your_server_ip_address``
+
+For example::
+
+ shop1.com   A   your_server_ip_address
+ shop2.com   A   your_server_ip_address
 
 Usage
 =====
