@@ -30,7 +30,7 @@ For TESTING purpose you can use the following configuration:
     * example.shop2.local
     * example.shop3.local
 
-For PRODUCTION we recommend to use single database installation or make modification in odoo/http.py file as following::
+For PRODUCTION we recommend to use single database installation or make modification in odoo/http.py file as following:
 
     # updated version of db_filter
     def db_filter(dbs, httprequest=None):
@@ -62,6 +62,70 @@ Then you can use following configuration
     * shop2.example.org
     * shop3.example.org
 
+
+Or instead of http.py modification, you can use the module `dbfilter_from_header <https://github.com/OCA/server-tools/tree/10.0/dbfilter_from_header>`__.
+
+In this case you should add in nginx conf file the following:
+
+``proxy_set_header X-Odoo-dbfilter [your filter regex]``
+
+Note that it is recommended to use ``db-filter = .*`` in odoo config file, because usually server uses db-filter from this file firstly and only then from header.
+
+Example: 
+
+Let's assume
+
+* For database name: 
+    * test
+
+  * you want to use the following host names:
+  
+    * test.shop1.local
+    * test.shop2.local
+    * test.shop3.local
+
+* For database name: 
+    * test.com
+
+  * you want to use the following host names:
+  
+    * shop1.test.com
+    * shop2.test.com
+
+* For the above to work, you need to configure Nginx as follows:
+
+server {
+        listen 80;
+        server_name test.shop1.local, test.shop2.local, test.shop3.local;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Odoo-dbfilter ^test\Z;
+
+        location /longpolling {
+            proxy_pass http://127.0.0.1:8072;
+        }
+
+        location / {
+            proxy_pass http://127.0.0.1:8069;
+        }
+}
+
+server {
+        listen 80;
+        server_name shop1.test.com, shop2.test.com,;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Odoo-dbfilter ^test.com\Z;
+
+        location /longpolling {
+            proxy_pass http://127.0.0.1:8072;
+        }
+
+        location / {
+            proxy_pass http://127.0.0.1:8069;
+        }
+}
+
 Configuration
 =============
 
@@ -80,6 +144,14 @@ Website Menus
 You can edit, duplicate or create new menu at ``Website Admin >> Configuration >> Website Menus`` -- pay attention to fields **Website**, **Parent Menu**. In most cases, **Parent Menu** is a *Top Menu* (i.e. menu record without **Parent Menu** value). If a *website* doesn't have *Top Menu* you need to create one.
 
 Note. Odoo doesn't share Website Menus (E.g. Homepage, Shop, Contact us, etc.) between websites. So, you need to have copies of them.
+
+Domain Names
+------------
+
+You will be able to use any website domain names (not only subdomains), e.g. shop1.com, shop2.com, etc. In this case you need to setup DNS entries on your DNS hosting provider. 
+For example:
+``shop1.com   A   your_server_ip_address``
+``shop2.com   A   your_server_ip_address``
 
 Usage
 =====
