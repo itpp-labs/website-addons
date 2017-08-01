@@ -39,7 +39,7 @@ class IrHttp(models.AbstractModel):
             redirect = self.try_redirect()
             if redirect:
                 return redirect
-        return super(ir_http, self)._handle_exception(exception, code=code)
+        return super(IrHttp, self)._handle_exception(exception, code=code)
 
     def try_redirect(self):
         host = request.httprequest.environ.get('HTTP_HOST', '').split(':')[0]
