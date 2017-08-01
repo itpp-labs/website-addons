@@ -1,1 +1,1 @@
-import website_sale_quantity_hide
+import website_sale_quantity_hide.controllers.website_sale_quantity_hide

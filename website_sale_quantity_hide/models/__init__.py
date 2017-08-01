@@ -1,2 +1,2 @@
-import product
-import sale_order
+import website_sale_quantity_hide.models.product
+import website_sale_quantity_hide.models.sale_order
