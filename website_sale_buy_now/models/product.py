@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 from openerp import models, fields
 
 
-class product_template(models.Model):
+class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     sale_button = fields.Selection([

@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 from openerp.osv import osv
 
 
-class sale_order(osv.Model):
+class SaleOrder(osv.Model):
     _inherit = "sale.order"
 
     def _cart_update(self, cr, uid, ids, product_id=None, line_id=None, add_qty=0, set_qty=0, context=None, **kwargs):
@@ -9,4 +10,4 @@ class sale_order(osv.Model):
         if product.sale_one_only:
             add_qty = 0
             set_qty = 1
-        return super(sale_order, self)._cart_update(cr, uid, ids, product_id, line_id, add_qty, set_qty, context=context, **kwargs)
+        return super(SaleOrder, self)._cart_update(cr, uid, ids, product_id, line_id, add_qty, set_qty, context=context, **kwargs)
