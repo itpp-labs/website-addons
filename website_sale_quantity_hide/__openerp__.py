@@ -15,5 +15,3 @@
         'views/templates.xml'
     ],
 }
-
-
