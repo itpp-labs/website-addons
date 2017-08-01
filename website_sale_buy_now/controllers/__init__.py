@@ -1,1 +1,1 @@
-import website_sale_buy_now.controllers.website_sale_buy_now
+from . import website_sale_buy_now

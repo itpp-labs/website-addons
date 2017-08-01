@@ -1,2 +1,2 @@
-import website_sale_buy_now.models
-import website_sale_buy_now.controllers
+from . import models
+from . import controllers
