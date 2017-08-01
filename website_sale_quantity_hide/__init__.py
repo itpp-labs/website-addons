@@ -1,2 +1,2 @@
-import website_sale_quantity_hide.models
-import website_sale_quantity_hide.controllers
+from . import models
+from . import controllers
