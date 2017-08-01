@@ -7,7 +7,7 @@ import werkzeug.utils
 from werkzeug.exceptions import NotFound
 
 
-class website_redirect(models.Model):
+class WebsiteRedirect(models.Model):
     _name = 'website.redirect'
 
     _order = 'sequence,id'
@@ -21,7 +21,7 @@ class website_redirect(models.Model):
     rule_ids = fields.One2many('website.redirect.rule', 'redirect_id', string='Rules')
 
 
-class website_redirect(models.Model):
+class WebsiteRedirect(models.Model):
     _name = 'website.redirect.rule'
 
     _order = 'sequence,id'
@@ -31,7 +31,7 @@ class website_redirect(models.Model):
     redirect_id = fields.Many2one('website.redirect')
 
 
-class ir_http(models.AbstractModel):
+class IrHttp(models.AbstractModel):
     _inherit = 'ir.http'
 
     def _handle_exception(self, exception, code=500):
