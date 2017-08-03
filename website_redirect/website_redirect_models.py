@@ -21,7 +21,7 @@ class WebsiteRedirect(models.Model):
     rule_ids = fields.One2many('website.redirect.rule', 'redirect_id', string='Rules')
 
 
-class WebsiteRedirect(models.Model):
+class WebsiteRedirectRule(models.Model):
     _name = 'website.redirect.rule'
 
     _order = 'sequence,id'
