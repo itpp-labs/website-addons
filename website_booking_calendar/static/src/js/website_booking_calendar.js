@@ -13,9 +13,12 @@
         var d = new Date();
         var offset = d.getTimezoneOffset();
         self.session.rpc("/booking/calendar/slots", {
-           start: start.add(offset, 'minutes').format(self.DTF),
-           end: end.add(offset, 'minutes').format(self.DTF),
-           tz: offset,
+           // start: start.add(offset, 'minutes').format(self.DTF),
+           // end: end.add(offset, 'minutes').format(self.DTF),
+           // tz: offset,
+           start: start.format(self.DTF),
+           end: end.format(self.DTF),
+           tz: 0,
            domain: self.domain
         }).then(function (response) {
             callback(response);
@@ -25,9 +28,12 @@
         var d = new Date();
         var offset = d.getTimezoneOffset();
         self.session.rpc("/booking/calendar/slots/booked", {
-           start: start.add(offset, 'minutes').format(self.DTF),
-           end: end.add(offset, 'minutes').format(self.DTF),
-           tz: d.getTimezoneOffset(),
+           // start: start.add(offset, 'minutes').format(self.DTF),
+           // end: end.add(offset, 'minutes').format(self.DTF),
+           // tz: d.getTimezoneOffset(),
+           start: start.format(self.DTF),
+           end: end.format(self.DTF),
+           tz: 0,
            domain: self.domain
         }).then(function (response) {
             callback(response);
@@ -72,6 +78,18 @@
         }
     };
 
+    self.getParameterByName = function(name, url) {
+       if (!url) {
+         url = window.location.href;
+       }
+       name = name.replace(/[\[\]]/g, "\\$&");
+       var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+           results = regex.exec(url);
+       if (!results) return null;
+       if (!results[2]) return '';
+       return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
     /* initialize the external events
     -----------------------------------------------------------------*/
     self.init = function() {
@@ -87,7 +105,7 @@
             displayEventTime: false,
             firstDay: 1,
             defaultView: 'agendaWeek',
-            timezone: 'local',
+            timezone: false,
             weekNumbers: true,
             eventSources: [
                 { events: self.loadSlots },
@@ -111,10 +129,41 @@
 
         $('#booking-dialog-confirm').click(function(){
             var $form = $('#booking-dialog').find('form');
+            var $msg = $('#booking-taken-msg')
             var d = new Date();
             $form.find("[name=timezone]").val(d.getTimezoneOffset());
-            $form.submit();
+            var tr_counter = 0;
+            var validated_counter = 0;
+            var deferreds = [];
+            $form.find('tbody tr').each(function() {
+               var tr_element = $(this)
+               tr_counter = tr_counter + 1;
+               deferreds.push(
+                  openerp.jsonRpc('/booking/validator', 'call', {'booking': $(this).find('select').attr('name')}).then(function(result) {
+                     if(result) {
+                        tr_element.css({'color': 'red'});
+                        $msg.css({'visibility': 'visible'});
+                     } else {
+                        validated_counter = validated_counter + 1;
+                     }
+                  })
+               );
+            })
+
+
+            $.when.apply($, deferreds).done(function() {
+               if(validated_counter === tr_counter || $form.find("[name='validation_passed']").val()) {
+                  $form.submit();
+               }
+               if(validated_counter) {
+                  $form.find("[name='validation_passed']").val(true);
+               }
+            });
         });
+
+       if (self.getParameterByName('expired')) {
+          self.warn('Your shopping cart has expired. All the bookings has been cleared')
+       }
 
     };
 
@@ -129,6 +178,7 @@
                 $(this).closest('tr').find('.booking-price').text(price);
                 $(this).closest('tr').find('.booking-currency').text(currency);
             });
+            $('#booking-taken-msg').css({'visibility': 'hidden'});
             $('#booking-dialog').modal('show');
         });
     };

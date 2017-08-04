@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
 import re
 import simplejson
+import pytz
 
-from odoo import http, SUPERUSER_ID
+from odoo import http, fields, SUPERUSER_ID
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
 from odoo.http import request
+
+from openerp.addons.website_sale.controllers.main import website_sale as WebsiteSale
 
 
 class WebsiteBookingCalendar(http.Controller):
@@ -35,6 +39,22 @@ class WebsiteBookingCalendar(http.Controller):
             'bookings': bookings
         })
 
+    @http.route(['/booking/validator'], type='json', auth="public", website=True)
+    def booking_validator(self, booking):
+        m = re.match(r'^product_id\[(\d+)\]\[([\d-]+ [\d:]+)\-([\d-]+ [\d:]+)\]$', booking)
+        resource_id = m.group(1)
+        start = m.group(2)
+        end = m.group(3)
+        if start and end and resource_id:
+            user = request.env['res.users'].browse(request.session.uid)
+            user_tz = pytz.timezone(user.tz or 'UTC')
+            start = user_tz.localize(fields.Datetime.from_string(start)).astimezone(pytz.utc)
+            end = user_tz.localize(fields.Datetime.from_string(end)).astimezone(pytz.utc)
+            overlaps = request.env['sale.order.line'].sudo().is_overlaps(int(resource_id), start.strftime(DTF), end.strftime(DTF))
+            return bool(overlaps)
+
+        return True
+
     @http.route('/booking/calendar/confirm', type='http', auth='public', website=True)
     def order(self, **kwargs):
         tz = int(kwargs.get('timezone', '0'))
@@ -60,5 +80,23 @@ class WebsiteBookingCalendar(http.Controller):
     @http.route('/booking/calendar/slots/booked', type='json', auth='public', website=True)
     def get_booked_slots(self, **kwargs):
         cr, uid, context = request.cr, SUPERUSER_ID, request.context
-        return request.registry["sale.order.line"].get_bookings(kwargs.get('start'),
-                                                                kwargs.get('end'), kwargs.get('tz'), kwargs.get('domain', []), online=True)
+        return request.registry["sale.order.line"].get_bookings(cr, uid, kwargs.get('start'),
+                                                                kwargs.get('end'), kwargs.get('tz'), kwargs.get('domain', []), online=True, context=context)
+
+
+class BookingWebsiteSale(WebsiteSale):
+
+    def checkout_redirection(self, order):
+
+        if not order or order.state != 'draft':
+            if order:
+                lines = request.env['sale.order.line'].sudo().with_context(active_test=False).search(
+                    [('order_id', '=', order.id),
+                     ('venue_id', '!=', False)],
+                    )
+                if lines:
+                    return request.redirect('/booking/calendar?venue={}&expired=1'.format(lines[0].venue_id.id))
+            else:
+                return request.redirect('/booking/calendar?expired=1')
+
+        return super(BookingWebsiteSale, self).checkout_redirection(order)

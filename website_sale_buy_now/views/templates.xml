@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+<template id="assets_frontend" inherit_id="website_sale.assets_frontend" name="Shop">
+  <xpath expr="." position="inside">
+      <!--<link rel='stylesheet' href='/website_sale/static/src/css/website_mail.css'/>-->
+      <script type="text/javascript" src="/website_sale_buy_now/static/src/js/website_sale_buy_now.js"></script>
+  </xpath>
+</template>
+
+<template id="product" inherit_id="website_sale.product">
+  <xpath expr="//a[@id='add_to_cart']" position="attributes">
+    <attribute name="t-attf-style">margin-right: 1em;#{product.sale_button == 'buy_now' and 'display:none' or ''}</attribute>
+  </xpath>
+  <xpath expr="//a[@id='add_to_cart']" position="after">
+    <t t-if="product.sale_button != 'add_to_cart'">
+      <a class="btn btn-danger btn-lg mt8 js_check_product a-submit-buy-now">Buy Now</a>
+      <!-- buy_now value is updated in js -->
+      <input name="buy_now" type="hidden"/>
+    </t>
+  </xpath>
+</template>
+
+<template id="continue_shopping" inherit_id="website_sale.continue_shopping">
+  <xpath expr="//a[@href='/shop']" position="attributes">
+    <attribute name="t-att-style">order.buy_now and 'display:none' or ''</attribute>
+  </xpath>
+</template>
+
+</data>
+</openerp>
