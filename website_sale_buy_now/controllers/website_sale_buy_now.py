@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from openerp import http
-from openerp.http import request
-from openerp.addons.website_sale.controllers.main import website_sale as website_sale_controller
+from odoo import http
+from odoo.http import request
+from odoo.addons.website_sale.controllers.main import WebsiteSale as website_sale_controller
 
 
 class WebsiteSale(website_sale_controller):
