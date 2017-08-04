@@ -1,10 +1,17 @@
 # -*- coding: utf-8 -*-
 import datetime
 import time
-from . import serverchess
 from openerp import api
 from openerp import fields
 from openerp import models
+import logging
+
+_logger = logging.getLogger(__name__)
+
+try:
+    import chess
+except (ImportError, IOError) as err:
+    _logger.debug(err)
 
 
 class ChessGame(models.Model):
@@ -12,15 +19,15 @@ class ChessGame(models.Model):
     _description = 'chess game'
 
     game_type = fields.Selection([('blitz', 'Blitz'), ('limited time', 'Limited time'),
-                                  ('standart', 'Standart')], 'Game type')
+                                  ('standart', 'Standart')], 'Game Type')
     first_user_time = fields.Float(string="First user time", default=0)
     first_time_date = fields.Float(default=0)
     second_user_time = fields.Float(string="Second user time", default=0)
     second_time_date = fields.Float(default=0)
-    date_start = fields.Datetime(string='Start date', default=datetime.datetime.now())  # Start game
-    date_finish = fields.Datetime(string='Finish date')  # Finish game
-    first_user_id = fields.Many2one('res.users', 'First user')
-    second_user_id = fields.Many2one('res.users', 'Second user')
+    date_start = fields.Datetime(string='Start Date', default=datetime.datetime.now())  # Start game
+    date_finish = fields.Datetime(string='Finish Date')  # Finish game
+    first_user_id = fields.Many2one('res.users', 'First User')
+    second_user_id = fields.Many2one('res.users', 'Second User')
     first_color_figure = fields.Selection([('white', 'White'), ('black', 'Black')],
                                           'Select color for first figure')
     second_color_figure = fields.Selection([('white', 'White'), ('black', 'Black')],
@@ -305,7 +312,7 @@ class ChessGameLine(models.Model):
     _name = 'chess.game.line'
     _description = 'chess game line'
 
-    game_id = fields.Many2one('chess.game', 'Game', required=True)
+    game_id = fields.Many2one('chess.game', 'Game', required=True, ondelete='cascade')
     source = fields.Char()
     target = fields.Char()
 
@@ -320,8 +327,8 @@ class ChessGameLine(models.Model):
                 "target": data['target'],
             }
             # chess server for legal move
-            board = serverchess.Board(ps.fen)
-            legal_move = serverchess.Move.from_uci(data['source'] + data['target']) in board.legal_moves
+            board = chess.Board(ps.fen)
+            legal_move = chess.Move.from_uci(data['source'] + data['target']) in board.legal_moves
             # if move not legal then maybe Queen?
             if legal_move is False:
                 legal_Q = board.parse_san(data['target'] + '=Q') in board.legal_moves
