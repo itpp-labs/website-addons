@@ -11,6 +11,7 @@
     'website': 'https://twitter.com/yelizariev',
     'version': '1.0.0',
     'depends': ['website_sale'],
+    'installable': False,
     'data': [
         'views/product.xml',
         'views/templates.xml'
