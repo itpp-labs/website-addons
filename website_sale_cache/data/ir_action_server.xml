@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <record id="action_update_cache" model="ir.actions.server">
+        <field name="name">Update category cache</field>
+        <field name="model_id" ref="website.model_website"/>
+        <field name="condition">True</field>
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="code">self.action_update_cache()</field>
+    </record>
+</data>
+</openerp>
