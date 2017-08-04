@@ -3,65 +3,6 @@
     "use strict";
     var ChessChat = openerp.ChessChat = {};
     ChessChat.COOKIE_NAME = 'chesschat_session';
-    ChessChat.ConversationManager = openerp.Widget.extend({
-        init: function (model_game_id, dbname, uid) {
-            this._super();
-            console.log("Initial Chat");
-            var self = this;
-            var game_id = model_game_id;
-            var channel = JSON.stringify([dbname, 'chess.game.chat', [uid, game_id]]);
-            this.bus = openerp.bus.bus;
-            this.bus.add_channel(channel);
-            this.bus.on("notification", this, this.on_notification);
-            //this.bus.start_polling();
-        },
-        on_notification: function (notification) {
-            var self = this;
-            if (typeof notification[0][0] === 'string') {
-                notification = [notification];
-            }
-            for (var i = 0; i < notification.length; i++) {
-                var channel = notification[i][0];
-                var message = notification[i][1];
-                this.on_notification_do(channel, message);
-            }
-        },
-        on_notification_do: function (channel, message) {
-            var channel = JSON.parse(channel);
-            var error = false;
-            if (Array.isArray(channel) && channel[1] === 'chess.game.chat') {
-                try {
-                    this.received_message(message);
-                } catch (err) {
-                    error = err;
-                    console.error(err);
-                }
-            }
-        },
-        received_message: function(message) {
-            var error = false;
-            try {
-                var date = new Date();
-                var values = [date.getDate(), date.getMonth() + 1];
-                for (var id in values) {
-                    values[id] = values[id].toString().replace(/^([0-9])$/, '0$1');
-                }
-                var time_now = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
-                message.time = values[0] + '.' + values[1] + '.' + date.getFullYear() + ' ' + time_now;
-
-                $("#window_chat").append("<p><span class='user'>" + (message.author_name) +
-                    ":</span> " + (message.data.replace(/&/gm,'&amp;').replace(/</gm,'&lt;').replace(/>/gm,'&gt;')) + "<br> <span class='time_message'>" +
-                    (message.time) + "</span></p>");
-                $('.chat .user').seedColors(); //the random color
-                $("#window_chat").each(function () {
-                    this.scrollTop = this.scrollHeight;
-                });
-            } catch (err) {
-                error = err;
-                console.error(err);
-            }
-        }
-    });
     ChessChat.Conversation = openerp.Widget.extend({
         className: "chat_form",
         init: function(model_game_id, dbname, uid){
@@ -71,7 +12,6 @@
             }
             this.game_id = model_game_id;
             openerp.session = new openerp.Session();
-            this.c_manager = new openerp.ChessChat.ConversationManager(model_game_id, dbname, uid);
             this.history = true;
             this.opening_chat = false;
         },
