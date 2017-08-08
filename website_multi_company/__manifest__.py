@@ -17,7 +17,7 @@
 
     "depends": [
         "website",
-	"website_multi_theme",
+        "website_multi_theme",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
