@@ -6,15 +6,15 @@
     <field name="inherit_id" ref="website.view_website_form"/>
     <field name="arch" type="xml">
       <group name="domain">
-<!--        <label for="multi_theme_id"/>
-        <div> -->
+        <label for="multi_theme_id"/>
+        <div> 
           <field name="multi_theme_id" string="Multi Theme"/>
           <button icon="fa-refresh"
                 string="Reload"
                 type="object"
                 class="oe_inline"
                 name="multi_theme_reload"/>
-     <!--   </div> -->
+        </div> 
         <field name="favicon" widget="image" class="oe_avatar oe_left"/>
       </group>
     </field>
