@@ -163,6 +163,25 @@ Configuration
 
   * **Website Domain** -- website address, e.g. *shop1.example.com*
   * **Company** -- which company is used for this *website*
+  * **Favicon** -- upload website favicon
+  * **Multi Theme** -- select a theme you wish to apply for website, e.g. *theme_bootswatch* (if you install any of supported themes after installing this module, you should click on **Reload** button to be able to use them)
+
+Note that to use *Multi Theme* feature you should have the latest updates of Odoo or at least include the following 3 commits:
+  * https://github.com/odoo/odoo/commit/15bf41270d3abb607e7b623b59355594cad170cf
+  * https://github.com/odoo/odoo/commit/7c6714d7fee4125f037ef194f9cff5235a6c5320
+  * https://github.com/odoo/odoo/commit/48fe0a595308722a26afd5361432f24c610b4ba0
+
+To include them it's enough to apply the patch file ``commits-for-multitheme.patch`` (we put it in module source) within odoo source path. You can make it as follows:
+
+ by using git::
+
+    git apply path/to/commits-for-multitheme.patch
+
+ OR
+
+ if your installation does not have git::
+
+    patch -p1 < path/to/commits-for-multitheme.patch
 
 Website Menus
 -------------
