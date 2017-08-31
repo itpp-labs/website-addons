@@ -12,9 +12,10 @@
         <div> 
           <field name="multi_theme_id" string="Multi Theme"/>
           <button icon="fa-refresh"
-                string="Reload"
+                string="Reload Theme List"
+                help="Use it if you installed theme, but cannot find it in the list"
                 type="object"
-                class="oe_inline"
+                class="oe_inline oe_edit_only"
                 name="multi_theme_reload"/>
         </div> 
         <field name="favicon" widget="image" class="oe_avatar oe_left"/>
