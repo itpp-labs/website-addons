@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="website_action" model="ir.actions.act_window">
+        <field name="name">Websites</field>
+        <field name="res_model">website</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem
+        id="website_menu"
+        parent="website.menu_website_global_configuration"
+        name="Websites"
+        sequence="100"
+        action="website_action"/>
+
+</odoo>
