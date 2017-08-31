@@ -5,7 +5,7 @@
     <field name="model">website</field>
     <field name="inherit_id" ref="website.view_website_form"/>
     <field name="mode">primary</field>
-    <field name="priority" eval="32"/>
+    <field name="priority" eval="132"/>
     <field name="arch" type="xml">
       <group name="domain">
         <label for="multi_theme_id"/>
