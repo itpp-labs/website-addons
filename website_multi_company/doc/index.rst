@@ -19,11 +19,11 @@ You will be able to use any website domain names (not only subdomains), e.g. sho
 
 For example:
 
- * shop1.com::   
+* shop1.com::   
 	
 	@   A   your_server_ip_address
 
- * shop2.com::
+* shop2.com::
 
 	@   A   your_server_ip_address
 
@@ -171,17 +171,20 @@ Note that to use *Multi Theme* feature you should have the latest updates of Odo
   * https://github.com/odoo/odoo/commit/7c6714d7fee4125f037ef194f9cff5235a6c5320
   * https://github.com/odoo/odoo/commit/48fe0a595308722a26afd5361432f24c610b4ba0
 
-To include them it's enough to apply the patch file ``commits-for-multitheme.patch`` (we put it in module source) within odoo source path. You can make it as follows:
+To apply them you can use git commands or use patch file ``commits-for-multitheme.patch``. The patch can be found at  module source. Exact commands are as following:
 
- by using git::
+If odoo is a git folder::
 
-    git apply path/to/commits-for-multitheme.patch
+    cd /path/to/odoo/source
+    git fetch
+    git cherry-pick 15bf41270d3abb607e7b623b59355594cad170cf
+    git cherry-pick 7c6714d7fee4125f037ef194f9cff5235a6c5320
+    git cherry-pick 48fe0a595308722a26afd5361432f24c610b4ba0
 
- OR
+if your installation does not have git::
 
- if your installation does not have git::
-
-    patch -p1 < path/to/commits-for-multitheme.patch
+    cd /path/to/odoo/source
+    patch -p1 < /path/to/commits-for-multitheme.patch
 
 Website Menus
 -------------
