@@ -1,4 +1,5 @@
-odoo.define('website_sale_add_to_card', function (require) {
+odoo.define('website_sale_add_to_cart', function(require) {
+
 "use strict";
 
 var ajax = require('web.ajax');
