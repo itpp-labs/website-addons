@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
+  <record id="view_website_multi_company_form" model="ir.ui.view">
+    <field name="model">website</field>
+    <field name="inherit_id" ref="website.view_website_form"/>
+    <field name="arch" type="xml">
+      <group name="domain">
+        <label for="multi_theme_id"/>
+        <div> 
+          <field name="multi_theme_id" string="Multi Theme"/>
+          <button icon="fa-refresh"
+                string="Reload"
+                type="object"
+                class="oe_inline"
+                name="multi_theme_reload"/>
+        </div> 
+        <field name="favicon" widget="image" class="oe_avatar oe_left"/>
+      </group>
+    </field>
+  </record>
+
     <record id="website_action" model="ir.actions.act_window">
         <field name="name">Websites</field>
         <field name="res_model">website</field>
