@@ -9,7 +9,6 @@ class WebsiteSaleExtended(WebsiteSale):
     @http.route(['/shop/checkout'], type='http', auth="public", website=True)
     def checkout(self, **post):
         order = request.website.sale_get_order()
-
         redirection = self.checkout_redirection(order)
         if redirection:
             return redirection
@@ -53,6 +52,9 @@ class WebsiteSaleExtended(WebsiteSale):
             return {'recall': False, 'message': ''}
         else:
             return super(WebsiteSaleExtended, self).payment_get_status(sale_order_id, **post)
+
+    def _get_mandatory_billing_fields(self):
+        return ["name", "email", "phone"]
 
     def checkout_form_validate(self, *args, **kwargs):
         self.set_custom_mandatory_fields()
