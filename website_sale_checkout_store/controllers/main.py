@@ -17,7 +17,6 @@ class WebsiteSaleExtended(WebsiteSale):
             order.buy_way = post['buyMethod']
         except:
             pass
-
         if order.partner_id.id == request.website.user_id.sudo().partner_id.id:
             return request.redirect('/shop/address')
 
@@ -54,7 +53,20 @@ class WebsiteSaleExtended(WebsiteSale):
             return super(WebsiteSaleExtended, self).payment_get_status(sale_order_id, **post)
 
     def _get_mandatory_billing_fields(self):
-        return ["name", "email", "phone"]
+        order = request.website.sale_get_order()
+        if 'noship' in order.buy_way:
+            if 'nobill' in order.buy_way:
+                return ["name", "phone"]
+            else:
+                return ["name", "phone", "email"]
+        else:
+            if 'nobill' in order.buy_way:
+                return ["name", "phone", "street", "city", "country_id"]
+            else:
+                return ["name", "phone", "email", "street", "city", "country_id"]
+
+    def _get_mandatory_shipping_fields(self):
+        return ["name", "street", "city", "country_id"]
 
     def checkout_form_validate(self, *args, **kwargs):
         self.set_custom_mandatory_fields()
