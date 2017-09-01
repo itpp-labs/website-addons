@@ -67,28 +67,3 @@ class WebsiteSaleExtended(WebsiteSale):
 
     def _get_mandatory_shipping_fields(self):
         return ["name", "street", "city", "country_id"]
-
-    def checkout_form_validate(self, *args, **kwargs):
-        self.set_custom_mandatory_fields()
-        return super(WebsiteSaleExtended, self).checkout_form_validate(*args, **kwargs)
-
-    def checkout_parse(self, address_type, data, remove_prefix=False):
-        self.set_custom_mandatory_fields()
-        return super(WebsiteSaleExtended, self).checkout_parse(address_type, data, remove_prefix)
-
-    def set_custom_mandatory_fields(self):
-        order = request.website.sale_get_order(force_create=1)
-        if order.buy_way:
-            if 'nobill_noship' in order.buy_way:
-                WebsiteSale.mandatory_billing_fields = ["name", "phone", "email"]
-                WebsiteSale.mandatory_shipping_fields = ["name", "phone", "email"]
-            elif 'bill_noship' in order.buy_way:
-                WebsiteSale.mandatory_billing_fields = ["name", "phone", "email"]
-                WebsiteSale.mandatory_shipping_fields = ["name", "phone", "email"]
-            else:
-                WebsiteSale.mandatory_billing_fields = ["name", "phone", "email", "street2", "city", "country_id"]
-                WebsiteSale.mandatory_shipping_fields = ["name", "phone", "street", "city", "country_id"]
-        else:
-            # Means regular variant.
-            order.buy_way = 'bill_ship'
-        return
