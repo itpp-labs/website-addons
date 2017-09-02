@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 {
     "name": """Real Multi Website""",
-    "summary": """Yes, you can set up multi-company, multi-website, multi-eCommerce on a single database!""",
+    "summary": """Yes, you can set up multi-company, multi-website, multi-theme, multi-eCommerce on a single database!""",
     "category": "eCommerce",
     # "live_test_URL": "",
     "images": ['images/website_multi_company_main.png'],
-    "version": "1.0.0",
+    "version": "1.1.0",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev",
@@ -17,6 +17,7 @@
 
     "depends": [
         "website",
+        "website_multi_theme",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [

@@ -5,6 +5,7 @@ python:
   
 sudo: false
 cache: pip
+dist: trusty
 
 addons:
   apt:
