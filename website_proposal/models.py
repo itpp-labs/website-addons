@@ -114,7 +114,7 @@ class WebsiteProposal(models.Model):
         }
 
     def create(self, vals):
-        record = self.env[vals.get('res_model']).browse(vals.get('res_id'))
+        record = self.env[vals.get('res_model')].browse(vals.get('res_id'))
 
         mako = mako_template_env.from_string(tools.ustr(vals.get('website_description')))
         website_description = mako.render({'record': record})
