@@ -56,14 +56,14 @@ class WebsiteSaleExtended(WebsiteSale):
         order = request.website.sale_get_order()
         if 'noship' in order.buy_way:
             if 'nobill' in order.buy_way:
-                return ["name", "phone"]
-            else:
                 return ["name", "phone", "email"]
+            else:
+                return ["name", "phone", "email", "country_id"]
         else:
             if 'nobill' in order.buy_way:
-                return ["name", "phone", "street", "city", "country_id"]
+                return ["name", "phone", "email", "street", "city"]
             else:
                 return ["name", "phone", "email", "street", "city", "country_id"]
 
     def _get_mandatory_shipping_fields(self):
-        return ["name", "street", "city", "country_id"]
+        return ["name", "phone", "email", "street", "city"]
