@@ -77,35 +77,32 @@
                     <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
                     <t t-set="shipping" t-value="not 'noship' in website_sale_order.buy_way and '1' or '0'"></t>
                     <t t-set="billing" t-value="not 'nobill' in website_sale_order.buy_way and '1' or '0'"></t>
+
                     <div t-attf-class="form-group #{error.get('name') and 'has-error' or ''} col-md-12 div_name">
                         <label class="control-label" for="name">Name</label>
                         <input type="text" name="name" class="form-control" t-att-value="'name' in checkout and checkout['name']" />
                     </div>
                     <div class="clearfix" />
-                    <t t-if="mode[1] == 'billing'">
-                        <div t-attf-class="form-group #{error.get('email') and 'has-error' or ''} col-md-6" id="div_email">
-                            <t t-if="billing == '0'"><label class="control-label label-optional" for="email">Email</label></t>
-                            <t t-else=""><label class="control-label" for="email">Email</label></t>
-                            <input type="email" name="email" class="form-control" t-att-value="'email' in checkout and checkout['email']" />
-                        </div>
-                    </t>
+                    <div t-attf-class="form-group #{error.get('email') and 'has-error' or ''} col-md-6" id="div_email">
+                        <label class="control-label" for="email">Email</label>
+                        <input type="email" name="email" class="form-control" t-att-value="'email' in checkout and checkout['email']" />
+                    </div>
                     <div t-attf-class="form-group #{error.get('phone') and 'has-error' or ''} col-md-6" id="div_phone">
                         <label class="control-label" for="phone">Phone</label>
                         <input type="tel" name="phone" class="form-control" t-att-value="'phone' in checkout and checkout['phone']" />
                     </div>
                     <div class="clearfix" />
-                    <t t-if="mode == ('new', 'billing')">
-                        <div t-attf-class="form-group #{error.get('company_name') and 'has-error' or ''} col-md-6">
-                            <label class="control-label label-optional" for="company_name">Company Name</label>
-                            <input type="text" name="company_name" class="form-control" t-att-value="'company_name' in checkout and checkout['company_name']" />
-                        </div>
-                        <div t-attf-class="form-group #{error.get('vat') and 'has-error' or ''} col-md-6 div_vat">
-                            <label class="control-label label-optional" for="vat">TIN / VAT </label>
-                            <input type="text" name="vat" class="form-control" t-att-value="'vat' in checkout and checkout['vat']" />
-                        </div>
-                    </t>
-                    <div class="clearfix" />
+
                     <t t-if="shipping == '1'">
+                            <div t-attf-class="form-group #{error.get('company_name') and 'has-error' or ''} col-md-6">
+                                <label class="control-label label-optional" for="company_name">Company Name</label>
+                                <input type="text" name="company_name" class="form-control" t-att-value="'company_name' in checkout and checkout['company_name']" />
+                            </div>
+                            <div t-attf-class="form-group #{error.get('vat') and 'has-error' or ''} col-md-6 div_vat">
+                                <label class="control-label label-optional" for="vat">TIN / VAT </label>
+                                <input type="text" name="vat" class="form-control" t-att-value="'vat' in checkout and checkout['vat']" />
+                            </div>
+                            <div class="clearfix" />
                             <div t-attf-class="form-group #{error.get('street') and 'has-error' or ''} col-md-12 div_street">
                                 <label class="control-label" for="street">Street <span class="hidden-xs"> and Number</span></label>
                                 <input type="text" name="street" class="form-control" t-att-value="'street' in checkout and checkout['street']" />
@@ -129,6 +126,8 @@
                                 </div>
                             </t>
                             <div class="clearfix" />
+                    </t>
+                    <t t-if="billing == '1'">
                             <div t-attf-class="form-group #{error.get('country_id') and 'has-error' or ''} col-md-6 div_country">
                                 <label class="control-label" for="country_id">Country</label>
                                 <select id="country_id" name="country_id" class="form-control">
