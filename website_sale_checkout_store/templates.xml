@@ -176,11 +176,18 @@
             </xpath>
             <xpath expr="//li[@id='step40']" position="replace">
                 <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
-                <t t-set="billing" t-value="not 'nobill' in website_sale_order.buy_way and '1' or '0'"/>
-                <t t-if="billing != '0'">
+                <t t-if="website_sale_order.buy_way is False or website_sale_order.buy_way is None">
                     <li t-att-class="(step==40 and 'text-primary') or 'text-muted'" id="step40">
                         Payment<span class="chevron"></span>
                     </li>
+                </t>
+                <t t-else="">
+                    <t t-set="billing" t-value="not 'nobill' in website_sale_order.buy_way and '1' or '0'"/>
+                    <t t-if="billing == '1'">
+                        <li t-att-class="(step==40 and 'text-primary') or 'text-muted'" id="step40">
+                            Payment<span class="chevron"></span>
+                        </li>
+                    </t>
                 </t>
             </xpath>
         </template>
