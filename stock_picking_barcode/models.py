@@ -21,10 +21,9 @@ class StockPicking(models.Model):
         matching_location_ids = stock_location_obj.search([('barcode', '=', barcode_str)])
         if matching_location_ids:
             # if we have a location, return immediatly with the location name
-            location = stock_location_obj.browse(matching_location_ids[0])
-            answer['filter_loc'] = stock_location_obj._name_get(location)
-            answer['filter_loc_id'] = matching_location_ids[0]
-            return answer
+            location = matching_location_ids.name_get()[0]
+            answer['filter_loc'] = location[1]
+            answer['filter_loc_id'] = location[0]
         # check if the barcode correspond to a product
         matching_product_ids = product_obj.search(['|', ('barcode', '=', barcode_str), ('default_code', '=', barcode_str)])
         if matching_product_ids:
