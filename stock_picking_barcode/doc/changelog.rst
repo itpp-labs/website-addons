@@ -1,3 +1,8 @@
+`1.0.2`
+-------
+
+- **FIX** Issue related to scanning a location barcode 
+
 `1.0.1`
 -------
 
