@@ -72,12 +72,24 @@
         </template>
 
         <template id="address" name="my_checkout" inherit_id="website_sale.address">
+            <xpath expr="//h3[@class='page-header mt16']" position="replace">
+                <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
+                <t t-set="shipping" t-value="not 'noship' in website_sale_order.buy_way and '1' or '0'"/>
+                <t t-set="billing" t-value="not 'nobill' in website_sale_order.buy_way and '1' or '0'"/>
+                <h3 class="page-header mt16">
+                    <t t-if="billing == '0' and shipping == '0'">
+                        Contact Information
+                    </t>
+                    <t t-else="">
+                        Your Address
+                    </t>
+                    <small> or </small>
+                    <t t-set='connect' t-value="request.env['ir.config_parameter'].sudo().get_param('auth_signup.allow_uninvited') == 'True' and ('signup', 'Sign Up') or ('login', 'Log In')"/>
+                    <a t-attf-href='/web/{{connect[0]}}?redirect=/shop/checkout' class='btn btn-primary' style="margin-top: -11px"><t t-esc='connect[1]'/></a>
+                </h3>
+            </xpath>
             <xpath expr="//form[@name='/shop/checkout']" position="replace">
                 <form name="/shop/checkout" method="post" class="checkout_autoformat">
-                    <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
-                    <t t-set="shipping" t-value="not 'noship' in website_sale_order.buy_way and '1' or '0'"/>
-                    <t t-set="billing" t-value="not 'nobill' in website_sale_order.buy_way and '1' or '0'"/>
-
                     <div t-attf-class="form-group #{error.get('name') and 'has-error' or ''} col-md-12 div_name">
                         <label class="control-label" for="name">Name</label>
                         <input type="text" name="name" class="form-control" t-att-value="'name' in checkout and checkout['name']" />
@@ -97,10 +109,6 @@
                             <div t-attf-class="form-group #{error.get('company_name') and 'has-error' or ''} col-md-6">
                                 <label class="control-label label-optional" for="company_name">Company Name</label>
                                 <input type="text" name="company_name" class="form-control" t-att-value="'company_name' in checkout and checkout['company_name']" />
-                            </div>
-                            <div t-attf-class="form-group #{error.get('vat') and 'has-error' or ''} col-md-6 div_vat">
-                                <label class="control-label label-optional" for="vat">TIN / VAT </label>
-                                <input type="text" name="vat" class="form-control" t-att-value="'vat' in checkout and checkout['vat']" />
                             </div>
                             <div class="clearfix" />
                             <div t-attf-class="form-group #{error.get('street') and 'has-error' or ''} col-md-12 div_street">
