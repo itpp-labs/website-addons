@@ -19,7 +19,6 @@ class WebsiteSaleExtended(WebsiteSale):
             pass
         if order.partner_id.id == request.website.user_id.sudo().partner_id.id:
             return request.redirect('/shop/address')
-
         for f in self._get_mandatory_billing_fields():
             if not order.partner_id[f]:
                 return request.redirect('/shop/address?partner_id=%d' % order.partner_id.id)
@@ -27,6 +26,11 @@ class WebsiteSaleExtended(WebsiteSale):
         values = self.checkout_values(**post)
         values['order'] = order
         sale_order_id = request.session.get('sale_order_id')
+        if 'noship' in order.buy_way and 'nobill' in order.buy_way:
+            request.session['sale_last_order_id'] = order.id
+            order.force_quotation_send()
+            request.website.sale_reset()
+            return request.redirect('/shop/confirmation')
         request.env["sale.order"].browse(sale_order_id).sudo().payment_and_delivery_method_info()
 
         # Avoid useless rendering if called in ajax
