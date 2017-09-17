@@ -33,7 +33,7 @@
     </div>
   </t>
 </t>
-","aboutblackbooks","website_books","QWeb"
+","Welcome!","website_books","QWeb"
 "website_page_bikes","website.bikes","<t t-name=""website.bikes"">
   <t t-call=""website.layout"">
     <div id=""wrap"" class=""oe_structure oe_empty"">
@@ -74,7 +74,7 @@
     </div>
   </t>
 </t>
-","about-fastwheel","website_bikes","QWeb"
+","Welcome!","website_bikes","QWeb"
 "website_page_watches","website.watches","<t t-name=""website.watches"">
   <t t-call=""website.layout"">
     <div id=""wrap"" class=""oe_structure oe_empty"">
@@ -96,4 +96,4 @@
     </div>
   </t>
 </t>
-","about-us-what-time-is-it","website_watches","QWeb"
+","Welcome!","website_watches","QWeb"
