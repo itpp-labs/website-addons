@@ -3,11 +3,14 @@
 ====================================
 
 
-The module doesn't introduce any new features and works only at demo databases.
-
-We need to put it in a separate module, because we don't want to add website_sale to dependency in website_multi_company.
+We put it in a separate module, because we don't want to add website_sale to dependency in website_multi_company.
 
 If you are looking for *Mult Website* feature use module `Real Multi Website <https://apps.odoo.com/apps/modules/10.0/website_multi_company_demo>`_ instead.
+
+Notes
+=====
+
+* After first login website domains are updated. See `<models/res_users.py>`_
 
 Credits
 =======
