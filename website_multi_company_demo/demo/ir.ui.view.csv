@@ -11,7 +11,7 @@
           </h2>
           <div class=""row"">
             <div class=""col-md-12"">
-              <img class=""img img-responsive"" src=""/web/image/744"" style=""margin: 0 auto;"" alt=""Odoo CMS - a big picture"" data-original-title="""" title=""""/>
+              <img class=""img img-responsive"" src=""/website_multi_company_demo/static/images/books.jpg"" style=""margin: 0 auto;"" alt=""Odoo CMS - a big picture"" data-original-title="""" title=""""/>
             </div>
             <div class=""col-md-6 col-md-offset-3 mb16 mt16"">
               <p class=""text-center"">
@@ -33,7 +33,7 @@
     </div>
   </t>
 </t>
-","aboutblackbooks","website_bikes","QWeb"
+","aboutblackbooks","website_books","QWeb"
 "website_page_bikes","website.bikes","<t t-name=""website.bikes"">
   <t t-call=""website.layout"">
     <div id=""wrap"" class=""oe_structure oe_empty"">
@@ -59,7 +59,7 @@
               </h3>
             </div>
             <div class=""col-md-6 mt32 mb92"">
-              <img class=""img img-responsive pull-left mb16"" src=""/web/image/742"" alt=""Odoo text and image block"" data-original-title="""" title=""""/>
+              <img class=""img img-responsive pull-left mb16"" src=""/website_multi_company_demo/static/images/bikes.png"" alt=""Odoo text and image block"" data-original-title="""" title=""""/>
             </div>
           </div>
         </div>
@@ -74,7 +74,7 @@
     </div>
   </t>
 </t>
-","about-fastwheel","website_watches","QWeb"
+","about-fastwheel","website_bikes","QWeb"
 "website_page_watches","website.watches","<t t-name=""website.watches"">
   <t t-call=""website.layout"">
     <div id=""wrap"" class=""oe_structure oe_empty"">
@@ -82,7 +82,7 @@
         <div class=""container"">
           <div class=""row"">
             <div class=""col-md-6 mt32 mb32"">
-              <img class=""img img-responsive center-block mb16"" src=""/web/image/743"" alt=""Odoo image and text block"" data-original-title="""" title=""""/>
+              <img class=""img img-responsive center-block mb16"" src=""/website_multi_company_demo/static/images/watches.jpg"" alt=""Odoo image and text block"" data-original-title="""" title=""""/>
             </div>
             <div class=""col-md-6 mt64 mb32"">
               <h3>
@@ -96,4 +96,4 @@
     </div>
   </t>
 </t>
-","about-us-what-time-is-it","website_books","QWeb"
+","about-us-what-time-is-it","website_watches","QWeb"

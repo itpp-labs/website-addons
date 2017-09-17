@@ -18,6 +18,7 @@
     "depends": [
         "website_multi_company",
         "website_sale",
+        "theme_bootswatch",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
@@ -30,6 +31,7 @@
         "demo/product.template.csv",
         "demo/ir.ui.view.csv",
         "demo/website.menu.csv",
+        "demo/website_templates.xml",
     ],
 
     "post_load": None,
