@@ -7,7 +7,9 @@ class TestDomainUpdating(common.HttpCase):
     post_install = True
 
     def test_authenticate(self):
-        """Copy-paste from addons/base/tests/test_xmlrpc.py"""
         db_name = common.get_db_name()
-        uid = self.xmlrpc_common.login(db_name, 'admin', 'admin')
+        env = dict(
+            base_location="http://build-123.runbot.example.com",
+        )
+        uid = self.registry['res.users'].authenticate(db_name, 'admin', 'admin', env)
         self.assertEqual(uid, 1)
