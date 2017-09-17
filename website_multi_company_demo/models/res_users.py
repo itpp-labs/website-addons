@@ -4,12 +4,13 @@ import urlparse
 
 from odoo import models, SUPERUSER_ID, api
 
-WEBSITE_REFS=[
+WEBSITE_REFS = [
     'website_multi_company_demo.website_books',
     'website_multi_company_demo.website_bikes',
     'website_multi_company_demo.website_watches',
 ]
-WEBSITE_RE = 'shop\.(.*)\.example'
+WEBSITE_RE = r'shop\.(.*)\.example'
+
 
 class Users(models.Model):
     _inherit = "res.users"
