@@ -24,6 +24,18 @@
     </field>
   </record>
 
+  <record id="view_website_tree" model="ir.ui.view">
+      <field name="name">website.tree</field>
+      <field name="model">website</field>
+      <field name="inherit_id" ref="website.view_website_tree"/>
+      <field name="arch" type="xml">
+          <xpath expr="//field[@name='name']" position="after">
+              <field name="domain"/>
+          </xpath>
+      </field>
+  </record>
+
+
     <record id="website_action" model="ir.actions.act_window">
         <field name="name">Websites</field>
         <field name="res_model">website</field>
