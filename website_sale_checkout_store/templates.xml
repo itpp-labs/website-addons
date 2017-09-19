@@ -89,10 +89,20 @@
                 <attribute name="t-att-bill_enabled">billing</attribute>
             </xpath>
             <xpath expr="//label[contains(text(), 'Street')]" position="replace">
-                <label class="control-label label-optional" for="street">Street <span class="hidden-xs"> and Number</span></label>
+                <t t-if="shipping == '0'">
+                    <label class="control-label label-optional" for="street">Street <span class="hidden-xs"> and Number</span></label>
+                </t>
+                <t t-else="">
+                    <label class="control-label" for="street">Street <span class="hidden-xs"> and Number</span></label>
+                </t>
             </xpath>
             <xpath expr="//label[contains(text(), 'City')]" position="replace">
-                <label class="control-label label-optional" for="city">City</label>
+                <t t-if="shipping == '0'">
+                    <label class="control-label label-optional" for="city">City</label>
+                </t>
+                <t t-else="">
+                    <label class="control-labell" for="city">City</label>
+                </t>
             </xpath>
             <xpath expr="//input[@name='street']/.." position="attributes">
                 <attribute name="ship">1</attribute>
@@ -154,7 +164,7 @@
             </xpath>
             -->
         </template>
-        
+
         <template id="website_sale_checkout_store_wizard_checkout" name="my_wizard_checkout" inherit_id="website_sale.wizard_checkout">
             <xpath expr="//li[@id='step40']" position="attributes">
                 <attribute name="bill">1</attribute>
