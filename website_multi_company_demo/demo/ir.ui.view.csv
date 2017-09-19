@@ -1,0 +1,99 @@
+"id","key","arch_base","name","website_id/id","type"
+"website_page_books","website.books","<t t-name=""website.books"">
+  <t t-call=""website.layout"">
+    <div id=""wrap"" class=""oe_structure oe_empty"">
+      <section class=""s_big_picture bg-gray-lighter"">
+        <div class=""container"">
+          <h2 class=""text-center"">
+            <b>
+              <font style=""font-size: 36px;"">BLACK BOOKS</font>
+            </b>
+          </h2>
+          <div class=""row"">
+            <div class=""col-md-12"">
+              <img class=""img img-responsive"" src=""/website_multi_company_demo/static/images/books.jpg"" style=""margin: 0 auto;"" alt=""Odoo CMS - a big picture"" data-original-title="""" title=""""/>
+            </div>
+            <div class=""col-md-6 col-md-offset-3 mb16 mt16"">
+              <p class=""text-center"">
+                <b>
+                  <font style=""font-size: 18px;"">About Us</font>
+                </b>
+              </p>
+              <p class=""text-center"">
+                <span style=""color: rgb(0, 0, 0); font-family: Arial, sans-serif; font-size: 18px;"">We love to read and discovered that we could share our hundreds of books with others by selling them online</span>
+                <font style=""font-size: 18px;"">&amp;nbsp;</font>
+              </p>
+              <p class=""text-center"">
+                <a href=""/page/website.contactus"" class=""o_default_snippet_text"">Contact us »</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </t>
+</t>
+","Welcome!","website_books","QWeb"
+"website_page_bikes","website.bikes","<t t-name=""website.bikes"">
+  <t t-call=""website.layout"">
+    <div id=""wrap"" class=""oe_structure oe_empty"">
+      <section class=""s_text_image mb92"">
+        <div class=""container"">
+          <div class=""row"">
+            <div class=""col-md-6 mt128 mb64"">
+              <h3 style=""text-align: center;"">
+                <font style=""color: rgb(74, 123, 140); font-size: 62px;"">
+                  <b>FAST WHEEL</b>
+                </font>
+                <br/>
+              </h3>
+              <h3 style=""text-align: justify;"">&amp;nbsp;
+                <span style=""color: rgb(66, 66, 66); font-family: arial, sans-serif; font-weight: bold; text-align: left;"">Shop
+                </span><span style=""color: rgb(66, 66, 66); font-family: arial, sans-serif; text-align: left;"">&amp;nbsp;now at <b>Fast Wheel</b>&amp;nbsp;- Best price, best selection and best brands for&amp;nbsp;
+                </span><span style=""color: rgb(66, 66, 66); font-family: arial, sans-serif; font-weight: bold; text-align: left;"">bikes
+                </span><span style=""color: rgb(66, 66, 66); font-family: arial, sans-serif; text-align: left;"">,&amp;nbsp;
+                </span><span style=""color: rgb(66, 66, 66); font-family: arial, sans-serif; font-weight: bold; text-align: left;"">cycling
+                </span><span style=""color: rgb(66, 66, 66); font-family: arial, sans-serif; text-align: left;"">&amp;nbsp;apparel,
+                </span><span style=""color: rgb(66, 66, 66); font-family: arial, sans-serif; font-weight: bold; text-align: left;"">cycling
+                </span><span style=""color: rgb(66, 66, 66); font-family: arial, sans-serif; text-align: left;"">&amp;nbsp;equipment and much more...</span><br/>
+              </h3>
+            </div>
+            <div class=""col-md-6 mt32 mb92"">
+              <img class=""img img-responsive pull-left mb16"" src=""/website_multi_company_demo/static/images/bikes.png"" alt=""Odoo text and image block"" data-original-title="""" title=""""/>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class=""s_text_image mb128"">
+        <div class=""container"">
+          <div class=""row"">
+            <div class=""mt32 mb92 col-md-6""> </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </t>
+</t>
+","Welcome!","website_bikes","QWeb"
+"website_page_watches","website.watches","<t t-name=""website.watches"">
+  <t t-call=""website.layout"">
+    <div id=""wrap"" class=""oe_structure oe_empty"">
+      <section class=""s_image_text"">
+        <div class=""container"">
+          <div class=""row"">
+            <div class=""col-md-6 mt32 mb32"">
+              <img class=""img img-responsive center-block mb16"" src=""/website_multi_company_demo/static/images/watches.jpg"" alt=""Odoo image and text block"" data-original-title="""" title=""""/>
+            </div>
+            <div class=""col-md-6 mt64 mb32"">
+              <h3>
+                <font style=""font-size: 36px;"">What time is it?</font>
+              </h3>
+              <p>&amp;nbsp;<font style=""font-size: 18px;"">Time to buy a watch!&amp;nbsp;</font><span style=""font-family: Lato, sans-serif;""><font style=""font-size: 18px;"">We don't want you to choose between the best price and the best service. That's why we price match every product we sell against any ACCREDITED retailer. Just supply us with the product you're interested in and the price you've found it at and we'll do the rest!</font></span></p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </t>
+</t>
+","Welcome!","website_watches","QWeb"

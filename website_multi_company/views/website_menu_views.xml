@@ -4,6 +4,7 @@
         <field name="name">Website Menus</field>
         <field name="res_model">website.menu</field>
         <field name="view_mode">list,form</field>
+        <field name="context">{"search_default_my_websites" : True,}</field>
     </record>
 
     <menuitem
