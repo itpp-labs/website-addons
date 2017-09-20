@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<template id="footer_default" inherit_id="website.footer_default">
+    <xpath expr="//p[contains(text(), 'We are a team of passionate people')]/.." position="replace">
+        <p>Welcome to our website!</p>
+        <p>We sell only goods that we love ourselves! Enjoy!</p>
+    </xpath>
+</template>
+
+</odoo>
