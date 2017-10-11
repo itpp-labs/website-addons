@@ -25,7 +25,8 @@
                 <div class="pull-right">
                     <div>
                         <a t-if="nobill_noship and not optional_products and website_sale_order and website_sale_order.website_order_line"
-                           class="btn btn-primary pull-right" href="/shop/checkout?buyMethod=nobill_noship" style="width: 100%; margin-bottom: 5px">
+                           id="nobill_noship" class="btn btn-primary pull-right"
+                           href="/shop/checkout?buyMethod=nobill_noship" style="width: 100%; margin-bottom: 5px">
                             <span class="hidden-xs">Pickup and pay at store</span>
                             <span class="visible-xs-inline">Pickup and pay at store</span>
                             <span class="fa fa-long-arrow-right"/>
@@ -33,7 +34,8 @@
                     </div>
                     <div>
                         <a t-if="bill_noship and not optional_products and website_sale_order and website_sale_order.website_order_line"
-                           class="btn btn-primary pull-right" href="/shop/checkout?buyMethod=bill_noship" style="width: 100%; margin-bottom: 5px">
+                           id="bill_noship" class="btn btn-primary pull-right"
+                           href="/shop/checkout?buyMethod=bill_noship" style="width: 100%; margin-bottom: 5px">
                             <span class="hidden-xs">Pickup at store but pay now</span>
                             <span class="visible-xs-inline">Pickup at store but pay now</span>
                             <span class="fa fa-long-arrow-right"/>
@@ -41,7 +43,8 @@
                     </div>
                     <div>
                         <a t-if="bill_ship and not optional_products and website_sale_order and website_sale_order.website_order_line"
-                           class="btn btn-primary pull-right" href="/shop/checkout?buyMethod=bill_ship" style="width: 100%; margin-bottom: 5px">
+                           id="bill_ship" class="btn btn-primary pull-right"
+                           href="/shop/checkout?buyMethod=bill_ship" style="width: 100%; margin-bottom: 5px">
                             <span class="hidden-xs">Pay now and get delivery</span>
                             <span class="visible-xs-inline">Pay now and get delivery</span>
                             <span class="fa fa-long-arrow-right"/>
@@ -49,7 +52,8 @@
                     </div>
                     <div>
                         <a t-if="nobill_ship and not optional_products and website_sale_order and website_sale_order.website_order_line"
-                           class="btn btn-primary pull-right" href="/shop/checkout?buyMethod=nobill_ship" style="width: 100%; margin-bottom: 5px">
+                           id="nobill_ship" class="btn btn-primary pull-right"
+                           href="/shop/checkout?buyMethod=nobill_ship" style="width: 100%; margin-bottom: 5px">
                             <span class="hidden-xs">Pay on delivery</span>
                             <span class="visible-xs-inline">Pay on delivery</span>
                             <span class="fa fa-long-arrow-right"/>
