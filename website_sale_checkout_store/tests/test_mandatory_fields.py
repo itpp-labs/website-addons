@@ -5,12 +5,11 @@ import odoo.tests
 @odoo.tests.common.at_install(False)
 @odoo.tests.common.post_install(True)
 class TestUi(odoo.tests.HttpCase):
-    print "====================================START=================================="
 
     def test_checkout(self):
-        self.phantom_js("/", "odoo.__DEBUG__.services['web_tour.tour'].run('shop_mandatory_fields_nobill_noship')",
-                        "odoo.__DEBUG__.services['web_tour.tour'].tours.shop_mandatory_fields_nobill_noship.ready",
-                        login="admin")
+        # self.phantom_js("/", "odoo.__DEBUG__.services['web_tour.tour'].run('shop_mandatory_fields_nobill_noship')",
+        #                 "odoo.__DEBUG__.services['web_tour.tour'].tours.shop_mandatory_fields_nobill_noship.ready",
+        #                 login="admin")
 
         self.phantom_js("/", "odoo.__DEBUG__.services['web_tour.tour'].run('shop_mandatory_fields_bill_noship')",
                         "odoo.__DEBUG__.services['web_tour.tour'].tours.shop_mandatory_fields_bill_noship.ready",
