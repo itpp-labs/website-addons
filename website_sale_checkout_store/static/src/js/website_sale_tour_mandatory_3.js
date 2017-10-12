@@ -20,11 +20,13 @@ tour.register('shop_mandatory_fields_bill_ship', {
         },
         {
             content: "log out",
+            extra_trigger: 'a[href="/web/login"]',
             trigger: 'a[href="/shop"]',
         },
         // further for unsigned user
         {
             content: "search ipod",
+            extra_trigger: 'a[href="/web/login"]',
             trigger: 'form input[name="search"]',
             run: "text ipod",
         },

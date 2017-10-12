@@ -20,11 +20,13 @@ tour.register('shop_mandatory_fields_nobill_noship', {
         },
         {
             content: "log out",
+            extra_trigger: 'a[href="/web/login"]',
             trigger: 'a[href="/shop"]',
         },
         // further for unsigned user
         {
             content: "search ipod",
+            extra_trigger: 'a[href="/web/login"]',
             trigger: 'form input[name="search"]',
             run: "text ipod",
         },
@@ -34,6 +36,7 @@ tour.register('shop_mandatory_fields_nobill_noship', {
         },
         {
             content: "select ipod",
+            extra_trigger: '.oe_product_cart a:contains("iPod")',
             trigger: '.oe_product_cart a:contains("iPod")',
         },
         {
