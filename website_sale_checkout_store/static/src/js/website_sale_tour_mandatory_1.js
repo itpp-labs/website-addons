@@ -1,15 +1,28 @@
-odoo.define('website_sale.tour', function (require) {
+odoo.define('website_sale_checkout_store.tour', function (require) {
 'use strict';
 
 var tour = require("web_tour.tour");
 var base = require("web_editor.base");
 
-tour.register('shop_buy_product', {
+tour.register('shop_mandatory_fields_nobill_noship', {
     test: true,
     url: '/shop',
     wait_for: base.ready()
 },
     [
+        {
+            content: "log out dropdown",
+            trigger: '#top_menu a[href="#"]',
+        },
+        {
+            content: "log out",
+            trigger: '#o_logout a[href="/web/session/logout?redirect=/"]',
+        },
+        {
+            content: "log out",
+            trigger: 'a[href="/shop"]',
+        },
+        // further for unsigned user
         {
             content: "search ipod",
             trigger: 'form input[name="search"]',
@@ -24,13 +37,7 @@ tour.register('shop_buy_product', {
             trigger: '.oe_product_cart a:contains("iPod")',
         },
         {
-            content: "select ipod 32GB",
-            extra_trigger: '#product_detail',
-            trigger: 'label:contains(32 GB) input',
-        },
-        {
             content: "click on add to cart",
-            extra_trigger: 'label:contains(32 GB) input:propChecked',
             trigger: '#product_detail form[action^="/shop/cart/update"] .btn',
         },
         //--------------------------DEFAULT PART ENDS--------------------------------------
@@ -39,25 +46,29 @@ tour.register('shop_buy_product', {
             trigger: 'a[id="nobill_noship"]',
         },
         {
-            content: "filling in",
-            trigger: '.div_name input:contains[name="name"] input',
+            content: "filling in name",
+            trigger: '.div_name input[name="name"]',
             run: "text name",
         },
         {
-            content: "filling in",
-            trigger: '#div_email input:contains[name="email"] input',
+            content: "filling in email",
+            trigger: '#div_email input[name="email"]',
             run: "text email@email.mn",
         },
         {
-            content: "filling in",
-            trigger: '#div_phone input:contains[name="phone"] input',
+            content: "filling in phone",
+            trigger: '#div_phone input[name="phone"]',
             run: "text 1234567890",
         },
         {
             content: "Confirm checkout",
             trigger: 'a:contains("Next")',
         },
+        {
+            content: "Confirm checkout",
+            extra_trigger: 'h2:contains(Thank you for your order)',
+            trigger: 'a[href="/shop/print"]',
+        },
     ]
 );
-
 });
