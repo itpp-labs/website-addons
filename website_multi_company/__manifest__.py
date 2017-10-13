@@ -47,4 +47,23 @@
     ],
     "demo_url": "website-multi-company",
     "demo_summary": "The module allows to set up multi-company, multi-website, multi-theme, multi-eCommerce on a single database!",
+    "demo_images": [
+        "images/website_multi_company_main.png",
+        "static/description/icon.png",
+        "static/description/website_apple.png",
+        "static/description/website_commerce1.png",
+        "static/description/website_commerce2.png",
+        "static/description/website_commerce3.png",
+        "static/description/website_form.png",
+        "static/description/website_menus.png",
+        "static/description/website_samsung.png",
+        "static/description/website_so1.png",
+        "static/description/website_so1_1.png",
+        "static/description/website_so2.png",
+        "static/description/website_so2_1.png",
+        "static/description/website_so3.png",
+        "static/description/website_so3_1.png",
+        "static/description/website_xiaomi.png",
+        "static/description/website_menu.png",
+    ]
 }
