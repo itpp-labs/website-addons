@@ -1,0 +1,11 @@
+--2017-10-15 10:12:34--  https://raw.githubusercontent.com/it-projects-llc/odoo-development/master/docs/images/module-icons/website/icon.png
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 151.101.112.133
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|151.101.112.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 2292 (2.2K) [image/png]
+Saving to: ‘icon.png’
+
+     0K ..                                                    100% 42.0M=0s
+
+2017-10-15 10:12:34 (42.0 MB/s) - ‘icon.png’ saved [2292/2292]
+

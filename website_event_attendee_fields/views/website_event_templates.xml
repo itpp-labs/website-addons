@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<template id="registration_attendee_details" inherit_id="website_event.registration_attendee_details">
+    <xpath expr="//t[@t-foreach='tickets']/div[@class='row']" position="replace">
+        <div class="row">
+            <t t-foreach="event.attendee_fields" t-as="field">
+                <div t-attf-class="col-md-{{field.width}}"><strong t-raw="field.field_description"/><t t-if="not field.is_required"><span class="text-muted">(Optional)</span></t></div>
+            </t>
+        </div>
+    </xpath>
+
+    <xpath expr="//t[@t-as='att_counter']/div[@class='row mb4']" position="replace">
+        <div class="row mb4">
+            <t t-set="attendee_placeholder">Attendee #%s</t>
+            <t t-foreach="event.attendee_fields" t-as="field">
+                <div t-attf-class="col-md-{{field.width}}">
+                    <input
+                        class='form-control'
+                        t-att-type='field.form_type'
+                        t-attf-name="#{counter}-#{field.field_name}"
+                        t-attf-required="field.is_required and 'This field is required' or ''"
+                        t-att-placeholder="attendee_placeholder and (attendee_placeholder %counter) or ''"/>
+                </div>
+                <t t-set="attendee_placeholder"></t>
+
+            </t>
+            <input class='hidden' type='text' t-attf-name="#{counter}-ticket_id" t-attf-value="#{ticket['id']}"/>
+        </div>
+    </xpath>
+</template>
+
+</odoo>

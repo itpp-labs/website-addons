@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="view_event_event_form">
+        <field name="name">event.event.attendee_fields.form</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Website Fields">
+                    <field name="attendee_fields">
+                        <tree>
+                            <field name="field_id"/>
+                            <field name="is_required"/>
+                            <field name="form_type"/>
+                            <field name="width"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
