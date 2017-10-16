@@ -43,7 +43,6 @@ tour.register('shop_mandatory_fields_nobill_noship', {
             content: "click on add to cart",
             trigger: '#product_detail form[action^="/shop/cart/update"] .btn',
         },
-        //--------------------------DEFAULT PART ENDS--------------------------------------
         {
             content: "select payment",
             trigger: 'a[id="nobill_noship"]',
