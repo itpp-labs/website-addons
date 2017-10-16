@@ -4,6 +4,20 @@
 
 By default ``website_event`` module asks only three fields to fill about attendees (name, email, phone). This module allows to customize any set of fields.
 
+Also,
+
+* shows field name in input placeholder (it's neede when there are many fields per each attendee)
+* depends on ``website_event_attendee_signup`` module to allow saving fields to ``res.partner`` model (signup feature is optional there)
+
+  * TODO: probably we need to update module ``partner_event`` to avoid such dependency
+
+* hides Header at Attendee form if total bootstrap width of field columns is more that 12
+
+Demo mode
+---------
+In demo installation:
+
+* on installation each Event gets standarts fields (Name, Email, Phone).
 
 Credits
 =======

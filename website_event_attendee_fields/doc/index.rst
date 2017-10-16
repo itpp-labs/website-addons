@@ -6,6 +6,7 @@ Installation
 ============
 
 * `Install <https://odoo-development.readthedocs.io/en/latest/odoo/usage/install-module.html>`__ this module in a usual way
+* After installation you need to configure each Event. Otherwise there will be no fields at website attendees form.
 
 Configuration
 =============

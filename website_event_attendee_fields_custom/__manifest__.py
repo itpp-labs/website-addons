@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
-    "name": """Customizable fields for attendees on Events""",
-    "summary": """Do you need more information about attendees than three default fields (name, email, phone)?""",
+    "name": """Attendee registration: Birthdate, Passport, Nationality""",
+    "summary": """Ask information on registration and stores at Partner record""",
     "category": "Marketing",
     # "live_test_url": "",
     "images": [],
@@ -16,19 +16,18 @@
     # "currency": "EUR",
 
     "depends": [
-        "website_event",
-        "partner_event",
+        "partner_contact_birthdate",
+        "partner_firstname",
+        "partner_identification",
+        "partner_contact_nationality",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
-        "views/website_event_templates.xml",
-        "views/event_event_views.xml",
-        "security/ir.model.access.csv",
+        "data/event_event_attendee_field_data.xml",
     ],
     "qweb": [
     ],
     "demo": [
-        "data/event_event_attendee_field_demo.xml",
         "data/event_event_demo.yml",
     ],
 
