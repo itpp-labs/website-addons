@@ -22,7 +22,7 @@
                             t-attf-name="#{counter}-#{field.field_name}"
                             t-attf-required="field.is_required and 'This field is required' or ''"
                             >
-                            <option value="">Country...</option>
+                            <option value=""><t t-esc="field.field_description"/>...</option>
                             <t t-foreach="field.get_select_options()" t-as="s">
                                 <!-- TODO default value
                                      t-att-selected="..."
