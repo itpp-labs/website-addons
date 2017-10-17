@@ -16,6 +16,7 @@
     # "currency": "EUR",
 
     "depends": [
+        "website_event_attendee_fields",
         "partner_contact_birthdate",
         "partner_firstname",
         "partner_identification",
