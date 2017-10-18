@@ -12,10 +12,12 @@
     </xpath>
 
     <xpath expr="//t[@t-as='att_counter']/div[@class='row mb4']" position="replace">
-        <div class="row">
+        <div class="row" t-att-style="att_counter_odd and 'background-color:#E7E7E7'">
             <t t-set="attendee_placeholder">[Attendee #%s] </t>
             <t t-foreach="event.attendee_field_ids" t-as="field">
-                <div t-attf-class="col-md-{{field.width}} mb8">
+                <div t-attf-class="col-md-{{field.width}} mb8 mt8">
+                    
+                    <strong t-if="not event.use_attendees_header"><t t-esc="field.field_description"/><t t-if="not field.is_required"> <span class="text-muted">(Optional)</span></t></strong>
                     <t t-if="field.form_type in ['many2one']">
                         <select
                             class="form-control"
@@ -41,7 +43,7 @@
                             t-att-type='field.form_type'
                             t-attf-name="#{counter}-#{field.field_name}"
                             t-attf-required="field.is_required and 'This field is required' or ''"
-                            t-att-placeholder="(attendee_placeholder and (attendee_placeholder %counter) or '') + field.field_description"/>
+                            t-att-placeholder="(attendee_placeholder and (attendee_placeholder %counter) or '')"/>
                         <t t-set="attendee_placeholder"></t>
                     </t>
                 </div>
