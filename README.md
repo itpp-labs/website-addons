@@ -1,5 +1,5 @@
 # website-addons
-Odoo (OpenERP) website addons
+Odoo website addons
 
 List of repositories:
 ---------------------
