@@ -21,7 +21,7 @@ class IRAttachmentBackground(models.Model):
         ids = self.ids
         cr = self.env.cr
         if ids and mode == 'read':
-            if isinstance(ids, (int, long)):
+            if isinstance(ids, int):
                 ids = [ids]
             ids = ids[:]  # make a copy
             cr.execute('SELECT id,use_as_background FROM ir_attachment WHERE id = ANY (%s)', (ids,))

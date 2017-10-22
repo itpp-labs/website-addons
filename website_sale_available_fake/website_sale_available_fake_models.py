@@ -54,10 +54,10 @@ class ProductTemplate(models.Model):
 
         if context.get('product_available_fake', False):
             product_obj = self.env['product.template']
-            product_limits = product_obj.read(res.keys(), ['limit_per_order'])
+            product_limits = product_obj.read(list(res.keys()), ['limit_per_order'])
             product_limits = dict((p['id'], p['limit_per_order']) for p in product_limits)
 
-            for id, product in res.iteritems():
+            for id, product in res.items():
                 limit = product_limits.get(id, 0)
                 if limit > 0 and limit < product['qty_available']:
                     res[id]['qty_available'] = limit
@@ -91,10 +91,10 @@ class ProductProduct(models.Model):
 
         if context.get('product_available_fake', False):
             product_obj = self.env['product.product']
-            product_limits = product_obj.read(res.keys(), ['limit_per_order'])
+            product_limits = product_obj.read(list(res.keys()), ['limit_per_order'])
             product_limits = dict((p['id'], p['limit_per_order']) for p in product_limits)
 
-            for id, product in res.iteritems():
+            for id, product in res.items():
                 limit = product_limits.get(id, 0)
                 if limit > 0 and limit < product['qty_available']:
                     res[id]['qty_available'] = limit
