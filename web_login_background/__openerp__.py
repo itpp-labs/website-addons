@@ -6,7 +6,7 @@
     "images": ['images/login.png'],
     "version": "1.0.1",
 
-    "author": "IT-Projects LLC, Ildar Nasyrov",
+    "author": "IT-Projects LLC, Ildar Nasyrov, Nicolas JEUDY",
     "support": "apps@it-projects.info",
     "website": "https://it-projects.info",
     "license": "LGPL-3",

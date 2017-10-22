@@ -2,7 +2,7 @@
 {
     'name': 'Resource booking calendar Public',
     'version': '0.1',
-    'author': 'IT-Projects LLC, Veronika Kotovich',
+    'author': 'IT-Projects LLC, Veronika Kotovich, Nicolas JEUDY',
     'license': 'LGPL-3',
     "support": "apps@it-projects.info",
     'website': 'https://twitter.com/vkotovi4',

@@ -5,7 +5,7 @@
     'category': 'eCommerce',
     'version': '1.0.0',
     'application': False,
-    'author': 'IT-Projects LLC, Ivan Yelizariev, Savoir-faire Linux',
+    'author': 'IT-Projects LLC, Ivan Yelizariev, Savoir-faire Linux, Nicolas JEUDY',
     'license': 'GPL-3',
     "support": "apps@it-projects.info",
     'website': 'https://twitter.com/yelizariev',
