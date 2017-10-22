@@ -62,7 +62,7 @@ class WebsiteFile(Website):
             website_file_url = attachment.website_file_url
         except Exception as e:
             _logger.exception("Failed to upload file to attachment")
-            message = unicode(e)
+            message = str(e)
 
         return """<script type='text/javascript'>
             window.parent['%s'](%s, %s, %s);

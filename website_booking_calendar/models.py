@@ -61,7 +61,7 @@ class SaleOrderLine(models.Model):
                             }
                     # join adjacent hour intervals to one SO position
                     for h in bookings[r]:
-                        if h == hour or bookings[r][h]['products'].keys() != bookings[r][hour]['products'].keys():
+                        if h == hour or list(bookings[r][h]['products'].keys()) != list(bookings[r][hour]['products'].keys()):
                             continue
                         adjacent = False
                         if bookings[r][hour]['start'] == bookings[r][h]['end']:
@@ -77,23 +77,23 @@ class SaleOrderLine(models.Model):
                                 'start_f': bookings[r][hour]['start_f']
                             })
                         if adjacent:
-                            for id, p in bookings[r][h]['products'].iteritems():
+                            for id, p in bookings[r][h]['products'].items():
                                 bookings[r][h]['products'][id]['quantity'] += bookings[r][hour]['products'][id]['quantity']
                             del bookings[r][hour]
                             break
                 hour_dt += timedelta(hours=MIN_TIMESLOT_HOURS)
         # calculate prices according to pricelists
-        for k1, v1 in bookings.iteritems():
-            for k2, v2 in v1.iteritems():
-                for id, product in v2['products'].iteritems():
+        for k1, v1 in bookings.items():
+            for k2, v2 in v1.items():
+                for id, product in v2['products'].items():
                     bookings[k1][k2]['products'][id]['price'] = self.env['product.product'].browse(product['id']).with_context({
                         'quantity': product['quantity'],
                         'pricelist': pricelist_id,
                         'partner': partner.id
                     }).price * product['quantity']
         res = []
-        for r in bookings.values():
-            res += r.values()
+        for r in list(bookings.values()):
+            res += list(r.values())
         return res
 
 
