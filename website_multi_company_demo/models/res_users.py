@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import re
-import urlparse
+from urllib.parse import urlparse
 
 from odoo import models, SUPERUSER_ID, api
 
