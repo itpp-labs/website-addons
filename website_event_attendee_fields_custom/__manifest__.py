@@ -21,6 +21,7 @@
         "partner_firstname",
         "partner_identification",
         "partner_contact_nationality",
+        "website_event_sale",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [

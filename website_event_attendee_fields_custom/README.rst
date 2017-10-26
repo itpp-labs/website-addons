@@ -13,6 +13,12 @@ Ask information on registration and stores at Partner record:
 
 Key features are provided by dependencies. See `<__manifest__.py>`_
 
+Also,
+
+* /event/EVENT-ID/register is accessable for registered users only
+
+  * TODO: move it to a separate module
+
 Credits
 =======
 
