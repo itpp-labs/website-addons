@@ -28,11 +28,15 @@ class EventRegistration(models.Model):
 
         if res.event_id.attendee_signup and res.partner_id:
             # no_reset_password means don't send invitation email with standart template
+            login = res.partner_id.email
             user = self.env['res.users']\
-                ._signup_create_user({
-                    'login': res.partner_id.email,
-                    'partner_id': res.partner_id.id,
-                })
+                   .search([('login', '=ilike', login)])
+            if not user:
+                user = self.env['res.users']\
+                           ._signup_create_user({
+                               'login': login,
+                               'partner_id': res.partner_id.id,
+                           })
             user.partner_id.signup_prepare()
             template = self.env.ref('website_event_attendee_signup.email_template_signup')
             res.message_post_with_template(template.id, composition_mode='comment')
