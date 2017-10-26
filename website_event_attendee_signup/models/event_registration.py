@@ -30,7 +30,7 @@ class EventRegistration(models.Model):
             # no_reset_password means don't send invitation email with standart template
             login = res.partner_id.email
             user = self.env['res.users']\
-                   .search([('login', '=ilike', login)])
+                       .search([('login', '=ilike', login)])
             if not user:
                 user = self.env['res.users']\
                            ._signup_create_user({
