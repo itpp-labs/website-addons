@@ -70,3 +70,11 @@ class AttendeeField(models.Model):
             for r in records
         ]
         return res
+
+    @api.multi
+    def get_value(self, partner):
+        self.ensure_one()
+        v = getattr(partner, self.field_name)
+        if self.form_type == 'many2one':
+            v = v.id
+        return v

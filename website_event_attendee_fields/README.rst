@@ -12,6 +12,7 @@ Also,
   * TODO: probably we need to update module ``partner_event`` to avoid such dependency
 
 * hides Header at Attendee form if total bootstrap width of field columns is more that 12
+* If user is authenticated, then first attendee at the form will have autofilled values
 
 Demo mode
 ---------
