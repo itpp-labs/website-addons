@@ -54,4 +54,36 @@
     </xpath>
 </template>
 
+<template id="registration_complete" inherit_id="website_event.registration_complete">
+    <xpath expr="//thead/tr" position="replace">
+        <tr>
+            <th>Reference</th>
+            <t t-foreach="event.attendee_field_ids" t-as="field">
+                <th><t t-raw="field.field_description"/></th>
+            </t>
+        </tr>
+    </xpath>
+    <xpath expr="//tbody//tr" position="replace">
+        <tr>
+            <td><t t-esc="attendee.id"/></td>
+
+            <t t-foreach="event.attendee_field_ids" t-as="field">
+                <t t-set="field_value" t-value="field.get_value(attendee.partner_id) or 'N/A'"/>
+                <td>
+                <!--TODO customizable fa icons for fields-->
+                <!--<i class="fa fa-user"></i> --><t t-esc="field_value"/>
+                </td>
+            </t>
+        </tr>
+    </xpath>
+    <xpath expr="//table" position="after">
+        <style type="text/css">
+            table td{
+            word-wrap: break-word;
+            }
+        </style>
+    </xpath>
+</template>
+
+
 </odoo>
