@@ -3,6 +3,7 @@ import logging
 
 from odoo.tests.common import HttpCase
 
+
 _logger = logging.getLogger(__name__)
 
 
@@ -10,12 +11,11 @@ class TestBackend(HttpCase):
     at_install = False
     post_install = True
 
-
     def reset_demo(self):
         # other modules may override this data
         self.env['event.event'].search([]).write({
             'create_partner': True,
-            'attendee_field_ids': [(6,0,[
+            'attendee_field_ids': [(6, 0, [
                 self.env.ref('website_event_attendee_fields.attendee_field_name').id,
                 self.env.ref('website_event_attendee_fields.attendee_field_email').id,
                 self.env.ref('website_event_attendee_fields.attendee_field_phone').id,
