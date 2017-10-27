@@ -15,7 +15,6 @@ class EventRegistration(models.Model):
     def create(self, vals):
         event = self.env['event.event'].browse(vals['event_id'])
         partner = vals.get('partner_id')
-        print 'SIGNUP: create: partner=%s' % partner
         if partner:
             vals['agent_id'] = partner
 
