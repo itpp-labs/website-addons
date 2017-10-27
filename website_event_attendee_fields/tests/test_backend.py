@@ -32,6 +32,7 @@ class TestBackend(common.TestCase):
             'email': email_value,
             'country_id': country.id,
         }
+        print 'before create', '*'*100
         registration = self.env['event.registration'].create(
             self.env['event.registration']._prepare_attendee_values(registration_data)
         )

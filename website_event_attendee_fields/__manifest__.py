@@ -18,6 +18,7 @@
     "depends": [
         "website_event",
         "partner_event",
+        "website_event_attendee_signup",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
@@ -30,6 +31,7 @@
     "demo": [
         "data/event_event_attendee_field_demo.xml",
         "data/event_event_demo.yml",
+        "views/assets_demo.xml",
     ],
 
     "post_load": None,

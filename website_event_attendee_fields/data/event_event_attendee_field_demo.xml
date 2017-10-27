@@ -25,5 +25,12 @@
         <field name="form_type">many2one</field>
         <field name="width">3</field>
     </record>
+
+    <record id="attendee_field_function" model="event.event.attendee_field">
+        <field name="field_id" ref="base.field_res_partner_function"/>
+        <field name="form_type">text</field>
+        <field name="width">3</field>
+        <field name="is_required" eval="False"/>
+    </record>
     
 </odoo>

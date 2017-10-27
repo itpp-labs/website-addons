@@ -18,7 +18,7 @@ Demo mode
 ---------
 In demo installation:
 
-* on installation each Event gets standarts fields (Name, Email, Phone).
+* on installation each Event gets standarts fields (Name, Email, Phone) and two fields from partner (Country, Job Position)
 
 Credits
 =======

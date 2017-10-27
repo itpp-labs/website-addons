@@ -12,10 +12,13 @@ class EventRegistration(models.Model):
 
     @api.model
     def _prepare_attendee_values(self, registration):
-        """Extend it to pass partner values too (we remove them later in _prepare_partner)"""
+        """Extend it to pass partner values too (we remove them later in _prepare_partner)
+        we skip partner_id field to avoid email field overriding. T
+        """
         data = super(EventRegistration, self)._prepare_attendee_values(registration)
         partner_fields = self.env['res.partner']._fields
-        data.update({key: registration[key] for key in registration.keys() if key in partner_fields})
+        data.update({key: registration[key] for key in registration.keys() if key in partner_fields and key != 'partner_id'})
+        _logger.debug('_prepare_attendee_values: %s', data)
         return data
 
     def _prepare_partner(self, vals):
