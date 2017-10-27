@@ -33,7 +33,8 @@ odoo.define('website_event_attendee_fields.test_tour', function (require) {
         },
         {
             content: "Fill attendees details",
-            trigger: 'form[id="attendee_registration"] .btn:contains("Continue")',
+            extra_trigger: "input[name='1-function']",
+            trigger: "input[name='1-name']",
             run: function () {
                 $("input[name='1-name']").val("Att1");
                 $("input[name='1-phone']").val("111 111");

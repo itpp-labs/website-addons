@@ -31,14 +31,16 @@ class TestBackend(HttpCase):
             '/event',
 
             "odoo.__DEBUG__.services['web_tour.tour']"
-            ".run('website_event_attendee_fields_test_tour_base')",
+            ".run('website_event_attendee_fields_test_tour_base', 2000)",
 
             "odoo.__DEBUG__.services['web_tour.tour']"
             ".tours.website_event_attendee_fields_test_tour_base.ready",
 
-            login='demo'
+            login='demo',
+            timeout=120,
         )
-        time.sleep(10)  # wait few second to finish last request in the tour. TODO: check it via tour
+        time.sleep(5)  # wait few second to finish last request in the tour. TODO: check it via tour
+
         att1_email = "att1@example.com"
         att1_function = "JOB1"
         att1 = self.env['res.partner'].search([('email', '=', att1_email)])
