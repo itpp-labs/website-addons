@@ -59,10 +59,6 @@ odoo.define('website_event_attendee_fields.test_tour', function (require) {
             extra_trigger: "input[name='1-name'], input[name='2-name'], input[name='3-name']",
             trigger: 'button:contains("Continue")',
         },
-        {
-            content: "Checkout started",
-            trigger: '#step20',
-        },
 
     ]);
 
