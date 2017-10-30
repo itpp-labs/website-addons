@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+<template id="registration_template" inherit_id="website_event.registration_template">
+    <xpath expr="." position="inside">
+
+        <!-- solution from https://stackoverflow.com/questions/22983013/how-to-get-html-5-input-type-date-working-in-firefox-and-or-ie-10 -->
+        <!-- cdn for modernizr, if you haven't included it already -->
+        <script src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
+        <!-- polyfiller file to detect and load polyfills -->
+        <script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
+
+    </xpath>
+</template>
+
 <template id="registration_attendee_details" inherit_id="website_event.registration_attendee_details">
 
     <xpath expr="//t[@t-foreach='tickets']/div[@class='row']" position="replace">
@@ -52,6 +64,13 @@
             <input class='hidden' type='text' t-attf-name="#{counter}-ticket_id" t-attf-value="#{ticket['id']}"/>
         </div>
     </xpath>
+    <xpath expr="." position="inside">
+        <script type="text/javascript">
+            //webshims.setOptions('waitReady', false);
+            webshims.setOptions('forms-ext', {types: 'date'});
+            webshims.polyfill('forms forms-ext');
+        </script>
+    </xpath>
 </template>
 
 <template id="registration_complete" inherit_id="website_event.registration_complete">
@@ -84,6 +103,5 @@
         </style>
     </xpath>
 </template>
-
 
 </odoo>
