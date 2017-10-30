@@ -15,7 +15,7 @@
 
             You was registered as attendee of ${object.event_id.name}. You will receive ticket as soon as registration is confimed.
 
-            % if object.partner_id.signup_valid:
+            % if ctx.get('send_signup_link'):
                 For a while use the link below to sing-up on portal to access your event dashboard:
                     <div style="padding:0px;width:600px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777">
                         <div style="text-align: center; margin-top: 16px;">
