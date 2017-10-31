@@ -13,7 +13,6 @@ tour.register('shop_mandatory_fields_bill_noship', {
         // for unsigned user
         {
             content: "search ipod",
-            extra_trigger: 'b:contains("Sign in")',
             trigger: 'form input[name="search"]',
             run: "text ipod",
         },
