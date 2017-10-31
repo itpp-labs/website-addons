@@ -10,20 +10,7 @@ tour.register('shop_mandatory_fields_bill_noship', {
     wait_for: base.ready()
 },
     [
-        {
-            content: "log out dropdown",
-            trigger: '#top_menu a[href="#"]',
-        },
-        {
-            content: "log out",
-            trigger: '#o_logout a[href="/web/session/logout?redirect=/"]',
-        },
-        {
-            content: "log out",
-            extra_trigger: 'b:contains("Sign in")',
-            trigger: 'a[href="/shop"]',
-        },
-        // further for unsigned user
+        // for unsigned user
         {
             content: "search ipod",
             extra_trigger: 'b:contains("Sign in")',
