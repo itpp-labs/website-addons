@@ -50,4 +50,3 @@ class TestBackend(HttpCase):
 
         registration = self.env['event.registration'].search([('partner_id', '=', att1.id)])
         self.assertTrue(registration, 'Registration for attendee #1 is not created')
-

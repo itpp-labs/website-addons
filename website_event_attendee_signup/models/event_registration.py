@@ -43,7 +43,6 @@ class EventRegistration(models.Model):
                 self._prepare_partner(vals)
             )
 
-
         if res.event_id.attendee_signup and res.partner_id:
             login = res.partner_id.email
             user = self.env['res.users']\
