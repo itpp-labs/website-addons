@@ -7,19 +7,18 @@ import odoo.tests
 class TestUi(odoo.tests.HttpCase):
 
     def test_checkout(self):
-        # self.phantom_js("/", "odoo.__DEBUG__.services['web_tour.tour'].run('shop_mandatory_fields_nobill_noship')",
-        #                 "odoo.__DEBUG__.services['web_tour.tour'].tours.shop_mandatory_fields_nobill_noship.ready",
-        #                 login="admin")
+        self.phantom_js("/", "odoo.__DEBUG__.services['web_tour.tour'].run('shop_mandatory_fields_nobill_noship')",
+                        "odoo.__DEBUG__.services['web_tour.tour'].tours.shop_mandatory_fields_nobill_noship.ready",
+                        login=None)
 
         self.phantom_js("/", "odoo.__DEBUG__.services['web_tour.tour'].run('shop_mandatory_fields_bill_noship')",
                         "odoo.__DEBUG__.services['web_tour.tour'].tours.shop_mandatory_fields_bill_noship.ready",
-                        login="admin")
+                        login=None)
 
         self.phantom_js("/", "odoo.__DEBUG__.services['web_tour.tour'].run('shop_mandatory_fields_bill_ship')",
                         "odoo.__DEBUG__.services['web_tour.tour'].tours.shop_mandatory_fields_bill_ship.ready",
-                        login="admin")
+                        login=None)
 
         self.phantom_js("/", "odoo.__DEBUG__.services['web_tour.tour'].run('shop_mandatory_fields_nobill_ship')",
                         "odoo.__DEBUG__.services['web_tour.tour'].tours.shop_mandatory_fields_nobill_ship.ready",
-                        login="admin")
-
+                        login=None)
