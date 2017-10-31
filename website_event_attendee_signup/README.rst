@@ -10,7 +10,10 @@ Also, the module does following:
 * Modifies behaviour of ``event_partner`` module:
 
   * create partner if Contact's email (``partner_id.email`` in ``event.registration``) differs from attendees email (``email`` in ``event.registration``)
+  * updates Contact's data at any way
 
+.. This feature is not confirmed and commented out for a while
+.. * Don't allow to create registration if person with that email is already registered
 
 Credits
 =======

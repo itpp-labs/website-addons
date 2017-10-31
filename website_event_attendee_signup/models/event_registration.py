@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import api, fields, models
+from odoo import api, fields, models, exceptions, _
 
 
 class EventRegistration(models.Model):
@@ -14,7 +14,18 @@ class EventRegistration(models.Model):
     @api.model
     def create(self, vals):
         event = self.env['event.event'].browse(vals['event_id'])
+        ## This feature is not confirmed and commented out for a while
+        #email = vals.get('email')
+        #if email:
+        #    att = self.search([
+        #        ('partner_id.email', '=', email),
+        #        ('event_id', '=', event.id),
+        #    ])
+        #    if att:
+        #        raise exceptions.UserError(_('Person with email %s is already registered') % email)
+
         partner = vals.get('partner_id')
+        update_partner = True
         if partner:
             vals['agent_id'] = partner
 
@@ -23,8 +34,15 @@ class EventRegistration(models.Model):
                 if vals.get('email') != partner.email:
                     # delete it to force event_partner module to create new partner for this attendee
                     del vals['partner_id']
+                    update_partner = False
 
         res = super(EventRegistration, self).create(vals)
+
+        if res.partner_id and update_partner:
+            res.partner_id.write(
+                self._prepare_partner(vals)
+            )
+
 
         if res.event_id.attendee_signup and res.partner_id:
             login = res.partner_id.email
