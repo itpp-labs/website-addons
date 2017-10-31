@@ -26,7 +26,7 @@
     <xpath expr="//t[@t-as='att_counter']/div[@class='row mb4']" position="replace">
         <div class="row" t-att-style="att_counter_odd and 'background-color:#E7E7E7'">
             <t t-set="attendee_placeholder">[Attendee #%s] </t>
-            <t t-set="autofill_user" t-value="counter==1 and env.user"/>
+            <t t-set="autofill_user" t-value="counter==1 and not event.is_participating and env.user"/>
             <t t-foreach="event.attendee_field_ids" t-as="field">
                 <t t-set="field_value" t-value="autofill_user and field.get_value(autofill_user.partner_id) or ''"/>
                 <div t-attf-class="col-md-{{field.width}} mb8 mt8">
