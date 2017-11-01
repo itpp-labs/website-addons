@@ -47,4 +47,7 @@
     ],
     "demo_url": "website-multi-company",
     "demo_summary": "The module allows to set up multi-company, multi-website, multi-theme, multi-eCommerce on a single database!",
+    "demo_images": [
+        "images/website_multi_company_main.png",
+    ]
 }

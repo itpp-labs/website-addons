@@ -27,6 +27,14 @@ For example:
 
 	@   A   your_server_ip_address
 
+Web Server
+----------
+Your webserver (e.g. Apache or Nginx) must pass header ``Host`` to odoo, otherwise there is no way to define which website is used. Required configuration for nginx looks as following::
+
+        proxy_set_header Host $host;
+
+
+
 Single database deployment 
 --------------------------
 
