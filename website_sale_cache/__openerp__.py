@@ -23,5 +23,5 @@
         "data/ir_action_server.xml",
         "data/base_action_rules.xml",
     ],
-    "installable": True,
+    "installable": False,
 }
