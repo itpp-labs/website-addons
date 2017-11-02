@@ -4,7 +4,7 @@ from odoo import models
 
 
 class ProductTag(models.Model):
-    _inherit = "product.tag"
+    _inherit = "product.template.tag"
 
     @api.model
     def _get_styles(self):
