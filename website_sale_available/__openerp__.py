@@ -18,5 +18,5 @@
     'data': [
         'views/website_sale_available_views.xml',
     ],
-    'installable': True,
+    'installable': False,
 }

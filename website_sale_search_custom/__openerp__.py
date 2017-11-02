@@ -13,5 +13,5 @@
     'depends': ['website_sale_search_clear', 'website_sale_search_tags'],
     'data': [],
     "post_load": None,
-    'installable': True
+    'installable': False
 }

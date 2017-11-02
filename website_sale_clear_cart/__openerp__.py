@@ -13,5 +13,5 @@
     'data': [
         'website_sale_clear_cart_views.xml',
     ],
-    'installable': True,
+    'installable': False,
 }
