@@ -8,6 +8,13 @@
         <script src="//cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
         <!-- polyfiller file to detect and load polyfills -->
         <script src="//cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
+        <script type="text/javascript">
+            /* webshims.setOptions('waitReady', false); */
+            webshims.setOptions('forms-ext', {types: 'date'});
+            webshims.polyfill('forms forms-ext');
+            $('form').updatePolyfill();
+        </script>
+
     </xpath>
 </template>
 
@@ -64,9 +71,8 @@
     </xpath>
     <xpath expr="div" position="inside">
         <script type="text/javascript">
-            //webshims.setOptions('waitReady', false);
-            webshims.setOptions('forms-ext', {types: 'date'});
-            webshims.polyfill('forms forms-ext');
+            /* apply webshims for dynamically added form */
+            $('form').updatePolyfill();
         </script>
     </xpath>
 </template>
