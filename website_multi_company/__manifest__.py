@@ -18,6 +18,7 @@
     "depends": [
         "website",
         "website_multi_theme",
+        "ir_config_parameter_multi_company",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
@@ -44,7 +45,6 @@
     ],
     "demo_addons_hidden": [
         "website_multi_company_demo",
-        "ir_config_parameter_multi_company",
     ],
     "demo_url": "website-multi-company",
     "demo_summary": "The module allows to set up multi-company, multi-website, multi-theme, multi-eCommerce on a single database!",
