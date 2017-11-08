@@ -18,6 +18,7 @@
     "depends": [
         "website",
         "website_multi_theme",
+        "ir_config_parameter_multi_company",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
