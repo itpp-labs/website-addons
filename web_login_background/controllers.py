@@ -14,7 +14,7 @@ class Background(Home):
         if picture_url:
             request.params['picture_url'] = picture_url
 
-        return super(Background, self).web_login(**kw)
+        return super(Background, self).web_login(redirect=redirect, **kw)
 
 
 class BackgroundSignup(AuthSignupHome):
@@ -25,4 +25,4 @@ class BackgroundSignup(AuthSignupHome):
         if picture_url:
             request.params['picture_url'] = picture_url
 
-        return super(BackgroundSignup, self).web_auth_signup(**kw)
+        return super(BackgroundSignup, self).web_auth_signup(redirect=redirect, **kw)
