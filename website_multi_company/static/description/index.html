@@ -37,6 +37,10 @@
 			  </li>
 			  <li>
 				<i class="fa fa-check-square-o text-primary"></i>
+				multi-payment (different payment methods per each company) 
+			  </li>
+			  <li>
+				<i class="fa fa-check-square-o text-primary"></i>
 				compatible with multi-company
 			  </li>
 			  <li>
@@ -281,6 +285,76 @@
  		<font size="4px">As a result you can see different websites for different companies in your database.</font>
       </p>		
     </div>
+   </div>
+</section>
+
+<section class="oe_container oe_dark">
+  <div class="oe_row oe_spaced">
+    <div class="oe_span12">
+	  <h3 class="oe_slogan">Multi-payment settings</h3>
+      <p class="oe_mt32">
+ 		<font size="3px">Note that you can use different payment acquirers per each website. Let's consider how to setup 2 different paypal accounts for 2 different websites.</font>
+      </p>
+	  <p class="oe_mt32">
+ 		<font size="3px">Go to <em>Invoicing &rarr; Configuration &rarr; Payments Acquirers</em> and open Paypal acquier form. Click on the Action &rArr; Duplicate button to create the second one </font>
+      </p>
+    </div>
+    <div class="oe_row_img oe_centered">
+      <img class="oe_demo oe_picture oe_screenshot" src="duplicate_paypal.png"/>
+    </div>
+   </div>
+</section>
+
+<section class="oe_container">
+  <div class="oe_row oe_spaced">
+    <div class="oe_span12">
+      <p class="oe_mt32">
+ 		<font size="3px" class="text-center">
+		  <ul>
+			<li>For <b>Paypal 1</b>: set <b>Company 1</b> and provided credentials</li>
+		  </ul>
+		</font>
+      </p>
+    </div>
+    <div class="oe_row_img oe_centered">
+      <img class="oe_demo oe_picture oe_screenshot" src="paypal1.png"/>
+    </div>
+	<p class="oe_mt32">
+ 		<font size="3px" class="text-center">
+		  <ul>
+			<li>For <b>Paypal 2</b>: set <b>Company 2</b> and provided credentials</li>
+		  </ul>
+		</font>
+      </p>
+	<div class="oe_row_img oe_centered">
+      <img class="oe_demo oe_picture oe_screenshot" src="paypal2.png"/>
+    </div>
+   </div>
+</section>
+
+<section class="oe_container">
+  <div class="oe_row oe_spaced">
+    <div class="oe_span12">
+      <p class="oe_mt32">
+ 		<font size="3px">
+		  <ul>
+			<li>Switch to <b>Company 1</b> from the right upper corner</li>
+			<li>Go to <em>Settings &rarr; System Parameters</em></li>
+			<li>Create a parameter with following values for <b>Paypal 1</b>: <br/>
+			    <code>Key: payment_paypal.pdt_token</code> <br/>
+			    <code>Value: Identity Token for Paypal 1</code>
+			</li>
+			<li>Then switch to <b>Company 2</b> and make the same steps for <b>Paypal 2</b></li>
+		  </ul>
+		</font>
+      </p>
+    </div>
+    <div class="oe_row_img oe_centered">
+      <img class="oe_demo oe_picture oe_screenshot" src="system_param_paypal.png"/>
+    </div>
+	<p class="oe_mt32">
+	  <font size="4px">Detailed instruction about how to configure Paypal account and get <em>Paypal Identity Token</em> you can find <a href="https://www.odoo.com/documentation/user/10.0/ecommerce/shopper_experience/paypal.html" target="_blank">here</a></font>
+	</p>
    </div>
 </section>
 

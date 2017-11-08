@@ -35,17 +35,6 @@ Roadmap
 
 * Currently, all websites share the same footer
 
-* Currently, all websites share the same theme. Possible solution to implement:
-
-  * add many2many field website_ids to ``ir.ui.view``
-  * rewrite ``get_inheriting_views_arch``
-
-    * filter out views with non empty  website_ids and current website is not in website_ids
-    * get website from context.
-    * take care about context -- inherit render in ir.ui.view and update context if website_enabled (see module website)
-
-  * rewrite ``theme_customize_get`` and ``theme_customize`` controllers and use both active and website_id fields to work with theme status
-
 Credits
 =======
 
