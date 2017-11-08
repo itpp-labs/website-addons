@@ -237,7 +237,7 @@ Steps for eCommerce
 Multi-payment
 -------------
 
-Note that you are able to use different payment acquiers per each website.
+Note that you are able to use different payment acquiers per each company.
 
 E.g. to use different Paypal accounts for different websites you need to make the following steps:
 
