@@ -174,26 +174,6 @@ Configuration
   * **Favicon** -- upload website favicon
   * **Multi Theme** -- select a theme you wish to apply for website, e.g. *theme_bootswatch* (if you install any of supported themes after installing this module, you should click on **Reload** button to be able to use them)
 
-Note that to use *Multi Theme* feature you should have the latest updates of Odoo or at least include the following 3 commits:
-  * https://github.com/odoo/odoo/commit/15bf41270d3abb607e7b623b59355594cad170cf
-  * https://github.com/odoo/odoo/commit/7c6714d7fee4125f037ef194f9cff5235a6c5320
-  * https://github.com/odoo/odoo/commit/48fe0a595308722a26afd5361432f24c610b4ba0
-
-To apply them you can use git commands or use patch file ``commits-for-multitheme.patch``. The patch can be found at  module source. Exact commands are as following:
-
-If odoo is a git folder::
-
-    cd /path/to/odoo/source
-    git fetch
-    git cherry-pick 15bf41270d3abb607e7b623b59355594cad170cf
-    git cherry-pick 7c6714d7fee4125f037ef194f9cff5235a6c5320
-    git cherry-pick 48fe0a595308722a26afd5361432f24c610b4ba0
-
-if your installation does not have git::
-
-    cd /path/to/odoo/source
-    patch -p1 < /path/to/commits-for-multitheme.patch
-
 Website Menus
 -------------
 
