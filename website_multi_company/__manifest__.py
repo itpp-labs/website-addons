@@ -23,7 +23,6 @@
     "external_dependencies": {"python": [], "bin": []},
     "data": [
         "views/website_views.xml",
-        "views/website_templates.xml",
         "views/website_menu_views.xml",
         "views/res_config_views.xml",
     ],
@@ -38,7 +37,7 @@
     "post_init_hook": None,
 
     "auto_install": False,
-    "installable": False,
+    "installable": True,
 
     "demo_title": "Real Multi Website",
     "demo_addons": [
