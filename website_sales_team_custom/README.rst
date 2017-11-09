@@ -1,4 +1,2 @@
 
 The module is not maintained since Odoo 9.0. It's useful, but may not be compatible with other modules and more general approach is needed.
-
-Tested on Odoo 8.0 d023c079ed86468436f25da613bf486a4a17d625
