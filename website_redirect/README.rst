@@ -15,4 +15,4 @@ Odoo 11.0+
 The feature is built-in since 11.0:
 
 * Activate developer mode
-* open ``[[ Website ]] >> Configuration >> Redirects ``
+* open ``[[ Website ]] >> Configuration >> Redirect``
