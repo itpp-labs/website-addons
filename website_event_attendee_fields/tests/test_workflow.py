@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import logging
-import time
 
 from odoo import api
 from odoo.tests.common import HttpCase
