@@ -1,6 +1,7 @@
 -
   !python {model: event.event}: |
     self.search([]).write({
+        'create_partner': True,
         'attendee_field_ids': [(6,0,[
             self.env.ref('website_event_attendee_fields.attendee_field_name').id,
             self.env.ref('website_event_attendee_fields.attendee_field_email').id,

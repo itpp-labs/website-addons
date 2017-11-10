@@ -15,21 +15,15 @@ odoo.define('website_event_attendee_fields.test_tour', function (require) {
             trigger: 'a[href*="/event"]:contains("Conference on Business Apps"):first',
         },
         {
-            content: "Select 1 unit of `Standard` ticket type",
+            content: "Select 2 unit of 'Free Ticket'",
             extra_trigger: '#wrap:not(:has(a[href*="/event"]:contains("Conference on Business Apps")))',
             trigger: 'select:eq(0)',
-            run: 'text 1',
-        },
-        {
-            content: "Select 2 units of `VIP` ticket type",
-            extra_trigger: 'select:eq(0):has(option:contains(1):propSelected)',
-            trigger: 'select:eq(1)',
             run: 'text 2',
         },
         {
-            content: "Click on `Order Now` button",
-            extra_trigger: 'select:eq(1):has(option:contains(2):propSelected)',
-            trigger: '.btn-primary:contains("Order Now")',
+            content: "Click on `Register Now` button",
+            extra_trigger: 'select:eq(0):has(option:contains(2):propSelected)',
+            trigger: '.btn-primary:contains("Register Now")',
         },
         {
             content: "Fill attendees details",
@@ -48,17 +42,16 @@ odoo.define('website_event_attendee_fields.test_tour', function (require) {
                 $("select[name='2-country_id']").val("1");
                 $("input[name='2-function']").val("JOB2");
 
-                $("input[name='3-name']").val("Att3");
-                $("input[name='3-phone']").val("333 333");
-                $("input[name='3-email']").val("att3@example.com");
-                $("select[name='3-country_id']").val("1");
-                $("input[name='3-function']").val("JOB3");
             }
         },
         {
             content: "Validate attendees details",
-            extra_trigger: "input[name='1-name'], input[name='2-name'], input[name='3-name']",
+            extra_trigger: "input[name='1-name'], input[name='2-name']",
             trigger: 'button:contains("Continue")',
+        },
+        {
+            content: "Dummy step to finish loadding of previous step",
+            trigger: 'h3:contains(We are glad to confirm your registration to our event)',
         },
 
     ]);
