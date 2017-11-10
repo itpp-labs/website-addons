@@ -23,7 +23,7 @@ odoo.define('website_event_attendee_fields.test_tour', function (require) {
         {
             content: "Click on `Register Now` button",
             extra_trigger: 'select:eq(0):has(option:contains(2):propSelected)',
-            trigger: '.btn-primary:contains("Register Now")',
+            trigger: '.btn-primary:contains("Register Now"),.btn-primary:contains("Order Now")',
         },
         {
             content: "Fill attendees details",
@@ -51,7 +51,8 @@ odoo.define('website_event_attendee_fields.test_tour', function (require) {
         },
         {
             content: "Dummy step to finish loadding of previous step",
-            trigger: 'h3:contains(We are glad to confirm your registration to our event)',
+            trigger: 'h3:contains(We are glad to confirm your registration to our event),a:contains(Return to Cart)',
+            run: function(){}, // needed to don't make a click on the link
         },
 
     ]);
