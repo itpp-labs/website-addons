@@ -6,17 +6,28 @@ By default ``website_event`` module asks only three fields to fill about attende
 
 Also,
 
-* shows field name in input placeholder (it's neede when there are many fields per each attendee)
 * depends on ``website_event_attendee_signup`` module to allow saving fields to ``res.partner`` model (signup feature is optional there)
 
   * TODO: probably we need to update module ``partner_event`` to avoid such dependency
 
-* hides Header at Attendee form if total bootstrap width of field columns is more that 12
+* if total bootstrap width of field columns is more that 12
+
+  * hides Header at Attendee form
+  * shows field name above each input
 
 * If user is authenticated:
 
   * first attendee at the form will have autofilled values (if person is not registered yet)
 
+* When email column is presented and there is a partner with that email:
+
+  * if partner has registration for the event:
+
+    * registration is blocked. Warning is shown
+
+  * if partner has some of fields
+
+    * grey them out with a message "This email address already has an account. Data will be taken from this account"
 
 Demo mode
 ---------

@@ -25,6 +25,7 @@
         "views/website_event_templates.xml",
         "views/event_event_views.xml",
         "security/ir.model.access.csv",
+        "views/assets.xml",
     ],
     "qweb": [
     ],

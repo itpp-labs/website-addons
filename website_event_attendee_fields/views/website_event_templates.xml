@@ -29,7 +29,8 @@
     </xpath>
 
     <xpath expr="//t[@t-as='att_counter']/div[@class='row mb4']" position="replace">
-        <div class="row" t-att-style="att_counter_odd and 'background-color:#E7E7E7'">
+        <div class="row" t-att-data-counter="counter" t-att-style="att_counter_odd and 'background-color:#E7E7E7'">
+            <div class="message col-md-12"></div>
             <t t-set="attendee_placeholder">[Attendee #%s] </t>
             <t t-set="autofill_user" t-value="counter==1 and not event.is_participating and env.user"/>
             <t t-foreach="event.attendee_field_ids" t-as="field">
@@ -56,7 +57,7 @@
                     </t>
                     <t t-else="">
                         <input
-                            class='form-control'
+                            t-attf-class="form-control #{field.field_name == 'email' and 'email' or ''}"
                             t-att-type='field.form_type'
                             t-att-value="field_value"
                             t-attf-name="#{counter}-#{field.field_name}"
@@ -73,6 +74,13 @@
         <script type="text/javascript">
             /* apply webshims for dynamically added form */
             $('form').updatePolyfill();
+
+            /* handle changing email field */
+            odoo.registration_form_init();
+            $('.email').bind('change', function(e){
+                var event_id = <t t-esc="event.id"/>;
+                odoo.registration_form_onchange_email(e, event_id);
+            })
         </script>
     </xpath>
 </template>
