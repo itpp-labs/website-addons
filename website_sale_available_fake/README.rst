@@ -11,6 +11,6 @@ Added new options on tab "Sales" of product form.
 
 If decide to uninstall this module, please update module "website_sale" to reset ir.rule for product access
 
-The module is not maintained since Odoo 9.0. It's useful, but may not be compatible with other modules and more general approach is needed.
+The module is not maintained since Odoo 9.0.
 
 Tested on Odoo 8.0 78a20a3dba07762d2de1e22072c20be1bc59d20f
