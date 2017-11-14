@@ -45,7 +45,7 @@ tour.register('shop_add_to_cart', {
         {
             content: "Confirm checkout",
             extra_trigger: 'h2:contains(Thank you for your order)',
-            trigger: 'a[href="/shop/print"]',
+            trigger: 'h2:contains(Thank you for your order)',
         },
     ]
 );
