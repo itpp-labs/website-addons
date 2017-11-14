@@ -20,7 +20,7 @@ env:
   - PYLINT_ODOO_JSLINTRC="/home/travis/maintainer-quality-tools/travis/cfg/.jslintrc"
   - TRANSIFEX_USER='i18n-bot@it-projects.info'
   - secure: "qWzliXFMrWdGAUISD6mx3slpZJuLAGWRxOWaVAphlJiBQVooKPnmSHbKkG0knI0zbAGbVwLwfl38LYhCDEIdMX4lR+qQrTSnGRDxbYqt76RO0kj2kTJhqHKi0Fs9A+C8Xag4jovG1s6BdOe//Wq/gElBlgFVlvlQlmTAlLsvIzzfdhnUQwvn0o4cvWvlABoatcBnprY9ZJT9Wn7Yt5IKR6cuKeOk0HsFzFkuk2LOLpj1fz+kuj29/NAYXdD2TGVG+aER93rvavjO3cafaiVmJSLd50PgtEjOGSArlFVdj4TDpDu3CC+/IWaSPneajVH8bLOmyCVQ06O2ql4av59Sw/FT3nn+f/0aNTy+ew+2YJ6zNMpMmG8p2HzFA0JOAevjSfOXJQ2aveEs60SkjRtQ/bVtFXGx0sR98OiXv0Yc2G086VhpwNZ8PUi6cQLDjZy0LyLtcjMdR98c04D1LYsfF1E6tnMtNsblmrcteEAOLJZMbpnj5ZZehUXzQEvh98BB/I77RFmdmxnxlJ14G2oALK9HicmHCGvQwKsjRc36JOauk/11d9cw6cx95soDL3/Q8lHQFsNMqqGswgiuoZCsCQqXOEojhoo676NtYyOhqcHSl1hx1nPwllJcsF+SRUBIIrV2gYqCOqQ5gmPGCBZziGyb4y+LAndB93KwcFETxzI="
-
+  - WKHTMLTOPDF_VERSION="0.12.4"
 
   matrix:
   - LINT_CHECK="1"
