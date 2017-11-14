@@ -13,7 +13,7 @@ $(document).ready(function () {
         return;
     var update_json = $.Deferred();
     update_json.resolve();
-    $(".oe_website_sale input.form-control").change(function () {
+    $(".quick_add_to_cart > input.form-control").change(function () {
         var $input = $(this);
         update_json = update_json.then(function(){
             var value = parseInt($input.val(), 10);
