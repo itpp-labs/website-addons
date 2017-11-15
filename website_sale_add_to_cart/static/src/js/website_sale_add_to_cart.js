@@ -5,7 +5,8 @@ odoo.define('website_sale_add_to_cart', function(require) {
 var ajax = require('web.ajax');
 
 $(document).ready(function () {
-    var page_product_id = $('input.product_id').val();//for page of a product
+    //for page of a product
+    var page_product_id = $('input.product_id').val();
 
     if (!page_product_id && !$('#products_grid_before')) {
         return;
