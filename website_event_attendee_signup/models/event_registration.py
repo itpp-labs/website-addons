@@ -14,15 +14,6 @@ class EventRegistration(models.Model):
     @api.model
     def create(self, vals):
         event = self.env['event.event'].browse(vals['event_id'])
-        ## This feature is not confirmed and commented out for a while
-        #email = vals.get('email')
-        #if email:
-        #    att = self.search([
-        #        ('partner_id.email', '=', email),
-        #        ('event_id', '=', event.id),
-        #    ])
-        #    if att:
-        #        raise exceptions.UserError(_('Person with email %s is already registered') % email)
 
         partner = vals.get('partner_id')
         update_partner = True
