@@ -23,16 +23,27 @@ class EventRegistration(models.Model):
             if event.create_partner:
                 partner = self.env['res.partner'].browse(partner)
                 if vals.get('email') != partner.email:
-                    # delete it to force event_partner module to create new partner for this attendee
-                    del vals['partner_id']
-                    update_partner = False
+                    partner_by_email = self.env['res.partner'].search([('email', '=ilike', vals.get('email'))], limit=1)
+                    if partner_by_email:
+                        vals['partner_id'] = partner_by_email.id
+                    else:
+                        # If email differs from current user
+                        # and partner doesn't exist
+                        # THEN
+                        # delete it to force event_partner module to create new partner for this attendee
+                        del vals['partner_id']
+                        update_partner = False
 
         res = super(EventRegistration, self).create(vals)
 
-        if res.partner_id and update_partner:
-            res.partner_id.write(
-                self._prepare_partner(vals)
-            )
+        if res.partner_id:
+            if update_partner:
+                res.partner_id.write(
+                    self._prepare_partner(vals)
+                )
+            # be sure, that name and phone in registration are ones from Contact and not from Agent
+            res.name = res.partner_id.name
+            res.phone = res.partner_id.phone
 
         if res.event_id.attendee_signup and res.partner_id:
             login = res.partner_id.email

@@ -38,7 +38,11 @@ class EventRegistration(models.Model):
             fn = field.field_name
             if field.field_model == 'res.partner' or fn in partner_fields:
                 # partner fields
-                res[fn] = vals.get(field.field_name)
+                value = vals.get(field.field_name)
+                if value:
+                    # Don't pass empty value, because it removes previous value.
+                    # E.g. when partner with email is specified and known fields are not filled at the form
+                    res[fn] = value
 
             if fn not in self._fields:
                 # non-registration fields
