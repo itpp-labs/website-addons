@@ -34,6 +34,3 @@ class Controller(http.Controller):
         return {
             'known_fields': known_fields
         }
-
-
-
