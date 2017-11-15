@@ -10,8 +10,9 @@ odoo.define('website_event_attendee_fields.registration_form', function (require
     function get_row($row){
         var counter = $row.attr('data-counter');
         var row = rows[counter];
-        if (row)
+        if (row){
             return row;
+        }
         var $modal = $row.parent().parent().parent();
         row = {
             counter: counter,
@@ -19,9 +20,10 @@ odoo.define('website_event_attendee_fields.registration_form', function (require
             $modal: $modal,
             $submit: $modal.find('button[type="submit"]'),
             show_msg: function (msg, color){
-                $msg = $('<span/>').html(msg);
-                if (color)
+                var $msg = $('<span/>').html(msg);
+                if (color){
                     $msg.css('color', color);
+                }
                 this.$row.find('.message').append($msg);
             },
             block: function(){
@@ -37,8 +39,9 @@ odoo.define('website_event_attendee_fields.registration_form', function (require
                 this.$row.find('input,select').removeAttr('disabled');
                 this.$row.find('.message').html('');
                 this.$row.removeClass('blocked');
-                if (!this.$modal.find('.row.blocked').length)
+                if (!this.$modal.find('.row.blocked').length){
                     this.$submit.removeAttr('disabled');
+                }
             }
         };
         rows[counter] = row;
@@ -65,9 +68,9 @@ odoo.define('website_event_attendee_fields.registration_form', function (require
     }
 
     function onchange_email(e, event_id){
-        $input = $(e.target);
+        var $input = $(e.target);
         var email = $input.val();
-        $row = $input.parent().parent();
+        var $row = $input.parent().parent();
         return api_check_email(event_id, $row, email);
     }
     function init(){
