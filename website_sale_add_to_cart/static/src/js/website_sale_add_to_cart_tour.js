@@ -41,6 +41,11 @@ tour.register('shop_add_to_cart', {
             extra_trigger: '.my_cart_quantity',
             trigger: '.my_cart_quantity',
         },
+        {
+            content: "check quantity",
+            extra_trigger: 'input[value="1"]',
+            trigger: 'input[value="1"]',
+        },
     ]
 );
 });
