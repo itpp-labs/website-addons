@@ -3,9 +3,8 @@
 import odoo.tests
 
 
-# post_install is False due to test incompatibility with website_sale_checkout_store
 @odoo.tests.common.at_install(True)
-@odoo.tests.common.post_install(False)
+@odoo.tests.common.post_install(True)
 class TestUi(odoo.tests.HttpCase):
 
     def test_add_to_cart(self):

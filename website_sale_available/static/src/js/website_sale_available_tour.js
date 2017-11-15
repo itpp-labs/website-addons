@@ -12,18 +12,18 @@ tour.register('shop_sale_available', {
     [
         // for unsigned user
         {
-            content: "search ipod",
+            content: "search iPad Retina",
             trigger: 'form input[name="search"]',
-            run: "text ipod",
+            run: "text iPad Retina",
         },
         {
-            content: "search ipod",
+            content: "search iPad Retina",
             trigger: 'form:has(input[name="search"]) .oe_search_button',
         },
         {
-            content: "select ipod",
-            extra_trigger: '.oe_product_cart a:contains("iPod")',
-            trigger: '.oe_product_cart a:contains("iPod")',
+            content: "select iPad Retina",
+            extra_trigger: '.oe_product_cart a:contains("iPad Retina")',
+            trigger: '.oe_product_cart a:contains("iPad Retina")',
         },
         {
             content: "click on add to cart",
@@ -31,20 +31,12 @@ tour.register('shop_sale_available', {
         },
         {
             content: "Process Checkout",
-            trigger: $('a.pull-right span.hidden-xs'),
+            trigger: 'a.pull-right span.hidden-xs',
         },
         {
-            content: "Confirm checkout",
-            trigger: 'a:contains("Confirm")',
-        },
-        {
-            content: "pay now",
-            trigger: 'button:contains("Pay Now")',
-        },
-        {
-            content: "Confirm checkout",
-            extra_trigger: 'h2:contains(Thank you for your order)',
-            trigger: 'h2:contains(Thank you for your order)',
+            content: "Warning block",
+            extra_trigger: 'tr.warning',
+            trigger: 'tr.warning',
         },
     ]
 );

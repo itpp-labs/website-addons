@@ -23,29 +23,23 @@ tour.register('shop_add_to_cart', {
         {
             content: "add Apple Wireless Keyboard to cart",
             extra_trigger: '.oe_product_cart a:contains("Apple Wireless Keyboard")',
+            trigger: '.quick_add_to_cart input',
+            run: "text 1",
+        },
+        {
+            content: "add Apple Wireless Keyboard to cart",
+            extra_trigger: '.oe_product_cart a:contains("Apple Wireless Keyboard")',
             trigger: '.float_left > .fa-plus',
         },
         {
-            content: "click on add to cart",
+            content: "add Apple Wireless Keyboard to cart",
+            extra_trigger: '.oe_product_cart a:contains("Apple Wireless Keyboard")',
+            trigger: 'i.fa.fa-minus',
+        },
+        {
+            content: "check product presence",
             extra_trigger: '.my_cart_quantity',
             trigger: '.my_cart_quantity',
-        },
-        {
-            content: "Process Checkout",
-            trigger: $('a.pull-right span.hidden-xs'),
-        },
-        {
-            content: "Confirm checkout",
-            trigger: 'a:contains("Confirm")',
-        },
-        {
-            content: "pay now",
-            trigger: 'button:contains("Pay Now")',
-        },
-        {
-            content: "Confirm checkout",
-            extra_trigger: 'h2:contains(Thank you for your order)',
-            trigger: 'h2:contains(Thank you for your order)',
         },
     ]
 );
