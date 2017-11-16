@@ -21,7 +21,7 @@ class SaleOrder(models.Model):
 
 
 class WebsiteConfigSettings(models.TransientModel):
-    _inherit = 'website.config.settings'
+    _inherit = 'res.config.settings'
     nobill_noship = fields.Boolean("Pickup and pay at store")
     bill_noship = fields.Boolean("Pickup at store but pay now")
     bill_ship = fields.Boolean("Pay now and get delivery")

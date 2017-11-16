@@ -2,7 +2,7 @@
 <odoo>
     <record id="website_sale_checkout_store_settings_view" model="ir.ui.view">
         <field name="name">website_sale_checkout_store_settings.config.settings.form.inherit</field>
-        <field name="model">website.config.settings</field>
+        <field name="model">res.config.settings</field>
         <field name="inherit_id" ref="website.view_website_config_settings"/>
         <field name="arch" type="xml">
             <group name="social" position="before">
