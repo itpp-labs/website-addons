@@ -13,7 +13,7 @@
             </xpath>
         </template>
         <template id="website_sale_checkout_store_cart" name="my_cart" inherit_id="website_sale.cart" priority="50">
-            <xpath expr="//div[hasclass('row')]//a[hasclass('btn','btn-primary','pull-right','mb32','mr8')][@href='/shop/checkout']" position="replace">
+            <xpath expr="//div[hasclass('row')]//a[hasclass('btn','btn-primary','pull-right')][@href='/shop/checkout']" position="replace">
                 <!--<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
                 <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
                 <t t-set="nobill_noship"
