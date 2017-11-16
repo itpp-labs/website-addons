@@ -16,5 +16,4 @@ Usage
 * RESULT:
 
   * In the right column a quantity of available products displays
-  * If there are no available products, the corresponding row is colored as red and you're not allowed to continue checkout 
-process
+  * If there are no available products, the corresponding row is colored as red and you're not allowed to continue checkout process
