@@ -5,6 +5,7 @@
     <xpath expr="." position="inside">
         <script type="text/javascript" src="/website_sale_available/static/src/js/website_sale_available.js"></script>
         <link rel='stylesheet' href='/website_sale_available/static/src/css/website_sale_available.css'/>
+        <script src="/website_sale_available/static/src/js/website_sale_available_tour.js" type="text/javascript"></script>
     </xpath>
 </template>
 
