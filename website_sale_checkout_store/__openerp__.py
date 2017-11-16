@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+
 {
     'name': """Pickup and pay at store""",
     'summary': """Simplify checkout process by excluding shipping and/or payment information""",
