@@ -8,7 +8,7 @@
 }
 
 .oe_website_sale[ship_enabled='0'] [ship='1']{
-    display:none;
+    display:none !important;
 }
 
 .oe_website_sale[bill_enabled='1'] [bill='1']{
