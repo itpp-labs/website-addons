@@ -24,7 +24,7 @@ odoo.define('website_event_attendee_fields.registration_form', function (require
                 if (color){
                     $msg.css('color', color);
                 }
-                this.$row.find('.message').append($msg);
+                this.$row.find('.message').html('').append($msg);
             },
             block: function(){
                 this.$row.find('input,select').not('.email').attr('disabled', 1);

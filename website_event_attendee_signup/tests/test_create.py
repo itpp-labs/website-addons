@@ -16,11 +16,15 @@ class TestCreate(common.TestCase):
         })
 
         self.assertEqual(
-            registration.agent_id.id,
+            registration.partner_id.id,
             agent.id
         )
+        self.assertTrue(
+            registration.attendee_partner_id,
+            "attendee_partner_id was not set"
+        )
         self.assertNotEqual(
-            registration.partner_id.id,
+            registration.attendee_partner_id,
             agent.id
         )
 
@@ -37,18 +41,18 @@ class TestCreate(common.TestCase):
         })
 
         self.assertEqual(
-            registration.agent_id.id,
+            registration.partner_id.id,
             agent.id,
             "Wrong Agent value",
         )
         self.assertEqual(
-            registration.partner_id.id,
+            registration.attendee_partner_id.id,
             agent.id,
-            "Wrong Contact value",
+            "Wrong Attendee value",
         )
 
-        self.assertEqual(
+        self.assertNotEqual(
             registration.partner_id.name,
             NEW_NAME,
-            "Contact's name was not updated",
+            "Contact's name must not be changed for security reasons",
         )

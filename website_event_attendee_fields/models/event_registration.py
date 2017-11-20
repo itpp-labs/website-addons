@@ -11,6 +11,18 @@ class EventRegistration(models.Model):
     _inherit = "event.registration"
 
     @api.model
+    def create(self, vals):
+        res = super(EventRegistration, self).create(vals)
+
+        if res.attendee_partner_id:
+            # be sure, that name and phone in registration are ones from Attendee,
+            # because built-in modules take them from Partner (buyer) if ones are no presented
+            res.name = res.attendee_partner_id.name
+            res.phone = res.attendee_partner_id.phone
+
+        return res
+
+    @api.model
     def _prepare_attendee_values(self, registration):
         """Extend it to pass partner values too (we remove them later in _prepare_partner)
         we skip partner_id field to avoid email field overriding. T

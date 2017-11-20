@@ -36,8 +36,8 @@ class TestBackend(common.TestCase):
             self.env['event.registration']._prepare_attendee_values(registration_data)
         )
         self.assertEqual(email_value, registration.email)
-        self.assertEqual(email_value, registration.partner_id.email)
-        self.assertEqual(country.id, registration.partner_id.country_id.id)
+        self.assertEqual(email_value, registration.attendee_partner_id.email)
+        self.assertEqual(country.id, registration.attendee_partner_id.country_id.id)
 
     def test_header(self):
         self.assertFalse(self.event.use_attendees_header)
