@@ -14,5 +14,5 @@
         'views.xml',
     ],
     'auto_install': True,
-    'installable': False
+    'installable': True
 }
