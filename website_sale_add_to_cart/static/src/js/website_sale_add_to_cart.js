@@ -16,7 +16,7 @@ $(document).ready(function () {
     }
     var update_json = $.Deferred();
     update_json.resolve();
-    $(".quick_add_to_cart > input.form-control").change(function () {
+    $(".input-group > input.form-control").change(function () {
         var $input = $(this);
         update_json = update_json.then(function(){
             var value = parseInt($input.val(), 10);
