@@ -24,6 +24,7 @@
     "data": [
         "views/website_views.xml",
         "views/website_menu_views.xml",
+        "views/website_page_views.xml",
         "views/res_config_views.xml",
     ],
     "qweb": [

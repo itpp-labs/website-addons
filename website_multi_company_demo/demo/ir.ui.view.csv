@@ -1,5 +1,5 @@
 "id","key","arch_base","name","website_id/id","type"
-"website_page_books","website.books","<t t-name=""website.books"">
+"website_view_books","website.books","<t t-name=""website.books"">
   <t t-call=""website.layout"">
     <div id=""wrap"" class=""oe_structure oe_empty"">
       <section class=""s_big_picture bg-gray-lighter"">
@@ -34,7 +34,7 @@
   </t>
 </t>
 ","Welcome!","website_books","QWeb"
-"website_page_bikes","website.bikes","<t t-name=""website.bikes"">
+"website_view_bikes","website.bikes","<t t-name=""website.bikes"">
   <t t-call=""website.layout"">
     <div id=""wrap"" class=""oe_structure oe_empty"">
       <section class=""s_text_image mb92"">
@@ -75,7 +75,7 @@
   </t>
 </t>
 ","Welcome!","website_bikes","QWeb"
-"website_page_watches","website.watches","<t t-name=""website.watches"">
+"website_view_watches","website.watches","<t t-name=""website.watches"">
   <t t-call=""website.layout"">
     <div id=""wrap"" class=""oe_structure oe_empty"">
       <section class=""s_image_text"">
