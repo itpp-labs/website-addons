@@ -21,6 +21,9 @@
         <field name="favicon" widget="image" class="oe_avatar oe_left"/>
       </group>
       <xpath expr="//header" position="replace"/>
+      <xpath expr="//field[@name='domain']" position="after">
+          <field name="homepage_id"/>
+      </xpath>
     </field>
   </record>
 

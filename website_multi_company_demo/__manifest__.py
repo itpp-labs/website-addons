@@ -30,8 +30,10 @@
         "demo/website.csv",
         "demo/product.template.csv",
         "demo/ir.ui.view.csv",
+        "demo/website_page.xml",
         "demo/website.menu.csv",
         "demo/website_templates.xml",
+        "demo/website_homepage.xml",
     ],
 
     "post_load": None,
