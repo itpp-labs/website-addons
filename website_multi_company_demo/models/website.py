@@ -14,4 +14,3 @@ class Website(models.Model):
         self.env.ref('website.homepage_page').write({
             'website_ids': [(6, 0, [self.env.ref('website.default_website').id])]
         })
-
