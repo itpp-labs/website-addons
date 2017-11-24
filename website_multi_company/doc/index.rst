@@ -224,14 +224,10 @@ E.g. to use different Paypal accounts for different websites you need to make th
 * go to ``[[ Invoicing ]] >> Configuration >> Payments Acquirers``
 * open Paypal acquirer and duplicate it by clicking ``[Action] -> Duplicate``
 * for the first one set Company 1, for the second - Company 2
-* activate the developer mode
-* switch to Company 1 from right upper corner
-* go to ``[[ Settings ]] >> System Parameters``
-* create a parameter with following values for the first paypal account::
+* specify the credentials provided for each acquirer:
 
-    Key: payment_paypal.pdt_token
-    Value: your Paypal Identity Token
-
-* switch to Company 2 and add system parameter for second paypal account the same way
+  * **Paypal Email ID**
+  * **Paypal Merchant ID**
+  * **Paypal PDT Token**
 
 Follow the `instruction <https://www.odoo.com/documentation/user/11.0/ecommerce/shopper_experience/paypal.html>`__ to know how to configure Paypal account and get Paypal Identity Token
