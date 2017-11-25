@@ -27,7 +27,7 @@ Also,
 
 * Modifies behaviour of ``partner_event`` module:
 
-  * always updates Registration's name and phone to corresponded values of Attendee Partner, because they be taken from Partner record (e.g. Public User)
+  * always updates Registration's name and phone to corresponded values of Attendee Partner, because they may be taken from Partner record (e.g. Public User)
 
 Demo mode
 ---------
