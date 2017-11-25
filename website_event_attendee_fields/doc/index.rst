@@ -24,5 +24,5 @@ Usage
 * RESULT: specified fields are shown
 * Fill the fields and proceed checkout
 * Go back to backend. Open menu ``Event``
-* In the way you prefer check new attendee(s) of the Event
+* Check new attendee(s) of the Event
 * Result: Attendee(s) fields are stored in **Contact** record
