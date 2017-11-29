@@ -46,7 +46,7 @@ class AttendeeField(models.Model):
     width = fields.Selection([
         (str(v), str(v))
         for v in xrange(1, 13)  # 13 is not included
-    ], string='Width', required=True, default=4, help="Field of a width in the form. One row may have width up to 12")
+    ], string='Width', required=True, default='4', help="Field of a width in the form. One row may have width up to 12")
 
     domain = fields.Char('Domain')
 
