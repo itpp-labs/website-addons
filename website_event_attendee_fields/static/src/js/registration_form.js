@@ -67,8 +67,8 @@ odoo.define('website_event_attendee_fields.registration_form', function (require
         });
     }
 
-    function onchange_email(e, event_id){
-        var $input = $(e.target);
+    function onchange_email(input, event_id){
+        var $input = $(input);
         var email = $input.val();
         var $row = $input.parent().parent();
         return api_check_email(event_id, $row, email);

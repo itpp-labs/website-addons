@@ -76,12 +76,24 @@
             /* apply webshims for dynamically added form */
             $('form').updatePolyfill();
 
-            /* handle changing email field */
             odoo.registration_form_init();
-            $('.email').bind('change', function(e){
+
+            (function(){
                 var event_id = <t t-esc="event.id"/>;
-                odoo.registration_form_onchange_email(e, event_id);
-            })
+
+                /* process line with autofilled email */
+                var $input = $("input[name='1-email']");
+                if ($input.val()){
+                    odoo.registration_form_onchange_email($input, event_id);
+                }
+
+
+                /* handle changing email field */
+                $('.email').bind('change', function(e){
+                    odoo.registration_form_onchange_email(e.target, event_id);
+                })
+
+             })()
         </script>
     </xpath>
 </template>
