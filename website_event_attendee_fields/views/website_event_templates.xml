@@ -112,7 +112,7 @@
             <td><t t-esc="attendee.id"/></td>
 
             <t t-foreach="event.attendee_field_ids" t-as="field">
-                <t t-set="field_value" t-value="field.get_value(attendee.partner_id) or 'N/A'"/>
+                <t t-set="field_value" t-value="field.get_value(attendee.attendee_partner_id) or 'N/A'"/>
                 <td>
                 <!--TODO customizable fa icons for fields-->
                 <!--<i class="fa fa-user"></i> --><t t-esc="field_value"/>
