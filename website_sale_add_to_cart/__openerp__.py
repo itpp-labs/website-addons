@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Quick add items to shopping cart',
     'version': '1.0.0',
@@ -14,5 +13,5 @@
     'data': [
         'website_sale_add_to_cart_views.xml',
     ],
-    'installable': False
+    'installable': True
 }
