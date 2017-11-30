@@ -174,30 +174,10 @@ Configuration
   * **Favicon** -- upload website favicon
   * **Multi Theme** -- select a theme you wish to apply for website, e.g. *theme_bootswatch* (if you install any of supported themes after installing this module, you should click on **Reload** button to be able to use them)
 
-Note that to use *Multi Theme* feature you should have the latest updates of Odoo or at least include the following 3 commits:
-  * https://github.com/odoo/odoo/commit/15bf41270d3abb607e7b623b59355594cad170cf
-  * https://github.com/odoo/odoo/commit/7c6714d7fee4125f037ef194f9cff5235a6c5320
-  * https://github.com/odoo/odoo/commit/48fe0a595308722a26afd5361432f24c610b4ba0
-
-To apply them you can use git commands or use patch file ``commits-for-multitheme.patch``. The patch can be found at  module source. Exact commands are as following:
-
-If odoo is a git folder::
-
-    cd /path/to/odoo/source
-    git fetch
-    git cherry-pick 15bf41270d3abb607e7b623b59355594cad170cf
-    git cherry-pick 7c6714d7fee4125f037ef194f9cff5235a6c5320
-    git cherry-pick 48fe0a595308722a26afd5361432f24c610b4ba0
-
-if your installation does not have git::
-
-    cd /path/to/odoo/source
-    patch -p1 < /path/to/commits-for-multitheme.patch
-
 Website Menus
 -------------
 
-You can edit, duplicate or create new menu at ``[[ Website Admin ]] >> Configuration >> Website Menus`` -- pay attention to fields **Website**, **Parent Menu**. In most cases, **Parent Menu** is a *Top Menu* (i.e. menu record without **Parent Menu** value). If a *website* doesn't have *Top Menu* you need to create one.
+You can edit, duplicate or create new menu at ``[[ Website Admin ]] >> Configuration >> Menus`` -- pay attention to fields **Website**, **Parent Menu**. In most cases, **Parent Menu** is a *Top Menu* (i.e. menu record without **Parent Menu** value). If a *website* doesn't have *Top Menu* you need to create one.
 
 Note. Odoo doesn't share Website Menus (E.g. Homepage, Shop, Contact us, etc.) between websites. So, you need to have copies of them.
 
@@ -244,14 +224,10 @@ E.g. to use different Paypal accounts for different websites you need to make th
 * go to ``[[ Invoicing ]] >> Configuration >> Payments Acquirers``
 * open Paypal acquirer and duplicate it by clicking ``[Action] -> Duplicate``
 * for the first one set Company 1, for the second - Company 2
-* activate the developer mode
-* switch to Company 1 from right upper corner
-* go to ``[[ Settings ]] >> System Parameters``
-* create a parameter with following values for the first paypal account::
+* specify the credentials provided for each acquirer:
 
-    Key: payment_paypal.pdt_token
-    Value: your Paypal Identity Token
+  * **Paypal Email ID**
+  * **Paypal Merchant ID**
+  * **Paypal PDT Token**
 
-* switch to Company 2 and add system parameter for second paypal account the same way
-
-Follow the `instruction <https://www.odoo.com/documentation/user/10.0/ecommerce/shopper_experience/paypal.html>`__ to know how to configure Paypal account and get Paypal Identity Token
+Follow the `instruction <https://www.odoo.com/documentation/user/11.0/ecommerce/shopper_experience/paypal.html>`__ to know how to configure Paypal account and get Paypal Identity Token

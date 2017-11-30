@@ -10,4 +10,4 @@ class Website(models.Model):
     _inherit = "website"
 
     def multi_theme_reload(self):
-        self.env['website.config.settings'].multi_theme_reload()
+        self.env['res.config.settings'].multi_theme_reload()
