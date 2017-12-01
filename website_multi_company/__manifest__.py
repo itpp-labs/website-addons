@@ -3,7 +3,7 @@
     "name": """Real Multi Website""",
     "summary": """Yes, you can set up multi-company, multi-website, multi-theme, multi-eCommerce on a single database!""",
     "category": "eCommerce",
-    "live_test_url": "http://apps.it-projects.info/shop/product/website-multi-company?version=10.0",
+    "live_test_url": "http://apps.it-projects.info/shop/product/website-multi-company?version=11.0",
     "images": ['images/website_multi_company_main.png'],
     "version": "1.1.0",
     "application": False,
@@ -23,8 +23,8 @@
     "external_dependencies": {"python": [], "bin": []},
     "data": [
         "views/website_views.xml",
-        "views/website_templates.xml",
         "views/website_menu_views.xml",
+        "views/website_page_views.xml",
         "views/res_config_views.xml",
     ],
     "qweb": [
@@ -38,7 +38,7 @@
     "post_init_hook": None,
 
     "auto_install": False,
-    "installable": False,
+    "installable": True,
 
     "demo_title": "Real Multi Website",
     "demo_addons": [

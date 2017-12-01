@@ -10,8 +10,8 @@
     <menuitem
         id="website_menu_menu"
         parent="website.menu_website_global_configuration"
-        name="Website Menus"
-        sequence="110"
+        name="Menus"
+        sequence="25"
         action="website_menu_action"/>
 
     <record id="menu_tree" model="ir.ui.view">
@@ -35,6 +35,7 @@
                         <field name="website_id" options="{'no_create': True}" required="1"/>
                         <field name="name"/>
                         <field name="url"/>
+                        <field name="page_id"/>
                         <field name="new_window"/>
                         <field name="parent_id"
                                context="{'default_website_id': website_id}"
