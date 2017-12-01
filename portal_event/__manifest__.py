@@ -16,8 +16,9 @@
     # "currency": "EUR",
 
     "depends": [
+        "event_sale",
         "website_portal",
-        "website_event_attendee_signup",
+        "partner_event",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [

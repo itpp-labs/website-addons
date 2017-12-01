@@ -4,16 +4,25 @@
 
 Allows to customers see tickets for events at Portal.
 
+website_event_attendee_signup
+-----------------------------
 
-The module to depends on ``website_event_attendee_signup`` module:
-
-* partner_id is considered to be a person who attends (out-of-box is a person bought the ticket)
-* obviously, only signuped users can use portal
+It's recommended to use this module with ``website_event_attendee_signup`` which creates user for each attendee on registration.
 
 website_portal_event
 --------------------
 
-The module is not splitted in two (e.g. portal_event and website_portal_event) as it's usually done, because since 11.0 there is no such separation.
+The module is not splitted in two where one doesn't depend on website how it's usually done (e.g. ``portal_event`` and ``website_portal_event``), because since 11.0 there is no such separation.
+
+event_sale
+----------
+
+We don't split module in two where one doesn't depend on ``event_sale`` (e.g. ``portal_event`` and ``portal_event_sale``) for following reasons:
+
+* it simplifies development and maintainance
+* we don't consider portal module without ``event_sale`` as popular
+* free events are still usable even if ``event_sale`` module is installed
+
 
 Credits
 =======
