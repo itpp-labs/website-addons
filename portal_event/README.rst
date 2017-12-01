@@ -4,6 +4,16 @@
 
 Allows to customers see tickets for events at Portal.
 
+Additional features:
+
+* Ticket transferring feature
+
+  * TODO make it optional
+  * To decrease chance of transferring to a wrong email, partner with the email must exist before transferring.
+
+Relation to other modules
+=========================
+
 website_event_attendee_signup
 -----------------------------
 

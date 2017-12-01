@@ -84,6 +84,7 @@
                     <div class="panel-heading">
                       <div class="row">
                         <div class="col-md-12">
+                          <button class="btn btn-default pull-right" data-toggle="modal" data-target="#transferTicketModal">Transfer to other person</button>
                           <h4>Ticket #<span t-esc="ticket.id"/></h4>
                         </div>
                       </div>
@@ -101,6 +102,73 @@
               </div>
               <div class="oe_structure mb32"/>
           </div>
+
+        </div>
+
+
+        <!-- Transfer Modal -->
+        <div class="modal fade" id="transferTicketModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form t-attf-action="/my/tickets/transfer" method="post">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <input type="hidden" name="ticket_id" t-att-value="ticket.id"/>
+
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&amp;times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Ticket transfering</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="transfer_email">Receiver's Email</label>
+                                <input type="email" class="form-control" name="to_email" placeholder="Email"/>
+                            </div>
+                            <div class="alert alert-danger" role="alert"><b>Warning!</b> Once confirmed this action cannot be undone</div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Confirm</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>        
+
+
+<!--
+        <script type="text/javascript">
+            (function(){
+                var ticket_id = <t t-esc="ticket.id"/>;
+
+                $('#transfer_email').bind('change', function(e){
+                    odoo.registration_form_onchange_email(e.target, event_id);
+                })
+
+             })()
+        </script>
+-->
+      </t>
+    </template>
+
+    <template id="portal_ticket_transfer" name="Ticket">
+      <t t-call="website.layout">
+        <div id="wrap">
+            <div class="container">
+                <div t-if="editor_mode" class="alert alert-warning css_editable_mode_hidden" t-ignore="True">
+                    <p>Use one of following link to see page in a mode you need.</p>
+                    <ul>
+                        <li><a href="?error=">Transfered succefully</a></li>
+                        <li><a href="?error=receiver_not_found">there is no partner with that email</a></li>
+                        <li><a href="?error=receiver_has_ticket">Partner already has ticket</a></li>
+                    </ul>
+                </div>
+
+                <div t-if="not error" t-field="website.ticket_transfer_success" class="oe_structure mt16"/>
+
+                <div t-if="error == 'receiver_not_found'" t-field="website.ticket_transfer_receiver_not_found" class="oe_structure mt16"/>
+
+                <div t-if="error == 'receiver_has_ticket'" t-field="website.ticket_transfer_receiver_has_ticket" class="oe_structure mt16"/>
+            </div>
         </div>
       </t>
     </template>

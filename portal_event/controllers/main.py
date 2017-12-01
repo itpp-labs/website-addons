@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from odoo import http
 from odoo.exceptions import AccessError
 from odoo.http import request
@@ -12,7 +11,7 @@ class website_account(website_account):
     def _tickets_domain(self, partner=None):
         partner = partner or request.env.user.partner_id
         return [
-            ('partner_id', '=', partner.id),
+            ('attendee_partner_id', '=', partner.id),
         ]
 
     @http.route()
@@ -63,7 +62,7 @@ class website_account(website_account):
     @http.route(['/my/tickets/<int:ticket>'], type='http', auth="user", website=True)
     def ticket_page(self, ticket=None, **kw):
         ticket = request.env['event.registration'].browse([ticket])
-        if not ticket:
+        if not ticket or not ticket.exists():
             return request.render("website.404")
 
         has_access = True
@@ -84,4 +83,66 @@ class website_account(website_account):
 
         return request.render("portal_event.portal_ticket_page", {
             'ticket': ticket_sudo,
+        })
+
+    @http.route(['/my/tickets/transfer'], type='http', auth="user", methods=['GET'], website=True)
+    def ticket_transfer_editor(self, **kw):
+        """Special controller to customize result messages"""
+        if not request.env.user.has_group('website.group_website_designer'):
+            return request.render("website.403")
+
+        return request.render("portal_event.portal_ticket_transfer", {
+            'editor_mode': True,
+            'error': kw.get('error')
+        })
+
+    @http.route(['/my/tickets/transfer'], type='http', auth="user", methods=['POST'], website=True)
+    def ticket_transfer(self, to_email, ticket_id, **kw):
+        ticket = request.env['event.registration'].browse([int(ticket_id)])
+        ticket.ensure_one()
+
+        has_access = True
+        try:
+            ticket.check_access_rights('read')
+            ticket.check_access_rule('read')
+        except AccessError:
+            has_access = False
+
+        has_access = has_access \
+            or ticket.partner_id.id == request.env.user.partner_id
+
+        if not has_access:
+            return request.render("website.403")
+
+        error = None
+
+        # Yes, error is None here but let's have correct indent for possible adding conditions.
+        if not error:
+            receiver = request.env['res.partner'].sudo().search([
+                ('email', '=ilike', to_email)
+            ], limit=1)
+
+        if not receiver:
+            error = 'receiver_not_found'
+
+        if not error:
+            domain = [('attendee_partner_id', '=', receiver.id),
+                      ('event_id', '=', ticket.event_id.id)]
+            if request.env['event.registration'].search_count(domain):
+                error = 'receiver_has_ticket'
+
+
+        if not error:
+            # do the transfer
+            # TODO: add note to the form about updates
+            ticket.sudo().write({
+                'attendee_partner_id': receiver.id,
+                'email': receiver.email,
+                'name': receiver.name,
+                'phone': receiver.phone,
+            })
+
+        return request.render("portal_event.portal_ticket_transfer", {
+            'to_email': to_email,
+            'error': error,
         })
