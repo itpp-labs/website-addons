@@ -19,6 +19,7 @@
         "event_sale",
         "website_portal",
         "partner_event",
+        "website_event_attendee_fields",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [

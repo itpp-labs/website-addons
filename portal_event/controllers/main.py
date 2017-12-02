@@ -4,9 +4,10 @@ from odoo.exceptions import AccessError
 from odoo.http import request
 
 from odoo.addons.website_portal.controllers.main import website_account
+from odoo.addons.website_event.controllers.main import WebsiteEventController
 
 
-class website_account(website_account):
+class website_account_extended(website_account):
 
     def _tickets_domain(self, partner=None):
         partner = partner or request.env.user.partner_id
@@ -73,7 +74,7 @@ class website_account(website_account):
             has_access = False
 
         has_access = has_access \
-            or ticket.partner_id.id == request.env.user.partner_id \
+            or ticket.attendee_partner_id.id == request.env.user.partner_id \
             or request.env.user.has_group('event.group_event_manager')
 
         if not has_access:
@@ -109,7 +110,7 @@ class website_account(website_account):
             has_access = False
 
         has_access = has_access \
-            or ticket.partner_id.id == request.env.user.partner_id
+            or ticket.attendee_partner_id.id == request.env.user.partner_id
 
         if not has_access:
             return request.render("website.403")
@@ -134,15 +135,64 @@ class website_account(website_account):
 
         if not error:
             # do the transfer
-            # TODO: add note to the form about updates
             ticket.sudo().write({
                 'attendee_partner_id': receiver.id,
                 'email': receiver.email,
                 'name': receiver.name,
                 'phone': receiver.phone,
+                'is_transferring': True,
             })
 
         return request.render("portal_event.portal_ticket_transfer", {
             'to_email': to_email,
             'error': error,
         })
+
+class WebsiteEventControllerExtended(WebsiteEventController):
+
+    @http.route(['/my/tickets/transfer/receive'], type='http', auth="user", methods=['GET', 'POST'], website=True)
+    def ticket_transfer_receive(self, transfer_ticket, **kw):
+        ticket = transfer_ticket
+        ticket = request.env['event.registration'].browse([int(ticket)])
+        ticket.ensure_one()
+
+        has_access = True
+        try:
+            ticket.check_access_rights('read')
+            ticket.check_access_rule('read')
+        except AccessError:
+            has_access = False
+
+        has_access = has_access \
+            or ticket.attendee_partner_id.id == request.env.user.partner_id
+
+        if not has_access:
+            return request.render("website.403")
+
+        if request.httprequest.method == 'GET':
+            tickets = self._process_tickets_details({'nb_register-0': 1})
+            return request.env['ir.ui.view'].render_template(
+                "portal_event.ticket_transfer_receive", {
+                    'transfer_ticket': ticket,
+                    'tickets': tickets,
+                    'event': ticket.event_id,
+                })
+
+        # handle filled form
+
+        receiver = ticket.attendee_partner_id
+        registration = _process_registration_details(kw)[0]
+        receiver.write({
+            request.env['event.registration']._prepare_partner(registration)
+        })
+
+        # Update name and phone in registration, because those may be changed
+        # Mark that transferring is finished
+        ticket.sudo().write({
+            'name': receiver.name,
+            'phone': receiver.phone,
+            'is_transfering': False,
+        })
+
+        #return request.env['ir.ui.view'].render_template("website_event.registration_attendee_details", {'tickets': tickets, 'event': event})
+

@@ -60,7 +60,7 @@
     </template>
 
     <template id="portal_ticket_page" name="Ticket">
-      <t t-call="website.layout">
+      <t t-call="website_portal.portal_layout">
         <div id="wrap">
             <div class="container">
               <div class="oe_structure">
@@ -151,7 +151,7 @@
     </template>
 
     <template id="portal_ticket_transfer" name="Ticket">
-      <t t-call="website.layout">
+      <t t-call="website_portal.portal_layout">
         <div id="wrap">
             <div class="container">
                 <div t-if="editor_mode" class="alert alert-warning css_editable_mode_hidden" t-ignore="True">
@@ -170,6 +170,20 @@
                 <div t-if="error == 'receiver_has_ticket'" t-field="website.ticket_transfer_receiver_has_ticket" class="oe_structure mt16"/>
             </div>
         </div>
+      </t>
+    </template>
+
+    <template id="portal_ticket_transfer" name="Ticket">
+      <t t-call="website_portal.portal_layout">
+          <t t-call="website_event.registration_attendee_details">
+              <t t-set="autofill_user" t-value="env.user"/>
+              <input name="transfer_ticket" t-att-value="transfer_ticket.id" class="hidden"/>
+          </t>
+          <script type="text/javascript">
+              (function(){
+                $('#attendee_registration').attr('action', '/my/tickets/transfer/receive')
+              })()
+          </script>
       </t>
     </template>
 

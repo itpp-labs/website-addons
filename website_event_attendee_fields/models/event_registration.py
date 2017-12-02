@@ -25,7 +25,7 @@ class EventRegistration(models.Model):
     @api.model
     def _prepare_attendee_values(self, registration):
         """Extend it to pass partner values too (we remove them later in _prepare_partner)
-        we skip partner_id field to avoid email field overriding. T
+        we skip partner_id field to avoid email field overriding.
         """
         data = super(EventRegistration, self)._prepare_attendee_values(registration)
         partner_fields = self.env['res.partner']._fields

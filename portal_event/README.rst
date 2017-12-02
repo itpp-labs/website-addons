@@ -11,6 +11,8 @@ Additional features:
   * TODO make it optional
   * To decrease chance of transferring to a wrong email, partner with the email must exist before transferring.
 
+* Tracks changes in key registration fields (via ``track_visibility='onchange'``)
+
 Relation to other modules
 =========================
 
@@ -18,6 +20,11 @@ website_event_attendee_signup
 -----------------------------
 
 It's recommended to use this module with ``website_event_attendee_signup`` which creates user for each attendee on registration.
+
+website_event_attendee_fields
+-----------------------------
+
+We need this modules for autofill feature. Other features of the modules are optional.
 
 website_portal_event
 --------------------
@@ -32,6 +39,7 @@ We don't split module in two where one doesn't depend on ``event_sale`` (e.g. ``
 * it simplifies development and maintainance
 * we don't consider portal module without ``event_sale`` as popular
 * free events are still usable even if ``event_sale`` module is installed
+
 
 
 Credits
