@@ -49,11 +49,34 @@ odoo.define('website_event_attendee_fields.registration_form', function (require
     }
 
     function api_check_email(event_id, $row, email){
+        // check form
+        var row = get_row($row);
+        var has_duplicate = _.some(rows, function(r){
+            if (r.counter == row.counter){
+                // don't compare with itself
+                return false;
+            }
+            if ($row.find('.email').val() != r.$row.find('.email').val()){
+                // emails are different
+                return false;
+            }
+            var msg = _t("Sorry, but each attendee has to have unique email.");
+            row.show_msg(msg);
+            row.block();
+
+            return true;
+        });
+
+        if (has_duplicate){
+            // already have an error. No need to ask backend.
+            return $.when();
+        }
+
+        // check backend
         return ajax.jsonRpc('/website_event_attendee_fields/check_email', 'call', {
             'event_id': event_id,
             'email': email,
         }).then(function(data){
-            var row = get_row($row);
             if (data.email_not_allowed){
                 row.show_msg(data.email_not_allowed, 'red');
                 row.block();
