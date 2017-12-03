@@ -25,6 +25,8 @@ Also,
 
     * grey them out with a message "This email address already has an account. Data will be taken from this account"
 
+* Registration form doesn't allow to register two attendees with the same email
+
 * Modifies behaviour of ``partner_event`` module:
 
   * always updates Registration's name and phone to corresponded values of Attendee Partner, because they may be taken from Partner record (e.g. Public User)

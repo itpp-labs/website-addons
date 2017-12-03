@@ -3,6 +3,7 @@ import logging
 
 from . import common
 
+from ..controllers.main import WebsiteEventControllerExtended
 
 _logger = logging.getLogger(__name__)
 
@@ -25,6 +26,9 @@ class TestBackend(common.TestCase):
     def test_registration(self):
         country = self.env.ref('base.ru')
         email_value = 'test@example.com'
+        self.assertFalse(self.env['res.partner'].search([('email', '=', email_value)]),
+                         "Tests assumed, that partner with email %s doesn't exist" % email_value
+        )
         # emulate registration_confirm controller workflow
         registration_data = {
             'event_id': self.event,
@@ -47,3 +51,19 @@ class TestBackend(common.TestCase):
         self.env.ref('website_event_attendee_fields.attendee_field_country_id').width = '3'
         self.event._compute_use_attendees_header()
         self.assertTrue(self.event.use_attendees_header)
+
+    def test_emails_duplicates(self):
+        event = self.event.id
+        email = "email@example.com"
+        post = {
+            "1-name": "dummy",
+            "1-email": email,
+            "1-country_id": 1,
+            "2-name": "dummy",
+            "2-email": email,
+            "2-country_id": 1,
+        }
+        with self.assertRaises(AssertionError):
+            obj = WebsiteEventControllerExtended()
+            obj.registration_confirm(event, **post)
+
