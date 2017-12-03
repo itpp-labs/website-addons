@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": """Product swap at eCommerce""",
-    "summary": """{SHORT_DESCRIPTION_OF_THE_MODULE}""",
+    "summary": """Product upgrading / changing feature for your online shop""",
     "category": "eCommerce",
     # "live_test_url": "",
     "images": [],
@@ -16,19 +16,15 @@
     # "currency": "EUR",
 
     "depends": [
-        "{DEPENDENCY1}",
-        "{DEPENDENCY2}",
+        "website_sale",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
-        "{FILE1}.xml",
-        "{FILE2}.xml",
+        "data/product.xml",
     ],
     "qweb": [
-        "static/src/xml/{QWEBFILE1}.xml",
     ],
     "demo": [
-        "demo/{DEMOFILE1}.xml",
     ],
 
     "post_load": None,
