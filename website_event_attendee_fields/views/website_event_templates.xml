@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-<template id="event_description_full" inherit_id="website_event.event_description_full">
-    <xpath expr="//t[@t-set='head']" position="inside">
+<template id="polyfill">
         <!-- solution from https://stackoverflow.com/questions/22983013/how-to-get-html-5-input-type-date-working-in-firefox-and-or-ie-10 -->
         <!-- cdn for modernizr, if you haven't included it already -->
         <script src="//cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
@@ -15,6 +14,11 @@
             $('form').updatePolyfill();
         </script>
 
+</template>
+
+<template id="event_description_full" inherit_id="website_event.event_description_full">
+    <xpath expr="//t[@t-set='head']" position="inside">
+        <t t-call="website_event_attendee_fields.polyfill"/>
     </xpath>
 </template>
 
@@ -45,7 +49,7 @@
                         <select
                             class="form-control"
                             t-attf-name="#{counter}-#{field.field_name}"
-                            t-att-required="field.is_required and 'This field is required' or ''"
+                            t-att="{'required': field.is_required and 'This field is required' or None}"
                             >
                             <option value=""><t t-esc="field.field_description"/>...</option>
                             <t t-foreach="field.get_select_options()" t-as="s">
@@ -64,7 +68,7 @@
                             t-att-type='field.form_type'
                             t-att-value="field_value"
                             t-attf-name="#{counter}-#{field.field_name}"
-                            t-att-required="field.is_required and 'This field is required' or ''"
+                            t-att="{'required': field.is_required and 'This field is required' or None}"
                             t-att-placeholder="(attendee_placeholder and (attendee_placeholder %counter) or '')"/>
                         <t t-set="attendee_placeholder"></t>
                     </t>
