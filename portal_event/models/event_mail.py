@@ -60,7 +60,7 @@ class EventMailRegistration(models.Model):
     def _compute_scheduled_date(self):
         for rself in self:
             if rself.scheduler_id.interval_type not in ['transferring_started', 'transferring_finished']:
-                return super(EventMailRegistration, rself).execute()
+                return super(EventMailRegistration, rself)._compute_scheduled_date()
 
             if rself.registration_id:
                 # date_open is not corresponded to its meaining,
