@@ -24,43 +24,46 @@ class EventMailScheduler(models.Model):
         ('transferring_finished', 'Transferring finished'),
     ])
 
-    @api.one
+    @api.multi
     @api.depends('event_id.state', 'event_id.date_begin', 'interval_type', 'interval_unit', 'interval_nbr')
     def _compute_scheduled_date(self):
-        if self.interval_type not in ['transferring_started', 'transferring_finished']:
-            return super(EventMailScheduler, self)._compute_scheduled_date()
+        for rself in self:
+            if rself.interval_type not in ['transferring_started', 'transferring_finished']:
+                return super(EventMailScheduler, rself)._compute_scheduled_date()
 
-        if self.event_id.state not in ['confirm', 'done']:
-            self.scheduled_date = False
-        else:
-            date, sign = self.event_id.create_date, 1
-            self.scheduled_date = datetime.strptime(date, tools.DEFAULT_SERVER_DATETIME_FORMAT) + _INTERVALS[self.interval_unit](sign * self.interval_nbr)
+            if rself.event_id.state not in ['confirm', 'done']:
+                rself.scheduled_date = False
+            else:
+                date, sign = rself.event_id.create_date, 1
+                rself.scheduled_date = datetime.strptime(date, tools.DEFAULT_SERVER_DATETIME_FORMAT) + _INTERVALS[rself.interval_unit](sign * rself.interval_nbr)
 
 
-    @api.one
+    @api.multi
     def execute(self, registration=None):
-        if self.interval_type not in ['transferring_started', 'transferring_finished']:
-            return super(EventMailScheduler, self).execute()
-        assert registration
-        self.write({'mail_registration_ids': [
-            (0, 0, {'registration_id': registration.id})
-        ]})
-        # execute scheduler on registrations
-        self.mail_registration_ids.filtered(lambda reg: reg.scheduled_date and reg.scheduled_date <= datetime.strftime(fields.datetime.now(), tools.DEFAULT_SERVER_DATETIME_FORMAT)).execute()
+        for rself in self:
+            if rself.interval_type not in ['transferring_started', 'transferring_finished']:
+                return super(EventMailScheduler, rself).execute()
+            assert registration
+            rself.write({'mail_registration_ids': [
+                (0, 0, {'registration_id': registration.id})
+            ]})
+            # execute scheduler on registrations
+            rself.mail_registration_ids.filtered(lambda reg: reg.scheduled_date and reg.scheduled_date <= datetime.strftime(fields.datetime.now(), tools.DEFAULT_SERVER_DATETIME_FORMAT)).execute()
         return True
 
 
 class EventMailRegistration(models.Model):
     _inherit = 'event.mail.registration'
 
-    @api.one
+    @api.multi
     @api.depends('registration_id', 'scheduler_id.interval_unit', 'scheduler_id.interval_type')
     def _compute_scheduled_date(self):
-        if self.scheduler_id.interval_type not in ['transferring_started', 'transferring_finished']:
-            return super(EventMailRegistration, self).execute()
+        for rself in self:
+            if rself.scheduler_id.interval_type not in ['transferring_started', 'transferring_finished']:
+                return super(EventMailRegistration, rself).execute()
 
-        if self.registration_id:
-            # date_open is not corresponded to its meaining,
-            # but keep because it's copy-pasted code
-            date_open_datetime = fields.datetime.now()
-            self.scheduled_date = date_open_datetime + _INTERVALS[self.scheduler_id.interval_unit](self.scheduler_id.interval_nbr)
+            if rself.registration_id:
+                # date_open is not corresponded to its meaining,
+                # but keep because it's copy-pasted code
+                date_open_datetime = fields.datetime.now()
+                rself.scheduled_date = date_open_datetime + _INTERVALS[rself.scheduler_id.interval_unit](rself.scheduler_id.interval_nbr)
