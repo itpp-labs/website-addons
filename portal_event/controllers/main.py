@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import http
+from odoo import http, _
 from odoo.exceptions import AccessError
 from odoo.http import request
 
@@ -60,6 +60,26 @@ class PortalEvent(website_account, WebsiteEventController):
         })
         return request.render("portal_event.portal_my_tickets", values)
 
+    def _has_ticket_access(self, ticket, to_update=False):
+
+        if not ticket.exists():
+            return False
+
+        try:
+            ticket.check_access_rights('read')
+            ticket.check_access_rule('read')
+        except AccessError:
+            return False
+
+        if ticket.attendee_partner_id.id == request.env.user.partner_id.id:
+            return True
+
+        if to_update:
+            # not an attendee, so cannot update
+            return False
+
+        return request.env.user.has_group('event.group_event_manager')
+
     @http.route(['/my/tickets/<int:ticket>'], type='http', auth="user", website=True)
     def ticket_page(self, ticket=None, **kw):
         values = self._prepare_portal_layout_values()
@@ -67,18 +87,7 @@ class PortalEvent(website_account, WebsiteEventController):
         if not ticket or not ticket.exists():
             return request.render("website.404")
 
-        has_access = True
-        try:
-            ticket.check_access_rights('read')
-            ticket.check_access_rule('read')
-        except AccessError:
-            has_access = False
-
-        has_access = has_access \
-            or ticket.attendee_partner_id.id == request.env.user.partner_id \
-            or request.env.user.has_group('event.group_event_manager')
-
-        if not has_access:
+        if not self._has_ticket_access(ticket):
             return request.render("website.403")
 
         ticket_sudo = ticket.sudo()
@@ -107,17 +116,7 @@ class PortalEvent(website_account, WebsiteEventController):
         ticket = request.env['event.registration'].browse([int(ticket_id)])
         ticket.ensure_one()
 
-        has_access = True
-        try:
-            ticket.check_access_rights('read')
-            ticket.check_access_rule('read')
-        except AccessError:
-            has_access = False
-
-        has_access = has_access \
-            or ticket.attendee_partner_id.id == request.env.user.partner_id
-
-        if not has_access:
+        if not self._has_ticket_access(ticket, to_update=True):
             return request.render("website.403")
 
         error = None
@@ -154,17 +153,7 @@ class PortalEvent(website_account, WebsiteEventController):
         ticket = request.env['event.registration'].browse([int(ticket)])
         ticket.ensure_one()
 
-        has_access = True
-        try:
-            ticket.check_access_rights('read')
-            ticket.check_access_rule('read')
-        except AccessError:
-            has_access = False
-
-        has_access = has_access \
-            and ticket.attendee_partner_id.id == request.env.user.partner_id.id
-
-        if not has_access or not ticket.is_transferring:
+        if not self._has_ticket_access(ticket, to_update=True):
             return request.render("website.403")
 
         values = self._prepare_portal_layout_values()
@@ -190,3 +179,23 @@ class PortalEvent(website_account, WebsiteEventController):
 
         ticket.sudo().transferring_finished()
         return request.redirect('/my/tickets')
+
+    @http.route(['/my/tickets/change'], type='http', auth="user", methods=['POST'], website=True)
+    def ticket_change(self, ticket_id, **kw):
+        ticket = request.env['event.registration'].browse([int(ticket_id)])
+
+        if not self._has_ticket_access(ticket, to_update=True):
+            return request.render("website.403")
+
+        ticket = ticket.sudo()
+        line = ticket.sale_order_line_id
+        assert line
+        product = line.product_id
+        refund_price = line.price_subtotal
+
+        order = request.website.sale_get_order(force_create=True)
+        name = _('Ticket change: %s') % product.name
+        order.add_refund_line(line, name)
+
+        # TODO: make redirection to more proper place
+        return request.redirect('/shop/cart')

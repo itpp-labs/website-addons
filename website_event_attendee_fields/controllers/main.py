@@ -22,17 +22,13 @@ class WebsiteEventControllerExtended(WebsiteEventController):
         if not partner:
             return {}
 
-        registration = request.env['event.registration'].sudo().search([
-            ('event_id', '=', event_id),
-            ('partner_id', '=', partner.id),
-            ('state', '=', 'open'),
-        ])
-        if registration:
+        event = request.env['event.event'].sudo().browse(event_id)
+        error_msg = event.check_partner_for_new_ticket(partner.id)
+        if error_msg:
             return {
-                'email_not_allowed': _('This email address is already signed up for the event')
+                'email_not_allowed': error_msg
             }
 
-        event = request.env['event.event'].sudo().browse(event_id)
         known_fields = []
         for f in event.attendee_field_ids:
             if f.field_name == 'email':

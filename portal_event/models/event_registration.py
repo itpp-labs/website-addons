@@ -53,3 +53,11 @@ class EventRegistration(models.Model):
         onsubscribe_schedulers = self.event_id.event_mail_ids.filtered(
             lambda s: s.interval_type == 'transferring_finished')
         onsubscribe_schedulers.execute(self)  # self is a registration
+
+    @api.multi
+    def confirm_registration(self):
+        res = super(EventRegistration, self).confirm_registration()
+        refunded_lines = self.sale_order_line_id.order_id.order_line.mapped('refund_source_line_id')
+        # TODO: post a message why it was canceled
+        self.search([('sale_order_line_id', 'in', refunded_lines.ids)]).button_reg_cancel()
+        return res

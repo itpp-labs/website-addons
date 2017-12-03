@@ -17,21 +17,33 @@ Additional features:
 
 * Tracks changes in key registration fields (via ``track_visibility='onchange'``)
 
+* Tickets can be changed to other products (including other tickets)
+
+TODO: handle registration state:
+
+* show state at tickets list
+* change / transfer only confirmed tickets
+
 Relation to other modules
 =========================
+
+website_event_refund
+--------------------
+
+Ticket refunding feature based on ``website_event_refund`` module
 
 website_event_attendee_signup
 -----------------------------
 
-It's recommended to use this module with ``website_event_attendee_signup`` which creates user for each attendee on registration.
+It's recommended to use the module with ``website_event_attendee_signup`` which creates user for each attendee on registration.
 
 website_event_attendee_fields
 -----------------------------
 
 We need this modules for autofill feature. Other features of the modules are optional.
 
-website_portal_event
---------------------
+website
+-------
 
 The module is not splitted in two where one doesn't depend on website how it's usually done (e.g. ``portal_event`` and ``website_portal_event``), because since 11.0 there is no such separation.
 

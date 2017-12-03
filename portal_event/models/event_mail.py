@@ -42,10 +42,10 @@ class EventMailScheduler(models.Model):
         for rself in self:
             if rself.interval_type not in ['transferring_started', 'transferring_finished']:
                 return super(EventMailScheduler, rself).execute()
-            assert registration
-            rself.write({'mail_registration_ids': [
-                (0, 0, {'registration_id': registration.id})
-            ]})
+            if registration:
+                rself.write({'mail_registration_ids': [
+                    (0, 0, {'registration_id': registration.id})
+                ]})
             # execute scheduler on registrations
             rself.mail_registration_ids.filtered(lambda reg: reg.scheduled_date and reg.scheduled_date <= datetime.strftime(fields.datetime.now(), tools.DEFAULT_SERVER_DATETIME_FORMAT)).execute()
         return True
