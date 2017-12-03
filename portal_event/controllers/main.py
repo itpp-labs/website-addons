@@ -138,7 +138,6 @@ class PortalEvent(website_account, WebsiteEventController):
             if request.env['event.registration'].search_count(domain):
                 error = 'receiver_has_ticket'
 
-
         if not error:
             # do the transfer
             ticket.sudo().transferring_started(receiver)
@@ -172,9 +171,9 @@ class PortalEvent(website_account, WebsiteEventController):
         if request.httprequest.method == 'GET':
             tickets = self._process_tickets_details({'nb_register-0': 1})
             values.update({
-                    'transfer_ticket': ticket,
-                    'tickets': tickets,
-                    'event': ticket.event_id,
+                'transfer_ticket': ticket,
+                'tickets': tickets,
+                'event': ticket.event_id,
             })
             return request.env['ir.ui.view'].render_template(
                 "portal_event.portal_ticket_transfer_receive", values)

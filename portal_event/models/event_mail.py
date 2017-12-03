@@ -37,7 +37,6 @@ class EventMailScheduler(models.Model):
                 date, sign = rself.event_id.create_date, 1
                 rself.scheduled_date = datetime.strptime(date, tools.DEFAULT_SERVER_DATETIME_FORMAT) + _INTERVALS[rself.interval_unit](sign * rself.interval_nbr)
 
-
     @api.multi
     def execute(self, registration=None):
         for rself in self:
