@@ -6,11 +6,11 @@
         <field name="inherit_id" ref="event.view_event_registration_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='sale_order_line_id']" position="after">
-                <field name="is_transfering"/>
+                <field name="is_transferring"/>
             </xpath>
             <xpath expr="//sheet/*[1]" position="before">
                 <!-- put it before first element in the form -->
-                <p attr="{'invisible': [('is_transfering', '=', False)]}" style="color: red">Ticket was started, but haven't finished!</p>
+                <p attrs="{'invisible': [('is_transferring', '=', False)]}" style="color: red">Ticket transferring was started, but haven't finished!</p>
             </xpath>
         </field>
     </record>

@@ -23,7 +23,6 @@
 </template>
 
 <template id="registration_attendee_details" inherit_id="website_event.registration_attendee_details">
-
     <xpath expr="//t[@t-foreach='tickets']/div[@class='row']" position="replace">
         <div class="row" t-if="event.use_attendees_header">
             <t t-foreach="event.attendee_field_ids" t-as="field">
@@ -73,8 +72,11 @@
                         <t t-set="attendee_placeholder"></t>
                     </t>
                 </div>
+
             </t>
             <input class='hidden' type='text' t-attf-name="#{counter}-ticket_id" t-attf-value="#{ticket['id']}"/>
+            <!-- allows to extend form (e.g. in portal_event module) -->
+            <t t-raw="0"/>
         </div>
     </xpath>
     <xpath expr="div" position="inside">

@@ -7,7 +7,7 @@ from odoo.addons.website_portal.controllers.main import website_account
 from odoo.addons.website_event.controllers.main import WebsiteEventController
 
 
-class website_account_extended(website_account):
+class PortalEvent(website_account, WebsiteEventController):
 
     def _tickets_domain(self, partner=None):
         partner = partner or request.env.user.partner_id
@@ -18,7 +18,7 @@ class website_account_extended(website_account):
     @http.route()
     def account(self, **kw):
         """ Add sales documents to main account page """
-        response = super(website_account, self).account(**kw)
+        response = super(PortalEvent, self).account(**kw)
 
         domain = self._tickets_domain()
         tickets_count = request.env['event.registration'].search_count(domain)
@@ -62,6 +62,7 @@ class website_account_extended(website_account):
 
     @http.route(['/my/tickets/<int:ticket>'], type='http', auth="user", website=True)
     def ticket_page(self, ticket=None, **kw):
+        values = self._prepare_portal_layout_values()
         ticket = request.env['event.registration'].browse([ticket])
         if not ticket or not ticket.exists():
             return request.render("website.404")
@@ -82,9 +83,10 @@ class website_account_extended(website_account):
 
         ticket_sudo = ticket.sudo()
 
-        return request.render("portal_event.portal_ticket_page", {
+        values.update({
             'ticket': ticket_sudo,
         })
+        return request.render("portal_event.portal_ticket_page", values)
 
     @http.route(['/my/tickets/transfer'], type='http', auth="user", methods=['GET'], website=True)
     def ticket_transfer_editor(self, **kw):
@@ -92,13 +94,16 @@ class website_account_extended(website_account):
         if not request.env.user.has_group('website.group_website_designer'):
             return request.render("website.403")
 
-        return request.render("portal_event.portal_ticket_transfer", {
+        values = self._prepare_portal_layout_values()
+        values.update({
             'editor_mode': True,
             'error': kw.get('error')
         })
+        return request.render("portal_event.portal_ticket_transfer", values)
 
     @http.route(['/my/tickets/transfer'], type='http', auth="user", methods=['POST'], website=True)
     def ticket_transfer(self, to_email, ticket_id, **kw):
+        values = self._prepare_portal_layout_values()
         ticket = request.env['event.registration'].browse([int(ticket_id)])
         ticket.ensure_one()
 
@@ -128,6 +133,7 @@ class website_account_extended(website_account):
 
         if not error:
             domain = [('attendee_partner_id', '=', receiver.id),
+                      ('state', 'not in', ['cancel']),
                       ('event_id', '=', ticket.event_id.id)]
             if request.env['event.registration'].search_count(domain):
                 error = 'receiver_has_ticket'
@@ -135,20 +141,13 @@ class website_account_extended(website_account):
 
         if not error:
             # do the transfer
-            ticket.sudo().write({
-                'attendee_partner_id': receiver.id,
-                'email': receiver.email,
-                'name': receiver.name,
-                'phone': receiver.phone,
-                'is_transferring': True,
-            })
+            ticket.sudo().transferring_started(receiver)
 
-        return request.render("portal_event.portal_ticket_transfer", {
+        values.update({
             'to_email': to_email,
             'error': error,
         })
-
-class WebsiteEventControllerExtended(WebsiteEventController):
+        return request.render("portal_event.portal_ticket_transfer", values)
 
     @http.route(['/my/tickets/transfer/receive'], type='http', auth="user", methods=['GET', 'POST'], website=True)
     def ticket_transfer_receive(self, transfer_ticket, **kw):
@@ -164,35 +163,31 @@ class WebsiteEventControllerExtended(WebsiteEventController):
             has_access = False
 
         has_access = has_access \
-            or ticket.attendee_partner_id.id == request.env.user.partner_id
+            and ticket.attendee_partner_id.id == request.env.user.partner_id.id
 
-        if not has_access:
+        if not has_access or not ticket.is_transferring:
             return request.render("website.403")
 
+        values = self._prepare_portal_layout_values()
         if request.httprequest.method == 'GET':
             tickets = self._process_tickets_details({'nb_register-0': 1})
-            return request.env['ir.ui.view'].render_template(
-                "portal_event.ticket_transfer_receive", {
+            values.update({
                     'transfer_ticket': ticket,
                     'tickets': tickets,
                     'event': ticket.event_id,
-                })
+            })
+            return request.env['ir.ui.view'].render_template(
+                "portal_event.portal_ticket_transfer_receive", values)
 
         # handle filled form
 
         receiver = ticket.attendee_partner_id
-        registration = _process_registration_details(kw)[0]
-        receiver.write({
-            request.env['event.registration']._prepare_partner(registration)
-        })
+        registration = self._process_registration_details(kw)[0]
+        registration['event_id'] = ticket.event_id.id
+        partner_vals = request.env['event.registration']._prepare_partner(registration)
+        assert not partner_vals.get('email')
 
-        # Update name and phone in registration, because those may be changed
-        # Mark that transferring is finished
-        ticket.sudo().write({
-            'name': receiver.name,
-            'phone': receiver.phone,
-            'is_transfering': False,
-        })
+        receiver.sudo().write(partner_vals)
 
-        #return request.env['ir.ui.view'].render_template("website_event.registration_attendee_details", {'tickets': tickets, 'event': event})
-
+        ticket.sudo().transferring_finished()
+        return request.redirect('/my/tickets')

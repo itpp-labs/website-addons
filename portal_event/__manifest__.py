@@ -24,6 +24,8 @@
     "external_dependencies": {"python": [], "bin": []},
     "data": [
         "views/portal_templates.xml",
+        "views/event_registration.xml",
+        "data/mail_template_data.xml",
     ],
     "qweb": [
     ],

@@ -116,7 +116,7 @@
 
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&amp;times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Ticket transfering</h4>
+                            <h4 class="modal-title" id="myModalLabel">Ticket transferring</h4>
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
@@ -173,15 +173,39 @@
       </t>
     </template>
 
-    <template id="portal_ticket_transfer" name="Ticket">
-      <t t-call="website_portal.portal_layout">
+    <template id="portal_ticket_transfer_receive" name="Ticket">
+      <t t-call="website.layout">
+          <t t-set="head">
+              <t t-call="website_event_attendee_fields.polyfill"/>
+          </t>
+
+          <t t-set="autofill_user" t-value="env.user"/>
           <t t-call="website_event.registration_attendee_details">
-              <t t-set="autofill_user" t-value="env.user"/>
               <input name="transfer_ticket" t-att-value="transfer_ticket.id" class="hidden"/>
           </t>
           <script type="text/javascript">
               (function(){
-                $('#attendee_registration').attr('action', '/my/tickets/transfer/receive')
+              var event_name = '<t t-esc="event.name"/>';
+              $modal = $('#modal_attendees_registration');
+
+              /* show form inline */
+              $modal.find('form').attr('action', '/my/tickets/transfer/receive');
+              $modal.removeClass('modal fade');
+              //$modal.find('.modal-dialog.modal-lg').removeClass('modal-dialog modal-lg');
+
+              /* remove Cancel button; update title */
+              var $submit = $modal.find('[type=submit]');
+              $submit.parent().empty().append($submit);
+              $submit.text('Confirm');
+
+              /* remove Close button */
+              $modal.find('.close').remove();
+
+              /* make email non-editable */
+              $modal.find('[name=1-email]').attr('disabled', '1');
+
+              /* update title */
+              $modal.find('.modal-title strong').html('Receive the ticket for <b>' + event_name + '</b>');
               })()
           </script>
       </t>
