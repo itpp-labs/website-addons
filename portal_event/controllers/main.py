@@ -5,10 +5,11 @@ from odoo.http import request
 
 from odoo.addons.website_portal.controllers.main import website_account
 from odoo.addons.website_event.controllers.main import WebsiteEventController
+from odoo.addons.website_sale.controllers.main import WebsiteSale
 from odoo.addons.website.models.website import slug
 
 
-class PortalEvent(website_account, WebsiteEventController):
+class PortalEvent(website_account, WebsiteEventController, WebsiteSale):
 
     def _tickets_domain(self, partner=None):
         partner = partner or request.env.user.partner_id
@@ -200,3 +201,12 @@ class PortalEvent(website_account, WebsiteEventController):
 
         # TODO: make redirection customizable
         return request.redirect("/event/%s/register" % slug(ticket.event_id))
+
+    @http.route()
+    def cart(self, **post):
+        response = super(PortalEvent, self).cart(**post)
+        if post.get('total_is_negative'):
+            response.qcontext.update({
+                'warning_msg': _('Total amount is negative. Please add more tickets or products'),
+            })
+        return response
