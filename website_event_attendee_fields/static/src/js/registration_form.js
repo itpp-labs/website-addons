@@ -2,9 +2,17 @@ odoo.define('website_event_attendee_fields.registration_form', function (require
 
     var ajax = require('web.ajax');
     var core = require("web.core");
+    var website_event = require('website_event.website_event');
 
     var _t = core._t;
 
+    website_event.EventRegistrationForm.include({
+        'on_click': function(ev){
+            // remove old form which is only hidden, but still presents in dom when user close popup and then click Register (Order) again
+            $('#modal_attendees_registration').remove();
+            return this._super.apply(this, arguments);
+        }
+    });
 
     var rows = {};
     function get_row($row){
