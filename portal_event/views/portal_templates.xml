@@ -85,8 +85,8 @@
                     <div class="panel-heading">
                       <div class="row">
                         <div class="col-md-12">
-                          <button class="btn btn-default ml8 pull-right" data-toggle="modal" data-target="#transferTicketModal">Transfer to another person</button>
-                          <button class="btn btn-default ml8 pull-right" data-toggle="modal" data-target="#changeTicketModal">Upgrade / Change ticket</button>
+                          <button t-if="ticket.event_id.ticket_transferring" class="btn btn-default ml8 pull-right" data-toggle="modal" data-target="#transferTicketModal">Transfer to another person</button>
+                          <button t-if="ticket.event_id.ticket_changing" class="btn btn-default ml8 pull-right" data-toggle="modal" data-target="#changeTicketModal">Upgrade / Change ticket</button>
                           <h4>Ticket #<span t-esc="ticket.id"/></h4>
                         </div>
                       </div>

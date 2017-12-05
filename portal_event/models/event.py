@@ -1,10 +1,22 @@
 # -*- coding: utf-8 -*-
-from odoo import models, api
+from odoo import models, api, fields
 from odoo.http import request
 
 
 class Event(models.Model):
     _inherit = 'event.event'
+
+    ticket_transferring = fields.Boolean(
+        'Enable Ticket transferring',
+        help='Attendee can transfer ticket to another partner',
+        default=True,
+    )
+
+    ticket_changing = fields.Boolean(
+        'Enable Ticket Changing',
+        help='Attendee can change ticket to new ticket or products',
+        default=True,
+    )
 
     @api.multi
     def check_partner_for_new_ticket(self, partner_id):

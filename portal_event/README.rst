@@ -8,7 +8,6 @@ Additional features:
 
 * Ticket transferring feature
 
-  * TODO make it optional
   * To decrease chance of transferring to a wrong email, partner with the email must exist before transferring.
   * New *When to Run* values for Email Schedule:
 

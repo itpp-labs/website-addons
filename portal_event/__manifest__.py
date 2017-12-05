@@ -25,6 +25,7 @@
     "data": [
         "views/portal_templates.xml",
         "views/event_registration.xml",
+        "views/event_event.xml",
         "data/mail_template_data.xml",
     ],
     "qweb": [

@@ -121,6 +121,8 @@ class PortalEvent(website_account, WebsiteEventController, WebsiteSale):
 
         if not self._has_ticket_access(ticket, to_update=True):
             return request.render("website.403")
+        if not ticket.event_id.ticket_transferring:
+            return request.render("website.403")
 
         error = None
 
@@ -159,6 +161,9 @@ class PortalEvent(website_account, WebsiteEventController, WebsiteSale):
         if not self._has_ticket_access(ticket, to_update=True):
             return request.render("website.403")
 
+        if not ticket.event_id.ticket_transferring:
+            return request.render("website.403")
+
         values = self._prepare_portal_layout_values()
         if request.httprequest.method == 'GET':
             tickets = self._process_tickets_details({'nb_register-0': 1})
@@ -188,6 +193,9 @@ class PortalEvent(website_account, WebsiteEventController, WebsiteSale):
         ticket = request.env['event.registration'].browse([int(ticket_id)])
 
         if not self._has_ticket_access(ticket, to_update=True):
+            return request.render("website.403")
+
+        if not ticket.event_id.ticket_changing:
             return request.render("website.403")
 
         ticket = ticket.sudo()
