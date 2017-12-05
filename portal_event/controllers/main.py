@@ -15,6 +15,7 @@ class PortalEvent(website_account, WebsiteEventController, WebsiteSale):
         partner = partner or request.env.user.partner_id
         return [
             ('attendee_partner_id', '=', partner.id),
+            ('state', '=', 'open'),
         ]
 
     @http.route()
