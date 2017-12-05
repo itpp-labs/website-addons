@@ -9,7 +9,7 @@ from odoo.addons.website_sale.controllers.main import WebsiteSale
 from odoo.addons.website.models.website import slug
 
 
-class PortalEvent(website_account, WebsiteEventController, WebsiteSale):
+class PortalEvent(website_account):
 
     def _tickets_domain(self, partner=None):
         partner = partner or request.env.user.partner_id
@@ -166,7 +166,7 @@ class PortalEvent(website_account, WebsiteEventController, WebsiteSale):
 
         values = self._prepare_portal_layout_values()
         if request.httprequest.method == 'GET':
-            tickets = self._process_tickets_details({'nb_register-0': 1})
+            tickets = WebsiteEventController._process_tickets_details(self, {'nb_register-0': 1})
             values.update({
                 'transfer_ticket': ticket,
                 'tickets': tickets,
@@ -178,7 +178,7 @@ class PortalEvent(website_account, WebsiteEventController, WebsiteSale):
         # handle filled form
 
         receiver = ticket.attendee_partner_id
-        registration = self._process_registration_details(kw)[0]
+        registration = WebsiteEventController._process_registration_details(self, kw)[0]
         registration['event_id'] = ticket.event_id.id
         partner_vals = request.env['event.registration']._prepare_partner(registration)
         assert not partner_vals.get('email')
@@ -202,7 +202,6 @@ class PortalEvent(website_account, WebsiteEventController, WebsiteSale):
         line = ticket.sale_order_line_id
         assert line
         product = line.product_id
-        refund_price = line.price_subtotal
 
         order = request.website.sale_get_order(force_create=True)
         name = _('Ticket change: %s') % product.name
@@ -211,6 +210,7 @@ class PortalEvent(website_account, WebsiteEventController, WebsiteSale):
         # TODO: make redirection customizable
         return request.redirect("/event/%s/register" % slug(ticket.event_id))
 
+class WebsiteSaleExtended(WebsiteSale):
     @http.route()
     def cart(self, **post):
         response = super(PortalEvent, self).cart(**post)

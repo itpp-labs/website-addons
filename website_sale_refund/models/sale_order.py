@@ -35,7 +35,6 @@ class SaleOrder(models.Model):
             order_lines = self._cart_find_product_line(product_id, line_id, **kwargs)
             order_line = order_lines and order_lines[0]
 
-
         if order_line and order_line.price_unit < 0:
             quantity = 0
             # compute new quantity

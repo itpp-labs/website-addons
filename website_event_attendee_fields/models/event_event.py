@@ -16,7 +16,6 @@ class Event(models.Model):
 
     @api.multi
     def check_partner_for_new_ticket(self, partner_id):
-        print 'origin check_partner_for_new_ticket'
         if self.partner_is_participating(partner_id):
             return _('This email address is already signed up for the event')
         return None
@@ -30,7 +29,6 @@ class Event(models.Model):
             ('state', '=', 'open'),
         ])
         return registration
-
 
 
 class AttendeeField(models.Model):
