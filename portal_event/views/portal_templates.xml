@@ -237,4 +237,13 @@
       </t>
     </template>
 
+    <template id="message_origin_link">
+        <p>This ticket has been canceled from:
+        <t t-foreach="origin" t-as="o">
+            <a href="#" t-att-data-oe-model="o._name" t-att-data-oe-id="o.id"> <t t-esc="o.name"/></a><span t-if="origin.ids[-1:] != o.ids">, </span>
+        </t>
+        </p>
+    </template>
+
+
 </odoo>

@@ -56,8 +56,16 @@ class EventRegistration(models.Model):
 
     @api.multi
     def confirm_registration(self):
+        # FIXME: old tickets are not canceled and they are changed to products!
         res = super(EventRegistration, self).confirm_registration()
-        refunded_lines = self.sale_order_line_id.order_id.order_line.mapped('refund_source_line_id')
-        # TODO: post a message why it was canceled
+        order = self.sale_order_line_id.order_id
+        refunded_lines = order.order_line.mapped('refund_source_line_id')
         self.search([('sale_order_line_id', 'in', refunded_lines.ids)]).button_reg_cancel()
+
+        # post a message why it was canceled
+        res.message_post_with_view(
+            'portal_event.message_origin_link',
+            values={'origin': order},
+            subtype_id=self.env.ref('mail.mt_note').id)
+
         return res
