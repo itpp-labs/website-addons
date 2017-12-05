@@ -46,7 +46,8 @@
                             <a t-attf-href="/my/tickets/#{ticket.id}?#{keep_query()}">#<t t-esc="ticket.id"/></a>
                         </td>
                         <td>
-                            <a t-attf-href="/event/#{ticket.event_id.id}"><t t-esc="ticket.event_id.display_name"/></a>
+                            <!--<a t-attf-href="/event/#{ticket.event_id.id}"><t t-esc="ticket.event_id.display_name"/></a>-->
+                            <a t-attf-href="/my/tickets/#{ticket.id}?#{keep_query()}"><t t-esc="ticket.event_id.display_name"/></a>
                         </td>
                         <td><span t-field="ticket.event_ticket_id.display_name"/></td>
                     </tr>
