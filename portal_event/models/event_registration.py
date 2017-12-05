@@ -63,7 +63,7 @@ class EventRegistration(models.Model):
         self.search([('sale_order_line_id', 'in', refunded_lines.ids)]).button_reg_cancel()
 
         # post a message why it was canceled
-        res.message_post_with_view(
+        self.message_post_with_view(
             'portal_event.message_origin_link',
             values={'origin': order},
             subtype_id=self.env.ref('mail.mt_note').id)
