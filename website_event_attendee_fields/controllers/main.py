@@ -14,6 +14,14 @@ class WebsiteEventControllerExtended(WebsiteEventController):
         assert len(emails) == len(set(emails))
         return super(WebsiteEventControllerExtended, self).registration_confirm(event, **post)
 
+    def _process_registration_details(self, details):
+        """ Remove spaces in emails """
+        res = super(WebsiteEventControllerExtended, self)._process_registration_details(details)
+        for registration in res:
+            if registration.get('email'):
+                registration['email'] = registration.get('email').strip()
+        return res
+
     @http.route(['/website_event_attendee_fields/check_email'], type='json', auth="public", methods=['POST'], website=True)
     def check_email(self, event_id, email):
         partner = request.env['res.partner'].sudo().search([
