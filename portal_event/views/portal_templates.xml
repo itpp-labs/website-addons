@@ -149,7 +149,7 @@
                             <h4 class="modal-title" id="myModalLabel">Upgrade / change ticket</h4>
                         </div>
                         <div class="modal-body">
-                            <p>This ticket can be changed to other tickets or products. Click <em>continue</em>, fill the cart and follow usual checkout process.</p>
+                            <p>This ticket can be changed to other tickets or products. Click <em>continue</em>, register new ticket (or fill the cart by other tickets\products) and follow usual checkout process.</p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

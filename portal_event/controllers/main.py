@@ -5,6 +5,7 @@ from odoo.http import request
 
 from odoo.addons.website_portal.controllers.main import website_account
 from odoo.addons.website_event.controllers.main import WebsiteEventController
+from odoo.addons.website.models.website import slug
 
 
 class PortalEvent(website_account, WebsiteEventController):
@@ -197,5 +198,5 @@ class PortalEvent(website_account, WebsiteEventController):
         name = _('Ticket change: %s') % product.name
         order.add_refund_line(line, name)
 
-        # TODO: make redirection to more proper place
-        return request.redirect('/shop/cart')
+        # TODO: make redirection customizable
+        return request.redirect("/event/%s/register" % slug(ticket.event_id))
