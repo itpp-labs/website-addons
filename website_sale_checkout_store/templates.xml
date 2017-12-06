@@ -70,13 +70,20 @@
                 <attribute name="bill">1</attribute>
             </xpath>
         </template>
+
         <template id="website_sale_checkout_store_checkout" name="my_checkout" inherit_id="website_sale.checkout">
-            <xpath expr="//div[@class='container oe_website_sale']" position="before">
-                <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
-            </xpath>
             <xpath expr="//div[@class='container oe_website_sale']" position="attributes">
-                <attribute name="t-att-bill_enabled">not 'nobill' in website_sale_order.buy_way and '1' or '0'</attribute>
-                <attribute name="t-att-ship_enabled">not 'noship' in website_sale_order.buy_way and '1' or '0'</attribute>
+                <t t-set="order_buy_way" t-value="website.sale_get_order().buy_way"/>
+                <t t-if="order_buy_way is None or order_buy_way is False or order_buy_way is True">
+                    <t t-set="shipping" t-value="'1'"/>
+                    <t t-set="billing" t-value="'1'"/>
+                </t>
+                <t t-else="">
+                    <t t-set="shipping" t-value="not 'noship' in order_buy_way and '1' or '0'"/>
+                    <t t-set="billing" t-value="not 'nobill' in order_buy_way and '1' or '0'"/>
+                </t>
+                <attribute name="t-att-ship_enabled">shipping</attribute>
+                <attribute name="t-att-bill_enabled">billing</attribute>
             </xpath>
             <xpath expr="//div[@class='row all_shipping']" position="attributes">
                 <attribute name="t-att-ship">1</attribute>
@@ -88,11 +95,16 @@
 
         <template id="address" name="my_checkout" inherit_id="website_sale.address">
             <xpath expr="//div[@class='container oe_website_sale']/.." position="before">
-                <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
-                <t t-set="shipping" t-value="not 'noship' in website_sale_order.buy_way and '1' or '0'"/>
-                <t t-set="billing" t-value="not 'nobill' in website_sale_order.buy_way and '1' or '0'"/>
+                <t t-set="order_buy_ways" t-value="website.sale_get_order().buy_way"/>
+                <t t-if="order_buy_way is None or order_buy_way is False or order_buy_way is True">
+                    <t t-set="shipping" t-value="'1'"/>
+                    <t t-set="billing" t-value="'1'"/>
+                </t>
+                <t t-else="">
+                    <t t-set="shipping" t-value="not 'noship' in order_buy_ways and '1' or '0'"/>
+                    <t t-set="billing" t-value="not 'nobill' in order_buy_ways and '1' or '0'"/>
+                </t>
             </xpath>
-
             <xpath expr="//div[@class='row']/.." position="attributes">
                 <attribute name="t-att-ship_enabled">shipping</attribute>
                 <attribute name="t-att-bill_enabled">billing</attribute>
@@ -163,13 +175,27 @@
                 <attribute name="bill">1</attribute>
             </xpath>
         </template>
+
         <template id="website_sale_checkout_store_confirmation" name="my_confirmation" inherit_id="website_sale.confirmation">
-            <xpath expr="//div[@class='container oe_website_sale']" position="before">
-                <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
-            </xpath>
             <xpath expr="//div[@class='container oe_website_sale']" position="attributes">
-                <attribute name="t-att-bill_enabled">not 'nobill' in order.buy_way and '1' or '0'</attribute>
-                <attribute name="t-att-ship_enabled">not 'noship' in order.buy_way and '1' or '0'</attribute>
+                <t t-set="order_buy_way" t-value="order.buy_way"/>
+                <t t-if="order_buy_way is None or order_buy_way is False or order_buy_way is True">
+                    <t t-set="shipping" t-value="'1'"/>
+                    <t t-set="billing" t-value="'1'"/>
+                </t>
+                <t t-if="type(order_buy_way) is in ['str'. 'unicode']">
+                    <t t-set="shipping" t-value="not 'noship' in order_buy_way and '1' or '0'"/>
+                    <t t-set="billing" t-value="not 'nobill' in order_buy_way and '1' or '0'"/>
+                </t>
+                <attribute name="t-att-ship_enabled">shipping</attribute>
+                <attribute name="t-att-bill_enabled">billing</attribute>
+                <!--<t t-if="order.buy_way">-->
+                    <!--<t t-if="type(order.buy_way) is not bool">-->
+                        <!--<attribute name="t-att-test">type(order.buy_way)</attribute>-->
+                        <!--<attribute name="t-att-bill_enabled">not 'nobill' in order.buy_way and '1' or '0'</attribute>-->
+                        <!--<attribute name="t-att-ship_enabled">not 'noship' in order.buy_way and '1' or '0'</attribute>-->
+                    <!--</t>-->
+                <!--</t>-->
             </xpath>
             <xpath expr="//div[@class='oe_cart']/table[2]/tbody/tr" position="after">
                 <t t-if="order.delivery_method_information">
