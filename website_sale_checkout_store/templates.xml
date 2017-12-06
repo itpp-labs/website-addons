@@ -14,57 +14,59 @@
         </template>
         <template id="website_sale_checkout_store_cart" name="my_cart" inherit_id="website_sale.cart" priority="50">
             <xpath expr="//div[@class='row']//a[@class='btn btn-primary pull-right mb32'][@href='/shop/checkout']" position="replace">
-                <!--<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
-                <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
-                <t t-set="nobill_noship"
-                   t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.nobill_noship')"/>
-                <t t-set="bill_noship"
-                   t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.bill_noship')"/>
-                <t t-set="bill_ship"
-                   t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.bill_ship')"/>
-                <t t-set="nobill_ship"
-                   t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.nobill_ship')"/>
-                <t t-set="default_option"
-                   t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.default_option')"/>
-                <t t-set="list_options" t-value="[nobill_noship, bill_noship, bill_ship, nobill_ship]"/>
-                <div class="pull-right">
-                    <div>
-                        <a t-if="nobill_noship and not optional_products and website_sale_order and website_sale_order.website_order_line"
-                           id="nobill_noship" class="btn btn-primary pull-right"
-                           href="/shop/checkout?buyMethod=nobill_noship" style="width: 100%; margin-bottom: 5px">
-                            <span class="hidden-xs">Pickup and pay at store</span>
-                            <span class="visible-xs-inline">Pickup and pay at store</span>
-                            <span class="fa fa-long-arrow-right"/>
-                        </a>
+                <t t-if="hide_checkout_button is None or not hide_checkout_button">
+                    <!--<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
+                    <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
+                    <t t-set="nobill_noship"
+                       t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.nobill_noship')"/>
+                    <t t-set="bill_noship"
+                       t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.bill_noship')"/>
+                    <t t-set="bill_ship"
+                       t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.bill_ship')"/>
+                    <t t-set="nobill_ship"
+                       t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.nobill_ship')"/>
+                    <t t-set="default_option"
+                       t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.default_option')"/>
+                    <t t-set="list_options" t-value="[nobill_noship, bill_noship, bill_ship, nobill_ship]"/>
+                    <div class="pull-right">
+                        <div>
+                            <a t-if="nobill_noship and not optional_products and website_sale_order and website_sale_order.website_order_line"
+                               id="nobill_noship" class="btn btn-primary pull-right"
+                               href="/shop/checkout?buyMethod=nobill_noship" style="width: 100%; margin-bottom: 5px">
+                                <span class="hidden-xs">Pickup and pay at store</span>
+                                <span class="visible-xs-inline">Pickup and pay at store</span>
+                                <span class="fa fa-long-arrow-right"/>
+                            </a>
+                        </div>
+                        <div>
+                            <a t-if="bill_noship and not optional_products and website_sale_order and website_sale_order.website_order_line"
+                               id="bill_noship" class="btn btn-primary pull-right"
+                               href="/shop/checkout?buyMethod=bill_noship" style="width: 100%; margin-bottom: 5px">
+                                <span class="hidden-xs">Pickup at store but pay now</span>
+                                <span class="visible-xs-inline">Pickup at store but pay now</span>
+                                <span class="fa fa-long-arrow-right"/>
+                            </a>
+                        </div>
+                        <div>
+                            <a t-if="bill_ship and not optional_products and website_sale_order and website_sale_order.website_order_line"
+                               id="bill_ship" class="btn btn-primary pull-right"
+                               href="/shop/checkout?buyMethod=bill_ship" style="width: 100%; margin-bottom: 5px">
+                                <span class="hidden-xs">Pay now and get delivery</span>
+                                <span class="visible-xs-inline">Pay now and get delivery</span>
+                                <span class="fa fa-long-arrow-right"/>
+                            </a>
+                        </div>
+                        <div>
+                            <a t-if="nobill_ship and not optional_products and website_sale_order and website_sale_order.website_order_line"
+                               id="nobill_ship" class="btn btn-primary pull-right"
+                               href="/shop/checkout?buyMethod=nobill_ship" style="width: 100%; margin-bottom: 5px">
+                                <span class="hidden-xs">Pay on delivery</span>
+                                <span class="visible-xs-inline">Pay on delivery</span>
+                                <span class="fa fa-long-arrow-right"/>
+                            </a>
+                        </div>
                     </div>
-                    <div>
-                        <a t-if="bill_noship and not optional_products and website_sale_order and website_sale_order.website_order_line"
-                           id="bill_noship" class="btn btn-primary pull-right"
-                           href="/shop/checkout?buyMethod=bill_noship" style="width: 100%; margin-bottom: 5px">
-                            <span class="hidden-xs">Pickup at store but pay now</span>
-                            <span class="visible-xs-inline">Pickup at store but pay now</span>
-                            <span class="fa fa-long-arrow-right"/>
-                        </a>
-                    </div>
-                    <div>
-                        <a t-if="bill_ship and not optional_products and website_sale_order and website_sale_order.website_order_line"
-                           id="bill_ship" class="btn btn-primary pull-right"
-                           href="/shop/checkout?buyMethod=bill_ship" style="width: 100%; margin-bottom: 5px">
-                            <span class="hidden-xs">Pay now and get delivery</span>
-                            <span class="visible-xs-inline">Pay now and get delivery</span>
-                            <span class="fa fa-long-arrow-right"/>
-                        </a>
-                    </div>
-                    <div>
-                        <a t-if="nobill_ship and not optional_products and website_sale_order and website_sale_order.website_order_line"
-                           id="nobill_ship" class="btn btn-primary pull-right"
-                           href="/shop/checkout?buyMethod=nobill_ship" style="width: 100%; margin-bottom: 5px">
-                            <span class="hidden-xs">Pay on delivery</span>
-                            <span class="visible-xs-inline">Pay on delivery</span>
-                            <span class="fa fa-long-arrow-right"/>
-                        </a>
-                    </div>
-                </div>
+                </t>
             </xpath>
             <xpath expr="//li[2]" position="attributes">
                 <attribute name="bill">1</attribute>
