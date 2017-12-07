@@ -31,6 +31,8 @@ Also,
 
   * always updates Registration's name and phone to corresponded values of Attendee Partner, because they may be taken from Partner record (e.g. Public User)
 
+  * If attendee partner exists: update new fields
+
 Demo mode
 ---------
 In demo installation:
