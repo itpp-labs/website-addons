@@ -28,9 +28,17 @@ class EventRegistration(models.Model):
             res.name = res.attendee_partner_id.name
             res.phone = res.attendee_partner_id.phone
 
-            if partner_exists and res.attendee_partner_id == self.env.user.partner_id:
-                res.attendee_partner_id.sudo().write(
-                    self._prepare_partner(vals))
+            if partner_exists:
+                partner_vals = self._prepare_partner(vals)
+                if res.attendee_partner_id == self.env.user.partner_id:
+                    res.attendee_partner_id.sudo().write(partner_vals)
+
+                elif len(partner_vals) > 1:
+                    # If vals has more than email address
+                    # Add a note about posible problems with updating fields
+                    res.message_post("""
+                    Attendee partner record are not updated for security reasons:<br/> %s
+                    """ % partner_vals)
 
         return res
 
