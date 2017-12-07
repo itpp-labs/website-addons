@@ -6,8 +6,6 @@ from odoo.tests.common import TransactionCase
 
 
 class TestCase(TransactionCase):
-    at_install = False
-    post_install = True
 
     def setUp(self):
         super(TestCase, self).setUp()

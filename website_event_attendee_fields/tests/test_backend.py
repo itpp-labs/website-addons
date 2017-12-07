@@ -66,4 +66,3 @@ class TestBackend(common.TestCase):
         with self.assertRaises(AssertionError):
             obj = WebsiteEventControllerExtended()
             obj.registration_confirm(event, **post)
-
