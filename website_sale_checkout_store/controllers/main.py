@@ -9,7 +9,6 @@ class WebsiteSaleExtended(WebsiteSale):
     @http.route(['/shop/checkout'], type='http', auth="public", website=True)
     def checkout(self, **post):
         order = request.website.sale_get_order()
-        # order.checkout = False
         redirection = self.checkout_redirection(order)
         if redirection:
             return redirection
@@ -22,7 +21,6 @@ class WebsiteSaleExtended(WebsiteSale):
         if order.partner_id.id == request.website.user_id.sudo().partner_id.id:
             return request.redirect('/shop/address')
         for f in self._get_mandatory_billing_fields():
-            order.checkout = True
             if not order.partner_id[f]:
                 return request.redirect('/shop/address?partner_id=%d' % order.partner_id.id)
         values = self.checkout_values(**post)
