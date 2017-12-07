@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp><data>
+<odoo>
 
 <template id="layout_footer_copyright" inherit_id="website.layout_footer_copyright">
     <xpath expr="//div[@t-ignore='true']" position="replace">
     </xpath>
 </template>
 
-<record id="view_website_config_settings" model="ir.ui.view">
-    <field name="model">website.config.settings</field>
-    <field name="inherit_id" ref="website.view_website_config_settings"/>
+<record id="view_company_form_inherit_website" model="ir.ui.view">
+    <field name="model">res.company</field>
+    <field name="inherit_id" ref="website.view_company_form_inherit_website"/>
     <field name="arch" type="xml">
         <xpath expr="//field[@name='social_twitter']" position="attributes">
             <attribute name="placeholder"></attribute>
@@ -57,7 +57,7 @@
 </record>
 
 <template id="s_banner" inherit_id="website.s_banner">
-    <xpath expr="//img[@class='img-responsive']" position="attributes">
+    <xpath expr="//img[hasclass('img-responsive')]" position="attributes">
         <attribute name="alt">Banner Image</attribute>
         <attribute name="src">/website/static/src/img/library/ipad.png</attribute>
     </xpath>
@@ -87,7 +87,7 @@
     </xpath>
 </template>
 <template id="s_button" inherit_id="website.s_button">
-    <xpath expr="//div[@class='col-md-9']" position="replace">
+    <xpath expr="//div[hasclass('col-md-9')]" position="replace">
         <div class="col-md-9">
             <p class="mb0">
                 <strong>We provide the best software for companies.</strong>
@@ -154,7 +154,7 @@
 
 
 <template id="s_parallax_slider" inherit_id="website.s_parallax_slider">
-    <xpath expr="//div[@class='carousel-inner']" position="replace">
+    <xpath expr="//div[hasclass('carousel-inner')]" position="replace">
                     <div class="carousel-inner">
 
                         <div class="item text_only active">
@@ -200,4 +200,4 @@
 <delete id="website.show_website_info" model="ir.ui.view"/>
 <delete id="website.website_info" model="ir.ui.view"/>
 
-</data></openerp>
+</odoo>

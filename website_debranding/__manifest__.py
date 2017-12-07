@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+
 {
     'name': "Website debranding",
     'version': '1.0.0',
@@ -14,5 +14,5 @@
         'views.xml',
     ],
     'auto_install': True,
-    'installable': False
+    'installable': True
 }
