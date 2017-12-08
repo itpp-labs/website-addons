@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- bikes -->
+    <record id="mountain_bike_category" model="product.public.category">
+        <field name="name">Mountain bikes</field>
+        <field name="website_ids" eval="[(4, ref('website_bikes'), 0)]"/>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="fat_bike_category" model="product.public.category">
+        <field name="name">Fat bikes</field>
+        <field name="website_ids" eval="[(4, ref('website_bikes'), 0)]"/>
+        <field name="sequence">20</field>
+    </record>
+
+    <record id="electric_bike_category" model="product.public.category">
+        <field name="name">Electric bikes</field>
+        <field name="website_ids" eval="[(4, ref('website_bikes'), 0)]"/>
+        <field name="sequence">30</field>
+    </record>
+
+    <record id="road_bike_category" model="product.public.category">
+        <field name="name">Road bikes</field>
+        <field name="website_ids" eval="[(4, ref('website_bikes'), 0)]"/>
+        <field name="sequence">40</field>
+    </record>
+
+    <!-- watches -->
+    <record id="man_watches_category" model="product.public.category">
+        <field name="name">Men's watches</field>
+        <field name="website_ids" eval="[(4, ref('website_watches'), 0)]"/>
+        <field name="sequence">50</field>
+    </record>
+    <record id="lady_watches_category" model="product.public.category">
+        <field name="name">Ladies' watches</field>
+        <field name="website_ids" eval="[(4, ref('website_watches'), 0)]"/>
+        <field name="sequence">100</field>
+    </record>
+
+    <!-- books -->
+    <record id="bio_book_category" model="product.public.category">
+        <field name="name">Biography</field>
+        <field name="website_ids" eval="[(4, ref('website_books'), 0)]"/>
+    </record>
+
+    <record id="novel_book_category" model="product.public.category">
+        <field name="name">Novel</field>
+        <field name="website_ids" eval="[(4, ref('website_books'), 0)]"/>
+    </record>
+
+    <record id="fiction_book_category" model="product.public.category">
+        <field name="name">Fiction</field>
+        <field name="website_ids" eval="[(4, ref('website_books'), 0)]"/>
+    </record>
+
+    <record id="detective_book_category" model="product.public.category">
+        <field name="name">Detective</field>
+        <field name="website_ids" eval="[(4, ref('website_books'), 0)]"/>
+    </record>
+
+    <record id="mystery_book_category" model="product.public.category">
+        <field name="name">Mystery</field>
+        <field name="website_ids" eval="[(4, ref('website_books'), 0)]"/>
+    </record>
+
+    <record id="cookbook_book_category" model="product.public.category">
+        <field name="name">Cookbook</field>
+        <field name="website_ids" eval="[(4, ref('website_books'), 0)]"/>
+    </record>
+
+</odoo>
