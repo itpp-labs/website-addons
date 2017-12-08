@@ -2,7 +2,7 @@
 {
     "name": """Demo Data for \"Real Multi Website\"""",
     "summary": """Provides demo websites""",
-    "category": "eCommerce",
+    "category": "Hidden",
     # "live_test_URL": "",
     "images": [],
     "version": "1.0.0",
