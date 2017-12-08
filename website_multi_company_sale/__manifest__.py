@@ -3,7 +3,7 @@
     "name": """Real Multi Website (eCommerce extension)""",
     "summary": """Multi Website support in eCommerce""",
     "category": "eCommerce",
-    # "live_test_url": "",
+    "live_test_url": "http://apps.it-projects.info/shop/product/website-multi-company?version=11.0",
     "images": [],
     "version": "1.0.0",
     "application": False,
