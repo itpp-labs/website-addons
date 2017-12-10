@@ -52,11 +52,11 @@ odoo.define('website_event_attendee_fields.registration_form', function (require
         // check form
         var row = get_row($row);
         var has_duplicate = _.some(rows, function(r){
-            if (r.counter == row.counter){
+            if (r.counter === row.counter){
                 // don't compare with itself
                 return false;
             }
-            if ($row.find('.email').val() != r.$row.find('.email').val()){
+            if ($row.find('.email').val() !== r.$row.find('.email').val()){
                 // emails are different
                 return false;
             }

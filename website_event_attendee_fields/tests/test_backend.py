@@ -26,8 +26,9 @@ class TestBackend(common.TestCase):
     def test_registration(self):
         country = self.env.ref('base.ru')
         email_value = 'test@example.com'
-        self.assertFalse(self.env['res.partner'].search([('email', '=', email_value)]),
-                         "Tests assumed, that partner with email %s doesn't exist" % email_value
+        self.assertFalse(
+            self.env['res.partner'].search([('email', '=', email_value)]),
+            "Tests assumed, that partner with email %s doesn't exist" % email_value
         )
         # emulate registration_confirm controller workflow
         registration_data = {
