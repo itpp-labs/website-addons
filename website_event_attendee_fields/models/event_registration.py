@@ -12,6 +12,14 @@ class EventRegistration(models.Model):
 
     @api.model
     def create(self, vals):
+        partner_exists = False
+        if vals.get('email'):
+            Partner = self.env['res.partner']
+            email = vals.get('email').replace('%', '').replace('_', '\\_')
+            partner_exists = Partner.search([
+                ('email', '=ilike', email)
+            ], limit=1)
+
         res = super(EventRegistration, self).create(vals)
 
         if res.attendee_partner_id:
@@ -19,6 +27,18 @@ class EventRegistration(models.Model):
             # because built-in modules take them from Partner (buyer) if ones are no presented
             res.name = res.attendee_partner_id.name
             res.phone = res.attendee_partner_id.phone
+
+            if partner_exists:
+                partner_vals = self._prepare_partner(vals)
+                if res.attendee_partner_id == self.env.user.partner_id:
+                    res.attendee_partner_id.sudo().write(partner_vals)
+
+                elif len(partner_vals) > 1:
+                    # If vals has more than email address
+                    # Add a note about posible problems with updating fields
+                    res.message_post("""
+                    Attendee partner record are not updated for security reasons:<br/> %s
+                    """ % partner_vals)
 
         return res
 
