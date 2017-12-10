@@ -22,9 +22,9 @@ class TestCase(TransactionCase):
         })
 
     def test_self_registration(self):
-        """superuser creates registration for himself"""
-        agent = self.env.user.partner_id
-        NEW_NAME = 'New AdminName'
+        """demouser creates registration for himself"""
+        agent = self.env.ref(USER_DEMO).partner_id
+        NEW_NAME = 'New DemoName'
 
         registration = self.env['event.registration'].create({
             'partner_id': agent.id,
