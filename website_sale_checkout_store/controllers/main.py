@@ -38,7 +38,7 @@ class WebsiteSaleExtended(WebsiteSale):
     @http.route(['/shop/payment'], type='http', auth="public", website=True)
     def payment(self, **post):
         order = request.website.sale_get_order()
-        if type(order.buy_way) is bool:
+        if not order.buy_way:
             return super(WebsiteSaleExtended, self).payment()
         if 'nobill' in order.buy_way:
             order.force_quotation_send()
@@ -50,7 +50,7 @@ class WebsiteSaleExtended(WebsiteSale):
     @http.route('/shop/payment/get_status/<int:sale_order_id>', type='json', auth="public", website=True)
     def payment_get_status(self, sale_order_id, **post):
         order = request.env['sale.order'].sudo().browse(sale_order_id)
-        if type(order.buy_way) is bool:
+        if not order.buy_way:
             return super(WebsiteSaleExtended, self).payment_get_status(sale_order_id, **post)
         if 'nobill' in order.buy_way:
             return {'recall': False, 'message': ''}
@@ -59,7 +59,7 @@ class WebsiteSaleExtended(WebsiteSale):
 
     def _get_mandatory_fields(self):
         order = request.website.sale_get_order()
-        if type(order.buy_way) is bool:
+        if not order.buy_way:
             return ["name", "phone", "email", "street", "city", "country_id"]
         if 'noship' in order.buy_way:
             if 'nobill' in order.buy_way:
