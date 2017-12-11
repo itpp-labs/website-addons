@@ -17,7 +17,6 @@ class WebsiteSaleExtended(WebsiteSale):
             order.buy_way = post['buyMethod']
         except:
             return super(WebsiteSaleExtended, self).checkout(**post)
-            # pass
         if order.partner_id.id == request.website.user_id.sudo().partner_id.id:
             return request.redirect('/shop/address')
         for f in self._get_mandatory_billing_fields():

@@ -189,13 +189,6 @@
                 </t>
                 <attribute name="t-att-ship_enabled">shipping</attribute>
                 <attribute name="t-att-bill_enabled">billing</attribute>
-                <!--<t t-if="order.buy_way">-->
-                    <!--<t t-if="type(order.buy_way) is not bool">-->
-                        <!--<attribute name="t-att-test">type(order.buy_way)</attribute>-->
-                        <!--<attribute name="t-att-bill_enabled">not 'nobill' in order.buy_way and '1' or '0'</attribute>-->
-                        <!--<attribute name="t-att-ship_enabled">not 'noship' in order.buy_way and '1' or '0'</attribute>-->
-                    <!--</t>-->
-                <!--</t>-->
             </xpath>
             <xpath expr="//div[@class='oe_cart']/table[2]/tbody/tr" position="after">
                 <t t-if="order.delivery_method_information">
