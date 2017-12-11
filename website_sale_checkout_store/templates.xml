@@ -75,8 +75,8 @@
         </template>
 
         <template id="website_sale_checkout_store_checkout" name="my_checkout" inherit_id="website_sale.checkout">
-            <xpath expr="//div[@class='container oe_website_sale']" position="attributes">
-                <t t-set="order_buy_way" t-value="website.sale_get_order().buy_way"/>
+            <xpath expr="//div[@class='container oe_website_sale']" position="before">
+                <t t-set="order_buy_way" t-value="order.buy_way"/>
                 <t t-if="not order_buy_way">
                     <t t-set="shipping" t-value="'1'"/>
                     <t t-set="billing" t-value="'1'"/>
@@ -85,6 +85,8 @@
                     <t t-set="shipping" t-value="not 'noship' in order_buy_way and '1' or '0'"/>
                     <t t-set="billing" t-value="not 'nobill' in order_buy_way and '1' or '0'"/>
                 </t>
+            </xpath>
+            <xpath expr="//div[@class='container oe_website_sale']" position="attributes">
                 <attribute name="t-att-ship_enabled">shipping</attribute>
                 <attribute name="t-att-bill_enabled">billing</attribute>
             </xpath>
@@ -99,7 +101,7 @@
         <template id="address" name="my_checkout" inherit_id="website_sale.address">
             <xpath expr="//div[@class='container oe_website_sale']/.." position="before">
                 <t t-set="order_buy_ways" t-value="website.sale_get_order().buy_way"/>
-                <t t-if="not order_buy_way">
+                <t t-if="not order_buy_ways">
                     <t t-set="shipping" t-value="'1'"/>
                     <t t-set="billing" t-value="'1'"/>
                 </t>
