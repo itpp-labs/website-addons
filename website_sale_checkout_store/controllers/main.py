@@ -6,17 +6,23 @@ from odoo.http import request
 
 class WebsiteSaleExtended(WebsiteSale):
 
+    @http.route(['/shop/address'], type='http', methods=['GET', 'POST'], auth="public", website=True)
+    def address(self, **post):
+        address_super = super(WebsiteSaleExtended, self).address(**post)
+        address_super.qcontext.update(request.website.sale_get_order().set_shipping_billing())
+        return address_super
+
     @http.route(['/shop/checkout'], type='http', auth="public", website=True)
     def checkout(self, **post):
         order = request.website.sale_get_order()
         redirection = self.checkout_redirection(order)
         if redirection:
             return redirection
-
+        checkout_super = super(WebsiteSaleExtended, self).checkout(**post)
         try:
             order.buy_way = post['buyMethod']
         except:
-            return super(WebsiteSaleExtended, self).checkout(**post)
+            return checkout_super
         if order.partner_id.id == request.website.user_id.sudo().partner_id.id:
             return request.redirect('/shop/address')
         for f in self._get_mandatory_billing_fields():
@@ -33,7 +39,8 @@ class WebsiteSaleExtended(WebsiteSale):
         # Avoid useless rendering if called in ajax
         if post.get('xhr'):
             return 'ok'
-        return request.render("website_sale.checkout", values)
+        checkout_super.qcontext.update(order.set_shipping_billing())
+        return checkout_super
 
     @http.route(['/shop/payment'], type='http', auth="public", website=True)
     def payment(self, **post):
@@ -47,6 +54,12 @@ class WebsiteSaleExtended(WebsiteSale):
         else:
             return super(WebsiteSaleExtended, self).payment()
 
+    @http.route(['/shop/confirmation'], type='http', auth="public", website=True)
+    def payment_confirmation(self, **post):
+        payment_confirmation_super = super(WebsiteSaleExtended, self).address(**post)
+        payment_confirmation_super.qcontext.update(request.website.sale_get_order().set_shipping_billing())
+        return payment_confirmation_super
+
     @http.route('/shop/payment/get_status/<int:sale_order_id>', type='json', auth="public", website=True)
     def payment_get_status(self, sale_order_id, **post):
         order = request.env['sale.order'].sudo().browse(sale_order_id)
@@ -59,18 +72,15 @@ class WebsiteSaleExtended(WebsiteSale):
 
     def _get_mandatory_fields(self):
         order = request.website.sale_get_order()
-        if not order.buy_way:
+        if not order.buy_way or 'nobill' not in order.buy_way and 'noship' not in order.buy_way:
             return ["name", "phone", "email", "street", "city", "country_id"]
-        if 'noship' in order.buy_way:
+        elif 'noship' in order.buy_way:
             if 'nobill' in order.buy_way:
                 return ["name", "phone", "email"]
             else:
                 return ["name", "phone", "email", "country_id"]
         else:
-            if 'nobill' in order.buy_way:
-                return ["name", "phone", "email", "street", "city"]
-            else:
-                return ["name", "phone", "email", "street", "city", "country_id"]
+            return ["name", "phone", "email", "street", "city"]
 
     def _get_mandatory_billing_fields(self):
         return self._get_mandatory_fields()
