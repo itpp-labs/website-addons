@@ -23,7 +23,6 @@ class WebsiteSaleExtended(WebsiteSale):
         if order.buy_way:
             if order.partner_id.id == request.website.user_id.sudo().partner_id.id:
                 return request.redirect('/shop/address')
-            sale_order_id = request.session.get('sale_order_id')
             if 'noship' in order.buy_way and 'nobill' in order.buy_way:
                 request.session['sale_last_order_id'] = order.id
                 request.website.sale_reset()
