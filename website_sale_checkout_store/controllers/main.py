@@ -6,13 +6,13 @@ from odoo.http import request
 
 class WebsiteSaleExtended(WebsiteSale):
 
-    @http.route(['/shop/address'], type='http', methods=['GET', 'POST'], auth="public", website=True)
+    @http.route()
     def address(self, **post):
         address_super = super(WebsiteSaleExtended, self).address(**post)
-        address_super.qcontext.update(request.website.sale_get_order().set_shipping_billing())
+        address_super.qcontext.update(request.website.sale_get_order().return_shipping_billing())
         return address_super
 
-    @http.route(['/shop/checkout'], type='http', auth="public", website=True)
+    @http.route()
     def checkout(self, **post):
         order = request.website.sale_get_order()
         checkout_super = super(WebsiteSaleExtended, self).checkout(**post)
@@ -29,10 +29,10 @@ class WebsiteSaleExtended(WebsiteSale):
                 request.website.sale_reset()
                 return request.redirect('/shop/confirmation')
             request.env["sale.order"].browse(sale_order_id).sudo().payment_and_delivery_method_info()
-            checkout_super.qcontext.update(order.set_shipping_billing())
+            checkout_super.qcontext.update(order.return_shipping_billing())
         return checkout_super
 
-    @http.route(['/shop/payment'], type='http', auth="public", website=True)
+    @http.route()
     def payment(self, **post):
         order = request.website.sale_get_order()
         if order.buy_way and 'nobill' in order.buy_way:
@@ -42,7 +42,7 @@ class WebsiteSaleExtended(WebsiteSale):
         else:
             return super(WebsiteSaleExtended, self).payment()
 
-    @http.route('/shop/payment/get_status/<int:sale_order_id>', type='json', auth="public", website=True)
+    @http.route()
     def payment_get_status(self, sale_order_id, **post):
         order = request.env['sale.order'].sudo().browse(sale_order_id)
         if order.buy_way and'nobill' in order.buy_way:
