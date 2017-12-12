@@ -20,6 +20,7 @@ class WebsiteSaleExtended(WebsiteSale):
             order.buy_way = post['buyMethod']
         except:
             pass
+        # check if super did a redirection
         if checkout_super.location:
             return checkout_super
         if order.buy_way:
@@ -28,6 +29,7 @@ class WebsiteSaleExtended(WebsiteSale):
                 request.website.sale_reset()
                 return request.redirect('/shop/confirmation')
             checkout_super.qcontext.update(order.get_shipping_billing())
+        return checkout_super
 
     @http.route()
     def payment(self, **post):
