@@ -9,7 +9,7 @@ class WebsiteSaleExtended(WebsiteSale):
     @http.route()
     def address(self, **post):
         address_super = super(WebsiteSaleExtended, self).address(**post)
-        address_super.qcontext.update(request.website.sale_get_order().return_shipping_billing())
+        address_super.qcontext.update(request.website.sale_get_order().get_shipping_billing())
         return address_super
 
     @http.route()
@@ -28,8 +28,7 @@ class WebsiteSaleExtended(WebsiteSale):
                 request.session['sale_last_order_id'] = order.id
                 request.website.sale_reset()
                 return request.redirect('/shop/confirmation')
-            request.env["sale.order"].browse(sale_order_id).sudo().payment_and_delivery_method_info()
-            checkout_super.qcontext.update(order.return_shipping_billing())
+            checkout_super.qcontext.update(order.get_shipping_billing())
         return checkout_super
 
     @http.route()
