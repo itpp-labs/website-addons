@@ -17,9 +17,7 @@ class SaleOrder(models.Model):
 
     def _compute_delivery_method_information(self):
         self.delivery_method_information = False
-        if str(self.buy_way) == "bill_noship":
-            self.delivery_method_information = _("Pickup at store")
-        elif str(self.buy_way) == "nobill_noship":
+        if str(self.buy_way) == "bill_noship" or str(self.buy_way) == "nobill_noship":
             self.delivery_method_information = _("Pickup at store")
 
     def get_shipping_billing(self):
