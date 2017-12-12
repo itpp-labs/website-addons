@@ -20,15 +20,14 @@ class WebsiteSaleExtended(WebsiteSale):
             order.buy_way = post['buyMethod']
         except:
             pass
+        if checkout_super.location:
+            return checkout_super
         if order.buy_way:
-            if order.partner_id.id == request.website.user_id.sudo().partner_id.id:
-                return request.redirect('/shop/address')
             if 'noship' in order.buy_way and 'nobill' in order.buy_way:
                 request.session['sale_last_order_id'] = order.id
                 request.website.sale_reset()
                 return request.redirect('/shop/confirmation')
             checkout_super.qcontext.update(order.get_shipping_billing())
-        return checkout_super
 
     @http.route()
     def payment(self, **post):
