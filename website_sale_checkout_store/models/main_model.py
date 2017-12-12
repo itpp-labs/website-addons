@@ -19,15 +19,15 @@ class SaleOrder(models.Model):
         if value:
             self.write(value)
 
-    def set_shipping_billing(self):
+    def return_shipping_billing(self):
         if not self.buy_way:
             return {
-                'shipping': '1',
-                'billing': '1',
+                'ship_enabled': '1',
+                'bill_enabled': '1',
             }
         return {
-            'shipping': 'noship' not in self.buy_way and '1' or '0',
-            'billing': 'nobill' not in self.buy_way and '1' or '0',
+            'ship_enabled': 'noship' not in self.buy_way and '1' or '0',
+            'bill_enabled': 'nobill' not in self.buy_way and '1' or '0',
         }
 
 

@@ -73,8 +73,8 @@
 
         <template id="checkout" name="my_checkout" inherit_id="website_sale.checkout">
             <xpath expr="//div[@class='container oe_website_sale']" position="attributes">
-                <attribute name="t-attf-ship_enabled">#{shipping}</attribute>
-                <attribute name="t-attf-bill_enabled">#{billing}</attribute>
+                <attribute name="t-attf-ship_enabled">#{ship_enabled}</attribute>
+                <attribute name="t-attf-bill_enabled">#{bill_enabled}</attribute>
             </xpath>
             <xpath expr="//div[@class='row all_shipping']" position="attributes">
                 <attribute name="t-att-ship">1</attribute>
@@ -86,8 +86,8 @@
 
         <template id="address" name="my_checkout" inherit_id="website_sale.address">
             <xpath expr="//div[@class='container oe_website_sale']" position="attributes">
-                <attribute name="t-attf-ship_enabled">#{shipping}</attribute>
-                <attribute name="t-attf-bill_enabled">#{billing}</attribute>
+                <attribute name="t-attf-ship_enabled">#{ship_enabled}</attribute>
+                <attribute name="t-attf-bill_enabled">#{bill_enabled}</attribute>
             </xpath>
             <xpath expr="//input[@name='street']/.." position="attributes">
                 <attribute name="ship">1</attribute>
