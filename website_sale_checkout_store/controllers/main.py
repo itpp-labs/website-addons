@@ -45,9 +45,7 @@ class WebsiteSaleExtended(WebsiteSale):
     @http.route(['/shop/payment'], type='http', auth="public", website=True)
     def payment(self, **post):
         order = request.website.sale_get_order()
-        if not order.buy_way:
-            return super(WebsiteSaleExtended, self).payment()
-        if 'nobill' in order.buy_way:
+        if order.buy_way and 'nobill' in order.buy_way:
             order.force_quotation_send()
             request.website.sale_reset()
             return request.redirect('/shop/confirmation')
@@ -57,9 +55,7 @@ class WebsiteSaleExtended(WebsiteSale):
     @http.route('/shop/payment/get_status/<int:sale_order_id>', type='json', auth="public", website=True)
     def payment_get_status(self, sale_order_id, **post):
         order = request.env['sale.order'].sudo().browse(sale_order_id)
-        if not order.buy_way:
-            return super(WebsiteSaleExtended, self).payment_get_status(sale_order_id, **post)
-        if 'nobill' in order.buy_way:
+        if order.buy_way and'nobill' in order.buy_way:
             return {'recall': False, 'message': ''}
         else:
             return super(WebsiteSaleExtended, self).payment_get_status(sale_order_id, **post)
