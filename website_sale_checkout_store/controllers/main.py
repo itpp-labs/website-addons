@@ -22,7 +22,7 @@ class WebsiteSaleExtended(WebsiteSale):
         try:
             order.buy_way = post['buyMethod']
         except:
-            return checkout_super
+            pass
         if order.partner_id.id == request.website.user_id.sudo().partner_id.id:
             return request.redirect('/shop/address')
         for f in self._get_mandatory_billing_fields():
@@ -53,12 +53,6 @@ class WebsiteSaleExtended(WebsiteSale):
             return request.redirect('/shop/confirmation')
         else:
             return super(WebsiteSaleExtended, self).payment()
-
-    @http.route(['/shop/confirmation'], type='http', auth="public", website=True)
-    def payment_confirmation(self, **post):
-        payment_confirmation_super = super(WebsiteSaleExtended, self).address(**post)
-        payment_confirmation_super.qcontext.update(request.website.sale_get_order().set_shipping_billing())
-        return payment_confirmation_super
 
     @http.route('/shop/payment/get_status/<int:sale_order_id>', type='json', auth="public", website=True)
     def payment_get_status(self, sale_order_id, **post):

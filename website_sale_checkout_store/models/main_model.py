@@ -24,13 +24,12 @@ class SaleOrder(models.Model):
             return {
                 'shipping': '1',
                 'billing': '1',
-                'test_param': '1',
             }
         return {
             'shipping': 'noship' not in self.buy_way and '1' or '0',
             'billing': 'nobill' not in self.buy_way and '1' or '0',
-            'test_param': '1',
         }
+
 
 class WebsiteConfigSettings(models.TransientModel):
     _inherit = 'website.config.settings'
