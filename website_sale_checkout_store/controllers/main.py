@@ -6,9 +6,16 @@ from odoo.http import request
 
 class WebsiteSaleExtended(WebsiteSale):
 
+    @http.route(['/shop/address'], type='http', methods=['GET', 'POST'], auth="public", website=True)
+    def address(self, **post):
+        address_super = super(WebsiteSaleExtended, self).address(**post)
+        address_super.qcontext.update(request.website.sale_get_order().set_shipping_billing())
+        return address_super
+
     @http.route(['/shop/checkout'], type='http', auth="public", website=True)
     def checkout(self, **post):
         order = request.website.sale_get_order()
+        checkout_super = super(WebsiteSaleExtended, self).checkout(**post)
         try:
             order.buy_way = post['buyMethod']
         except:
@@ -22,13 +29,8 @@ class WebsiteSaleExtended(WebsiteSale):
                 request.website.sale_reset()
                 return request.redirect('/shop/confirmation')
             request.env["sale.order"].browse(sale_order_id).sudo().payment_and_delivery_method_info()
-        return super(WebsiteSaleExtended, self).checkout(**post)
-
-    def checkout_values(self, **post):
-        values = super(WebsiteSaleExtended, self).checkout_values(**post)
-        order = request.website.sale_get_order()
-        values['order'] = order
-        return values
+            checkout_super.qcontext.update(order.set_shipping_billing())
+        return checkout_super
 
     @http.route(['/shop/payment'], type='http', auth="public", website=True)
     def payment(self, **post):
