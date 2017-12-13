@@ -22,6 +22,8 @@ class WebsiteSaleExtended(WebsiteSale):
             pass
         # no need to update variables if super does a redirection
         if not checkout_super.location:
+            # in nobill_noship case omits checkout page step and redirects to shop/payment
+            # which in nobill case correctly resets website order data and redirects to confirmation
             if str(order.buy_way) == "nobill_noship":
                 return request.redirect('/shop/payment')
             checkout_super.qcontext.update(order.get_shipping_billing())
