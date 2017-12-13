@@ -12,16 +12,6 @@ class WebsiteSaleExtended(WebsiteSale):
         address_super.qcontext.update(request.website.sale_get_order().get_shipping_billing())
         return address_super
 
-    def checkout_redirection(self, order):
-        redirection = super(WebsiteSaleExtended, self).checkout_redirection(order)
-        if redirection:
-            return redirection
-        if order.partner_id.id is not request.website.user_id.sudo().partner_id.id and \
-           order.buy_way and 'noship' in order.buy_way and 'nobill' in order.buy_way:
-            request.session['sale_last_order_id'] = order.id
-            request.website.sale_reset()
-            return request.redirect('/shop/confirmation')
-
     @http.route()
     def checkout(self, **post):
         order = request.website.sale_get_order()
@@ -30,8 +20,10 @@ class WebsiteSaleExtended(WebsiteSale):
             order.buy_way = post['buyMethod']
         except:
             pass
-        # check if super did a redirection
+        # no need to update variables if super does a redirection
         if not checkout_super.location:
+            if str(order.buy_way) == "nobill_noship":
+                return request.redirect('/shop/payment')
             checkout_super.qcontext.update(order.get_shipping_billing())
         return checkout_super
 
@@ -39,6 +31,7 @@ class WebsiteSaleExtended(WebsiteSale):
     def payment(self, **post):
         order = request.website.sale_get_order()
         if order.buy_way and 'nobill' in order.buy_way:
+            request.session['sale_last_order_id'] = order.id
             order.force_quotation_send()
             request.website.sale_reset()
             return request.redirect('/shop/confirmation')

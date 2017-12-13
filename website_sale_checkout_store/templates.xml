@@ -112,7 +112,7 @@
                 <attribute name="bill">1</attribute>
             </xpath>
             <xpath expr="//label[contains(text(), 'Company Name')]" position="replace">
-                <label class="control-label label-optional" ship="1" for="company_name">Company <t t-esc="test_param"/> Name</label>
+                <label class="control-label label-optional" ship="1" for="company_name">Company Name</label>
             </xpath>
             <xpath expr="//input[@name='company_name']/.." position="attributes">
                 <attribute name="ship">1</attribute>
