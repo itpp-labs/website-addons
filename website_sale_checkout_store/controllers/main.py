@@ -9,7 +9,7 @@ class WebsiteSaleExtended(WebsiteSale):
     @http.route()
     def address(self, **post):
         address_super = super(WebsiteSaleExtended, self).address(**post)
-        address_super.qcontext.update(request.website.sale_get_order().return_shipping_billing())
+        address_super.qcontext.update(request.website.sale_get_order().get_shipping_billing())
         return address_super
 
     @http.route()
@@ -20,22 +20,20 @@ class WebsiteSaleExtended(WebsiteSale):
             order.buy_way = post['buyMethod']
         except:
             pass
-        if order.buy_way:
-            if order.partner_id.id == request.website.user_id.sudo().partner_id.id:
-                return request.redirect('/shop/address')
-            sale_order_id = request.session.get('sale_order_id')
-            if 'noship' in order.buy_way and 'nobill' in order.buy_way:
-                request.session['sale_last_order_id'] = order.id
-                request.website.sale_reset()
-                return request.redirect('/shop/confirmation')
-            request.env["sale.order"].browse(sale_order_id).sudo().payment_and_delivery_method_info()
-            checkout_super.qcontext.update(order.return_shipping_billing())
+        # no need to update variables if super does a redirection
+        if not checkout_super.location:
+            # in nobill_noship case omits checkout page step and redirects to shop/payment
+            # which in nobill case correctly resets website order data and redirects to confirmation
+            if str(order.buy_way) == "nobill_noship":
+                return request.redirect('/shop/payment')
+            checkout_super.qcontext.update(order.get_shipping_billing())
         return checkout_super
 
     @http.route()
     def payment(self, **post):
         order = request.website.sale_get_order()
         if order.buy_way and 'nobill' in order.buy_way:
+            request.session['sale_last_order_id'] = order.id
             order.force_quotation_send()
             request.website.sale_reset()
             return request.redirect('/shop/confirmation')
