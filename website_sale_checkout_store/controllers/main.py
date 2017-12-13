@@ -20,11 +20,11 @@ class WebsiteSaleExtended(WebsiteSale):
             order.buy_way = post['buyMethod']
         except:
             pass
-        # no need to update variables if super does a redirection
         if not checkout_super.location:
-            # in nobill_noship case omits checkout page step and redirects to shop/payment
-            # which in nobill case correctly resets website order data and redirects to confirmation
+            # no need to update variables if super does a redirection
             if str(order.buy_way) == "nobill_noship":
+                # in nobill_noship case omits checkout page step and redirects to shop/payment
+                # which in nobill case resets website order data and redirects to confirmation
                 return request.redirect('/shop/payment')
             checkout_super.qcontext.update(order.get_shipping_billing())
         return checkout_super
