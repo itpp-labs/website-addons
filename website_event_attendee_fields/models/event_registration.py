@@ -30,12 +30,17 @@ class EventRegistration(models.Model):
 
             if partner_exists:
                 partner_vals = self._prepare_partner(vals)
-                if res.attendee_partner_id == self.env.user.partner_id:
+                # Update attendee details, if user buys (register) ticket for himself
+                # self.env.user is Administrator here, so just trust to partner_id field
+                if res.attendee_partner_id == res.partner_id:
                     res.attendee_partner_id.sudo().write(partner_vals)
 
                 elif len(partner_vals) > 1:
                     # If vals has more than email address
                     # Add a note about posible problems with updating fields
+
+                    # FIXME partner_vals always has more than one field (e.g. event_ticket_id, origin, etc).
+                    # So, this message is always posted
                     res.message_post("""
                     Attendee partner record are not updated for security reasons:<br/> %s
                     """ % partner_vals)
