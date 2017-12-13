@@ -53,19 +53,3 @@ class EventRegistration(models.Model):
         onsubscribe_schedulers = self.event_id.event_mail_ids.filtered(
             lambda s: s.interval_type == 'transferring_finished')
         onsubscribe_schedulers.execute(self)  # self is a registration
-
-    @api.multi
-    def confirm_registration(self):
-        # FIXME: old tickets are not canceled and they are changed to products!
-        res = super(EventRegistration, self).confirm_registration()
-        order = self.sale_order_line_id.order_id
-        refunded_lines = order.order_line.mapped('refund_source_line_id')
-        self.search([('sale_order_line_id', 'in', refunded_lines.ids)]).button_reg_cancel()
-
-        # post a message why it was canceled
-        self.message_post_with_view(
-            'portal_event.message_origin_link',
-            values={'origin': order},
-            subtype_id=self.env.ref('mail.mt_note').id)
-
-        return res

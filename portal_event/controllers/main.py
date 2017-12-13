@@ -210,10 +210,11 @@ class PortalEvent(website_account):
         # TODO: make redirection customizable
         return request.redirect("/event/%s/register" % slug(ticket.event_id))
 
+
 class WebsiteSaleExtended(WebsiteSale):
     @http.route()
     def cart(self, **post):
-        response = super(PortalEvent, self).cart(**post)
+        response = super(WebsiteSaleExtended, self).cart(**post)
         if post.get('total_is_negative'):
             response.qcontext.update({
                 'warning_msg': _('Total amount is negative. Please add more tickets or products'),

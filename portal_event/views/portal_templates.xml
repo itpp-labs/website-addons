@@ -32,7 +32,7 @@
             <p>There are currently no tickets for your account.</p>
         </t>
         <t t-if="tickets">
-            <table class="table table-hover">
+            <table class="table table-hover table-tickets">
                 <thead>
                     <tr class="active">
                       <th>Ticket ID</th>
@@ -43,7 +43,7 @@
                 <t t-foreach="tickets" t-as="ticket">
                     <tr>
                         <td>
-                            <a t-attf-href="/my/tickets/#{ticket.id}?#{keep_query()}">#<t t-esc="ticket.id"/></a>
+                            <a class="ticket-id" t-attf-href="/my/tickets/#{ticket.id}?#{keep_query()}">#<t t-esc="ticket.id"/></a>
                         </td>
                         <td>
                             <!--<a t-attf-href="/event/#{ticket.event_id.id}"><t t-esc="ticket.event_id.display_name"/></a>-->

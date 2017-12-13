@@ -20,6 +20,7 @@
         "website_portal",
         "partner_event",
         "website_event_attendee_fields",
+        "website_sale_refund",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
@@ -31,6 +32,8 @@
     "qweb": [
     ],
     "demo": [
+        "views/assets_demo.xml",
+        "data/res_users_demo.xml",
     ],
 
     "post_load": None,

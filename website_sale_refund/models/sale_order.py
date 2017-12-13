@@ -49,8 +49,23 @@ class SaleOrder(models.Model):
 
         return super(SaleOrder, self)._cart_update(product_id=product_id, line_id=line_id, add_qty=add_qty, set_qty=set_qty, attributes=attributes, **kwargs)
 
+    @api.multi
+    def action_confirm(self):
+        self.ensure_one()
+        res = super(SaleOrder, self).action_confirm()
+        refunded_lines = self.order_line.mapped('refund_source_line_id')
+        refunded_lines._cancel_line(origin=self)
+        return res
+
 
 class SaleOrderLine(models.Model):
+
     _inherit = 'sale.order.line'
 
     refund_source_line_id = fields.Many2one('sale.order.line', 'Refund Source Line', help='Order line that is used for refund')
+
+    @api.multi
+    def _cancel_line(self, origin=None):
+        # Origin - sale order, that cancels this line
+        # TODO: cancel delivery, etc
+        return True
