@@ -7,7 +7,7 @@ from odoo import models
 
 
 def _attachment2url(att):
-    sha = hashlib.sha1(getattr(att, '__last_update')).hexdigest()[0:7]
+    sha = hashlib.sha1(getattr(att, '__last_update').encode('utf-8')).hexdigest()[0:7]
     return '/web/image/%s-%s' % (att.id, sha)
 
 
