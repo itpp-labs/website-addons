@@ -11,7 +11,5 @@ class TestDataGet(HttpCase):
     post_install = True
 
     def test_open_url(self):
-        user_demo = self.env.ref('base.user_demo')
-        url = '/web/image?model=res.users&id={}&field=image_medium'.format(user_demo.id)
-
+        url = '/web/login'
         self.url_open(url)
