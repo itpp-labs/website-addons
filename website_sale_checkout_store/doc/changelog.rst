@@ -1,7 +1,7 @@
 `1.0.3`
 -------
 
-- REF: Compatibility with website_sale_suggest_create_account, website_sale_require_login, website_event_sale
+- FIX: Compatibility with website_sale_suggest_create_account, website_sale_require_login, website_event_sale
 
 `1.0.2`
 -------
