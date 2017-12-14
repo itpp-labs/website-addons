@@ -7,6 +7,5 @@ Removes references to odoo.com:
 2. Removes placeholders from social media section
 3. Replaces "Odoo" from website snippets. Replaces Image-Floating snippet
 4. Removes /website/info page
-5. Removes "Optimize your AdWords account" link
 
 Tested on Odoo 11.0 c7171795f891335e8a8b6d5a6b796c28cea77fea
