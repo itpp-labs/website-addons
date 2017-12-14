@@ -20,9 +20,9 @@ class Background(Home):
 class BackgroundSignup(AuthSignupHome):
 
     @http.route('/web/signup', type='http', auth="public")
-    def web_auth_signup(self, redirect=None, **kw):
+    def web_auth_signup(self, *args, **kw):
         picture_url = request.env['ir.attachment'].get_background_pic()
         if picture_url:
             request.params['picture_url'] = picture_url
 
-        return super(BackgroundSignup, self).web_auth_signup(redirect=redirect, **kw)
+        return super(BackgroundSignup, self).web_auth_signup(*args, **kw)
