@@ -32,13 +32,17 @@ class WebsiteSaleExtended(WebsiteSale):
     @http.route()
     def payment(self, **post):
         order = request.website.sale_get_order()
-        if order.buy_way and 'nobill' in order.buy_way:
-            request.session['sale_last_order_id'] = order.id
-            order.force_quotation_send()
-            request.website.sale_reset()
-            return request.redirect('/shop/confirmation')
-        else:
-            return super(WebsiteSaleExtended, self).payment()
+        payment_super = super(WebsiteSaleExtended, self).payment()
+        if order.buy_way:
+            if 'noship' in order.buy_way:
+                order.remove_possible_delivery()
+                payment_super.qcontext.update({'deliveries': False})
+            if 'nobill' in order.buy_way:
+                request.session['sale_last_order_id'] = order.id
+                order.force_quotation_send()
+                request.website.sale_reset()
+                return request.redirect('/shop/confirmation')
+        return payment_super
 
     @http.route()
     def payment_get_status(self, sale_order_id, **post):
