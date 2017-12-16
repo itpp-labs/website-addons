@@ -25,10 +25,15 @@ class Users(models.Model):
         uid = super(Users, cls).authenticate(db, login, password, user_agent_env)
         with cls.pool.cursor() as cr:
             env = api.Environment(cr, SUPERUSER_ID, {})
-            base = env['ir.config_parameter'].get_param('web.base.url')
-            if not base:
-                if user_agent_env and user_agent_env.get('base_location'):
-                    base = user_agent_env['base_location']
+            base_location = user_agent_env and user_agent_env.get('base_location')
+            if not base_location:
+                # Workaround for demo system based on https://it-projects-llc.github.io/odoo-saas-tools/
+                #
+                # "Saas Demo" creates templates with installed modules and then creates copies of that template.
+                # So, we shall not make updates inside templates, but only inside final database
+                return uid
+
+            base = env['ir.config_parameter'].get_param('web.base.url') or base_location
 
             prefix = None
             suffix = None
