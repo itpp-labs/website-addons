@@ -64,7 +64,7 @@ class PortalEvent(website_account):
         return request.render("portal_event.portal_my_tickets", values)
 
     def _has_ticket_access(self, ticket, to_update=False):
-
+        """Ticket must not be sudo`ed"""
         if not ticket.exists():
             return False
 
@@ -74,7 +74,7 @@ class PortalEvent(website_account):
         except AccessError:
             return False
 
-        if ticket.attendee_partner_id.id == request.env.user.partner_id.id:
+        if ticket.attendee_partner_id.id == ticket.env.user.partner_id.id:
             return True
 
         if to_update:
@@ -86,7 +86,7 @@ class PortalEvent(website_account):
     @http.route(['/my/tickets/<int:ticket>'], type='http', auth="user", website=True)
     def ticket_page(self, ticket=None, **kw):
         values = self._prepare_portal_layout_values()
-        ticket = request.env['event.registration'].browse([ticket])
+        ticket = request.env['event.registration'].browse(ticket)
         if not ticket or not ticket.exists():
             return request.render("website.404")
 
@@ -116,7 +116,18 @@ class PortalEvent(website_account):
     @http.route(['/my/tickets/transfer'], type='http', auth="user", methods=['POST'], website=True)
     def ticket_transfer(self, to_email, ticket_id, **kw):
         values = self._prepare_portal_layout_values()
-        ticket = request.env['event.registration'].browse([int(ticket_id)])
+
+        error = self._ticket_transfer(request.env, to_email, ticket_id)
+
+        values.update({
+            'to_email': to_email,
+            'error': error,
+        })
+        return request.render("portal_event.portal_ticket_transfer", values)
+
+    def _ticket_transfer(self, env, to_email, ticket_id):
+
+        ticket = env['event.registration'].browse(int(ticket_id))
         ticket.ensure_one()
 
         if not self._has_ticket_access(ticket, to_update=True):
@@ -128,7 +139,7 @@ class PortalEvent(website_account):
 
         # Yes, error is None here but let's have correct indent for possible adding conditions.
         if not error:
-            receiver = request.env['res.partner'].sudo().search([
+            receiver = env['res.partner'].sudo().search([
                 ('email', '=ilike', to_email)
             ], limit=1)
 
@@ -139,23 +150,27 @@ class PortalEvent(website_account):
             domain = [('attendee_partner_id', '=', receiver.id),
                       ('state', 'not in', ['cancel']),
                       ('event_id', '=', ticket.event_id.id)]
-            if request.env['event.registration'].search_count(domain):
+            if env['event.registration'].search_count(domain):
                 error = 'receiver_has_ticket'
 
         if not error:
             # do the transfer
             ticket.sudo().transferring_started(receiver)
 
-        values.update({
-            'to_email': to_email,
-            'error': error,
-        })
-        return request.render("portal_event.portal_ticket_transfer", values)
+        return error
+
 
     @http.route(['/my/tickets/transfer/receive'], type='http', auth="user", methods=['GET', 'POST'], website=True)
-    def ticket_transfer_receive(self, transfer_ticket, **kw):
-        ticket = transfer_ticket
-        ticket = request.env['event.registration'].browse([int(ticket)])
+    def ticket_transfer_receive(self, transfer_ticket=None, **kw):
+        if transfer_ticket:
+            ticket = request.env['event.registration'].browse(int(transfer_ticket))
+        else:
+            # Just take first available ticket. Mostly for unittests
+            ticket = request.env['event.registration'].search([
+                ('attendee_partner_id', '=', request.env.user.partner_id.id),
+                ('is_transferring', '=', True),
+            ], limit=1)
+
         ticket.ensure_one()
 
         if not self._has_ticket_access(ticket, to_update=True):
@@ -166,7 +181,7 @@ class PortalEvent(website_account):
 
         values = self._prepare_portal_layout_values()
         if request.httprequest.method == 'GET':
-            tickets = WebsiteEventController._process_tickets_details(self, {'nb_register-0': 1})
+            tickets = WebsiteEventController()._process_tickets_details({'nb_register-0': 1})
             values.update({
                 'transfer_ticket': ticket,
                 'tickets': tickets,
@@ -178,7 +193,7 @@ class PortalEvent(website_account):
         # handle filled form
 
         receiver = ticket.attendee_partner_id
-        registration = WebsiteEventController._process_registration_details(self, kw)[0]
+        registration = WebsiteEventController()._process_registration_details(kw)[0]
         registration['event_id'] = ticket.event_id.id
         partner_vals = request.env['event.registration']._prepare_partner(registration)
         assert not partner_vals.get('email')
@@ -190,7 +205,7 @@ class PortalEvent(website_account):
 
     @http.route(['/my/tickets/change'], type='http', auth="user", methods=['POST'], website=True)
     def ticket_change(self, ticket_id, **kw):
-        ticket = request.env['event.registration'].browse([int(ticket_id)])
+        ticket = request.env['event.registration'].browse(int(ticket_id))
 
         if not self._has_ticket_access(ticket, to_update=True):
             return request.render("website.403")

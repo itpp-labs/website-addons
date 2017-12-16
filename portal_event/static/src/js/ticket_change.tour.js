@@ -1,4 +1,4 @@
-odoo.define('portal_event.tour', function (require) {
+odoo.define('portal_event.ticket_change_tour', function (require) {
     'use strict';
 
     var tour = require("web_tour.tour");

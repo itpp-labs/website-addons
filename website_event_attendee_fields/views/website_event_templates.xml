@@ -84,6 +84,9 @@
             /* apply webshims for dynamically added form */
             $('form').updatePolyfill();
 
+          odoo.define('website_event_attendee_fields.registration_attendee_details', function(require){
+            require('website_event_attendee_fields.registration_form');
+
             odoo.registration_form_init();
 
             (function(){
@@ -102,6 +105,7 @@
                 })
 
              })()
+           })
         </script>
     </xpath>
 </template>
