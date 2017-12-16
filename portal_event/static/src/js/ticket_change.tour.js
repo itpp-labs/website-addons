@@ -63,6 +63,5 @@ odoo.define('portal_event.tour', function (require) {
         },
 
         // Next step to pay or confirm Sale Order in backend, which cannot be done via tour
-
     ]);
 })
