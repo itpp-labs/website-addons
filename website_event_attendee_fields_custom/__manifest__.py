@@ -4,7 +4,7 @@
     "summary": """Ask information on registration and stores at Partner record""",
     "category": "Marketing",
     # "live_test_url": "",
-    "images": [],
+    "images": ['static/description/custom-fields-750.png'],
     "version": "1.0.0",
     "application": False,
 

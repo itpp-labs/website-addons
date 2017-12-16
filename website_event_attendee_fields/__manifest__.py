@@ -4,7 +4,7 @@
     "summary": """Do you need more information about attendees than three default fields (name, email, phone)?""",
     "category": "Marketing",
     # "live_test_url": "",
-    "images": [],
+    "images": ['static/description/custom-fields-750.png'],
     "version": "2.0.0",
     "application": False,
 
