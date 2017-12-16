@@ -14,6 +14,7 @@
     'depends': [
         'website_sale',
         'stock',
+        'delivery',
     ],
     'data': [
         'views/website_sale_available_views.xml',

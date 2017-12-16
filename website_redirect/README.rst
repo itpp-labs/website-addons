@@ -8,3 +8,11 @@ The module allows configure redirections rules. E.g.
 unix-style wildcards can be used: https://docs.python.org/2/library/fnmatch.html
 
 Tested on Odoo 8.0 ea60fed97af1c139e4647890bf8f68224ea1665b
+
+Odoo 11.0+
+----------
+
+The feature is built-in since 11.0:
+
+* Activate developer mode
+* open ``[[ Website ]] >> Configuration >> Redirect``

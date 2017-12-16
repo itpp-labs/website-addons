@@ -2,15 +2,14 @@
  Demo Data for "Real Multi Website"
 ====================================
 
+If you are looking for *Mult Website* feature use module `Real Multi Website <https://apps.odoo.com/apps/modules/10.0/website_multi_company>`_ instead.
 
-We put it in a separate module, because we don't want to add website_sale to dependency in website_multi_company.
-
-If you are looking for *Mult Website* feature use module `Real Multi Website <https://apps.odoo.com/apps/modules/10.0/website_multi_company_demo>`_ instead.
-
-Notes
-=====
+Demo-specific updates
+=====================
+Following features are not recommended to be added to non-demo installation (this is why we don't put demo data directly to website_multi_company module)
 
 * After first login website domains are updated. See `<models/res_users.py>`_
+* Once after installation: Set default website for all categories without website value
 
 Credits
 =======
