@@ -2,7 +2,7 @@
 
 from odoo.addons.portal_event.controllers.main import PortalEvent
 
-from common import TourCase
+from .common import TourCase
 
 
 class TicketTransfer(TourCase):
@@ -15,7 +15,6 @@ class TicketTransfer(TourCase):
             self.user_portal1.partner_id,
             "Wrong attendee_partner_id value before the test",
         )
-
 
         # user_portal1 transfers ticket to user_portal2
         env = self.env['res.users'].sudo(self.user_portal1).env
@@ -47,4 +46,3 @@ class TicketTransfer(TourCase):
             self.user_portal2.partner_id,
             "Ticket Attendee was not changed",
         )
-

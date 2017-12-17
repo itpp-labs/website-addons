@@ -40,4 +40,4 @@ odoo.define('portal_event.ticket_transfer_tour', function (require) {
         },
     ]);
 
-})
+});

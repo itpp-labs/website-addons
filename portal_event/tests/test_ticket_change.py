@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from common import TourCase
+from .common import TourCase
 
 
 class TicketChange(TourCase):
@@ -46,5 +46,3 @@ class TicketChange(TourCase):
             'open',
             'New ticket is not confirmed after confirming the order'
         )
-
-
