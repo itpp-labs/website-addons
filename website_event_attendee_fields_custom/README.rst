@@ -2,7 +2,7 @@
  Attendee registration: Birthdate, Passport, Nationality
 =========================================================
 
-Ask information on registration and stores at Partner record:
+Prepare fields for adding to registration form.
 
 * First name
 * Last name

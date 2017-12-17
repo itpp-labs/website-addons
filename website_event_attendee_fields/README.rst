@@ -15,17 +15,7 @@ Also,
 
   * first attendee at the form will have autofilled values (if person is not registered yet)
 
-* When email column is presented and there is a partner with that email:
-
-  * if partner has registration for the event:
-
-    * registration is blocked. Warning is shown
-
-  * if partner has some of fields
-
-    * grey them out with a message "This email address already has an account. Data will be taken from this account"
-
-* Registration form doesn't allow to register two attendees with the same email
+* Handles cases of reusing email. See `<doc/index.rst>`__ for details
 
 * Modifies behaviour of ``partner_event`` module:
 
@@ -37,7 +27,7 @@ Demo mode
 ---------
 In demo installation:
 
-* on installation each Event gets standarts fields (Name, Email, Phone) and two fields from partner (Country, Job Position)
+* on installation each Event gets standard fields (Name, Email, Phone) and two fields from partner (Country, Job Position)
 
 Credits
 =======

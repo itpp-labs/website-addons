@@ -4,6 +4,8 @@
 
 Allows to customers see tickets for events at Portal.
 
+* Only confirmed tickets with attendee_partner_id as current user are shown
+
 Additional features:
 
 * Ticket transferring feature
@@ -14,14 +16,13 @@ Additional features:
     * transferring_started
     * transferring_finished
 
+  * New attendee receives email with a link to finish ticket transferring
+
 * Tracks changes in key registration fields (via ``track_visibility='onchange'``)
 
 * Tickets can be changed to other products (including other tickets)
 
-TODO: handle registration state:
-
-* show state at tickets list
-* change / transfer only confirmed tickets
+  * When old ticket is canceled, a message with a reference to new Sale Order is posted
 
 Relation to other modules
 =========================
