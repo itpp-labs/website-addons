@@ -99,6 +99,10 @@
                       <div class="mb8">
                           <strong>Ticket Type:</strong> <span t-field="ticket.event_ticket_id.display_name"/>
                       </div>
+                      <div class="mb8">
+                          <a t-attf-href="/my/tickets/pdf/#{ticket.id}" class="btn btn-primary ml8">Print</a>
+
+                      </div>
                     </div>
                   </div>
               </div>

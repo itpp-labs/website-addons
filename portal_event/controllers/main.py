@@ -100,6 +100,20 @@ class PortalEvent(website_account):
         })
         return request.render("portal_event.portal_ticket_page", values)
 
+    @http.route(['/my/tickets/pdf/<int:ticket_id>'], type='http', auth="user", website=True)
+    def portal_get_ticket(self, ticket_id=None, **kw):
+        ticket = request.env['event.registration'].browse(ticket_id)
+
+        if not self._has_ticket_access(ticket):
+            return request.render("website.403")
+
+        pdf = request.env['report'].sudo().get_pdf([ticket.id], 'event.event_registration_report_template_badge')
+        pdfhttpheaders = [
+            ('Content-Type', 'application/pdf'), ('Content-Length', len(pdf)),
+            ('Content-Disposition', 'attachment; filename=ticket.pdf;')
+        ]
+        return request.make_response(pdf, headers=pdfhttpheaders)
+
     @http.route(['/my/tickets/transfer'], type='http', auth="user", methods=['GET'], website=True)
     def ticket_transfer_editor(self, **kw):
         """Special controller to customize result messages"""
