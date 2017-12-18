@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-<template id="event_description_full" inherit_id="website_event.event_description_full">
-    <xpath expr="//t[@t-set='head']" position="inside">
+<template id="polyfill">
         <!-- solution from https://stackoverflow.com/questions/22983013/how-to-get-html-5-input-type-date-working-in-firefox-and-or-ie-10 -->
         <!-- cdn for modernizr, if you haven't included it already -->
         <script src="//cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
@@ -15,11 +14,15 @@
             $('form').updatePolyfill();
         </script>
 
+</template>
+
+<template id="event_description_full" inherit_id="website_event.event_description_full">
+    <xpath expr="//t[@t-set='head']" position="inside">
+        <t t-call="website_event_attendee_fields.polyfill"/>
     </xpath>
 </template>
 
 <template id="registration_attendee_details" inherit_id="website_event.registration_attendee_details">
-
     <xpath expr="//t[@t-foreach='tickets']/div[@class='row']" position="replace">
         <div class="row" t-if="event.use_attendees_header">
             <t t-foreach="event.attendee_field_ids" t-as="field">
@@ -33,7 +36,9 @@
             <div class="message col-md-12"></div>
             <t t-set="attendee_placeholder">[Attendee #%s] </t>
             <t t-set="is_public_user" t-value="env.user == website.user_id"/>
-            <t t-set="autofill_user" t-value="counter==1 and not event.is_participating and not is_public_user and env.user"/>
+            <t t-if="not autofill_user">
+                <t t-set="autofill_user" t-value="counter==1 and not is_public_user and not event.is_participating and env.user"/>
+            </t>
             <t t-foreach="event.attendee_field_ids" t-as="field">
                 <t t-set="field_value" t-value="autofill_user and field.get_value(autofill_user.partner_id) or ''"/>
                 <div t-attf-class="col-md-{{field.width}} mb8 mt8">
@@ -43,7 +48,7 @@
                         <select
                             class="form-control"
                             t-attf-name="#{counter}-#{field.field_name}"
-                            t-att-required="field.is_required and 'This field is required' or ''"
+                            t-att="{'required': field.is_required and 'This field is required' or None}"
                             >
                             <option value=""><t t-esc="field.field_description"/>...</option>
                             <t t-foreach="field.get_select_options()" t-as="s">
@@ -62,19 +67,25 @@
                             t-att-type='field.form_type'
                             t-att-value="field_value"
                             t-attf-name="#{counter}-#{field.field_name}"
-                            t-att-required="field.is_required and 'This field is required' or ''"
+                            t-att="{'required': field.is_required and 'This field is required' or None}"
                             t-att-placeholder="(attendee_placeholder and (attendee_placeholder %counter) or '')"/>
                         <t t-set="attendee_placeholder"></t>
                     </t>
                 </div>
+
             </t>
             <input class='hidden' type='text' t-attf-name="#{counter}-ticket_id" t-attf-value="#{ticket['id']}"/>
+            <!-- allows to extend form (e.g. in portal_event module) -->
+            <t t-raw="0"/>
         </div>
     </xpath>
     <xpath expr="div" position="inside">
         <script type="text/javascript">
             /* apply webshims for dynamically added form */
             $('form').updatePolyfill();
+
+          odoo.define('website_event_attendee_fields.registration_attendee_details', function(require){
+            require('website_event_attendee_fields.registration_form');
 
             odoo.registration_form_init();
 
@@ -94,6 +105,7 @@
                 })
 
              })()
+           })
         </script>
     </xpath>
 </template>

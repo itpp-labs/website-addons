@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import http, _
+from odoo import http
 from odoo.http import request
 from odoo.addons.website_event.controllers.main import WebsiteEventController
 
@@ -14,6 +14,14 @@ class WebsiteEventControllerExtended(WebsiteEventController):
         assert len(emails) == len(set(emails))
         return super(WebsiteEventControllerExtended, self).registration_confirm(event, **post)
 
+    def _process_registration_details(self, details):
+        """ Remove spaces in emails """
+        res = super(WebsiteEventControllerExtended, self)._process_registration_details(details)
+        for registration in res:
+            if registration.get('email'):
+                registration['email'] = registration.get('email').strip()
+        return res
+
     @http.route(['/website_event_attendee_fields/check_email'], type='json', auth="public", methods=['POST'], website=True)
     def check_email(self, event_id, email):
         partner = request.env['res.partner'].sudo().search([
@@ -22,17 +30,13 @@ class WebsiteEventControllerExtended(WebsiteEventController):
         if not partner:
             return {}
 
-        registration = request.env['event.registration'].sudo().search([
-            ('event_id', '=', event_id),
-            ('partner_id', '=', partner.id),
-            ('state', '=', 'open'),
-        ])
-        if registration:
+        event = request.env['event.event'].sudo().browse(event_id)
+        error_msg = event.check_partner_for_new_ticket(partner.id)
+        if error_msg:
             return {
-                'email_not_allowed': _('This email address is already signed up for the event')
+                'email_not_allowed': error_msg
             }
 
-        event = request.env['event.event'].sudo().browse(event_id)
         known_fields = []
         for f in event.attendee_field_ids:
             if f.field_name == 'email':

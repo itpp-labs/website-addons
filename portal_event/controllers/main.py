@@ -1,24 +1,27 @@
 # -*- coding: utf-8 -*-
-
-from odoo import http
+from odoo import http, _
 from odoo.exceptions import AccessError
 from odoo.http import request
 
 from odoo.addons.website_portal.controllers.main import website_account
+from odoo.addons.website_event.controllers.main import WebsiteEventController
+from odoo.addons.website_sale.controllers.main import WebsiteSale
+from odoo.addons.website.models.website import slug
 
 
-class website_account(website_account):
+class PortalEvent(website_account):
 
     def _tickets_domain(self, partner=None):
         partner = partner or request.env.user.partner_id
         return [
-            ('partner_id', '=', partner.id),
+            ('attendee_partner_id', '=', partner.id),
+            ('state', '=', 'open'),
         ]
 
     @http.route()
     def account(self, **kw):
         """ Add sales documents to main account page """
-        response = super(website_account, self).account(**kw)
+        response = super(PortalEvent, self).account(**kw)
 
         domain = self._tickets_domain()
         tickets_count = request.env['event.registration'].search_count(domain)
@@ -60,28 +63,188 @@ class website_account(website_account):
         })
         return request.render("portal_event.portal_my_tickets", values)
 
-    @http.route(['/my/tickets/<int:ticket>'], type='http', auth="user", website=True)
-    def ticket_page(self, ticket=None, **kw):
-        ticket = request.env['event.registration'].browse([ticket])
-        if not ticket:
-            return request.render("website.404")
+    def _has_ticket_access(self, ticket, to_update=False):
+        """Ticket must not be sudo`ed"""
+        if not ticket.exists():
+            return False
 
-        has_access = True
         try:
             ticket.check_access_rights('read')
             ticket.check_access_rule('read')
         except AccessError:
-            has_access = False
+            return False
 
-        has_access = has_access \
-            or ticket.partner_id.id == request.env.user.partner_id \
-            or request.env.user.has_group('event.group_event_manager')
+        if ticket.attendee_partner_id.id == ticket.env.user.partner_id.id:
+            return True
 
-        if not has_access:
+        if to_update:
+            # not an attendee, so cannot update
+            return False
+
+        return request.env.user.has_group('event.group_event_manager')
+
+    @http.route(['/my/tickets/<int:ticket>'], type='http', auth="user", website=True)
+    def ticket_page(self, ticket=None, **kw):
+        values = self._prepare_portal_layout_values()
+        ticket = request.env['event.registration'].browse(ticket)
+        if not ticket or not ticket.exists():
+            return request.render("website.404")
+
+        if not self._has_ticket_access(ticket):
             return request.render("website.403")
 
         ticket_sudo = ticket.sudo()
 
-        return request.render("portal_event.portal_ticket_page", {
+        values.update({
             'ticket': ticket_sudo,
         })
+        return request.render("portal_event.portal_ticket_page", values)
+
+    @http.route(['/my/tickets/pdf/<int:ticket_id>'], type='http', auth="user", website=True)
+    def portal_get_ticket(self, ticket_id=None, **kw):
+        ticket = request.env['event.registration'].browse(ticket_id)
+
+        if not self._has_ticket_access(ticket):
+            return request.render("website.403")
+
+        pdf = request.env['report'].sudo().get_pdf([ticket.id], 'event.event_registration_report_template_badge')
+        pdfhttpheaders = [
+            ('Content-Type', 'application/pdf'), ('Content-Length', len(pdf)),
+            ('Content-Disposition', 'attachment; filename=ticket.pdf;')
+        ]
+        return request.make_response(pdf, headers=pdfhttpheaders)
+
+    @http.route(['/my/tickets/transfer'], type='http', auth="user", methods=['GET'], website=True)
+    def ticket_transfer_editor(self, **kw):
+        """Special controller to customize result messages"""
+        if not request.env.user.has_group('website.group_website_designer'):
+            return request.render("website.403")
+
+        values = self._prepare_portal_layout_values()
+        values.update({
+            'editor_mode': True,
+            'error': kw.get('error')
+        })
+        return request.render("portal_event.portal_ticket_transfer", values)
+
+    @http.route(['/my/tickets/transfer'], type='http', auth="user", methods=['POST'], website=True)
+    def ticket_transfer(self, to_email, ticket_id, **kw):
+        values = self._prepare_portal_layout_values()
+
+        error = self._ticket_transfer(request.env, to_email, ticket_id)
+
+        values.update({
+            'to_email': to_email,
+            'error': error,
+        })
+        return request.render("portal_event.portal_ticket_transfer", values)
+
+    def _ticket_transfer(self, env, to_email, ticket_id):
+
+        ticket = env['event.registration'].browse(int(ticket_id))
+        ticket.ensure_one()
+
+        if not self._has_ticket_access(ticket, to_update=True):
+            return request.render("website.403")
+        if not ticket.event_id.ticket_transferring:
+            return request.render("website.403")
+
+        error = None
+
+        # Yes, error is None here but let's have correct indent for possible adding conditions.
+        if not error:
+            receiver = env['res.partner'].sudo().search([
+                ('email', '=ilike', to_email)
+            ], limit=1)
+
+        if not receiver:
+            error = 'receiver_not_found'
+
+        if not error:
+            domain = [('attendee_partner_id', '=', receiver.id),
+                      ('state', 'not in', ['cancel']),
+                      ('event_id', '=', ticket.event_id.id)]
+            if env['event.registration'].search_count(domain):
+                error = 'receiver_has_ticket'
+
+        if not error:
+            # do the transfer
+            ticket.sudo().transferring_started(receiver)
+
+        return error
+
+    @http.route(['/my/tickets/transfer/receive'], type='http', auth="user", methods=['GET', 'POST'], website=True)
+    def ticket_transfer_receive(self, transfer_ticket=None, **kw):
+        if transfer_ticket:
+            ticket = request.env['event.registration'].browse(int(transfer_ticket))
+        else:
+            # Just take first available ticket. Mostly for unittests
+            ticket = request.env['event.registration'].search([
+                ('attendee_partner_id', '=', request.env.user.partner_id.id),
+                ('is_transferring', '=', True),
+            ], limit=1)
+
+        ticket.ensure_one()
+
+        if not self._has_ticket_access(ticket, to_update=True):
+            return request.render("website.403")
+
+        if not ticket.event_id.ticket_transferring:
+            return request.render("website.403")
+
+        values = self._prepare_portal_layout_values()
+        if request.httprequest.method == 'GET':
+            tickets = WebsiteEventController()._process_tickets_details({'nb_register-0': 1})
+            values.update({
+                'transfer_ticket': ticket,
+                'tickets': tickets,
+                'event': ticket.event_id,
+            })
+            return request.env['ir.ui.view'].render_template(
+                "portal_event.portal_ticket_transfer_receive", values)
+
+        # handle filled form
+
+        receiver = ticket.attendee_partner_id
+        registration = WebsiteEventController()._process_registration_details(kw)[0]
+        registration['event_id'] = ticket.event_id.id
+        partner_vals = request.env['event.registration']._prepare_partner(registration)
+        assert not partner_vals.get('email')
+
+        receiver.sudo().write(partner_vals)
+
+        ticket.sudo().transferring_finished()
+        return request.redirect('/my/tickets')
+
+    @http.route(['/my/tickets/change'], type='http', auth="user", methods=['POST'], website=True)
+    def ticket_change(self, ticket_id, **kw):
+        ticket = request.env['event.registration'].browse(int(ticket_id))
+
+        if not self._has_ticket_access(ticket, to_update=True):
+            return request.render("website.403")
+
+        if not ticket.event_id.ticket_changing:
+            return request.render("website.403")
+
+        ticket = ticket.sudo()
+        line = ticket.sale_order_line_id
+        assert line
+        product = line.product_id
+
+        order = request.website.sale_get_order(force_create=True)
+        name = _('Ticket change: %s') % product.name
+        order.add_refund_line(line, name)
+
+        # TODO: make redirection customizable
+        return request.redirect("/event/%s/register" % slug(ticket.event_id))
+
+
+class WebsiteSaleExtended(WebsiteSale):
+    @http.route()
+    def cart(self, **post):
+        response = super(WebsiteSaleExtended, self).cart(**post)
+        if post.get('total_is_negative'):
+            response.qcontext.update({
+                'warning_msg': _('Total amount is negative. Please add more tickets or products'),
+            })
+        return response

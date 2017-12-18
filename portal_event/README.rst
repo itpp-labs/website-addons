@@ -4,16 +4,59 @@
 
 Allows to customers see tickets for events at Portal.
 
+* Only confirmed tickets with attendee_partner_id as current user are shown
 
-The module to depends on ``website_event_attendee_signup`` module:
+Additional features:
 
-* partner_id is considered to be a person who attends (out-of-box is a person bought the ticket)
-* obviously, only signuped users can use portal
+* Ticket transferring feature
 
-website_portal_event
+  * To decrease chance of transferring to a wrong email, partner with the email must exist before transferring.
+  * New *When to Run* values for Email Schedule:
+
+    * transferring_started
+    * transferring_finished
+
+  * New attendee receives email with a link to finish ticket transferring
+
+* Tracks changes in key registration fields (via ``track_visibility='onchange'``)
+
+* Tickets can be changed to other products (including other tickets)
+
+  * When old ticket is canceled, a message with a reference to new Sale Order is posted
+
+Relation to other modules
+=========================
+
+website_event_refund
 --------------------
 
-The module is not splitted in two (e.g. portal_event and website_portal_event) as it's usually done, because since 11.0 there is no such separation.
+Ticket refunding feature based on ``website_event_refund`` module
+
+website_event_attendee_signup
+-----------------------------
+
+It's recommended to use the module with ``website_event_attendee_signup`` which creates user for each attendee on registration.
+
+website_event_attendee_fields
+-----------------------------
+
+We need this modules for autofill feature. Other features of the modules are optional.
+
+website
+-------
+
+The module is not splitted in two where one doesn't depend on website how it's usually done (e.g. ``portal_event`` and ``website_portal_event``), because since 11.0 there is no such separation.
+
+event_sale
+----------
+
+We don't split module in two where one doesn't depend on ``event_sale`` (e.g. ``portal_event`` and ``portal_event_sale``) for following reasons:
+
+* it simplifies development and maintainance
+* we don't consider portal module without ``event_sale`` as popular
+* free events are still usable even if ``event_sale`` module is installed
+
+
 
 Credits
 =======

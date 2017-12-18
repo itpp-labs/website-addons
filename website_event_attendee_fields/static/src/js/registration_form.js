@@ -2,9 +2,17 @@ odoo.define('website_event_attendee_fields.registration_form', function (require
 
     var ajax = require('web.ajax');
     var core = require("web.core");
+    var website_event = require('website_event.website_event');
 
     var _t = core._t;
 
+    website_event.EventRegistrationForm.include({
+        'on_click': function(ev){
+            // remove old form which is only hidden, but still presents in dom when user close popup and then click Register (Order) again
+            $('#modal_attendees_registration').remove();
+            return this._super.apply(this, arguments);
+        }
+    });
 
     var rows = {};
     function get_row($row){
@@ -19,6 +27,9 @@ odoo.define('website_event_attendee_fields.registration_form', function (require
             $row: $row,
             $modal: $modal,
             $submit: $modal.find('button[type="submit"]'),
+            get_email: function(){
+                return $.trim(this.$row.find('.email').val());
+            },
             show_msg: function (msg, color){
                 var $msg = $('<span/>').html(msg);
                 if (color){
@@ -48,15 +59,16 @@ odoo.define('website_event_attendee_fields.registration_form', function (require
         return row;
     }
 
-    function api_check_email(event_id, $row, email){
+    function api_check_email(event_id, $row){
         // check form
         var row = get_row($row);
+        var email = row.get_email();
         var has_duplicate = _.some(rows, function(r){
             if (r.counter === row.counter){
                 // don't compare with itself
                 return false;
             }
-            if ($row.find('.email').val() !== r.$row.find('.email').val()){
+            if (email !== r.get_email()){
                 // emails are different
                 return false;
             }
@@ -92,9 +104,8 @@ odoo.define('website_event_attendee_fields.registration_form', function (require
 
     function onchange_email(input, event_id){
         var $input = $(input);
-        var email = $input.val();
         var $row = $input.parent().parent();
-        return api_check_email(event_id, $row, email);
+        return api_check_email(event_id, $row);
     }
     function init(){
         rows = {};

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 {
-    "name": """Portal Event""",
-    "summary": """Allows to customers see their tickets for events at Portal""",
-    "category": "Marketing",
+    "name": """Product swap at eCommerce""",
+    "summary": """Product upgrading / changing feature for your online shop""",
+    "category": "eCommerce",
     # "live_test_url": "",
     "images": [],
     "version": "1.0.0",
@@ -16,24 +16,17 @@
     # "currency": "EUR",
 
     "depends": [
-        "event_sale",
-        "website_portal",
-        "partner_event",
-        "website_event_attendee_fields",
-        "website_sale_refund",
+        "website_sale",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
-        "views/portal_templates.xml",
-        "views/event_registration.xml",
-        "views/event_event.xml",
-        "data/mail_template_data.xml",
+        "data/product.xml",
+        "views/website_sale_templates.xml",
+        "views/sale_order_views.xml",
     ],
     "qweb": [
     ],
     "demo": [
-        "views/assets_demo.xml",
-        "data/res_users_demo.xml",
     ],
 
     "post_load": None,

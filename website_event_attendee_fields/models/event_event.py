@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 from odoo.tools.safe_eval import safe_eval
 
 
@@ -13,6 +13,22 @@ class Event(models.Model):
         for r in self:
             total_width = sum([int(f.width) or 1 for f in self.attendee_field_ids])
             r.use_attendees_header = total_width <= 12
+
+    @api.multi
+    def check_partner_for_new_ticket(self, partner_id):
+        if self.partner_is_participating(partner_id):
+            return _('This email address is already signed up for the event')
+        return None
+
+    @api.multi
+    def partner_is_participating(self, partner_id):
+        self.ensure_one()
+        registration = self.env['event.registration'].sudo().search([
+            ('event_id', '=', partner_id),
+            ('partner_id', '=', partner_id),
+            ('state', '=', 'open'),
+        ])
+        return registration
 
 
 class AttendeeField(models.Model):

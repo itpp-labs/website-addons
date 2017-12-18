@@ -32,7 +32,7 @@
             <p>There are currently no tickets for your account.</p>
         </t>
         <t t-if="tickets">
-            <table class="table table-hover">
+            <table class="table table-hover table-tickets">
                 <thead>
                     <tr class="active">
                       <th>Ticket ID</th>
@@ -43,10 +43,11 @@
                 <t t-foreach="tickets" t-as="ticket">
                     <tr>
                         <td>
-                            <a t-attf-href="/my/tickets/#{ticket.id}?#{keep_query()}">#<t t-esc="ticket.id"/></a>
+                            <a class="ticket-id" t-attf-href="/my/tickets/#{ticket.id}?#{keep_query()}">#<t t-esc="ticket.id"/></a>
                         </td>
                         <td>
-                            <a t-attf-href="/event/#{ticket.event_id.id}"><t t-esc="ticket.event_id.display_name"/></a>
+                            <!--<a t-attf-href="/event/#{ticket.event_id.id}"><t t-esc="ticket.event_id.display_name"/></a>-->
+                            <a t-attf-href="/my/tickets/#{ticket.id}?#{keep_query()}"><t t-esc="ticket.event_id.display_name"/></a>
                         </td>
                         <td><span t-field="ticket.event_ticket_id.display_name"/></td>
                     </tr>
@@ -60,7 +61,7 @@
     </template>
 
     <template id="portal_ticket_page" name="Ticket">
-      <t t-call="website.layout">
+      <t t-call="website_portal.portal_layout">
         <div id="wrap">
             <div class="container">
               <div class="oe_structure">
@@ -84,6 +85,8 @@
                     <div class="panel-heading">
                       <div class="row">
                         <div class="col-md-12">
+                          <button t-if="ticket.event_id.ticket_transferring" class="btn btn-default ml8 pull-right" data-toggle="modal" data-target="#transferTicketModal">Transfer to another person</button>
+                          <button t-if="ticket.event_id.ticket_changing" class="btn btn-default ml8 pull-right" data-toggle="modal" data-target="#changeTicketModal">Upgrade / Change ticket</button>
                           <h4>Ticket #<span t-esc="ticket.id"/></h4>
                         </div>
                       </div>
@@ -96,13 +99,156 @@
                       <div class="mb8">
                           <strong>Ticket Type:</strong> <span t-field="ticket.event_ticket_id.display_name"/>
                       </div>
+                      <div class="mb8">
+                          <a t-attf-href="/my/tickets/pdf/#{ticket.id}" class="btn btn-primary ml8">Print</a>
+
+                      </div>
                     </div>
                   </div>
               </div>
               <div class="oe_structure mb32"/>
           </div>
+
+        </div>
+
+
+        <!-- Transfer Modal -->
+        <div class="modal fade" id="transferTicketModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form t-attf-action="/my/tickets/transfer" method="post">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <input type="hidden" name="ticket_id" t-att-value="ticket.id"/>
+
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&amp;times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Ticket transferring</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="transfer_email">Receiver's Email</label>
+                                <input type="email" class="form-control" name="to_email" placeholder="Email"/>
+                            </div>
+                            <div class="alert alert-danger" role="alert"><b>Warning!</b> Once confirmed this action cannot be undone</div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Confirm</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>        
+
+
+        <!-- Change Modal -->
+        <div class="modal fade" id="changeTicketModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form t-attf-action="/my/tickets/change" method="post">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <input type="hidden" name="ticket_id" t-att-value="ticket.id"/>
+
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&amp;times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Upgrade / change ticket</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>This ticket can be changed to other tickets or products. Click <em>continue</em>, register new ticket (or fill the cart by other tickets\products) and follow usual checkout process.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Continue</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+<!--
+        <script type="text/javascript">
+            (function(){
+                var ticket_id = <t t-esc="ticket.id"/>;
+
+                $('#transfer_email').bind('change', function(e){
+                    odoo.registration_form_onchange_email(e.target, event_id);
+                })
+
+             })()
+        </script>
+-->
+      </t>
+    </template>
+
+    <template id="portal_ticket_transfer" name="Ticket">
+      <t t-call="website_portal.portal_layout">
+        <div id="wrap">
+            <div class="container">
+                <div t-if="editor_mode" class="alert alert-warning css_editable_mode_hidden" t-ignore="True">
+                    <p>Use one of following link to see page in a mode you need.</p>
+                    <ul>
+                        <li><a href="?error=">Transfered succefully</a></li>
+                        <li><a href="?error=receiver_not_found">there is no partner with that email</a></li>
+                        <li><a href="?error=receiver_has_ticket">Partner already has ticket</a></li>
+                    </ul>
+                </div>
+
+                <div t-if="not error" t-field="website.ticket_transfer_success" class="oe_structure mt16"/>
+
+                <div t-if="error == 'receiver_not_found'" t-field="website.ticket_transfer_receiver_not_found" class="oe_structure mt16"/>
+
+                <div t-if="error == 'receiver_has_ticket'" t-field="website.ticket_transfer_receiver_has_ticket" class="oe_structure mt16"/>
+            </div>
         </div>
       </t>
     </template>
+
+    <template id="portal_ticket_transfer_receive" name="Ticket">
+      <t t-call="website.layout">
+          <t t-set="head">
+              <t t-call="website_event_attendee_fields.polyfill"/>
+          </t>
+
+          <t t-set="autofill_user" t-value="env.user"/>
+          <t t-call="website_event.registration_attendee_details">
+              <input name="transfer_ticket" t-att-value="transfer_ticket.id" class="hidden"/>
+          </t>
+          <script type="text/javascript">
+              (function(){
+              var event_name = '<t t-esc="event.name"/>';
+              $modal = $('#modal_attendees_registration');
+
+              /* show form inline */
+              $modal.find('form').attr('action', '/my/tickets/transfer/receive');
+              $modal.removeClass('modal fade');
+              //$modal.find('.modal-dialog.modal-lg').removeClass('modal-dialog modal-lg');
+
+              /* remove Cancel button; update title */
+              var $submit = $modal.find('[type=submit]');
+              $submit.parent().empty().append($submit);
+              $submit.text('Confirm');
+
+              /* remove Close button */
+              $modal.find('.close').remove();
+
+              /* make email non-editable */
+              $modal.find('[name=1-email]').attr('disabled', '1');
+
+              /* update title */
+              $modal.find('.modal-title strong').html('Receive the ticket for <b>' + event_name + '</b>');
+              })()
+          </script>
+      </t>
+    </template>
+
+    <template id="message_origin_link">
+        <p>This ticket has been canceled from:
+        <t t-foreach="origin" t-as="o">
+            <a href="#" t-att-data-oe-model="o._name" t-att-data-oe-id="o.id"> <t t-esc="o.name"/></a><span t-if="origin.ids[-1:] != o.ids">, </span>
+        </t>
+        </p>
+    </template>
+
 
 </odoo>
