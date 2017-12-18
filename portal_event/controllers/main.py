@@ -173,7 +173,6 @@ class PortalEvent(website_account):
 
         return error
 
-
     @http.route(['/my/tickets/transfer/receive'], type='http', auth="user", methods=['GET', 'POST'], website=True)
     def ticket_transfer_receive(self, transfer_ticket=None, **kw):
         if transfer_ticket:
