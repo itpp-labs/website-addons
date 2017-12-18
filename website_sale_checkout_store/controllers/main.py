@@ -9,7 +9,6 @@ class WebsiteSaleExtended(WebsiteSale):
     @http.route()
     def address(self, **post):
         # checks for module website_sale_delivery and turn off delivery for the order in both noship options
-        request.website.sale_get_order().recalc_has_delivery()
         address_super = super(WebsiteSaleExtended, self).address(**post)
         address_super.qcontext.update(request.website.sale_get_order().get_shipping_billing())
         return address_super
@@ -24,6 +23,7 @@ class WebsiteSaleExtended(WebsiteSale):
             pass
         if not checkout_super.location:
             # no need to update variables if super does a redirection
+            order.recalc_has_delivery()
             if str(order.buy_way) == "nobill_noship":
                 # in nobill_noship case omits checkout page step and redirects to shop/payment
                 # which in nobill case resets website order data and redirects to confirmation
@@ -35,6 +35,7 @@ class WebsiteSaleExtended(WebsiteSale):
     def payment(self, **post):
         order = request.website.sale_get_order()
         payment_super = super(WebsiteSaleExtended, self).payment()
+        order.recalc_has_delivery()
         if order.buy_way:
             if 'noship' in order.buy_way:
                 order.remove_is_delivery()

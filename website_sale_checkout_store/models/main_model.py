@@ -32,10 +32,9 @@ class SaleOrder(models.Model):
         }
 
     def remove_is_delivery(self):
-        if hasattr(self.order_line, 'is_delivery'):
-            for line in self.order_line:
-                if line.is_delivery:
-                    line.unlink()
+        for line in self.order_line:
+            if hasattr(line, 'is_delivery') and line.is_delivery:
+                line.unlink()
 
     def recalc_has_delivery(self):
         if hasattr(self, '_compute_has_delivery'):
