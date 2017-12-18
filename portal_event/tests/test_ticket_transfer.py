@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo.addons.portal_event.controllers.main import PortalEvent
+from ..controllers.main import PortalEvent
 
 from .common import TourCase
 
