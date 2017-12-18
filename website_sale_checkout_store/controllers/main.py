@@ -9,6 +9,11 @@ class WebsiteSaleExtended(WebsiteSale):
     @http.route()
     def address(self, **post):
         address_super = super(WebsiteSaleExtended, self).address(**post)
+        order = request.website.sale_get_order()
+        if order.buy_way and 'noship' in order.buy_way:
+            order.has_delivery = False
+        else:
+            order._compute_has_delivery()
         address_super.qcontext.update(request.website.sale_get_order().get_shipping_billing())
         return address_super
 
