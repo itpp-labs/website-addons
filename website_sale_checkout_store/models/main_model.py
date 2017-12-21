@@ -5,19 +5,31 @@ from odoo import api, models, fields, _
 class SaleOrder(models.Model):
     _inherit = "sale.order"
     buy_way = fields.Char()
-    payment_method_information = fields.Char(string="Payment", readonly=True, copy=False, index=True, track_visibility='onchange')
-    delivery_method_information = fields.Char(string="Delivery", readonly=True, copy=False, index=True, track_visibility='onchange')
+    payment_method_information = fields.Char(compute='_compute_payment_method_information')
+    delivery_method_information = fields.Char(compute='_compute_delivery_method_information')
 
-    def payment_and_delivery_method_info(self):
-        value = False
-        if str(self.buy_way) == "bill_noship":
-            value = {"delivery_method_information": _("Pickup at store")}
+    def _compute_payment_method_information(self):
+        self.payment_method_information = False
+        if str(self.buy_way) == "nobill_ship":
+            self.payment_method_information = _("Pay on delivery")
         elif str(self.buy_way) == "nobill_noship":
-            value = {"payment_method_information": _("Pay at store"), "delivery_method_information": _("Pickup at store")}
-        elif str(self.buy_way) == "nobill_ship":
-            value = {"payment_method_information": _("Pay on delivery")}
-        if value:
-            self.write(value)
+            self.payment_method_information = _("Pay at store")
+
+    def _compute_delivery_method_information(self):
+        self.delivery_method_information = False
+        if str(self.buy_way) == "bill_noship" or str(self.buy_way) == "nobill_noship":
+            self.delivery_method_information = _("Pickup at store")
+
+    def get_shipping_billing(self):
+        if not self.buy_way:
+            return {
+                'ship_enabled': '1',
+                'bill_enabled': '1',
+            }
+        return {
+            'ship_enabled': 'noship' not in self.buy_way and '1' or '0',
+            'bill_enabled': 'nobill' not in self.buy_way and '1' or '0',
+        }
 
 
 class WebsiteConfigSettings(models.TransientModel):
