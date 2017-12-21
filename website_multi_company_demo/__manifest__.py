@@ -2,7 +2,7 @@
 {
     "name": """Demo Data for \"Real Multi Website\"""",
     "summary": """Provides demo websites""",
-    "category": "eCommerce",
+    "category": "Hidden",
     # "live_test_URL": "",
     "images": [],
     "version": "1.0.0",
@@ -16,8 +16,7 @@
     # "currency": "EUR",
 
     "depends": [
-        "website_multi_company",
-        "website_sale",
+        "website_multi_company_sale",
         "theme_bootswatch",
     ],
     "external_dependencies": {"python": [], "bin": []},
@@ -28,6 +27,7 @@
     "demo": [
         "demo/res.company.csv",
         "demo/website.csv",
+        "demo/product_public_category_demo.xml",
         "demo/product.template.csv",
         "demo/ir.ui.view.csv",
         "demo/website_page.xml",
