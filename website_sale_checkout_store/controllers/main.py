@@ -6,67 +6,59 @@ from odoo.http import request
 
 class WebsiteSaleExtended(WebsiteSale):
 
-    @http.route(['/shop/checkout'], type='http', auth="public", website=True)
+    @http.route()
+    def address(self, **post):
+        address_super = super(WebsiteSaleExtended, self).address(**post)
+        address_super.qcontext.update(request.website.sale_get_order().get_shipping_billing())
+        return address_super
+
+    @http.route()
     def checkout(self, **post):
         order = request.website.sale_get_order()
-        redirection = self.checkout_redirection(order)
-        if redirection:
-            return redirection
-
+        checkout_super = super(WebsiteSaleExtended, self).checkout(**post)
         try:
             order.buy_way = post['buyMethod']
         except:
             pass
-        if order.partner_id.id == request.website.user_id.sudo().partner_id.id:
-            return request.redirect('/shop/address')
-        for f in self._get_mandatory_billing_fields():
-            if not order.partner_id[f]:
-                return request.redirect('/shop/address?partner_id=%d' % order.partner_id.id)
+        if not checkout_super.location:
+            # no need to update variables if super does a redirection
+            if str(order.buy_way) == "nobill_noship":
+                # in nobill_noship case omits checkout page step and redirects to shop/payment
+                # which in nobill case resets website order data and redirects to confirmation
+                return request.redirect('/shop/payment')
+            checkout_super.qcontext.update(order.get_shipping_billing())
+        return checkout_super
 
-        values = self.checkout_values(**post)
-        values['order'] = order
-        sale_order_id = request.session.get('sale_order_id')
-        if 'noship' in order.buy_way and 'nobill' in order.buy_way:
-            request.session['sale_last_order_id'] = order.id
-            request.website.sale_reset()
-            return request.redirect('/shop/confirmation')
-        request.env["sale.order"].browse(sale_order_id).sudo().payment_and_delivery_method_info()
-
-        # Avoid useless rendering if called in ajax
-        if post.get('xhr'):
-            return 'ok'
-        return request.render("website_sale.checkout", values)
-
-    @http.route(['/shop/payment'], type='http', auth="public", website=True)
+    @http.route()
     def payment(self, **post):
         order = request.website.sale_get_order()
-        if 'nobill' in order.buy_way:
+        if order.buy_way and 'nobill' in order.buy_way:
+            request.session['sale_last_order_id'] = order.id
             order.force_quotation_send()
             request.website.sale_reset()
             return request.redirect('/shop/confirmation')
         else:
             return super(WebsiteSaleExtended, self).payment()
 
-    @http.route('/shop/payment/get_status/<int:sale_order_id>', type='json', auth="public", website=True)
+    @http.route()
     def payment_get_status(self, sale_order_id, **post):
         order = request.env['sale.order'].sudo().browse(sale_order_id)
-        if 'nobill' in order.buy_way:
+        if order.buy_way and'nobill' in order.buy_way:
             return {'recall': False, 'message': ''}
         else:
             return super(WebsiteSaleExtended, self).payment_get_status(sale_order_id, **post)
 
     def _get_mandatory_fields(self):
         order = request.website.sale_get_order()
-        if 'noship' in order.buy_way:
+        if not order.buy_way or 'nobill' not in order.buy_way and 'noship' not in order.buy_way:
+            return ["name", "phone", "email", "street", "city", "country_id"]
+        elif 'noship' in order.buy_way:
             if 'nobill' in order.buy_way:
                 return ["name", "phone", "email"]
             else:
                 return ["name", "phone", "email", "country_id"]
         else:
-            if 'nobill' in order.buy_way:
-                return ["name", "phone", "email", "street", "city"]
-            else:
-                return ["name", "phone", "email", "street", "city", "country_id"]
+            return ["name", "phone", "email", "street", "city"]
 
     def _get_mandatory_billing_fields(self):
         return self._get_mandatory_fields()
