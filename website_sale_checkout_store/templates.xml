@@ -67,9 +67,6 @@
                 </div>
               </t>
             </xpath>
-            <!--<xpath expr="//li[2]" position="attributes">-->
-                <!--<attribute name="bill">1</attribute>-->
-            <!--</xpath>-->
         </template>
 
         <template id="checkout" name="my_checkout" inherit_id="website_sale.checkout">
