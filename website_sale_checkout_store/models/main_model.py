@@ -46,56 +46,24 @@ class WebsiteConfigSettings(models.TransientModel):
     ], string='Selected by default', default='nobill_noship')
 
     @api.model
-    def set_nobill_noship(self):
-        config_parameters = self.env["ir.config_parameter"]
+    def get_values(self):
+        res = super(WebsiteConfigSettings, self).get_values()
+        config_parameters = self.env["ir.config_parameter"].sudo()
+        res.update(
+            nobill_noship=config_parameters.get_param("website_sale_checkout_store.nobill_noship", default=False),
+            bill_noship=config_parameters.get_param("website_sale_checkout_store.bill_noship", default=False),
+            bill_ship=config_parameters.get_param("website_sale_checkout_store.bill_ship", default=False),
+            nobill_ship=config_parameters.get_param("website_sale_checkout_store.nobill_ship", default=False),
+            default_option=config_parameters.get_param("website_sale_checkout_store.default_option", default='nobill_noship'),
+        )
+        return res
+
+    @api.multi
+    def set_values(self):
+        super(WebsiteConfigSettings, self).set_values()
+        config_parameters = self.env["ir.config_parameter"].sudo()
         for record in self:
-            config_parameters.sudo().set_param("website_sale_checkout_store.nobill_noship", record.nobill_noship or '')
-
-    @api.model
-    def set_bill_noship(self):
-        config_parameters = self.env["ir.config_parameter"]
-        for record in self:
-            config_parameters.sudo().set_param("website_sale_checkout_store.bill_noship", record.bill_noship or '')
-
-    @api.model
-    def set_bill_ship(self):
-        config_parameters = self.env["ir.config_parameter"]
-        for record in self:
-            config_parameters.sudo().set_param("website_sale_checkout_store.bill_ship", record.bill_ship or '')
-
-    @api.model
-    def set_nobill_ship(self):
-        config_parameters = self.env["ir.config_parameter"]
-        for record in self:
-            config_parameters.sudo().set_param("website_sale_checkout_store.nobill_ship", record.nobill_ship or '')
-
-    @api.model
-    def set_default_option(self):
-        config_parameters = self.env["ir.config_parameter"]
-        for record in self:
-            config_parameters.sudo().set_param("website_sale_checkout_store.default_option", record.default_option or '')
-
-    @api.model
-    def get_default_nobill_noship(self, fields):
-        nobill_noship = self.env["ir.config_parameter"].sudo().get_param("website_sale_checkout_store.nobill_noship", default=False)
-        return {'nobill_noship': nobill_noship}
-
-    @api.model
-    def get_default_bill_noship(self, fields):
-        bill_noship = self.env["ir.config_parameter"].sudo().get_param("website_sale_checkout_store.bill_noship", default=False)
-        return {'bill_noship': bill_noship}
-
-    @api.model
-    def get_default_bill_ship(self, fields):
-        bill_ship = self.env["ir.config_parameter"].sudo().get_param("website_sale_checkout_store.bill_ship", default=False)
-        return {'bill_ship': bill_ship}
-
-    @api.model
-    def get_default_nobill_ship(self, fields):
-        nobill_ship = self.env["ir.config_parameter"].sudo().get_param("website_sale_checkout_store.nobill_ship", default=False)
-        return {'nobill_ship': nobill_ship}
-
-    @api.model
-    def get_default_default_option(self, fields):
-        default_option = self.env["ir.config_parameter"].sudo().get_param("website_sale_checkout_store.default_option", default='nobill_noship')
-        return {'default_option': default_option}
+            config_parameters.set_param("website_sale_checkout_store.nobill_noship", record.nobill_noship or '')
+            config_parameters.set_param("website_sale_checkout_store.bill_noship", record.bill_noship or '')
+            config_parameters.set_param("website_sale_checkout_store.bill_ship", record.bill_ship or '')
+            config_parameters.set_param("website_sale_checkout_store.default_option", record.default_option or '')
