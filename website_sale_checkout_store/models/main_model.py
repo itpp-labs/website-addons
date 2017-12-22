@@ -66,4 +66,5 @@ class WebsiteConfigSettings(models.TransientModel):
             config_parameters.set_param("website_sale_checkout_store.nobill_noship", record.nobill_noship or '')
             config_parameters.set_param("website_sale_checkout_store.bill_noship", record.bill_noship or '')
             config_parameters.set_param("website_sale_checkout_store.bill_ship", record.bill_ship or '')
+            config_parameters.set_param("website_sale_checkout_store.nobill_ship", record.nobill_ship or '')
             config_parameters.set_param("website_sale_checkout_store.default_option", record.default_option or '')
