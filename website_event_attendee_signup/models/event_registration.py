@@ -15,6 +15,7 @@ class EventRegistration(models.Model):
                        .search([('login', '=ilike', login)])
             if not user:
                 user = self.env['res.users']\
+                           .sudo()\
                            ._signup_create_user({
                                'login': login,
                                'partner_id': res.attendee_partner_id.id,
