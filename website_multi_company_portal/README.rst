@@ -8,7 +8,7 @@ Multi Website support in Portal:
 
   * show orders, invoices, etc. only for current company
   * pay invoices via proper payment processor. See `search condition of acquirer_id in pay method <https://github.com/odoo/odoo/blob/10.0/addons/website_payment/controllers/main.py#L40-L42>`__.
-  * don't get access error when download invoice via controller``/report/pdf/account.report_invoice/123``
+  * don't get access error when download invoice via controller ``/report/pdf/account.report_invoice/123``
 
 Credits
 =======
