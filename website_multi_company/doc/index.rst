@@ -180,7 +180,7 @@ Configuration
   * **Multi Theme** -- select a theme you wish to apply for website, e.g. *theme_bootswatch* 
 
     * if you install any of supported themes after installing this module, you should click on **Reload** button to be able to use them
-    * for unsupported themes extra actionsf are required as described below
+    * for unsupported themes extra actions are required as described `below <#multi-theme>`__
 
 Website Menus
 -------------
