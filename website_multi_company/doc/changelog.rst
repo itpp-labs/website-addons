@@ -1,3 +1,9 @@
+`1.2.0`
+-------
+
+- **FIX:** allow install several themes at once
+- **ADD:** support of custom themes
+
 `1.1.0`
 -------
 

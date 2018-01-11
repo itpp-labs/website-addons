@@ -17,4 +17,4 @@ Follow instruction of the base module `Real Multi Website <https://www.odoo.com/
 * Open shop at some of your website
 * Login as Administrator
 * In ``Customize`` section activate ``[x] eCommerce Categories``
-* RESULT: only parent categories for current website and categories without value at **Websites** fields are shown. **Websites** value of child categories are ignored.
+* RESULT: parent categories for current website and categories without value at **Websites** fields are shown only. **Websites** value of child categories are ignored.

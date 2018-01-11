@@ -13,4 +13,4 @@ The "Pay now and get delivery" option use usual workflow.
 On the admin side an addition to the configuration page where they would enable or disable one or both of these options.
 
 
-Tested on Odoo 9.0 994cb2cb79b8fb91ec83b273213044f15b61095e
+Tested on Odoo 11.0 c7171795f891335e8a8b6d5a6b796c28cea77fea
