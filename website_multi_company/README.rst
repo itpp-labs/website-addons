@@ -30,6 +30,12 @@ Updates for eCommerce:
 
 * ``/shop/*`` pages show only products for current company
 
+Multi-Theme
+-----------
+
+* New menu to allow switch theme to multi-theme on-flight (i.e. without adding code to the theme).
+* Removes `exclusiveness <https://github.com/odoo/odoo/commit/c29cac23fbee395b3f3430346d6781e9dbe0a35c>`__ for Theme category, i.e. allows to install several themes at once
+
 Roadmap
 =======
 
