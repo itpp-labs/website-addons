@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+
 {
     "name": """Web login background""",
     "summary": """Get a random background at the login page""",
