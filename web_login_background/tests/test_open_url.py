@@ -13,4 +13,4 @@ class TestUi(odoo.tests.HttpCase):
             }, 3000);
         """
         link = '/web/login'
-        self.phantom_js(link, code, "odoo.__DEBUG__.services['web_login_background.get_background_pic'].is_ready", login="admin")
+        self.phantom_js(link, code, "", login="admin")
