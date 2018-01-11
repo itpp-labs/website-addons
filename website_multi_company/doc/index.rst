@@ -170,21 +170,29 @@ Configuration
 
 * `Enable technical features <https://odoo-development.readthedocs.io/en/latest/odoo/usage/technical-features.html>`__
 * At ``[[ Settings ]] >> Users >> Users`` menu and activate **Multi Companies** and set **Allowed Companies**
-* Open menu ``[[ Website Admin ]] >> Configuration >> Websites``
+* Open menu ``[[ Website ]] >> Configuration >> Websites``
 * Create or select a website record
 * Update fields:
 
   * **Website Domain** -- website address, e.g. *shop1.example.com*
   * **Company** -- which company is used for this *website*
   * **Favicon** -- upload website favicon
-  * **Multi Theme** -- select a theme you wish to apply for website, e.g. *theme_bootswatch* (if you install any of supported themes after installing this module, you should click on **Reload** button to be able to use them)
+  * **Multi Theme** -- select a theme you wish to apply for website, e.g. *theme_bootswatch* 
+
+    * if you install any of supported themes after installing this module, you should click on **Reload** button to be able to use them
+    * for unsupported themes extra actions are required as described `below <#multi-theme>`__
 
 Website Menus
 -------------
 
-You can edit, duplicate or create new menu at ``[[ Website Admin ]] >> Configuration >> Menus`` -- pay attention to fields **Website**, **Parent Menu**. In most cases, **Parent Menu** is a *Top Menu* (i.e. menu record without **Parent Menu** value). If a *website* doesn't have *Top Menu* you need to create one.
+You can edit, duplicate or create new menu at ``[[ Website ]] >> Configuration >> Menus`` -- pay attention to fields **Website**, **Parent Menu**. In most cases, **Parent Menu** is a *Top Menu* (i.e. menu record without **Parent Menu** value). If a *website* doesn't have *Top Menu* you need to create one.
 
 Note. Odoo doesn't share Website Menus (E.g. Homepage, Shop, Contact us, etc.) between websites. So, you need to have copies of them.
+
+Multi-theme
+-----------
+
+After installing theme, navigate to ``[[ Website ]] >> Configuration >> Multi-Themes``. Check that the theme is presented in the list, otherwise add one.
 
 Usage
 =====
