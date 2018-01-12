@@ -12,7 +12,7 @@
         <div> 
           <field name="multi_theme_id" string="Multi Theme"/>
           <button icon="fa-refresh"
-                string="Reload Theme List"
+                string="Reload Themes"
                 help="Use it if you installed theme, but cannot find it in the list"
                 type="object"
                 class="oe_inline oe_edit_only"
