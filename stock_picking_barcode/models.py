@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
 
-from openerp.osv import osv
+from openerp.osv import fields, osv
 from openerp import SUPERUSER_ID, api
 from openerp.tools.float_utils import float_compare
 
 
 class StockPicking(osv.osv):
     _inherit = "stock.picking"
+
+    _columns = {
+        'avoid_extra_moves': fields.boolean('Prevents creating extra moves from UI.')
+    }
 
     def process_barcode_from_ui(self, cr, uid, picking_id, barcode_str, visible_op_ids, context=None):
         """This function is called each time there barcode scanner reads an input"""
@@ -204,9 +208,17 @@ class StockPicking(osv.osv):
         for operation in self.browse(cr, uid, picking_id, context=context).pack_operation_ids:
             pack_op_obj.write(cr, uid, operation.id, {'product_qty': operation.qty_done},
                               context=dict(context, no_recompute=True))
-        self.do_transfer(cr, uid, [picking_id], context=context)
+        wiz_id = self.pool['stock.immediate.transfer'].create(cr, uid, {'pick_id': picking_id}, context=context)
+        wiz = self.pool.get('stock.immediate.transfer').browse(cr, uid, wiz_id, context=context)
+        wiz.pick_id.avoid_extra_moves = True
+        wiz.process()
         # return id of next picking to work on
         return self.get_next_picking_for_ui(cr, uid, context=context)
+
+    def _create_extra_moves(self, cr, uid, picking, context=None):
+        if picking.avoid_extra_moves:
+            return []
+        return super(StockPicking, self)._create_extra_moves(self, cr, uid, picking, context=None)
 
     def unpack(self, cr, uid, ids, context=None):
         quant_obj = self.pool.get('stock.quant')
