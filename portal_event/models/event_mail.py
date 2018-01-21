@@ -54,9 +54,11 @@ class EventMailScheduler(models.Model):
 class EventMailRegistration(models.Model):
     _inherit = 'event.mail.registration'
 
-    @api.multi
+    @api.one
     @api.depends('registration_id', 'scheduler_id.interval_unit', 'scheduler_id.interval_type')
     def _compute_scheduled_date(self):
+        # keep for-block event though it's api.one now (it was api.multi but it didn't work -- scheduled_date was empty)
+        # When base module "event" will be updated we simply change api.one to api.multi without changing method body
         for rself in self:
             if rself.scheduler_id.interval_type not in ['transferring_started', 'transferring_finished']:
                 return super(EventMailRegistration, rself)._compute_scheduled_date()
