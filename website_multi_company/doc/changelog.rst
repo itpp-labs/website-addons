@@ -1,3 +1,8 @@
+`1.2.1`
+-------
+
+- **FIX:** Emails were rendered with wrong company domain 
+
 `1.2.0`
 -------
 
