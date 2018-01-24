@@ -27,7 +27,6 @@
         "views/website_menu_views.xml",
         "views/website_theme_views.xml",
         "views/res_config_views.xml",
-        "data/ir_module_category.xml",
     ],
     "qweb": [
     ],

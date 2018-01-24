@@ -174,7 +174,7 @@ Configuration
 
 * `Enable technical features <https://odoo-development.readthedocs.io/en/latest/odoo/usage/technical-features.html>`__
 * At ``[[ Settings ]] >> Users >> Users`` menu and activate **Multi Companies** and set **Allowed Companies**
-* Open menu ``[[ Website ]] >> Configuration >> Websites``
+* Open menu ``[[ Website Admin ]] >> Configuration >> Websites``
 * Create or select a website record
 * Update fields:
 
@@ -216,7 +216,7 @@ Note. Odoo doesn't share Website Menus (E.g. Homepage, Shop, Contact us, etc.) b
 Multi-theme
 -----------
 
-After installing theme, navigate to ``[[ Website ]] >> Configuration >> Multi-Themes``. Check that the theme is presented in the list, otherwise add one.
+After installing theme, navigate to ``[[ Website Admin ]] >> Configuration >> Multi-Themes``. Check that the theme is presented in the list, otherwise add one.
 
 Usage
 =====
