@@ -5,7 +5,7 @@
     "category": "eCommerce",
     "live_test_url": "http://apps.it-projects.info/shop/product/website-multi-company?version=11.0",
     "images": ['images/website_multi_company_main.png'],
-    "version": "1.2.1",
+    "version": "1.2.2",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev, Nicolas JEUDY",
