@@ -12,10 +12,14 @@ Firstly install the external dependencies::
 
 Then `install <https://odoo-development.readthedocs.io/en/latest/odoo/usage/install-module.html>`__ this module in a usual way.
 
-eCommerce support
------------------
 
-If you use ``website_sale`` (eCommerce) module, then you probably need to install module `Real Multi Website (eCommerce extension) <https://www.odoo.com/apps/modules/11.0/website_multi_company_sale/>`__ too, because it adds additional features which cannot be in the same module due to technical reasons. 
+Additional modules
+------------------
+
+Due to technical reasons some multi-website features are located in separate modules, install them depending on your needs:
+
+* if you use ``website_sale`` (eCommerce) module, then install `Real Multi Website (eCommerce extension) <https://www.odoo.com/apps/modules/11.0/website_multi_company_sale/>`__ too 
+* if you use ``website_portal`` (Portal) module, then install `Real Multi Website (portal extension) <https://www.odoo.com/apps/modules/11.0/website_multi_company_portal/>`__ too 
 
 Domain Names
 ------------
