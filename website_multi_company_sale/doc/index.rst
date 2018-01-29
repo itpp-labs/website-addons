@@ -12,6 +12,16 @@ Configuration
 
 Follow instruction of the base module `Real Multi Website <https://www.odoo.com/apps/modules/11.0/website_multi_company/>`__.
 
+Website Orders
+--------------
+
+* Open menu ``[[ Website ]] >> Configuration >> Websites``
+* For each website configure **Salesperson** and **Sales Channel** fields
+* RESULT: new orders made via website will be assigned to proper Salesperson and Sales Channel
+
+Multi-categories
+----------------
+
 * Open menu ``[[ Website ]] >> Configuration >> Products >> eCommerce Categories``
 * Specify **Websites** fields to parent categories.
 * Open shop at some of your website
