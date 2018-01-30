@@ -47,3 +47,13 @@ class WebsiteEventControllerExtended(WebsiteEventController):
         return {
             'known_fields': known_fields
         }
+
+    @http.route()
+    def registration_confirm(self, event, **post):
+        res = super(WebsiteEventControllerExtended, self).registration_confirm(event, **post)
+        if res.location:
+            # If super redirect (to /shop/checkout)
+            url = request.env['ir.config_parameter'].get_param('website_event_sale.redirection') or res.location
+            return request.redirect(url)
+        else:
+            return res
