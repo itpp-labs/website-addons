@@ -16,6 +16,7 @@
     # "currency": "EUR",
 
     "depends": [
+        "website_event_sale",
         "website_event",
         "partner_event",
     ],

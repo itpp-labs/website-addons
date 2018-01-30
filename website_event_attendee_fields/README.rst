@@ -23,6 +23,8 @@ Also,
 
   * If attendee partner exists and current (authenticated) user is the attendee partner himself: update partner values. (We don't update fields always, because it leads to security issue: anyone can change partner name, passport, etc. just knowing his email). Default behaviour: only create partner if one doesn't exist.
 
+* Prevents changing qty for event lines (TODO: move this to a separate module)
+
 Demo mode
 ---------
 In demo installation:
