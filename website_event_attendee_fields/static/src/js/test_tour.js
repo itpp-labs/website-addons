@@ -51,7 +51,7 @@ odoo.define('website_event_attendee_fields.test_tour', function (require) {
         },
         {
             content: "Dummy step to finish loadding of previous step",
-            trigger: 'h3:contains(We are glad to confirm your registration to our event),a:contains(Return to Cart)',
+            trigger: 'h3:contains(We are glad to confirm your registration to our event),a:contains(Return to Cart),h3:contains(Your Address)',
             run: function(){
                 // it's needed to don't make a click on the link
             },
