@@ -11,6 +11,11 @@ Following features are not recommended to be added to non-demo installation (thi
 * After first login website domains are updated. See `<models/res_users.py>`_
 * Once after installation: Set default website for all categories without website value
 
+Roadmap
+=======
+
+* TODO: configure fields **Salesperson** and **Sales Channel** per each website
+
 Credits
 =======
 
