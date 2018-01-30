@@ -5,6 +5,8 @@
 Multi Website support in eCommerce:
 
 * adds field ``website_ids`` to product.public.category
+* use separate sale order (cart) for different companies -- works by adding ``company_dependent`` attribute to ``last_website_so_id`` field
+
 
 Credits
 =======
