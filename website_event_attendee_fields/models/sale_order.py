@@ -12,7 +12,8 @@ class SaleOrder(models.Model):
             order_lines = self._cart_find_product_line(product_id, line_id, **kwargs)
             order_line = order_lines and order_lines[0]
 
-        if order_line and order_line.event_id:
+        if order_line and order_line.event_id and 'registration_data' not in kwargs:
+            # _cart_update can be called in registration_confirm and registration_data is a way to exclude that case
             quantity = 0
             # compute new quantity
             if set_qty:
