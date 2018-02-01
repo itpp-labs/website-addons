@@ -1,3 +1,8 @@
+`1.2.3`
+-------
+
+- **FIX:** fix multi-theme for themes that have theme-like dependencies (problem with views that have position="replace")
+
 `1.2.2`
 -------
 
