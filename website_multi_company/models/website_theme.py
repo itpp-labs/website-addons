@@ -46,8 +46,14 @@ class WebsiteTheme(models.Model):
 
                 _logger.debug("Creating asset %s for theme %s", ref, one.name)
 
+                priority = 10
+                if view.model_data_id.module == one.converted_theme_addon:
+                    # make less priority to apply views after all deps
+                    priority = 100
+
                 one.asset_ids |= Asset.new({
                     "name": ref,
+                    'priority': priority,
                 })
             # Delete all dangling assets
             if dangling:
@@ -57,3 +63,10 @@ class WebsiteTheme(models.Model):
                 Asset.search([("name", "in", dangling)]).unlink()
         # Turn all assets multiwebsite-only
         Asset._find_and_deactivate_views()
+
+
+class WebsiteThemeAsset(models.Model):
+    _inherit = "website.theme.asset"
+    _order = 'priority,id'
+
+    priority = fields.Integer()
