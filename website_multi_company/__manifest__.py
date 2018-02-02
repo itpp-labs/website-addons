@@ -46,6 +46,7 @@
     "demo_title": "Real Multi Website",
     "demo_addons": [
         "website_multi_company_sale",
+        "website_multi_company_portal",
     ],
     "demo_addons_hidden": [
         "website_multi_company_demo",
