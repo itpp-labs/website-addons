@@ -30,10 +30,20 @@ Updates for eCommerce:
 
 * ``/shop/*`` pages show only products for current company
 
+Multi-Theme
+-----------
+
+* New menu to allow switch theme to multi-theme on-flight (i.e. without adding code to the theme).
+* Removes `restrictions <https://github.com/odoo/odoo/blob/10.0/odoo/addons/base/module/module.py#L387-L400>`__ for Theme category, i.e. allows to install several themes at once
+
 Roadmap
 =======
 
-* Currently, all websites share the same footer
+* Currently, all websites share the same footer. Posible solution: add field to ``res.company`` or ``website`` model and use that in template, e.g.::
+
+    <div t-field="website.website_footer" class="oe_structure mt16"/>
+
+* TODO: Create website.theme record automatically after theme installation (probably via inheriting ``button_install`` method)
 
 Credits
 =======

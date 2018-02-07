@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_website_theme_form" model="ir.ui.view">
+        <field name="name">website.theme.form</field>
+        <field name="model">website.theme</field>
+        <field name="arch" type="xml">
+            <form string="Multi-theme">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="converted_theme_addon" required="1"/>
+                        <field name="dependency_ids"  widget="many2many_tags" context="{'search_theme_dependencies': converted_theme_addon}" attrs="{'invisible': [('converted_theme_addon', '=', False)]}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_website_theme_tree" model="ir.ui.view">
+        <field name="name">website.theme.tree</field>
+        <field name="model">website.theme</field>
+        <field name="arch" type="xml">
+            <tree string="Multi-theme">
+                <field name="name"/>
+                <field name="converted_theme_addon"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="website_theme_action" model="ir.actions.act_window">
+        <field name="name">Multi-Themes</field>
+        <field name="res_model">website.theme</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem
+        id="website_theme_menu"
+        parent="website.menu_website_global_configuration"
+        name="Multi-Themes"
+        sequence="200"
+        action="website_theme_action"/>
+
+</odoo>
