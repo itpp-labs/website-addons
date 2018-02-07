@@ -1,6 +1,6 @@
 from odoo import models, api
 
-BASE_MODULES = ['website', 'website_sale', 'website_blog', 'website_sale_comparison', 'website_sale_wishlist', 'mass_mailing', 'web_settings_dashboard']
+BASE_MODULES = ['website_blog', 'website_sale_comparison', 'website_sale_wishlist', 'web_settings_dashboard', 'website_crm', 'website_animate', 'website_mass_mailing', 'contacts', 'fetchmail', 'resource', 'calendar', 'snippet_google_map']
 
 
 class Module(models.Model):
