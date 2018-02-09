@@ -3,16 +3,16 @@
     "name": """Real Multi Website (blog extension)""",
     "summary": """Blocks an access to a website blog from websites, which have not been specified as allowed for this blog""",
     "category": "eCommerce",
-    # "live_test_url": "",
+    "live_test_url": "http://apps.it-projects.info/shop/product/website-multi-company?version=11.0",
     "images": [],
-    "version": "1.0.0",
+    "version": "11.0.1.0.0",
     "application": False,
 
     "author": "IT-Projects LLC, Ildar Nasyrov",
     "support": "apps@it-projects.info",
     "website": "https://it-projects.info/team/iledarn",
     "license": "LGPL-3",
-    "price": 9.00,
+    "price": 19.00,
     "currency": "EUR",
 
     "depends": [
