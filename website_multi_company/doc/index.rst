@@ -12,10 +12,14 @@ Firstly install the external dependencies::
 
 Then `install <https://odoo-development.readthedocs.io/en/latest/odoo/usage/install-module.html>`__ this module in a usual way.
 
-eCommerce support
------------------
 
-If you use ``website_sale`` (eCommerce) module, then you probably need to install module `Real Multi Website (eCommerce extension) <https://www.odoo.com/apps/modules/11.0/website_multi_company_sale/>`__ too, because it adds additional features which cannot be in the same module due to technical reasons. 
+Additional modules
+------------------
+
+Due to technical reasons some multi-website features are located in separate modules, install them depending on your needs:
+
+* if you use ``website_sale`` (eCommerce) module, then install `Real Multi Website (eCommerce extension) <https://www.odoo.com/apps/modules/11.0/website_multi_company_sale/>`__ too 
+* if you use ``website_portal`` (Portal) module, then install `Real Multi Website (portal extension) <https://www.odoo.com/apps/modules/11.0/website_multi_company_portal/>`__ too 
 
 Domain Names
 ------------
@@ -34,10 +38,15 @@ For example:
 
 Web Server
 ----------
-Your webserver (e.g. Apache or Nginx) must pass header ``Host`` to odoo, otherwise there is no way to define which website is used. Required configuration for nginx looks as following::
+Your webserver (e.g. Apache or Nginx) must pass header ``Host`` to odoo, otherwise there is no way to define which website is used. Required configuration for Nginx and Apache looks as following:
 
+Nginx::
+  
         proxy_set_header Host $host;
 
+Apache::
+
+        ProxyPreserveHost On
 
 
 Single database deployment 
@@ -107,9 +116,16 @@ using dbfilter_from_header module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Most flexible way to deploy multi-database system is using `dbfilter_from_header <https://www.odoo.com/apps/modules/10.0/dbfilter_from_header/>`__ (check module description for installation instruction).
 
-In short, you need to add following line to your nginx config (other webservers are supported too - see description of ``dbfilter_from_header``)::
+In short, you need to add special line to your webserver config (other webservers are supported too - see description of ``dbfilter_from_header``):
 
+Nginx::
+  
     proxy_set_header X-Odoo-dbfilter [your filter regex]
+
+Apache::
+
+    Header add X-ODOO_DBFILTER [your filter regex]
+    RequestHeader add X-ODOO_DBFILTER [your filter regex]
 
 Note, that you probably need to set usual ``db_filter`` to ``.*``, because ``dbfilter_from_header`` module uses that filter first and then applies filter from header.
 
@@ -165,6 +181,40 @@ Example (we use top level domain ``.example`` due to copyright issues, but it co
         }
        }
 
+
+Apache::
+
+       <VirtualHost *:80>
+	       ServerName miscrosoft-products.example antivirus.example android.antivirus.example
+
+		   ProxyPreserveHost On
+		   Header add X-ODOO_DBFILTER "software_business"
+           RequestHeader add X-ODOO_DBFILTER "software_business"
+		   
+		   ProxyPass /   http://127.0.0.1:8069/
+		   ProxyPassReverse /   http://127.0.0.1:8069/
+
+		   ProxyPass /longpolling/   http://127.0.0.1:8072/longpolling/
+		   ProxyPassReverse /longpolling/   http://127.0.0.1:8072/longpolling/
+		   
+       </VirtualHost>
+	   
+       <VirtualHost *:80>
+           ServerName pizzas.example china-food.example
+
+		   ProxyPreserveHost On
+		   Header add X-ODOO_DBFILTER "delivery_business"
+           RequestHeader add X-ODOO_DBFILTER "delivery_business"
+		   
+           ProxyPass /   http://127.0.0.1:8069/
+		   ProxyPassReverse /   http://127.0.0.1:8069/
+
+		   ProxyPass /longpolling/   http://127.0.0.1:8072/longpolling/
+		   ProxyPassReverse /longpolling/   http://127.0.0.1:8072/longpolling/
+		   
+       </VirtualHost>
+
+	   
 Configuration
 =============
 
