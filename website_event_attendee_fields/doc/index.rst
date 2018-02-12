@@ -32,7 +32,7 @@ Email field at the form
 
 * When email column is presented and there is a partner with that email:
 
-  * if partner has registration for the event:
+  * if partner has confirmed registration for the event:
 
     * registration is blocked. Warning is shown
 
