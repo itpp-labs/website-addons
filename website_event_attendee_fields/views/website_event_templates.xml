@@ -36,9 +36,7 @@
             <div class="message col-md-12"></div>
             <t t-set="attendee_placeholder">[Attendee #%s] </t>
             <t t-set="is_public_user" t-value="env.user == website.user_id"/>
-            <t t-if="not autofill_user">
-                <t t-set="autofill_user" t-value="counter==1 and not is_public_user and not event.is_participating and env.user"/>
-            </t>
+            <t t-set="autofill_user" t-value="counter==1 and (autofill_user or not is_public_user and not event.is_participating and env.user)"/>
             <t t-foreach="event.attendee_field_ids" t-as="field">
                 <t t-set="field_value" t-value="autofill_user and field.get_value(autofill_user.partner_id) or ''"/>
                 <div t-attf-class="col-md-{{field.width}} mb8 mt8">

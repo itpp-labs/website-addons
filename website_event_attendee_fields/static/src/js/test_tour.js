@@ -30,6 +30,9 @@ odoo.define('website_event_attendee_fields.test_tour', function (require) {
             extra_trigger: "input[name='1-function']",
             trigger: "input[name='1-name']",
             run: function () {
+                if ($("input[name='2-email']").val()){
+                    console.log('error', 'Only first attendee can be autofilled');
+                }
                 $("input[name='1-name']").val("Att1");
                 $("input[name='1-phone']").val("111 111");
                 $("input[name='1-email']").val("att1@example.com");
