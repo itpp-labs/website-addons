@@ -5,7 +5,7 @@
     "category": "Marketing",
     # "live_test_url": "",
     "images": ['static/description/custom-fields-750.png'],
-    "version": "2.0.0",
+    "version": "10.0.2.0.0",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev",
