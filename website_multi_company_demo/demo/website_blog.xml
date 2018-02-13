@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="website_multi_company_demo.blog_blog_3" model="blog.blog">
+        <field name="website_ids" ref="website_watches" />
+    </record>
+
+    <record id="website_multi_company_demo.blog_blog_4" model="blog.blog">
+        <field name="website_ids" ref="website_books" />
+    </record>
+
+</odoo>
