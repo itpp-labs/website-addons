@@ -2,11 +2,11 @@
 <odoo>
 
     <record id="website_multi_company_demo.blog_blog_3" model="blog.blog">
-        <field name="website_ids" ref="website_watches" />
+        <field name="website_ids" eval="[(6, 0, [ref('website_watches')])]" />
     </record>
 
     <record id="website_multi_company_demo.blog_blog_4" model="blog.blog">
-        <field name="website_ids" ref="website_books" />
+        <field name="website_ids" eval="[(6, 0, [ref('website_books')])]" />
     </record>
 
 </odoo>
