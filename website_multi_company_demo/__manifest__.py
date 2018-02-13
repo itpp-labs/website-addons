@@ -35,6 +35,8 @@
         "demo/website.menu.csv",
         "demo/website_templates.xml",
         "demo/website_homepage.xml",
+        "demo/blog.blog.csv",
+        "demo/website_blog.xml",
     ],
 
     "post_load": None,
