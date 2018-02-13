@@ -17,6 +17,7 @@
 
     "depends": [
         "website_multi_company_sale",
+        "website_multi_company_blog",
         "theme_bootswatch",
     ],
     "external_dependencies": {"python": [], "bin": []},
