@@ -218,7 +218,7 @@ class StockPicking(osv.osv):
     def _create_extra_moves(self, cr, uid, picking, context=None):
         if picking.avoid_extra_moves:
             return []
-        return super(StockPicking, self)._create_extra_moves(self, cr, uid, picking, context=None)
+        return super(StockPicking, self)._create_extra_moves(cr, uid, picking, context=None)
 
     def unpack(self, cr, uid, ids, context=None):
         quant_obj = self.pool.get('stock.quant')
