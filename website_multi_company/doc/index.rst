@@ -12,6 +12,15 @@ Firstly install the external dependencies::
 
 Then `install <https://odoo-development.readthedocs.io/en/latest/odoo/usage/install-module.html>`__ this module in a usual way.
 
+
+Additional modules
+------------------
+
+Due to technical reasons some multi-website features are located in separate modules, install them depending on your needs:
+
+* if you use ``website_sale`` (eCommerce) module, then install `Real Multi Website (eCommerce extension) <https://www.odoo.com/apps/modules/11.0/website_multi_company_sale/>`__ too 
+* if you use ``website_portal`` (Portal) module, then install `Real Multi Website (portal extension) <https://www.odoo.com/apps/modules/11.0/website_multi_company_portal/>`__ too 
+
 Domain Names
 ------------
 
@@ -29,10 +38,15 @@ For example:
 
 Web Server
 ----------
-Your webserver (e.g. Apache or Nginx) must pass header ``Host`` to odoo, otherwise there is no way to define which website is used. Required configuration for nginx looks as following::
+Your webserver (e.g. Apache or Nginx) must pass header ``Host`` to odoo, otherwise there is no way to define which website is used. Required configuration for Nginx and Apache looks as following:
 
+Nginx::
+  
         proxy_set_header Host $host;
 
+Apache::
+
+        ProxyPreserveHost On
 
 
 Single database deployment 
@@ -102,9 +116,16 @@ using dbfilter_from_header module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Most flexible way to deploy multi-database system is using `dbfilter_from_header <https://www.odoo.com/apps/modules/10.0/dbfilter_from_header/>`__ (check module description for installation instruction).
 
-In short, you need to add following line to your nginx config (other webservers are supported too - see description of ``dbfilter_from_header``)::
+In short, you need to add special line to your webserver config (other webservers are supported too - see description of ``dbfilter_from_header``):
 
+Nginx::
+  
     proxy_set_header X-Odoo-dbfilter [your filter regex]
+
+Apache::
+
+    Header add X-ODOO_DBFILTER [your filter regex]
+    RequestHeader add X-ODOO_DBFILTER [your filter regex]
 
 Note, that you probably need to set usual ``db_filter`` to ``.*``, because ``dbfilter_from_header`` module uses that filter first and then applies filter from header.
 
@@ -160,26 +181,70 @@ Example (we use top level domain ``.example`` due to copyright issues, but it co
         }
        }
 
+
+Apache::
+
+       <VirtualHost *:80>
+	       ServerName miscrosoft-products.example antivirus.example android.antivirus.example
+
+		   ProxyPreserveHost On
+		   Header add X-ODOO_DBFILTER "software_business"
+           RequestHeader add X-ODOO_DBFILTER "software_business"
+		   
+		   ProxyPass /   http://127.0.0.1:8069/
+		   ProxyPassReverse /   http://127.0.0.1:8069/
+
+		   ProxyPass /longpolling/   http://127.0.0.1:8072/longpolling/
+		   ProxyPassReverse /longpolling/   http://127.0.0.1:8072/longpolling/
+		   
+       </VirtualHost>
+	   
+       <VirtualHost *:80>
+           ServerName pizzas.example china-food.example
+
+		   ProxyPreserveHost On
+		   Header add X-ODOO_DBFILTER "delivery_business"
+           RequestHeader add X-ODOO_DBFILTER "delivery_business"
+		   
+           ProxyPass /   http://127.0.0.1:8069/
+		   ProxyPassReverse /   http://127.0.0.1:8069/
+
+		   ProxyPass /longpolling/   http://127.0.0.1:8072/longpolling/
+		   ProxyPassReverse /longpolling/   http://127.0.0.1:8072/longpolling/
+		   
+       </VirtualHost>
+
+	   
 Configuration
 =============
 
 * `Enable technical features <https://odoo-development.readthedocs.io/en/latest/odoo/usage/technical-features.html>`__
 * At ``[[ Settings ]] >> Users >> Users`` menu and activate **Multi Companies** and set **Allowed Companies**
-* Open menu ``[[ Website Admin ]] >> Configuration >> Websites``
+* Open menu ``[[ Website ]] >> Configuration >> Websites``
 * Create or select a website record
 * Update fields:
 
   * **Website Domain** -- website address, e.g. *shop1.example.com*
   * **Company** -- which company is used for this *website*
   * **Favicon** -- upload website favicon
-  * **Multi Theme** -- select a theme you wish to apply for website, e.g. *theme_bootswatch* (if you install any of supported themes after installing this module, you should click on **Reload** button to be able to use them)
+  * **Multi Theme** -- select a theme you wish to apply for website, e.g. *theme_bootswatch* 
+
+    * Click on **Reload Themes** button before using new theme
+    * For unofficial themes extra actions are required as described `below <#multi-theme>`__
 
 Website Menus
 -------------
 
-You can edit, duplicate or create new menu at ``[[ Website Admin ]] >> Configuration >> Menus`` -- pay attention to fields **Website**, **Parent Menu**. In most cases, **Parent Menu** is a *Top Menu* (i.e. menu record without **Parent Menu** value). If a *website* doesn't have *Top Menu* you need to create one.
+You can edit, duplicate or create new menu at ``[[ Website ]] >> Configuration >> Menus`` -- pay attention to fields **Website**, **Parent Menu**. In most cases, **Parent Menu** is a *Top Menu* (i.e. menu record without **Parent Menu** value). If a *website* doesn't have *Top Menu* you need to create one.
 
 Note. Odoo doesn't share Website Menus (E.g. Homepage, Shop, Contact us, etc.) between websites. So, you need to have copies of them.
+
+Multi-theme
+-----------
+
+After installing theme, navigate to ``[[ Website ]] >> Configuration >> Multi-Themes``. Check that the theme is presented in the list, otherwise add one.
+
+If you get error *The style compilation failed*, add modules to **Dependencies** field. It allows to attach theme-like dependencies to corresponding theme and prevent themes compatibility problems.
 
 Usage
 =====

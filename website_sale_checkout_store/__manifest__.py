@@ -1,10 +1,10 @@
-# -*- coding: utf-8 -*-
+
 {
     'name': """Pickup and pay at store""",
     'summary': """Simplify checkout process by excluding shipping and/or payment information""",
     'category': 'eCommerce',
     'images': ['images/1.png'],
-    'version': '1.0.2',
+    'version': '1.0.3',
 
     'author': 'IT-Projects LLC',
     "support": "apps@it-projects.info",
@@ -22,6 +22,6 @@
         'views.xml',
         'data/data.xml',
     ],
-    'installable': False,
-    'auto_install': False,
+    'installable': True,
+    'auto_install': True,
 }

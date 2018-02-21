@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+
 {
     "name": """Web login background""",
     "summary": """Get a random background at the login page""",
@@ -24,7 +24,7 @@
     "demo": [
         'demo/demo.xml',
     ],
-    "installable": False,
+    "installable": True,
     "auto_install": False,
 
 }
