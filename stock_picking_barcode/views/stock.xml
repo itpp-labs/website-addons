@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- vim:fdn=3:
 -->
-<openerp>
+<odoo>
     <data>
 
 <template id="assets_backend" name="stock assets" inherit_id="web.assets_backend">
@@ -12,7 +12,7 @@
     </xpath>
 </template>
 
-<template id="barcode_index" name="Barcode Scanner">&lt;!DOCTYPE html&gt;
+<template id="barcode_index" name="Barcode Scanner">
 <html>
     <head>
         <title>Barcode Scanner</title>
@@ -85,4 +85,4 @@
 </template>
 
     </data>
-</openerp>
+</odoo>

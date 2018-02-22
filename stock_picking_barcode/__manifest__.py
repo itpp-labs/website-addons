@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
 {
     "name": "Barcode scanner support for Stock Picking",
     "summary": """The module allows you to process Pickings by barcode scanner via special page /barcode/web (the same as it was in odoo 8.0)""",
     "category": "Warehouse",
     "images": [],
-    "version": "1.0.2",
+    "version": "11.0.1.0.2",
 
     "author": "IT-Projects LLC, Pavel Romanchenko",
     "support": "apps@it-projects.info",
@@ -33,6 +32,6 @@
     "post_load": None,
     "pre_init_hook": None,
     "post_init_hook": None,
-    "installable": False,
+    "installable": True,
     "auto_install": False,
 }
