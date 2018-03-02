@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="blog_blog_3" model="blog.blog">
+      <field name="name">Blog 1</field>
+      <field name="website_ids" eval="[(6, 0, [ref('website_watches')])]" />
+    </record>
+
+    <record id="blog_blog_4" model="blog.blog">
+      <field name="name">Blog 2</field>
+      <field name="website_ids" eval="[(6, 0, [ref('website_books')])]" />
+    </record>
+
+</odoo>
