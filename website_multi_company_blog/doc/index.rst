@@ -11,10 +11,10 @@ Configuration
 =============
 
 * Create and configure websites according to the `website_multi_company <https://apps.odoo.com/apps/modules/11.0/website_multi_company_blog/>`__ module documentation
-* Open menu ``[[ Website ]] >> Blog >> Blogs``
+* Open menu ``[[ Website Admin ]] >> Blog >> Blogs``
 * Select at **Allowed Websites** field the websites your blog will be available on (leave empty if you wish to post the blog on each website)
-* Open menu ``[[ Website ]] >> Configuration >> Menus``
-* Make sure that there is a menu to open the blog, otherwise create a new one 
+* Open menu ``[[ Website Admin ]] >> Configuration >> Website Menus``
+* Make sure that there is a menu to open the blog, otherwise create a new one
 
 Usage
 =====
