@@ -12,7 +12,7 @@ class WebsiteSaleExtended(WebsiteSale):
         company = request.website.company_id
         if not company:
             return domain
-        return [('company_id', '=', company.id)] + domain
+        return ['|', ('company_id', '=', company.id), ('company_id', '=', False)] + domain
 
 
 class WebsiteExtended(Website):
