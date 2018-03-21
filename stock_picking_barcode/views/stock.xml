@@ -8,7 +8,7 @@
     <xpath expr="." position="inside">
         <link rel="stylesheet" href="/stock_picking_barcode/static/src/css/stock.css"/>
         <script type="text/javascript" src="/stock_picking_barcode/static/src/js/widgets.js"></script>
-
+        <script type="text/javascript" src="/stock_picking_barcode/static/src/js/test_barcode_ui.js"></script>
     </xpath>
 </template>
 
