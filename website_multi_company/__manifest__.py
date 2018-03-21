@@ -23,7 +23,6 @@
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
-        "security/website_multi_company_security.xml",
         "views/website_views.xml",
         "views/website_templates.xml",
         "views/website_menu_views.xml",
