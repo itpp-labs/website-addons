@@ -19,6 +19,7 @@
         "website",
         "website_multi_theme",
         "ir_config_parameter_multi_company",
+        "ir_rule_website",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
@@ -27,6 +28,7 @@
         "views/website_menu_views.xml",
         "views/website_theme_views.xml",
         "views/res_config_views.xml",
+        "views/website_navbar_templates.xml",
     ],
     "qweb": [
     ],
