@@ -275,7 +275,7 @@ Steps for eCommerce
   * use ``[Action] -> Duplicate`` button
   * don't forget to click ``[Unpublished On Website]`` button to activate it
   
-* open ``[[ Sales ]] >> Products`` and create product per each company if they don't exist
+* open ``[[ Sales ]] >> Products`` and create product per each company if they don't exist. If a product doesn't belong to any company (i.e. "Company" field is empty), this product will be available on each website you created.
 * open HOST1/shop, make order, open backend -- created order belongs to COMPANY1
 * open HOST2/shop, make order, open backend -- created order belongs to COMPANY2
 
