@@ -57,9 +57,8 @@ class WebsiteExtended(Website):
     def page(self, page, **opt):
         response = super(WebsiteExtended, self).page(page, **opt)
         uid = request.session.uid
-        if uid:
-            user = request.env['res.users'].browse(uid)
+        user = request.env['res.users'].browse(uid)
         response.qcontext.update({
-            'editable': uid and user and user.company_id == request.website.company_id,
+            'editable': user and user.company_id == request.website.company_id,
         })
         return response
