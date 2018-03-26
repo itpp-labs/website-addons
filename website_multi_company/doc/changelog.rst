@@ -1,3 +1,8 @@
+`1.2.5`
+-------
+
+- **ADD:** Designers now may only edit their own company's websites
+
 `1.2.4`
 -------
 
