@@ -28,8 +28,8 @@
         <link rel="shortcut icon" href="/web/static/src/img/favicon.ico" type="image/x-icon"/>
 
         <link rel="stylesheet" href="/stock_picking_barcode/static/src/css/barcode.css" />
-        <link type="text/css" rel="stylesheet" href="/web/static/lib/qunit/qunit-1.17.1.css"/>
-        <script type="text/javascript" src="/web/static/lib/qunit/qunit-1.17.1.js"></script>
+        <link type="text/css" rel="stylesheet" href="/web/static/lib/qunit/qunit-2.2.1.css"/>
+        <script type="text/javascript" src="/web/static/lib/qunit/qunit-2.2.1.js"></script>
 
         <!--<script type="text/javascript">-->
             <!--var odoo = {-->
