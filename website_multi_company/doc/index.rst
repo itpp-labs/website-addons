@@ -246,6 +246,8 @@ After installing theme, navigate to ``[[ Website ]] >> Configuration >> Multi-Th
 
 If you get error *The style compilation failed*, add modules to **Dependencies** field. It allows to attach theme-like dependencies to corresponding theme and prevent themes compatibility problems.
 
+Note: theme_common installation does not work if you add it in dependencies in demo mode. To avoid this, you have to create database without demo data installation.
+
 Usage
 =====
 
