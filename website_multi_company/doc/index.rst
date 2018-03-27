@@ -220,7 +220,7 @@ After installing theme, navigate to ``[[ Website Admin ]] >> Configuration >> Mu
 
 If you get error *The style compilation failed*, add modules to **Dependencies** field. It allows to attach theme-like dependencies to corresponding theme and prevent themes compatibility problems.
 
-Note:''theme_commo'' installation does not work in demo mode if you install modules that depend on it. To avoid this, you have to create database without demo data installation or you can comment out in manifest.ry of ''theme_common'' like this::
+Note:"theme_common" installation does not work in demo mode if you install modules that depend on it. To avoid this, you have to create database without demo data installation or you can comment out in manifest.ry of "theme_common" like this::
  
   'demo': [
        # 'demo/demo.xml',
