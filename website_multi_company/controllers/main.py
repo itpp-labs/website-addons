@@ -59,6 +59,6 @@ class WebsiteExtended(Website):
         uid = request.session.uid
         user = request.env['res.users'].browse(uid)
         response.qcontext.update({
-            'editable': user and user.company_id == request.website.company_id,
+            'editable': user and request.website.id in user.editor_website_ids.ids,
         })
         return response

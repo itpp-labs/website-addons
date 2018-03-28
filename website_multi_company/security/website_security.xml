@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="edit_only_specified_websites_all" model="ir.rule">
+    <field name="name">Only allowed websites available for editing for designers</field>
+    <field name="model_id" ref="base.model_ir_ui_view"/>
+    <field name="domain_force">['&amp;', ('type', '=', 'qweb'), ('website_id', 'in', user.editor_website_ids.ids)]</field>
+    <field name="perm_read" eval="False"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+  </record>
+</odoo>

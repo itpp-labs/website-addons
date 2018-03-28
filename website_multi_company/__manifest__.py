@@ -29,6 +29,8 @@
         "views/website_theme_views.xml",
         "views/res_config_views.xml",
         "views/website_navbar_templates.xml",
+        "views/res_users_view.xml",
+        "security/website_security.xml",
     ],
     "qweb": [
     ],

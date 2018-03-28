@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
-from odoo import models, api
+from odoo import models, fields, api
 
 
 class ResUsers(models.Model):
     _inherit = 'res.users'
+
+    editor_website_ids = fields.Many2many('website', string='Editor on websites', help='Empty list allows edit any website')
 
     @api.multi
     def switch_multi_company(self, company):
