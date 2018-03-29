@@ -3,9 +3,10 @@
     'name': "Website Search Product Tags",
     'summary': """Search website products by tags""",
     'category': 'eCommerce',
-    'version': '1.0.0',
+    'version': '11.0.1.0.1',
     'application': False,
-    'author': 'IT-Projects LLC, Ivan Yelizariev, Savoir-faire Linux',
+    'author': 'IT-Projects LLC, Ivan Yelizariev, Savoir-faire Linux, '
+              'Quartile Limited Tim Lai',
     'license': 'GPL-3',
     "support": "apps@it-projects.info",
     'website': 'https://twitter.com/yelizariev',
