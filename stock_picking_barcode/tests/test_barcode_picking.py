@@ -2,7 +2,6 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 import odoo.tests
-# from odoo.api import Environment
 
 
 @odoo.tests.common.at_install(True)
@@ -10,9 +9,6 @@ import odoo.tests
 class TestBarcodePickingUi(odoo.tests.HttpCase):
 
     def test_stock_picking_barcode(self):
-
-        # env = Environment(self.registry.test_cr, self.uid, {})
-        # env['res.partner'].search([('id', '=', 9)]).debt_limit = 100
 
         # without a delay there might be problems on the steps whilst opening a POS
         # caused by a not yet loaded button's action
