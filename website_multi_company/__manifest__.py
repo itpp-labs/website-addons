@@ -19,7 +19,6 @@
         "website",
         "website_multi_theme",
         "ir_config_parameter_multi_company",
-        "ir_rule_website",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [

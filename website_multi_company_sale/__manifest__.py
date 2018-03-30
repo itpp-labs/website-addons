@@ -18,6 +18,7 @@
     "depends": [
         "website_multi_company",
         "website_sale",
+        "ir_rule_website",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
