@@ -226,7 +226,8 @@ Websites designing
 * Open menu ``[[ Settings ]] >> Users >> Users``
 * Select the user to be designing websites
 * On ``Access Rights`` tab specify **Allowed Companies** (**Multi Companies** should be active already both on current user and on user you make settings for)
-* You current user should have at least ``Access Rights`` administration privilege to be able to make the settings
+* You current user (the user you make settings under) should have at least ``Access Rights`` administration privilege to be able to make the settings
+* Make sure that your designer user has at least ``Restricted Editor`` privilege on **Website** security category
 * On ``Preferences`` tab specify **Editor on websites**. Note that you can only select websites with companies from allowed companies list
 
 Usage
