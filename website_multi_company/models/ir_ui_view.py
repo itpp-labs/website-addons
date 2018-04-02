@@ -18,4 +18,4 @@ class View(models.Model):
         super(View, self).check_access_rule(operation)
         if operation == 'write' and self.env.user.editor_website_ids and self.mapped('website_id') - self.env.user.editor_website_ids:
             _logger.info('Current user, uid: %s cannot write to the websites: %r', self._uid, self.mapped('website_id') - self.env.user.editor_website_ids)
-            raise AccessError(_('You are trying to edit the %r website but can only edit the %r websites. Please contact your system administrator') % (self.id, self.env.user.editor_website_ids))
+            raise AccessError(_('You are trying to edit the %r website but can only edit the %r websites. Please contact your system administrator') % (self.website_id.name, self.env.user.editor_website_ids.mapped('name')))
