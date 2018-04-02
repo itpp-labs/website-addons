@@ -1,5 +1,7 @@
-# Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+# Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
+# Copyright 2016-2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2017 Artyom Losev
+# License AGPL <http://www.gnu.org/licenses/>.
 
 import logging
 
