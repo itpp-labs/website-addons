@@ -227,6 +227,16 @@ Note: themes that depend on ``theme_common`` don't work in demo installation. To
     ],
 
 	
+Websites designing
+------------------
+
+* Open menu ``[[ Settings ]] >> Users >> Users``
+* Select the user to be designing websites
+* On ``Access Rights`` tab specify **Allowed Companies** (**Multi Companies** should be active already both on current user and on user you make settings for)
+* Your current user (the user you make settings under) should have at least ``Access Rights`` administration privilege to be able to make the settings
+* Make sure that your designer user has at least ``Restricted Editor`` privilege on **Website** security category - this is standard setting
+* On ``Preferences`` tab specify **Editor on websites**. Note that you can only select websites with companies from the Allowed companies list
+
 Usage
 =====
 
@@ -281,3 +291,10 @@ E.g. to use different Paypal accounts for different websites you need to make th
 * switch to Company 2 and add system parameter for second paypal account the same way
 
 Follow the `instruction <https://www.odoo.com/documentation/user/10.0/ecommerce/shopper_experience/paypal.html>`__ to know how to configure Paypal account and get Paypal Identity Token
+
+Steps for websites designing
+----------------------------
+
+* Open one of your sites
+* Log in as website designer
+* RESULT: There will be no ``Edit`` menu if your designer has no rights to edit the website

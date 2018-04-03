@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+# Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
+
 from odoo import http
 from odoo.http import request
 from odoo.addons.website_sale.controllers.main import WebsiteSale
@@ -52,3 +56,13 @@ class WebsiteExtended(Website):
             request.redirect('/')
 
         return self.page(page)
+
+    @http.route()
+    def page(self, page, **opt):
+        response = super(WebsiteExtended, self).page(page, **opt)
+        uid = request.session.uid
+        user = request.env['res.users'].browse(uid)
+        response.qcontext.update({
+            'editable': user and (not user.editor_website_ids or request.website.id in user.editor_website_ids.ids),
+        })
+        return response
