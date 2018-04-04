@@ -1,4 +1,5 @@
-/* Copyright 2016-2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+/* Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>)
+ * Copyright 2016-2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
  * Copyright 2016 Pavel Romanchenko
  * Copyright 2017 Artyom Losev
  * Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
