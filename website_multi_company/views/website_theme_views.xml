@@ -10,7 +10,7 @@
                     <group>
                         <field name="name"/>
                         <field name="converted_theme_addon" required="1"/>
-                        <field name="dependency_ids"  widget="many2many_tags" context="{'search_theme_dependencies': converted_theme_addon}" attrs="{'invisible': [('converted_theme_addon', '=', False)]}"/>
+                        <field name="dependency_ids"  widget="many2many_tags" context="{'search_theme_dependencies': converted_theme_addon}" attrs="{'invisible': [('converted_theme_addon', '=', False)]}" options="{'no_create': True, 'no_edit': True}"/>
                     </group>
                 </sheet>
             </form>

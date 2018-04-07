@@ -1,3 +1,5 @@
+- **FIX:** Don't allow user to create Dependency record manually. They are not supposed to do it and it leads to error message
+
 `1.3.0`
 -------
 
