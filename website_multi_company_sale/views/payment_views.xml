@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="inherited_acquirer_form_view_multi_websites" model="ir.ui.view">
+    <field name="name">ineherited.payment.acquirer.form.multi_websites</field>
+    <field name="model">payment.acquirer</field>
+    <field name="inherit_id" ref="payment.acquirer_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='company_id']" position="after">
+        <field name="website_ids" widget="many2many_tags" domain="company_id and [('company_id', '=', company_id)] or []"/>
+      </xpath>
+    </field>
+  </record>
+</odoo>
+
