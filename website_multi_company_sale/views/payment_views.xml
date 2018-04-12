@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <record id="inherited_acquirer_form_view_multi_websites" model="ir.ui.view">
-    <field name="name">ineherited.payment.acquirer.form.multi_websites</field>
+  <record id="acquirer_form_view_inherit_website_multi_company_sale" model="ir.ui.view">
+    <field name="name">payment.acquirer.form.inherit.website_multi_company_sale</field>
     <field name="model">payment.acquirer</field>
     <field name="inherit_id" ref="payment.acquirer_form"/>
     <field name="arch" type="xml">
