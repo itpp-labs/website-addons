@@ -1,4 +1,9 @@
-`1.0.2`
+`1.2.0`
+-------
+
+- **ADD:** you can now specify allowed websites for your payment acquirers
+
+`1.1.0`
 -------
 
 - **ADD:** you can now specify allowed websites for your products
