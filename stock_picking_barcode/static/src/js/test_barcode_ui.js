@@ -38,7 +38,7 @@ odoo.define('stock_picking_barcode.tour', function (require) {
             trigger: 'tr .fa-plus',
         }, {
             content: 'check the product addition',
-            trigger: 'tr .js_row_qty:contains("1")',
+            trigger: 'tr .js_row_qty input[value="1"]',
         }];
     }
 
