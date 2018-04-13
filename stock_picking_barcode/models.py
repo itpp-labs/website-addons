@@ -1,4 +1,9 @@
-# -*- coding: utf-8 -*-
+# Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>)
+# Copyright 2016-2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2016 Pavel Romanchenko
+# Copyright 2017 Artyom Losev
+# Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 from odoo import models, api
 
@@ -13,7 +18,7 @@ class StockPicking(models.Model):
         lot_obj = self.env['stock.production.lot']
         package_obj = self.env['stock.quant.package']
         product_obj = self.env['product.product']
-        pack_op = self.env['stock.pack.operation'].search(
+        pack_op = self.env['stock.move.line'].search(
             [('picking_id', '=', self.id)])
         stock_location_obj = self.env['stock.location']
         answer = {'filter_loc': False, 'operation_id': False}
@@ -42,7 +47,7 @@ class StockPicking(models.Model):
             lot = lot_obj.browse(matching_lot_ids[0].id)
             op_id = pack_op._increment(
                 self.id,
-                [('product_id', '=', lot.product_id.id), ('pack_lot_ids.lot_id', '=', lot.id)],
+                [('product_id', '=', lot.product_id.id), ('lot_id', '=', lot.id)],
                 filter_visible=True,
                 visible_op_ids=visible_op_ids,
                 increment=True
@@ -83,13 +88,13 @@ class StockPicking(models.Model):
 
     def action_assign_owner(self):
         for picking in self:
-            packop_ids = [op.id for op in picking.pack_operation_ids]
-            self.env['stock.pack.operation'].write(packop_ids, {'owner_id': picking.owner_id.id})
+            packop_ids = [op.id for op in picking.move_line_ids]
+            self.env['stock.move.line'].write(packop_ids, {'owner_id': picking.owner_id.id})
 
     @api.multi
     def process_product_id_from_ui(self, product_id, op_id, increment=True):
         self.ensure_one()
-        pack_op = self.env['stock.pack.operation'].search(
+        pack_op = self.env['stock.move.line'].search(
             [('picking_id', '=', self.id)])
         op_obj = pack_op._increment(
             self.id,
@@ -105,7 +110,7 @@ class StockPicking(models.Model):
         operation_filter_ids is used by barcode scanner interface to specify a subset of operation to pack"""
         if operation_filter_ids is None:
             operation_filter_ids = []
-        stock_operation_obj = self.env['stock.pack.operation']
+        stock_operation_obj = self.env['stock.move.line']
         package_obj = self.env['stock.quant.package']
         stock_move_obj = self.env['stock.move']
         package_id = False
@@ -114,20 +119,20 @@ class StockPicking(models.Model):
             if operation_filter_ids != []:
                 operation_search_domain.append(('id', 'in', operation_filter_ids))
             operation_ids = stock_operation_obj.search(operation_search_domain)
-            pack_operation_ids = []
+            move_line_ids = []
             if operation_ids:
                 for operation in stock_operation_obj.browse(operation_ids):
                     # If we haven't done all qty in operation, we have to split into 2 operation
                     op = operation
                     if (operation.qty_done < operation.product_qty):
                         new_operation = operation.copy(
-                            {'product_qty': operation.qty_done, 'qty_done': operation.qty_done},
+                            {'product_uom_qty': operation.qty_done, 'qty_done': operation.qty_done},
                         )
                         operation.write(
-                            {'product_qty': operation.product_qty - operation.qty_done, 'qty_done': 0},
+                            {'product_uom_qty': operation.product_qty - operation.qty_done, 'qty_done': 0},
                         )
                         op = stock_operation_obj.browse(new_operation)
-                    pack_operation_ids.append(op.id)
+                    move_line_ids.append(op.id)
                     if op.product_id and op.location_id and op.location_dest_id:
                         stock_move_obj.check_tracking_product(
                             op.product_id,
@@ -136,7 +141,7 @@ class StockPicking(models.Model):
                             op.location_dest_id
                         )
                 package_id = package_obj.create({})
-                stock_operation_obj.browse(pack_operation_ids).write(
+                stock_operation_obj.browse(move_line_ids).write(
                     {'result_package_id': package_id},
                 )
         return package_id
@@ -144,8 +149,8 @@ class StockPicking(models.Model):
     def action_done_from_ui(self, picking_id):
         """ called when button 'done' is pushed in the barcode scanner UI """
         # write qty_done into field product_qty for every package_operation before doing the transfer
-        for operation in self.browse(picking_id).pack_operation_ids:
-            operation.with_context(no_recompute=True).write({'product_qty': operation.qty_done})
+        for operation in self.browse(picking_id).move_line_ids:
+            operation.with_context(no_recompute=True).write({'product_uom_qty': operation.qty_done})
         self.do_transfer()
         # return id of next picking to work on
         return self.get_next_picking_for_ui()
@@ -170,11 +175,6 @@ class StockPicking(models.Model):
         final_url = "/barcode/web/#action=stock.ui&picking_id=" + str(picking_ids[0])
         return {'type': 'ir.actions.act_url', 'url': final_url, 'target': 'self', }
 
-    @api.model
-    def do_partial_open_barcode(self, picking_ids):
-        self.do_prepare_partial(picking_ids)
-        return self.open_barcode_interface(picking_ids)
-
 
 class StockPickingType(models.Model):
     _inherit = "stock.picking.type"
@@ -185,7 +185,8 @@ class StockPickingType(models.Model):
 
 
 class StockPackOperation(models.Model):
-    _inherit = "stock.pack.operation"
+    _inherit = "stock.move.line"
+    # _inherit = "stock.pack.operation"
 
     @api.multi
     def _increment(self, picking_id, domain, filter_visible=False, visible_op_ids=False, increment=True):
@@ -224,7 +225,7 @@ class StockPackOperation(models.Model):
             picking = picking_obj.browse(picking_id)
             values = {
                 'picking_id': picking_id,
-                'product_qty': 0,
+                'product_uom_qty': 0,
                 'location_id': picking.location_id.id,
                 'location_dest_id': picking.location_dest_id.id,
                 'qty_done': 1,
@@ -234,8 +235,8 @@ class StockPackOperation(models.Model):
                 uom_id = False
                 if var_name == 'product_id':
                     uom_id = self.env['product.product'].browse(value).uom_id.id
-                if var_name == 'pack_lot_ids.lot_id':
-                    update_dict = {'pack_lot_ids': [(0, 0, {'lot_id': value})]}
+                if var_name == 'lot_id':
+                    update_dict = {'lot_id': value}
                 else:
                     update_dict = {var_name: value}
                 if uom_id:
@@ -261,4 +262,4 @@ class StockPackOperation(models.Model):
 
         if not new_lot_id:
             new_lot_id = self.env['stock.production.lot'].create(val).id
-        self.write({'pack_lot_ids': [(0, 0, {'lot_id': new_lot_id})]})
+        self.write({'lot_id': new_lot_id})

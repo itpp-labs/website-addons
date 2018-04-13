@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- vim:fdn=3:
--->
-<openerp>
+<!--Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>)
+    Copyright 2016-2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+    Copyright 2017 Artyom Losev
+    Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).-->
+<odoo>
     <data>
 
 <template id="assets_backend" name="stock assets" inherit_id="web.assets_backend">
     <xpath expr="." position="inside">
         <link rel="stylesheet" href="/stock_picking_barcode/static/src/css/stock.css"/>
         <script type="text/javascript" src="/stock_picking_barcode/static/src/js/widgets.js"></script>
-
+        <script type="text/javascript" src="/stock_picking_barcode/static/src/js/test_barcode_ui.js"></script>
     </xpath>
 </template>
 
-<template id="barcode_index" name="Barcode Scanner">&lt;!DOCTYPE html&gt;
+<template id="barcode_index" name="Barcode Scanner">
 <html>
     <head>
         <title>Barcode Scanner</title>
@@ -28,8 +31,8 @@
         <link rel="shortcut icon" href="/web/static/src/img/favicon.ico" type="image/x-icon"/>
 
         <link rel="stylesheet" href="/stock_picking_barcode/static/src/css/barcode.css" />
-        <link type="text/css" rel="stylesheet" href="/web/static/lib/qunit/qunit-1.17.1.css"/>
-        <script type="text/javascript" src="/web/static/lib/qunit/qunit-1.17.1.js"></script>
+        <link type="text/css" rel="stylesheet" href="/web/static/lib/qunit/qunit-2.2.1.css"/>
+        <script type="text/javascript" src="/web/static/lib/qunit/qunit-2.2.1.js"></script>
 
         <!--<script type="text/javascript">-->
             <!--var odoo = {-->
@@ -85,4 +88,4 @@
 </template>
 
     </data>
-</openerp>
+</odoo>
