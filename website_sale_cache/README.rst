@@ -2,9 +2,9 @@
    :target: https://www.gnu.org/licenses/lgpl
    :alt: License: LGPL-3
 
-==================
-Website sale cache
-==================
+====================
+ Website Sale Cache
+====================
 
 The module allows to cache product website categories and significantly accelerate the page loading with a large number
 of product categories.
@@ -28,7 +28,8 @@ Credits
 
 Contributors
 ------------
-* Artyom Losev <losev@it-projects.info>
+* Artyom Losev <apps@it-projects.info>
+* Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
 
 Sponsors
 --------
@@ -38,8 +39,21 @@ Maintainers
 -----------
 * `IT-Projects LLC <https://it-projects.info>`__
 
+      To get a guaranteed support you are kindly requested to purchase the module at `odoo apps store <https://apps.odoo.com/apps/modules/10.0/website_sale_cache/>`__.
+
+      Thank you for understanding!
+
+      `IT-Projects Team <https://www.it-projects.info/team>`__
+
 Further information
 ===================
+
+Demo: http://runbot.it-projects.info/demo/website-addons/10.0
+
+HTML Description: https://apps.odoo.com/apps/modules/10.0/website_sale_cache/
+
 Usage instructions: `<doc/index.rst>`_
 
 Changelog: `<doc/changelog.rst>`_
+
+Tested on Odoo 10.0 1ffe85f1cb3defcbf932138e2fc13f3a81b34787
