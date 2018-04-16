@@ -246,8 +246,6 @@ After installing theme, navigate to ``[[ Website ]] >> Configuration >> Multi-Th
 
 If you get error *The style compilation failed*, add modules to **Dependencies** field. It allows to attach theme-like dependencies to corresponding theme and prevent themes compatibility problems.
 
-If you get error *The style compilation failed*, add modules to **Dependencies** field. It allows to attach theme-like dependencies to corresponding theme and prevent themes compatibility problems.
-
 Note: themes that depend on ``theme_common`` don't work in demo installation. To avoid this, you have to create database without demo data or comment out demo files in ``__manifest__.py`` file of ``theme_common`` module like this::
  
   'demo': [
