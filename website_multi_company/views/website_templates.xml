@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html). -->
+<odoo>
+
+    <!-- set priority lower than default (16) to apply update earlier than in
+         website_logo (if installed) -->
+    <template id="layout_logo_show" inherit_id="website.layout_logo_show" priority="8">
+        <xpath expr="//a//img" position="attributes">
+            <attribute name="src">/logo.png?company={{res_company.id}}</attribute>
+        </xpath>
+</template>
+
+</odoo>

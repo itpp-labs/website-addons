@@ -44,6 +44,7 @@ Roadmap
     <div t-field="website.website_footer" class="oe_structure mt16"/>
 
 * TODO: Create website.theme record automatically after theme installation (probably via inheriting ``button_install`` method)
+* TODO: **Editor on websites** field should be hidden for not designers (if configuring user has no at least ``Restricted Editor`` in Website security)
 
 Credits
 =======
