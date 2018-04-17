@@ -19,6 +19,7 @@
         "website_multi_company",
         "website_sale",
         "ir_rule_website",
+        "website_sale_delivery",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
