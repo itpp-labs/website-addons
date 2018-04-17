@@ -19,14 +19,12 @@
         "website_multi_company",
         "website_sale",
         "ir_rule_website",
-        "website_sale_delivery",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
         "views/product_public_category_views.xml",
         "views/product_template_views.xml",
         "views/payment_views.xml",
-        "views/delivery_views.xml",
         "security/website_multi_company_sale_security.xml",
     ],
     "qweb": [
