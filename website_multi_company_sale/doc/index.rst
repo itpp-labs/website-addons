@@ -26,7 +26,7 @@ Multi-products
 Multi-payment-acquirers
 -----------------------
 * Open menu ``[[ Invoicing ]] >> Configuration >> Payments >> Payment Acquirers``
-* Specify **Allowed websites** for your payment acquirer. If no website is specified then the acquirer will be available on any website with the same comapany
+* Specify **Allowed websites** for your payment acquirer. If no website is specified then the acquirer will be available on any website with the same company
 * Choosen websites companies and acquirer's company should be equal
 
 
