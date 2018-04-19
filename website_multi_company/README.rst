@@ -72,4 +72,6 @@ Usage instructions: `<doc/index.rst>`_
 
 Changelog: `<doc/changelog.rst>`_
 
+Notifications on updates: `via Atom <https://github.com/it-projects-llc/website-addons/commits/10.0/website_multi_company.atom>`_, `by Email <https://blogtrottr.com/?subscribe=https://github.com/it-projects-llc/website-addons/commits/10.0/website_multi_company.atom>`_
+
 Tested on Odoo 10.0 ffba5c688ff74a0630f9f70be1d7760a43a7deba
