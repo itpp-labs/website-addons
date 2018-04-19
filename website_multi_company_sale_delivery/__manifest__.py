@@ -2,10 +2,10 @@
 # Copyright 2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 {
-    "name": """Multi-website support for delivery carriers""",
-    "summary": """Restrict access to delivery carriers depending on list of allowed websites""",
+    "name": """Real Multi Website (eCommerce Delivery extension)""",
+    "summary": """Confiure Delivery Carriers list per website""",
     "category": "eCommerce",
-    # "live_test_url": "",
+    "live_test_url": "http://apps.it-projects.info/shop/product/website-multi-company?version=10.0",
     "images": [],
     "version": "10.0.1.0.0",
     "application": False,
@@ -14,12 +14,13 @@
     "support": "apps@it-projects.info",
     "website": "https://it-projects.info/team/iledarn",
     "license": "LGPL-3",
-    # "price": 9.00,
-    # "currency": "EUR",
+    "price": 19.00,
+    "currency": "EUR",
 
     "depends": [
         "website_sale_delivery",
         "ir_rule_website",
+        "website_multi_company",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
