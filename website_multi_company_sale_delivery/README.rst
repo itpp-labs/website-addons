@@ -2,9 +2,9 @@
    :target: https://www.gnu.org/licenses/lgpl
    :alt: License: LGPL-3
 
-=============================================
- Multi-website support for delivery carriers
-=============================================
+===================================================
+ Real Multi Website (eCommerce Delivery extension)
+===================================================
 
 Restrict access to delivery carriers depending on list of allowed websites
 
