@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="blog_rule_all" model="ir.rule">
+    <field name="name">Blogs available only for specifed websites</field>
+    <field name="model_id" ref="model_blog_blog"/>
+    <field name="domain_force">['|', ('website_ids', 'in', [website_id]), ('website_ids', '=', False)]</field>
+    <field name="backend_behaviour">true</field>
+  </record>
+</odoo>

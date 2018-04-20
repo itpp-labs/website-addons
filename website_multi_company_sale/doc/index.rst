@@ -10,11 +10,55 @@ Installation
 Configuration
 =============
 
-Follow instruction of the base module `Real Multi Website <https://www.odoo.com/apps/modules/11.0/website_multi_company/>`__.
+Follow instruction of the base module `Real Multi Website <https://www.odoo.com/apps/modules/10.0/website_multi_company/>`__.
 
-* Open menu ``[[ Website ]] >> Configuration >> Products >> eCommerce Categories``
-* Specify **Websites** fields to parent categories.
-* Open shop at some of your website
+Multi-categories
+----------------
+* Open menu ``[[ Website Admin ]] >> Configuration >> eCommerce >> Website Product Categories``
+* Only for top-level (i.e. without ``parent_id``) categories: specify **Websites** field
+
+Multi-products
+--------------
+* Open menu ``[[ Sales ]] >> Sales >> Products``
+* Specify **Allowed websites** for your products
+* Websites company and product company should be equal. But if you want different company websites then leave the **Company** field empty in your product - in such case you can specify any websites
+
+Multi-payment-acquirers
+-----------------------
+* Open menu ``[[ Invoicing ]] >> Configuration >> Payments >> Payment Acquirers``
+* Specify **Allowed websites** for your payment acquirer. If no website is specified then the acquirer will be available on any website with the same company
+* Choosen websites companies and acquirer's company should be equal
+
+
+Usage
+=====
+
+Multi-categories
+----------------
+
+* Open shop at some of your websites
 * Login as Administrator
-* In ``Customize`` section activate ``[x] eCommerce Categories``
+* In ``Customize`` section activate ``[x] Product Categories``
 * RESULT: parent categories for current website and categories without value at **Websites** fields are shown only. **Websites** value of child categories are ignored.
+
+Multi-cart
+----------
+
+* Login as portal or internal user at some of your websites
+* Add some products to the cart
+* Open another website that belongs to another company
+* Login as the same user
+* RESULT: you have empty cart, rather than one from previous website
+
+Multi-products
+--------------
+
+* Open website shop
+* RESULT: you should only see products allowed for this website or products with no websites specified
+
+Multi-payment-acquirers
+-----------------------
+
+* Open website shop
+* Buy a product
+* On Payment step of checkout there should be available only specified acquirers

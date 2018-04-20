@@ -1,7 +1,12 @@
+`1.0.3`
+-------
+
+- **FIX** Fixed problem with creation of extra movements.
+
 `1.0.2`
 -------
 
-- **FIX** Issue related to scanning a location barcode 
+- **FIX** Issue related to scanning a location barcode
 
 `1.0.1`
 -------

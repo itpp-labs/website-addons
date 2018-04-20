@@ -2,6 +2,9 @@
  Real Multi Website
 ====================
 
+.. contents::
+   :local:
+
 Installation
 ============
 
@@ -11,6 +14,15 @@ Firstly install the external dependencies::
 	gem install compass bootstrap-sass
 
 Then `install <https://odoo-development.readthedocs.io/en/latest/odoo/usage/install-module.html>`__ this module in a usual way.
+
+
+Additional modules
+------------------
+
+Due to technical reasons some multi-website features are located in separate modules, install them depending on your needs:
+
+* if you use ``website_sale`` (eCommerce) module, then install `Real Multi Website (eCommerce extension) <https://www.odoo.com/apps/modules/10.0/website_multi_company_sale/>`__ too 
+* if you use ``website_portal`` (Portal) module, then install `Real Multi Website (portal extension) <https://www.odoo.com/apps/modules/10.0/website_multi_company_portal/>`__ too 
 
 Domain Names
 ------------
@@ -50,7 +62,7 @@ session information. There are two ways to do it:
 
 In the latter case ``dbfilter`` is usually used, though it's not flexible enough.
 
-using dbfilter parameter
+Using dbfilter parameter
 ~~~~~~~~~~~~~~~~~~~~~~~~
 For TESTING purpose you can use the following configuration:
 
@@ -63,7 +75,7 @@ For TESTING purpose you can use the following configuration:
     * example.shop2.local
     * example.shop3.local
 
-patching http.py
+Patching http.py
 ~~~~~~~~~~~~~~~~
 
 For PRODUCTION deployment with websites on subdomains you can use following patch. You need to update odoo/http.py file as following::
@@ -98,7 +110,7 @@ Then you can use following configuration
     * shop2.example.org
     * shop3.example.org
 
-using dbfilter_from_header module
+Using dbfilter_from_header module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Most flexible way to deploy multi-database system is using `dbfilter_from_header <https://www.odoo.com/apps/modules/10.0/dbfilter_from_header/>`__ (check module description for installation instruction).
 
@@ -160,6 +172,17 @@ Example (we use top level domain ``.example`` due to copyright issues, but it co
         }
        }
 
+Odoo.sh deployment
+------------------
+
+In the manager of your domain name registrar you need to add CNAME records for your domains (subdomains), for example:
+
+* Create a CNAME record ``shop1.example.org`` pointing to <yourdatabase>.odoo.com
+* Create a CNAME record ``shop2.example.org`` pointing to <yourdatabase>.odoo.com
+* Create a CNAME record ``example.com`` pointing to <yourdatabase>.odoo.com
+
+Similar for dev and staging database, but use corresponding domain in odoo.com, e.g. ``mywebsite-master-staging-12345689.dev.odoo.com``
+
 Configuration
 =============
 
@@ -172,7 +195,10 @@ Configuration
   * **Website Domain** -- website address, e.g. *shop1.example.com*
   * **Company** -- which company is used for this *website*
   * **Favicon** -- upload website favicon
-  * **Multi Theme** -- select a theme you wish to apply for website, e.g. *theme_bootswatch* (if you install any of supported themes after installing this module, you should click on **Reload** button to be able to use them)
+  * **Multi Theme** -- select a theme you wish to apply for website, e.g. *theme_bootswatch* 
+
+    * if you install any of supported themes after installing this module, you should click on **Reload** button to be able to use them
+    * for unsupported themes extra actions are required as described `below <#multi-theme>`__
 
 Note that to use *Multi Theme* feature you should have the latest updates of Odoo or at least include the following 3 commits:
   * https://github.com/odoo/odoo/commit/15bf41270d3abb607e7b623b59355594cad170cf
@@ -200,6 +226,30 @@ Website Menus
 You can edit, duplicate or create new menu at ``[[ Website Admin ]] >> Configuration >> Website Menus`` -- pay attention to fields **Website**, **Parent Menu**. In most cases, **Parent Menu** is a *Top Menu* (i.e. menu record without **Parent Menu** value). If a *website* doesn't have *Top Menu* you need to create one.
 
 Note. Odoo doesn't share Website Menus (E.g. Homepage, Shop, Contact us, etc.) between websites. So, you need to have copies of them.
+
+Multi-theme
+-----------
+
+After installing theme, navigate to ``[[ Website Admin ]] >> Configuration >> Multi-Themes``. Check that the theme is presented in the list, otherwise add one.
+
+If you get error *The style compilation failed*, add modules to **Dependencies** field. It allows to attach theme-like dependencies to corresponding theme and prevent themes compatibility problems.
+
+Note: themes that depend on ``theme_common`` don't work in demo installation. To avoid this, you have to create database without demo data or comment out demo files in ``__manifest__.py`` file of ``theme_common`` module like this::
+ 
+  'demo': [
+       # 'demo/demo.xml',
+    ],
+
+	
+Websites designing
+------------------
+
+* Open menu ``[[ Settings ]] >> Users >> Users``
+* Select the user to be designing websites
+* On ``Access Rights`` tab specify **Allowed Companies** (**Multi Companies** should be active already both on current user and on user you make settings for)
+* Your current user (the user you make settings under) should have at least ``Access Rights`` administration privilege to be able to make the settings
+* Make sure that your designer user has at least ``Restricted Editor`` privilege on **Website** security category - this is standard setting
+* On ``Preferences`` tab specify **Editor on websites**. Note that you can only select websites with companies from the Allowed companies list
 
 Usage
 =====
@@ -230,7 +280,7 @@ Steps for eCommerce
   * use ``[Action] -> Duplicate`` button
   * don't forget to click ``[Unpublished On Website]`` button to activate it
   
-* open ``[[ Sales ]] >> Products`` and create product per each company if they don't exist
+* open ``[[ Sales ]] >> Products`` and create product per each company if they don't exist. If a product doesn't belong to any company (i.e. "Company" field is empty), this product will be available on each website you created.
 * open HOST1/shop, make order, open backend -- created order belongs to COMPANY1
 * open HOST2/shop, make order, open backend -- created order belongs to COMPANY2
 
@@ -255,3 +305,10 @@ E.g. to use different Paypal accounts for different websites you need to make th
 * switch to Company 2 and add system parameter for second paypal account the same way
 
 Follow the `instruction <https://www.odoo.com/documentation/user/10.0/ecommerce/shopper_experience/paypal.html>`__ to know how to configure Paypal account and get Paypal Identity Token
+
+Steps for websites designing
+----------------------------
+
+* Open one of your sites
+* Log in as website designer
+* RESULT: There will be no ``Edit`` menu if your designer has no rights to edit the website
