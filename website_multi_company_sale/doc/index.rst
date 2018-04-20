@@ -39,7 +39,7 @@ Multi-categories
 
 * Open shop at some of your websites
 * Login as Administrator
-* In ``Customize`` section activate ``[x] Product Categories``
+* In ``Customize`` section activate ``[x] eCommerce Categories``
 * RESULT: parent categories for current website and categories without value at **Websites** fields are shown only. **Websites** value of child categories are ignored.
 
 Multi-cart
