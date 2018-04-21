@@ -3,7 +3,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 {
     "name": """Real Multi Website (eCommerce Delivery extension)""",
-    "summary": """Confiure Delivery Carriers list per website""",
+    "summary": """Configure Delivery Carriers list per website""",
     "category": "eCommerce",
     "live_test_url": "http://apps.it-projects.info/shop/product/website-multi-company?version=10.0",
     "images": [],
