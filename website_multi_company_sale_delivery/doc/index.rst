@@ -17,5 +17,5 @@ Configuration
 Usage
 =====
 
-* Make a purchase from website shop as usual
+* Make an order from website shop as usual
 * RESULT: on the ``Payment`` stage of checkout process see that only allowed delivery methods are available for you
