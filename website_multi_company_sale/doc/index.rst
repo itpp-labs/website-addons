@@ -21,9 +21,14 @@ Website Orders
 
 Multi-categories
 ----------------
-
 * Open menu ``[[ Website ]] >> Configuration >> Products >> eCommerce Categories``
 * Specify **Websites** fields to parent categories.
+
+Multi-products
+--------------
+* Open menu ``[[ Sales ]] >> Sales >> Products``
+* Specify **Allowed websites** for your products
+* Websites company and product company should be equal. But if you want different company websites then leave the **Company** field empty in your product - in such case you can specify any websites
 
 Usage
 =====
@@ -44,3 +49,9 @@ Multi-cart
 * Open another website that belongs to another company
 * Login as the same user
 * RESULT: you have empty cart, rather than one from previous website
+
+Multi-products
+--------------
+
+* Open website shop
+* RESULT: you should only see products allowed for this website or products with no websites specified

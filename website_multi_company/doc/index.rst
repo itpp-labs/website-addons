@@ -246,6 +246,23 @@ After installing theme, navigate to ``[[ Website ]] >> Configuration >> Multi-Th
 
 If you get error *The style compilation failed*, add modules to **Dependencies** field. It allows to attach theme-like dependencies to corresponding theme and prevent themes compatibility problems.
 
+Note: themes that depend on ``theme_common`` don't work in demo installation. To avoid this, you have to create database without demo data or comment out demo files in ``__manifest__.py`` file of ``theme_common`` module like this::
+ 
+  'demo': [
+       # 'demo/demo.xml',
+    ],
+
+	
+Websites designing
+------------------
+
+* Open menu ``[[ Settings ]] >> Users >> Users``
+* Select the user to be designing websites
+* On ``Access Rights`` tab specify **Allowed Companies** (**Multi Companies** should be active already both on current user and on user you make settings for)
+* Your current user (the user you make settings under) should have at least ``Access Rights`` administration privilege to be able to make the settings
+* Make sure that your designer user has at least ``Restricted Editor`` privilege on **Website** security category - this is standard setting
+* On ``Preferences`` tab specify **Editor on websites**. Note that you can only select websites with companies from the Allowed companies list
+
 Usage
 =====
 
@@ -275,7 +292,7 @@ Steps for eCommerce
   * use ``[Action] -> Duplicate`` button
   * don't forget to click ``[Unpublished On Website]`` button to activate it
   
-* open ``[[ Sales ]] >> Products`` and create product per each company if they don't exist
+* open ``[[ Sales ]] >> Products`` and create product per each company if they don't exist. If a product doesn't belong to any company (i.e. "Company" field is empty), this product will be available on each website you created.
 * open HOST1/shop, make order, open backend -- created order belongs to COMPANY1
 * open HOST2/shop, make order, open backend -- created order belongs to COMPANY2
 
@@ -295,4 +312,11 @@ E.g. to use different Paypal accounts for different websites you need to make th
   * **Paypal Merchant ID**
   * **Paypal PDT Token**
 
-Follow the `instruction <https://www.odoo.com/documentation/user/11.0/ecommerce/shopper_experience/paypal.html>`__ to know how to configure Paypal account and get Paypal Identity Token
+Follow the `instruction <https://www.odoo.com/documentation/user/10.0/ecommerce/shopper_experience/paypal.html>`__ to know how to configure Paypal account and get Paypal Identity Token
+
+Steps for websites designing
+----------------------------
+
+* Open one of your sites
+* Log in as website designer
+* RESULT: There will be no ``Edit`` menu if your designer has no rights to edit the website

@@ -150,8 +150,9 @@ class StockPicking(models.Model):
         """ called when button 'done' is pushed in the barcode scanner UI """
         # write qty_done into field product_qty for every package_operation before doing the transfer
         for operation in self.browse(picking_id).move_line_ids:
-            operation.with_context(no_recompute=True).write({'product_uom_qty': operation.qty_done})
-        self.do_transfer()
+            operation.with_context(no_recompute=True).write({'product_qty': operation.qty_done})
+        wiz = self.env['stock.immediate.transfer'].create({'pick_id': picking_id})
+        wiz.process()
         # return id of next picking to work on
         return self.get_next_picking_for_ui()
 
