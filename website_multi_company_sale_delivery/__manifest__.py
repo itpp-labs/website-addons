@@ -5,7 +5,7 @@
     "name": """Real Multi Website (eCommerce Delivery extension)""",
     "summary": """Configure Delivery Carriers list per website""",
     "category": "eCommerce",
-    "live_test_url": "http://apps.it-projects.info/shop/product/website-multi-company?version=10.0",
+    "live_test_url": "http://apps.it-projects.info/shop/product/website-multi-company?version=11.0",
     "images": [],
     "version": "11.0.1.0.0",
     "application": False,
