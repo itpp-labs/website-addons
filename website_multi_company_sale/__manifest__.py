@@ -5,7 +5,7 @@
     "category": "eCommerce",
     "live_test_url": "http://apps.it-projects.info/shop/product/website-multi-company?version=11.0",
     "images": ["images/website_multi_company_sale_main.png"],
-    "version": "11.0.1.0.2",
+    "version": "11.0.1.2.0",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev",
@@ -18,11 +18,15 @@
     "depends": [
         "website_multi_company",
         "website_sale",
+        "ir_rule_website",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
         "views/product_public_category_views.xml",
         "views/website_views.xml",
+        "views/product_template_views.xml",
+        "views/payment_views.xml",
+        "security/website_multi_company_sale_security.xml",
     ],
     "qweb": [
     ],
