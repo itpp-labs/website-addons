@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="website_multi_company_sale_rule_all" model="ir.rule">
+    <field name="name">Products available only for specifed websites (shops)</field>
+    <field name="model_id" ref="model_product_template"/>
+    <field name="domain_force">['|', ('website_ids', 'in', [website_id]), ('website_ids', '=', False)]</field>
+  </record>
+  <record id="website_multi_company_payment_rule_all" model="ir.rule">
+    <field name="name">Payment acquirers available only for specifed websites (shops)</field>
+    <field name="model_id" ref="model_payment_acquirer"/>
+    <field name="domain_force">['|', ('website_ids', 'in', [website_id]), ('website_ids', '=', False)]</field>
+  </record>
+</odoo>
