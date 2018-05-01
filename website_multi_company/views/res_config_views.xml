@@ -10,6 +10,9 @@
                 <attribute name="readonly">1</attribute>
                 <attribute name="string">Default Website</attribute>
             </xpath>
+            <xpath expr="//button[@name='multi_theme_reload']" position="attributes">
+                <attribute name="string">Reload Theme List &amp; Update all websites</attribute>
+            </xpath>
         </field>
     </record>
 </odoo>
