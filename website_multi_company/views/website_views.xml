@@ -24,7 +24,7 @@
                 help="Update Theme for current website. Normally used when theme is changed"
                 type="object"
                 groups="base.group_no_one"
-                class="oe_inline oe_read_only"
+                class="oe_inline oe_read_only ml8"
                 name="multi_theme_reload"/>
         </div> 
         <field name="favicon" widget="image" class="oe_avatar oe_left"/>

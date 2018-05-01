@@ -9,8 +9,14 @@
                 <sheet>
                     <group>
                         <field name="name"/>
-                        <field name="converted_theme_addon" required="1"/>
-                        <field name="dependency_ids"  widget="many2many_tags" context="{'search_theme_dependencies': converted_theme_addon}" attrs="{'invisible': [('converted_theme_addon', '=', False)]}"/>
+                        <field name="converted_theme_addon"/>
+                        <field name="dependency_ids"
+                               widget="many2many_tags"
+                               />
+                        <field name="asset_ids"
+                               string="Views"
+                               widget="many2many_tags"
+                               domain="[('auto', '=', False)]"/>
                     </group>
                 </sheet>
             </form>
@@ -21,7 +27,7 @@
         <field name="name">website.theme.tree</field>
         <field name="model">website.theme</field>
         <field name="arch" type="xml">
-            <tree string="Multi-theme">
+            <tree>
                 <field name="name"/>
                 <field name="converted_theme_addon"/>
             </tree>
