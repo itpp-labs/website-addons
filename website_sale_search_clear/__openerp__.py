@@ -3,7 +3,7 @@
     'name': "Website Sale Search Clear",
     'summary': """Clear the search""",
     'category': 'eCommerce',
-    'version': '1.0.0',
+    'version': '10.0.1.0.1',
     'application': False,
     'author': 'IT-Projects LLC, Ivan Yelizariev, Savoir-faire Linux',
     'license': 'GPL-3',
