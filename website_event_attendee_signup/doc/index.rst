@@ -16,6 +16,7 @@ Configuration
 * At ``Email Schedule`` add a line:
 
   * **Email to Send**:  *Event: Signup*
+  * **Unit**: *Immediately*
   * **When to Run**: *After each registration*
 
 Alternative email template configuration:

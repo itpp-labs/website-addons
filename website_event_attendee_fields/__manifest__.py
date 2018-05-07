@@ -3,7 +3,7 @@
     "name": """Customizable fields for attendees on Events""",
     "summary": """Do you need more information about attendees than three default fields (name, email, phone)?""",
     "category": "Marketing",
-    # "live_test_url": "",
+    "live_test_url": "http://apps.it-projects.info/shop/product/portal_event?version=10.0",
     "images": ['static/description/custom-fields-750.png'],
     "version": "10.0.2.0.0",
     "application": False,
@@ -12,8 +12,8 @@
     "support": "apps@it-projects.info",
     "website": "https://it-projects.info/team/yelizariev",
     "license": "LGPL-3",
-    # "price": 9.00,
-    # "currency": "EUR",
+    "price": 200.00,
+    "currency": "EUR",
 
     "depends": [
         "website_event_sale",

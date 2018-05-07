@@ -3,7 +3,7 @@
     "name": """Portal Event""",
     "summary": """Allows to customers see their tickets for events at Portal""",
     "category": "Marketing",
-    # "live_test_url": "",
+    "live_test_url": "http://apps.it-projects.info/shop/product/portal_event?version=10.0",
     "images": [],
     "version": "1.0.0",
     "application": False,
@@ -12,8 +12,8 @@
     "support": "apps@it-projects.info",
     "website": "https://it-projects.info/team/yelizariev",
     "license": "LGPL-3",
-    # "price": 9.00,
-    # "currency": "EUR",
+    "price": 150.00,
+    "currency": "EUR",
 
     "depends": [
         "event_sale",
@@ -43,4 +43,12 @@
 
     "auto_install": False,
     "installable": True,
+
+    "demo_title": "Event extensions",
+    "demo_addons": ["website_event_attendee_fields", "website_event_attendee_signup", "website_event_require_login"],
+    "demo_addons_hidden": ["website_event_attendee_fields_custom"],
+    "demo_url": "portal_event",
+    "demo_summary": "Set of modules to extend Event application.",
+    "demo_images": [
+    ]
 }

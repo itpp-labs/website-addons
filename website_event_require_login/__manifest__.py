@@ -3,7 +3,7 @@
     "name": """Tickets purchasing: force user to sign in / sign up""",
     "summary": """User registration at your portal is always a plus for marketing""",
     "category": "Marketing",
-    # "live_test_url": "",
+    "live_test_url": "http://apps.it-projects.info/shop/product/portal_event?version=10.0",
     "images": [],
     "version": "1.0.0",
     "application": False,
@@ -12,8 +12,8 @@
     "support": "apps@it-projects.info",
     "website": "https://it-projects.info/team/yelizariev",
     "license": "LGPL-3",
-    # "price": 9.00,
-    # "currency": "EUR",
+    "price": 37.00,
+    "currency": "EUR",
 
     "depends": [
         "website_event",
