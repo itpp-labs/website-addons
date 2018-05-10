@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
-    "name": """Portal Event""",
-    "summary": """Allows to customers see their tickets for events at Portal""",
+    "name": """Customer Event Portal""",
+    "summary": """Allows to customers see their tickets for events at the Portal""",
     "category": "Marketing",
     "live_test_url": "http://apps.it-projects.info/shop/product/portal_event?version=10.0",
     "images": [],

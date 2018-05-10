@@ -1,6 +1,6 @@
-==============
- Portal Event
-==============
+=======================
+ Customer Event Portal
+=======================
 
 Allows to customers see tickets for events at Portal.
 
