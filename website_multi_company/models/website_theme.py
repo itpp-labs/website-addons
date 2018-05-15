@@ -59,10 +59,3 @@ class WebsiteTheme(models.Model):
     @api.onchange('converted_theme_addon')
     def onchange_converted_theme_addon(self):
         self.update(self._autofill_deps())
-
-
-class WebsiteThemeAsset(models.Model):
-    _inherit = "website.theme.asset"
-    _order = 'view_priority,view_id,id'
-
-    view_priority = fields.Integer(related='view_id.priority', store=True)
