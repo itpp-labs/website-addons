@@ -4,7 +4,7 @@
     "summary": """User registration at your portal is always a plus for marketing""",
     "category": "Marketing",
     "live_test_url": "http://apps.it-projects.info/shop/product/portal_event?version=10.0",
-    "images": ["images/banner.png"],
+    "images": ["images/banner.jpg"],
     "version": "1.0.0",
     "application": False,
 
