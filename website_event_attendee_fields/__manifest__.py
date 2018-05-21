@@ -4,7 +4,7 @@
     "summary": """Do you need more information about attendees than three default fields (name, email, phone)?""",
     "category": "Marketing",
     "live_test_url": "http://apps.it-projects.info/shop/product/portal_event?version=10.0",
-    "images": ["images/banner.png"],
+    "images": ["images/banner.jpg"],
     "version": "10.0.2.0.0",
     "application": False,
 
