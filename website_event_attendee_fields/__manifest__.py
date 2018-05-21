@@ -3,7 +3,7 @@
     "name": """Customizable fields for attendees on Events""",
     "summary": """Do you need more information about attendees than three default fields (name, email, phone)?""",
     "category": "Marketing",
-    "live_test_url": "http://apps.it-projects.info/shop/product/portal_event?version=10.0",
+    "live_test_url": "http://apps.it-projects.info/shop/product/portal_event_tickets?version=10.0",
     "images": ["images/banner.jpg"],
     "version": "10.0.2.0.0",
     "application": False,
