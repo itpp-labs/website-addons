@@ -4,6 +4,7 @@ import logging
 from odoo import http, _
 from odoo.exceptions import AccessError
 from odoo.http import request
+from odoo.fields import Date
 
 from odoo.addons.website_portal.controllers.main import website_account
 from odoo.addons.website_event.controllers.main import WebsiteEventController
@@ -15,6 +16,26 @@ _logger = logging.getLogger(__name__)
 
 
 class PortalEvent(website_account):
+
+    def _get_archive_groups(self, model, domain=None, fields=None, groupby="create_date", order="create_date desc"):
+        # TODO make without copy-pasting. Probably add ir.rule for portal user?
+        if not model:
+            return []
+        if domain is None:
+            domain = []
+        if fields is None:
+            fields = ['name', 'create_date']
+        groups = []
+        for group in request.env[model].sudo()._read_group_raw(domain, fields=fields, groupby=groupby, orderby=order):
+            dates, label = group[groupby]
+            date_begin, date_end = dates.split('/')
+            groups.append({
+                'date_begin': Date.to_string(Date.from_string(date_begin)),
+                'date_end': Date.to_string(Date.from_string(date_end)),
+                'name': label,
+                'item_count': group[groupby + '_count']
+            })
+        return groups
 
     def _tickets_domain(self, partner=None):
         partner = partner or request.env.user.partner_id
@@ -39,7 +60,7 @@ class PortalEvent(website_account):
     @http.route(['/my/tickets', '/my/tickets/page/<int:page>'], type='http', auth="user", website=True)
     def portal_my_tickets(self, page=1, date_begin=None, date_end=None, **kw):
         values = self._prepare_portal_layout_values()
-        Registration = request.env['event.registration']
+        Registration = request.env['event.registration'].sudo()
 
         domain = self._tickets_domain()
         archive_groups = self._get_archive_groups('event.registration', domain)
@@ -70,30 +91,32 @@ class PortalEvent(website_account):
 
     def _has_ticket_access(self, ticket, to_update=False):
         """Ticket must not be sudo`ed"""
+        env = ticket.env
         if not ticket.exists():
             _logger.info("ticket doesn't exist: %s", ticket)
             return False
 
         try:
-            ticket.check_access_rights('read')
+            # We check only ir.rule records, because ir.model.access actually
+            # doesn't allow portal user to read
             ticket.check_access_rule('read')
         except AccessError:
-            groups = request.env.user.groups_id.mapped('name')
+            groups = env.user.groups_id.mapped('name')
             _logger.info("Ticket access rights check is not passed! User groups: %s", groups, exc_info=True)
             return False
 
-        if ticket.attendee_partner_id.id == ticket.env.user.partner_id.id:
+        if ticket.sudo().attendee_partner_id.id == ticket.env.user.partner_id.id:
             return True
 
         if to_update:
-            _logger.info("No an attendee %s cannot update ticket %s, which belongs to",
+            _logger.info("No an attendee %s cannot update ticket %s, which belongs to %s",
                          ticket.env.user.partner_id,
                          ticket,
                          ticket.attendee_partner_id)
             # not an attendee, so cannot update
             return False
 
-        return request.env.user.has_group('event.group_event_manager')
+        return env.user.has_group('event.group_event_manager')
 
     @http.route(['/my/tickets/<int:ticket>'], type='http', auth="user", website=True)
     def ticket_page(self, ticket=None, **kw):
@@ -152,12 +175,15 @@ class PortalEvent(website_account):
         return request.render("portal_event_tickets.portal_ticket_transfer", values)
 
     def _ticket_transfer(self, env, to_email, ticket_id):
-
+        """env is passed explicitly to use this method in ci tests"""
         ticket = env['event.registration'].browse(int(ticket_id))
         ticket.ensure_one()
 
         if not self._has_ticket_access(ticket, to_update=True):
             return request.render("website.403")
+
+        ticket = ticket.sudo()
+
         if not ticket.event_id.ticket_transferring:
             return request.render("website.403")
 
@@ -176,12 +202,12 @@ class PortalEvent(website_account):
             domain = [('attendee_partner_id', '=', receiver.id),
                       ('state', 'not in', ['cancel']),
                       ('event_id', '=', ticket.event_id.id)]
-            if env['event.registration'].search_count(domain):
+            if env['event.registration'].sudo().search_count(domain):
                 error = 'receiver_has_ticket'
 
         if not error:
             # do the transfer
-            ticket.sudo().transferring_started(receiver)
+            ticket.transferring_started(receiver)
 
         return error
 
@@ -191,15 +217,21 @@ class PortalEvent(website_account):
             ticket = request.env['event.registration'].browse(int(transfer_ticket))
         else:
             # Just take first available ticket. Mostly for unittests
-            ticket = request.env['event.registration'].search([
+            # Use sudo as portal user doesn't have access
+            ticket = request.env['event.registration'].sudo().search([
                 ('attendee_partner_id', '=', request.env.user.partner_id.id),
                 ('is_transferring', '=', True),
             ], limit=1)
+            # sudo back to original user
+            ticket = ticket.sudo(request.env.user)
 
         ticket.ensure_one()
 
         if not self._has_ticket_access(ticket, to_update=True):
             return request.render("website.403")
+
+        # we can make sudo once access is checked
+        ticket = ticket.sudo()
 
         if not ticket.event_id.ticket_transferring:
             return request.render("website.403")
