@@ -4,7 +4,7 @@
     "summary": """Allows to customers see their tickets for events at the Portal""",
     "category": "Marketing",
     "live_test_url": "http://apps.it-projects.info/shop/product/portal_event?version=10.0",
-    "images": ["images/banner.png"],
+    "images": ["images/banner.jpg"],
     "version": "1.0.0",
     "application": False,
 
