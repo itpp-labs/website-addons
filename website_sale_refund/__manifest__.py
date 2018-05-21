@@ -4,7 +4,7 @@
     "summary": """Product upgrading / changing feature for your online shop""",
     "category": "eCommerce",
     # "live_test_url": "",
-    "images": ["images/banner.png"],
+    "images": ["images/banner.jpg"],
     "version": "1.0.0",
     "application": False,
 
