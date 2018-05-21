@@ -7,8 +7,10 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='website_id']" position="attributes">
                 <attribute name="invisible"></attribute>
-                <attribute name="readonly">1</attribute>
-                <attribute name="string">Default Website</attribute>
+            </xpath>
+            <xpath expr="//button[@name='multi_theme_reload']" position="attributes">
+                <attribute name="string">Reload Theme List &amp; Update all websites</attribute>
+                <attribute name="context">{'skip_converting_assets': True}</attribute>
             </xpath>
         </field>
     </record>

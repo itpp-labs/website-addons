@@ -3,7 +3,7 @@ OCA_event https://github.com/OCA/event
 OCA_partner-contact https://github.com/OCA/partner-contact.git
 OCA_server-tools https://github.com/it-projects-llc/server-tools.git
 OCA_web https://github.com/it-projects-llc/web
-OCA_website https://github.com/it-projects-llc/website
+OCA_website https://github.com/OCA/website
 access-addons https://github.com/it-projects-llc/access-addons.git
 mail-addons https://github.com/it-projects-llc/mail-addons
 misc-addons https://github.com/it-projects-llc/misc-addons

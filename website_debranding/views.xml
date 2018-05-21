@@ -197,7 +197,8 @@
     </xpath>
 </template>
 
-<delete id="website.show_website_info" model="ir.ui.view"/>
-<delete id="website.website_info" model="ir.ui.view"/>
+<record id="website.website_info" model="ir.ui.view">
+    <field name="active" eval="False"/>
+</record>
 
 </data></openerp>

@@ -67,23 +67,16 @@ class Module(models.Model):
         return dict(ACTION_DICT, name=_('Install'))
 
     @api.model
-    def _search(self, args, offset=0, limit=None, order=None, count=False, access_rights_uid=None):
-        if self.env.context.get('search_theme_dependencies'):
-            args = args or []
-            args += self._theme_dependencies_domain(self.env.context.get('search_theme_dependencies'))
-        return super(Module, self)._search(args, offset, limit, order, count, access_rights_uid)
-
-    @api.model
-    def _theme_dependencies_domain(self, theme_name):
-        """Computes domain for dependencies of the theme, but without built-in dependencies"""
+    def _search_theme_dependencies(self, theme_name):
+        """Search dependencies of the theme, but without built-in dependencies"""
         if not theme_name:
-            return []
+            return self
 
         self = self.with_context(search_theme_dependencies=False)
 
         theme = self.search([('name', '=', theme_name)])
         if not theme:
-            return []
+            return self
 
         deps = theme.upstream_dependencies(exclude_states=('to remove'))
         base_modules = self.search([('name', 'in', BASE_MODULES)])
@@ -91,4 +84,4 @@ class Module(models.Model):
         deps -= base_modules
         deps -= base_deps
 
-        return [('id', 'in', deps.ids)]
+        return self.search([('id', 'in', deps.ids)])
