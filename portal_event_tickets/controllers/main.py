@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import logging
+
 from odoo import http, _
 from odoo.exceptions import AccessError
 from odoo.http import request
@@ -7,6 +9,9 @@ from odoo.addons.website_portal.controllers.main import website_account
 from odoo.addons.website_event.controllers.main import WebsiteEventController
 from odoo.addons.website_sale.controllers.main import WebsiteSale
 from odoo.addons.website.models.website import slug
+
+
+_logger = logging.getLogger(__name__)
 
 
 class PortalEvent(website_account):
@@ -66,18 +71,25 @@ class PortalEvent(website_account):
     def _has_ticket_access(self, ticket, to_update=False):
         """Ticket must not be sudo`ed"""
         if not ticket.exists():
+            _logger.info("ticket doesn't exist: %s", ticket)
             return False
 
         try:
             ticket.check_access_rights('read')
             ticket.check_access_rule('read')
         except AccessError:
+            groups = request.env.user.groups_id.mapped('name')
+            _logger.info("Ticket access rights check is not passed! User groups: %s", groups, exc_info=True)
             return False
 
         if ticket.attendee_partner_id.id == ticket.env.user.partner_id.id:
             return True
 
         if to_update:
+            _logger.info("No an attendee %s cannot update ticket %s, which belongs to",
+                         ticket.env.user.partner_id,
+                         ticket,
+                         ticket.attendee_partner_id)
             # not an attendee, so cannot update
             return False
 
