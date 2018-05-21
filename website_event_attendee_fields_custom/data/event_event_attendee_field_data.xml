@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="attendee_field_firstname" model="event.event.attendee_field">
+        <field name="field_id" ref="partner_firstname.field_res_partner_firstname"/>
+        <field name="form_type">text</field>
+        <field name="width">3</field>
+    </record>
+
+    <record id="attendee_field_lastname" model="event.event.attendee_field">
+        <field name="field_id" ref="partner_firstname.field_res_partner_lastname"/>
+        <field name="form_type">text</field>
+        <field name="width">5</field>
+    </record>
+
+    <record id="attendee_field_email" model="event.event.attendee_field">
+        <field name="field_id" ref="event.field_event_registration_email"/>
+        <field name="form_type">email</field>
+        <field name="width">4</field>
+    </record>
+
+    <record id="attendee_field_nationality" model="event.event.attendee_field">
+        <field name="field_id" ref="partner_contact_nationality.field_res_partner_nationality_id"/>
+        <field name="form_type">many2one</field>
+        <field name="width">4</field>
+    </record>
+
+    <record id="attendee_field_passport" model="event.event.attendee_field">
+        <field name="field_id" ref="website_event_attendee_fields_custom.field_res_partner_passport"/>
+        <field name="form_type">text</field>
+        <field name="width">4</field>
+    </record>
+
+    <record id="attendee_field_birthdate" model="event.event.attendee_field">
+        <field name="field_id" ref="partner_contact_birthdate.field_res_partner_birthdate_date"/>
+        <field name="form_type">date</field>
+        <field name="width">4</field>
+    </record>
+
+</odoo>

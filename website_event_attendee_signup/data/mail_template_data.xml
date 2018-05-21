@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="email_template_signup" model="mail.template">
+        <field name="name">Event: Signup</field>
+        <!--<field name="email_from">${(object.partner_id.email or '')|safe}</field>-->
+        <field name="subject">Welcome to our Portal!</field>
+        <field name="partner_to">${object.attendee_partner_id.id}</field>
+        <field name="model_id" ref="event.model_event_registration"/>
+        <field name="auto_delete" eval="True"/>
+        <field name="lang">${object.attendee_partner_id.lang}</field>
+        <field name="body_html"><![CDATA[
+    
+        <p>
+            Hello ${object.attendee_partner_id.name},<br />
+
+            You was registered as attendee of ${object.event_id.name}.
+
+            % if object.attendee_partner_id.signup_token:
+                Use the link below to sing-up on portal to access your event dashboard:
+                    <div style="padding:0px;width:600px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777">
+                        <div style="text-align: center; margin-top: 16px;">
+                             <a href="${object.attendee_partner_id.signup_url}" style="padding: 5px 10px; font-size: 12px; line-height: 18px; color: #FFFFFF; border-color:#875A7B; text-decoration: none; display: inline-block; margin-bottom: 0px; font-weight: 400; text-align: center; vertical-align: middle; cursor: pointer; white-space: nowrap; background-image: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius:3px">Accept invitation to portal</a>
+                        </div>
+                    </div>
+            % endif
+        </p>
+        <p>
+        </p>
+        <p>Best regards,</p>
+    
+        ]]></field>
+    </record>
+</odoo>
+ 
