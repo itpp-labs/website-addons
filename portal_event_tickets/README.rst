@@ -45,17 +45,21 @@ We need this modules for autofill feature. Other features of the modules are opt
 website
 -------
 
-The module is not splitted in two where one doesn't depend on website how it's usually done (e.g. ``portal_event`` and ``website_portal_event``), because since 11.0 there is no such separation.
+The module is not splitted in two where one doesn't depend on website how it's usually done (e.g. ``portal_event_tickets`` and ``website_portal_event_tickets``), because since 11.0 there is no such separation.
 
 event_sale
 ----------
 
-We don't split module in two where one doesn't depend on ``event_sale`` (e.g. ``portal_event`` and ``portal_event_sale``) for following reasons:
+We don't split module in two where one doesn't depend on ``event_sale`` (e.g. ``portal_event_tickets`` and ``portal_event_tickets_sale``) for following reasons:
 
 * it simplifies development and maintainance
 * we don't consider portal module without ``event_sale`` as popular
 * free events are still usable even if ``event_sale`` module is installed
 
+portal_event
+------------
+
+``portal_event`` should be more proper name for this module, but it's occupied by repository odoo/odoo and which makes it impossible to use it in odoo apps store.
 
 
 Credits
@@ -78,7 +82,7 @@ Further information
 
 Demo: http://runbot.it-projects.info/demo/website-addons/10.0
 
-HTML Description: https://apps.odoo.com/apps/modules/10.0/portal_event/
+HTML Description: https://apps.odoo.com/apps/modules/10.0/portal_event_tickets/
 
 Usage instructions: `<doc/index.rst>`_
 

@@ -38,7 +38,7 @@ class TourCase(HttpCase):
         })
 
         # create Portal User
-        self.user_portal1 = self.env.ref('portal_event.user_portal1')
+        self.user_portal1 = self.env.ref('portal_event_tickets.user_portal1')
 
         sale_order, self.ticket1 = self._create_ticket(
             ticket_type=self.ticket_type_1,
@@ -48,7 +48,7 @@ class TourCase(HttpCase):
         sale_order.action_confirm()
         self.ticket1.confirm_registration()
 
-        self.user_portal2 = self.env.ref('portal_event.user_portal2')
+        self.user_portal2 = self.env.ref('portal_event_tickets.user_portal2')
 
     def _create_ticket(self, ticket_type, partner, event):
         product = ticket_type.product_id

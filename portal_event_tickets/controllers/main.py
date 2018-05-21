@@ -61,7 +61,7 @@ class PortalEvent(website_account):
             'archive_groups': archive_groups,
             'default_url': '/my/tickets',
         })
-        return request.render("portal_event.portal_my_tickets", values)
+        return request.render("portal_event_tickets.portal_my_tickets", values)
 
     def _has_ticket_access(self, ticket, to_update=False):
         """Ticket must not be sudo`ed"""
@@ -98,7 +98,7 @@ class PortalEvent(website_account):
         values.update({
             'ticket': ticket_sudo,
         })
-        return request.render("portal_event.portal_ticket_page", values)
+        return request.render("portal_event_tickets.portal_ticket_page", values)
 
     @http.route(['/my/tickets/pdf/<int:ticket_id>'], type='http', auth="user", website=True)
     def portal_get_ticket(self, ticket_id=None, **kw):
@@ -125,7 +125,7 @@ class PortalEvent(website_account):
             'editor_mode': True,
             'error': kw.get('error')
         })
-        return request.render("portal_event.portal_ticket_transfer", values)
+        return request.render("portal_event_tickets.portal_ticket_transfer", values)
 
     @http.route(['/my/tickets/transfer'], type='http', auth="user", methods=['POST'], website=True)
     def ticket_transfer(self, to_email, ticket_id, **kw):
@@ -137,7 +137,7 @@ class PortalEvent(website_account):
             'to_email': to_email,
             'error': error,
         })
-        return request.render("portal_event.portal_ticket_transfer", values)
+        return request.render("portal_event_tickets.portal_ticket_transfer", values)
 
     def _ticket_transfer(self, env, to_email, ticket_id):
 
@@ -201,7 +201,7 @@ class PortalEvent(website_account):
                 'event': ticket.event_id,
             })
             return request.env['ir.ui.view'].render_template(
-                "portal_event.portal_ticket_transfer_receive", values)
+                "portal_event_tickets.portal_ticket_transfer_receive", values)
 
         # handle filled form
 
