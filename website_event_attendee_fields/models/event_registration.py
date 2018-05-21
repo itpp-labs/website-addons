@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from odoo import models, api
+from odoo import models, api, _
 
 
 _logger = logging.getLogger(__name__)
@@ -41,9 +41,7 @@ class EventRegistration(models.Model):
 
                     # FIXME partner_vals always has more than one field (e.g. event_ticket_id, origin, etc).
                     # So, this message is always posted
-                    res.message_post("""
-                    Attendee partner record are not updated for security reasons:<br/> %s
-                    """ % partner_vals)
+                    res.message_post(_("Attendee partner record are not updated for security reasons:<br/> %s ") % partner_vals)
 
         return res
 
