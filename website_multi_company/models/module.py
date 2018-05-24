@@ -3,9 +3,7 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 from odoo import models, api
-from odoo.exceptions import UserError
-from odoo.addons.base.module.module import ACTION_DICT
-from odoo import api
+
 
 BASE_MODULES = ['website_blog', 'website_sale_comparison', 'website_sale_wishlist', 'web_settings_dashboard', 'website_crm', 'website_animate', 'website_mass_mailing', 'contacts', 'fetchmail', 'resource', 'calendar', 'snippet_google_map']
 
