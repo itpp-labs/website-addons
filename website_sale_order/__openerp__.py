@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Simplified website checkout',
     'version': '1.0.0',

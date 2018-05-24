@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Real Multi Website (portal extension)""",
     "summary": """Multi Website support in Portal""",

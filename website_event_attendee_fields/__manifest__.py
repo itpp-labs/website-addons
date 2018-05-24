@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Customizable fields for attendees on Events""",
     "summary": """Do you need more information about attendees than three default fields (name, email, phone)?""",

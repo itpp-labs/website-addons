@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "Sale only available products on Website",
     'summary': """Sale only available products on Website""",

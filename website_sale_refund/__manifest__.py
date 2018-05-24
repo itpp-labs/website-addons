@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Product swap at eCommerce""",
     "summary": """Product upgrading / changing feature for your online shop""",

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Customer Event Portal""",
     "summary": """Allows to customers see their tickets for events at the Portal""",

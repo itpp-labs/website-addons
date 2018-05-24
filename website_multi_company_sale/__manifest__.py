@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Real Multi Website (eCommerce extension)""",
     "summary": """Multi Website support in eCommerce""",

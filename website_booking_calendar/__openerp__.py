@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Resource booking calendar Public',
     'version': '0.1',

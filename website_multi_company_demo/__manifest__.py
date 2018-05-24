@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Demo Data for \"Real Multi Website\"""",
     "summary": """Provides demo websites""",

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Tickets purchasing: force user to sign in / sign up""",
     "summary": """User registration at your portal is always a plus for marketing""",
