@@ -42,7 +42,7 @@
     "uninstall_hook": None,
 
     "auto_install": False,
-    "installable": True,
+    "installable": False,
 
     "demo_title": "Event extensions",
     "demo_addons": ["website_event_attendee_fields", "website_event_attendee_signup", "website_event_require_login"],
