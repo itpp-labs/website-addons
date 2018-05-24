@@ -10,7 +10,7 @@ Installation
 Configuration
 =============
 
-Follow instruction of the base module `Real Multi Website <https://www.odoo.com/apps/modules/11.0/website_multi_company/>`__.
+Follow instruction of the base module `Real Multi Website <https://www.odoo.com/apps/modules/10.0/website_multi_company/>`__.
 
 Website Orders
 --------------
@@ -46,7 +46,7 @@ Multi-categories
 
 * Open shop at some of your websites
 * Login as Administrator
-* In ``Customize`` section activate ``[x] eCommerce Categories``
+* In ``Customize`` section activate ``[x] Product Categories``
 * RESULT: parent categories for current website and categories without value at **Websites** fields are shown only. **Websites** value of child categories are ignored.
 
 Multi-cart

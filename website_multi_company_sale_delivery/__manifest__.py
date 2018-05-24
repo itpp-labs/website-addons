@@ -6,7 +6,7 @@
     "summary": """Configure Delivery Carriers list per website""",
     "category": "eCommerce",
     "live_test_url": "http://apps.it-projects.info/shop/product/website-multi-company?version=11.0",
-    "images": [],
+    "images": ["images/website_multi_company_sale_delivery_main.png"],
     "version": "11.0.1.0.0",
     "application": False,
 

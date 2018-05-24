@@ -2,6 +2,9 @@
  Real Multi Website
 ====================
 
+.. contents::
+   :local:
+
 Installation
 ============
 
@@ -64,7 +67,7 @@ session information. There are two ways to do it:
 
 In the latter case ``dbfilter`` is usually used, though it's not flexible enough.
 
-using dbfilter parameter
+Using dbfilter parameter
 ~~~~~~~~~~~~~~~~~~~~~~~~
 For TESTING purpose you can use the following configuration:
 
@@ -77,7 +80,7 @@ For TESTING purpose you can use the following configuration:
     * example.shop2.local
     * example.shop3.local
 
-patching http.py
+Patching http.py
 ~~~~~~~~~~~~~~~~
 
 For PRODUCTION deployment with websites on subdomains you can use following patch. You need to update odoo/http.py file as following::
@@ -112,7 +115,7 @@ Then you can use following configuration
     * shop2.example.org
     * shop3.example.org
 
-using dbfilter_from_header module
+Using dbfilter_from_header module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Most flexible way to deploy multi-database system is using `dbfilter_from_header <https://www.odoo.com/apps/modules/10.0/dbfilter_from_header/>`__ (check module description for installation instruction).
 
@@ -181,6 +184,16 @@ Example (we use top level domain ``.example`` due to copyright issues, but it co
         }
        }
 
+Odoo.sh deployment
+------------------
+
+In the manager of your domain name registrar you need to add CNAME records for your domains (subdomains), for example:
+
+* Create a CNAME record ``shop1.example.org`` pointing to <yourdatabase>.odoo.com
+* Create a CNAME record ``shop2.example.org`` pointing to <yourdatabase>.odoo.com
+* Create a CNAME record ``example.com`` pointing to <yourdatabase>.odoo.com
+
+Similar for dev and staging database, but use corresponding domain in odoo.com, e.g. ``mywebsite-master-staging-12345689.dev.odoo.com``
 
 Apache::
 
@@ -214,7 +227,6 @@ Apache::
 		   
        </VirtualHost>
 
-	   
 Configuration
 =============
 
@@ -245,6 +257,25 @@ Multi-theme
 After installing theme, navigate to ``[[ Website ]] >> Configuration >> Multi-Themes``. Check that the theme is presented in the list, otherwise add one.
 
 If you get error *The style compilation failed*, add modules to **Dependencies** field. It allows to attach theme-like dependencies to corresponding theme and prevent themes compatibility problems.
+
+If you get error *The style compilation failed*, add modules to **Dependencies** field. It allows to attach theme-like dependencies to corresponding theme and prevent themes compatibility problems.
+
+Note: themes that depend on ``theme_common`` don't work in demo installation. To avoid this, you have to create database without demo data or comment out demo files in ``__manifest__.py`` file of ``theme_common`` module like this::
+ 
+  'demo': [
+       # 'demo/demo.xml',
+    ],
+
+	
+Websites designing
+------------------
+
+* Open menu ``[[ Settings ]] >> Users >> Users``
+* Select the user to be designing websites
+* On ``Access Rights`` tab specify **Allowed Companies** (**Multi Companies** should be active already both on current user and on user you make settings for)
+* Your current user (the user you make settings under) should have at least ``Access Rights`` administration privilege to be able to make the settings
+* Make sure that your designer user has at least ``Restricted Editor`` privilege on **Website** security category - this is standard setting
+* On ``Preferences`` tab specify **Editor on websites**. Note that you can only select websites with companies from the Allowed companies list
 
 Usage
 =====
@@ -296,3 +327,10 @@ E.g. to use different Paypal accounts for different websites you need to make th
   * **Paypal PDT Token**
 
 Follow the `instruction <https://www.odoo.com/documentation/user/11.0/ecommerce/shopper_experience/paypal.html>`__ to know how to configure Paypal account and get Paypal Identity Token
+
+Steps for websites designing
+----------------------------
+
+* Open one of your sites
+* Log in as website designer
+* RESULT: There will be no ``Edit`` menu if your designer has no rights to edit the website

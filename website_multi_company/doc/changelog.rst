@@ -1,3 +1,13 @@
+`1.3.1`
+-------
+
+- **FIX:** compatibility with website_logo module
+
+`1.3.0`
+-------
+
+- **ADD:** Designers now may only edit specified websites. If no websites specified - they can edit any website
+
 `1.2.4`
 -------
 
