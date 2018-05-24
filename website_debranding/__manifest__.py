@@ -1,4 +1,3 @@
-
 {
     'name': "Website debranding",
     'version': '10.0.1.0.1',
