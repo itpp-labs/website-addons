@@ -10,7 +10,7 @@ Installation
 Configuration
 =============
 
-Follow instruction of the base module `Real Multi Website <https://www.odoo.com/apps/modules/10.0/website_multi_company/>`__.
+Follow instruction of the base module `Real Multi Website <https://www.odoo.com/apps/modules/11.0/website_multi_company/>`__.
 
 Website Orders
 --------------
