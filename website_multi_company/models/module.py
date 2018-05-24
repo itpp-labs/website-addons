@@ -2,7 +2,7 @@
 # Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from odoo import models, _, api
+from odoo import models, api
 from odoo.exceptions import UserError
 from odoo.addons.base.module.module import ACTION_DICT
 from odoo import api

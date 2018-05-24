@@ -4,4 +4,3 @@ from . import website_theme
 from . import mail_template
 from . import module
 from . import res_users
-from . import ir_ui_view
