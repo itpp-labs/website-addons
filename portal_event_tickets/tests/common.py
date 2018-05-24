@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime, timedelta
+
+import odoo
 from odoo.tests.common import HttpCase
 from odoo import fields
 from odoo import api
 
 
+@odoo.tests.common.at_install(True)
+@odoo.tests.common.post_install(True)
 class TourCase(HttpCase):
 
     def setUp(self):
