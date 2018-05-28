@@ -3,7 +3,7 @@
     "name": """Sign-up event attendees to portal""",
     "summary": """Attendees can use portal dashboard to make extra purchases for the event, for example.""",
     "category": "Marketing",
-    "live_test_url": "http://apps.it-projects.info/shop/product/portal_event_tickets?version=10.0",
+    "live_test_url": "http://apps.it-projects.info/shop/product/portal-event-tickets?version=10.0",
     "images": ["images/banner.jpg"],
     "version": "1.0.0",
     "application": False,
