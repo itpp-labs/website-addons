@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "Website Search Product Tags",
     'summary': """Search website products by tags""",

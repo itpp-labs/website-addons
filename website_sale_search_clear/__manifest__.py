@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "Website Sale Search Clear",
     'summary': """Clear the search""",

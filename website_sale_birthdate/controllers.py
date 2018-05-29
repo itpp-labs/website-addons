@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 
 from odoo.http import request
 import openerp.addons.website_sale.controllers.main as main

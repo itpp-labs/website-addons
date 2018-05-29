@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+# Copyright 2017-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 {
     "name": """Real Multi Website""",
     "summary": """Yes, you can set up multi-company, multi-website, multi-theme, multi-eCommerce on a single database!""",

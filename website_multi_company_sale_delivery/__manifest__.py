@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 {
@@ -6,7 +5,7 @@
     "summary": """Configure Delivery Carriers list per website""",
     "category": "eCommerce",
     "live_test_url": "http://apps.it-projects.info/shop/product/website-multi-company?version=11.0",
-    "images": [],
+    "images": ["images/website_multi_company_sale_delivery_main.png"],
     "version": "11.0.1.0.0",
     "application": False,
 

@@ -5,12 +5,11 @@
     Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).-->
 <odoo>
-    <data>
 
 <template id="assets_backend" name="stock assets" inherit_id="web.assets_backend">
     <xpath expr="." position="inside">
         <link rel="stylesheet" href="/stock_picking_barcode/static/src/css/stock.css"/>
-        <script type="text/javascript" src="/stock_picking_barcode/static/src/js/widgets.js"></script>
+        <script type="text/javascript" src="/stock_picking_barcode/static/lib/widgets.js"></script>
         <script type="text/javascript" src="/stock_picking_barcode/static/src/js/test_barcode_ui.js"></script>
     </xpath>
 </template>
@@ -87,5 +86,4 @@
 </html>
 </template>
 
-    </data>
 </odoo>

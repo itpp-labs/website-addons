@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Hide the "Sign in" button in Website""",
     "summary": """""",

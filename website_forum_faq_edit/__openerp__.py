@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "Website forum edit faq",
     "summary": "Website forum edit faq",

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import werkzeug
 
 from odoo.addons.website_sale.controllers import main as main_file

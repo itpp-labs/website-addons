@@ -6,10 +6,11 @@
         <field name="inherit_id" ref="website.res_config_settings_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='website_id']" position="attributes">
-                <attribute name="readonly">1</attribute>
+                <attribute name="invisible"></attribute>
             </xpath>
-            <xpath expr="//field[@name='website_id']/../label" position="attributes">
-                <attribute name="string">Default Website</attribute>
+            <xpath expr="//button[@name='multi_theme_reload']" position="attributes">
+                <attribute name="string">Reload Theme List &amp; Update all websites</attribute>
+                <attribute name="context">{'skip_converting_assets': True}</attribute>
             </xpath>
         </field>
     </record>

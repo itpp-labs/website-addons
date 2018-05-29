@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Chess""",
     "summary": """Play Chess with other users in Odoo!""",
