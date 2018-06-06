@@ -1,5 +1,9 @@
+# Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
+
 import logging
-from odoo import models, fields
+from odoo import models, fields, api
 
 _logger = logging.getLogger(__name__)
 
@@ -12,59 +16,44 @@ class WebsiteTheme(models.Model):
         string="Theme's technical name",
         help="")
 
-    dependency_ids = fields.Many2many(
-        'ir.module.module',
-        string="Dependencies",
-        help='Theme-like dependencies. Add modules here if you got error "The style compilation failed".')
-
+    @api.multi
     def _convert_assets(self):
         """Generate assets for converted themes"""
-        Asset = self.env["website.theme.asset"]
-        for one in self.filtered("converted_theme_addon"):
-            # Get all views owned by the converted theme addon
-            refs = self.env["ir.model.data"].search([
-                ("module", "in", [one.converted_theme_addon] + one.dependency_ids.mapped('name')),
-                ("model", "=", "ir.ui.view"),
-            ])
-            existing = frozenset(one.mapped("asset_ids.name"))
-            expected = frozenset(refs.mapped("complete_name"))
-            dangling = tuple(existing - expected)
-            # Create a new asset for each theme view
-            for ref in expected - existing:
-                view = self.env.ref(ref, raise_if_not_found=False)
-                if view and (view.type != 'qweb' or not view.inherit_id):
-                    # Skip non-qweb (backend) views
+        for one in self:
+            assets_before = one.asset_ids
+            super(WebsiteTheme, one)._convert_assets()
+            assets_after = one.asset_ids
+            if not assets_before and assets_after:
+                # new theme: update dependencies
+                one.write(one._autofill_deps())
 
-                    # Skip views without inherit_id, because those have new
-                    # template definition only and after appliying multi-theme
-                    # for several websites it will be copied and then it leads
-                    # to error on compilation when any template with <t
-                    # t-call="..."/> -- expected singleton
-                    continue
+    @api.multi
+    def _autofill_deps(self):
+        self.ensure_one()
+        modules = self\
+            .env['ir.module.module']\
+            ._search_theme_dependencies(
+                self.converted_theme_addon
+            ).mapped('name')
 
-                _logger.debug("Creating asset %s for theme %s", ref, one.name)
+        existing_themes = self.search([
+            ('converted_theme_addon', 'in', modules)
+        ]).mapped('converted_theme_addon')
+        new_themes = set(modules) - set(existing_themes)
+        for converted_theme_addon in new_themes:
+            self.create({
+                'name': converted_theme_addon,
+                'converted_theme_addon': converted_theme_addon,
+            })
+        themes = self.search([('converted_theme_addon', 'in', modules)])
+        try:
+            themes |= self.env.ref('website_multi_theme.theme_default')
+        except:
+            pass
+        return {
+            'dependency_ids': [(6, 0, themes.ids)],
+        }
 
-                priority = 10
-                if view.model_data_id.module == one.converted_theme_addon:
-                    # make less priority to apply views after all deps
-                    priority = 100
-
-                one.asset_ids |= Asset.new({
-                    "name": ref,
-                    'priority': priority,
-                })
-            # Delete all dangling assets
-            if dangling:
-                _logger.debug(
-                    "Removing dangling assets for theme %s: %s",
-                    one.name, dangling)
-                Asset.search([("name", "in", dangling)]).unlink()
-        # Turn all assets multiwebsite-only
-        Asset._find_and_deactivate_views()
-
-
-class WebsiteThemeAsset(models.Model):
-    _inherit = "website.theme.asset"
-    _order = 'priority,id'
-
-    priority = fields.Integer()
+    @api.onchange('converted_theme_addon')
+    def onchange_converted_theme_addon(self):
+        self.update(self._autofill_deps())

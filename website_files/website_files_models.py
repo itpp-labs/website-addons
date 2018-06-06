@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from odoo import api, models, fields
 
 from odoo.tools import html_escape as escape

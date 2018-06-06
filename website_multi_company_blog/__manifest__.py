@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Real Multi Website (blog extension)""",
     "summary": """Blocks an access to a website blog from websites, which have not been specified as allowed for this blog""",

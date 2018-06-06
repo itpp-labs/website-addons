@@ -4,7 +4,6 @@
     Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).-->
 <odoo>
-    <data>
 
         <record id="stock_picking_form_barcode" model="ir.ui.view">
             <field name="name">stock.picking.form.barcode</field>
@@ -46,5 +45,4 @@
             </field>
         </record>
 
-    </data>
 </odoo>

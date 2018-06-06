@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="attendee_field_name" model="event.event.attendee_field">
+        <field name="field_id" ref="event.field_event_registration_name"/>
+        <field name="form_type">text</field>
+        <field name="width">4</field>
+    </record>
+
+    <record id="attendee_field_email" model="event.event.attendee_field">
+        <field name="field_id" ref="event.field_event_registration_email"/>
+        <field name="form_type">email</field>
+        <field name="width">5</field>
+    </record>
+
+    <record id="attendee_field_phone" model="event.event.attendee_field">
+        <field name="field_id" ref="event.field_event_registration_phone"/>
+        <field name="form_type">tel</field>
+        <field name="width">3</field>
+        <field name="is_required" eval="False"/>
+    </record>
+
+    <record id="attendee_field_country_id" model="event.event.attendee_field">
+        <field name="field_id" ref="base.field_res_partner_country_id"/>
+        <field name="form_type">many2one</field>
+        <field name="width">3</field>
+    </record>
+
+    <record id="attendee_field_function" model="event.event.attendee_field">
+        <field name="field_id" ref="base.field_res_partner_function"/>
+        <field name="form_type">text</field>
+        <field name="width">3</field>
+        <field name="is_required" eval="False"/>
+    </record>
+    
+</odoo>

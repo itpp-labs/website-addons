@@ -10,12 +10,21 @@
       <group name="domain">
         <label for="multi_theme_id"/>
         <div> 
-          <field name="multi_theme_id" string="Multi Theme"/>
+          <field name="multi_theme_id" string="Multi Theme" required="True"/>
+          <!--Edit mode-->
           <button icon="fa-refresh"
                 string="Reload Themes"
                 help="Use it if you installed theme, but cannot find it in the list"
                 type="object"
                 class="oe_inline oe_edit_only"
+                name="multi_theme_reload_list"/>
+          <!--Read mode (non-edit) AND debug mode-->
+          <button icon="fa-refresh"
+                string="Update Website Theme"
+                help="Update Theme for current website. Normally used when theme is changed"
+                type="object"
+                groups="base.group_no_one"
+                class="oe_inline oe_read_only ml8"
                 name="multi_theme_reload"/>
         </div> 
         <field name="favicon" widget="image" class="oe_avatar oe_left"/>

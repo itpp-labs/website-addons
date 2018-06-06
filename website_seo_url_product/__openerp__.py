@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """SEO URLs in eCommerce""",
     "summary": """Customisable URLs for product pages, that don't depend on product name and product ID""",

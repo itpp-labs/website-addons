@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="cart" inherit_id="website_sale.cart">
+        <xpath expr="//h1[@class='mb32']" position="after">
+            <t t-if="warning_msg">
+                <div class="alert alert-danger" role="alert"><t t-esc="warning_msg"/></div>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>
