@@ -1,7 +1,7 @@
 `1.0.4`
 -------
 
-- FIX: Errors for different than English languages
+- FIX: Errors for languages different from English
 
 `1.0.3`
 -------
