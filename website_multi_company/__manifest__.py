@@ -42,7 +42,7 @@
     "post_init_hook": None,
 
     "auto_install": False,
-    "installable": True,
+    "installable": False,
 
     "demo_title": "Real Multi Website",
     "demo_addons": [
