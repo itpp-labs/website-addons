@@ -1,3 +1,8 @@
+`1.2.1`
+-------
+
+- **Fix:** Product page is multi-website now. For example, you can set shipping and guarantee terms separately per website
+
 `1.2.0`
 -------
 
