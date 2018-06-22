@@ -13,9 +13,11 @@
                         <field name="dependency_ids"
                                widget="many2many_tags"
                                />
+                        <field name="id" invisible="1"/>
                         <field name="asset_ids"
                                string="Views"
                                widget="many2many_tags"
+                               context="{'default_theme_id': id}"
                                domain="[('auto', '=', False)]"/>
                     </group>
                 </sheet>
