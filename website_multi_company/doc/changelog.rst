@@ -1,6 +1,11 @@
 `1.2.4`
 -------
 
+- **Improvement:** Field *Theme* is auto-selected on adding new view to a Multi-Theme
+
+`1.2.4`
+-------
+
 - **ADD:** Product with no company defined is allowed for all websites
 
 `1.2.3`
