@@ -1,4 +1,4 @@
-`1.2.4`
+`1.2.5`
 -------
 
 - **Improvement:** Field *Theme* is auto-selected on adding new view to a Multi-Theme
