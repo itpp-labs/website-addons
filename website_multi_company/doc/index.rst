@@ -267,7 +267,7 @@ Note: themes that depend on ``theme_common`` don't work in demo installation. To
 Convert view to multi-website view
 ----------------------------------
 
-When you have custom module which adds some page, you can easily convert to a multi-website view, i.e. it will have different versions of the page per each website. In order to do that, you need you know so called *xml_id*, which has following format: `<MODULE_NAME>.<VIEW_NAME>`. Once you know that do as following:
+When you have custom module which adds some page, you can easily convert to a multi-website view, i.e. it will have different versions of the page per each website. In order to do that, you need to know so called *xml_id*, which has following format: `<MODULE_NAME>.<VIEW_NAME>`. Once you know that do as following:
 
 * `Activate Developer Mode <https://odoo-development.readthedocs.io/en/latest/odoo/usage/debug-mode.html>`__
 * Navigate to ``[[ Website ]] >> Configuration >> Multi-Themes``
