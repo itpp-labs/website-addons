@@ -1,3 +1,8 @@
+`1.2.0`
+-------
+
+- **ADD:** Users with ``Current Backend Website`` specified have access only to sale orders from their website
+
 `1.1.1`
 -------
 
