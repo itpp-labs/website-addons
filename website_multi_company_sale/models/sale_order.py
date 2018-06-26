@@ -16,10 +16,22 @@ class Website(models.Model):
             # company.id seems to be the same as self.id, but let's use variant
             # from original sale_get_order
             self = self.with_context(force_company=company.id)
-        return super(Website, self).sale_get_order(force_create, code, update_pricelist, force_pricelist)
+        sale_order = super(Website, self).sale_get_order(force_create, code, update_pricelist, force_pricelist)
+
+        website_id = self._context.get('website_id')
+        if sale_order and website_id:
+            sale_order.website_id = website_id
+
+        return sale_order
 
 
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     last_website_so_id = fields.Many2one(company_dependent=True)
+
+
+class SaleOrder(models.Model):
+    _inherit = "sale.order"
+
+    website_id = fields.Many2one('website', 'Online Order Website')

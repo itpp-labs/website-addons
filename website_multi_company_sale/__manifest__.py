@@ -25,6 +25,7 @@
         "views/product_public_category_views.xml",
         "views/product_template_views.xml",
         "views/payment_views.xml",
+        "views/sale_views.xml",
         "security/website_multi_company_sale_security.xml",
     ],
     "qweb": [
