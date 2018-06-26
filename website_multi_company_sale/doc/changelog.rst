@@ -1,3 +1,8 @@
+`1.1.1`
+-------
+
+- **Improvement:** group sale orders by website
+
 `1.1.0`
 -------
 
