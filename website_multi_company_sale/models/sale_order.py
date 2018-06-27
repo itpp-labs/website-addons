@@ -19,7 +19,7 @@ class Website(models.Model):
         sale_order = super(Website, self).sale_get_order(force_create, code, update_pricelist, force_pricelist)
 
         website_id = self._context.get('website_id')
-        if sale_order and website_id:
+        if sale_order and website_id and force_create:
             sale_order.website_id = website_id
 
         return sale_order
