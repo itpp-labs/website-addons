@@ -33,4 +33,4 @@ class ResPartner(models.Model):
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    website_id = fields.Many2one('website', 'Online Order Website')
+    website_id = fields.Many2one('website', 'Online Order Website', readonly=True)
