@@ -2,10 +2,6 @@
 -------
 
 - **ADD:** Users with ``Current Backend Website`` specified have access only to sale orders from that website
-
-`1.1.1`
--------
-
 - **Improvement:** group sale orders by website
 
 `1.1.0`
