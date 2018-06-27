@@ -10,7 +10,7 @@ class Website(models.Model):
     def sale_get_order(self, force_create=False, code=None, update_pricelist=False, force_pricelist=False):
         company = request.website.company_id
         if not request.session.get('sale_order_id'):
-            # original sale_get_order uses last_website_so_id only when there is
+            # original sale_get_order uses last_website_so_id only when there is no
             # sale_order_id in the session
 
             # company.id seems to be the same as self.id, but let's use variant
