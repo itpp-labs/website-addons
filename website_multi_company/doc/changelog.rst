@@ -1,3 +1,9 @@
+`2.0.2`
+-------
+
+- **IMP:** UX improvement: open ``Websites`` menu right after module installation
+- **IMP:** Activate ``Multi Company`` in demo installation
+
 `1.3.1`
 -------
 
