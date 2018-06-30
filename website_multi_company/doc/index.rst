@@ -183,6 +183,20 @@ In the manager of your domain name registrar you need to add CNAME records for y
 
 Similar for dev and staging database, but use corresponding domain in odoo.com, e.g. ``mywebsite-master-staging-12345689.dev.odoo.com``
 
+Translation issue
+-----------------
+
+Check this section if you use translations in odoo.
+
+Due to `odoo bug <https://github.com/odoo/odoo/issues/25550>`__, you may need to do following workaround:
+
+* open file ``odoo/addons/base/ir/ir_translation.py``
+* comment out ``@api.constraints...`` near ``def _check_value``, that is you shall get something like this (pay attention to ``#`` symbol)::
+
+    #@api.constrains('type', 'name', 'value')
+    def _check_value(self):
+        for trans in self.with_context(lang=None):
+
 Configuration
 =============
 
