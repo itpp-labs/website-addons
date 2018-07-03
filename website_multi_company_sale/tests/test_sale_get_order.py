@@ -39,6 +39,8 @@ class TestSaleGetOrder(HttpCase):
 
         response = self.url_open("http://127.0.0.1:%d/shop/cart/update" % PORT, data=data, timeout=60)
         self.assertEqual(response.getcode(), 200)
+        so_last = phantom_env['sale.order'].search([], limit=1)
+        self.assertEqual(so_last.website_id, website1)
 
         # setup a magic session_id that will be rollbacked
         self.session = odoo.http.root.session_store.new()
@@ -53,6 +55,8 @@ class TestSaleGetOrder(HttpCase):
 
         response = self.url_open("http://localhost:%d/shop/cart/update" % PORT, data=data, timeout=60)
         self.assertEqual(response.getcode(), 200)
+        so_last = phantom_env['sale.order'].search([], limit=1)
+        self.assertEqual(so_last.website_id, website2)
 
         count_so_after = phantom_env['sale.order'].sudo().search_count([])
         self.assertEqual(count_so_after, count_so_before+2)
