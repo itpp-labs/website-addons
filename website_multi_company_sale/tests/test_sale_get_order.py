@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import urlparse
 import urllib
 
 import odoo.tests
@@ -16,7 +15,6 @@ class TestSaleGetOrder(HttpCase):
 
     def test_sale_get_order(self):
         phantom_env = api.Environment(self.registry.test_cr, self.uid, {})
-        demo_user = phantom_env.ref('base.user_demo')
 
         website1 = phantom_env.ref('website.default_website')
         website1.domain = '127.0.0.1'
