@@ -18,22 +18,18 @@ class TestSaleGetOrder(HttpCase):
         phantom_env = api.Environment(self.registry.test_cr, self.uid, {})
         demo_user = phantom_env.ref('base.user_demo')
 
-        web_base_url = phantom_env['ir.config_parameter'].get_param('web.base.url') or base_location
-        parse_result = urlparse.urlparse(web_base_url)
-        netloc = parse_result.netloc
-
         website1 = phantom_env.ref('website.default_website')
-        website1.domain = 'website1.' + netloc
+        website1.domain = '127.0.0.1'
         website2 = phantom_env.ref('website.website2')
-        website2.domain = 'website2.' + netloc
+        website2.domain = 'localhost'
 
-        parse_result_list = list(parse_result)
-        parse_result_list[1] = website1.domain
-        url = urlparse.urlunparse(parse_result_list)
-
+        product_template = phantom_env.ref('product.product_product_11_product_template')
+        product_attribute = phantom_env.ref('product.product_attribute_1')
+        product_attribute_value = phantom_env.ref('product.product_attribute_value_1')
+        attribute = 'attribute-%s-%s' % (product_template.id, product_attribute.id)
         form_data = {
-            'product_id': 21,
-            'attribute-18-1': 1,
+            'product_id': product_template.id,
+            attribute: product_attribute_value.id,
             'add_qty': 1,
         }
         data = urllib.urlencode(form_data)
@@ -42,16 +38,9 @@ class TestSaleGetOrder(HttpCase):
         self.authenticate(login, login)
 
         count_so_before = phantom_env['sale.order'].sudo().search_count([])
-        count_so_before1 = phantom_env['sale.order'].sudo().search_count([])
 
-        print '\n\n', 'count_so_before1', count_so_before1, '\n\n'
-        # domain_name = request and request.httprequest.environ.get('HTTP_HOST', '').split(':')[0] or None
-        self.opener.addheaders.append(('Host', website1.domain))
-        print '\n\n', 'self.opener.addheaders', self.opener.addheaders, 'PORT', PORT, 'self.session', self.session, '\n\n'
-        response = self.url_open("http://localhost:%d/shop/cart/update" % PORT, data=data, timeout=60)
+        response = self.url_open("http://127.0.0.1:%d/shop/cart/update" % PORT, data=data, timeout=60)
         self.assertEqual(response.getcode(), 200)
-        count_so_after1 = phantom_env['sale.order'].sudo().search_count([])
-        print '\n\n', 'count_so_after1', count_so_after1, '\n\n'
 
         # setup a magic session_id that will be rollbacked
         self.session = odoo.http.root.session_store.new()
@@ -61,17 +50,11 @@ class TestSaleGetOrder(HttpCase):
         self.authenticate(login, login)
 
         headers = dict(self.opener.addheaders)
-        headers['Host'] = website2.domain
         headers['Cookie'] = 'session_id=%s' % self.session_id
         self.opener.addheaders = headers.items()
-        print '\n\n', 'self.opener.addheaders', self.opener.addheaders, 'PORT', PORT, 'self.session', self.session, '\n\n'
 
-        count_so_before2 = phantom_env['sale.order'].sudo().search_count([])
-        print '\n\n', 'count_so_before2', count_so_before2, '\n\n'
         response = self.url_open("http://localhost:%d/shop/cart/update" % PORT, data=data, timeout=60)
         self.assertEqual(response.getcode(), 200)
-        count_so_after2 = phantom_env['sale.order'].sudo().search_count([])
-        print '\n\n', 'count_so_after2', count_so_after2, '\n\n'
 
         count_so_after = phantom_env['sale.order'].sudo().search_count([])
         self.assertEqual(count_so_after, count_so_before+2)
