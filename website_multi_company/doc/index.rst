@@ -188,7 +188,7 @@ Translation issue
 
 Check this section if you use translations in odoo.
 
-Due to `odoo bug <https://github.com/odoo/odoo/issues/25550>`__, you may need to do following workaround:
+Odoo `may have wrong translations <https://github.com/odoo/odoo/issues/25550#issuecomment-401897456>`__, which leads to the error ``Translation is not valid``. You need either fix the translations or apply following workaround:
 
 * open file ``odoo/addons/base/ir/ir_translation.py``
 * comment out ``@api.constraints...`` near ``def _check_value``, that is you shall get something like this (pay attention to ``#`` symbol)::
