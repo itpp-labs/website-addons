@@ -1,9 +1,11 @@
-# -*- coding: utf-8 -*-
-import urllib
+import logging
+import requests
 
 import odoo.tests
 from odoo.tests.common import PORT, HttpCase, get_db_name
 from odoo import api
+
+_logger = logging.getLogger(__name__)
 
 
 @odoo.tests.common.at_install(True)
@@ -22,23 +24,26 @@ class TestSaleGetOrder(HttpCase):
         website2.domain = 'localhost'
 
         product_template = phantom_env.ref('product.product_product_11_product_template')
+        product_product = phantom_env.ref('product.product_product_11')
         product_attribute = phantom_env.ref('product.product_attribute_1')
         product_attribute_value = phantom_env.ref('product.product_attribute_value_1')
         attribute = 'attribute-%s-%s' % (product_template.id, product_attribute.id)
-        form_data = {
-            'product_id': product_template.id,
+        data = {
+            'product_id': product_product.id,
             attribute: product_attribute_value.id,
             'add_qty': 1,
         }
-        data = urllib.urlencode(form_data)
+        _logger.info(data)
 
         login = "demo"
         self.authenticate(login, login)
 
         count_so_before = phantom_env['sale.order'].sudo().search_count([])
 
-        response = self.url_open("http://127.0.0.1:%d/shop/cart/update" % PORT, data=data, timeout=60)
-        self.assertEqual(response.getcode(), 200)
+        url = "http://127.0.0.1:%d/shop/cart/update" % PORT
+        _logger.info(url)
+        response = self.url_open(url, data=data, timeout=60)
+        self.assertEqual(response.status_code, 200)
         so_last = phantom_env['sale.order'].search([], limit=1)
         self.assertEqual(so_last.website_id, website1)
 
@@ -47,14 +52,16 @@ class TestSaleGetOrder(HttpCase):
         self.session_id = self.session.sid
         self.session.db = get_db_name()
         odoo.http.root.session_store.save(self.session)
+        # setup an url opener helper
+        self.opener = requests.Session()
+        self.opener.cookies['session_id'] = self.session_id
+        # authenticate
         self.authenticate(login, login)
 
-        headers = dict(self.opener.addheaders)
-        headers['Cookie'] = 'session_id=%s' % self.session_id
-        self.opener.addheaders = headers.items()
-
-        response = self.url_open("http://localhost:%d/shop/cart/update" % PORT, data=data, timeout=60)
-        self.assertEqual(response.getcode(), 200)
+        url = "http://localhost:%d/shop/cart/update" % PORT
+        _logger.info(url)
+        response = self.url_open(url, data=data, timeout=60)
+        self.assertEqual(response.status_code, 200)
         so_last = phantom_env['sale.order'].search([], limit=1)
         self.assertEqual(so_last.website_id, website2)
 
