@@ -2,13 +2,13 @@
    :target: https://www.gnu.org/licenses/lgpl
    :alt: License: LGPL-3
 
-===============
+=======================================================
  Real Multi Website (Online Event's Tickets extension)
-===============
+=======================================================
 
-Convigure Events' Tickets per website
+Configure Events' Tickets per website.
 
-{Then add more detailed description, technical specifications, any other information that could be interested for other developers. Don't forget that Usage instructions is a separated and has to be located in doc/index.rst file.}
+Now you can specify on which websites your events will be available on.
 
 Credits
 =======
@@ -26,7 +26,7 @@ Maintainers
 * `IT-Projects LLC <https://it-projects.info>`__
 
       To get a guaranteed support
-      you are kindly requested to purchase the module 
+      you are kindly requested to purchase the module
       at `odoo apps store <https://apps.odoo.com/apps/modules/10.0/website_multi_company_event_sale/>`__.
 
       Thank you for understanding!
