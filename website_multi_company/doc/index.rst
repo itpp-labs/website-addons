@@ -184,17 +184,6 @@ Example (we use top level domain ``.example`` due to copyright issues, but it co
         }
        }
 
-Odoo.sh deployment
-------------------
-
-In the manager of your domain name registrar you need to add CNAME records for your domains (subdomains), for example:
-
-* Create a CNAME record ``shop1.example.org`` pointing to <yourdatabase>.odoo.com
-* Create a CNAME record ``shop2.example.org`` pointing to <yourdatabase>.odoo.com
-* Create a CNAME record ``example.com`` pointing to <yourdatabase>.odoo.com
-
-Similar for dev and staging database, but use corresponding domain in odoo.com, e.g. ``mywebsite-master-staging-12345689.dev.odoo.com``
-
 Apache::
 
        <VirtualHost *:80>
@@ -226,6 +215,17 @@ Apache::
 		   ProxyPassReverse /longpolling/   http://127.0.0.1:8072/longpolling/
 		   
        </VirtualHost>
+
+Odoo.sh deployment
+------------------
+
+In the manager of your domain name registrar you need to add CNAME records for your domains (subdomains), for example:
+
+* Create a CNAME record ``shop1.example.org`` pointing to <yourdatabase>.odoo.com
+* Create a CNAME record ``shop2.example.org`` pointing to <yourdatabase>.odoo.com
+* Create a CNAME record ``example.com`` pointing to <yourdatabase>.odoo.com
+
+Similar for dev and staging database, but use corresponding domain in odoo.com, e.g. ``mywebsite-master-staging-12345689.dev.odoo.com``
 
 Configuration
 =============
