@@ -8,7 +8,7 @@
 
 Configure Events' Tickets per website.
 
-Now you can specify on which websites your events will be available on.
+* Allows to specify on which websites your events will be available on.
 
 Credits
 =======
