@@ -25,7 +25,6 @@ class SaleOrder(models.Model):
     def _compute_payment_acquirer_id(self):
         self.payment_acquirer_id = self.get_portal_last_transaction().acquirer_id
 
-
     def get_shipping_billing(self):
         if not self.buy_way:
             return {
