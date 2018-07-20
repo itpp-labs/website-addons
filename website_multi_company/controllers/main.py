@@ -56,13 +56,3 @@ class WebsiteExtended(Website):
             request.redirect('/')
 
         return self.page(page)
-
-    @http.route()
-    def page(self, page, **opt):
-        response = super(WebsiteExtended, self).page(page, **opt)
-        uid = request.session.uid
-        user = request.env['res.users'].browse(uid)
-        response.qcontext.update({
-            'editable': user and (not user.editor_website_ids or request.website.id in user.editor_website_ids.ids),
-        })
-        return response
