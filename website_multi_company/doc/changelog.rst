@@ -1,3 +1,8 @@
+`2.0.3`
+-------
+
+- **FIX:** Website designers had access to edit pages (/shop, /blog) on sites they were not allowed to edit. Now they have not
+
 `2.0.2`
 -------
 
