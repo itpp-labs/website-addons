@@ -1,4 +1,4 @@
-# Copyright 2016 ilyasProgrammer
+# Copyright 2016 Ilyas <https://github.com/ilyasProgrammer>
 # Copyright 2016 Ildar Nasyrov <https://www.it-projects.info/team/iledarn>
 # Copyright 2016 Dinar Gabbasov <https://www.it-projects.info/team/GabbasovDinar>
 # Copyright 2016-2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>

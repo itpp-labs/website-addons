@@ -22,7 +22,8 @@ Credits
 
 Contributors
 ------------
-* `Ilyas, Ivan Yelizariev <https://it-projects.info/team/yelizariev>`__
+* `Ivan Yelizariev <https://it-projects.info/team/yelizariev>`__
+* `Ilyas <https://github.com/ilyasProgrammer>`__
 
 Sponsors
 --------
