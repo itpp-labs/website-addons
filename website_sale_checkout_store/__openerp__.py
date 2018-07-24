@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2016 ilyasProgrammer
+# Copyright 2016 Ilyas <https://github.com/ilyasProgrammer>
 # Copyright 2016-2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2017-2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
