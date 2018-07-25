@@ -12,21 +12,21 @@ tour.register('shop_mandatory_fields_bill_noship', {
     [
         // for unsigned user
         {
-            content: "search ipod",
+            content: 'search desk customizable',
             trigger: 'form input[name="search"]',
-            run: "text ipod",
+            run: 'text desk customizable'
         },
         {
-            content: "search ipod",
+            content: 'search desk customizable',
             trigger: 'form:has(input[name="search"]) .oe_search_button',
         },
         {
-            content: "select ipod",
-            trigger: '.oe_product_cart a:contains("iPod")',
+            content: 'select desk customizable',
+            trigger: '.oe_product_cart a:contains("Desk Customizable")',
         },
         {
             content: "click on add to cart",
-            trigger: '#product_detail form[action^="/shop/cart/update"] .btn',
+            trigger: '#product_details form[action^="/shop/cart/update"] .btn',
         },
         //--------------------------DEFAULT PART ENDS--------------------------------------
         {
@@ -56,10 +56,6 @@ tour.register('shop_mandatory_fields_bill_noship', {
         {
             content: "Confirm checkout",
             trigger: 'a:contains("Next")',
-        },
-        {
-            content: "click confirm",
-            trigger: 'a[href="/shop/confirm_order"]',
         },
         {
             content: "click pay now",
