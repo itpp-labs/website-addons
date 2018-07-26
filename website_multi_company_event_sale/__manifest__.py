@@ -6,7 +6,7 @@
     "summary": """Configure Events' Tickets per website""",
     "category": "Marketing",
     # "live_test_url": "",
-    "images": [],
+    "images": ['images/website_multi_company_event_sale.jpg'],
     "version": "10.0.1.0.0",
     "application": False,
 
