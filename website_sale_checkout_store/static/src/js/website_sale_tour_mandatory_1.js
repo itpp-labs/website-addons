@@ -12,18 +12,18 @@ tour.register('shop_mandatory_fields_nobill_noship', {
     [
         // for unsigned user
         {
-            content: 'search desk customizable',
+            content: 'search customizable desk',
             trigger: 'form input[name="search"]',
-            run: 'text desk customizable'
+            run: 'text customizable desk'
         },
         {
-            content: 'search desk customizable',
+            content: 'search customizable desk',
             trigger: 'form:has(input[name="search"]) .oe_search_button',
         },
         {
             content: 'select desk customizable',
-            extra_trigger: '.oe_product_cart a:contains("Desk Customizable")',
-            trigger: '.oe_product_cart a:contains("Desk Customizable")',
+            extra_trigger: '.oe_product_cart a:contains("Customizable Desk")',
+            trigger: '.oe_product_cart a:contains("Customizable Desk")',
         },
         {
             content: "click on add to cart",
