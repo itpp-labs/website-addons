@@ -14,8 +14,8 @@
     "support": "apps@it-projects.info",
     "website": "https://it-projects.info/team/iledarn",
     "license": "LGPL-3",
-    # "price": 9.00,
-    # "currency": "EUR",
+    "price": 19.00,
+    "currency": "EUR",
 
     "depends": [
         "website_multi_company",
