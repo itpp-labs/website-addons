@@ -7,7 +7,7 @@
     <field name="arch" type="xml">
       <xpath expr="//group[@name='messaging']" position="after">
         <group string="Design Websites" groups="base.group_erp_manager">
-          <field name="editor_website_ids" widget="many2many_tags" domain="[('company_id', 'in', company_ids[0][2])]"/>
+          <field name="editor_website_ids" widget="many2many_tags" domain="[('company_id', 'in', company_ids)]"/>
         </group>
       </xpath>
     </field>
