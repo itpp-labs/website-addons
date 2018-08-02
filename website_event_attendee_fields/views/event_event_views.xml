@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="view_event_event_form">
+        <field name="name">event.event.form (with attendee_field_ids)</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Website Fields">
+                    <field name="attendee_field_ids">
+                        <tree>
+                            <field name="sequence" widget="handle"/>
+                            <field name="field_id"/>
+                            <field name="is_required"/>
+                            <field name="form_type"/>
+                            <field name="width"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_event_attendee_field_form">
+        <field name="name">event.event.attendee_field.form</field>
+        <field name="model">event.event.attendee_field</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="field_id"/>
+                        <field name="field_name"/>
+                        <field name="field_description"/>
+                    </group>
+                    <group>
+                        <field name="is_required"/>
+                        <field name="form_type"/>
+                        <field name="field_model" invisible="1"/>
+                        <field name="domain" 
+                               widget="char_domain" 
+                               attrs="{'invisible': [('form_type', 'not in', ['many2one'])]}"
+                               options="{'model_field': 'field_model'}"
+                               />
+                        <field name="width"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_event_attendee_field_tree">
+        <field name="name">event.event.attendee_field.tree</field>
+        <field name="model">event.event.attendee_field</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="field_id"/>
+                <field name="is_required"/>
+                <field name="form_type"/>
+                <field name="width"/>
+                <field name="domain"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

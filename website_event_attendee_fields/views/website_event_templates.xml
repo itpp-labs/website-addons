@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<template id="polyfill">
+        <!-- solution from https://stackoverflow.com/questions/22983013/how-to-get-html-5-input-type-date-working-in-firefox-and-or-ie-10 -->
+        <!-- cdn for modernizr, if you haven't included it already -->
+        <script src="//cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
+        <!-- polyfiller file to detect and load polyfills -->
+        <script src="//cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
+        <script type="text/javascript">
+            /* webshims.setOptions('waitReady', false); */
+            webshims.setOptions('forms-ext', {types: 'date'});
+            webshims.polyfill('forms forms-ext');
+            $('form').updatePolyfill();
+        </script>
+
+</template>
+
+<template id="event_description_full" inherit_id="website_event.event_description_full">
+    <xpath expr="//t[@t-set='head']" position="inside">
+        <t t-call="website_event_attendee_fields.polyfill"/>
+    </xpath>
+</template>
+
+<template id="registration_attendee_details" inherit_id="website_event.registration_attendee_details">
+    <xpath expr="//t[@t-foreach='tickets']/div[@class='row']" position="replace">
+        <div class="row" t-if="event.use_attendees_header">
+            <t t-foreach="event.attendee_field_ids" t-as="field">
+                <div t-attf-class="col-md-{{field.width}}"><strong t-raw="field.field_description"/><t t-if="not field.is_required"> <span class="text-muted">(Optional)</span></t></div>
+            </t>
+        </div>
+    </xpath>
+
+    <xpath expr="//t[@t-as='att_counter']/div[@class='row mb4']" position="replace">
+        <div class="row" t-att-data-counter="counter" t-att-style="att_counter_odd and 'background-color:#E7E7E7'">
+            <div class="message col-md-12"></div>
+            <t t-set="attendee_placeholder">[Attendee #%s] </t>
+            <t t-set="is_public_user" t-value="env.user == website.user_id"/>
+            <t t-set="autofill_user" t-value="counter==1 and (autofill_user or not is_public_user and not event.is_participating and env.user)"/>
+            <t t-foreach="event.attendee_field_ids" t-as="field">
+                <t t-set="field_value" t-value="autofill_user and field.get_value(autofill_user.partner_id) or ''"/>
+                <div t-attf-class="col-md-{{field.width}} mb8 mt8">
+                    
+                    <strong t-if="not event.use_attendees_header"><t t-esc="field.field_description"/><t t-if="not field.is_required"> <span class="text-muted">(Optional)</span></t></strong>
+                    <t t-if="field.form_type in ['many2one']">
+                        <select
+                            class="form-control"
+                            t-attf-name="#{counter}-#{field.field_name}"
+                            t-att="{'required': field.is_required and 'This field is required' or None}"
+                            >
+                            <option value=""><t t-esc="field.field_description"/>...</option>
+                            <t t-foreach="field.get_select_options()" t-as="s">
+                                <option
+                                    t-att-value="s['id']"
+                                    t-att-selected="field_value == s['id'] and '1'"
+                                    >
+                                    <t t-esc="s['name']" />
+                                </option>
+                            </t>
+                        </select>
+                    </t>
+                    <t t-else="">
+                        <input
+                            t-attf-class="form-control #{field.field_name == 'email' and 'email' or ''}"
+                            t-att-type='field.form_type'
+                            t-att-value="field_value"
+                            t-attf-name="#{counter}-#{field.field_name}"
+                            t-att="{'required': field.is_required and 'This field is required' or None}"
+                            t-att-placeholder="(attendee_placeholder and (attendee_placeholder %counter) or '')"/>
+                        <t t-set="attendee_placeholder"></t>
+                    </t>
+                </div>
+
+            </t>
+            <input class='hidden' type='text' t-attf-name="#{counter}-ticket_id" t-attf-value="#{ticket['id']}"/>
+            <!-- allows to extend form (e.g. in portal_event module) -->
+            <t t-raw="0"/>
+        </div>
+    </xpath>
+    <xpath expr="div" position="inside">
+        <script type="text/javascript">
+            /* apply webshims for dynamically added form */
+            $('form').updatePolyfill();
+
+          odoo.define('website_event_attendee_fields.registration_attendee_details', function(require){
+            require('website_event_attendee_fields.registration_form');
+
+            odoo.registration_form_init();
+
+            (function(){
+                var event_id = <t t-esc="event.id"/>;
+
+                /* process line with autofilled email */
+                var $input = $("input[name='1-email']");
+                if ($input.val()){
+                    odoo.registration_form_onchange_email($input, event_id);
+                }
+
+
+                /* handle changing email field */
+                $('.email').bind('change', function(e){
+                    odoo.registration_form_onchange_email(e.target, event_id);
+                })
+
+             })()
+           })
+        </script>
+    </xpath>
+</template>
+
+<template id="registration_complete" inherit_id="website_event.registration_complete">
+    <xpath expr="//thead/tr" position="replace">
+        <tr>
+            <th>Reference</th>
+            <t t-foreach="event.attendee_field_ids" t-as="field">
+                <th><t t-raw="field.field_description"/></th>
+            </t>
+        </tr>
+    </xpath>
+    <xpath expr="//tbody//tr" position="replace">
+        <tr>
+            <td><t t-esc="attendee.id"/></td>
+
+            <t t-foreach="event.attendee_field_ids" t-as="field">
+                <t t-set="field_value" t-value="field.get_value(attendee.attendee_partner_id.sudo()) or 'N/A'"/>
+                <td>
+                <!--TODO customizable fa icons for fields-->
+                <!--<i class="fa fa-user"></i> --><t t-esc="field_value"/>
+                </td>
+            </t>
+        </tr>
+    </xpath>
+    <xpath expr="//table" position="after">
+        <style type="text/css">
+            table td{
+            word-wrap: break-word;
+            }
+        </style>
+    </xpath>
+</template>
+
+</odoo>

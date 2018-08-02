@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "website_sale_birthdate",
     'author': "IT-Projects LLC, Ivan Yelizariev",

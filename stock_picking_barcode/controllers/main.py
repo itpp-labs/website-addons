@@ -1,4 +1,8 @@
-# -*- coding: utf-8 -*-
+# Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
+# Copyright 2016-2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2017 Artyom Losev
+# License AGPL <http://www.gnu.org/licenses/>.
+
 import logging
 
 from odoo import http

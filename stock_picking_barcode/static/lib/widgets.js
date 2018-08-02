@@ -1,13 +1,21 @@
+/* Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>)
+ * Copyright 2016-2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+ * Copyright 2016 Pavel Romanchenko
+ * Copyright 2017 Artyom Losev
+ * Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+ * License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html). */
+
 odoo.define('stock_picking_barcode.widgets', function (require) {
     "use strict";
 
     var Widget = require('web.Widget');
-    var Model = require('web.Model');
+    var rpc = require('web.rpc');
     var Dialog = require('web.Dialog');
     var core = require('web.core');
     var data = require('web.data');
     var web_client = require('web.web_client');
     var session = require('web.session');
+    var Context = require('web.Context');
     var _t = core._t;
     var qweb = core.qweb;
 
@@ -493,8 +501,11 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
         },
         load: function(){
             var self = this;
-            return new Model('stock.picking.type').call('search_read', [[]]).
-                then(function(types){
+            return rpc.query({
+                model: 'stock.picking.type',
+                method: 'search_read',
+                args: []
+            }).then(function(types){
                     self.picking_types = types;
                     var type_ids = [];
                     for(var i = 0; i < types.length; i++){
@@ -503,17 +514,17 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                     }
                     self.pickings_by_type[0] = [];
 
-                    return new Model('stock.picking').call('search_read',
-                        [
+                    return rpc.query({
+                        model: 'stock.picking',
+                        method: 'search_read',
+                        args: [
                             [
                                 ['state','in', ['assigned', 'partially_available']],
                                 ['picking_type_id', 'in', type_ids]
                             ],
                             []
-                        ],
-                        {context: new data.CompoundContext()}
-                    );
-
+                        ]
+                    });
                 }).then(function(pickings){
                     self.pickings = pickings;
                     for(var i = 0; i < pickings.length; i++){
@@ -524,7 +535,6 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                             ? picking.name.toUpperCase()
                             : '') + '\n';
                     }
-
                 });
         },
         renderElement: function(){
@@ -638,7 +648,13 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             },100);
         },
         quit: function(){
-            return new Model("ir.model.data").call("search_read", [[['name', '=', 'stock_picking_type_action']], ['res_id']]).then(function(res) {
+            return rpc.query({
+                model: 'ir.model.data',
+                method: 'search_read',
+                args: [
+                    [['name', '=', 'stock_picking_type_action']], ['res_id']
+                ]
+            }).then(function(res) {
                 window.location = '/web#action=' + res[0].res_id;
             });
         },
@@ -669,7 +685,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             });
             var init_hash = $.bbq.getState();
             this.picking_type_id = init_hash.picking_type_id
-                ? init_hash.picking_type_id
+                ? init_hash.picking_type_id[0] || init_hash.picking_type_id
                 :0;
             this.picking_id = init_hash.picking_id
                 ? init_hash.picking_id
@@ -696,11 +712,13 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
 
             function load_picking_list(type_id){
                 var pickings = new $.Deferred();
-                new Model('stock.picking').
-                    call(
-                        'get_next_picking_for_ui',
+                rpc.query({
+                    model: 'stock.picking',
+                    method: 'get_next_picking_for_ui',
+                    args: [
                         [], { picking_type_id : parseInt(type_id)}
-                    ).then(function(picking_ids){
+                    ]
+                }).then(function(picking_ids){
                         if(!picking_ids || picking_ids.length === 0){
                             (new Dialog(self,{
                                 title: _t('No Picking Available'),
@@ -724,23 +742,33 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
 
             // if we have a specified picking id, we load that one, and we load the picking of the same type as the active list
             if( picking_id ){
-                var loaded_picking = new Model('stock.picking').
-                    call('read',[[parseInt(picking_id)], []], {context:new data.CompoundContext()}).
-                    then(function(picking){
-                        self.picking = picking[0];
-                        self.picking_type_id = picking[0].picking_type_id[0];
-                        return load_picking_list(self.picking.picking_type_id[0]);
-                    });
+                var loaded_picking = rpc.query({
+                    model: 'stock.picking',
+                    method: 'read',
+                    args: [
+                        [parseInt(picking_id)], [], {context:new data.DataSet()}
+                    ]
+                }).then(function(picking){
+                    self.picking = picking[0];
+                    self.picking_type_id = picking[0].picking_type_id[0] || picking[0].picking_type_id;
+                    return load_picking_list(self.picking.picking_type_id);
+                });
             }else{
                 // if we don't have a specified picking id, we load the pickings belong to the specified type, and then we take
                 // the first one of that list as the active picking
                 loaded_picking = new $.Deferred();
                 load_picking_list(self.picking_type_id).
                     then(function(){
-                        return new Model('stock.picking').call('read',[self.pickings[0],[]], {context:new data.CompoundContext()});
+                        return rpc.query({
+                            model: 'stock.picking',
+                            method: 'read',
+                            args: [
+                                self.pickings[0],[]
+                            ]
+                        });
                     }).then(function(picking){
                         self.picking = picking[0];
-                        self.picking_type_id = picking[0].picking_type_id[0];
+                        self.picking_type_id = picking[0].picking_type_id[0] || picking[0].picking_type_id;
                         loaded_picking.resolve();
                     });
             }
@@ -749,35 +777,73 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                     if (!_.isEmpty(self.locations)){
                         return $.when();
                     }
-                    return new Model('stock.location').call('search',[[['usage','=','internal']]]).then(function(locations_ids){
-                        return new Model('stock.location').call('read',[locations_ids, []]).then(function(locations){
+                    return rpc.query({
+                        model: 'stock.location',
+                        method: 'search',
+                        args: [
+                            [['usage','=','internal']]
+                        ]
+                    }).then(function(locations_ids){
+                        return rpc.query({
+                            model: 'stock.location',
+                            method: 'read',
+                            args: [
+                                locations_ids, []
+                            ]
+                        }).then(function(locations){
                             self.locations = locations;
                         });
                     });
                 }).then(function(){
-                    return new Model('stock.picking').call('check_group_pack').then(function(result){
+                    return rpc.query({
+                            model: 'stock.picking',
+                            method: 'check_group_pack',
+                            args: []
+                        }).then(function(result){
                         return (self.show_pack = result);
                     });
                 }).then(function(){
-                    return new Model('stock.picking').call('check_group_lot').then(function(result){
+                    return rpc.query({
+                            model: 'stock.picking',
+                            method: 'check_group_lot',
+                            args: []
+                        }).then(function(result){
                         return (self.show_lot = result);
                     });
                 }).then(function(){
                     if (self.picking.pack_operation_exist === false){
                         self.picking.recompute_pack_op = false;
-                        return new Model('stock.picking').call('do_prepare_partial',[[self.picking.id]]);
+                        return rpc.query({
+                            model: 'stock.picking',
+                            method: 'do_prepare_partial',
+                            args: [
+                                [[self.picking.id]]
+                            ]
+                        });
                     }
                 }).then(function(){
-                        return new Model('stock.pack.operation').call('search',[[['picking_id','=',self.picking.id]]]);
+                        return rpc.query({
+                            model: 'stock.move.line',
+                            method: 'search',
+                            args: [
+                                [['picking_id','=',self.picking.id]]
+                            ]
+                        });
                 }).then(function(pack_op_ids){
-                        return new Model('stock.pack.operation').call('read',[pack_op_ids, []], {context:new data.CompoundContext()});
+                        return rpc.query({
+                            model: 'stock.move.line',
+                            method: 'read',
+                            args: [
+                                pack_op_ids, []
+                            ]
+                        });
                 }).then(function(operations){
                     self.packoplines = operations;
                     var package_ids = [];
                     self.lot_ids = [];
 
                     for(var i = 0; i < operations.length; i++){
-                        if(!_.contains(package_ids,operations[i].result_package_id[0])){
+                        if(package_ids.length && !_.contains(package_ids,operations[i].result_package_id[0])){
                             if (operations[i].pack_lot_ids.length) {
                                 self.lot_ids = self.lot_ids.concat(operations[i].pack_lot_ids);
                             }
@@ -786,10 +852,22 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                             }
                         }
                     }
-                    return new Model('stock.quant.package').call('read',[package_ids, []], {context:new data.CompoundContext()});
+                    return rpc.query({
+                        model: 'stock.quant.package',
+                        method: 'read',
+                        args: [
+                            package_ids, []
+                        ]
+                    });
                 }).then(function(packages){
                     self.packages = packages;
-                    return new Model('stock.pack.operation.lot').call('read',[self.lot_ids, []], {context:new data.CompoundContext()});
+                    return rpc.query({
+                        model: 'stock.production.lot',
+                        method: 'read',
+                        args: [
+                            self.lot_ids, []
+                        ]
+                    });
                 }).then(function(op_lots){
                     self.op_lots_index = {};
                     _.each(op_lots, function(item){
@@ -925,56 +1003,79 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
         scan: function(ean){
             var self = this;
             var product_visible_ids = this.picking_editor.get_visible_ids();
-            return new Model('stock.picking').
-                call('process_barcode_from_ui', [self.picking.id, ean, product_visible_ids]).
-                then(function(result){
-                    if (result.filter_loc !== false){
-                        //check if we have receive a location as answer
-                        if (typeof result.filter_loc !== 'undefined'){
-                            var modal_loc_hidden = self.$('#js_LocationChooseModal').attr('aria-hidden');
-                            if (modal_loc_hidden === "false"){
-                                self.$('#js_LocationChooseModal .js_loc_option[data-loc-id='+result.filter_loc_id+']').attr('selected','selected');
-                            }else{
-                                self.$('.oe_searchbox').val(result.filter_loc);
-                                self.on_searchbox(result.filter_loc);
-                            }
+            return rpc.query({
+                model: 'stock.picking',
+                method: 'process_barcode_from_ui',
+                args: [
+                    self.picking.id, ean, product_visible_ids
+                ]
+            }).then(function(result){
+                if (result.filter_loc !== false){
+                    //check if we have receive a location as answer
+                    if (typeof result.filter_loc !== 'undefined'){
+                        var modal_loc_hidden = self.$('#js_LocationChooseModal').attr('aria-hidden');
+                        if (modal_loc_hidden === "false"){
+                            self.$('#js_LocationChooseModal .js_loc_option[data-loc-id='+result.filter_loc_id+']').attr('selected','selected');
+                        }else{
+                            self.$('.oe_searchbox').val(result.filter_loc);
+                            self.on_searchbox(result.filter_loc);
                         }
                     }
-                    if (result.operation_id !== false){
-                        self.refresh_ui(self.picking.id).then(function(){
-                            return self.picking_editor.blink(result.operation_id);
-                        });
-                    }
-                });
+                }
+                if (result.operation_id !== false){
+                    self.refresh_ui(self.picking.id).then(function(){
+                        return self.picking_editor.blink(result.operation_id);
+                    });
+                }
+            });
         },
         scan_product_id: function(product_id,increment,op_id) {
             var self = this;
-            return new Model('stock.picking').
-                call('process_product_id_from_ui', [self.picking.id, product_id, op_id, increment]).
-                then(function(result){
-                    return self.refresh_ui(self.picking.id);
-                });
+            return rpc.query({
+                model: 'stock.picking',
+                method: 'process_product_id_from_ui',
+                args: [
+                    self.picking.id, product_id, op_id, increment
+                ]
+            }).then(function(result){
+                return self.refresh_ui(self.picking.id);
+            });
         },
         pack: function(){
             var self = this;
             var pack_op_ids = self.picking_editor.get_current_op_selection(false);
             if (pack_op_ids.length !== 0){
-                return new Model('stock.picking').
-                    call('put_in_pack', [[self.picking.id]]).
-                    then(function(pack){
-                        //TODO: the functionality using current_package_id in context is not needed anymore
-                        session.user_context.current_package_id = false;
-                        return self.refresh_ui(self.picking.id);
-                    });
+                return rpc.query({
+                    model: 'stock.picking',
+                    method: 'put_in_pack',
+                    args: [
+                        [self.picking.id]
+                    ]
+                }).then(function(pack){
+                    //TODO: the functionality using current_package_id in context is not needed anymore
+                    session.user_context.current_package_id = false;
+                    return self.refresh_ui(self.picking.id);
+                });
             }
         },
         drop_down: function(){
             var self = this;
             var pack_op_ids = self.picking_editor.get_current_op_selection(true);
             if (pack_op_ids.length !== 0){
-                var backorder_model = new Model('stock.backorder.confirmation');
-                return backorder_model.call('create', [{'pick_id': self.picking.id}]).then(function(id){
-                    return backorder_model.call('process', [id]).then(function(){
+                return rpc.query({
+                    model: 'stock.backorder.confirmation',
+                    method: 'create',
+                    args: [
+                        {'pick_id': self.picking.id}
+                    ]
+                }).then(function(id){
+                    return rpc.query({
+                        model: 'stock.backorder.confirmation',
+                        method: 'process',
+                        args: [
+                            id
+                        ]
+                    }).then(function(){
                         return self.refresh_ui(self.picking.id).then(function(){
                             if (self.picking_editor.check_done()){
                                 return self.done();
@@ -986,22 +1087,30 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
         },
         done: function(){
             var self = this;
-            return new Model('stock.picking').
-                call('action_done_from_ui',[self.picking.id, self.picking_type_id]).
-                    then(function(new_picking_ids){
-                        if (new_picking_ids) {
-                            return self.refresh_ui(new_picking_ids[0]);
-                        }
-                        return 0;
-                    });
+            return rpc.query({
+                model: 'stock.picking',
+                method: 'action_done_from_ui',
+                args: [
+                    self.picking.id, self.picking_type_id
+                ]
+            }).then(function(new_picking_ids){
+                if (new_picking_ids) {
+                    return self.refresh_ui(new_picking_ids[0]);
+                }
+                return 0;
+            });
         },
         create_lot: function(op_id, lot_name){
             var self = this;
-            return new Model('stock.pack.operation').
-                call('create_and_assign_lot',[parseInt(op_id), lot_name]).
-                then(function(){
-                    return self.refresh_ui(self.picking.id);
-                });
+            return rpc.query({
+                model: 'stock.move.line',
+                method: 'create_and_assign_lot',
+                args: [
+                    parseInt(op_id), lot_name
+                ]
+            }).then(function(){
+                return self.refresh_ui(self.picking.id);
+            });
         },
         change_location: function(op_id, loc_id, is_src_dst){
             var self = this;
@@ -1009,29 +1118,47 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             if (is_src_dst){
                 vals = {'location_id': loc_id};
             }
-            return new Model('stock.pack.operation').
-                call('write',[op_id, vals]).
-                then(function(){
-                    return self.refresh_ui(self.picking.id);
-                });
+            return rpc.query({
+                    model: 'stock.move.line',
+                    method: 'write',
+                    args: [
+                        op_id, vals
+                    ]
+                }).then(function(){
+                return self.refresh_ui(self.picking.id);
+            });
         },
         print_package: function(package_id){
             var self = this;
-            return new Model('stock.quant.package').
-                call('action_print',[[package_id]]).
-                then(function(action){
+            return rpc.query({
+                    model: 'stock.quant.package',
+                    method: 'action_print',
+                    args: [
+                        [package_id]
+                    ]
+                }).then(function(action){
                     return self.do_action(action);
                 });
         },
         print_picking: function(){
             var self = this;
-            return new Model('stock.picking.type').call('read', [[self.picking_type_id], ['code']], {context:new data.CompoundContext()}).
-                then(function(pick_type){
-                    return new Model('stock.picking').call('do_print_picking',[[self.picking.id]]).
-                        then(function(action){
-                                return self.do_action(action);
-                           });
+            return rpc.query({
+                model: 'stock.picking.type',
+                method: 'read',
+                args: [
+                    [self.picking_type_id], ['code'], {context:new data.DataSet()}
+                ]
+            }).then(function(pick_type){
+                return rpc.query({
+                    model: 'stock.picking',
+                    method: 'do_print_picking',
+                    args: [
+                        [self.picking_type_id]
+                    ]
+                }).then(function(action){
+                    return self.do_action(action);
                 });
+            });
         },
         picking_next: function(){
             for(var i = 0; i < this.pickings.length; i++){
@@ -1057,42 +1184,71 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
         },
         delete_package_op: function(pack_id){
             var self = this;
-            return new Model('stock.pack.operation').call('search', [[['result_package_id', '=', pack_id]]]).
-                then(function(op_ids) {
-                    return new Model('stock.pack.operation').call('write', [op_ids, {'result_package_id':false}]).
-                    then(function() {
-                            return self.refresh_ui(self.picking.id);
-                        });
+            return rpc.query({
+                model: 'stock.move.line',
+                method: 'search',
+                args: [
+                    [[['result_package_id', '=', pack_id]]]
+                ]
+            }).then(function(op_ids) {
+                return rpc.query({
+                    model: 'stock.move.line',
+                    method: 'write',
+                    args: [
+                        [op_ids, {'result_package_id':false}]
+                    ]
+                }).then(function() {
+                    return self.refresh_ui(self.picking.id);
                 });
+            });
         },
         set_operation_quantity: function(quantity, op_id){
             var self = this;
             if(quantity >= 0){
-                return new Model('stock.pack.operation').
-                    call('write',[[op_id],{'qty_done': quantity }]).
-                    then(function(){
-                        self.refresh_ui(self.picking.id);
-                    });
+                return rpc.query({
+                    model: 'stock.move.line',
+                    method: 'write',
+                    args: [
+                        [op_id],{'qty_done': quantity }
+                    ]
+                }).then(function(){
+                    self.refresh_ui(self.picking.id);
+                });
             }
         },
         set_package_pack: function(package_id, pack){
             var self = this;
-            return new Model('stock.quant.package').
-                call('write',[[package_id],{'ul_id': pack }]);
+            return rpc.query({
+                model: 'stock.quant.package',
+                method: 'write',
+                args: [
+                    [package_id],{'ul_id': pack }
+                ]
+            });
         },
         reload_pack_operation: function(){
             var self = this;
-            return new Model('stock.picking').
-                call('do_prepare_partial',[[self.picking.id]]).
-                then(function(){
-                        self.refresh_ui(self.picking.id);
-                    });
+            return rpc.query({
+                model: 'stock.picking',
+                method: 'do_prepare_partial',
+                args: [
+                    [self.picking.id]
+                ]
+            }).then(function(){
+                self.refresh_ui(self.picking.id);
+            });
         },
         quit: function(){
             this.destroy();
-            return new Model("ir.model.data").call("search_read", [[['name', '=', 'stock_picking_type_action']], ['res_id']]).then(function(res) {
-                    window.location = '/web#action=' + res[0].res_id;
-                });
+            return rpc.query({
+                model: 'ir.model.data',
+                method: 'search_read',
+                args: [
+                    [[['name', '=', 'stock_picking_type_action']], ['res_id']]
+                ]
+            }).then(function(res) {
+                window.location = '/web#action=' + res[0].res_id;
+            });
         },
         destroy: function(){
             this._super();

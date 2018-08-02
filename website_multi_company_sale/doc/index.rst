@@ -23,7 +23,20 @@ Multi-categories
 ----------------
 
 * Open menu ``[[ Website ]] >> Configuration >> Products >> eCommerce Categories``
-* Specify **Websites** fields to parent categories.
+* Only for top-level (i.e. without ``parent_id``) categories: specify **Websites** field
+
+Multi-products
+--------------
+* Open menu ``[[ Sales ]] >> Sales >> Products``
+* Specify **Allowed websites** for your products
+* Websites company and product company should be equal. But if you want different company websites then leave the **Company** field empty in your product - in such case you can specify any websites
+
+Multi-payment-acquirers
+-----------------------
+* Open menu ``[[ Website ]] >> Configuration >> eCommerce >> Payment Acquirers``
+* Specify **Allowed websites** for your payment acquirer. If no website is specified then the acquirer will be available on any website with the same company
+* Choosen websites companies and acquirer's company should be equal
+
 
 Usage
 =====
@@ -44,3 +57,16 @@ Multi-cart
 * Open another website that belongs to another company
 * Login as the same user
 * RESULT: you have empty cart, rather than one from previous website
+
+Multi-products
+--------------
+
+* Open website shop
+* RESULT: you should only see products allowed for this website or products with no websites specified
+
+Multi-payment-acquirers
+-----------------------
+
+* Open website shop
+* Buy a product
+* On Payment step of checkout there should be available only specified acquirers

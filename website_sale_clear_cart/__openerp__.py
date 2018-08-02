@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Clear cart button',
     'version': '1.0.0',

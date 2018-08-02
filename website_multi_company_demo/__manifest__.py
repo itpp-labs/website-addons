@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Demo Data for \"Real Multi Website\"""",
     "summary": """Provides demo websites""",
     "category": "Hidden",
     # "live_test_URL": "",
     "images": [],
-    "version": "1.0.0",
+    "version": "11.0.1.0.0",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev",
@@ -17,6 +16,7 @@
 
     "depends": [
         "website_multi_company_sale",
+        "website_multi_company_blog",
         "theme_bootswatch",
     ],
     "external_dependencies": {"python": [], "bin": []},
@@ -34,6 +34,7 @@
         "demo/website.menu.csv",
         "demo/website_templates.xml",
         "demo/website_homepage.xml",
+        "demo/website_blog.xml",
     ],
 
     "post_load": None,

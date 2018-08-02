@@ -2,6 +2,9 @@
  Real Multi Website
 ====================
 
+.. contents::
+   :local:
+
 Installation
 ============
 
@@ -64,7 +67,7 @@ session information. There are two ways to do it:
 
 In the latter case ``dbfilter`` is usually used, though it's not flexible enough.
 
-using dbfilter parameter
+Using dbfilter parameter
 ~~~~~~~~~~~~~~~~~~~~~~~~
 For TESTING purpose you can use the following configuration:
 
@@ -77,7 +80,7 @@ For TESTING purpose you can use the following configuration:
     * example.shop2.local
     * example.shop3.local
 
-patching http.py
+Patching http.py
 ~~~~~~~~~~~~~~~~
 
 For PRODUCTION deployment with websites on subdomains you can use following patch. You need to update odoo/http.py file as following::
@@ -112,7 +115,7 @@ Then you can use following configuration
     * shop2.example.org
     * shop3.example.org
 
-using dbfilter_from_header module
+Using dbfilter_from_header module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Most flexible way to deploy multi-database system is using `dbfilter_from_header <https://www.odoo.com/apps/modules/10.0/dbfilter_from_header/>`__ (check module description for installation instruction).
 
@@ -181,7 +184,6 @@ Example (we use top level domain ``.example`` due to copyright issues, but it co
         }
        }
 
-
 Apache::
 
        <VirtualHost *:80>
@@ -214,7 +216,31 @@ Apache::
 		   
        </VirtualHost>
 
-	   
+Odoo.sh deployment
+------------------
+
+In the manager of your domain name registrar you need to add CNAME records for your domains (subdomains), for example:
+
+* Create a CNAME record ``shop1.example.org`` pointing to <yourdatabase>.odoo.com
+* Create a CNAME record ``shop2.example.org`` pointing to <yourdatabase>.odoo.com
+* Create a CNAME record ``example.com`` pointing to <yourdatabase>.odoo.com
+
+Similar for dev and staging database, but use corresponding domain in odoo.com, e.g. ``mywebsite-master-staging-12345689.dev.odoo.com``
+
+Translation issue
+-----------------
+
+Check this section if you use translations in odoo.
+
+Odoo `may have wrong translations <https://github.com/odoo/odoo/issues/25550#issuecomment-401897456>`__, which leads to the error ``Translation is not valid``. You need either fix the translations or apply following workaround:
+
+* open file ``odoo/addons/base/ir/ir_translation.py``
+* comment out ``@api.constraints...`` near ``def _check_value``, that is you shall get something like this (pay attention to ``#`` symbol)::
+
+    #@api.constrains('type', 'name', 'value')
+    def _check_value(self):
+        for trans in self.with_context(lang=None):
+
 Configuration
 =============
 
@@ -246,6 +272,33 @@ After installing theme, navigate to ``[[ Website ]] >> Configuration >> Multi-Th
 
 If you get error *The style compilation failed*, add modules to **Dependencies** field. It allows to attach theme-like dependencies to corresponding theme and prevent themes compatibility problems.
 
+Note: themes that depend on ``theme_common`` don't work in demo installation. To avoid this, you have to create database without demo data or comment out demo files in ``__manifest__.py`` file of ``theme_common`` module like this::
+ 
+  'demo': [
+       # 'demo/demo.xml',
+    ],
+
+Convert view to multi-website view
+----------------------------------
+
+When you have custom module which adds some page, you can easily convert to a multi-website view, i.e. it will have different versions of the page per each website. In order to do that, you need to know so called *xml_id*, which has following format: `<MODULE_NAME>.<VIEW_NAME>`. Once you know that do as following:
+
+* `Activate Developer Mode <https://odoo-development.readthedocs.io/en/latest/odoo/usage/debug-mode.html>`__
+* Navigate to ``[[ Website ]] >> Configuration >> Multi-Themes``
+* Choose *Default Theme*
+* In **Views** fields use *Create and Edit...* to add record:
+
+  * **Name**: use *xml_id* of the view
+  * Check that field **Theme** is set to *Default Theme*
+  * Click ``[Save]``
+
+* Click ``[Save]`` at the theme view
+* Navigate to ``[[ Website ]] >> Settings``
+* Click ``Reload Theme List & Update all websites``
+* RESULT: page with the view may be edited independently
+	
+Note, that you have to be sure, that each *Website* uses *Default Theme* directly or indirectly (via **Sub-themes** field).
+
 Usage
 =====
 
@@ -275,7 +328,7 @@ Steps for eCommerce
   * use ``[Action] -> Duplicate`` button
   * don't forget to click ``[Unpublished On Website]`` button to activate it
   
-* open ``[[ Sales ]] >> Products`` and create product per each company if they don't exist
+* open ``[[ Sales ]] >> Products`` and create product per each company if they don't exist. If a product doesn't belong to any company (i.e. "Company" field is empty), this product will be available on each website you created.
 * open HOST1/shop, make order, open backend -- created order belongs to COMPANY1
 * open HOST2/shop, make order, open backend -- created order belongs to COMPANY2
 

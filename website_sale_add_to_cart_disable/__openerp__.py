@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Hide "Add To Cart" button from product page""",
     "summary": """Allows to disable product sales via eCommerce for any reason""",

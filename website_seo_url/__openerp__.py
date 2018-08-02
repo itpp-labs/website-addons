@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Configurable SEO URL (Technical core)""",
     "summary": """Allows to make custom SEO URL for pages related to some record""",

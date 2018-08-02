@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="view_event_event_form">
+        <field name="name">Events (Singup)</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="partner_event.view_event_form_partner"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='seats_max']" position="after">
+                <field name="ticket_transferring"/>
+                <field name="ticket_changing"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Real Multi Website (portal extension)""",
     "summary": """Multi Website support in Portal""",
     "category": "Portal",
     "live_test_url": "http://apps.it-projects.info/shop/product/website-multi-company?version=10.0",
-    "images": [],
-    "version": "1.0.0",
+    "images": ["images/website_multi_company_portal_main.png"],
+    "version": "11.0.1.0.0",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev",

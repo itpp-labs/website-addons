@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Real Multi Website (eCommerce extension)""",
     "summary": """Multi Website support in eCommerce""",
     "category": "eCommerce",
     "live_test_url": "http://apps.it-projects.info/shop/product/website-multi-company?version=11.0",
-    "images": [],
-    "version": "1.0.2",
+    "images": ["images/website_multi_company_sale_main.png"],
+    "version": "11.0.1.3.0",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev",
@@ -18,11 +17,17 @@
     "depends": [
         "website_multi_company",
         "website_sale",
+        "ir_rule_website",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
         "views/product_public_category_views.xml",
         "views/website_views.xml",
+        "views/product_template_views.xml",
+        "views/payment_views.xml",
+        "views/sale_views.xml",
+        "security/website_multi_company_sale_security.xml",
+        "data/default_theme_data.xml",
     ],
     "qweb": [
     ],
