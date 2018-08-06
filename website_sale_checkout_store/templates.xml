@@ -11,7 +11,7 @@
         </template>
 
         <template id="website_sale_checkout_store_cart" name="my_cart" inherit_id="website_sale.cart" priority="50">
-            <xpath expr="//div[hasclass('row')]//a[hasclass('btn','btn-primary','pull-right')][@href='/shop/checkout']" position="replace">
+            <xpath expr="//div[hasclass('row')]//a[hasclass('btn','btn-primary','pull-right')][@href='/shop/checkout?express=1']" position="replace">
               <t t-if="not hide_checkout_button">
                 <t t-set="button_class" t-value="suggest_create_account and 'btn btn-default pull-right' or 'btn btn-primary pull-right'"/>
                 <!--<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
@@ -24,8 +24,8 @@
                    t-value="website.env['ir.config_parameter'].sudo().get_param('website_sale_checkout_store.bill_ship')"/>
                 <t t-set="nobill_ship"
                    t-value="website.env['ir.config_parameter'].sudo().get_param('website_sale_checkout_store.nobill_ship')"/>
-                <t t-set="default_option"
-                   t-value="website.env['ir.config_parameter'].sudo().get_param('website_sale_checkout_store.default_option')"/>
+                <t t-set="bill_ship_option"
+                   t-value="website.env['ir.config_parameter'].sudo().get_param('website_sale_checkout_store.bill_ship_option')"/>
                 <t t-set="list_options" t-value="[nobill_noship, bill_noship, bill_ship, nobill_ship]"/>
                 <div class="pull-right">
                     <div>
@@ -77,7 +77,7 @@
             <xpath expr="//div[hasclass('row','all_shipping')]" position="attributes">
                 <attribute name="t-att-ship">1</attribute>
             </xpath>
-            <xpath expr="//div[hasclass('col-md-12') and ./h2[contains(.,'Shipping Address')]]" position="attributes">
+            <xpath expr="//div[hasclass('col-md-12') and ./h3[contains(.,'Shipping Address')]]" position="attributes">
                 <attribute name="t-att-ship">1</attribute>
             </xpath>
         </template>
@@ -117,60 +117,54 @@
                 <attribute name="style">display: none</attribute>
             </xpath>
             <xpath expr="//h2" position="replace">
-                <t t-if="shipping == '0' and billing == '0'">
-                    <h2 class="page-header mt16">Contact Information
-                        <small> or </small>
-                        <t t-set='connect' t-value="request.env['ir.config_parameter'].sudo().get_param('auth_signup.allow_uninvited') == 'True' and ('signup', 'Sign Up') or ('login', 'Log In')"/>
-                        <a t-attf-href='/web/{{connect[0]}}?redirect=/shop/checkout' class='btn btn-primary' style="margin-top: -11px"><t t-esc='connect[1]'/></a>
-                    </h2>
-                </t>
-                <t t-else="">
-                    <h2 class="page-header mt16">Your Address
-                        <small> or </small>
-                        <t t-set='connect' t-value="request.env['ir.config_parameter'].sudo().get_param('auth_signup.allow_uninvited') == 'True' and ('signup', 'Sign Up') or ('login', 'Log In')"/>
-                        <a t-attf-href='/web/{{connect[0]}}?redirect=/shop/checkout' class='btn btn-primary' style="margin-top: -11px"><t t-esc='connect[1]'/></a>
-                    </h2>
-                </t>
+                <h2 class="page-header mt16">
+                    <t t-if="ship_enabled == '0' and bill_enabled == '0'">Contact Information</t>
+                    <t t-else="">Your Address</t>
+                    <small> or </small>
+                    <t t-set='connect' t-value="request.env['ir.config_parameter'].sudo().get_param('auth_signup.allow_uninvited') == 'True' and ('signup', 'Sign Up') or ('login', 'Log In')"/>
+                    <a t-attf-href='/web/{{connect[0]}}?redirect=/shop/checkout' class='btn btn-primary' style="margin-top: -11px"><t t-esc='connect[1]'/></a>
+                </h2>
             </xpath>
-            <!--
-            <xpath expr="//select[@name='shipping_id']/.." position="attributes">
-                <attribute name="ship">1</attribute>
+            <xpath expr="//t[@t-if=&quot;mode == (&apos;new&apos;, &apos;billing&apos;) and not only_services&quot;]" position="attributes">
+                <attribute name="t-if">mode == ('new', 'billing') and not only_services and ship_enabled == '1'</attribute>
             </xpath>
-            <xpath expr="//div[@class='js_shipping row mb16']" position="attributes">
-                <attribute name="ship">1</attribute>
-            </xpath>
-            -->
-        </template>
-
-        <template id="website_sale_checkout_store_wizard_checkout" name="my_wizard_checkout" inherit_id="website_sale.wizard_checkout">
-            <xpath expr="//li[@id='step40']" position="attributes">
-                <attribute name="bill">1</attribute>
+            <xpath expr='//form[@action="/shop/address"]/*' position="after">
+                <input t-if="ship_enabled == '0'" type="hidden" name="use_same" value="1" />
             </xpath>
         </template>
 
         <template id="website_sale_checkout_store_confirmation" name="my_confirmation" inherit_id="website_sale.confirmation">
-            <xpath expr="//div[hasclass('oe_cart')]/table[2]/tr" position="after">
-                <t t-if="order.delivery_method_information">
-                    <tr>
-                        <td colspan="2">
-                            <strong>Delivery:</strong>
-                            <t t-esc="order.delivery_method_information" />
-                        </td>
-                    </tr>
+            <xpath expr="//div[hasclass('oe_cart')][last()]" position="after">
+                <table>
+                    <tbody>
+                            <t t-if="not order.payment_acquirer_id.name"><tr><td class="col-md-8"><strong>Payment: </strong><t t-esc="order.payment_method_information"/></td></tr></t>
+                            <t t-if="order.payment_acquirer_id.name"><tr><td class="col-md-8"><strong>Payment Method: </strong><t t-esc="order.payment_acquirer_id.name"/></td></tr></t>
+                            <t t-if="order.delivery_method_information"><tr><td class="col-md-8"><strong>Delivery: </strong><t t-esc="order.delivery_method_information"/></td></tr></t>
+                    </tbody>
+                </table>
+            </xpath>
+            <xpath expr="//div[hasclass('oe_cart')]/div[hasclass('panel', 'panel-default')]/div[hasclass('panel-body')]/div" position="replace">
+                <t t-if="order.buy_way == 'bill_noship'">
+                    <div><b>Billing : </b><span t-esc='order.partner_id' t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=' ')" class="address-inline"/></div>
+                </t>
+                <t t-if="order.buy_way == 'nobill_ship'">
+                    <div><b><t t-if="same_shipping and not only_services">Shipping</t>: </b><span t-esc='order.partner_id' t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')" class="address-inline"/></div>
+                    <div t-if="not same_shipping and not only_services" groups="sale.group_delivery_invoice_address"><b>Shipping: </b><span t-esc='order.partner_shipping_id' t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')"  class="address-inline"/></div>
+                </t>
+                <t t-if="order.buy_way == 'bill_ship'">
+                    <div><b>Billing <t t-if="same_shipping and not only_services"> &amp; Shipping</t>: </b><span t-esc='order.partner_id' t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')" class="address-inline"/></div>
+                    <div t-if="not same_shipping and not only_services" groups="sale.group_delivery_invoice_address"><b>Shipping: </b><span t-esc='order.partner_shipping_id' t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')"  class="address-inline"/></div>
                 </t>
             </xpath>
-            <xpath expr="//div[hasclass('oe_cart')]/table[2]/tr/td" position="replace">
-                <t t-if="not order.payment_acquirer_id.name">
-                    <td class="col-md-8">
-                    <strong>Payment:</strong>
-                    <t t-esc="order.payment_method_information" />
-                    </td>
+        </template>
+        <template id="payment" name="Payment" inherit_id="website_sale.payment">
+            <xpath expr="//div[hasclass('oe_website_sale')]//div[hasclass('panel', 'panel-default')]/div[hasclass('panel-body')]/div" position="replace">
+                <t t-if="order.buy_way == 'bill_noship'">
+                <div><b>Billing: </b><span t-esc='order.partner_id' t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=' ')" class="address-inline"/></div>
                 </t>
-                <t t-if="order.payment_acquirer_id.name">
-                    <td class="col-md-8">
-                    <strong>Payment Method:</strong>
-                    <t t-esc="order.payment_acquirer_id.name" />
-                    </td>
+                <t t-if="order.buy_way == 'bill_ship'">
+                    <div><b>Billing <t t-if="same_shipping and not only_services"> &amp; Shipping</t>: </b><span t-esc='order.partner_id' t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')" class="address-inline"/></div>
+                    <div t-if="not same_shipping and not only_services" groups="sale.group_delivery_invoice_address"><b>Shipping: </b><span t-esc='order.partner_shipping_id' t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')"  class="address-inline"/></div>
                 </t>
             </xpath>
         </template>

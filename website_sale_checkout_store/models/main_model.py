@@ -7,6 +7,8 @@ class SaleOrder(models.Model):
     buy_way = fields.Char()
     payment_method_information = fields.Char(compute='_compute_payment_method_information')
     delivery_method_information = fields.Char(compute='_compute_delivery_method_information')
+    payment_acquirer_id = fields.Many2one('payment.acquirer', string='Payment Acquirer',
+                                          compute='_compute_payment_acquirer_id')
 
     def _compute_payment_method_information(self):
         self.payment_method_information = False
@@ -19,6 +21,9 @@ class SaleOrder(models.Model):
         self.delivery_method_information = False
         if str(self.buy_way) == "bill_noship" or str(self.buy_way) == "nobill_noship":
             self.delivery_method_information = _("Pickup at store")
+
+    def _compute_payment_acquirer_id(self):
+        self.payment_acquirer_id = self.get_portal_last_transaction().acquirer_id
 
     def get_shipping_billing(self):
         if not self.buy_way:
@@ -38,7 +43,7 @@ class WebsiteConfigSettings(models.TransientModel):
     bill_noship = fields.Boolean("Pickup at store but pay now")
     bill_ship = fields.Boolean("Pay now and get delivery")
     nobill_ship = fields.Boolean("Pay on delivery")
-    default_option = fields.Selection([
+    bill_ship_option = fields.Selection([
         ('nobill_noship', 'Pickup and pay at store'),
         ('bill_noship', 'Pickup at store but pay now'),
         ('bill_ship', 'Pay now and get delivery'),
@@ -54,7 +59,7 @@ class WebsiteConfigSettings(models.TransientModel):
             bill_noship=config_parameters.get_param("website_sale_checkout_store.bill_noship", default=False),
             bill_ship=config_parameters.get_param("website_sale_checkout_store.bill_ship", default=False),
             nobill_ship=config_parameters.get_param("website_sale_checkout_store.nobill_ship", default=False),
-            default_option=config_parameters.get_param("website_sale_checkout_store.default_option", default='nobill_noship'),
+            bill_ship_option=config_parameters.get_param("website_sale_checkout_store.bill_ship_option", default='nobill_noship'),
         )
         return res
 
@@ -67,4 +72,4 @@ class WebsiteConfigSettings(models.TransientModel):
             config_parameters.set_param("website_sale_checkout_store.bill_noship", record.bill_noship or '')
             config_parameters.set_param("website_sale_checkout_store.bill_ship", record.bill_ship or '')
             config_parameters.set_param("website_sale_checkout_store.nobill_ship", record.nobill_ship or '')
-            config_parameters.set_param("website_sale_checkout_store.default_option", record.default_option or '')
+            config_parameters.set_param("website_sale_checkout_store.bill_ship_option", record.bill_ship_option or '')
