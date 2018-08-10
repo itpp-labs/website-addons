@@ -8,13 +8,18 @@
 Installation
 ============
 
-Firstly install the external dependencies::
+Dependencies
+------------
+::
 
-	apt-get install ruby-compass
-	gem install compass bootstrap-sass
+    apt-get install ruby-compass
+    gem install compass bootstrap-sass
 
-Then `install <https://odoo-development.readthedocs.io/en/latest/odoo/usage/install-module.html>`__ this module in a usual way.
+Odoo version
+------------
+Please use up-to-date version of odoo or at least be sure, that your odoo has following updates:
 
+* 26 Jun 2018: https://github.com/odoo/odoo/commit/5cecd0a197eba847e4a71bea3a31584d2b88ea6b
 
 Additional modules
 ------------------
