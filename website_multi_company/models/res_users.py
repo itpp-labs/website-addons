@@ -11,6 +11,17 @@ class ResUsers(models.Model):
 
     editor_website_ids = fields.Many2many('website', string='Editor on websites', help='Empty list allows edit any website')
 
+    @api.model
+    def _get_company(self):
+        """Try to get company from website first. It affects many models and feature,
+        because it's used in _company_default_get which is used to compute
+        default values on many models
+        """
+        website_id = self.env.context.get('website_id')
+        if website_id:
+            return self.env['website'].browse(website_id).company_id
+        return super(ResUsers, self)._get_company()
+
     @api.onchange('company_ids')
     def _onchange_company_ids(self):
         return self.company_ids and {'domain': {'editor_website_ids': [('company_id', 'in', self.company_ids.ids)]}} or {'domain': {'editor_website_ids': []}}
