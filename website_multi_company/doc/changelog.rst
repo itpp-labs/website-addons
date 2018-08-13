@@ -1,3 +1,8 @@
+`2.1.0`
+-------
+
+- **New:** Use Website's company for field **Company** on record creation when possible. It affects many models and features
+
 `2.0.4`
 -------
 
