@@ -1,6 +1,6 @@
-============================================
- Upload Multiple Images For Product at Once
-============================================
+================================
+ Upload Multiple Images at Once
+================================
 
 Installation
 ============
@@ -15,7 +15,7 @@ Usage
 * Go to the ``Images`` tab
 * Click on ``[Edit]``
 * Click on ``[Select Images]``
-* Select Images
+* Select images
 * Click on ``[Save]``
 
-RESULT: all the images are uploaded
+RESULT: all the selected images are uploaded

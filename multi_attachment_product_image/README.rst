@@ -2,11 +2,11 @@
    :target: https://www.gnu.org/licenses/lgpl
    :alt: License: LGPL-3
 
-============================================
- Upload Multiple Images For Product at Once
-============================================
+================================
+ Upload Multiple Images at Once
+================================
 
-The module allows to upload multiple images at once
+By default, in Odoo you are able to upload only a single image to product at once. The module allows to upload multiple images at once.
 
 Credits
 =======
