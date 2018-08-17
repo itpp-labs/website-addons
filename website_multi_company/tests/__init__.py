@@ -2,3 +2,4 @@
 from . import test_render
 from . import test_create
 from . import test_web_editor
+from . import test_make_multi_website
