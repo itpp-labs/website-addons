@@ -22,7 +22,7 @@ odoo.define('website_multi_company.web_editor', function (require) {
             // Not a good way, but otherwise we have to override method
             // get_assets_editor_resources, which is but to keep system
             // extendable
-            var is_multi = this.resources['xml'][resID].name.indexOf('(Website #') !== -1;
+            var is_multi = this.resources.xml[resID].name.indexOf('(Website #') !== -1;
             // button is visible in xml mode when debug is active and view is not multi-website yet
             this.$makeMultiWebsite.toggleClass('hidden', is_multi || this.currentType === 'less' || !session.debug);
         },
