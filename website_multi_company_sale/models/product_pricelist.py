@@ -2,7 +2,8 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 import logging
 
-from odoo import models, api
+from odoo import models, api, _
+from odoo.exceptions import ValidationError
 
 
 _logger = logging.getLogger(__name__)
@@ -10,6 +11,29 @@ _logger = logging.getLogger(__name__)
 
 class Pricelist(models.Model):
     _inherit = "product.pricelist"
+
+    def _default_website(self):
+        return self.env['website'].search([
+            '|',
+            ('company_id', '=', self.env.user.company_id.id),
+            ('company_id', '=', False)
+        ], order='company_id DESC', limit=1)
+
+    @api.onchange('company_id')
+    def _onchange_company_id(self):
+        return self.company_id \
+            and {'domain': {
+                'website_id': [('company_id', '=', self.company_id.id)]
+            }} \
+            or {'domain': {'website_id': []}}
+
+    @api.constrains('company_id', 'website_id')
+    def _check_websites_in_company(self):
+        for record in self:
+            website_company = record.website_id.company_id
+            if record.company_id and website_company != record.company_id:
+                raise ValidationError(_("Error! Only the company's websites are allowed. \
+                    Leave the Company field empty or select corresponding company"))
 
     def _get_partner_pricelist(self, partner_id, company_id=None):
         """Call with new context to extend domain in search method.

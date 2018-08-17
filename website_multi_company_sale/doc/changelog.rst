@@ -1,13 +1,13 @@
-`1.3.1`
+`1.4.0`
 -------
 
 - **Fix:** Use proper pricelist in websites
-
+- **Improvement:** Don't allow user to set incompatibile values of website and company at pricelist
 
 `1.3.0`
 -------
 
-- **Add:** Users with ``Current Backend Website`` specified have access only to sale orders from that website
+- **New:** Users with ``Current Backend Website`` specified have access only to sale orders from that website
 - **Fix:** When a user is logged in on different websites, he can use shopping carts on each websites independently
 - **Improvement:** group sale orders by website
 
