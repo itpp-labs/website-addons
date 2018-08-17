@@ -1,3 +1,7 @@
+`2.0.4`
+-------
+- **FIX:** Don't allow user to create Dependency record manually. They are not supposed to do it and it leads to error message
+
 `2.0.3`
 -------
 

@@ -10,8 +10,11 @@
                     <group>
                         <field name="name"/>
                         <field name="converted_theme_addon"/>
+                        <field name="dependency_ids"  widget="many2many_tags" context="{'search_theme_dependencies': converted_theme_addon}" attrs="{'invisible': [('converted_theme_addon', '=', False)]}" options="{'no_create': True, 'no_edit': True}"/>
+                        <field name="converted_theme_addon"/>
                         <field name="dependency_ids"
                                widget="many2many_tags"
+                               options="{'no_create': True, 'no_edit': True}"/>
                                />
                         <field name="asset_ids"
                                string="Views"
