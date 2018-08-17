@@ -2,6 +2,9 @@
  Real Multi Website
 ====================
 
+.. contents::
+   :local:
+
 Installation
 ============
 
@@ -59,7 +62,7 @@ session information. There are two ways to do it:
 
 In the latter case ``dbfilter`` is usually used, though it's not flexible enough.
 
-using dbfilter parameter
+Using dbfilter parameter
 ~~~~~~~~~~~~~~~~~~~~~~~~
 For TESTING purpose you can use the following configuration:
 
@@ -72,7 +75,7 @@ For TESTING purpose you can use the following configuration:
     * example.shop2.local
     * example.shop3.local
 
-patching http.py
+Patching http.py
 ~~~~~~~~~~~~~~~~
 
 For PRODUCTION deployment with websites on subdomains you can use following patch. You need to update odoo/http.py file as following::
@@ -107,7 +110,7 @@ Then you can use following configuration
     * shop2.example.org
     * shop3.example.org
 
-using dbfilter_from_header module
+Using dbfilter_from_header module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Most flexible way to deploy multi-database system is using `dbfilter_from_header <https://www.odoo.com/apps/modules/10.0/dbfilter_from_header/>`__ (check module description for installation instruction).
 
@@ -168,6 +171,31 @@ Example (we use top level domain ``.example`` due to copyright issues, but it co
             proxy_pass http://127.0.0.1:8069;
         }
        }
+
+Odoo.sh deployment
+------------------
+
+In the manager of your domain name registrar you need to add CNAME records for your domains (subdomains), for example:
+
+* Create a CNAME record ``shop1.example.org`` pointing to <yourdatabase>.odoo.com
+* Create a CNAME record ``shop2.example.org`` pointing to <yourdatabase>.odoo.com
+* Create a CNAME record ``example.com`` pointing to <yourdatabase>.odoo.com
+
+Similar for dev and staging database, but use corresponding domain in odoo.com, e.g. ``mywebsite-master-staging-12345689.dev.odoo.com``
+
+Translation issue
+-----------------
+
+Check this section if you use translations in odoo.
+
+Odoo `may have wrong translations <https://github.com/odoo/odoo/issues/25550#issuecomment-401897456>`__, which leads to the error ``Translation is not valid``. You need either fix the translations or apply following workaround:
+
+* open file ``odoo/addons/base/ir/ir_translation.py``
+* comment out ``@api.constraints...`` near ``def _check_value``, that is you shall get something like this (pay attention to ``#`` symbol)::
+
+    #@api.constrains('type', 'name', 'value')
+    def _check_value(self):
+        for trans in self.with_context(lang=None):
 
 Configuration
 =============

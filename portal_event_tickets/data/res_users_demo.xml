@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="user_portal1" model="res.users" context="{'no_reset_password': True}">
+        <field name="name">portal1 name</field>
+        <field name="login">portal1</field>
+        <field name="password">portal1</field>
+        <field name="email">portal1@example.com</field>
+        <field name="groups_id" eval="[(6,0,[ref('base.group_portal')])]"/>
+    </record>
+
+    <record id="user_portal2" model="res.users" context="{'no_reset_password': True}">
+        <field name="name">portal2 name</field>
+        <field name="login">portal2</field>
+        <field name="password">portal2</field>
+        <field name="email">portal2@example.com</field>
+        <field name="groups_id" eval="[(6,0,[ref('base.group_portal')])]"/>
+    </record>
+
+</odoo>

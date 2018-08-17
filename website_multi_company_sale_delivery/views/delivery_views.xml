@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 Ildar Nasyrov <https://it-projects.info/team/iledarn> -->
+<!-- License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html). -->
+<odoo>
+  <record id="view_delivery_carrier_form_website_multi_company_sale" model="ir.ui.view">
+    <field name="name">delivery.carrier.form.inherit.website_multi_company_sale</field>
+    <field name="model">delivery.carrier</field>
+    <field name="inherit_id" ref="delivery.view_delivery_carrier_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//notebook/page[last()]" position="after">
+        <page string="Website">
+          <group>
+            <field name="website_ids" widget="many2many_tags"/>
+          </group>
+        </page>
+      </xpath>
+    </field>
+  </record>
+</odoo>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html). -->
+<odoo>
+  <record id="view_event_sale_form_inherit_website_multi_company_event_sale" model="ir.ui.view">
+    <field name="name">event.event.website.form.inherit.website_multi_company_sale</field>
+    <field name="model">event.event</field>
+    <field name="inherit_id" ref="website_event.view_event_sale_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='company_id']" position="after">
+        <field name="website_ids" widget="many2many_tags" domain="company_id and [('company_id', '=', company_id)] or []"/>
+      </xpath>
+    </field>
+  </record>
+</odoo>
+

@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <data  noupdate="0">
+<!--# Copyright 2016 Ilyas <https://github.com/ilyasProgrammer>
+    # Copyright 2016 Ildar Nasyrov <https://www.it-projects.info/team/iledarn>
+    # Copyright 2016 Dinar Gabbasov <https://www.it-projects.info/team/GabbasovDinar>
+    # Copyright 2016-2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+    # Copyright 2017 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+    # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).-->
+
+<odoo  noupdate="0">
         <template id="website_sale_checkout_store_assets_frontend" name="website_sale_checkout_store assets" inherit_id="website_sale.assets_frontend">
             <xpath expr="." position="inside">
                 <script src="/website_sale_checkout_store/static/src/js/website_sale_tour_mandatory_1.js" type="text/javascript"></script>
@@ -82,7 +88,7 @@
             <xpath expr="//div[@class='row all_shipping']" position="attributes">
                 <attribute name="t-att-ship">1</attribute>
             </xpath>
-            <xpath expr="//div[@class='col-md-12' and ./h3[contains(.,'Shipping Address')]]" position="attributes">
+            <xpath expr="//div[@class='row all_shipping']/preceding::div[@class='row'][1]" position="attributes">
                 <attribute name="t-att-ship">1</attribute>
             </xpath>
         </template>
@@ -98,25 +104,18 @@
             <xpath expr="//input[@name='city']/.." position="attributes">
                 <attribute name="ship">1</attribute>
             </xpath>
-            <xpath expr="(//label[contains(text(), 'Zip Code')])[1]" position="replace">
-                <label class="control-label label-optional" ship="1" for="zip">Zip Code</label>
-            </xpath>
-            <xpath expr="(//label[contains(text(), 'Zip Code')])[2]" position="replace">
-                <label class="control-label label-optional" ship="1" for="zip">Zip Code</label>
-            </xpath>
-            <xpath expr="(//input[@name='zip'])[1]" position="attributes">
+
+            <xpath expr="(//input[@name='zip'])[1]/.." position="attributes">
                 <attribute name="ship">1</attribute>
             </xpath>
-            <xpath expr="(//input[@name='zip'])[2]" position="attributes">
+            <xpath expr="(//input[@name='zip'])[2]/.." position="attributes">
                 <attribute name="ship">1</attribute>
             </xpath>
 
             <xpath expr="//select[@name='country_id']/.." position="attributes">
                 <attribute name="bill">1</attribute>
             </xpath>
-            <xpath expr="//label[contains(text(), 'Company Name')]" position="replace">
-                <label class="control-label label-optional" ship="1" for="company_name">Company Name</label>
-            </xpath>
+
             <xpath expr="//input[@name='company_name']/.." position="attributes">
                 <attribute name="ship">1</attribute>
             </xpath>
@@ -143,14 +142,6 @@
                     </h3>
                 </t>
             </xpath>
-            <!--
-            <xpath expr="//select[@name='shipping_id']/.." position="attributes">
-                <attribute name="ship">1</attribute>
-            </xpath>
-            <xpath expr="//div[@class='js_shipping row mb16']" position="attributes">
-                <attribute name="ship">1</attribute>
-            </xpath>
-            -->
         </template>
 
         <template id="website_sale_checkout_store_wizard_checkout" name="my_wizard_checkout" inherit_id="website_sale.wizard_checkout">
@@ -214,5 +205,4 @@
             </xpath>
         </template>
 -->
-    </data>
 </odoo>

@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
+# Copyright 2017-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 {
     "name": """Real Multi Website""",
     "summary": """Yes, you can set up multi-company, multi-website, multi-theme, multi-eCommerce on a single database!""",
     "category": "eCommerce",
     "live_test_url": "http://apps.it-projects.info/shop/product/website-multi-company?version=10.0",
     "images": ['images/website_multi_company_main.png'],
-    "version": "10.0.1.3.0",
+    "version": "10.0.2.0.3",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev",
@@ -29,11 +31,12 @@
         "views/res_config_views.xml",
         "views/website_navbar_templates.xml",
         "views/res_users_view.xml",
+        "data/first_action.xml",
     ],
     "qweb": [
     ],
     "demo": [
-        # "data/website_demo.xml",
+        "data/demo.xml",
     ],
 
     "post_load": "post_load",
