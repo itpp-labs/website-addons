@@ -37,6 +37,7 @@
         'security/res_security.xml',
     ],
     "qweb": [
+        "static/src/xml/web_editor.xml",
     ],
     "demo": [
         "data/demo.xml",

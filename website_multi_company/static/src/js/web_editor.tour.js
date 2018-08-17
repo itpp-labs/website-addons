@@ -1,4 +1,4 @@
-/* Copyright 2017-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+/* Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html). */
 odoo.define('website_multi_company.web_editor.tour', function (require) {
     'use strict';
@@ -8,7 +8,7 @@ odoo.define('website_multi_company.web_editor.tour', function (require) {
 
     var options = {
         test: true,
-        url: '/',
+        url: '/?debug',
         wait_for: base.ready()
     };
 
@@ -35,7 +35,7 @@ odoo.define('website_multi_company.web_editor.tour', function (require) {
             content: 'Ok, let\'s check that button "Make Multi-Website" is not visible',
             trigger: '.ace_content',
             run: function(actions){
-                if ($('#make-multi-website').length){
+                if ($('[data-action="make-multi-website"]:visible').length){
                     console.error('Make Multi-Website must not be visible');
                 }
             },
@@ -53,7 +53,7 @@ odoo.define('website_multi_company.web_editor.tour', function (require) {
             content: 'Ok, let\'s check that button "Make Multi-Website" is visible',
             trigger: '.ace_content',
             run: function(actions){
-                if (!$('#make-multi-website').length){
+                if (!$('[data-action="make-multi-website"]:visible').length){
                     console.error('Make Multi-Website must be visible');
                 }
             },

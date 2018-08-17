@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).-->
+<templates>
+    <t t-extend="web_editor.ace_view_editor">
+        <t t-jquery="[data-action='save']" t-operation="before">
+            <button data-action="make-multi-website" type="submit" class="btn btn-sm btn-default hidden">Convert to Multi-Website</button>
+        </t>
+    </t>
+</templates>
