@@ -1,3 +1,7 @@
+`2.2.0`
+-------
+- **New:** Convert view to multi-view via *HTML/CSS Editor*
+
 `2.1.1`
 -------
 - **Improvement:** some API updates that can be used by other modules
