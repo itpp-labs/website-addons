@@ -288,11 +288,10 @@ Convert view to multi-website view
 
 When you have custom module which adds some page, you can easily convert to a multi-website view, i.e. it will have different versions of the page per each website. There are two ways to do that.
 
-
 Convert to multi-website view via Editor
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Open some page in Frontend
+* Open some page in Frontend with Developer Mode activated, e.g. ``/?debug``
 * Click ``Customize -> HTML/CSS Editor``
 * Select some view without suffix *(Website #...)*
 * Click button ``[Convert to Multi-Website]``
