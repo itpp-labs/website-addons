@@ -3,15 +3,12 @@
 from odoo.tests.common import TransactionCase
 
 
-THEME_MODULE = 'theme_module'
-
-
-class TestRender(TransactionCase):
+class TestLead(TransactionCase):
     at_install = True
     post_install = True
 
     def setUp(self):
-        super(TestRender, self).setUp()
+        super(TestLead, self).setUp()
         self.website = self.env.ref('website.website2')
         self.company = self.env['res.company'].create({
             'name': 'New Test Website'
@@ -25,15 +22,18 @@ class TestRender(TransactionCase):
             'name': 'Test Lead',
         })
         self.assertEqual(lead.website_id, self.website, 'Incorrect Website value')
-        self.assertEqual(lead.company_id, self.company, 'Incorrect Website value')
+        self.assertEqual(lead.company_id, self.company, 'Incorrect Company value')
 
     def test_new_lead_backend(self):
         # add website to allowed
-        self.env.user.backend_website_ids = [(4, self.website.id)]
-        # switch current Website
-        self.env.user.backend_website_id = self.website
+        self.env.user.write(dict(
+            backend_website_ids=[(4, self.website.id)],
+            backend_website_id=self.website.id,
+            company_id=self.company.id,
+            company_ids=[(4, self.company.id)]
+        ))
         lead = self.env['crm.lead'].create({
             'name': 'Test Lead',
         })
         self.assertEqual(lead.website_id, self.website, 'Incorrect Website value')
-        self.assertEqual(lead.company_id, self.company, 'Incorrect Website value')
+        self.assertEqual(lead.company_id, self.company, 'Incorrect Company value')
