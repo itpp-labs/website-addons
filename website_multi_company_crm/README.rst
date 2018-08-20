@@ -8,6 +8,7 @@
 
 * Adds ``website_id`` field to ``crm.lead`` model
 * Fixes default value for ``company_id``
+* Multi-website rule to filter records in backend
 
 Credits
 =======

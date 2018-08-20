@@ -23,6 +23,7 @@
     "external_dependencies": {"python": [], "bin": []},
     "data": [
         "views/crm_lead_views.xml",
+        "security/crm_lead_security.xml",
     ],
     "qweb": [
     ],
