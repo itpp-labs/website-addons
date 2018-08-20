@@ -22,9 +22,7 @@
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
-        "security/website_multi_company_sale_delivery_security.xml",
-        "security/ir.model.access.csv",
-        "views/delivery_views.xml",
+        #"views/crm_lead_views.xml",
     ],
     "qweb": [
     ],
