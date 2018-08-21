@@ -19,7 +19,7 @@ Contributors
 
 Sponsors
 --------
-* `IT-Projects LLC <https://it-projects.info>`__
+* `e-thos SSII <http://www.e-thos.fr/>`__
 
 Maintainers
 -----------
