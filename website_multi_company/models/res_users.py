@@ -36,13 +36,13 @@ class ResUsers(models.Model):
     @api.multi
     def switch_multi_company(self, company):
         """
-        :returns: Is company set to new value
+        :returns: True if company value was changed, otherwise False -- no access to change, None -- no need to change
         """
         self.ensure_one()
 
         user = self
         if user.company_id == company:
-            return True
+            return None
 
         update_company = True
         if company in user.company_ids:
