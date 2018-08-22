@@ -1,3 +1,7 @@
+`1.5.0`
+-------
+- **New:** List of available countries on billing address page is configurable per website
+
 `1.4.0`
 -------
 

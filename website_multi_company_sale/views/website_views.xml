@@ -11,6 +11,11 @@
                     <field name="salesteam_id"/>
                 </group>
             </xpath>
+            <xpath expr="//group[@name='shop']" position="after">
+                <group>
+                    <field name="billing_country_ids" widget="many2many_tags"/>
+                </group>
+            </xpath>
         </field>
     </record>
 

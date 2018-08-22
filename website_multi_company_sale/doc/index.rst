@@ -44,6 +44,11 @@ Multi-pricelist
   * You may need to grant access ``Technical Settings / Sales Pricelists`` for
     your user first
 
+Billing Countries
+-----------------
+* Open menu ``[[ Website ]] >> Configuration >> Websites``
+* For each website configure **Billing Countries** or keep empty
+* RESULT: ``/shop/address`` will show only specified countries (or all countries, when list is empty)
 
 Usage
 =====
