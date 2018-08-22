@@ -1,3 +1,7 @@
+`2.3.0`
+-------
+- **New:** *Go to Website* button opens url of *Current Website* (switcher in top right-corner) rather than *Current domain* (Domain in page url)
+
 `2.2.0`
 -------
 - **New:** Convert view to multi-view via *HTML/CSS Editor*
