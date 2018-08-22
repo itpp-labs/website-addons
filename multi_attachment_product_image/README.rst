@@ -6,7 +6,7 @@
  Upload Multiple Images at Once
 ================================
 
-By default, in Odoo you are able to upload only a single image to product at once. The module allows to upload multiple images at once.
+By default, you can upload only a single image to product at once in Odoo. The module allows to upload multiple images at a time.
 
 Credits
 =======

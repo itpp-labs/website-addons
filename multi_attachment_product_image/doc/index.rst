@@ -10,12 +10,12 @@ Installation
 Usage
 =====
 
-* Go to ``Sales >> Products`` menu
+* Go to ``[[Sales]] >> Catalog >> Products`` menu
 * Open a product
-* Go to the ``Images`` tab
-* Click on ``[Edit]``
-* Click on ``[Select Images]``
+* Go to ``Images`` tab
+* Click ``[Edit]``
+* Click ``[Select Images]``
 * Select images
-* Click on ``[Save]``
+* Click ``[Save]``
 
 RESULT: all the selected images are uploaded
