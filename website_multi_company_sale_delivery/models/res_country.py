@@ -2,7 +2,7 @@
 # Copyright 2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from odoo import fields, models
+from odoo import models
 
 
 class ResCountry(models.Model):
