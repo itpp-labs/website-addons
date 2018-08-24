@@ -12,8 +12,8 @@ class ResCountry(models.Model):
         res = super(ResCountry, self).get_website_sale_countries(mode=mode)
         if mode == 'shipping':
             countries = self.env['res.country']
-            public_user = self.env.ref('base.public_user')
-            delivery_carriers = self.env['delivery.carrier'].sudo(public_user).search([('website_published', '=', True)])
+            delivery_access_user = self.env.ref('website_multi_company_sale_delivery.delivery_carrier_read_user')
+            delivery_carriers = self.env['delivery.carrier'].sudo(delivery_access_user).search([('website_published', '=', True)])
             for carrier in delivery_carriers:
                 if not carrier.country_ids and not carrier.state_ids:
                     countries = res
@@ -29,8 +29,8 @@ class ResCountry(models.Model):
         states = self.env['res.country.state']
         if mode == 'shipping':
             dom = ['|', ('country_ids', 'in', self.id), ('country_ids', '=', False), ('website_published', '=', True)]
-            public_user = self.env.ref('base.public_user')
-            delivery_carriers = self.env['delivery.carrier'].sudo(public_user).search(dom)
+            delivery_access_user = self.env.ref('website_multi_company_sale_delivery.delivery_carrier_read_user')
+            delivery_carriers = self.env['delivery.carrier'].sudo(delivery_access_user).search(dom)
 
             for carrier in delivery_carriers:
                 if not carrier.country_ids and not carrier.state_ids:
