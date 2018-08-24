@@ -28,10 +28,12 @@ class TestDeliveryCarrierSecurity(TransactionCase):
             'country_ids': [(6, 0, [self.country.id])],
             'state_ids': [(6, 0, [self.state.id])],
                            })
+        other_carriers = self.env.ref("delivery.normal_delivery_carrier") + self.env.ref("delivery.free_delivery_carrier")
+        other_carriers.write({'website_ids': [(4, self.env.ref('website.default_website').id)]})
 
     def test_get_website_sale_countries_and_states(self):
         delivery_carriers = self.env['delivery.carrier'].sudo(self.user).with_context(website_id=self.website.id).search([('website_published', '=', True)])
-        countries = delivery_carriers.country_ids
-        states = delivery_carriers.state_ids
+        countries = self.country.with_context(website_id=self.website.id).get_website_sale_countries(mode='shipping')
+        states = self.country.with_context(website_id=self.website.id).get_website_sale_states(mode='shipping')
         self.assertEqual(countries, self.country)
         self.assertEqual(states, self.state)
