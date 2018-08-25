@@ -64,6 +64,5 @@ class TestDeliveryCarrierSecurity(TransactionCase):
         # the user's company differs from the company all published carriers product have
         self.user.write({'company_id': self.company.id})
         delivery_carriers = self.env['delivery.carrier'].sudo(self.user).search([('website_published', '=', True)])
-        self.assertEqual(self.all_carriers, delivery_carriers)
-        # self.assertFalse(delivery_carriers)
-        # self.assertFalse(delivery_carriers)
+        self.assertNotEqual(self.all_carriers, delivery_carriers)
+        self.assertFalse(delivery_carriers)
