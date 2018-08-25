@@ -17,7 +17,8 @@ class TestDeliveryCarrierSecurity(TransactionCase):
         self.website.company_id = self.company
 
         self.user = self.env.ref('website_multi_company_sale_delivery.delivery_carrier_read_user')
-        self.user.write({'company_ids': [(4, self.company.id)], 'company_id': self.env.ref("base.main_company").id})
+        # self.user.write({'company_ids': [(4, self.company.id)], 'company_id': self.env.ref("base.main_company").id})
+        self.user.write({'company_ids': [(4, self.company.id)], 'company_id': self.company.id})
 
         self.country = self.env.ref("base.us")
         self.state = self.env.ref("base.state_us_2")
