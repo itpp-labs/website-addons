@@ -58,11 +58,13 @@ class TestDeliveryCarrierSecurity(TransactionCase):
 
         # the user has the same company as all available carriers
         self.user.write({'company_id': self.env.ref("base.main_company").id})
+        self.user.invalidate_cache()
         delivery_carriers = self.env['delivery.carrier'].sudo(self.user).search([('website_published', '=', True)])
         self.assertEqual(self.all_carriers, delivery_carriers)
 
         # the user's company differs from the company all published carriers product have
         self.user.write({'company_id': self.company.id})
-        delivery_carriers = self.env['delivery.carrier'].sudo(self.user).search([('website_published', '=', True)])
-        self.assertNotEqual(self.all_carriers, delivery_carriers)
-        self.assertFalse(delivery_carriers)
+        self.user.invalidate_cache()
+        delivery_carriers_empty = self.env['delivery.carrier'].sudo(self.user).search([('website_published', '=', True)])
+        self.assertFalse(delivery_carriers_empty)
+        self.assertNotEqual(self.all_carriers, delivery_carriers_empty)
