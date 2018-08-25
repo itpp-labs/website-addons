@@ -30,9 +30,40 @@ class TestDeliveryCarrierSecurity(TransactionCase):
         })
         other_carriers = self.env.ref("delivery.normal_delivery_carrier") + self.env.ref("delivery.free_delivery_carrier")
         other_carriers.write({'website_ids': [(4, self.env.ref('website.default_website').id)]})
+        self.all_carriers = other_carriers + self.delivery_carrier
 
     def test_get_website_sale_countries_and_states(self):
         countries = self.country.with_context(website_id=self.website.id).get_website_sale_countries(mode='shipping')
         states = self.country.with_context(website_id=self.website.id).get_website_sale_states(mode='shipping')
         self.assertEqual(countries, self.country)
         self.assertEqual(states, self.state)
+
+    def test_get_delivery_carriers(self):
+
+        # for frontend (there is website_id in context)
+        delivery_carriers = self.env['delivery.carrier'].sudo(self.user).with_context(website_id=self.website.id).search([('website_published', '=', True)])
+        self.assertNotEqual(self.all_carriers, delivery_carriers)
+        self.assertEqual(self.delivery_carrier, delivery_carriers)
+
+        # for backend (no website_id in context and no backend_website_id in the user's settings either - all published carriers should get found
+        delivery_carriers = self.env['delivery.carrier'].sudo(self.user).search([('website_published', '=', True)])
+        self.assertEqual(self.all_carriers, delivery_carriers)
+        # for backend and user has differ company - not the same as delivery carriers's product company, should get the same result - as products are shared
+        self.user.write({'company_id': self.company.id})
+        delivery_carriers = self.env['delivery.carrier'].sudo(self.user).search([('website_published', '=', True)])
+        self.assertEqual(self.all_carriers, delivery_carriers)
+
+        # and now test when products are not shared between different companies
+        self.env.ref('delivery.delivery_comp_rule').write({'active': True})
+
+        # the user has the same company as all available carriers
+        self.user.write({'company_id': self.env.ref("base.main_company").id})
+        delivery_carriers = self.env['delivery.carrier'].sudo(self.user).search([('website_published', '=', True)])
+        self.assertEqual(self.all_carriers, delivery_carriers)
+
+        # the user's company differs from the company all published carriers product have
+        self.user.write({'company_id': self.company.id})
+        delivery_carriers = self.env['delivery.carrier'].sudo(self.user).search([('website_published', '=', True)])
+        self.assertEqual(self.all_carriers, delivery_carriers)
+        # self.assertFalse(delivery_carriers)
+        # self.assertFalse(delivery_carriers)
