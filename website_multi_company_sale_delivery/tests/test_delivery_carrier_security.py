@@ -50,6 +50,5 @@ class TestDeliveryCarrierSecurity(TransactionCase):
         delivery_carriers = self.env['delivery.carrier'].sudo(self.user).search([('website_published', '=', True)])
         self.assertEqual(self.all_carriers, delivery_carriers)
         # for backend and user has differ company - not the same as delivery carriers's product company, should get the same result - as products are shared
-        self.user.write({'company_id': self.company.id})
         delivery_carriers = self.env['delivery.carrier'].sudo(self.user).search([('website_published', '=', True)])
         self.assertEqual(self.all_carriers, delivery_carriers)
