@@ -13,7 +13,7 @@ Configuration
 * Open menu ``[[ Inventory ]] >> Configuration >> Delivery >> Delivery Methods``
 * Open a delivery method form on ``Website`` tab
 * Specify **Allowed websites** on which the delivery method will be available on. Specify none if you want it to be available on any website
-* Make sure that you have checked the setting **Share product to all companies** from ``[[ Settings ]] >> General Settings``
+* Make sure that you have checked the setting **Share product to all companies** from ``[[ Settings ]] >> General Settings`` or configure all your delivery carriers so they have empty **Company** field
 
 Usage
 =====
