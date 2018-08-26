@@ -6,7 +6,7 @@
     "category": "eCommerce",
     "live_test_url": "http://apps.it-projects.info/shop/product/website-multi-company?version=11.0",
     "images": ["images/website_multi_company_sale_delivery_main.png"],
-    "version": "11.0.1.0.1",
+    "version": "11.0.1.0.2",
     "application": False,
 
     "author": "IT-Projects LLC, Ildar Nasyrov",
