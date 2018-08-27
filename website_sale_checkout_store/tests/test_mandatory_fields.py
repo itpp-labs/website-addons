@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+# Copyright 2017 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+# Copyright 2017-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+
 import odoo.tests
 
 

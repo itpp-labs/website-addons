@@ -1,3 +1,14 @@
+`2.0.3`
+-------
+
+- **FIX:** Website designers had access to edit pages (/shop, /blog) on websites they were not allowed to edit. Now they have not
+
+`2.0.2`
+-------
+
+- **IMP:** UX improvement: open ``Websites`` menu right after module installation
+- **IMP:** Activate ``Multi Company`` in demo installation
+
 `1.3.1`
 -------
 
