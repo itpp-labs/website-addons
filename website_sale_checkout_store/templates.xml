@@ -150,6 +150,84 @@
             </xpath>
         </template>
 
+        <template id="payment" inherit_id="website_sale.payment" name="Payment">
+            <xpath expr="//div[@id='payment_method']" position="replace">
+                <!--Mainly copy-pasted from odoo-->
+                <div class="js_payment mb64 row" t-if="acquirers and website_sale_order.amount_total and bill_enabled=='1'" id="payment_method">
+                    <div class="col-lg-5 col-sm-6">
+                        <h4>Payment Method:</h4>
+                        <ul class="list-unstyled">
+                            <t t-foreach="acquirers or []" t-as="acquirer">
+                              <li>
+                                <label t-if="acquirer.button">
+                                    <input t-att-value="acquirer.id" type="radio" name="acquirer" t-att-checked="acquirers[0] == acquirer" />
+                                    <span t-field="acquirer.image_small" t-att-title="acquirer.name" t-field-options='{"widget": "image", "style":"max-width: 60px; display: inline-block"}'/>
+                                    <span t-field="acquirer.name" />
+                                    <span t-if="acquirer.fees_active">(processing fees apply)</span>
+                                </label>
+                              </li>
+                            </t>
+                            <li t-if="tokens">
+                                <label>
+                                    <input type="radio" name="acquirer" />
+                                    <span class='fa fa-2x fa-credit-card'/>
+                                    Saved Cards
+                                </label>
+
+                                <div class="list-group">
+                                    <t t-foreach='tokens' t-as='token'>
+                                        <a class="list-group-item btn_payment_token" t-att-data-acquirer="token.acquirer_id.id" t-att-data-token='token.id'>
+                                            <span class="js_radio fa fa-circle-o"></span>&amp;nbsp;
+                                            <t t-esc="token.name" />
+                                            <t t-if="len(set(tokens.mapped('acquirer_id')))>1">
+                                                (<t t-esc='token.acquirer_id.name'/>)
+                                            </t>
+                                            <span t-if="token.acquirer_id.fees_active">(processing fees apply)</span>
+                                        </a>
+                                    </t>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-5 col-lg-offset-2 col-sm-6 text-right">
+                        <t t-foreach="acquirers or []" t-as="acquirer" id="acquirers_list">
+                            <div t-att-data-id="acquirer.id" class="oe_sale_acquirer_button hidden pull-right">
+                                <div t-raw="acquirer.button" />
+                                <div class="token_hide">
+                                    <div t-if="acquirer.save_token == 'ask'">
+                                        <input type="checkbox" name="odoo_save_token"/>
+                                        <label for="odoo_save_token">Save my payment data</label>
+                                    </div>
+                                    <div class="pre_msg" t-field="acquirer.pre_msg" />
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+                <div class="js_payment mb64 row" t-if="(not website_sale_order.amount_total) and bill_enabled=='1'" id="payment_method">
+                    <div class="col-sm-12">
+                        <form target="_self" action="/shop/payment/validate" method="post" class="pull-right">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                            <a class="btn btn-primary a-submit">
+                                <span t-if="order.amount_total &gt; 0">Pay Now <span class="fa fa-long-arrow-right"></span></span>
+                                <span t-if="order.amount_total == 0">Confirm Order <span class="fa fa-long-arrow-right"></span></span>
+                            </a>
+                        </form>
+                    </div>
+                </div>
+                <div class="js_payment mb64 row" t-if="bill_enabled=='0'" id="payment_method">
+                    <div class="col-sm-12">
+                        <form target="_self" action="/shop/payment/validate" method="post" class="pull-right">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                            <a class="btn btn-primary a-submit">
+                                <span>Confirm Order <span class="fa fa-long-arrow-right"></span></span>
+                            </a>
+                        </form>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
         <template id="website_sale_checkout_store_confirmation" name="my_confirmation" inherit_id="website_sale.confirmation">
             <xpath expr="//div[@class='oe_cart']/table[2]/tbody/tr" position="after">
                 <t t-if="order.delivery_method_information">

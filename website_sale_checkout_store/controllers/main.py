@@ -39,18 +39,26 @@ class WebsiteSaleExtended(WebsiteSale):
     @http.route()
     def payment(self, **post):
         order = request.website.sale_get_order()
-        payment_super = super(WebsiteSaleExtended, self).payment()
         order.recalc_has_delivery()
         if order.buy_way:
+            data = order.get_shipping_billing()
             if 'noship' in order.buy_way:
                 order.remove_is_delivery()
-                payment_super.qcontext.update({'deliveries': False})
+                data['deliveries'] = False
             if 'nobill' in order.buy_way:
                 request.session['sale_last_order_id'] = order.id
-                order.force_quotation_send()
-                request.website.sale_reset()
-                return request.redirect('/shop/confirmation')
+
+            payment_super = super(WebsiteSaleExtended, self).payment(**post)
+            payment_super.qcontext.update(data)
         return payment_super
+
+    @http.route()
+    def payment_validate(self, transaction_id=None, sale_order_id=None, **post):
+        order = request.website.sale_get_order()
+        if order.buy_way and 'nobill' in order.buy_way:
+            self.reset_order()
+            return request.redirect('/shop/confirmation')
+        return super(WebsiteSaleExtended, self).payment_validate(transaction_id, sale_order_id, **post)
 
     @http.route()
     def payment_get_status(self, sale_order_id, **post):
@@ -59,6 +67,11 @@ class WebsiteSaleExtended(WebsiteSale):
             return {'recall': False, 'message': ''}
         else:
             return super(WebsiteSaleExtended, self).payment_get_status(sale_order_id, **post)
+
+    def reset_order(self):
+        order = request.website.sale_get_order()
+        order.force_quotation_send()
+        request.website.sale_reset()
 
     def _get_mandatory_fields(self):
         order = request.website.sale_get_order()
