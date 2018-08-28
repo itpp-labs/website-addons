@@ -17,6 +17,9 @@
                         <field name="name" class="oe_inline" attrs="{'invisible': [('name','=','/')]}" readonly="1"/>
                     </h1>
                 </xpath>
+                <xpath expr="//field[@name='priority']" position="after">
+                    <field name="avoid_extra_moves"/>
+                </xpath>
             </field>
         </record>
 
@@ -40,6 +43,17 @@
               </p><p>
                 You can either do it immediatly or mark it as Todo for future processing. Use your scanner to validate the transferred quantity quicker.
               </p>
+            </field>
+        </record>
+
+        <record id="view_stock_config_settings" model="ir.ui.view">
+            <field name="inherit_id" ref="stock.view_stock_config_settings"/>
+            <field name="name">stock settings</field>
+            <field name="model">stock.config.settings</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='group_stock_tracking_owner']" position="after">
+                    <field name="avoid_extra_moves"/>
+                </xpath>
             </field>
         </record>
 
