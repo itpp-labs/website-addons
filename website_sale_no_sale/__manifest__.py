@@ -4,7 +4,7 @@
     "name": """Stop Online Sales""",
     "summary": """Adds options to disable all sales and hide all prices, but keep products visible at website""",
     "category": "eCommerce",
-    "images": ["/static/description/icon.png"],
+    "images": ["images/main.jpg"],
     "version": "11.0.1.0.0",
     "application": False,
 
