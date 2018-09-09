@@ -70,6 +70,10 @@ tour.register('shop_mandatory_fields_nobill_ship', {
             trigger: 'a[href="/shop/confirm_order"]',
         },
         {
+            content: "click confirm",
+            trigger: '.btn.btn-primary.a-submit',
+        },
+        {
             content: "Confirm checkout",
             extra_trigger: 'h2:contains(Thank you for your order)',
             trigger: 'h2:contains(Thank you for your order)'
