@@ -4,15 +4,6 @@
 
 The module allow you to process Pickings by barcode scanner via special page /barcode/web (the same as it was in odoo 8.0)
 
-How it works?
--------------
-
-All results after picking process you'll see in Stock moves as validated order.
-
-If product quantity is less than expected, then a Backorder is created
-
-If product quantity is greater than expected, Extra moves order is created.
-
 Credits
 =======
 
