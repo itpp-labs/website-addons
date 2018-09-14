@@ -1,3 +1,8 @@
+`2.3.1`
+-------
+
+- **Fix:** compatibility with latest version of website_multi_theme module
+
 `2.3.0`
 -------
 - **New:** *Go to Website* button opens url of *Current Website* (switcher in top right-corner) rather than *Current domain* (Domain in page url)
