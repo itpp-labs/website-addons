@@ -17,6 +17,7 @@ class ResUsers(models.Model):
         because it's used in _company_default_get which is used to compute
         default values on many models
         """
+        # TODO this extention is moved to web_website (11.0), so it can be removed here
         website_id = self.env.context.get('website_id')
         if website_id:
             return self.env['website'].browse(website_id).company_id
