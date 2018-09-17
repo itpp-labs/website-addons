@@ -1,3 +1,8 @@
+`1.0.2`
+-------
+
+- **FIX:** Fixed error with creation of extra movements.
+
 `1.0.1`
 -------
 

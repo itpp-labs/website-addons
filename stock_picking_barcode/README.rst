@@ -7,6 +7,7 @@ The module allow you to process Pickings by barcode scanner via special page /ba
 Credits
 =======
 
+
 Contributors
 ------------
 
