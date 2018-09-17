@@ -5,3 +5,4 @@ from . import payment_acquirer
 from . import website
 from . import product_pricelist
 from . import res_country
+from . import res_partner
