@@ -2,10 +2,14 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 import logging
+import re
 
-from odoo import models, api
+from odoo import models, api, _
+from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
+# from https://stackoverflow.com/a/26987741/222675
+DOMAIN_REGEXP = r"^(((?!-))(xn--|_{1,1})?[a-z0-9-]{0,61}[a-z0-9]{1,1}\.)*(xn--)?([a-z0-9\-]{1,61}|[a-z0-9-]{1,30}\.[a-z]{2,})$"
 
 
 class Website(models.Model):
@@ -31,3 +35,13 @@ class Website(models.Model):
                 .upstream_dependencies()\
                 ._convert_assets()
         return super(Website, self)._multi_theme_activate()
+
+    @api.constrains('domain')
+    def _check_domain(self):
+        if self.domain and not re.match(DOMAIN_REGEXP, self.domain):
+            if '/' in self.domain:
+                msg = _('Don\'t use slash symbol for domain')
+            else:
+                msg = _('Not a valid domain')
+
+            raise ValidationError(msg)

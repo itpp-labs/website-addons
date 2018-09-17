@@ -1,3 +1,8 @@
+`2.4.0`
+-------
+
+- **Improvement:** check domain for validity on changing
+
 `2.3.1`
 -------
 
