@@ -1,7 +1,12 @@
-`1.0.2`
+`1.0.3`
 -------
 
 - **NEW:** Avoid Extra Moves option.
+
+`1.0.2`
+-------
+
+- **FIX:** Fixed error with creation of extra movements.
 
 `1.0.1`
 -------
