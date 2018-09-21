@@ -47,5 +47,6 @@ class TestDeliveryCarrierSecurity(TransactionCase):
         self.assertEqual(self.delivery_carrier, delivery_carriers)
 
         # for backend (no website_id in context and no backend_website_id in the user's settings either - all published carriers should get found
+        self.user.backend_website_id = None
         delivery_carriers = self.env['delivery.carrier'].sudo(self.user).search([('website_published', '=', True)])
         self.assertEqual(self.all_carriers, delivery_carriers)

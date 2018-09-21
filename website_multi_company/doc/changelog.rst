@@ -1,6 +1,11 @@
 `2.4.0`
 -------
 
+- **New:** compatibility with mail_multi_website
+
+`2.4.0`
+-------
+
 - **Improvement:** check domain for validity on changing
 
 `2.3.1`
