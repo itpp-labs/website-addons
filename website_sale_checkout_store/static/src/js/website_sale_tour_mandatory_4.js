@@ -62,6 +62,11 @@ tour.register('shop_mandatory_fields_nobill_ship', {
             run: "text city",
         },
         {
+            content: "filling in a country",
+            trigger: '#country_id',
+            run: 'text 6',
+        },
+        {
             content: "Confirm checkout",
             trigger: 'a:contains("Next")',
         },
