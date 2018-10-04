@@ -5,7 +5,7 @@
     "category": "Marketing",
     "live_test_url": "http://apps.it-projects.info/shop/product/portal-event-tickets?version=10.0",
     "images": ["images/banner.jpg"],
-    "version": "10.0.1.0.0",
+    "version": "10.0.1.0.1",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev",
@@ -26,6 +26,7 @@
     "external_dependencies": {"python": [], "bin": []},
     "data": [
         "data/event_event_attendee_field_data.xml",
+        "views/website_event_templates.xml",
     ],
     "qweb": [
     ],
