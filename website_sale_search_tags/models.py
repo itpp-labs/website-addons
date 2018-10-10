@@ -6,10 +6,10 @@ class Product(models.Model):
     _inherit = 'product.template'
 
     def _extend_domain(self, domain):
-        if not (self.env.context.get('search_tags')):
-            return domain
-        domain = (['|', ('tag_ids', 'ilike', self.env.context.get('search_tags'))] +
-                  domain)
+        if (self.env.context.get('search_tags') and
+                ('tag_ids', 'ilike', self.env.context.get('search_tags')) not in domain):
+            domain.insert(domain.index(('sale_ok', '=', True)) + 1, '|')
+            domain += [('tag_ids', 'ilike', self.env.context.get('search_tags'))]
         return domain
 
     @api.model
