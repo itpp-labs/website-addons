@@ -6,7 +6,7 @@ License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 <odoo>
 
     <template id="hide_products_prices" name="Hide Prices" inherit_id="website_sale.products_item" active="False" customize_show="True" priority="23">
-            <xpath expr="//div[hasclass('product_price')]//span[@t-esc='product.website_price']" position="replace"></xpath>
+        <xpath expr="//div[hasclass('product_price')]//span[@t-esc='product.website_price']" position="replace"/>
     </template>
 
     <template id="hide_add_to_cart" inherit_id="website_sale.product" active="False" customize_show="True" name="Hide Add to Cart" priority="24">
@@ -16,7 +16,7 @@ License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
     </template>
 
     <template id="hide_price" inherit_id="website_sale.product" active="False" customize_show="True" name="Hide Price" priority="24">
-        <xpath expr="//t[@t-call='website_sale.product_price']" position="replace"></xpath>
+        <xpath expr="//t[@t-call='website_sale.product_price']" position="replace"/>
         <xpath expr="//t[@t-call='website_sale.variants']/*" position="replace">
             <t t-set="ul_class" t-value="'nav-stacked'" />
             <t t-set="hide_price" t-value="1" />
