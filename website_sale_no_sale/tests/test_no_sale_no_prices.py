@@ -10,8 +10,13 @@ from odoo import api
 class TestUi(odoo.tests.HttpCase):
     def enable_environment(self, template_id):
         self.phantom_env = api.Environment(self.registry.test_cr, self.uid, {})
-        self.phantom_env['ir.ui.view'].search([('active', '=', False),
-                                               ('key', '=', template_id)]).write({'active': True})
+        settings = self.phantom_env['res.config.settings']
+        # a reload is needed for the module to work correctly with multi themes
+        if hasattr(settings, 'multi_theme_reload'):
+            settings.multi_theme_reload()
+        self.phantom_env['ir.ui.view'].search(
+            [('active', '=', False), ('website_id', '=', 1), ('key', '=', template_id)]
+        ).write({'active': True})
 
     def disable_conflict_module(self, template_id):
         custom_website_view = self.phantom_env['ir.ui.view'].search([('active', '=', True), ('key', '=', template_id)])
