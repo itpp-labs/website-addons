@@ -258,6 +258,12 @@ Configuration
   * **Website Domain** -- website address, e.g. *shop1.example.com*
   * **Company** -- which company is used for this *website*
   * **Favicon** -- upload website favicon
+  * **Base Url** -- Currently it's used only for switching between websites on frontend. You must specify entire URL with http:// or https:// depending on whether your connection secured or not, for example:
+
+    * http://shop1.example.com/
+    * http://shop1.example.com/
+    * https://shop2.example.com/
+    
   * **Multi Theme** -- select a theme you wish to apply for website, e.g. *theme_bootswatch* 
 
     * Click on **Reload Themes** button before using new theme
