@@ -108,7 +108,8 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                                     head_container: true,
                                     processed_boolean: packopline.processed_boolean,
                                     package_id: myPackage.id,
-                                    ul_id: myPackage.ul_id[0]
+                                    ul_id: myPackage.ul_id[0],
+                                    barcode: packopline.product_barcode
                             },
                             classes: ('success container_head ') + (packopline.processed_boolean === "true"
                                 ? 'processed hidden '
@@ -140,7 +141,8 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                                     head_container: false,
                                     processed_boolean: packopline.processed_boolean,
                                     package_id: void 0,
-                                    ul_id: -1
+                                    ul_id: -1,
+                                    barcode: packopline.product_barcode
                             },
 
                             classes: color + (typeof packopline.result_package_id[1] === 'undefined'
@@ -175,6 +177,49 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
 
             return sorted_row;
         },
+        open_add_pack_modal: function(){
+            var self = this;
+            var modal = $('#add_pack_modal');
+            modal.show();
+            modal.find('.close_modal').off().click(function(e){
+                self.close_add_pack_modal();
+            });
+            modal.find('.new_qty_modal').off().click(function(e){
+                var qty = $('#add_pack_modal .modal_qty').val();
+                self.new_qty_modal(this.getAttribute('pid'), qty);
+            });
+            modal.find('.upd_qty_modal').off().click(function(e){
+                var qty = $('#add_pack_modal .modal_qty').val();
+                self.upd_qty_modal(this.getAttribute('pid'), qty);
+            });
+            $('.modal_prod_description').children().remove();
+            modal.addClass('opened');
+            $('.modal_waiting').show();
+            console.log(this);
+        },
+        close_add_pack_modal: function(){
+            var modal = $('#add_pack_modal');
+            modal.hide();
+            modal.removeClass('opened');
+            console.log(this);
+        },
+        new_qty_modal: function(pid, qty) {
+            this.close_add_pack_modal();
+            var input = $('.js_row_qty input[data-product-id="' + pid + '"]');
+            input.val(qty);
+            var did = input.parents("[data-id]:first").data('id');
+            this.getParent().set_operation_quantity(parseInt(qty), did);
+            this.close_add_pack_modal();
+        },
+        upd_qty_modal: function(pid, qty) {
+            var scanned = $('.js_row_qty input').val();
+            var res_qty = parseInt(scanned) + parseInt(qty);
+            var input = $('.js_row_qty input[data-product-id="' + pid + '"]');
+            input.val(res_qty);
+            var did = input.parents("[data-id]:first").data('id');
+            this.getParent().set_operation_quantity(res_qty, did);
+            this.close_add_pack_modal();
+        },
         renderElement: function(){
             var self = this;
             this._super();
@@ -182,12 +227,16 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             this.$('.js_pick_done').click(function(){
                 self.getParent().done();
             });
-            this.$('.js_pick_print').click(function(){
-                self.getParent().print_picking();
+//            $('#add_pack_modal').hide();
+            this.$('.js_add_pack').click(function(){
+                self.open_add_pack_modal();
             });
             this.$('.oe_pick_app_header').text(self.get_header());
             this.$('.oe_searchbox').keyup(function(event){
                 self.on_searchbox($(this).val());
+            });
+            this.$('.js_drop_down').click(function(){
+                self.getParent().drop_down();
             });
             this.$('.js_putinpack').click(function(){
                 self.getParent().pack();
@@ -1000,9 +1049,35 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             $.bbq.pushState('#action=stock.menu');
             $(window).trigger('hashchange');
         },
+        update_modal: function(ean) {
+            var self = this;
+            var barcodes = _.map(this.picking_editor.rows, function(r){
+                return r.cols.barcode;
+            });
+            var prod_to_show = _.filter(this.picking_editor.rows, function(r){
+                return r.cols.barcode === ean;
+            })[0];
+            console.log(ean);
+            if (prod_to_show) {
+                var desc = qweb.render('ModalInformation',{row:prod_to_show});
+                this.modal_product = prod_to_show.cols.product_id;
+                $('.new_qty_modal').attr('pid', this.modal_product);
+                $('.upd_qty_modal').attr('pid', this.modal_product);
+                $('.modal_prod_description').append(desc);
+                $('.modal_waiting').hide();
+                $('input.modal_qty').focus();
+            } else {
+                $('.modal_waiting').text('Scanned barcode is not in product list. ' + ean);
+            }
+        },
         scan: function(ean){
             var self = this;
             var product_visible_ids = this.picking_editor.get_visible_ids();
+            var modal = $('#add_pack_modal.opened');
+            if (modal.length){
+                this.update_modal(ean);
+                return;
+            }
             return rpc.query({
                 model: 'stock.picking',
                 method: 'process_barcode_from_ui',

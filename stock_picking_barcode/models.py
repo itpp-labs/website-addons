@@ -5,7 +5,13 @@
 # Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
-from odoo import models, api
+from odoo import models, api, fields
+
+
+class StockMoveLine(models.Model):
+    _inherit = "stock.move.line"
+
+    product_barcode = fields.Char('Barcode', related='product_id.product_tmpl_id.barcode')
 
 
 class StockPicking(models.Model):

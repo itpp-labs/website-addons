@@ -1,3 +1,8 @@
+`1.1.0`
+-------
+
+- **Improvement** New button to add packs op product at once.
+
 `1.0.3`
 -------
 
