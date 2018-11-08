@@ -1,3 +1,8 @@
+`1.1.0`
+-------
+
+- **Improvement** New button at barcode web interface to add pack of products at once.
+
 `1.0.3`
 -------
 
