@@ -206,6 +206,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
         new_qty_modal: function(pid, qty) {
             this.close_add_pack_modal();
             var input = $('.js_row_qty input[data-product-id="' + pid + '"]');
+            qty = qty || 0;
             input.val(qty);
             var did = input.parents("[data-id]:first").data('id');
             this.getParent().set_operation_quantity(parseInt(qty), did);
@@ -213,6 +214,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
         },
         upd_qty_modal: function(pid, qty) {
             var scanned = $('.js_row_qty input').val();
+            qty = qty || 0;
             var res_qty = parseInt(scanned) + parseInt(qty);
             var input = $('.js_row_qty input[data-product-id="' + pid + '"]');
             input.val(res_qty);
