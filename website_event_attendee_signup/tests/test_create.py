@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from . import common
 
 USER_DEMO = 'base.user_demo'

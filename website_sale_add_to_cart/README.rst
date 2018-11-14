@@ -3,4 +3,4 @@ Quick add items to shopping cart
 
 Description: https://apps.odoo.com/apps/modules/8.0/website_sale_add_to_cart/
 
-Tested on Odoo 10.0 13d2b29f0151a9f607df96246104f30bb49cae86
+Tested on Odoo 11.0 c7171795f891335e8a8b6d5a6b796c28cea77fea

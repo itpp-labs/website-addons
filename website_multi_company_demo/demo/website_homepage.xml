@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="website_bikes" model="website">
+        <field name="homepage_id" ref="website_page_homepage_bikes" />
+    </record>
+
+    <record id="website_books" model="website">
+        <field name="homepage_id" ref="website_page_homepage_books" />
+    </record>
+
+    <record id="website_watches" model="website">
+        <field name="homepage_id" ref="website_page_homepage_watches" />
+    </record>
+
+    <!-- Update built-in demo, because otherwise _serve_page will use them to response on request for root "/" at any website -->
+    <!-- IT doesn't work because website.homepage_page is under noupdate="1". We do it in python instead
+    <record id="website.homepage_page" model="website.page">
+        <field name="website_ids" eval="[(6, 0, [ref('website.default_website')])]"/>
+    </record>
+     -->
+
+    <record id="website.website2_homepage_page" model="website.page">
+        <field name="website_ids" eval="[(6, 0, [ref('website.website2')])]"/>
+    </record>
+
+</odoo>

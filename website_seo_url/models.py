@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from odoo import models, api
 from odoo.addons.website.models.website import slugify
 

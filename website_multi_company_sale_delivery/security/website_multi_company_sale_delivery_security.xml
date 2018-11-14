@@ -15,7 +15,7 @@
     <field name="name">Delivery carrier read access user</field>
     <field name="active" eval="False"/>
   </record>
-  <record id="delivery_carrier_read_user" model="res.users">
+  <record id="delivery_carrier_read_user" model="res.users" context="{'no_reset_password': True}">
     <field name="name">Technical user for website_multi_company_sale_delivery module</field>
     <field name="login">delivery_user</field>
     <field name="groups_id" eval="[(6, 0, [ref('group_read_permssion_on_delivery_carrier')])]"/>

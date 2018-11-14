@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import werkzeug
 
 from odoo.addons.website_sale.controllers import main as main_file
@@ -14,12 +13,12 @@ class QueryURL(object):
         if not path:
             path = self.path
         is_category = path.startswith('/shop/category/')
-        for k, v in self.args.items():
+        for k, v in list(self.args.items()):
             if is_category and k == 'search':
                 continue
             kw.setdefault(k, v)
         l = []
-        for k, v in kw.items():
+        for k, v in list(kw.items()):
             if v:
                 if isinstance(v, list) or isinstance(v, set):
                     l.append(werkzeug.url_encode([(k, i) for i in v]))

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
@@ -11,6 +10,18 @@ class ResUsers(models.Model):
     _inherit = 'res.users'
 
     editor_website_ids = fields.Many2many('website', string='Editor on websites', help='Empty list allows edit any website')
+
+    @api.model
+    def _get_company(self):
+        """Try to get company from website first. It affects many models and feature,
+        because it's used in _company_default_get which is used to compute
+        default values on many models
+        """
+        # TODO this extention is moved to web_website (11.0), so it can be removed here
+        website_id = self.env.context.get('website_id')
+        if website_id:
+            return self.env['website'].browse(website_id).company_id
+        return super(ResUsers, self)._get_company()
 
     @api.onchange('company_ids')
     def _onchange_company_ids(self):
@@ -26,13 +37,13 @@ class ResUsers(models.Model):
     @api.multi
     def switch_multi_company(self, company):
         """
-        :returns: Is company set to new value
+        :returns: True if company value was changed, otherwise False -- no access to change, None -- no need to change
         """
         self.ensure_one()
 
         user = self
         if user.company_id == company:
-            return True
+            return None
 
         update_company = True
         if company in user.company_ids:

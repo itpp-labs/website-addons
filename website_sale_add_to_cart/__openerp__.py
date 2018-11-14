@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Quick add items to shopping cart',
-    'version': '1.0.1',
+    'version': '11.0.1.0.2',
     'author': 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'LGPL-3',
     'category': 'eCommerce',

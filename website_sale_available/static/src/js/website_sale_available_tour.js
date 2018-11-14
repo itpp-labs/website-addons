@@ -1,3 +1,6 @@
+/*  License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
+    Copyright 2017 Kolushov Alexandr <https://github.com/KolushovAlexandr> */
+
 odoo.define('website_sale_available.tour', function (require) {
 'use strict';
 

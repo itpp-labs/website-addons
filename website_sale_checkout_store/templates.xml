@@ -13,27 +13,26 @@
                 <script src="/website_sale_checkout_store/static/src/js/website_sale_tour_mandatory_2.js" type="text/javascript"></script>
                 <script src="/website_sale_checkout_store/static/src/js/website_sale_tour_mandatory_3.js" type="text/javascript"></script>
                 <script src="/website_sale_checkout_store/static/src/js/website_sale_tour_mandatory_4.js" type="text/javascript"></script>
-            </xpath>
-            <xpath expr="//link[@rel='stylesheet']" position="after">
                 <link rel="stylesheet" href="/website_sale_checkout_store/static/src/css/website_sale_checkout_store.css"/>
             </xpath>
         </template>
+
         <template id="website_sale_checkout_store_cart" name="my_cart" inherit_id="website_sale.cart" priority="50">
-            <xpath expr="//div[@class='row']//a[@class='btn btn-primary pull-right mb32'][@href='/shop/checkout']" position="replace">
+            <xpath expr="//div[hasclass('row')]//a[hasclass('btn','btn-primary','pull-right')][@href='/shop/checkout']" position="replace">
               <t t-if="not hide_checkout_button">
                 <t t-set="button_class" t-value="suggest_create_account and 'btn btn-default pull-right' or 'btn btn-primary pull-right'"/>
                 <!--<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
                 <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
                 <t t-set="nobill_noship"
-                   t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.nobill_noship')"/>
+                   t-value="website.env['ir.config_parameter'].sudo().get_param('website_sale_checkout_store.nobill_noship')"/>
                 <t t-set="bill_noship"
-                   t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.bill_noship')"/>
+                   t-value="website.env['ir.config_parameter'].sudo().get_param('website_sale_checkout_store.bill_noship')"/>
                 <t t-set="bill_ship"
-                   t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.bill_ship')"/>
+                   t-value="website.env['ir.config_parameter'].sudo().get_param('website_sale_checkout_store.bill_ship')"/>
                 <t t-set="nobill_ship"
-                   t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.nobill_ship')"/>
+                   t-value="website.env['ir.config_parameter'].sudo().get_param('website_sale_checkout_store.nobill_ship')"/>
                 <t t-set="default_option"
-                   t-value="website.env['ir.config_parameter'].get_param('website_sale_checkout_store.default_option')"/>
+                   t-value="website.env['ir.config_parameter'].sudo().get_param('website_sale_checkout_store.default_option')"/>
                 <t t-set="list_options" t-value="[nobill_noship, bill_noship, bill_ship, nobill_ship]"/>
                 <div class="pull-right">
                     <div>
@@ -75,36 +74,35 @@
                 </div>
               </t>
             </xpath>
-            <xpath expr="//li[2]" position="attributes">
-                <attribute name="bill">1</attribute>
-            </xpath>
         </template>
 
         <template id="checkout" name="my_checkout" inherit_id="website_sale.checkout">
-            <xpath expr="//div[@class='container oe_website_sale']" position="attributes">
+            <xpath expr="//div[hasclass('container','oe_website_sale')]" position="attributes">
                 <attribute name="t-attf-ship_enabled">#{ship_enabled}</attribute>
                 <attribute name="t-attf-bill_enabled">#{bill_enabled}</attribute>
             </xpath>
-            <xpath expr="//div[@class='row all_shipping']" position="attributes">
+            <xpath expr="//div[hasclass('row','all_shipping')]" position="attributes">
                 <attribute name="t-att-ship">1</attribute>
             </xpath>
-            <xpath expr="//div[@class='row all_shipping']/preceding::div[@class='row'][1]" position="attributes">
+            <xpath expr="//div[hasclass('col-md-12') and ./h2[contains(.,'Shipping Address')]]" position="attributes">
                 <attribute name="t-att-ship">1</attribute>
             </xpath>
         </template>
 
         <template id="address" name="my_checkout" inherit_id="website_sale.address">
-            <xpath expr="//div[@class='container oe_website_sale']" position="attributes">
+            <xpath expr="//div[hasclass('container','oe_website_sale')]" position="attributes">
                 <attribute name="t-attf-ship_enabled">#{ship_enabled}</attribute>
                 <attribute name="t-attf-bill_enabled">#{bill_enabled}</attribute>
             </xpath>
             <xpath expr="//input[@name='street']/.." position="attributes">
                 <attribute name="ship">1</attribute>
             </xpath>
+            <xpath expr="//input[@name='street2']/.." position="attributes">
+                <attribute name="style">display: none</attribute>
+            </xpath>
             <xpath expr="//input[@name='city']/.." position="attributes">
                 <attribute name="ship">1</attribute>
             </xpath>
-
             <xpath expr="(//input[@name='zip'])[1]/.." position="attributes">
                 <attribute name="ship">1</attribute>
             </xpath>
@@ -115,7 +113,6 @@
             <xpath expr="//select[@name='country_id']/.." position="attributes">
                 <attribute name="bill">1</attribute>
             </xpath>
-
             <xpath expr="//input[@name='company_name']/.." position="attributes">
                 <attribute name="ship">1</attribute>
             </xpath>
@@ -126,20 +123,20 @@
             <xpath expr="//input[@name='vat']/.." position="attributes">
                 <attribute name="style">display: none</attribute>
             </xpath>
-            <xpath expr="//h3" position="replace">
+            <xpath expr="//h2" position="replace">
                 <t t-if="shipping == '0' and billing == '0'">
-                    <h3 class="page-header mt16">Contact Information
+                    <h2 class="page-header mt16">Contact Information
                         <small> or </small>
                         <t t-set='connect' t-value="request.env['ir.config_parameter'].sudo().get_param('auth_signup.allow_uninvited') == 'True' and ('signup', 'Sign Up') or ('login', 'Log In')"/>
                         <a t-attf-href='/web/{{connect[0]}}?redirect=/shop/checkout' class='btn btn-primary' style="margin-top: -11px"><t t-esc='connect[1]'/></a>
-                    </h3>
+                    </h2>
                 </t>
                 <t t-else="">
-                    <h3 class="page-header mt16">Your Address
+                    <h2 class="page-header mt16">Your Address
                         <small> or </small>
                         <t t-set='connect' t-value="request.env['ir.config_parameter'].sudo().get_param('auth_signup.allow_uninvited') == 'True' and ('signup', 'Sign Up') or ('login', 'Log In')"/>
                         <a t-attf-href='/web/{{connect[0]}}?redirect=/shop/checkout' class='btn btn-primary' style="margin-top: -11px"><t t-esc='connect[1]'/></a>
-                    </h3>
+                    </h2>
                 </t>
             </xpath>
         </template>
@@ -151,7 +148,7 @@
         </template>
 
         <template id="website_sale_checkout_store_confirmation" name="my_confirmation" inherit_id="website_sale.confirmation">
-            <xpath expr="//div[@class='oe_cart']/table[2]/tbody/tr" position="after">
+            <xpath expr="//div[hasclass('oe_cart')]/table[2]/tr" position="after">
                 <t t-if="order.delivery_method_information">
                     <tr>
                         <td colspan="2">
@@ -161,23 +158,23 @@
                     </tr>
                 </t>
             </xpath>
-            <xpath expr="//div[@class='oe_cart']/table[2]/tbody/tr/td" position="replace">
+            <xpath expr="//div[hasclass('oe_cart')]/table[2]/tr/td" position="replace">
                 <t t-if="not order.payment_acquirer_id.name">
-                    <td colspan="2">
+                    <td class="col-md-8">
                     <strong>Payment:</strong>
                     <t t-esc="order.payment_method_information" />
                     </td>
                 </t>
                 <t t-if="order.payment_acquirer_id.name">
-                    <td colspan="2">
+                    <td class="col-md-8">
                     <strong>Payment Method:</strong>
                     <t t-esc="order.payment_acquirer_id.name" />
                     </td>
                 </t>
             </xpath>
         </template>
-        <template id="orders_followup" name="Sales Order" inherit_id="website_portal_sale.orders_followup">
-            <xpath expr="//div[@class='panel-body']/div[1]" position="after">
+        <template id="orders_followup" name="Sales Order" inherit_id="sale.portal_order_page">
+            <xpath expr="//div[hasclass('panel-body')]/div[1]" position="after">
                 <div class="mb8">
                 <t t-if="order.payment_method_information">
                     <strong>Payment:</strong>

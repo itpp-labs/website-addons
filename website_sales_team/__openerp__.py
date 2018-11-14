@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Sales team in eCommerce',
     'version': '1.0.0',
-    'author': 'IT-Projects LLC, Ivan Yelizariev',
+    'author': 'IT-Projects LLC, Ivan Yelizariev, Nicolas JEUDY',
     'license': 'LGPL-3',
     'category': 'eCommerce',
     "support": "apps@it-projects.info",

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Clear cart button',
     'version': '1.0.0',
@@ -13,5 +12,5 @@
     'data': [
         'website_sale_clear_cart_views.xml',
     ],
-    'installable': True,
+    'installable': False,
 }

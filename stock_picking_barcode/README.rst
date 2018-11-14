@@ -20,12 +20,12 @@ Sponsors
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/website-addons/10.0
+Demo: http://runbot.it-projects.info/demo/website-addons/11.0
 
-HTML Description: https://apps.odoo.com/apps/modules/10.0/stock_picking_barcode/
+HTML Description: https://apps.odoo.com/apps/modules/11.0/stock_picking_barcode/
 
 Usage instructions: `<doc/index.rst>`__
 
 Changelog: `<doc/changelog.rst>`__
 
-Tested on Odoo 10.0 ffba5c688ff74a0630f9f70be1d7760a43a7deba
+Tested on Odoo 11.0 dc61861f90d15797b19f8ebddfb0c8a66d0afa88

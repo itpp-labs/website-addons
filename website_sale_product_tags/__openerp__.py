@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "Product tags at eCommerce",
     'version': '1.0.0',
