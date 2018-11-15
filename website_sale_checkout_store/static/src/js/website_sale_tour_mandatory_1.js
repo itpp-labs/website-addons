@@ -15,22 +15,22 @@ tour.register('shop_mandatory_fields_nobill_noship', {
     [
         // for unsigned user
         {
-            content: "search ipod",
+            content: 'search customizable desk',
             trigger: 'form input[name="search"]',
-            run: "text ipod",
+            run: 'text customizable desk'
         },
         {
-            content: "search ipod",
+            content: 'search customizable desk',
             trigger: 'form:has(input[name="search"]) .oe_search_button',
         },
         {
-            content: "select ipod",
-            extra_trigger: '.oe_product_cart a:contains("iPod")',
-            trigger: '.oe_product_cart a:contains("iPod")',
+            content: 'select desk customizable',
+            extra_trigger: '.oe_product_cart a:contains("Customizable Desk")',
+            trigger: '.oe_product_cart a:contains("Customizable Desk")',
         },
         {
             content: "click on add to cart",
-            trigger: '#product_detail form[action^="/shop/cart/update"] .btn',
+            trigger: '#product_details form[action^="/shop/cart/update"] .btn',
         },
         {
             content: "select payment",
