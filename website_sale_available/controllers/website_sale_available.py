@@ -1,3 +1,10 @@
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
+# Copyright 2015-2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2016 Juan José Scarafía <https://github.com/jjscarafia>
+# Copyright 2016 manawi <https://github.com/manawi>
+# Copyright 2016 Florent Thomas <https://github.com/flotho>
+# Copyright 2017 Kolushov Alexandr <https://github.com/KolushovAlexandr>
+
 import logging
 
 from odoo.http import request

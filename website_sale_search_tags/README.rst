@@ -3,4 +3,4 @@ Website Sale Search Tags
 
 * adds results from searching by tags
 
-Tested on Odoo 8.0 f8d5a6727d3e8d428d9bef93da7ba6b11f344284
+Tested on Odoo 10.0 854eb97b2ef371b70c49ebe6ba39e431bfb74fe3

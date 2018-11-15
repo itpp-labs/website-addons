@@ -37,6 +37,18 @@ Multi-payment-acquirers
 * Specify **Allowed websites** for your payment acquirer. If no website is specified then the acquirer will be available on any website with the same company
 * Choosen websites companies and acquirer's company should be equal
 
+Multi-pricelist
+---------------
+* You can configure pricelist in menu ``[[ Website ]] >> Catalog >> Pricelists``
+
+  * You may need to grant access ``Technical Settings / Sales Pricelists`` for
+    your user first
+
+Billing Countries
+-----------------
+* Open menu ``[[ Website ]] >> Configuration >> Websites``
+* For each website configure **Billing Countries** or keep empty
+* RESULT: ``/shop/address`` will show only specified countries (or all countries, when list is empty)
 
 Usage
 =====
@@ -70,3 +82,8 @@ Multi-payment-acquirers
 * Open website shop
 * Buy a product
 * On Payment step of checkout there should be available only specified acquirers
+
+Multi-pricelist
+---------------
+* Open website shop
+* RESULT: if you have pricelists configured per website, you will see appropriate prices and currency

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- TODO: uncomment this in odoo 12, because there will be no
+         website_multi_theme module anymore with updates that overlap updates of
+         this files: https://github.com/OCA/website/pull/488/files
     <record id="website_menu_action" model="ir.actions.act_window">
         <field name="name">Website Menus</field>
         <field name="res_model">website.menu</field>
@@ -13,7 +16,7 @@
         name="Menus"
         sequence="25"
         action="website_menu_action"/>
-
+    -->
     <record id="menu_tree" model="ir.ui.view">
         <field name="name">website.menu.tree</field>
         <field name="model">website.menu</field>
