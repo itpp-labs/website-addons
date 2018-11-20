@@ -6,21 +6,22 @@
     "category": "eCommerce",
     "live_test_url": "http://apps.it-projects.info/shop/product/website-multi-company?version=11.0",
     "images": ['images/website_multi_company_main.png'],
-    "version": "11.0.1.2.4",
+    "version": "11.0.3.0.0",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev, Nicolas JEUDY",
     "support": "apps@it-projects.info",
     "website": "https://twitter.com/yelizariev",
     "license": "LGPL-3",
-    "price": 400.00,
+    "price": 200.00,
     "currency": "EUR",
 
     "depends": [
-        "mail",
+        "mail_multi_website",
         "website",
         "website_multi_theme",
         "ir_config_parameter_multi_company",
+        "ir_rule_website",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
@@ -29,12 +30,17 @@
         "views/website_page_views.xml",
         "views/website_theme_views.xml",
         "views/res_config_views.xml",
-        "data/ir_module_category.xml",
+        "views/website_navbar_templates.xml",
+        "views/res_users_view.xml",
+        "views/assets.xml",
+        # "data/first_action.xml", TODO: uncomment in odoo 12
+        'security/res_security.xml',
     ],
     "qweb": [
+        "static/src/xml/web_editor.xml",
     ],
     "demo": [
-        # "data/website_demo.xml",
+        "data/demo.xml",
     ],
 
     "post_load": "post_load",

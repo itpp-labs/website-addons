@@ -27,7 +27,12 @@
                 class="oe_inline oe_read_only ml8"
                 name="multi_theme_reload"/>
         </div> 
+
+    <!-- TODO: uncomment this in odoo 12, because there will be no
+         website_multi_theme module anymore with updates that overlap updates of
+         this files: https://github.com/OCA/website/pull/488/files
         <field name="favicon" widget="image" class="oe_avatar oe_left"/>
+    -->
       </group>
       <xpath expr="//header" position="replace"/>
       <xpath expr="//field[@name='domain']" position="after">
@@ -48,6 +53,9 @@
   </record>
 
 
+    <!-- TODO: uncomment this in odoo 12, because there will be no
+         website_multi_theme module anymore with updates that overlap updates of
+         this files: https://github.com/OCA/website/pull/488/files
     <record id="website_action" model="ir.actions.act_window">
         <field name="name">Websites</field>
         <field name="res_model">website</field>
@@ -64,5 +72,14 @@
         name="Websites"
         sequence="100"
         action="website_action"/>
+    -->
+
+    <!--Code below is not needed in odoo 12 -->
+    <record id="website_multi_theme.action_configure_multi_website" model="ir.actions.act_window">
+        <field name="view_ids"
+               eval="[(5, 0, 0),
+                     (0, 0, {'view_mode': 'tree'}),
+                     (0, 0, {'view_mode': 'form', 'view_id': ref('view_website_multi_company_form')})]"/>
+    </record>
 
 </odoo>

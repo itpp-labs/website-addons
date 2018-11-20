@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2017-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).-->
+<odoo>
+
+    <!-- Activate multi-company setting -->
+    <record model="res.groups" id="base.group_user">
+        <field name="implied_ids" eval="[(4, ref('base.group_multi_company'))]"/>
+    </record>
+
+</odoo>

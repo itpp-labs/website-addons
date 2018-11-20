@@ -1,3 +1,8 @@
+`1.0.4`
+-------
+
+- FIX: Errors for languages different from English
+
 `1.0.3`
 -------
 
