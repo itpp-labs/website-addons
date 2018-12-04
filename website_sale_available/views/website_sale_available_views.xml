@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp><data>
+<!--License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
+    Copyright 2016 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+    Copyright 2016 Florent Thomas <https://github.com/flotho>
+    Copyright 2017-2018 Kolushov Alexandr <https://github.com/KolushovAlexandr>-->
+<odoo>
 
 <template id="assets_frontend" inherit_id="website.assets_frontend" name="Shop">
     <xpath expr="." position="inside">
-        <script type="text/javascript" src="/website_sale_available/static/src/js/website_sale_available.js"></script>
         <link rel='stylesheet' href='/website_sale_available/static/src/css/website_sale_available.css'/>
         <script src="/website_sale_available/static/src/js/website_sale_available_tour.js" type="text/javascript"></script>
     </xpath>
 </template>
 
 <!-- priority 99 for compatibility with sale options, first load sale options view and then this one -->
-<template id="cart" inherit_id="website_sale.cart_lines" priority="99">
+<template id="cart_lines_inherited" inherit_id="website_sale.cart_lines" priority="99">
     <xpath expr="//table[@id='cart_products']//thead/tr" position="inside">
         <th  width="60">Available</th>
     </xpath>
@@ -20,6 +23,28 @@
             <t t-esc="line.product_id.virtual_available"/>
         </td>
     </xpath>
+
+    <xpath expr="//table[@id='cart_products']//tbody//tr" position="attributes">
+        <attribute name="t-attf-class" separator=" " add="#{line and 'product_uom_qty' in line and line.product_uom_qty &gt; line.product_id.virtual_available and 'warning' or ''}"/>
+    </xpath>
+
+    <xpath expr="//table[@id='cart_products']" position="inside">
+        <t t-set="availability" t-value="True"/>
+        <t t-foreach="website_sale_order.website_order_line" t-as="line">
+            <t t-if="line and 'product_uom_qty' in line and line.product_uom_qty &gt; line.product_id.virtual_available and 'warning' or ''">
+                <t t-set="availability" t-value="False"/>
+            </t>
+        </t>
+
+        <script type="text/javascript">
+            $(document).ready(function(){
+              var disabling = $('#cart_products').find('tr.warning input').length;
+              $('a[href$="/shop/checkout"]').toggleClass('disabled', !!disabling);
+            });
+        </script>
+
+    </xpath>
+
 </template>
 
-</data></openerp>
+</odoo>

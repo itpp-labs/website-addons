@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Configurable SEO URL (Technical core)""",
     "summary": """Allows to make custom SEO URL for pages related to some record""",
@@ -27,6 +26,6 @@
     "post_load": "post_load",
     "pre_init_hook": None,
     "post_init_hook": None,
-    "installable": True,
+    "installable": False,
     "auto_install": False,
 }

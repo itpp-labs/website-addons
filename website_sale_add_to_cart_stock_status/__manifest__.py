@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Product status at website shop + Quick add items to shopping cart',
     'version': '1.0.0',

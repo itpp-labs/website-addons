@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Website proposal',
     'version': '1.0.0',

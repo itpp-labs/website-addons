@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 {
     'name': "Website Sale Search Clear",
     'summary': """Clear the search""",
     'category': 'eCommerce',
-    'version': '10.0.1.0.1',
+    'version': '11.0.1.0.1',
     'application': False,
-    'author': 'IT-Projects LLC, Ivan Yelizariev, Savoir-faire Linux',
+    'author': 'IT-Projects LLC, Ivan Yelizariev, Savoir-faire Linux, Nicolas JEUDY, Quartile Limited Tim Lai',
     'license': 'GPL-3',
     "support": "apps@it-projects.info",
     'website': 'https://twitter.com/yelizariev',

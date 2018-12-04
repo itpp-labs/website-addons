@@ -8,21 +8,26 @@
 Installation
 ============
 
-Firstly install the external dependencies::
+Dependencies
+------------
+::
 
-	apt-get install ruby-compass
-	gem install compass bootstrap-sass
+    apt-get install ruby-compass
+    gem install compass bootstrap-sass
 
-Then `install <https://odoo-development.readthedocs.io/en/latest/odoo/usage/install-module.html>`__ this module in a usual way.
+Odoo version
+------------
+Please use up-to-date version of odoo or at least be sure, that your odoo has following updates:
 
+* 26 Jun 2018: https://github.com/odoo/odoo/commit/5cecd0a197eba847e4a71bea3a31584d2b88ea6b
 
 Additional modules
 ------------------
 
 Due to technical reasons some multi-website features are located in separate modules, install them depending on your needs:
 
-* if you use ``website_sale`` (eCommerce) module, then install `Real Multi Website (eCommerce extension) <https://www.odoo.com/apps/modules/10.0/website_multi_company_sale/>`__ too 
-* if you use ``website_portal`` (Portal) module, then install `Real Multi Website (portal extension) <https://www.odoo.com/apps/modules/10.0/website_multi_company_portal/>`__ too 
+* if you use ``website_sale`` (eCommerce) module, then install `Real Multi Website (eCommerce extension) <https://www.odoo.com/apps/modules/11.0/website_multi_company_sale/>`__ too 
+* if you use ``website_portal`` (Portal) module, then install `Real Multi Website (portal extension) <https://www.odoo.com/apps/modules/11.0/website_multi_company_portal/>`__ too 
 
 Domain Names
 ------------
@@ -41,10 +46,15 @@ For example:
 
 Web Server
 ----------
-Your webserver (e.g. Apache or Nginx) must pass header ``Host`` to odoo, otherwise there is no way to define which website is used. Required configuration for nginx looks as following::
+Your webserver (e.g. Apache or Nginx) must pass header ``Host`` to odoo, otherwise there is no way to define which website is used. Required configuration for Nginx and Apache looks as following:
 
+Nginx::
+  
         proxy_set_header Host $host;
 
+Apache::
+
+        ProxyPreserveHost On
 
 
 Single database deployment 
@@ -114,9 +124,16 @@ Using dbfilter_from_header module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Most flexible way to deploy multi-database system is using `dbfilter_from_header <https://www.odoo.com/apps/modules/10.0/dbfilter_from_header/>`__ (check module description for installation instruction).
 
-In short, you need to add following line to your nginx config (other webservers are supported too - see description of ``dbfilter_from_header``)::
+In short, you need to add special line to your webserver config (other webservers are supported too - see description of ``dbfilter_from_header``):
 
+Nginx::
+  
     proxy_set_header X-Odoo-dbfilter [your filter regex]
+
+Apache::
+
+    Header add X-ODOO_DBFILTER [your filter regex]
+    RequestHeader add X-ODOO_DBFILTER [your filter regex]
 
 Note, that you probably need to set usual ``db_filter`` to ``.*``, because ``dbfilter_from_header`` module uses that filter first and then applies filter from header.
 
@@ -172,6 +189,38 @@ Example (we use top level domain ``.example`` due to copyright issues, but it co
         }
        }
 
+Apache::
+
+       <VirtualHost *:80>
+	       ServerName miscrosoft-products.example antivirus.example android.antivirus.example
+
+		   ProxyPreserveHost On
+		   Header add X-ODOO_DBFILTER "software_business"
+           RequestHeader add X-ODOO_DBFILTER "software_business"
+		   
+		   ProxyPass /   http://127.0.0.1:8069/
+		   ProxyPassReverse /   http://127.0.0.1:8069/
+
+		   ProxyPass /longpolling/   http://127.0.0.1:8072/longpolling/
+		   ProxyPassReverse /longpolling/   http://127.0.0.1:8072/longpolling/
+		   
+       </VirtualHost>
+	   
+       <VirtualHost *:80>
+           ServerName pizzas.example china-food.example
+
+		   ProxyPreserveHost On
+		   Header add X-ODOO_DBFILTER "delivery_business"
+           RequestHeader add X-ODOO_DBFILTER "delivery_business"
+		   
+           ProxyPass /   http://127.0.0.1:8069/
+		   ProxyPassReverse /   http://127.0.0.1:8069/
+
+		   ProxyPass /longpolling/   http://127.0.0.1:8072/longpolling/
+		   ProxyPassReverse /longpolling/   http://127.0.0.1:8072/longpolling/
+		   
+       </VirtualHost>
+
 Odoo.sh deployment
 ------------------
 
@@ -202,49 +251,35 @@ Configuration
 
 * `Enable technical features <https://odoo-development.readthedocs.io/en/latest/odoo/usage/technical-features.html>`__
 * At ``[[ Settings ]] >> Users >> Users`` menu and activate **Multi Companies** and set **Allowed Companies**
-* Open menu ``[[ Website Admin ]] >> Configuration >> Websites``
+* Open menu ``[[ Website ]] >> Configuration >> Websites``
 * Create or select a website record
 * Update fields:
 
   * **Website Domain** -- website address, e.g. *shop1.example.com*
   * **Company** -- which company is used for this *website*
   * **Favicon** -- upload website favicon
+  * **Base Url** -- Currently it's used only for switching between websites on frontend. You must specify entire URL with http:// or https:// depending on whether your connection secured or not, for example:
+
+    * http://shop1.example.com/
+    * http://shop1.example.com/
+    * https://shop2.example.com/
+    
   * **Multi Theme** -- select a theme you wish to apply for website, e.g. *theme_bootswatch* 
 
-    * if you install any of supported themes after installing this module, you should click on **Reload** button to be able to use them
-    * for unsupported themes extra actions are required as described `below <#multi-theme>`__
-
-Note that to use *Multi Theme* feature you should have the latest updates of Odoo or at least include the following 3 commits:
-  * https://github.com/odoo/odoo/commit/15bf41270d3abb607e7b623b59355594cad170cf
-  * https://github.com/odoo/odoo/commit/7c6714d7fee4125f037ef194f9cff5235a6c5320
-  * https://github.com/odoo/odoo/commit/48fe0a595308722a26afd5361432f24c610b4ba0
-
-To apply them you can use git commands or use patch file ``commits-for-multitheme.patch``. The patch can be found at  module source. Exact commands are as following:
-
-If odoo is a git folder::
-
-    cd /path/to/odoo/source
-    git fetch
-    git cherry-pick 15bf41270d3abb607e7b623b59355594cad170cf
-    git cherry-pick 7c6714d7fee4125f037ef194f9cff5235a6c5320
-    git cherry-pick 48fe0a595308722a26afd5361432f24c610b4ba0
-
-if your installation does not have git::
-
-    cd /path/to/odoo/source
-    patch -p1 < /path/to/commits-for-multitheme.patch
+    * Click on **Reload Themes** button before using new theme
+    * For unofficial themes extra actions are required as described `below <#multi-theme>`__
 
 Website Menus
 -------------
 
-You can edit, duplicate or create new menu at ``[[ Website Admin ]] >> Configuration >> Website Menus`` -- pay attention to fields **Website**, **Parent Menu**. In most cases, **Parent Menu** is a *Top Menu* (i.e. menu record without **Parent Menu** value). If a *website* doesn't have *Top Menu* you need to create one.
+You can edit, duplicate or create new menu at ``[[ Website ]] >> Configuration >> Menus`` -- pay attention to fields **Website**, **Parent Menu**. In most cases, **Parent Menu** is a *Top Menu* (i.e. menu record without **Parent Menu** value). If a *website* doesn't have *Top Menu* you need to create one.
 
 Note. Odoo doesn't share Website Menus (E.g. Homepage, Shop, Contact us, etc.) between websites. So, you need to have copies of them.
 
 Multi-theme
 -----------
 
-After installing theme, navigate to ``[[ Website Admin ]] >> Configuration >> Multi-Themes``. Check that the theme is presented in the list, otherwise add one.
+After installing theme, navigate to ``[[ Website ]] >> Configuration >> Multi-Themes``. Check that the theme is presented in the list, otherwise add one.
 
 Note: themes that depend on ``theme_common`` don't work in demo installation. To avoid this, you have to create database without demo data or comment out demo files in ``__manifest__.py`` file of ``theme_common`` module like this::
  
@@ -252,16 +287,38 @@ Note: themes that depend on ``theme_common`` don't work in demo installation. To
        # 'demo/demo.xml',
     ],
 
-	
-Websites designing
-------------------
+Convert view to multi-website view
+----------------------------------
 
-* Open menu ``[[ Settings ]] >> Users >> Users``
-* Select the user to be designing websites
-* On ``Access Rights`` tab specify **Allowed Companies** (**Multi Companies** should be active already both on current user and on user you make settings for)
-* Your current user (the user you make settings under) should have at least ``Access Rights`` administration privilege to be able to make the settings
-* Make sure that your designer user has at least ``Restricted Editor`` privilege on **Website** security category - this is standard setting
-* On ``Preferences`` tab specify **Editor on websites**. Note that you can only select websites with companies from the Allowed companies list
+When you have custom module which adds some page, you can easily convert to a multi-website view, i.e. it will have different versions of the page per each website. There are two ways to do that.
+
+Convert to multi-website view via Editor
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Open some page in Frontend with Developer Mode activated, e.g. ``/?debug``
+* Click ``Customize -> HTML/CSS Editor``
+* Select some view without suffix *(Website #...)*
+* Click button ``[Convert to Multi-Website]``
+
+Convert to multi-website view via Backend
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+You need to know so called *xml_id*, which has following format: `<MODULE_NAME>.<VIEW_NAME>`. Once you know that do as following:
+
+* `Activate Developer Mode <https://odoo-development.readthedocs.io/en/latest/odoo/usage/debug-mode.html>`__
+* Navigate to ``[[ Website ]] >> Configuration >> Multi-Themes``
+* Choose *Default Theme*
+* In **Views** fields use *Create and Edit...* to add record:
+
+  * **Name**: use *xml_id* of the view
+  * Check that field **Theme** is set to *Default Theme*
+  * Click ``[Save]``
+
+* Click ``[Save]`` at the theme view
+* Navigate to ``[[ Website ]] >> Settings``
+* Click ``Reload Theme List & Update all websites``
+* RESULT: page with the view may be edited independently
+	
+Note, that you have to be sure, that each *Website* uses *Default Theme* directly or indirectly (via **Sub-themes** field).
 
 Usage
 =====
@@ -306,21 +363,10 @@ E.g. to use different Paypal accounts for different websites you need to make th
 * go to ``[[ Invoicing ]] >> Configuration >> Payments Acquirers``
 * open Paypal acquirer and duplicate it by clicking ``[Action] -> Duplicate``
 * for the first one set Company 1, for the second - Company 2
-* activate the developer mode
-* switch to Company 1 from right upper corner
-* go to ``[[ Settings ]] >> System Parameters``
-* create a parameter with following values for the first paypal account::
+* specify the credentials provided for each acquirer:
 
-    Key: payment_paypal.pdt_token
-    Value: your Paypal Identity Token
+  * **Paypal Email ID**
+  * **Paypal Merchant ID**
+  * **Paypal PDT Token**
 
-* switch to Company 2 and add system parameter for second paypal account the same way
-
-Follow the `instruction <https://www.odoo.com/documentation/user/10.0/ecommerce/shopper_experience/paypal.html>`__ to know how to configure Paypal account and get Paypal Identity Token
-
-Steps for websites designing
-----------------------------
-
-* Open one of your sites
-* Log in as website designer
-* RESULT: There will be no ``Edit`` menu if your designer has no rights to edit the website
+Follow the `instruction <https://www.odoo.com/documentation/user/11.0/ecommerce/shopper_experience/paypal.html>`__ to know how to configure Paypal account and get Paypal Identity Token

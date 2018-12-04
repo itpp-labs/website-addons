@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Attendee registration: Birthdate, Passport, Nationality""",
     "summary": """Ask information on registration and stores at Partner record""",
@@ -39,5 +38,5 @@
     "post_init_hook": None,
 
     "auto_install": False,
-    "installable": True,
+    "installable": False,
 }

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import re
 import simplejson
 import pytz
@@ -58,7 +57,7 @@ class WebsiteBookingCalendar(http.Controller):
     @http.route('/booking/calendar/confirm', type='http', auth='public', website=True)
     def order(self, **kwargs):
         tz = int(kwargs.get('timezone', '0'))
-        for key, arg in kwargs.iteritems():
+        for key, arg in kwargs.items():
             if key.startswith('product_id'):
                 m = re.match(r'^product_id\[(\d+)\]\[([\d-]+ [\d:]+)\-([\d-]+ [\d:]+)\]$', key)
                 resource_id = m.group(1)

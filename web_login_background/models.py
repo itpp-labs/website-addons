@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+
 from random import choice
 import hashlib
 
@@ -7,7 +7,7 @@ from odoo import models
 
 
 def _attachment2url(att):
-    sha = hashlib.sha1(getattr(att, '__last_update')).hexdigest()[0:7]
+    sha = hashlib.sha1(getattr(att, '__last_update').encode('utf-8')).hexdigest()[0:7]
     return '/web/image/%s-%s' % (att.id, sha)
 
 
@@ -21,7 +21,7 @@ class IRAttachmentBackground(models.Model):
         ids = self.ids
         cr = self.env.cr
         if ids and mode == 'read':
-            if isinstance(ids, (int, long)):
+            if isinstance(ids, int):
                 ids = [ids]
             ids = ids[:]  # make a copy
             cr.execute('SELECT id,use_as_background FROM ir_attachment WHERE id = ANY (%s)', (ids,))

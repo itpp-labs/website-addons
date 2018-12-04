@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Product swap at eCommerce""",
     "summary": """Product upgrading / changing feature for your online shop""",
@@ -35,5 +34,5 @@
     "uninstall_hook": None,
 
     "auto_install": False,
-    "installable": True,
+    "installable": False,
 }

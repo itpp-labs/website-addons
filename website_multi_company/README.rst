@@ -34,12 +34,12 @@ Multi-Theme
 -----------
 
 * New menu to allow switch theme to multi-theme on-flight (i.e. without adding code to the theme).
-* Removes `restrictions <https://github.com/odoo/odoo/blob/10.0/odoo/addons/base/module/module.py#L387-L400>`__ for Theme category, i.e. allows to install several themes at once
+* Removes `exclusiveness <https://github.com/odoo/odoo/commit/c29cac23fbee395b3f3430346d6781e9dbe0a35c>`__ for Theme category, i.e. allows to install several themes at once
 
 Roadmap
 =======
 
-* TODO: **Editor on websites** field should be hidden for not designers (if configuring user has no at least ``Restricted Editor`` in Website security)
+* TODO: Create website.theme record automatically after theme installation (probably via inheriting ``button_install`` method)
 
 Credits
 =======
@@ -50,23 +50,27 @@ Contributors
 
 Sponsors
 --------
-* `IT-Projects LLC <https://it-projects.info>`__
+* `e-thos SSII <http://www.e-thos.fr/>`__
 
 Maintainers
 -----------
 * `IT-Projects LLC <https://it-projects.info>`__
 
+      To get a guaranteed support you are kindly requested to purchase the module at `odoo apps store <https://apps.odoo.com/apps/modules/11.0/website_multi_company/>`__.
+
+      Thank you for understanding!
+
+      `IT-Projects Team <https://www.it-projects.info/team>`__
+
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/website-addons/10.0
+Demo: http://runbot.it-projects.info/demo/website-addons/11.0
 
-HTML Description: https://apps.odoo.com/apps/modules/10.0/website_multi_company/
+HTML Description: https://apps.odoo.com/apps/modules/11.0/website_multi_company/
 
 Usage instructions: `<doc/index.rst>`_
 
 Changelog: `<doc/changelog.rst>`_
 
-Notifications on updates: `via Atom <https://github.com/it-projects-llc/website-addons/commits/10.0/website_multi_company.atom>`_, `by Email <https://blogtrottr.com/?subscribe=https://github.com/it-projects-llc/website-addons/commits/10.0/website_multi_company.atom>`_
-
-Tested on Odoo 10.0 ffba5c688ff74a0630f9f70be1d7760a43a7deba
+Tested on Odoo 11.0 8787f5acee9b5d2cad15b97804522dc04717a1c1

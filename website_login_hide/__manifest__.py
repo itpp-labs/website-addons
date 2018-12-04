@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Hide the "Sign in" button in Website""",
     "summary": """""",
@@ -22,6 +21,6 @@
     ],
     "demo": [
     ],
-    "installable": True,
+    "installable": False,
     "auto_install": False,
 }

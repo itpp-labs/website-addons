@@ -1,6 +1,11 @@
-# -*- coding: utf-8 -*-
 import re
-import urlparse
+
+try:
+    # python 3
+    from urllib import parse
+except ImportError:
+    # python 2
+    import urlparse as parse
 
 from odoo import models, SUPERUSER_ID, api
 
@@ -38,7 +43,7 @@ class Users(models.Model):
             prefix = None
             suffix = None
             if base:
-                domain = urlparse.urlsplit(base).netloc.split(':')[0]
+                domain = parse.urlsplit(base).netloc.split(':')[0]
                 prefix, _, suffix = domain.partition('.')
 
             if not (prefix and suffix):

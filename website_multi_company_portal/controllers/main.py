@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 from odoo.http import request
-from odoo.addons.website_portal.controllers.main import website_account
+from odoo.addons.portal.controllers.portal import CustomerPortal
 
 
-class MultiCompanyPortal(website_account):
+class MultiCompanyPortal(CustomerPortal):
 
     def _prepare_portal_layout_values(self):
         company = request.website.company_id
