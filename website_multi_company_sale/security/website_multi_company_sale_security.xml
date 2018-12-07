@@ -15,7 +15,16 @@
   <record id="website_multi_company_sale_order_all" model="ir.rule">
     <field name="name">Users with backend_website_id field specified have access only for sale orders from specied website</field>
     <field name="model_id" ref="model_sale_order"/>
-    <field name="domain_force">[('website_id', 'in', [user.backend_website_id.id])]</field>
+    <field name="domain_force">[('website_id', 'in', [user.backend_website_id.id, website_id, None])]</field>
     <field name="backend_behaviour">true</field>
+  </record>
+  <record id="website_multi_read_sale_order_for_portal" model="ir.rule">
+    <field name="name">Allows for Portal User to make sale orders</field>
+    <field name="model_id" ref="model_sale_order"/>
+    <field name="domain_force">[('partner_id', '=', user.partner_id.id)]</field>
+    <field name='perm_create' eval='True'/>
+    <field name='perm_read' eval='True'/>
+    <field name='perm_unlink' eval='False'/>
+    <field name='perm_write' eval='True'/>
   </record>
 </odoo>
