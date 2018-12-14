@@ -269,3 +269,11 @@ class StockPackOperation(models.Model):
         if not new_lot_id:
             new_lot_id = self.env['stock.production.lot'].create(val).id
         self.write({'lot_id': new_lot_id})
+
+
+class QuantPackage(models.Model):
+    _inherit = "stock.quant.package"
+
+    @api.multi
+    def do_print_package(self):
+        return self.env.ref('stock.action_report_quant_package_barcode').report_action(self)

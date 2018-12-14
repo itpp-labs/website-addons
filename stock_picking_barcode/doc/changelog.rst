@@ -1,3 +1,9 @@
+`1.1.1`
+-------
+
+- **Fix** Print button did not worked.
+- **Fix** Error related to pickings with packages.
+
 `1.1.0`
 -------
 
