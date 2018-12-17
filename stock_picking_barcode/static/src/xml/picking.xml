@@ -76,10 +76,10 @@
 
         <div class="row">
                 <div>
-                    <div class="col-sm-4 col-xs-6">
+                    <div class="col-sm-4 col-xs-12">
                         <h2 class="oe_pick_app_header" />
                     </div>
-                    <div class="col-sm-8 col-xs⁻6 text-right">
+                    <div class="col-sm-8 col-xs⁻12 text-right">
 
                     <button type="button" class='btn btn-default js_pick_done'> Create backorder </button>
                     <button type="button" class='btn btn-default js_pick_print'> Print </button>
@@ -263,7 +263,7 @@
     </t>
 
     <t t-name="PickingMenuWidget">
-        <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+        <div class="navbar xx-navbar-barcode-picking" role="navigation">
             <div class="container">
                 <div class="navbar-header navbar-form navbar-left">
                     <input type='text' class="oe_searchbox form-control pull-left" placeholder='Search'/>
@@ -305,7 +305,7 @@
 
 
     <t t-name="PickingMainWidget">
-        <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+        <div class="navbar xx-navbar-barcode-picking" role="navigation">
             <div class="container">
                 <div class="navbar-left">
                     <button type="button" class="btn btn-primary navbar-btn js_pick_menu">Menu</button>

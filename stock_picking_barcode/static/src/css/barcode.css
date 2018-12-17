@@ -157,3 +157,25 @@ body{
   border-bottom-right-radius: 8px;
   border-bottom-left-radius: 8px;
 }
+
+/* STYLING OF THE MOBILE MENU */
+
+.xx-navbar-barcode-picking{
+    background-color:rgba(51, 204, 51, 0.6);
+}
+
+.xx-navbar-barcode-picking .navbar-left{
+    float:left;
+    width:50%;
+    display:inline-block;
+}
+
+.xx-navbar-barcode-picking .navbar-right{
+    float:right;
+    width:50%;
+    display:inline-block;
+}
+
+.js_pick_prev.disabled{
+    visibility:hidden;
+}
