@@ -195,13 +195,11 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             $('.modal_prod_description').children().remove();
             modal.addClass('opened');
             $('.modal_waiting').show();
-            console.log(this);
         },
         close_add_pack_modal: function(){
             var modal = $('#add_pack_modal');
             modal.hide();
             modal.removeClass('opened');
-            console.log(this);
         },
         new_qty_modal: function(pid, qty) {
             this.close_add_pack_modal();
@@ -634,7 +632,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             $(window).trigger('hashchange');
         },
         goto_last_picking_of_type: function(type_id){
-            $.bbq.pushState('#action=stock.ui&picking_type_id='+type_id);
+            $.bbq.pushState('#action=stock.ui&picking_type_id='+ type_id);
             $(window).trigger('hashchange');
         },
         search_picking: function(barcode){
@@ -735,9 +733,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                 }
             });
             var init_hash = $.bbq.getState();
-            this.picking_type_id = init_hash.picking_type_id
-                ? init_hash.picking_type_id[0] || init_hash.picking_type_id
-                :0;
+            this.picking_type_id = init_hash.picking_type_id || 0;
             this.picking_id = init_hash.picking_id
                 ? init_hash.picking_id
                 : void 0;
@@ -767,7 +763,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                     model: 'stock.picking',
                     method: 'get_next_picking_for_ui',
                     args: [
-                        [], { picking_type_id : parseInt(type_id)}
+                        parseInt(type_id)
                     ]
                 }).then(function(picking_ids){
                         if(!picking_ids || picking_ids.length === 0){
