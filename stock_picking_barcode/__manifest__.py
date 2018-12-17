@@ -25,6 +25,7 @@
     "external_dependencies": {"python": [], "bin": []},
 
     "data": [
+        'views/package_report.xml',
         'views/stock.xml',
         'views/stock_view.xml',
         'views/stock_dashboard.xml',

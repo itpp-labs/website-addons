@@ -23,10 +23,3 @@ class BarcodeController(http.Controller):
             'session_info': json.dumps(request.env['ir.http'].session_info())
         }
         return request.render('stock_picking_barcode.barcode_index', qcontext=context)
-
-    @http.route('/stock_quant_packege/print_report', type='http', auth='user')
-    def print_stock_quant_packege(self, **kw):
-        r = request.env['report.stock.forecast']
-        pdf, _ = request.env.ref('stock.action_report_quant_package_barcode').render_qweb_pdf(r)
-        pdfhttpheaders = [('Content-Type', 'application/pdf'), ('Content-Length', len(pdf))]
-        return request.make_response(pdf, headers=pdfhttpheaders)

@@ -276,4 +276,4 @@ class QuantPackage(models.Model):
 
     @api.multi
     def do_print_package(self):
-        return self.env.ref('stock.action_report_quant_package_barcode').report_action(self)
+        return self.env.ref('stock_picking_barcode.action_report_package_stock_picking_barcode').report_action(self)

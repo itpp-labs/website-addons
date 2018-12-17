@@ -1,3 +1,8 @@
+`1.1.2`
+-------
+
+- **Fix** Error related to package processing.
+
 `1.1.1`
 -------
 
