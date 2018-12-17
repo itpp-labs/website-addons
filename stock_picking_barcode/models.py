@@ -159,7 +159,7 @@ class StockPicking(models.Model):
             operation.with_context(no_recompute=True).write({'product_uom_qty': operation.qty_done})
         self.do_transfer()
         # return id of next picking to work on
-        return self.get_next_picking_for_ui()
+        return self.get_next_picking_for_ui(self.picking_type_id.id)
 
     def unpack(self):
         quant_obj = self.env['stock.quant']
