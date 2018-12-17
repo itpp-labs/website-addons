@@ -11,7 +11,7 @@ from odoo import models, api, fields
 class StockMoveLine(models.Model):
     _inherit = "stock.move.line"
 
-    product_barcode = fields.Char('Barcode', related='product_id.product_tmpl_id.barcode')
+    product_barcode = fields.Char('Barcode', related='product_id.barcode')
 
 
 class StockPicking(models.Model):
