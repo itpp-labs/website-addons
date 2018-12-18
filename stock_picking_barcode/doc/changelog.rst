@@ -1,10 +1,10 @@
 `1.1.1`
 -------
 
-- **Fix** Print button did not worked.
+- **Fix** Print button did not work.
 - **Fix** Error related to pickings with packages.
-- **Fix** Error related to displaying all picking independently on the storage/location.
-- **Fix** Error related to incorrect barcode scanning processing for product variants in add pack option.
+- **Fix** Error related to displaying all pickings for the specific storage/location.
+- **Fix** Error related to incorrect barcode scanning processing for product variants in Add Pack option.
 
 `1.1.0`
 -------
