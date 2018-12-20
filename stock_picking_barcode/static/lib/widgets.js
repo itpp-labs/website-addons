@@ -1330,4 +1330,11 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
         }
     });
     core.action_registry.add('stock.ui', PickingMainWidget);
+
+    return {
+        PickingMainWidget: PickingMainWidget,
+        PickingMenuWidget: PickingMenuWidget,
+        PickingEditorWidget: PickingEditorWidget,
+        MobileWidget: MobileWidget
+    }
 });
