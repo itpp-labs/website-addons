@@ -1055,7 +1055,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                 return r.cols.barcode;
             });
             var prod_to_show = _.filter(this.picking_editor.rows, function(r){
-                return r.cols.barcode === ean;
+                return r.cols.barcode === ean || _.include(r.cols.barcode, ean);
             })[0];
             if (prod_to_show) {
                 var desc = qweb.render('ModalInformation',{row:prod_to_show});
@@ -1327,4 +1327,11 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
         }
     });
     core.action_registry.add('stock.ui', PickingMainWidget);
+
+    return {
+        PickingMainWidget: PickingMainWidget,
+        PickingMenuWidget: PickingMenuWidget,
+        PickingEditorWidget: PickingEditorWidget,
+        MobileWidget: MobileWidget
+    };
 });
