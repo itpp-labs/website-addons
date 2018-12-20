@@ -1053,7 +1053,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                 return r.cols.barcode;
             });
             var prod_to_show = _.filter(this.picking_editor.rows, function(r){
-                return r.cols.barcode === ean;
+                return r.cols.barcode === ean || _.include(r.cols.barcode, ean);
             })[0];
             console.log(ean);
             if (prod_to_show) {

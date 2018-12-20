@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).-->
+<odoo>
+
+    <record id="view_partner_form_barcode" model="ir.ui.view">
+        <field name="name">res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field eval="300" name="priority"/>
+        <!--<field name="context">{'default_partner_id': active_id}</field>-->
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales_purchases']" position="inside">
+                <group>
+                    <group string="Product Barcodes" name="product_barcodes">
+                        <field name="multi_barcode_ids" attrs="{'invisible':[('supplier','=',False)]}">
+                            <tree editable="bottom">
+                                <field name="barcode"/>
+                                <field name="product_id"/>
+                            </tree>
+                        </field>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_normal_form_view" model="ir.ui.view">
+        <field name="name">product.product.supplier.barcode.form.inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <!--<field name="context">{'default_partner_id': active_id}</field>-->
+        <field eval="300" name="priority"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='purchase']" position="inside">
+                <group string="Vendors Barcodes" name="product_barcodes">
+                    <field name="multi_barcode_ids">
+                        <tree editable="bottom">
+                            <field name="barcode"/>
+                            <field name="partner_id"/>
+                        </tree>
+                    </field>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_supplierinfo_form_view_inherited" model="ir.ui.view">
+        <field name="name">product.supplierinfo.form.view.inherited</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_form_view"/>
+        <field name="arch" type="xml">
+            <form string="Vendor Information">
+                <xpath expr="//field[@name='company_id']/../.." position="inside">
+                    <group string="Vendors Barcodes" name="product_barcodes">
+                        <field name="multi_barcode_ids">
+                            <tree editable="bottom">
+                                <field name="partner_id" invisible="True"/>
+                                <field name="product_id" invisible="True"/>
+                                <field name="barcode"/>
+                            </tree>
+                        </field>
+                    </group>
+                </xpath>
+            </form>
+        </field>
+    </record>
+
+</odoo>

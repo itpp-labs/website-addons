@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).-->
+<odoo>
+
+    <record id="view_product_supplier_barcode_tree" model="ir.ui.view">
+        <field name="name">res.partner.product.barcode.tree</field>
+        <field name="model">res.partner.product.barcode</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="barcode"/>
+                <field name="partner_id"/>
+                <field name="product_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_product_supplier_barcode_tree" model="ir.ui.view">
+        <field name="name">res.partner.product.barcode.form</field>
+        <field name="model">res.partner.product.barcode</field>
+        <field name="arch" type="xml">
+            <form string="Vendor Product Barcode">
+                <field name="barcode"/>
+                <field name="partner_id"/>
+                <field name="product_id"/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_supplier_barcode_tree" model="ir.actions.act_window">
+        <field name="name">Barcodes</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.product.barcode</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to add a vendor barcode.
+          </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_supplier_barcodes" name="Barcodes"
+    parent="purchase.menu_procurement_management"
+    action="action_supplier_barcode_tree" sequence="99"/>
+
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).-->
+
+<templates id="template_barcode" xml:space="preserve">
+
+    <t t-extend='PickingEditorWidget'>
+        <t t-jquery="#js_LocationChooseModal" t-operation="after">
+           <div class="modal fade" id="js_multiple_products" tabindex="-1" role="dialog" aria-labelledby="LocationChooseModal" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            Warning
+                        </div>
+                        <div class="modal-body">
+                            There are multiple products with the same barcode. Please process them manually
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </t>
+
+</templates>
