@@ -258,6 +258,12 @@ Configuration
   * **Website Domain** -- website address, e.g. *shop1.example.com*
   * **Company** -- which company is used for this *website*
   * **Favicon** -- upload website favicon
+  * **Base Url** -- Currently it's used only for switching between websites on frontend. You must specify entire URL with http:// or https:// depending on whether your connection secured or not, for example:
+
+    * http://shop1.example.com/
+    * http://shop1.example.com/
+    * https://shop2.example.com/
+    
   * **Multi Theme** -- select a theme you wish to apply for website, e.g. *theme_bootswatch* 
 
     * Click on **Reload Themes** button before using new theme
@@ -274,8 +280,6 @@ Multi-theme
 -----------
 
 After installing theme, navigate to ``[[ Website ]] >> Configuration >> Multi-Themes``. Check that the theme is presented in the list, otherwise add one.
-
-If you get error *The style compilation failed*, add modules to **Dependencies** field. It allows to attach theme-like dependencies to corresponding theme and prevent themes compatibility problems.
 
 Note: themes that depend on ``theme_common`` don't work in demo installation. To avoid this, you have to create database without demo data or comment out demo files in ``__manifest__.py`` file of ``theme_common`` module like this::
  
