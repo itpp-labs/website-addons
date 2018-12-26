@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "Product price factor for web shop",
     'summary': """Multiplies price depending on product attributes""",
