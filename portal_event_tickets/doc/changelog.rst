@@ -1,3 +1,8 @@
+`1.1.1`
+-------
+
+- **Fix** Error related to undefined order
+
 `1.1.0`
 -------
 
