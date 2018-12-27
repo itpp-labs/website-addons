@@ -296,7 +296,7 @@ class PortalEvent(CustomerPortal):
 
         order = request.website.sale_get_order(force_create=True)
         name = _('Ticket change: %s') % product.name
-        order.add_refund_line(line, name)
+        order.add_refund_line(line, name, 1)
 
         # TODO: make redirection customizable
         return request.redirect("/event/%s/register" % slug(ticket.event_id))
