@@ -17,8 +17,45 @@
             </xpath>
         </template>
 
+        <template id="website_sale_checkout_store_short_cart_summary" inherit_id="website_sale.short_cart_summary" name="Short Cart tmp">
+            <xpath expr="//a[@href='/shop/checkout?express=1']" position="replace">
+                    <div>
+                        <a t-if="nobill_noship and not optional_products and website_sale_order and website_sale_order.website_order_line"
+                           id="nobill_noship" t-att-class="button_class"
+                           href="/shop/checkout?buyMethod=nobill_noship" style="width: 100%; margin-bottom: 5px">
+                            <span class="visible-xs-inline">Pickup and pay at store</span>
+                            <span class="fa fa-long-arrow-right"/>
+                        </a>
+                    </div>
+                    <div>
+                        <a t-if="bill_noship and not optional_products and website_sale_order and website_sale_order.website_order_line"
+                           id="bill_noship" t-att-class="button_class"
+                           href="/shop/checkout?buyMethod=bill_noship" style="width: 100%; margin-bottom: 5px">
+                            <span class="visible-xs-inline">Pickup at store but pay now</span>
+                            <span class="fa fa-long-arrow-right"/>
+                        </a>
+                    </div>
+                    <div>
+                        <a t-if="bill_ship and not optional_products and website_sale_order and website_sale_order.website_order_line"
+                           id="bill_ship" t-att-class="button_class"
+                           href="/shop/checkout?buyMethod=bill_ship" style="width: 100%; margin-bottom: 5px">
+                            <span class="visible-xs-inline">Pay now and get delivery</span>
+                            <span class="fa fa-long-arrow-right"/>
+                        </a>
+                    </div>
+                    <div>
+                        <a t-if="nobill_ship and not optional_products and website_sale_order and website_sale_order.website_order_line"
+                           id="nobill_ship" t-att-class="button_class"
+                           href="/shop/checkout?buyMethod=nobill_ship" style="width: 100%; margin-bottom: 5px">
+                            <span class="visible-xs-inline">Pay on delivery</span>
+                            <span class="fa fa-long-arrow-right"/>
+                        </a>
+                    </div>
+            </xpath>
+        </template>
+
         <template id="website_sale_checkout_store_cart" name="my_cart" inherit_id="website_sale.cart" priority="50">
-            <xpath expr="//div[hasclass('row')]//a[hasclass('btn','btn-primary','pull-right')][@href='/shop/checkout?express=1']" position="replace">
+            <xpath expr="//div[hasclass('row')]//a[hasclass('btn','btn-primary')][@href='/shop/checkout?express=1']" position="replace">
               <t t-if="not hide_checkout_button">
                 <t t-set="button_class" t-value="suggest_create_account and 'btn btn-default pull-right' or 'btn btn-primary pull-right'"/>
                 <!--<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
@@ -39,7 +76,6 @@
                         <a t-if="nobill_noship and not optional_products and website_sale_order and website_sale_order.website_order_line"
                            id="nobill_noship" t-att-class="button_class"
                            href="/shop/checkout?buyMethod=nobill_noship" style="width: 100%; margin-bottom: 5px">
-                            <span class="hidden-xs">Pickup and pay at store</span>
                             <span class="visible-xs-inline">Pickup and pay at store</span>
                             <span class="fa fa-long-arrow-right"/>
                         </a>
@@ -48,7 +84,6 @@
                         <a t-if="bill_noship and not optional_products and website_sale_order and website_sale_order.website_order_line"
                            id="bill_noship" t-att-class="button_class"
                            href="/shop/checkout?buyMethod=bill_noship" style="width: 100%; margin-bottom: 5px">
-                            <span class="hidden-xs">Pickup at store but pay now</span>
                             <span class="visible-xs-inline">Pickup at store but pay now</span>
                             <span class="fa fa-long-arrow-right"/>
                         </a>
@@ -57,7 +92,6 @@
                         <a t-if="bill_ship and not optional_products and website_sale_order and website_sale_order.website_order_line"
                            id="bill_ship" t-att-class="button_class"
                            href="/shop/checkout?buyMethod=bill_ship" style="width: 100%; margin-bottom: 5px">
-                            <span class="hidden-xs">Pay now and get delivery</span>
                             <span class="visible-xs-inline">Pay now and get delivery</span>
                             <span class="fa fa-long-arrow-right"/>
                         </a>
@@ -66,7 +100,6 @@
                         <a t-if="nobill_ship and not optional_products and website_sale_order and website_sale_order.website_order_line"
                            id="nobill_ship" t-att-class="button_class"
                            href="/shop/checkout?buyMethod=nobill_ship" style="width: 100%; margin-bottom: 5px">
-                            <span class="hidden-xs">Pay on delivery</span>
                             <span class="visible-xs-inline">Pay on delivery</span>
                             <span class="fa fa-long-arrow-right"/>
                         </a>
@@ -84,7 +117,7 @@
             <xpath expr="//div[hasclass('row','all_shipping')]" position="attributes">
                 <attribute name="t-att-ship">1</attribute>
             </xpath>
-            <xpath expr="//div[hasclass('col-md-12') and ./h3[contains(.,'Shipping Address')]]" position="attributes">
+            <xpath expr="//div[./h3[contains(.,'Shipping Address')]]" position="attributes">
                 <attribute name="t-att-ship">1</attribute>
             </xpath>
         </template>
@@ -150,7 +183,7 @@
                     </tbody>
                 </table>
             </xpath>
-            <xpath expr="//div[hasclass('oe_cart')]/div[hasclass('panel', 'panel-default')]/div[hasclass('panel-body')]/div" position="replace">
+            <xpath expr="//div[hasclass('oe_cart')]/div[hasclass('card', 'mt-3')]/div[hasclass('card-body')]/div" position="replace">
                 <t t-if="order.buy_way == 'bill_noship'">
                     <div><b>Billing : </b><span t-esc='order.partner_id' t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=' ')" class="address-inline"/></div>
                 </t>
@@ -164,44 +197,4 @@
                 </t>
             </xpath>
         </template>
-        <template id="payment" name="Payment" inherit_id="website_sale.payment">
-            <xpath expr="//div[hasclass('oe_website_sale')]//div[hasclass('panel', 'panel-default')]/div[hasclass('panel-body')]/div" position="replace">
-                <t t-if="order.buy_way == 'bill_noship'">
-                <div><b>Billing: </b><span t-esc='order.partner_id' t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=' ')" class="address-inline"/></div>
-                </t>
-                <t t-if="order.buy_way == 'bill_ship'">
-                    <div><b>Billing <t t-if="same_shipping and not only_services"> &amp; Shipping</t>: </b><span t-esc='order.partner_id' t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')" class="address-inline"/></div>
-                    <div t-if="not same_shipping and not only_services" groups="sale.group_delivery_invoice_address"><b>Shipping: </b><span t-esc='order.partner_shipping_id' t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')"  class="address-inline"/></div>
-                </t>
-            </xpath>
-        </template>
-        <template id="orders_followup" name="Sales Order" inherit_id="sale.portal_order_page">
-            <xpath expr="//div[hasclass('panel-body')]/div[1]" position="after">
-                <div class="mb8">
-                <t t-if="order.payment_method_information">
-                    <strong>Payment:</strong>
-                    <span t-field="order.payment_method_information"/>
-                </t>
-                    <br/>
-                <t t-if="order.delivery_method_information">
-                    <strong>Delivery:</strong>
-                    <span t-field="order.delivery_method_information"/>
-                </t>
-                </div>
-            </xpath>
-        </template>
-        <!--
-        <template id="report_shop_saleorder_document" inherit_id="sale.report_saleorder_document">
-            <xpath expr="//div[@name='payment_term']" position="after">
-                <div name="payment_information" t-if="doc.payment_method_information" class="col-xs-3">
-                    <strong>Payment:</strong>
-                    <p t-field="doc.payment_method_information"/>
-                </div>
-                <div name="delivery_information" t-if="doc.delivery_method_information" class="col-xs-3">
-                    <strong>Delivery:</strong>
-                    <p t-field="doc.delivery_method_information"/>
-                </div>
-            </xpath>
-        </template>
--->
 </odoo>
