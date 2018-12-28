@@ -1,3 +1,9 @@
+`1.1.1`
+-------
+
+- **Fix** Error related to undefined order
+- **Fix** Cancelling all tickets bought in the orderline instead of the only one to be updated
+
 `1.1.0`
 -------
 
