@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Sign-up event attendees to portal""",
     "summary": """Attendees can use portal dashboard to make extra purchases for the event, for example.""",
@@ -34,5 +33,5 @@
     "post_init_hook": None,
 
     "auto_install": False,
-    "installable": True,
+    "installable": False,
 }

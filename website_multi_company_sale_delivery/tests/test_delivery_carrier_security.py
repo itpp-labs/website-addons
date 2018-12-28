@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 from openerp.tests.common import TransactionCase
@@ -32,6 +31,7 @@ class TestDeliveryCarrierSecurity(TransactionCase):
         other_carriers = self.env.ref("delivery.normal_delivery_carrier") + self.env.ref("delivery.free_delivery_carrier")
         other_carriers.write({'website_ids': [(4, self.env.ref('website.default_website').id)]})
         self.all_carriers = other_carriers + self.delivery_carrier
+        self.all_carriers.write({'website_published': True})
 
     def test_get_website_sale_countries_and_states(self):
         countries = self.country.with_context(website_id=self.website.id).get_website_sale_countries(mode='shipping')
@@ -47,8 +47,6 @@ class TestDeliveryCarrierSecurity(TransactionCase):
         self.assertEqual(self.delivery_carrier, delivery_carriers)
 
         # for backend (no website_id in context and no backend_website_id in the user's settings either - all published carriers should get found
-        delivery_carriers = self.env['delivery.carrier'].sudo(self.user).search([('website_published', '=', True)])
-        self.assertEqual(self.all_carriers, delivery_carriers)
-        # for backend and user has differ company - not the same as delivery carriers's product company, should get the same result - as products are shared
+        self.user.backend_website_id = None
         delivery_carriers = self.env['delivery.carrier'].sudo(self.user).search([('website_published', '=', True)])
         self.assertEqual(self.all_carriers, delivery_carriers)

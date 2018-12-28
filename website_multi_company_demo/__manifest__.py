@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Demo Data for \"Real Multi Website\"""",
     "summary": """Provides demo websites""",
     "category": "Hidden",
     # "live_test_URL": "",
     "images": [],
-    "version": "10.0.1.0.0",
+    "version": "11.0.1.0.0",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev",
@@ -31,8 +30,10 @@
         "demo/product_public_category_demo.xml",
         "demo/product.template.csv",
         "demo/ir.ui.view.csv",
+        "demo/website_page.xml",
         "demo/website.menu.csv",
         "demo/website_templates.xml",
+        "demo/website_homepage.xml",
         "demo/website_blog.xml",
     ],
 

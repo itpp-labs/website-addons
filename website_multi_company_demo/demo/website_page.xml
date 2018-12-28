@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="website_page_homepage_watches" model="website.page">
+        <field name="website_published">True</field>
+        <field name="url">/</field>
+        <field name="view_id" ref="website_view_watches" />
+        <field name="website_ids" eval="[(6, 0, [ref('website_watches')])]"/>
+    </record>
+
+    <record id="website_page_homepage_bikes" model="website.page">
+        <field name="website_published">True</field>
+        <field name="url">/</field>
+        <field name="view_id" ref="website_view_bikes" />
+        <field name="website_ids" eval="[(6, 0, [ref('website_bikes')])]"/>
+    </record>
+
+    <record id="website_page_homepage_books" model="website.page">
+        <field name="website_published">True</field>
+        <field name="url">/</field>
+        <field name="view_id" ref="website_view_books" />
+        <field name="website_ids" eval="[(6, 0, [ref('website_books')])]"/>
+    </record>
+</odoo>

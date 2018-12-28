@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Customer Event Portal""",
     "summary": """Allows to customers see their tickets for events at the Portal""",
@@ -42,7 +41,7 @@
     "uninstall_hook": None,
 
     "auto_install": False,
-    "installable": True,
+    "installable": False,
 
     "demo_title": "Event extensions",
     "demo_addons": ["website_event_attendee_fields", "website_event_attendee_signup", "website_event_require_login"],

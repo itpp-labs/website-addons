@@ -51,7 +51,7 @@ $(document).ready(function () {
     });
     */
 
-    if (page_product_id){
+    if (page_product_id) {
         $('input.form-control.js-quantity').val(0);
     }
     ajax.jsonRpc("/shop/get_order_numbers", 'call').then(function(data){

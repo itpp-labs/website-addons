@@ -1,3 +1,8 @@
+`1.0.2`
+-------
+
+- [FIX] "float division by zero" error
+
 `1.0.1`
 -------
 

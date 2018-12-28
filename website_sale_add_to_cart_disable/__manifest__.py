@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Hide "Add To Cart" button from product page""",
     "summary": """Allows to disable product sales via eCommerce for any reason""",
@@ -29,6 +28,6 @@
     "post_load": None,
     "pre_init_hook": None,
     "post_init_hook": None,
-    "installable": True,
+    "installable": False,
     "auto_install": False,
 }

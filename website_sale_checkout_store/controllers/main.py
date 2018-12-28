@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2016 Ilyas <https://github.com/ilyasProgrammer>
 # Copyright 2016-2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2017 Dmytro Katyukha <https://github.com/katyukha>

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "Hide quantity field in web shop",
     'summary': "Allows to sale only 1 item at once",

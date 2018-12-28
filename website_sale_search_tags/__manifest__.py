@@ -1,11 +1,11 @@
-# -*- coding: utf-8 -*-
 {
     'name': "Website Search Product Tags",
     'summary': """Search website products by tags""",
     'category': 'eCommerce',
-    'version': '10.0.1.0.2',
+    'version': '11.0.1.0.2',
     'application': False,
-    'author': 'IT-Projects LLC, Ivan Yelizariev, Savoir-faire Linux',
+    'author': 'IT-Projects LLC, Ivan Yelizariev, Savoir-faire Linux, '
+              'Quartile Limited Tim Lai',
     'license': 'GPL-3',
     "support": "apps@it-projects.info",
     'website': 'https://twitter.com/yelizariev',
@@ -18,5 +18,5 @@
     'post_init_hook': None,
 
     'auto_install': False,
-    'installable': True,
+    'installable': False,
 }

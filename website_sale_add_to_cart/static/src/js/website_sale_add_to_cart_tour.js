@@ -27,9 +27,21 @@ tour.register('shop_add_to_cart', {
             run: "text 1",
         },
         {
-            content: "add Apple Wireless Keyboard to cart",
-            extra_trigger: '.oe_product_cart a:contains("Apple Wireless Keyboard")',
+            content: "add one more",
             trigger: '.float_left > .fa-plus',
+        },
+        {
+            content: "load product page to increase coverage",
+            trigger: 'a:contains("Apple Wireless Keyboard")',
+        },
+        {
+            content: "add one more",
+            extra_trigger: 'input[name="add_qty"]',
+            trigger: '.float_left > .fa-plus',
+        },
+        {
+            content: "return back",
+            trigger: 'form:has(input[name="search"]) .oe_search_button',
         },
         {
             content: "add Apple Wireless Keyboard to cart",
@@ -43,8 +55,8 @@ tour.register('shop_add_to_cart', {
         },
         {
             content: "check quantity",
-            extra_trigger: 'input[value="1"]',
-            trigger: 'input[value="1"]',
+            extra_trigger: 'input[value="2"]',
+            trigger: 'th:contains(Price)',
         },
     ]
 );

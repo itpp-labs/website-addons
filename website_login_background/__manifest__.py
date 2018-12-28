@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Website login background""",
     "summary": """Random background image to your taste at the website login page""",
@@ -23,6 +22,6 @@
     ],
     "demo": [
     ],
-    "installable": True,
+    "installable": False,
     "auto_install": True,
 }

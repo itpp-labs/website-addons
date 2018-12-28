@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Chess""",
     "summary": """Play Chess with other users in Odoo!""",
@@ -33,5 +32,5 @@
     ],
     "qweb": ['static/xml/*.xml'],
 
-    "installable": True,
+    "installable": False,
 }
