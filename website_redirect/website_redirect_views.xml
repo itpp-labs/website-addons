@@ -39,7 +39,7 @@
     <field name="name">website.redirect.tree</field>
     <field name="model">website.redirect</field>
     <field name="arch" type="xml">
-        <tree string="Redirections">
+        <tree>
             <field name="sequence" widget="handle"/>
             <field name="name"/>
             <field name="domain"/>

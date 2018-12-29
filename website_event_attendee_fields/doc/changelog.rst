@@ -1,3 +1,8 @@
+`2.0.1`
+-------
+
+- **Fix** Error related to availability of buying multiple tickets registered to the same person
+
 `2.0.0`
 -------
 

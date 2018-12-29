@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/it-projects-llc/website-addons.svg?branch=10.0)](https://travis-ci.com/it-projects-llc/website-addons)
+
 # website-addons
 Odoo (OpenERP) website addons
 

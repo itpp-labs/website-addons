@@ -5,7 +5,7 @@
       <field name="name">chess.game.new</field>
       <field name="model">chess.game</field>
       <field name="arch" type="xml">
-        <tree string="New games" create="false">
+        <tree create="false">
           <field name="game_type" string="Game Type"/>
           <field name="date_start" string ="Start Date" />
           <field name="first_user_id" string="User Name"/>
@@ -21,7 +21,7 @@
       <field name="name">chess.game.active</field>
       <field name="model">chess.game</field>
       <field name="arch" type="xml">
-        <tree string="Active Games" create="false">
+        <tree create="false">
           <field name="game_type" stating="Game Type" />
           <field name="date_start" string="Start Date" />
           <field name="first_user_id" string="User Name"/>
@@ -36,7 +36,7 @@
       <field name="name">chess.game.completed</field>
       <field name="model">chess.game</field>
       <field name="arch" type="xml">
-        <tree string="Completed games" create="false">
+        <tree create="false">
           <field name="game_type" string="Game Type"/>
           <field name="date_start" string="Start Date"/>
           <field name="date_finish" string="Finish Date" />
@@ -50,7 +50,7 @@
       <field name="name">chess.game.denied</field>
       <field name="model">chess.game</field>
       <field name="arch" type="xml">
-        <tree string="Refusals of games" create="false">
+        <tree create="false">
           <field name="game_type" string="Game Type"/>
           <field name="date_start" string="Start Date" />
           <field name="second_user_id" string="User Name"/>
@@ -62,7 +62,7 @@
       <field name="name">chess.game.invitations</field>
       <field name="model">chess.game</field>
       <field name="arch" type="xml">
-        <tree string="My invitations" create="false">
+        <tree create="false">
           <field name="game_type" string="Game Type"/>
           <field name="date_start" string="Start Date" />
           <field name="second_user_id" string="User Name"/>
@@ -77,7 +77,7 @@
       <field name="name">chess.game.canceled</field>
       <field name="model">chess.game</field>
       <field name="arch" type="xml">
-        <tree string="Canceled games" create="false">
+        <tree create="false">
           <field name="game_type" string="Game Type"/>
           <field name="date_start" string="Start Date"/>
           <field name="second_user_id" string="User Name"/>
