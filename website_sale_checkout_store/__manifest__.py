@@ -8,7 +8,7 @@
     'summary': """Simplify checkout process by excluding shipping and/or payment information""",
     'category': 'eCommerce',
     'images': ['images/1.png'],
-    'version': '11.0.1.0.4',
+    'version': '12.0.1.0.4',
 
     'author': 'IT-Projects LLC',
     "support": "apps@it-projects.info",
@@ -26,6 +26,6 @@
         'views.xml',
         'data/data.xml',
     ],
-    'installable': True,
+    "installable": True,
     'auto_install': False,
 }

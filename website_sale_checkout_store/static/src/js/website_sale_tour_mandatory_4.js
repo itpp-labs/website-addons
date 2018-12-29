@@ -15,21 +15,22 @@ tour.register('shop_mandatory_fields_nobill_ship', {
     [
         // for unsigned user
         {
-            content: "search ipod",
+            content: 'search customizable desk',
             trigger: 'form input[name="search"]',
-            run: "text ipod",
+            run: 'text customizable desk'
         },
         {
-            content: "search ipod",
+            content: 'search customizable desk',
             trigger: 'form:has(input[name="search"]) .oe_search_button',
         },
         {
-            content: "select ipod",
-            trigger: '.oe_product_cart a:contains("iPod")',
+            content: 'select customizable desk',
+            extra_trigger: '.oe_product_cart a:contains("Customizable Desk")',
+            trigger: '.oe_product_cart a:contains("Customizable Desk")',
         },
         {
             content: "click on add to cart",
-            trigger: '#product_detail form[action^="/shop/cart/update"] .btn',
+            trigger: '#product_details form[action^="/shop/cart/update"] .btn',
         },
         //--------------------------DEFAULT PART ENDS--------------------------------------
         {
@@ -64,10 +65,6 @@ tour.register('shop_mandatory_fields_nobill_ship', {
         {
             content: "Confirm checkout",
             trigger: 'a:contains("Next")',
-        },
-        {
-            content: "click confirm",
-            trigger: 'a[href="/shop/confirm_order"]',
         },
         {
             content: "Confirm checkout",
