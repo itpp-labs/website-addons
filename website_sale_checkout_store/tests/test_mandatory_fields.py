@@ -4,11 +4,27 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 import odoo.tests
+from odoo.api import Environment
 
 
 @odoo.tests.common.at_install(True)
 @odoo.tests.common.post_install(True)
 class TestUi(odoo.tests.HttpCase):
+
+    def setUp(self):
+        super(TestUi, self).setUp()
+        cr = self.registry.cursor()
+        assert cr == self.registry.test_cr
+        env = Environment(cr, self.uid, {})
+        module = 'product_tags'
+        if env['ir.module.module'].search([('name', '=', module), ('state', '=', 'installed')]):
+            tag = env['product.tag'].create({
+                'name': 'iPod'
+            })
+            product = env['product.template'].search([('name', '=', 'iPod')])
+            product.write({
+                'tag_ids': [(6, 0, [tag.id])]
+            })
 
     # big timeout due to long redirects (checkout -> confirmation) in nobill cases
     def test_checkout_nobill_noship(self):
