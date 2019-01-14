@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).-->
+<odoo>
+
+    <record id="view_inventory_form_inherit" model="ir.ui.view">
+        <field name="name">stock.inventory.form</field>
+        <field name="model">stock.inventory</field>
+        <field name="inherit_id" ref="stock.view_inventory_form"/>
+        <field eval="300" name="priority"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_cancel_draft']" position="after">
+                <!--<button name="action_scan_inventory" states="confirm" string="Scan Inventory" id="action_scan_inventory" class="oe_highlight"/>-->
+            </xpath>
+            <xpath expr="//field[@name='theoretical_qty']" position="after">
+                <field name="product_barcode" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

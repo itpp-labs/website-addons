@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).-->
+
+<templates id="template" xml:space="preserve">
+
+    <t t-name="action_scan_inventory_modal">
+        <div id="action_scan_inventory_modal" class="action_scan_inventory modal">
+            <div class="modal-content">
+                <span class="close">&amp;times;</span>
+                <div class="panel-heading">
+                    <div>
+                        <span class="item">Item:</span> <span class="item2"> <t t-esc="line.data.product_id.data.display_name"/> </span>
+                    </div>
+                    <div>
+                        <span class="size">Size:</span> <span class="size2"> <t t-esc="line.data.product_uom_id.data.display_name"/> </span>
+                    </div>
+                    <div>
+                        <span class="qty">Theoretical Qty:</span> <span class="qty2"> <t t-esc="line.data.theoretical_qty"/> </span>
+                    </div>
+                </div>
+                <div class="panel-content container">
+                    <div class="row">
+                        <div  class="col-xs-3">
+                            <h1>Real Qty: </h1>
+                        </div>
+                        <div class='col-xs-6 real_qty'>
+                            <div>
+                                <input type='text' class="modal_input" placeholder="Placeholder"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <button type="button" class="btn btn-primary modal_check_barcode" data-dismiss="modal">Check Barcode</button>
+                    <button type="button" class="btn btn-primary modal_update_qty">Update Qty</button>
+                    <button type="button" class="btn btn-primary modal_skip_product">Skip Product</button>
+                    <button type="button" class="btn btn-primary modal_save_exit">Save &amp; Exit</button>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="check_barcode_modal">
+        <div id="check_barcode_modal" class="action_scan_inventory modal">
+            <div class="modal-content">
+                <span class="close">&amp;times;</span>
+                <div class="panel-heading">
+                    <div>
+                        <span class="barcode">Product Barcode:</span> <span class="barcode2"> <t t-esc="line.data.product_barcode"/> </span>
+                    </div>
+                </div>
+                <div class="panel-content container">
+                    <span class="barcode">Scanned Barcode:</span> <input type='text' class="check_barcode_input" placeholder="Placeholder"/>
+                </div>
+                <div class="panel-message">
+                </div>
+                <div class="panel-footer">
+                    <button type="button" class="btn btn-primary check_barcode_modal_exit">Exit</button>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>
