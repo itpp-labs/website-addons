@@ -30,7 +30,11 @@ tour.register('shop_mandatory_fields_bill_noship', {
         },
         {
             content: "click on add to cart",
-            trigger: '#product_details form[action^="/shop/cart/update"] .btn',
+            trigger: '#add_to_cart',
+        },
+        {
+            content: "click on proceed to checkout",
+            trigger: '.btn-primary span:contains("Proceed to Checkout")',
         },
         //--------------------------DEFAULT PART ENDS--------------------------------------
         {
@@ -66,9 +70,12 @@ tour.register('shop_mandatory_fields_bill_noship', {
             trigger: 'button[type=submit]',
         },
         {
-            content: "Confirm checkout",
-            extra_trigger: 'h2:contains(Thank you for your order)',
-            trigger: 'h2:contains(Thank you for your order)',
+            content: "Confirm payment method",
+            trigger: "td:contains('Wire Transfer')",
+        },
+        {
+            content: "Confirm delivery method",
+            trigger: "td:contains('Pickup at store')",
         },
     ]
 );
