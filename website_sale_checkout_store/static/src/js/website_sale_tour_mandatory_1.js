@@ -30,7 +30,11 @@ tour.register('shop_mandatory_fields_nobill_noship', {
         },
         {
             content: "click on add to cart",
-            trigger: '#product_details form[action^="/shop/cart/update"] .btn',
+            trigger: '#add_to_cart',
+        },
+        {
+            content: "click on proceed to checkout",
+            trigger: '.btn-primary span:contains("Proceed to Checkout")',
         },
         {
             content: "select payment",
@@ -56,10 +60,13 @@ tour.register('shop_mandatory_fields_nobill_noship', {
             trigger: 'a:contains("Next")',
         },
         {
-            content: "Confirm checkout",
-            extra_trigger: 'h2:contains(Thank you for your order)',
-            trigger: 'h2:contains(Thank you for your order)',
+            content: "Confirm payment method",
+            trigger: "td:contains('Pay at store')",
         },
+        {
+            content: "Confirm delivery method",
+            trigger: "td:contains('Pickup at store')",
+        }
     ]
 );
 });
