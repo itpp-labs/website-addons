@@ -4,10 +4,11 @@ import hashlib
 
 from odoo import fields, api
 from odoo import models
+from odoo.tools import pycompat
 
 
 def _attachment2url(att):
-    sha = hashlib.sha1(getattr(att, '__last_update').encode('utf-8')).hexdigest()[0:7]
+    sha = hashlib.md5(pycompat.to_text(att.datas).encode('utf-8')).hexdigest()[0:7]
     return '/web/image/%s-%s' % (att.id, sha)
 
 

@@ -1,3 +1,9 @@
+`1.0.2`
+-------
+
+- **Fix:** applied new CSS styles according to changes in 12 odoo
+- **Fix:** changed the process of getting hash for url
+
 `1.0.1`
 -------
 
