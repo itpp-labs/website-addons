@@ -1,3 +1,8 @@
+`2.0.2`
+-------
+
+- **Fix** Error related to partner account duplication when buying a ticket
+
 `2.0.1`
 -------
 
