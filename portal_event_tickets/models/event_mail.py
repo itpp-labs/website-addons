@@ -54,7 +54,7 @@ class EventMailScheduler(models.Model):
 class EventMailRegistration(models.Model):
     _inherit = 'event.mail.registration'
 
-    @api.one
+    @api.multi
     @api.depends('registration_id', 'scheduler_id.interval_unit', 'scheduler_id.interval_type')
     def _compute_scheduled_date(self):
         # keep for-block event though it's api.one now (it was api.multi but it didn't work -- scheduled_date was empty)
