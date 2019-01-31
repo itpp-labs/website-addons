@@ -17,19 +17,16 @@
     # "currency": "EUR",
 
     "depends": [
-        "{DEPENDENCY1}",
-        "{DEPENDENCY2}",
+        "stock",
+        "purchase",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
-        "{FILE1}.xml",
-        "{FILE2}.xml",
+        "views/stock_view.xml",
     ],
     "demo": [
-        "demo/{DEMOFILE1}.xml",
     ],
     "qweb": [
-        "static/src/xml/{QWEBFILE1}.xml",
     ],
 
     "post_load": None,
