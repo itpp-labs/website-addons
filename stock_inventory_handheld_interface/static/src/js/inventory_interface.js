@@ -41,6 +41,10 @@ FormRenderer.include({
             modal.state = state;
             self.update_stock_modal(modal);
             modal.render_header();
+            var line = modal.current_line.data;
+            if (line.theoretical_qty === line.product_qty) {
+                modal.modal_skip_product();
+            }
         });
     },
 
