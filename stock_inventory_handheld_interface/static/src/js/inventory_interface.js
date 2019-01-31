@@ -16,7 +16,7 @@ FormRenderer.include({
         var self = this;
         var result = this._super.apply(this, arguments);
         var state = this.state;
-        if (state.model === "stock.inventory" && state.data.state === "confirm") {
+        if (state.model === "stock.inventory" && state.data.state === "confirm" && this.mode !== 'edit') {
             this.create_stock_modal(result);
         }
         return result;
