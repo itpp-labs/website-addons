@@ -176,10 +176,22 @@ FormRenderer.include({
     create_check_barcode_modal: function(){
         var self = this;
 
-        var loaded_barcodes = rpc.query({
-                model: 'res.partner.product.barcode',
+        var loaded_barcodes = $.Deferred();
+        var barcode = rpc.query({
+                model: 'product.product',
                 method: 'search_read',
-                args: [[['product_id', '=', this.modal.current_line.data.product_id.data.id]], ['barcode', 'id']]
+                args: [[['id', '=', self.modal.current_line.data.product_id.data.id]], ['barcode']]
+            }).then(function(res){
+                var default_barcode = self.modal.current_line.data.product_barcode;
+                self.modal.current_line.data.product_barcode = default_barcode || res[0].barcode;
+
+                rpc.query({
+                    model: 'res.partner.product.barcode',
+                    method: 'search_read',
+                    args: [[['product_id', '=', self.modal.current_line.data.product_id.data.id]], ['barcode', 'id']]
+                }).then(function(){
+                    loaded_barcodes.resolve();
+                });
             });
         var check_barcode_modal_xml = $(QWeb.render('check_barcode_modal', {
                                             line: this.modal.current_line,
@@ -203,6 +215,7 @@ FormRenderer.include({
         return loaded_barcodes.then(function(res){
             self.modal.vendor_barcodes = _.pluck(res, 'barcode');
             check_barcode_modal.show();
+            $('#check_barcode_modal').focus();
         });
     },
 
