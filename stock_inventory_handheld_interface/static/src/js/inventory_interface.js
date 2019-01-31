@@ -117,6 +117,7 @@ FormRenderer.include({
             : 0;
             modal.current_line = modal.lines[modal.current_line_ind];
             if (modal.current_line) {
+                modal.product_qty = modal.current_line.data.product_qty || 0;
                 modal.render_header();
             } else {
                 modal.render_header({
