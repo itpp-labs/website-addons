@@ -434,7 +434,7 @@
       <field name="model">website_proposal.template</field>
       <field name="type">tree</field>
       <field name="arch" type="xml">
-          <tree string="Proposal Template">
+          <tree>
               <field name="name"/>
           </tree>
       </field>
