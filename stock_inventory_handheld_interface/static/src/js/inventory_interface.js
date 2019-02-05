@@ -189,8 +189,8 @@ FormRenderer.include({
                     model: 'res.partner.product.barcode',
                     method: 'search_read',
                     args: [[['product_id', '=', self.modal.current_line.data.product_id.data.id]], ['barcode', 'id']]
-                }).then(function(){
-                    loaded_barcodes.resolve();
+                }).then(function(res){
+                    loaded_barcodes.resolve(res);
                 });
             });
         var check_barcode_modal_xml = $(QWeb.render('check_barcode_modal', {
@@ -216,6 +216,9 @@ FormRenderer.include({
             self.modal.vendor_barcodes = _.pluck(res, 'barcode');
             check_barcode_modal.show();
             $('#check_barcode_modal').focus();
+            var text = self.modal.current_line.data.product_barcode && self.modal.current_line.data.product_barcode || '';
+            text = text + ',' + (self.modal.vendor_barcodes.length && self.modal.vendor_barcodes || '');
+            $('.barcode2').text(text);
         });
     },
 
