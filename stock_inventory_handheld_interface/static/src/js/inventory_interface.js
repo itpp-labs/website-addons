@@ -205,7 +205,7 @@ FormRenderer.include({
                 _.contains(barcodes, this.value)) {
                 $('#check_barcode_modal .panel-message').html('Barcodes are matched');
             } else {
-                $('#check_barcode_modal .panel-message').html('Barcodes are mismatched');
+                $('#check_barcode_modal .panel-message').html('Incorrect Barcode Scanned');
             }
         });
         check_barcode_modal.find('.check_barcode_modal_exit').on('click', function(){
@@ -215,10 +215,10 @@ FormRenderer.include({
         return loaded_barcodes.then(function(res){
             self.modal.vendor_barcodes = _.pluck(res, 'barcode');
             check_barcode_modal.show();
-            $('#check_barcode_modal').focus();
             var text = self.modal.current_line.data.product_barcode && self.modal.current_line.data.product_barcode || '';
             text = text + ',' + (self.modal.vendor_barcodes.length && self.modal.vendor_barcodes || '');
             $('.barcode2').text(text);
+            $('#check_barcode_modal .check_barcode_input').focus();
         });
     },
 
