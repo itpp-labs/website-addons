@@ -114,7 +114,7 @@
                     <h3>
                         <button class="btn btn-default js_add_pack" type="button">Add Pack</button>
                         <button type="button" class='btn btn-default js_pick_pack js_putinpack'> Put in Pack </button>
-                        <button type="button" class='btn btn-danger js_drop_down fa fa-download'> Validate </button>
+                        <button type="button" class='btn btn-danger js_drop_down fa fa-download' style="display:none"> Validate </button>
                     </h3>
                 </div>
             </div>

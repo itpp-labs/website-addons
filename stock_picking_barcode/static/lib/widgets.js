@@ -243,9 +243,6 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             this.$('.js_putinpack').click(function(){
                 self.getParent().pack();
             });
-            this.$('.js_drop_down').click(function(){
-                self.getParent().drop_down();
-            });
             this.$('.js_clear_search').click(function(){
                 self.on_searchbox('');
                 self.$('.oe_searchbox').val('');
@@ -260,7 +257,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                 var selection = self.$('#js_select option:selected').attr('value');
                 if (selection === "ToDo"){
                     self.getParent().$('.js_pick_pack').removeClass('hidden');
-                    self.getParent().$('.js_drop_down').removeClass('hidden');
+                    self.getParent().$('.js_drop_down').addClass('hidden');
                     self.$('.js_pack_op_line.processed').addClass('hidden');
                     self.$('.js_pack_op_line:not(.processed)').removeClass('hidden');
                 }else{
