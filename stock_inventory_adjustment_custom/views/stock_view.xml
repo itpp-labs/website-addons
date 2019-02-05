@@ -10,7 +10,7 @@
         <field eval="300" name="priority"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='exhausted']" position="after">
-                <field name="supplier_id" attrs="{'invisible': [('filter', 'not in', ('supplier'))], 'required': [('filter', 'in', ('supplier'))]}"/>
+                <field name="partner_supplier_id" attrs="{'invisible': [('filter', 'not in', ('supplier'))], 'required': [('filter', 'in', ('supplier'))]}"/>
                 <field name="negative_location" attrs="{'invisible': [('filter', 'not in', ('negative_stock'))], 'required': [('filter', 'in', ('negative_stock'))]}"/>
             </xpath>
         </field>

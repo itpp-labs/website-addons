@@ -7,7 +7,7 @@ from odoo import models, api, fields, _
 class Inventory(models.Model):
     _inherit = "stock.inventory"
 
-    supplier_id = fields.Many2one('product.supplierinfo', 'Supplier',
+    partner_supplier_id = fields.Many2one('res.partner', 'Supplier',
                                   readonly=True, states={'draft': [('readonly', False)]})
     negative_location = fields.Many2one(
         'stock.location', 'Inventoried Location',
@@ -27,14 +27,14 @@ class Inventory(models.Model):
         quants = self.env['stock.quant']
 
         if self.filter == 'supplier':
-            vendors = self.supplier_id.search([('name', '=', self.supplier_id.name.id)])
-            vendors_prods = vendors.mapped('product_id')
+            sellers = self.env['product.supplierinfo'].search([('name', '=', self.partner_supplier_id.id)])
+            products = self.env['product.product'].search([('seller_ids', 'in', sellers.ids)])
 
-            quants = quants.search([('product_id', 'in', vendors_prods.ids), ('quantity', '>=', 0)])
+            quants = quants.search([('product_id', 'in', products.ids), ('quantity', '>=', 0)])
 
         if self.filter == 'negative_stock':
 
-            quants = quants.search([('location_id', '=', self.negative_location.id)])
+            quants = quants.search([('location_id', '=', self.negative_location.id), ('quantity', '<', 0)])
 
         if self.filter in ['supplier', 'negative_stock']:
             for q in quants:
