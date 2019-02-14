@@ -2,7 +2,7 @@
     'name': "Website Sale Search Clear",
     'summary': """Clear the search""",
     'category': 'eCommerce',
-    'version': '11.0.1.0.1',
+    'version': '12.0.1.0.1',
     'application': False,
     'author': 'IT-Projects LLC, Ivan Yelizariev, Savoir-faire Linux, Nicolas JEUDY, Quartile Limited Tim Lai',
     'license': 'GPL-3',
@@ -18,5 +18,5 @@
     'post_init_hook': None,
 
     'auto_install': False,
-    "installable": False,
+    "installable": True,
 }
