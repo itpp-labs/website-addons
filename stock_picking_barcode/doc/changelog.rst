@@ -1,3 +1,8 @@
+`1.0.3`
+-------
+
+- **NEW:** Avoid Extra Moves option.
+
 `1.0.2`
 -------
 

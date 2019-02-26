@@ -216,7 +216,9 @@ class StockPicking(osv.osv):
         return self.get_next_picking_for_ui(cr, uid, context=context)
 
     def _create_extra_moves(self, cr, uid, picking, context=None):
-        if picking.avoid_extra_moves:
+        settings = self.pool['stock.config.settings']
+        settings = settings.browse(cr, uid, settings.search(cr, uid, [], limit=1))
+        if picking.avoid_extra_moves or settings.avoid_extra_moves:
             return []
         return super(StockPicking, self)._create_extra_moves(cr, uid, picking, context=None)
 
@@ -339,3 +341,20 @@ class StockPackOperation(osv.osv):
         if not new_lot_id:
             new_lot_id = self.pool.get('stock.production.lot').create(cr, uid, val, context=context)
         self.write(cr, uid, id, {'pack_lot_ids': [(0, 0, {'lot_id': new_lot_id})]}, context=context)
+
+
+class stock_config_settings(osv.osv_memory):
+    _inherit = "stock.config.settings"
+
+    _columns = {
+        'avoid_extra_moves': fields.boolean('Prevents creating extra move'),
+    }
+
+    def get_default_avoid_extra_moves(self, cr, uid, fields, context=None):
+        return {
+            'avoid_extra_moves': self.pool.get("ir.config_parameter").get_param(cr, uid, 'avoid_extra_moves'),
+        }
+
+    def set_avoid_extra_moves(self, cr, uid, ids, context=None):
+        config = self.browse(cr, uid, ids[0], context=context)
+        self.pool.get('ir.config_parameter').set_param(cr, uid, 'avoid_extra_moves', config.avoid_extra_moves)
