@@ -4,7 +4,7 @@
     "name": """Real Multi Website""",
     "summary": """Yes, you can set up multi-company, multi-website, multi-theme, multi-eCommerce on a single database!""",
     "category": "eCommerce",
-    "live_test_url": "http://apps.it-projects.info/shop/product/website-multi-company?version=11.0",
+    # "live_test_url": "http://apps.it-projects.info/shop/product/website-multi-company?version=11.0",
     "images": ['images/website_multi_company_main.png'],
     "version": "11.0.3.0.0",
     "application": False,
