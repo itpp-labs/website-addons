@@ -2,7 +2,7 @@
     "name": """Tickets purchasing: force user to sign in / sign up""",
     "summary": """User registration at your portal is always a plus for marketing""",
     "category": "Marketing",
-    "live_test_url": "http://apps.it-projects.info/shop/product/portal-event-tickets?version=10.0",
+    # "live_test_url": "http://apps.it-projects.info/shop/product/portal-event-tickets?version=10.0",
     "images": ["images/banner.jpg"],
     "version": "10.0.1.0.0",
     "application": False,
