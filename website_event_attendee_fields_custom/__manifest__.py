@@ -3,7 +3,7 @@
     "name": """Attendee registration: Birthdate, Passport, Nationality""",
     "summary": """Ask information on registration and stores at Partner record""",
     "category": "Marketing",
-    "live_test_url": "http://apps.it-projects.info/shop/product/portal-event-tickets?version=10.0",
+    # "live_test_url": "http://apps.it-projects.info/shop/product/portal-event-tickets?version=10.0",
     "images": ["images/banner.jpg"],
     "version": "10.0.1.0.1",
     "application": False,
