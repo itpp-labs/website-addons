@@ -3,7 +3,7 @@
     "summary": """Random background image to your taste at the website login page""",
     "category": "Website",
     "images": ['images/5.png'],
-    "version": "12.0.1.0.1",
+    "version": "12.0.1.0.2",
 
     "author": "IT-Projects LLC",
     "support": "apps@it-projects.info",
