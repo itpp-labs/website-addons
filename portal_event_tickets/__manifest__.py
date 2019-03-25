@@ -2,7 +2,7 @@
     "name": """Customer Event Portal""",
     "summary": """Allows to customers see their tickets for events at the Portal""",
     "category": "Marketing",
-    "live_test_url": "http://apps.it-projects.info/shop/product/portal-event-tickets?version=10.0",
+    # "live_test_url": "http://apps.it-projects.info/shop/product/portal-event-tickets?version=10.0",
     "images": ["images/banner.jpg"],
     "version": "10.0.1.1.0",
     "application": False,

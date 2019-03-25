@@ -5,7 +5,7 @@
     "name": """Upload Multiple Images at Once""",
     "summary": """Great tool to upload multiple images at once""",
     "category": "Extra Tools",
-    "live_test_url": "http://apps.it-projects.info/shop/product/multi-product-images?version=11.0",
+    # "live_test_url": "http://apps.it-projects.info/shop/product/multi-product-images?version=11.0",
     "images": ["images/multi_images_main.jpg"],
     "version": "11.0.1.0.0",
     "application": False,
