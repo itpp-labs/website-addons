@@ -1,3 +1,8 @@
+`1.0.3`
+-------
+
+- **Improvement:** better way of obtaining the background image search domain for more convenient extension of the module
+
 `1.0.2`
 -------
 

@@ -33,9 +33,12 @@ class IRAttachmentBackground(models.Model):
                 return
         return super(IRAttachmentBackground, self).check(mode, values=values)
 
+    def _get_background_images_domain(self):
+        return [('use_as_background', '=', True)]
+
     @api.model
     def get_background_pic(self):
-        pictures = self.search([('use_as_background', '=', True)])
+        pictures = self.search(self._get_background_images_domain())
         if pictures:
             p = choice(pictures)
             picture_url = p.url or _attachment2url(p)
