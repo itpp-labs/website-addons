@@ -1,7 +1,6 @@
-<openerp>
-    <data>
+<odoo>
         <template id="website_login_background_template" inherit_id="website.login_layout">
-            <xpath expr="//div[@class='oe_website_login_container']" position="after">
+            <xpath expr="//div[hasclass('oe_website_login_container')]" position="after">
                 <t t-if="picture_url">
                     <style type="text/css">
                         main {
@@ -12,7 +11,7 @@
                     </style>
                 </t>
             </xpath>
-            <xpath expr="//div[@class='oe_website_login_container']" position="attributes">
+            <xpath expr="//div[hasclass('oe_website_login_container')]" position="attributes">
                 <attribute name="class">oe_website_login_container modal-content</attribute>
             </xpath>
         </template>
@@ -20,11 +19,7 @@
             <xpath expr="." position="inside">
                 <link rel="stylesheet" href="/website_login_background/static/src/css/login.css"/>
                 <script src="/website_login_background/static/src/js/login.js"></script>
+                <script src="/website_login_background/static/src/js/website_login_background_tour.js" type="text/javascript"></script>
             </xpath>
         </template>
-    </data>
-</openerp>
-
-
-
-
+</odoo>
