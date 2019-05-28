@@ -2,12 +2,13 @@ language: python
 
 python:
   - "3.5"
-  
+
 sudo: false
 cache: pip
 dist: trusty
 
 addons:
+  postgresql: "9.5"
   apt:
     packages:
       - expect-dev  # provides unbuffer utility
