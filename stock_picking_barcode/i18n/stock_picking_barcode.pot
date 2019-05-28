@@ -1,31 +1,24 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * stock_picking_barcode
-#
-# Translators:
-# Dawid Runowski <dawrun@outlook.com>, 2019
+#	* stock_picking_barcode
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-24 10:19+0000\n"
-"PO-Revision-Date: 2018-04-21 00:25+0000\n"
-"Last-Translator: Dawid Runowski <dawrun@outlook.com>, 2019\n"
-"Language-Team: German (https://www.transifex.com/it-projects-llc/teams/76080/"
-"de/)\n"
-"Language: de\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: \n"
 
 #. module: stock_picking_barcode
 #. openerp-web
 #: code:addons/stock_picking_barcode/static/src/xml/picking.xml:315
 #, python-format
 msgid "< Previous"
-msgstr "<vorheriger"
+msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
@@ -51,7 +44,7 @@ msgstr ""
 #: code:addons/stock_picking_barcode/static/src/xml/picking.xml:29
 #, python-format
 msgid "Change Location"
-msgstr "Lokalisation ändern"
+msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
@@ -73,12 +66,12 @@ msgstr ""
 #: code:addons/stock_picking_barcode/static/src/xml/picking.xml:16
 #, python-format
 msgid "Choose a location"
-msgstr "Wähle eine Lokalisation"
+msgstr ""
 
 #. module: stock_picking_barcode
 #: model:ir.actions.act_window,help:stock_picking_barcode.action_picking_form
 msgid "Click here to create a new transfer."
-msgstr "Klicke hier, um eine neue Überweisung zu erstellen."
+msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
@@ -95,7 +88,7 @@ msgstr ""
 #: code:addons/stock_picking_barcode/static/src/xml/picking.xml:206
 #, python-format
 msgid "Close"
-msgstr "Schließen"
+msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
@@ -124,14 +117,14 @@ msgstr ""
 #: code:addons/stock_picking_barcode/static/src/xml/picking.xml:106
 #, python-format
 msgid "Filter by location..."
-msgstr "nach dem Ort sortieren..."
+msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
 #: code:addons/stock_picking_barcode/static/src/xml/picking.xml:130
 #, python-format
 msgid "From"
-msgstr "au"
+msgstr ""
 
 #. module: stock_picking_barcode
 #: model:ir.model.fields,help:stock_picking_barcode.field_stock_move_line_product_barcode
@@ -160,14 +153,14 @@ msgstr ""
 #. module: stock_picking_barcode
 #: model:ir.actions.act_window,name:stock_picking_barcode.action_picking_form
 msgid "New Transfer"
-msgstr "neue Überweisung"
+msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
 #: code:addons/stock_picking_barcode/static/src/xml/picking.xml:316
 #, python-format
 msgid "Next >"
-msgstr "nächster>"
+msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
@@ -204,15 +197,13 @@ msgstr ""
 
 #. module: stock_picking_barcode
 #: model:ir.ui.view,arch_db:stock_picking_barcode.report_package_stock_picking_barcode
-#, fuzzy
 msgid "Package Content"
-msgstr "Verpackungsart"
+msgstr ""
 
 #. module: stock_picking_barcode
 #: model:ir.ui.view,arch_db:stock_picking_barcode.report_package_stock_picking_barcode
-#, fuzzy
 msgid "Package Type:"
-msgstr "Verpackungsart"
+msgstr ""
 
 #. module: stock_picking_barcode
 #: model:ir.model,name:stock_picking_barcode.model_stock_move_line
@@ -229,7 +220,7 @@ msgstr ""
 #: code:addons/stock_picking_barcode/static/src/xml/picking.xml:86
 #, python-format
 msgid "Print"
-msgstr "Drucken"
+msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
@@ -245,7 +236,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:stock_picking_barcode.report_package_stock_picking_barcode
 #, python-format
 msgid "Product"
-msgstr "Produkt"
+msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
@@ -264,7 +255,7 @@ msgstr ""
 #: code:addons/stock_picking_barcode/static/src/xml/picking.xml:273
 #, python-format
 msgid "Quit"
-msgstr "Verlassen"
+msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
@@ -314,7 +305,7 @@ msgstr ""
 #: code:addons/stock_picking_barcode/static/src/xml/picking.xml:270
 #, python-format
 msgid "Search"
-msgstr "Suchen"
+msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
@@ -347,7 +338,7 @@ msgstr ""
 #: code:addons/stock_picking_barcode/static/src/xml/picking.xml:131
 #, python-format
 msgid "To"
-msgstr "zu"
+msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
@@ -360,7 +351,7 @@ msgstr ""
 #. module: stock_picking_barcode
 #: model:ir.model,name:stock_picking_barcode.model_stock_picking
 msgid "Transfer"
-msgstr "Überweisun"
+msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
@@ -378,9 +369,7 @@ msgstr ""
 
 #. module: stock_picking_barcode
 #: model:ir.actions.act_window,help:stock_picking_barcode.action_picking_form
-msgid ""
-"You can either do it immediatly or mark it as Todo for future processing. "
-"Use your scanner to validate the transferred quantity quicker."
+msgid "You can either do it immediatly or mark it as Todo for future processing. Use your scanner to validate the transferred quantity quicker."
 msgstr ""
 
 #. module: stock_picking_barcode
@@ -395,7 +384,5 @@ msgstr ""
 #: code:addons/stock_picking_barcode/static/src/xml/picking.xml:324
 #, python-format
 msgid "the operations."
-msgstr "die Operationen."
+msgstr ""
 
-#~ msgid "Ok"
-#~ msgstr "Ok"
