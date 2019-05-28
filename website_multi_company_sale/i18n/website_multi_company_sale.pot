@@ -1,0 +1,104 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_multi_company_sale
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_multi_company_sale
+#: model:ir.model.fields,field_description:website_multi_company_sale.field_delivery_carrier_website_ids
+#: model:ir.model.fields,field_description:website_multi_company_sale.field_payment_acquirer_website_ids
+#: model:ir.model.fields,field_description:website_multi_company_sale.field_product_product_website_ids
+#: model:ir.model.fields,field_description:website_multi_company_sale.field_product_template_website_ids
+msgid "Allowed websites"
+msgstr ""
+
+#. module: website_multi_company_sale
+#: code:addons/website_multi_company_sale/models/payment_acquirer.py:22
+#, python-format
+msgid "Error! Only the company's websites are allowed"
+msgstr ""
+
+#. module: website_multi_company_sale
+#: code:addons/website_multi_company_sale/models/product_template.py:22
+#, python-format
+msgid "Error! Only the company's websites are allowed.                                         Leave the Company field empty if you want websites from different companies"
+msgstr ""
+
+#. module: website_multi_company_sale
+#: model:ir.ui.view,arch_db:website_multi_company_sale.sale_order_view_search_inherit_quotation_inherit_website_multi_company_sale
+#: model:ir.ui.view,arch_db:website_multi_company_sale.sale_order_view_search_inherit_sale_inherit_website_multi_company_sale
+msgid "Group By"
+msgstr ""
+
+#. module: website_multi_company_sale
+#: model:ir.model.fields,help:website_multi_company_sale.field_product_public_category_website_ids
+msgid "On which websites show category. Keep empty to show at all websites. The value is ignored if there is Parent Category"
+msgstr ""
+
+#. module: website_multi_company_sale
+#: model:ir.model.fields,field_description:website_multi_company_sale.field_sale_order_website_id
+msgid "Online Order Website"
+msgstr ""
+
+#. module: website_multi_company_sale
+#: model:ir.model,name:website_multi_company_sale.model_res_partner
+msgid "Partner"
+msgstr ""
+
+#. module: website_multi_company_sale
+#: model:ir.model,name:website_multi_company_sale.model_payment_acquirer
+msgid "Payment Acquirer"
+msgstr ""
+
+#. module: website_multi_company_sale
+#: model:ir.model,name:website_multi_company_sale.model_product_template
+msgid "Product Template"
+msgstr ""
+
+#. module: website_multi_company_sale
+#: model:ir.model,name:website_multi_company_sale.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: website_multi_company_sale
+#: model:ir.model.fields,help:website_multi_company_sale.field_delivery_carrier_website_ids
+msgid "Set the websites this delivery carrier should be available on. Leave empty to allow all."
+msgstr ""
+
+#. module: website_multi_company_sale
+#: model:ir.model.fields,help:website_multi_company_sale.field_payment_acquirer_website_ids
+msgid "Set the websites this payment acquirer should be available on. Leave empty to allow all."
+msgstr ""
+
+#. module: website_multi_company_sale
+#: model:ir.model.fields,help:website_multi_company_sale.field_product_product_website_ids
+#: model:ir.model.fields,help:website_multi_company_sale.field_product_template_website_ids
+msgid "Set the websites this product should be available on. Leave empty to allow all."
+msgstr ""
+
+#. module: website_multi_company_sale
+#: model:ir.model,name:website_multi_company_sale.model_website
+#: model:ir.ui.view,arch_db:website_multi_company_sale.sale_order_view_search_inherit_quotation_inherit_website_multi_company_sale
+#: model:ir.ui.view,arch_db:website_multi_company_sale.sale_order_view_search_inherit_sale_inherit_website_multi_company_sale
+msgid "Website"
+msgstr ""
+
+#. module: website_multi_company_sale
+#: model:ir.model,name:website_multi_company_sale.model_product_public_category
+msgid "Website Product Category"
+msgstr ""
+
+#. module: website_multi_company_sale
+#: model:ir.model.fields,field_description:website_multi_company_sale.field_product_public_category_website_ids
+msgid "Websites"
+msgstr ""
+
