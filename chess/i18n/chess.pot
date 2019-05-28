@@ -1,47 +1,38 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * chess
-#
-# Translators:
-# Dawid Runowski <dawrun@outlook.com>, 2019
+#	* chess
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-10 16:28+0000\n"
-"PO-Revision-Date: 2017-07-13 08:52+0000\n"
-"Last-Translator: Dawid Runowski <dawrun@outlook.com>, 2019\n"
-"Language-Team: German (https://www.transifex.com/it-projects-llc/teams/76080/"
-"de/)\n"
-"Language: de\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: \n"
 
 #. module: chess
 #: model:ir.ui.view,arch_db:chess.gamepage
 msgid "00:00"
-msgstr "00:00"
+msgstr ""
 
 #. module: chess
 #: model:ir.ui.view,arch_db:chess.chesspage
-msgid ""
-"<small>Hold the CTRL key and click the items in a list to choose them.</"
-"small>"
+msgid "<small>Hold the CTRL key and click the items in a list to choose them.</small>"
 msgstr ""
 
 #. module: chess
 #: model:ir.ui.view,arch_db:chess.view_new_chess_game
 msgid "Accept"
-msgstr "Akzeptieren"
+msgstr ""
 
 #. module: chess
 #: model:ir.actions.act_window,name:chess.action_active_chess_game
 #: model:ir.ui.menu,name:chess.menu_active_chess_content
 msgid "Active Games"
-msgstr "Aktive Spiele"
+msgstr ""
 
 #. module: chess
 #: model:ir.model.fields,field_description:chess.field_chess_game_chat_author_id
@@ -53,7 +44,7 @@ msgstr ""
 #: selection:chess.game,second_color_figure:0
 #: model:ir.ui.view,arch_db:chess.chesspage
 msgid "Black"
-msgstr "Schwarz"
+msgstr ""
 
 #. module: chess
 #: selection:chess.game,game_type:0
@@ -65,7 +56,7 @@ msgstr ""
 #. module: chess
 #: model:ir.ui.view,arch_db:chess.view_invitations_chess_game
 msgid "Cancel"
-msgstr "Abbrechen"
+msgstr ""
 
 #. module: chess
 #: model:ir.actions.act_window,name:chess.action_canceled_chess_game
@@ -137,7 +128,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:chess.action_denied_chess_game
 #: model:ir.ui.menu,name:chess.menu_denied_games_content
 msgid "Denied Games"
-msgstr "Abgelehnte Spiel"
+msgstr ""
 
 #. module: chess
 #: model:ir.model.fields,field_description:chess.field_chess_game_chat_display_name
@@ -294,20 +285,20 @@ msgstr ""
 #. module: chess
 #: model:ir.model.fields,field_description:chess.field_chess_game_chat_message
 msgid "Message"
-msgstr "Nachricht"
+msgstr ""
 
 #. module: chess
 #: model:ir.actions.act_window,name:chess.action_my_invitations_chess_game
 #: model:ir.ui.menu,name:chess.menu_games_content
 #: model:ir.ui.menu,name:chess.menu_invitations_games_content
 msgid "My Invitations"
-msgstr "Meine Einladungen"
+msgstr ""
 
 #. module: chess
 #: model:ir.actions.act_window,name:chess.action_new_chess_game
 #: model:ir.ui.menu,name:chess.menu_new_chess_content
 msgid "New Games"
-msgstr "Neue Spiele"
+msgstr ""
 
 #. module: chess
 #: model:ir.ui.view,arch_db:chess.gamepage
@@ -333,12 +324,12 @@ msgstr ""
 #. module: chess
 #: model:ir.ui.view,arch_db:chess.view_new_chess_game
 msgid "Refuse"
-msgstr "Absagen"
+msgstr ""
 
 #. module: chess
 #: model:ir.ui.view,arch_db:chess.view_completed_chess_game
 msgid "Second User Name"
-msgstr "Zweiter Benutzername"
+msgstr ""
 
 #. module: chess
 #: model:ir.model.fields,field_description:chess.field_chess_game_second_time_date
@@ -348,7 +339,7 @@ msgstr ""
 #. module: chess
 #: model:ir.model.fields,field_description:chess.field_chess_game_second_user_id
 msgid "Second user"
-msgstr "Zweiter Benutzer"
+msgstr ""
 
 #. module: chess
 #: model:ir.model.fields,help:chess.field_chess_game_second_user_score
@@ -378,12 +369,12 @@ msgstr ""
 #. module: chess
 #: model:ir.ui.view,arch_db:chess.gamepage
 msgid "Setting"
-msgstr "Einstellung"
+msgstr ""
 
 #. module: chess
 #: model:ir.model.fields,field_description:chess.field_chess_game_line_source
 msgid "Source"
-msgstr "Quelle"
+msgstr ""
 
 #. module: chess
 #: selection:chess.game,game_type:0
@@ -534,7 +525,7 @@ msgstr ""
 #. module: chess
 #: model:ir.model,name:chess.model_chess_game
 msgid "chess game"
-msgstr "Schachspiel"
+msgstr ""
 
 #. module: chess
 #: model:ir.model,name:chess.model_chess_game_line
@@ -549,13 +540,5 @@ msgstr ""
 #. module: chess
 #: model:ir.ui.view,arch_db:chess.gamepage
 msgid "show chat"
-msgstr "Chat anzeigen"
+msgstr ""
 
-#~ msgid "Canceled games"
-#~ msgstr "Abgebrochene Spiele"
-
-#~ msgid "My invitations"
-#~ msgstr "Meine Einladungen"
-
-#~ msgid "New games"
-#~ msgstr "Neue Spiel"
