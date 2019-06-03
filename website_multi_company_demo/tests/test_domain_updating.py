@@ -11,4 +11,5 @@ class TestDomainUpdating(common.HttpCase):
             base_location="http://build-123.runbot.example.com",
         )
         uid = self.registry['res.users'].authenticate(db_name, 'admin', 'admin', env)
-        self.assertEqual(uid, 1)
+        # since Odoo 12.0 admin user is 2
+        self.assertEqual(uid, 2)

@@ -20,8 +20,4 @@
     </record>
      -->
 
-    <record id="website.website2_homepage_page" model="website.page">
-        <field name="website_ids" eval="[(6, 0, [ref('website.website2')])]"/>
-    </record>
-
 </odoo>
