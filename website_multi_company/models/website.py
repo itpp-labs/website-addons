@@ -15,27 +15,6 @@ DOMAIN_REGEXP = r"^(((?!-))(xn--|_{1,1})?[a-z0-9-]{0,61}[a-z0-9]{1,1}\.)*(xn--)?
 class Website(models.Model):
     _inherit = "website"
 
-    @api.multi
-    def multi_theme_reload(self):
-        self.ensure_one()
-
-        # convert_assets and copy views for current website
-        self._multi_theme_activate()
-
-    @api.multi
-    def multi_theme_reload_list(self):
-        # only reloads list
-        self.env["website.theme"].search([])._convert_assets()
-
-    @api.multi
-    def _multi_theme_activate(self):
-        if not self.env.context.get('skip_converting_assets'):
-            # reload dependencies before activating
-            self.mapped('multi_theme_id')\
-                .upstream_dependencies()\
-                ._convert_assets()
-        return super(Website, self)._multi_theme_activate()
-
     @api.constrains('domain')
     def _check_domain(self):
         if self.domain and not re.match(DOMAIN_REGEXP, self.domain):
