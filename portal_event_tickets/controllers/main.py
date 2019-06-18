@@ -5,7 +5,7 @@ from odoo.exceptions import AccessError
 from odoo.http import request
 from odoo.fields import Date
 
-from odoo.addons.website_portal.controllers.main import website_account
+from odoo.addons.portal.controllers.portal import CustomerPortal
 from odoo.addons.website_event.controllers.main import WebsiteEventController
 from odoo.addons.website_sale.controllers.main import WebsiteSale
 from odoo.addons.website.models.website import slug

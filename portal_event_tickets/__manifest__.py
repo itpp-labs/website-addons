@@ -16,8 +16,7 @@
 
     "depends": [
         "event_sale",
-        "website_portal",
-        "partner_event",
+        "portal",
         "website_event_attendee_fields",
         "website_sale_refund",
     ],
@@ -41,7 +40,7 @@
     "uninstall_hook": None,
 
     "auto_install": False,
-    "installable": False,
+    "installable": True,
 
     "demo_title": "Event extensions",
     "demo_addons": ["website_event_attendee_fields", "website_event_attendee_signup", "website_event_require_login"],

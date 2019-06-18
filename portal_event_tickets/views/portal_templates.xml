@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <odoo>
-    <template id="portal_my_home_menu_event" name="Portal layout : event menu entries" inherit_id="website_portal.portal_layout" priority="25">
+    <template id="portal_my_home_menu_event" name="Portal layout : event menu entries" inherit_id="portal.portal_layout" priority="25">
         <xpath expr="//ul[contains(@class,'o_portal_submenu')]" position="inside">
             <li>
                 <a href="/my/tickets">Tickets</a>
@@ -8,7 +8,7 @@
         </xpath>
     </template>
 
-    <template id="portal_my_home_event" name="Portal My Home : event entries" inherit_id="website_portal.portal_my_home" priority="25">
+    <template id="portal_my_home_event" name="Portal My Home : event entries" inherit_id="portal.portal_my_home" priority="25">
         <xpath expr="//div[contains(@class,'o_my_home_content')]" position="inside">
             <h3 class="page-header">
                 <a href="/my/tickets">Your Tickets
@@ -26,7 +26,7 @@
     </template>
 
     <template id="portal_my_tickets" name="My Tickets">
-      <t t-call="website_portal.portal_layout">
+      <t t-call="portal.portal_layout">
         <h3 class="page-header">Your Tickets</h3>
         <t t-if="not tickets">
             <p>There are currently no tickets for your account.</p>
@@ -61,7 +61,7 @@
     </template>
 
     <template id="portal_ticket_page" name="Ticket">
-      <t t-call="website_portal.portal_layout">
+      <t t-call="portal.portal_layout">
         <div id="wrap">
             <div class="container">
               <div class="oe_structure">
@@ -182,7 +182,7 @@
     </template>
 
     <template id="portal_ticket_transfer" name="Ticket">
-      <t t-call="website_portal.portal_layout">
+      <t t-call="portal.portal_layout">
         <div id="wrap">
             <div class="container">
                 <div t-if="editor_mode" class="alert alert-warning css_editable_mode_hidden" t-ignore="True">
