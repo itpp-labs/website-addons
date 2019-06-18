@@ -14,7 +14,7 @@ from odoo.addons.website.models.website import slug
 _logger = logging.getLogger(__name__)
 
 
-class PortalEvent(website_account):
+class PortalEvent(CustomerPortal):
 
     def _get_archive_groups(self, model, domain=None, fields=None, groupby="create_date", order="create_date desc"):
         # TODO make without copy-pasting. Probably add ir.rule for portal user?
