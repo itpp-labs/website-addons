@@ -23,15 +23,15 @@ class ProductAttributeValue(models.Model):
         if not active_id:
             return
 
-        p_obj = self.env['product.attribute.price']
+        p_obj = self.env['product.template.attribute.value']
         p_ids = p_obj.search(
-            [('value_id', '=', id), ('product_tmpl_id', '=', active_id)])
+            [('product_attribute_value_id', '=', id), ('product_tmpl_id', '=', active_id)])
         if p_ids:
             p_ids.write({'price_factor': value})
         else:
             p_obj.create({
                 'product_tmpl_id': active_id,
-                'value_id': id,
+                'product_attribute_value_id': id,
                 'price_factor': value,
             })
 
@@ -40,8 +40,8 @@ class ProductAttributeValue(models.Model):
                                         digits=dp.get_precision('Product Price'))
 
 
-class ProductAttributePrice(models.Model):
-    _inherit = "product.attribute.price"
+class ProductTemplateAttributeValue(models.Model):
+    _inherit = "product.template.attribute.value"
 
     price_factor = fields.Float(
         'Price Factor', digits=dp.get_precision('Product Price'), default=1.0)
@@ -91,8 +91,8 @@ class ProductProduct(models.Model):
         return prices
 
 
-class ProductAttributeLine(models.Model):
-    _inherit = "product.attribute.line"
+class ProductTemplateAttributeLine(models.Model):
+    _inherit = "product.template.attribute.line"
     _order = 'sequence'
 
     def _default_sequence(self):
