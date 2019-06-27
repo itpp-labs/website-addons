@@ -2,7 +2,7 @@
  Demo Data for "Real Multi Website"
 ====================================
 
-If you are looking for *Mult Website* feature use module `Real Multi Website <https://apps.odoo.com/apps/modules/11.0/website_multi_company>`_ instead.
+If you are looking for *Mult Website* feature use module `Real Multi Website <https://apps.odoo.com/apps/modules/12.0/website_multi_company>`_ instead.
 
 Demo-specific updates
 =====================
@@ -31,7 +31,7 @@ Maintainers
 -----------
 * `IT-Projects LLC <https://it-projects.info>`__
 
-      To get a guaranteed support you are kindly requested to purchase the module at `odoo apps store <https://apps.odoo.com/apps/modules/11.0/website_multi_company/>`__.
+      To get a guaranteed support you are kindly requested to purchase the module at `odoo apps store <https://apps.odoo.com/apps/modules/12.0/website_multi_company/>`__.
 
       Thank you for understanding!
 
@@ -40,12 +40,12 @@ Maintainers
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/website-addons/11.0
+Demo: http://runbot.it-projects.info/demo/website-addons/12.0
 
-HTML Description: https://apps.odoo.com/apps/modules/11.0/website_multi_company_demo
+HTML Description: https://apps.odoo.com/apps/modules/12.0/website_multi_company_demo
 
 Usage instructions: `<doc/index.rst>`_
 
 Changelog: `<doc/changelog.rst>`_
 
-Tested on Odoo 11.0 8787f5acee9b5d2cad15b97804522dc04717a1c1
+Tested on Odoo 12.0 0669eddc7e88303f3a97e9f4f834f64fd9a8158c

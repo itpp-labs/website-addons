@@ -7,7 +7,7 @@
     <record id="action_client_website_menu" model="ir.actions.client">
         <field name="name">Open Website Menu</field>
         <field name="tag">reload</field>
-        <field name="params" eval="{'menu_id': ref('website_multi_company.website_menu')}"/>
+        <field name="params" eval="{'menu_id': ref('website.menu_website_websites_list')}"/>
     </record>
 
     <record id="base.open_menu" model="ir.actions.todo">

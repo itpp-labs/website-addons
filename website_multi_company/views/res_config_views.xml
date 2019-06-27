@@ -8,9 +8,11 @@
             <xpath expr="//field[@name='website_id']" position="attributes">
                 <attribute name="invisible"></attribute>
             </xpath>
-            <xpath expr="//button[@name='multi_theme_reload']" position="attributes">
-                <attribute name="string">Reload Theme List &amp; Update all websites</attribute>
-                <attribute name="context">{'skip_converting_assets': True}</attribute>
+            <xpath expr="//field[@name='favicon']/.." position="after">
+                <div class="row">
+                    <label class="col-lg-3 o_light_label" for="website_homepage_id" />
+                    <field name="website_homepage_id"></field>
+                </div>
             </xpath>
         </field>
     </record>
