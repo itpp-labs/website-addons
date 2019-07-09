@@ -1,3 +1,8 @@
+`1.0.5`
+-------
+
+- FIX: Redirection error on the address page
+
 `1.0.4`
 -------
 
