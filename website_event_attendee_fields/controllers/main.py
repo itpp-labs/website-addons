@@ -36,10 +36,10 @@ class WebsiteEventControllerExtended(WebsiteEventController):
         ], limit=1)
         if not partner:
 
-            def remove_spaces(str):
-                str = re.sub(r'^\s*', '', str)
-                str = re.sub(r'\s*$', '', str)
-                return str
+            def remove_spaces(s):
+                s = re.sub(r'^\s*', '', s)
+                s = re.sub(r'\s*$', '', s)
+                return s
 
             email = remove_spaces(email)
             partner = request.env['res.partner'].sudo().search([
