@@ -1,6 +1,6 @@
 Product price factor
 ====================
 
-Description: https://apps.odoo.com/apps/modules/10.0/product_price_factor/
+Description: https://apps.odoo.com/apps/modules/11.0/product_price_factor/
 
-Tested on Odoo 10.0 bb712ad7017db9c6477ceb40633e2460238b3317
+Tested on Odoo 11.0 51a9f30e1971155b6315c6bd888d56048191bddd
