@@ -1,0 +1,582 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * chess
+# 
+# Translators:
+# Dawid Runowski <dawrun@outlook.com>, 2019
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-05-10 16:28+0000\n"
+"PO-Revision-Date: 2017-07-13 08:52+0000\n"
+"Last-Translator: Dawid Runowski <dawrun@outlook.com>, 2019\n"
+"Language-Team: German (https://www.transifex.com/it-projects-llc/teams/76080/de/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.gamepage
+msgid "00:00"
+msgstr "00:00"
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.chesspage
+msgid ""
+"<small>Hold the CTRL key and click the items in a list to choose "
+"them.</small>"
+msgstr ""
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.view_new_chess_game
+msgid "Accept"
+msgstr "Akzeptieren"
+
+#. module: chess
+#: model:ir.actions.act_window,name:chess.action_active_chess_game
+#: model:ir.ui.menu,name:chess.menu_active_chess_content
+#: model:ir.ui.view,arch_db:chess.view_active_chess_game
+msgid "Active Games"
+msgstr "Aktive Spiele"
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.tournament_list_view
+msgid "Active Tournaments"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game_chat_author_id
+msgid "Author"
+msgstr ""
+
+#. module: chess
+#: selection:chess.game,first_color_figure:0
+#: selection:chess.game,second_color_figure:0
+#: model:ir.ui.view,arch_db:chess.chesspage
+msgid "Black"
+msgstr "Schwarz"
+
+#. module: chess
+#: selection:chess.game,game_type:0
+#: selection:chess.tournament,tournament_type:0
+#: model:ir.ui.view,arch_db:chess.chesspage
+msgid "Blitz"
+msgstr ""
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.view_invitations_chess_game
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#. module: chess
+#: model:ir.actions.act_window,name:chess.action_canceled_chess_game
+#: model:ir.ui.menu,name:chess.menu_canceled_games_content
+msgid "Canceled Games"
+msgstr ""
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.view_canceled_chess_game
+msgid "Canceled games"
+msgstr "Abgebrochene Spiele"
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game_message_game_ids
+msgid "Chat message"
+msgstr ""
+
+#. module: chess
+#: model:ir.actions.act_window,name:chess.action_chess_game
+#: model:ir.ui.menu,name:chess.menu_chess
+#: model:ir.ui.menu,name:chess.menu_chess_content
+#: model:website.menu,name:chess.services_page_link
+msgid "Chess"
+msgstr ""
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.chesspage
+msgid "Chess Services"
+msgstr ""
+
+#. module: chess
+#: model:ir.actions.act_window,name:chess.action_completed_chess_game
+#: model:ir.ui.menu,name:chess.menu_completed_chess_content
+msgid "Completed Games"
+msgstr ""
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.view_completed_chess_game
+msgid "Completed games"
+msgstr ""
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.chesspage
+msgid "Create Game"
+msgstr ""
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.chesspage
+msgid "Create Tournament"
+msgstr ""
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.chesspage
+msgid "Create game"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game_chat_create_uid
+#: model:ir.model.fields,field_description:chess.field_chess_game_create_uid
+#: model:ir.model.fields,field_description:chess.field_chess_game_line_create_uid
+#: model:ir.model.fields,field_description:chess.field_chess_tournament_create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game_chat_create_date
+#: model:ir.model.fields,field_description:chess.field_chess_game_create_date
+#: model:ir.model.fields,field_description:chess.field_chess_game_line_create_date
+#: model:ir.model.fields,field_description:chess.field_chess_tournament_create_date
+msgid "Created on"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game_chat_date_message
+msgid "Date message"
+msgstr ""
+
+#. module: chess
+#: model:ir.actions.act_window,name:chess.action_denied_chess_game
+#: model:ir.ui.menu,name:chess.menu_denied_games_content
+msgid "Denied Games"
+msgstr "Abgelehnte Spiel"
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game_chat_display_name
+#: model:ir.model.fields,field_description:chess.field_chess_game_display_name
+#: model:ir.model.fields,field_description:chess.field_chess_game_line_display_name
+#: model:ir.model.fields,field_description:chess.field_chess_tournament_display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game_fen
+msgid "Fen"
+msgstr ""
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.view_active_chess_game
+#: model:ir.ui.view,arch_db:chess.view_canceled_chess_game
+#: model:ir.ui.view,arch_db:chess.view_invitations_chess_game
+#: model:ir.ui.view,arch_db:chess.view_new_chess_game
+msgid "Figure Color"
+msgstr ""
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.chesspage
+msgid "Figure color:"
+msgstr ""
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.view_completed_chess_game
+msgid "Finish Date"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game_date_finish
+msgid "Finish date"
+msgstr ""
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.view_completed_chess_game
+msgid "First User Name"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game_first_time_date
+msgid "First time date"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game_first_user_id
+msgid "First user"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,help:chess.field_chess_game_first_user_score
+msgid "First user game result."
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game_first_user_score
+msgid "First user score"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game_first_user_time
+msgid "First user time"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game_chat_game_id
+#: model:ir.model.fields,field_description:chess.field_chess_game_line_game_id
+msgid "Game"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game_move_game_ids
+msgid "Game Move"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_tournament_tournament_type
+#: model:ir.ui.view,arch_db:chess.view_canceled_chess_game
+#: model:ir.ui.view,arch_db:chess.view_completed_chess_game
+#: model:ir.ui.view,arch_db:chess.view_denied_chess_game
+#: model:ir.ui.view,arch_db:chess.view_invitations_chess_game
+#: model:ir.ui.view,arch_db:chess.view_new_chess_game
+msgid "Game Type"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_res_users_game_rating
+msgid "Game rating"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game_game_type
+msgid "Game type"
+msgstr ""
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.chesspage
+msgid "Game type:"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_tournament_games
+#: model:ir.ui.menu,name:chess.menu_all_games_content
+msgid "Games"
+msgstr ""
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.view_active_chess_game
+msgid "Go to the Game"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game_chat_id
+#: model:ir.model.fields,field_description:chess.field_chess_game_id
+#: model:ir.model.fields,field_description:chess.field_chess_game_line_id
+#: model:ir.model.fields,field_description:chess.field_chess_tournament_id
+msgid "ID"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game___last_update
+#: model:ir.model.fields,field_description:chess.field_chess_game_chat___last_update
+#: model:ir.model.fields,field_description:chess.field_chess_game_line___last_update
+#: model:ir.model.fields,field_description:chess.field_chess_tournament___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game_chat_write_uid
+#: model:ir.model.fields,field_description:chess.field_chess_game_line_write_uid
+#: model:ir.model.fields,field_description:chess.field_chess_game_write_uid
+#: model:ir.model.fields,field_description:chess.field_chess_tournament_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game_chat_write_date
+#: model:ir.model.fields,field_description:chess.field_chess_game_line_write_date
+#: model:ir.model.fields,field_description:chess.field_chess_game_write_date
+#: model:ir.model.fields,field_description:chess.field_chess_tournament_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: chess
+#: selection:chess.game,game_type:0
+#: selection:chess.tournament,tournament_type:0
+#: model:ir.ui.view,arch_db:chess.chesspage
+msgid "Limited time"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game_chat_message
+msgid "Message"
+msgstr "Nachricht"
+
+#. module: chess
+#: model:ir.actions.act_window,name:chess.action_my_invitations_chess_game
+#: model:ir.ui.menu,name:chess.menu_games_content
+#: model:ir.ui.menu,name:chess.menu_invitations_games_content
+msgid "My Invitations"
+msgstr "Meine Einladungen"
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.view_invitations_chess_game
+msgid "My invitations"
+msgstr "Meine Einladungen"
+
+#. module: chess
+#: model:ir.actions.act_window,name:chess.action_new_chess_game
+#: model:ir.ui.menu,name:chess.menu_new_chess_content
+msgid "New Games"
+msgstr "Neue Spiele"
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.view_new_chess_game
+msgid "New games"
+msgstr "Neue Spiel"
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.gamepage
+msgid "PGN: <span id=\"pgn\"/>"
+msgstr ""
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.chesspage
+msgid "Participate"
+msgstr ""
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.chesspage
+msgid "Play with a friend"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_tournament_players
+#: model:ir.ui.view,arch_db:chess.tournament_form_view
+msgid "Players"
+msgstr ""
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.view_denied_chess_game
+msgid "Refusals of games"
+msgstr ""
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.view_new_chess_game
+msgid "Refuse"
+msgstr "Absagen"
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.view_completed_chess_game
+msgid "Second User Name"
+msgstr "Zweiter Benutzername"
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game_second_time_date
+msgid "Second time date"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game_second_user_id
+msgid "Second user"
+msgstr "Zweiter Benutzer"
+
+#. module: chess
+#: model:ir.model.fields,help:chess.field_chess_game_second_user_score
+msgid "Second user game result."
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game_second_user_score
+msgid "Second user score"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game_second_user_time
+msgid "Second user time"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game_first_color_figure
+msgid "Select color for first figure"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game_second_color_figure
+msgid "Select color for second figure"
+msgstr ""
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.gamepage
+msgid "Setting"
+msgstr "Einstellung"
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game_line_source
+msgid "Source"
+msgstr "Quelle"
+
+#. module: chess
+#: selection:chess.game,game_type:0
+#: selection:chess.tournament,tournament_type:0
+#: model:ir.ui.view,arch_db:chess.chesspage
+msgid "Standart"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_tournament_start_date
+#: model:ir.ui.view,arch_db:chess.view_active_chess_game
+#: model:ir.ui.view,arch_db:chess.view_canceled_chess_game
+#: model:ir.ui.view,arch_db:chess.view_completed_chess_game
+#: model:ir.ui.view,arch_db:chess.view_denied_chess_game
+#: model:ir.ui.view,arch_db:chess.view_invitations_chess_game
+#: model:ir.ui.view,arch_db:chess.view_new_chess_game
+msgid "Start Date"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game_date_start
+msgid "Start date"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game_status
+#: model:ir.model.fields,field_description:chess.field_chess_tournament_status
+#: model:ir.ui.view,arch_db:chess.view_canceled_chess_game
+msgid "Status"
+msgstr ""
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.gamepage
+msgid "Status: <span id=\"status\"/>"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game_system_status
+msgid "System status"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game_line_target
+msgid "Target"
+msgstr ""
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.view_active_chess_game
+#: model:ir.ui.view,arch_db:chess.view_canceled_chess_game
+#: model:ir.ui.view,arch_db:chess.view_invitations_chess_game
+#: model:ir.ui.view,arch_db:chess.view_new_chess_game
+msgid "Time"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_tournament_time_d
+msgid "Time d"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_tournament_time_h
+msgid "Time h"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_tournament_time_m
+msgid "Time m"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_tournament_time_s
+msgid "Time s"
+msgstr ""
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.gamepage
+msgid "Time:"
+msgstr ""
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.chesspage
+msgid "Time: D:"
+msgstr ""
+
+#. module: chess
+#: model:ir.model.fields,field_description:chess.field_chess_game_tournament
+msgid "Tournament"
+msgstr ""
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.tournament_form_view
+msgid "Tournament Form"
+msgstr ""
+
+#. module: chess
+#: model:ir.actions.client,name:chess.tournament_action
+msgid "Tournament List"
+msgstr ""
+
+#. module: chess
+#: model:ir.actions.act_window,name:chess.tournaments_list
+#: model:ir.ui.menu,name:chess.tournaments_main
+#: model:ir.ui.menu,name:chess.tournaments_menu
+msgid "Tournaments"
+msgstr ""
+
+#. module: chess
+#: model:ir.ui.menu,name:chess.menu_active_tournaments
+msgid "Tournaments Manager"
+msgstr ""
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.view_active_chess_game
+#: model:ir.ui.view,arch_db:chess.view_canceled_chess_game
+#: model:ir.ui.view,arch_db:chess.view_denied_chess_game
+#: model:ir.ui.view,arch_db:chess.view_invitations_chess_game
+#: model:ir.ui.view,arch_db:chess.view_new_chess_game
+msgid "User Name"
+msgstr ""
+
+#. module: chess
+#: model:ir.model,name:chess.model_res_users
+msgid "Users"
+msgstr ""
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.chesspage
+msgid "Users:"
+msgstr ""
+
+#. module: chess
+#: selection:chess.game,first_color_figure:0
+#: selection:chess.game,second_color_figure:0
+#: model:ir.ui.view,arch_db:chess.chesspage
+msgid "White"
+msgstr ""
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.gamepage
+msgid "Window Chat"
+msgstr ""
+
+#. module: chess
+#: model:ir.model,name:chess.model_chess_game_chat
+msgid "chess chat message"
+msgstr ""
+
+#. module: chess
+#: model:ir.model,name:chess.model_chess_game
+msgid "chess game"
+msgstr "Schachspiel"
+
+#. module: chess
+#: model:ir.model,name:chess.model_chess_game_line
+msgid "chess game line"
+msgstr ""
+
+#. module: chess
+#: model:ir.model,name:chess.model_chess_tournament
+msgid "chess.tournament"
+msgstr ""
+
+#. module: chess
+#: model:ir.ui.view,arch_db:chess.gamepage
+msgid "show chat"
+msgstr "Chat anzeigen"
