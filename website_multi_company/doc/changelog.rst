@@ -1,3 +1,8 @@
+`2.0.4`
+-------
+
+- **FIX:** Non-admin users now have access to read company logo in a website
+
 `2.0.3`
 -------
 
