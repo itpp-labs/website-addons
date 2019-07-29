@@ -1,4 +1,9 @@
-`2.4.0`
+`3.0.1`
+-------
+
+- **Fix:** Non-admin users now have access to read company logo in a website
+
+`3.0.0`
 -------
 
 - **New:** compatibility with mail_multi_website
@@ -29,11 +34,6 @@
 -------
 
 - **New:** Use Website's company for field **Company** on record creation when possible. It affects many models and features
-
-`2.0.5`
--------
-
-- **Fix:** Non-admin users now have access to read company logo in a website
 
 `2.0.4`
 -------
