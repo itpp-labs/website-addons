@@ -17,7 +17,8 @@ class TestWebsiteMultiCompany(SingleTransactionCase):
             website.sale_product_domain()
         )
         product = products[0]
-        product.website_price_difference  # make sure, it does not throw exception
+        # make sure, it does not throw exception
+        product.website_price_difference  # pylint: disable=pointless-statement
 
     def test_website_price_difference_is_accessible_for_demo_user(self):
         uid = self.registry['res.users'].authenticate(db_name, 'demo', 'demo', {})
