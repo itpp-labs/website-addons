@@ -11,8 +11,8 @@ class Inventory(models.Model):
                                           readonly=True, states={'draft': [('readonly', False)]})
     product_location = fields.Many2one('stock.location', 'Inventoried Location',
                                         readonly=True, states={'draft': [('readonly', False)]})
-    product_brand = fields.Many2one('brand', 'Product Brand',
-                                    readonly=True, states={'draft': [('readonly', False)]})
+    # product_brand = fields.Many2one('brand', 'Product Brand',
+    #                                 readonly=True, states={'draft': [('readonly', False)]})
 
 
     @api.model
@@ -20,7 +20,7 @@ class Inventory(models.Model):
         res_filter = super(Inventory, self)._selection_filter()
         res_filter.append(('supplier', _('Supplier')))
         res_filter.append(('negative_stock', _('Negative Stock')))
-        res_filter.append(('brand', _('Brand')))
+        # res_filter.append(('brand', _('Brand')))
         return res_filter
 
     def _get_inventory_lines_values(self):
@@ -38,9 +38,9 @@ class Inventory(models.Model):
 
             quants = quants.search([('location_id', '=', self.product_location.id), ('quantity', '<', 0)])
 
-        if self.filter == 'brand':
-
-            quants = quants.search([('product_tmpl_id.brand_ept_id', '=', self.product_brand.id), ('quantity', '>=', 0)])
+        # if self.filter == 'brand':
+        #
+        #     quants = quants.search([('product_tmpl_id.brand_ept_id', '=', self.product_brand.id), ('quantity', '>=', 0)])
 
         if self.filter in ['supplier', 'negative_stock', 'brand']:
             quants = quants.filtered(lambda q: q.location_id.id == self.product_location.id)

@@ -16,9 +16,9 @@
                 <field name="partner_supplier_id"
                        attrs="{'invisible': [('filter', 'not in', ('supplier'))],
                                'required': [('filter', 'in', ('supplier'))]}"/>
-                <field name="product_brand"
-                       attrs="{'invisible': [('filter', 'not in', ('brand'))],
-                               'required': [('filter', 'in', ('brand'))]}"/>
+<!--                <field name="product_brand"-->
+<!--                       attrs="{'invisible': [('filter', 'not in', ('brand'))],-->
+<!--                               'required': [('filter', 'in', ('brand'))]}"/>-->
             </xpath>
         </field>
     </record>

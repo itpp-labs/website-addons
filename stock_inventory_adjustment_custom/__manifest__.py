@@ -19,7 +19,7 @@
     "depends": [
         "stock",
         "purchase",
-        "clarico_brand",
+        # "clarico_brand",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
