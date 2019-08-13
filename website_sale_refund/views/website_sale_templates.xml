@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!--Copyright 2017-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+    Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
+    License MIT (https://opensource.org/licenses/MIT).-->
 <odoo>
     <template id="cart" inherit_id="website_sale.cart">
-        <xpath expr="//h1[@class='mb32']" position="after">
+        <xpath
+            expr="//div[hasclass('mt8', 'mb8', 'alert', 'alert-info')]"
+            position="after"
+        >
             <t t-if="warning_msg">
                 <div class="alert alert-danger" role="alert">
                     <t t-esc="warning_msg" />
