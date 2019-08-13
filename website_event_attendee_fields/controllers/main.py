@@ -16,7 +16,7 @@ class WebsiteEventControllerExtended(WebsiteEventController):
         res = super(WebsiteEventControllerExtended, self).registration_confirm(event, **post)
         if res.location:
             # If super redirect (to /shop/checkout)
-            url = request.env['ir.config_parameter'].get_param('website_event_sale.redirection') or res.location
+            url = request.env['ir.config_parameter'].sudo().get_param('website_event_sale.redirection') or res.location
             return request.redirect(url)
         else:
             return res

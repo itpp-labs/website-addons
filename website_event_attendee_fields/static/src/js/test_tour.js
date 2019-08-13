@@ -14,11 +14,11 @@ odoo.define('website_event_attendee_fields.test_tour', function (require) {
 
         {
             content: "Go to the `Events` page",
-            trigger: 'a[href*="/event"]:contains("Conference on Business Apps"):first',
+            trigger: 'a[href*="/event"]:contains("Design Fair Los Angeles"):first',
         },
         {
             content: "Select 2 unit of 'Free Ticket'",
-            extra_trigger: '#wrap:not(:has(a[href*="/event"]:contains("Conference on Business Apps")))',
+            extra_trigger: '#wrap:not(:has(a[href*="/event"]:contains("Design Fair Los Angeles")))',
             trigger: 'select:eq(0)',
             run: 'text 2',
         },
