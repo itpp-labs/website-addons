@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!--Copyright 2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+    Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
+    License MIT (https://opensource.org/licenses/MIT).-->
 <odoo>
 <template id="registration_template" inherit_id="website_event.registration_template">
     <!-- due to odoo framework restrictions we cannot add attribute depending on condition.
@@ -9,7 +12,7 @@
     <xpath expr="//form" position="after">
         <t
                 t-set="is_user_public"
-                t-value="website.env.user == request.website.user_id"
+                t-value="request.env.user.id == request.website.user_id.id"
             />
         <t t-if="not is_user_public">
             <script type="text/javascript">
@@ -21,7 +24,7 @@
     <xpath expr="//button[@type='submit']" position="replace">
         <t
                 t-set="is_user_public"
-                t-value="website.env.user == request.website.user_id"
+                t-value="request.env.user.id == request.website.user_id.id"
             />
         <t t-if="is_user_public">
             <a
