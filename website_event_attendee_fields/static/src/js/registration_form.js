@@ -1,3 +1,5 @@
+/*  Copyright 2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+    # License MIT (https://opensource.org/licenses/MIT).*/
 odoo.define("website_event_attendee_fields.registration_form", function(require) {
     "use strict";
     var ajax = require("web.ajax");
