@@ -1,10 +1,15 @@
+# Copyright 2017-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexand
+# Copyright 2018-2019 Ruslan Ronzhin <https://it-projects.info/team/rusllan/>
+# Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
+# License LGPL-3.0 (https://www.gnu.org/licenses/lgpl.html).
 {
-    "name": """Attendee registration: Birthdate, Passport, Nationality""",
+    "name": """Event guest info""",
     "summary": """Ask information on registration and stores at Partner record""",
     "category": "Marketing",
     # "live_test_url": "http://apps.it-projects.info/shop/product/portal-event-tickets?version=10.0",
     "images": ["images/banner.jpg"],
-    "version": "10.0.1.0.1",
+    "version": "12.0.1.0.1",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev",
@@ -30,7 +35,6 @@
     "qweb": [
     ],
     "demo": [
-        "data/event_event_demo.yml",
     ],
 
     "post_load": None,
@@ -38,5 +42,5 @@
     "post_init_hook": None,
 
     "auto_install": False,
-    "installable": False,
+    "installable": True,
 }
