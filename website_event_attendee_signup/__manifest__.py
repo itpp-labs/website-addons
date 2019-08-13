@@ -1,3 +1,7 @@
+# Copyright 2017-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2019 Ruslan Ronzhin <https://it-projects.info/team/rusllan/>
+# Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
+# License MIT (https://opensource.org/licenses/MIT).
 {
     "name": """Auto Sign Up Event guest""",
     "summary": """Attendees can use portal dashboard to make extra purchases for the event, for example.""",
@@ -21,5 +25,5 @@
     "pre_init_hook": None,
     "post_init_hook": None,
     "auto_install": False,
-    "installable": False,
+    "installable": True,
 }
