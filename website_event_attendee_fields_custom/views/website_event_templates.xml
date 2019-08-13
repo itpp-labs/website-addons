@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!--Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+    Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexand
+    License MIT (https://opensource.org/licenses/MIT).-->
 <odoo>
     <template
         id="registration_attendee_details"
