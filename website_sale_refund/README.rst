@@ -33,7 +33,7 @@ Maintainers
 -----------
 * `IT-Projects LLC <https://it-projects.info>`__
 
-      To get a guaranteed support you are kindly requested to purchase the module at `odoo apps store <https://apps.odoo.com/apps/modules/10.0/website_sale_refund/>`__.
+      To get a guaranteed support you are kindly requested to purchase the module at `odoo apps store <https://apps.odoo.com/apps/modules/12.0/website_sale_refund/>`__.
 
       Thank you for understanding!
 
@@ -42,12 +42,12 @@ Maintainers
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/website-addons/10.0
+Demo: http://runbot.it-projects.info/demo/website-addons/12.0
 
-HTML Description: https://apps.odoo.com/apps/modules/10.0/website_sale_refund/
+HTML Description: https://apps.odoo.com/apps/modules/12.0/website_sale_refund/
 
 Usage instructions: `<doc/index.rst>`_
 
 Changelog: `<doc/changelog.rst>`_
 
-Tested on Odoo 10.0 60801e537575d08797137d3e34fa2ee492c75f1b
+Tested on Odoo 12.0 b0afa49ab41842e8b6f091ef1335e9f0e50d7d2b
