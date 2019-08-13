@@ -1,3 +1,5 @@
+# Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# License MIT (https://opensource.org/licenses/MIT).-->
 from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
@@ -78,7 +80,6 @@ class EventMailScheduler(models.Model):
 class EventMailRegistration(models.Model):
     _inherit = "event.mail.registration"
 
-    @api.one
     @api.depends(
         "registration_id", "scheduler_id.interval_unit", "scheduler_id.interval_type"
     )

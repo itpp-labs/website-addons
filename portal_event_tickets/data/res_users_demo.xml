@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!--Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+    # License MIT (https://opensource.org/licenses/MIT).-->
 <odoo>
     <record id="user_portal1" model="res.users" context="{'no_reset_password': True}">
         <field name="name">portal1 name</field>

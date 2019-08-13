@@ -80,12 +80,12 @@ Maintainers
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/website-addons/10.0
+Demo: http://runbot.it-projects.info/demo/website-addons/12.0
 
-HTML Description: https://apps.odoo.com/apps/modules/10.0/portal_event_tickets/
+HTML Description: https://apps.odoo.com/apps/modules/12.0/portal_event_tickets/
 
 Usage instructions: `<doc/index.rst>`_
 
 Changelog: `<doc/changelog.rst>`_
 
-Tested on Odoo 10.0 6c1c1f6e9e03322771169b920d3c14c5e33111e9
+Tested on Odoo 12.0 847b131c8cd9c5197a4360deead8ec4247ed866e

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!--Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+    # License MIT (https://opensource.org/licenses/MIT).-->
 <odoo noupdate="1">
     <record id="email_template_signup" model="mail.template">
         <field name="name">Event: Transferring started</field>

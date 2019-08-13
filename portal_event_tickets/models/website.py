@@ -1,3 +1,5 @@
+# Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# License MIT (https://opensource.org/licenses/MIT).-->
 from odoo import fields, models
 
 
