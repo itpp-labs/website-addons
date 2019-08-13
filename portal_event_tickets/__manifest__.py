@@ -1,10 +1,15 @@
+# Copyright 2017-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexand
+# Copyright 2018-2019 Ruslan Ronzhin <https://it-projects.info/team/rusllan/>
+# Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
+# License LGPL-3.0 (https://www.gnu.org/licenses/lgpl.html).
 {
     "name": """Customer Event Portal""",
     "summary": """Allows to customers see their tickets for events at the Portal""",
     "category": "Marketing",
     # "live_test_url": "http://apps.it-projects.info/shop/product/portal-event-tickets?version=10.0",
     "images": ["images/banner.jpg"],
-    "version": "10.0.1.1.0",
+    "version": "12.0.1.1.0",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev",
@@ -16,8 +21,7 @@
 
     "depends": [
         "event_sale",
-        "website_portal",
-        "partner_event",
+        "portal",
         "website_event_attendee_fields",
         "website_sale_refund",
     ],
@@ -41,7 +45,7 @@
     "uninstall_hook": None,
 
     "auto_install": False,
-    "installable": False,
+    "installable": True,
 
     "demo_title": "Event extensions",
     "demo_addons": ["website_event_attendee_fields", "website_event_attendee_signup", "website_event_require_login"],

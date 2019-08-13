@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+    License LGPL-3.0 (https://www.gnu.org/licenses/lgpl.html).-->
 <odoo>
 
     <record id="user_portal1" model="res.users" context="{'no_reset_password': True}">

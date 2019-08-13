@@ -1,3 +1,5 @@
+# Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# License LGPL-3.0 (https://www.gnu.org/licenses/lgpl.html).
 from odoo import models, api
 
 
@@ -12,9 +14,11 @@ class SaleOrderLine(models.Model):
     def _cancel_line(self, origin=None):
         res = super(SaleOrderLine, self)._cancel_line(origin=origin)
 
-        tickets = self.env['event.registration'].search(
-            [('sale_order_line_id', 'in', self.ids)]
-        )
+        tickets = self.env['event.registration'].search([
+            ('sale_order_line_id', 'in', self.ids),
+            ('attendee_partner_id', '=', origin.partner_id.id),
+            ('event_id', '=', self.event_id.id)
+        ])
         tickets.button_reg_cancel()
 
         for t in tickets:

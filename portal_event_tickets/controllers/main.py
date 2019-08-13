@@ -1,3 +1,6 @@
+# Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
+# License LGPL-3.0 (https://www.gnu.org/licenses/lgpl.html).
 import logging
 
 from odoo import http, _
@@ -5,16 +8,26 @@ from odoo.exceptions import AccessError
 from odoo.http import request
 from odoo.fields import Date
 
-from odoo.addons.website_portal.controllers.main import website_account
+from odoo.addons.portal.controllers.portal import CustomerPortal
 from odoo.addons.website_event.controllers.main import WebsiteEventController
 from odoo.addons.website_sale.controllers.main import WebsiteSale
-from odoo.addons.website.models.website import slug
+from odoo.addons.http_routing.models.ir_http import slug
 
 
 _logger = logging.getLogger(__name__)
 
 
-class PortalEvent(website_account):
+class PortalEvent(CustomerPortal):
+
+    def _prepare_portal_layout_values(self):
+        values = super(PortalEvent, self)._prepare_portal_layout_values()
+        domain = self._tickets_domain()
+        tickets_count = request.env['event.registration'].search_count(domain)
+
+        values.update({
+            'tickets_count': tickets_count,
+        })
+        return values
 
     def _get_archive_groups(self, model, domain=None, fields=None, groupby="create_date", order="create_date desc"):
         # TODO make without copy-pasting. Probably add ir.rule for portal user?
@@ -85,6 +98,8 @@ class PortalEvent(website_account):
             'pager': pager,
             'archive_groups': archive_groups,
             'default_url': '/my/tickets',
+            'page_name': 'ticket',
+            'report_type': 'html',
         })
         return request.render("portal_event_tickets.portal_my_tickets", values)
 
@@ -131,6 +146,11 @@ class PortalEvent(website_account):
 
         values.update({
             'ticket': ticket_sudo,
+            'bootstrap_formatting': True,
+            'partner_id': ticket_sudo.partner_id.id,
+            'report_type': 'html',
+            'page_name': 'ticket',
+            'type_name': 'Ticket'
         })
         return request.render("portal_event_tickets.portal_ticket_page", values)
 
@@ -141,7 +161,7 @@ class PortalEvent(website_account):
         if not self._has_ticket_access(ticket):
             return request.render("website.403")
 
-        pdf = request.env['report'].sudo().get_pdf([ticket.id], 'event.event_registration_report_template_badge')
+        pdf = request.env.ref('sale.action_report_saleorder').sudo().render_qweb_pdf([ticket.sale_order_id.id])[0]
         pdfhttpheaders = [
             ('Content-Type', 'application/pdf'), ('Content-Length', len(pdf)),
             ('Content-Disposition', 'attachment; filename=ticket.pdf;')

@@ -1,3 +1,5 @@
+# Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# License LGPL-3.0 (https://www.gnu.org/licenses/lgpl.html).
 from datetime import datetime, timedelta
 
 import odoo
@@ -67,7 +69,7 @@ class TourCase(HttpCase):
         sale_order_line = self.env['sale.order.line'].create({
             'product_id': product.id,
             'price_unit': 190.50,
-            'product_uom': self.env.ref('product.product_uom_unit').id,
+            'product_uom': self.env.ref('uom.product_uom_unit').id,
             'product_uom_qty': 1.0,
             'order_id': sale_order.id,
             'name': 'sale order line',
