@@ -1,3 +1,5 @@
+/*  Copyright 2017-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).*/
 odoo.define('website_event_attendee_fields.test_tour', function (require) {
 'use strict';
 

@@ -1,3 +1,5 @@
+# Copyright 2017-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# License LGPL-3.0 (https://www.gnu.org/licenses/lgpl.html).
 from odoo import api, fields, models, _
 from odoo.tools.safe_eval import safe_eval
 
@@ -33,6 +35,7 @@ class Event(models.Model):
 class AttendeeField(models.Model):
 
     _name = 'event.event.attendee_field'
+    _description = 'event attendee field'
 
     sequence = fields.Integer('Sequence')
     field_id = fields.Many2one('ir.model.fields', domain="[('model_id.model', 'in', ['res.partner', 'event.registration'])]")
@@ -60,7 +63,7 @@ class AttendeeField(models.Model):
 
     width = fields.Selection([
         (str(v), str(v))
-        for v in xrange(1, 13)  # 13 is not included
+        for v in range(1, 13)  # 13 is not included
     ], string='Width', required=True, default='4', help="Field of a width in the form. One row may have width up to 12")
 
     domain = fields.Char('Domain')
