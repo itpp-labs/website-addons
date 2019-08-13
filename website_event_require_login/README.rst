@@ -1,6 +1,6 @@
-=====================================================
- Tickets purchasing: force user to sign in / sign up
-=====================================================
+==========================
+ No tickets without Email
+==========================
 
 The module updates ``/event/EVENT-ID/register`` page when user is not authenticated:
 
@@ -25,12 +25,12 @@ Maintainers
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/website-addons/10.0
+Demo: http://runbot.it-projects.info/demo/website-addons/12.0
 
-HTML Description: https://apps.odoo.com/apps/modules/10.0/website_event_sale_require_login/
+HTML Description: https://apps.odoo.com/apps/modules/12.0/website_event_sale_require_login/
 
 Usage instructions: `<doc/index.rst>`_
 
 Changelog: `<doc/changelog.rst>`_
 
-Tested on Odoo 10.0 bbc226cd6cc17c69979f81831a3da8cc668bf064
+Tested on Odoo 12.0 95c5627bac7df31023960b9b444f1d49421b74dd
