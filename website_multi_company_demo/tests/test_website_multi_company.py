@@ -6,7 +6,7 @@ from odoo.api import Environment
 db_name = get_db_name()
 
 
-@at_install(False)
+@at_install(True)
 @post_install(True)
 class TestWebsiteMultiCompany(SingleTransactionCase):
 
