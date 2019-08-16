@@ -1,6 +1,6 @@
-====================================
- Demo Data for "Real Multi Website"
-====================================
+===================
+ Website Demo Data
+===================
 
 After installation:
 
