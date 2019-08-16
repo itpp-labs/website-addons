@@ -1,6 +1,6 @@
-==========================================
- Real Multi Website (eCommerce extension)
-==========================================
+===================
+ eCommerce Support
+===================
 
 Multi Website support in eCommerce:
 
