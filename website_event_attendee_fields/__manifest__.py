@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    "name": """Customizable fields for attendees on Events""",
+    "name": """Event guest Custom Field""",
     "summary": """Do you need more information about attendees than three default fields (name, email, phone)?""",
     "category": "Marketing",
     "live_test_url": "http://apps.it-projects.info/shop/product/portal-event-tickets?version=10.0",
