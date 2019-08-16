@@ -7,7 +7,7 @@ class ProductAttributeValue(models.Model):
     _inherit = "product.attribute.value"
 
     @api.multi
-    def _get_price_factor(self):
+    def _compute_get_price_factor(self):
         active_id = self.env.context.get('active_id')
         if not active_id:
             return
@@ -19,23 +19,22 @@ class ProductAttributeValue(models.Model):
 
     def _set_price_factor(self):
         value = self.price_factor
-        id = self.id
         active_id = self.env.context.get('active_id')
         if not active_id:
             return
 
         p_obj = self.env['product.attribute.price']
-        p_ids = p_obj.search([('value_id', '=', id), ('product_tmpl_id', '=', active_id)])
+        p_ids = p_obj.search([('value_id', '=', self.id), ('product_tmpl_id', '=', active_id)])
         if p_ids:
             p_ids.write({'price_factor': value})
         else:
             p_obj.create({
                 'product_tmpl_id': active_id,
-                'value_id': id,
+                'value_id': self.id,
                 'price_factor': value,
             })
 
-    price_factor = fields.Float(compute="_get_price_factor", string='Attribute Price Factor',
+    price_factor = fields.Float(compute="_compute_get_price_factor", string='Attribute Price Factor',
                                         inverse=_set_price_factor,
                                         digits=dp.get_precision('Product Price'))
 
