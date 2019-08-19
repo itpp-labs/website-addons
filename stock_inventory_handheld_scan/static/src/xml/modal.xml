@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Copyright 2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).-->
+
+<templates id="template" xml:space="preserve">
+
+    <t t-name="stock_scan_modal">
+        <div id="stock_scan_modal" class="stock_scan_modal modal">
+            <div class="modal-content">
+                <span class="close-btn x-btn">&amp;times;</span>
+                <div class="panel-heading">
+                    <div>
+                        <span class="barcode">Waiting for Scan ...</span>
+                    </div>
+                    <div class="hidden_barcode_input">
+                        <input type="number" class="hidden_barcode_input" placeholder="Placeholder"/>
+                    </div>
+                </div>
+                <div class="panel-hidden">
+                    <div class="message-container">
+                        <div>
+                            <span class="pre-message">Error Message</span>
+                        </div>
+                        <div>
+                            <span class="message"></span>
+                        </div>
+                    </div>
+                    <div class="data-container">
+                        <div>
+                            [<span class="default_code"></span>]
+                            <span class="product_name"></span>
+                            (<span class="product_attributes"></span>)
+                        </div>
+                        <div>
+                            <span>Size: </span><span class="product_size"></span>
+                        </div>
+                        <div>
+                            <span>Theoretical Qty: </span><span class="theoretical_qty"></span>
+                        </div>
+                        <div>
+                            <span>QTY: <input type="number"
+                                              class="product_qty"
+                                              placeholder="0"
+                            /></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <button type="button" class="btn btn-primary update_qty">Update</button>
+                    <button type="button" class="btn btn-primary close-btn">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>
