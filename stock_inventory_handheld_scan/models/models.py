@@ -23,18 +23,18 @@ class Inventory(models.Model):
                     'theoretical_qty': line.theoretical_qty,
                     'product_attributes': product.attribute_value_ids.mapped('name')
                 }
-            products = self.env['product.product'].search([('barcode', '=', barcode)])
-            if products:
-                return {
-                    'product_id': products[0].id,
-                    'product_name': products[0].product_tmpl_id.name,
-                }
-            partner_barcodes = self.env['res.partner.product.barcode'].search([('barcode', '=', barcode)])
-            if partner_barcodes:
-                return {
-                    'product_id': partner_barcodes[0].product_id.id,
-                    'product_name': partner_barcodes[0].product_id.product_tmpl_id.name,
-                }
+        products = self.env['product.product'].search([('barcode', '=', barcode)])
+        if products:
+            return {
+                'product_id': products[0].id,
+                'product_name': products[0].product_tmpl_id.name,
+            }
+        partner_barcodes = self.env['res.partner.product.barcode'].search([('barcode', '=', barcode)])
+        if partner_barcodes:
+            return {
+                'product_id': partner_barcodes[0].product_id.id,
+                'product_name': partner_barcodes[0].product_id.product_tmpl_id.name,
+            }
         return False
 
 

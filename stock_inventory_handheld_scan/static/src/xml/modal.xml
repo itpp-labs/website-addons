@@ -26,18 +26,18 @@
                         </div>
                     </div>
                     <div class="data-container">
-                        <div>
+                        <div class="info">
                             [<span class="default_code"></span>]
                             <span class="product_name"></span>
                             (<span class="product_attributes"></span>)
                         </div>
-                        <div>
+                        <div class="info">
                             <span>Size: </span><span class="product_size"></span>
                         </div>
-                        <div>
+                        <div class="info">
                             <span>Theoretical Qty: </span><span class="theoretical_qty"></span>
                         </div>
-                        <div>
+                        <div class="info">
                             <span>QTY: <input type="number"
                                               class="product_qty"
                                               placeholder="0"
@@ -48,6 +48,7 @@
                 <div class="panel-footer">
                     <button type="button" class="btn btn-primary update_qty">Update</button>
                     <button type="button" class="btn btn-primary close-btn">Cancel</button>
+                    <button type="button" class="btn btn-primary check-barcode">Check Barcode</button>
                 </div>
             </div>
         </div>

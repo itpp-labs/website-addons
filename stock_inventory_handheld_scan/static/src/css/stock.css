@@ -13,21 +13,21 @@
 
 /* Modal Content/Box */
 .stock_scan_modal .modal-content {
-      background-color: #fefefe;
-      margin: 15% auto; /* 15% from the top and centered */
-      padding: 20px;
-      border: 1px solid #888;
-      width: 80%; /* Could be more or less, depending on screen size */
-      margin-top: 50px;
-    }
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    margin-top: 50px;
+}
 
 /* The Close Button */
 .stock_scan_modal .close-btn.x-btn {
-      color: #aaa;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-    }
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
 
 .hidden_barcode_input {
     /*display: none;*/
@@ -35,6 +35,7 @@
     overflow: hidden;
     height: 0px;
 }
+
 .message-container {
     display: none;
 }
@@ -44,8 +45,23 @@
 .update_qty {
     display: none;
 }
+.check-barcode {
+    display: none;
+}
 
 .product_qty {
     width: 50%;
     display: inline;
+}
+
+.o_main.inventory_adjustment_extension .btn {
+    margin-top: 5px;
+}
+
+.panel-hidden {
+    font-size: large;
+}
+
+.panel-hidden .info {
+    margin: 5px;
 }
