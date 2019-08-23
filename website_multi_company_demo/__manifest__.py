@@ -3,7 +3,7 @@
     "summary": """Provides demo websites""",
     "category": "Hidden",
     # "live_test_URL": "",
-    "images": [],
+    "images": ["images/banner.jpg"],
     "version": "12.0.1.0.0",
     "application": False,
 
