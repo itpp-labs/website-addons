@@ -4,9 +4,9 @@
 <template id="polyfill">
         <!-- solution from https://stackoverflow.com/questions/22983013/how-to-get-html-5-input-type-date-working-in-firefox-and-or-ie-10 -->
         <!-- cdn for modernizr, if you haven't included it already -->
-        <script src="//cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
+        <script src="/website_event_attendee_fields/static/lib/webshim/extras/modernizr-custom.js"></script>
         <!-- polyfiller file to detect and load polyfills -->
-        <script src="//cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
+        <script src="/website_event_attendee_fields/static/lib/webshim/polyfiller.js"></script>
         <script type="text/javascript">
             /* webshims.setOptions('waitReady', false); */
             webshims.setOptions('forms-ext', {types: 'date'});

@@ -5,9 +5,12 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     @api.multi
-    def add_refund_line(self, refund_source_line, name):
+    def add_refund_line(self, refund_source_line, name, qty=0):
         self.ensure_one()
-        refund_price = refund_source_line.price_total
+        if 0 < qty < refund_source_line.product_uom_qty:
+            refund_price = refund_source_line.price_unit * qty
+        else:
+            refund_price = refund_source_line.price_total
         # TODO make product customizable
         refund_product = self.env.ref('website_sale_refund.refund_product')
         product_id = refund_product.id

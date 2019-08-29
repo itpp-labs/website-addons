@@ -11,7 +11,7 @@
             <field name="name">chess.tournaments.list</field>
             <field name="model">chess.tournament</field>
             <field name="arch" type="xml">
-                <tree string="Active Tournaments" create="false">
+                <tree create="false">
                     <field name="create_uid"/>
                     <field name="start_date"/>
                     <field name="tournament_type"/>

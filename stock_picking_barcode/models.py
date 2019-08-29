@@ -8,12 +8,6 @@
 from odoo import models, api, fields
 
 
-class StockMoveLine(models.Model):
-    _inherit = "stock.move.line"
-
-    product_barcode = fields.Char('Barcode', related='product_id.product_tmpl_id.barcode')
-
-
 class StockPicking(models.Model):
     _inherit = "stock.picking"
 
@@ -75,7 +69,7 @@ class StockPicking(models.Model):
         return answer
 
     @api.model
-    def get_next_picking_for_ui(self, picking_type_id=None):
+    def get_next_picking_for_ui(self, picking_type_id):
         """ returns the next pickings to process. Used in the barcode scanner UI"""
         domain = [('state', 'in', ('assigned', 'partially_available'))]
         if picking_type_id:
@@ -159,7 +153,7 @@ class StockPicking(models.Model):
             operation.with_context(no_recompute=True).write({'product_uom_qty': operation.qty_done})
         self.do_transfer()
         # return id of next picking to work on
-        return self.get_next_picking_for_ui()
+        return self.get_next_picking_for_ui(self.picking_type_id.id)
 
     def unpack(self):
         quant_obj = self.env['stock.quant']
@@ -190,9 +184,11 @@ class StockPickingType(models.Model):
         return {'type': 'ir.actions.act_url', 'url': final_url, 'target': 'self'}
 
 
-class StockPackOperation(models.Model):
+class StockMoveLine(models.Model):
     _inherit = "stock.move.line"
-    # _inherit = "stock.pack.operation"
+    # _inherit = "stock.pack.operation" model name in odoo 10.0
+
+    product_barcode = fields.Char('Barcode', related='product_id.barcode')
 
     @api.multi
     def _increment(self, picking_id, domain, filter_visible=False, visible_op_ids=False, increment=True):
@@ -269,3 +265,11 @@ class StockPackOperation(models.Model):
         if not new_lot_id:
             new_lot_id = self.env['stock.production.lot'].create(val).id
         self.write({'lot_id': new_lot_id})
+
+
+class QuantPackage(models.Model):
+    _inherit = "stock.quant.package"
+
+    @api.multi
+    def do_print_package(self):
+        return self.env.ref('stock_picking_barcode.action_report_package_stock_picking_barcode').report_action(self)
