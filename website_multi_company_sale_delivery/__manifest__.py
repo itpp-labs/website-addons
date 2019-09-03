@@ -5,7 +5,7 @@
     "name": """Real Multi Website (eCommerce Delivery extension)""",
     "summary": """Confiure Delivery Carriers list per website""",
     "category": "eCommerce",
-    "live_test_url": "http://apps.it-projects.info/shop/product/website-multi-company?version=10.0",
+    # "live_test_url": "http://apps.it-projects.info/shop/product/website-multi-company?version=10.0",
     "images": ["images/website_multi_company_sale_delivery_main.png"],
     "version": "10.0.1.0.1",
     "application": False,

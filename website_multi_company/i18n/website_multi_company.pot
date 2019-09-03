@@ -1,0 +1,156 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_multi_company
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_multi_company
+#: model:ir.ui.view,arch_db:website_multi_company.view_users_form_inherit_website_multi_company
+msgid "Design Websites"
+msgstr ""
+
+#. module: website_multi_company
+#: model:ir.model.fields,field_description:website_multi_company.field_res_users_editor_website_ids
+msgid "Editor on websites"
+msgstr ""
+
+#. module: website_multi_company
+#: model:ir.model.fields,help:website_multi_company.field_res_users_editor_website_ids
+msgid "Empty list allows edit any website"
+msgstr ""
+
+#. module: website_multi_company
+#: code:addons/website_multi_company/models/res_users.py:24
+#, python-format
+msgid "Error! You can select as editable only the allowed companies's websites - check the 'Editor on websites' field in preferences"
+msgstr ""
+
+#. module: website_multi_company
+#: code:addons/website_multi_company/models/module.py:67
+#, python-format
+msgid "Install"
+msgstr ""
+
+#. module: website_multi_company
+#: model:ir.model,name:website_multi_company.model_ir_module_module
+msgid "Module"
+msgstr ""
+
+#. module: website_multi_company
+#: model:ir.ui.view,arch_db:website_multi_company.view_website_multi_company_form
+msgid "Multi Theme"
+msgstr ""
+
+#. module: website_multi_company
+#: model:ir.actions.act_window,name:website_multi_company.website_theme_action
+#: model:ir.ui.menu,name:website_multi_company.website_theme_menu
+msgid "Multi-Themes"
+msgstr ""
+
+#. module: website_multi_company
+#: model:ir.ui.view,arch_db:website_multi_company.view_website_theme_form
+msgid "Multi-theme"
+msgstr ""
+
+#. module: website_multi_company
+#: model:ir.actions.client,name:website_multi_company.action_client_website_menu
+msgid "Open Website Menu"
+msgstr ""
+
+#. module: website_multi_company
+#: model:ir.ui.view,arch_db:website_multi_company.view_website_multi_company_form
+msgid "Reload Theme List"
+msgstr ""
+
+#. module: website_multi_company
+#: model:ir.ui.view,arch_db:website_multi_company.view_website_config_settings
+msgid "Reload Theme List &amp; Update all websites"
+msgstr ""
+
+#. module: website_multi_company
+#: model:ir.ui.view,arch_db:website_multi_company.view_website_multi_company_form
+msgid "Update Theme for current website. Normally used when theme is changed"
+msgstr ""
+
+#. module: website_multi_company
+#: model:ir.ui.view,arch_db:website_multi_company.view_website_multi_company_form
+msgid "Update Website Theme"
+msgstr ""
+
+#. module: website_multi_company
+#: model:ir.ui.view,arch_db:website_multi_company.view_website_multi_company_form
+msgid "Use it if you installed theme, but cannot find it in the list"
+msgstr ""
+
+#. module: website_multi_company
+#: model:ir.model,name:website_multi_company.model_res_users
+msgid "Users"
+msgstr ""
+
+#. module: website_multi_company
+#: model:ir.ui.view,arch_db:website_multi_company.view_website_theme_form
+msgid "Views"
+msgstr ""
+
+#. module: website_multi_company
+#: model:ir.model,name:website_multi_company.model_website
+msgid "Website"
+msgstr ""
+
+#. module: website_multi_company
+#: model:ir.model,name:website_multi_company.model_website_menu
+msgid "Website Menu"
+msgstr ""
+
+#. module: website_multi_company
+#: model:ir.actions.act_window,name:website_multi_company.website_menu_action
+#: model:ir.ui.menu,name:website_multi_company.website_menu_menu
+msgid "Website Menus"
+msgstr ""
+
+#. module: website_multi_company
+#: model:ir.ui.view,arch_db:website_multi_company.menu_form
+msgid "Website menu"
+msgstr ""
+
+#. module: website_multi_company
+#: model:ir.actions.act_window,name:website_multi_company.website_action
+#: model:ir.ui.menu,name:website_multi_company.website_menu
+msgid "Websites"
+msgstr ""
+
+#. module: website_multi_company
+#: code:addons/website_multi_company/models/ir_ui_view.py:21
+#, python-format
+msgid "You are trying to edit the %r website but can only edit the %r websites. Please contact your system administrator"
+msgstr ""
+
+#. module: website_multi_company
+#: code:addons/website_multi_company/models/module.py:62
+#, python-format
+msgid "You are trying to install incompatible themes:\n"
+"%s\n"
+"\n"
+"Please uninstall your current theme before installing another one.\n"
+"Warning: switching themes may significantly alter the look of your current website pages!"
+msgstr ""
+
+#. module: website_multi_company
+#: model:ir.model,name:website_multi_company.model_ir_ui_view
+msgid "ir.ui.view"
+msgstr ""
+
+#. module: website_multi_company
+#: model:ir.model,name:website_multi_company.model_website_theme
+msgid "website.theme"
+msgstr ""
+
