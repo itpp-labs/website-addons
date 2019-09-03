@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": """Real Multi Website (eCommerce extension)""",
-    "summary": """Multi Website support in eCommerce""",
+    "summary": """Multi Ecommerce""",
     "category": "eCommerce",
     # "live_test_url": "http://apps.it-projects.info/shop/product/website-multi-company?version=10.0",
     "images": [],
