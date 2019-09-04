@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html). -->
+<odoo>
+
+    <record id="product_public_category_form_view" model="ir.ui.view">
+        <field name="name">product.public.category.form</field>
+        <field name="model">product.public.category</field>
+        <field name="inherit_id" ref="website_sale.product_public_category_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='sequence']" position="after">
+                <field name="website_ids" widget="many2many_tags" attrs="{'readonly': [('parent_id', '!=', False)]}"/>
+                <field name="company_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_public_category_tree_view" model="ir.ui.view">
+        <field name="name">product.public.category.tree</field>
+        <field name="model">product.public.category</field>
+        <field name="inherit_id" ref="website_sale.product_public_category_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='display_name']" position="after">
+                <field name="website_ids" widget="many2many_tags"/>
+                <field name="company_id"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
