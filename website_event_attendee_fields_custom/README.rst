@@ -1,6 +1,6 @@
-=========================================================
- Attendee registration: Birthdate, Passport, Nationality
-=========================================================
+==================
+ Event guest info
+==================
 
 Prepare fields for adding to registration form.
 

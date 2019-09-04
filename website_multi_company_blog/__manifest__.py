@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    "name": """Real Multi Website (blog extension)""",
+    "name": """Multi Website Blog""",
     "summary": """Blocks an access to a website blog from websites, which have not been specified as allowed for this blog""",
     "category": "eCommerce",
     # "live_test_url": "http://apps.it-projects.info/shop/product/website-multi-company?version=11.0",

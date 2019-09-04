@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    "name": """Tickets purchasing: force user to sign in / sign up""",
+    "name": """No tickets without Email""",
     "summary": """User registration at your portal is always a plus for marketing""",
     "category": "Marketing",
     # "live_test_url": "http://apps.it-projects.info/shop/product/portal-event-tickets?version=10.0",
