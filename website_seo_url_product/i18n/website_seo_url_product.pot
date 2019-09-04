@@ -24,6 +24,7 @@ msgid "SEO"
 msgstr ""
 
 #. module: website_seo_url_product
+#: model:ir.model.fields,field_description:website_seo_url_product.field_delivery_carrier_seo_url
 #: model:ir.model.fields,field_description:website_seo_url_product.field_product_product_seo_url
 #: model:ir.model.fields,field_description:website_seo_url_product.field_product_template_seo_url
 msgid "SEO URL"
