@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "Barcode scanner support for Stock Picking",
+    "name": """Barcode scanner for Stock""",
     "summary": """The module allows you to process Pickings by barcode scanner via special page /barcode/web (the same as it was in odoo 8.0)""",
     "category": "Warehouse",
     "images": [],
