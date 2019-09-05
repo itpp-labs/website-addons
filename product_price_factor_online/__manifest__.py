@@ -1,5 +1,5 @@
 {
-    "name": "Product price factor for web shop",
+    "name": "Product Price Multiplier",
     "summary": """Multiplies price depending on product attributes""",
     "category": "Website",
     "license": "Other OSI approved licence",  # MIT
