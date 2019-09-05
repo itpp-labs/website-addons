@@ -1,5 +1,6 @@
-Sale only available products on Website
-=======================================
+======================
+ Stop Sale on Website
+======================
 
 TODO
 ----

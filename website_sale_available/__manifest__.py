@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Sale only available products on Website",
+    'name': "Stop Sale on Website",
     'summary': """Sale only available products on Website""",
     'version': '1.0.0',
     'author': 'IT-Projects LLC, Ivan Yelizariev',
