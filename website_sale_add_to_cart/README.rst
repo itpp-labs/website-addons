@@ -1,5 +1,6 @@
-Quick add items to shopping cart
-================================
+=======================
+ Quick online shopping
+=======================
 
 Description: https://apps.odoo.com/apps/modules/11.0/website_sale_add_to_cart/
 
