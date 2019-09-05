@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    "name": """Configurable SEO URL (Technical core)""",
+    "name": """SEO URLs""",
     "summary": """Allows to make custom SEO URL for pages related to some record""",
     "category": "Website",
     "images": [],

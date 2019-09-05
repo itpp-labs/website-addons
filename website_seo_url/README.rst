@@ -1,6 +1,6 @@
-=======================================
- Configurable SEO URL (Technical core)
-=======================================
+==========
+ SEO URLs
+==========
 
 Allows to make custom SEO URL for pages related to some record.
 
