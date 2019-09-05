@@ -1,8 +1,8 @@
 # Copyright 2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
 # License MIT (https://opensource.org/licenses/MIT).
 {
-    "name": """Real Multi Website (eCommerce Delivery extension)""",
-    "summary": """Configure Delivery Carriers list per website""",
+    "name": """Multi Website Delivery""",
+    "summary": """Confiure Delivery Carriers list per website""",
     "category": "eCommerce",
     # "live_test_url": "http://apps.it-projects.info/shop/product/website-multi-company?version=11.0",
     "images": ["images/website_multi_company_sale_delivery_main.png"],
