@@ -2,7 +2,7 @@
 # Copyright 2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 {
-    "name": """Real Multi Website (Online Event's Tickets extension)""",
+    "name": """Multi Website e-Tickets""",
     "summary": """Configure Events' Tickets per website""",
     "category": "Marketing",
     # "live_test_url": "",

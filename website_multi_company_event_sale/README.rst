@@ -2,9 +2,9 @@
    :target: https://www.gnu.org/licenses/lgpl
    :alt: License: LGPL-3
 
-=======================================================
- Real Multi Website (Online Event's Tickets extension)
-=======================================================
+=========================
+ Multi Website e-Tickets
+=========================
 
 Configure Events' Tickets per website.
 
