@@ -1,6 +1,6 @@
-=======================================
- Real Multi Website (portal extension)
-=======================================
+======================
+ Multi Website Portal
+======================
 
 Multi Website support in Portal:
 
