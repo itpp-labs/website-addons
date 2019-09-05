@@ -2,7 +2,7 @@
 # Copyright 2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 {
-    "name": """Real Multi Website (eCommerce Delivery extension)""",
+    "name": """Multi Website Delivery""",
     "summary": """Confiure Delivery Carriers list per website""",
     "category": "eCommerce",
     # "live_test_url": "http://apps.it-projects.info/shop/product/website-multi-company?version=10.0",
