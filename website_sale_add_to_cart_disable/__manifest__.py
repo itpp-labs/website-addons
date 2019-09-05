@@ -1,5 +1,5 @@
 {
-    "name": """Hide "Add To Cart" button from product page""",
+    "name": """Stop Product sales""",
     "summary": """Allows to disable product sales via eCommerce for any reason""",
     "category": "eCommerce",
     "images": [],
