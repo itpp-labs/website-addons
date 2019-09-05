@@ -7,7 +7,7 @@
 # Copyright 2016 Florent Thomas <https://github.com/flotho>
 # Copyright 2017-2018 Kolushov Alexandr <https://github.com/KolushovAlexandr>
 {
-    "name": "Sale only available products on Website",
+    "name": "Stop Sale on Website",
     "summary": """Sale only available products on Website""",
     "version": "13.0.1.0.0",
     "author": "IT-Projects LLC, Ivan Yelizariev",
