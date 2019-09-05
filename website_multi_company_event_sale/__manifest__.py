@@ -1,7 +1,7 @@
 # Copyright 2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
 # License MIT (https://opensource.org/licenses/MIT).
 {
-    "name": """Real Multi Website (Online Event's Tickets extension)""",
+    "name": """Multi Website e-Tickets""",
     "summary": """Configure Events' Tickets per website""",
     "category": "Marketing",
     # "live_test_url": "",
