@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Product price factor for web shop",
+    'name': """Product Price Multiplier""",
     'version': '10.0.1.0.0',
     'summary': """Multiplies price depending on product attributes""",
     'category': 'Website',

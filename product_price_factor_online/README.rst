@@ -1,5 +1,6 @@
-Product price factor for web shop
-=================================
+==========================
+ Product Price Multiplier
+==========================
 
 Description: https://apps.odoo.com/apps/modules/10.0/product_price_factor_online/
 
