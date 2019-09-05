@@ -1,5 +1,6 @@
-Hide the "Sign in" button in Website
-=============================================
+=========================
+ No “Sign in” in Website
+=========================
 
 Hides the "Sign in" button in Website.
 
