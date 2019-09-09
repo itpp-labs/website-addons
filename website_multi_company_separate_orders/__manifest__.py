@@ -24,6 +24,8 @@
     "data": [
         "views/product_public_category_views.xml",
         "views/sale_views.xml",
+        "views/website_views.xml",
+        "views/templates.xml",
         "security/website_multi_company_sale_security.xml",
     ],
     "qweb": [

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html). -->
+<odoo>
+    <template id="cart_lines" name="duplicate order assets" inherit_id="website_sale.cart_lines">
+        <xpath expr="//td[hasclass('td-product_name')]/div" position="after">
+            <t t-set="order_company" t-value="website_sale_order.company_id"/>
+            <t t-set="product_company_id" t-value="line.product_id.company_id.id"/>
+            <t t-set="website_id" t-value="website_sale_order.website_id"/>
+            <t t-if="website_id.order_duplicating and
+            order_company.id != product_company_id and
+            product_company_id in order_company.child_ids.ids and
+            product_company_id not in website_sale_order.website_id.order_duplicating_companies.ids">
+                <div class="separate_order" t-attf-pcid="{{product_company_id}}">
+                    (duplicate order to <t t-esc="line.product_id.company_id.name"/>)
+                </div>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="assets_frontend" inherit_id="website.assets_frontend" name="Shop Cart">
+        <xpath expr="." position="inside">
+            <script type="text/javascript"
+                    src="/website_multi_company_separate_orders/static/src/js/website_cart.js"></script>
+            <link rel='stylesheet'
+                  href='/website_multi_company_separate_orders/static/src/css/website_cart.css'/>
+        </xpath>
+    </template>
+
+</odoo>

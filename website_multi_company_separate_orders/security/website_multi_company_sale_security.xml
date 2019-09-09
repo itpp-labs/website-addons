@@ -9,7 +9,7 @@
         <field name="domain_force">['|', '|', ('company_id', '=', user.company_id.id), ('company_id', '=', False), ('company_id', 'in', user.company_id.child_ids.ids)]</field>
     </record>
 
-    <delete model="ir.rule" id="website_multi_company_sale.website_multi_company_sale_order_all"/>
+<!--    <delete model="ir.rule" id="website_multi_company_sale.website_multi_company_sale_order_all"/>-->
     <record id="website_multi_company_sale_order_all" model="ir.rule">
         <field name="name">Users with backend_website_id field specified have access only for sale orders from specied website</field>
         <field name="model_id" ref="model_sale_order"/>
