@@ -1,3 +1,7 @@
+`1.5.2`
+-------
+- **Fix:** Access error on clicking `Defaul Access Rights` button
+
 `1.5.1`
 -------
 - **Improvement:** better organized code
