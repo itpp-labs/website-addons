@@ -26,5 +26,5 @@ class WebsiteMultiCompanySale(WebsiteSale):
     def values_postprocess(self, order, mode, values, errors, error_msg):
         new_values, errors, error_msg = super(WebsiteMultiCompanySale, self).\
             values_postprocess(order, mode, values, errors, error_msg)
-        new_values['website_id'] = request.website.id
+        new_values['website_id'] = new_values['backend_website_id'] = request.website.id
         return new_values, errors, error_msg
