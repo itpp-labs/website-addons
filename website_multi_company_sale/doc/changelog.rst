@@ -1,6 +1,7 @@
 `1.5.2`
 -------
 - **Fix:** Access error on clicking `Defaul Access Rights` button
+- **Fix:** Blank page on signing up after order payment confirmation
 
 `1.5.1`
 -------
