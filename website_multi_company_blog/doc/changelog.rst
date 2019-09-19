@@ -2,6 +2,7 @@
 -------
 
 - **Fix:** all blogs were shown to admin regardless of website
+- **Fix:** Access error on opening some blogs/posts
 
 `1.0.0`
 -------

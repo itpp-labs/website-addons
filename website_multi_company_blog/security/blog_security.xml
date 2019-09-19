@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+    Copyright 2018 Karamov Ilmir <https://it-projects.info/team/ilmir-k>
+    Copyright 2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+    License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html). -->
 <odoo>
   <record id="blog_rule_all" model="ir.rule">
-    <field name="name">Blogs available only for specifed websites</field>
+    <field name="name">Blogs available only for specified websites</field>
     <field name="model_id" ref="model_blog_blog"/>
     <field name="domain_force">['|', ('website_ids', 'in', [website_id]), ('website_ids', '=', False)]</field>
+    <field name="backend_behaviour">true</field>
+  </record>
+  <record id="post_rule_all" model="ir.rule">
+    <field name="name">Posts are available only for specified websites</field>
+    <field name="model_id" ref="website_blog.model_blog_post"/>
+    <field name="domain_force">['|', ('blog_id.website_ids', 'in', [website_id]), ('blog_id.website_ids', '=', False)]</field>
     <field name="backend_behaviour">true</field>
   </record>
 </odoo>
