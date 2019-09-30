@@ -21,3 +21,15 @@ class WebsiteBlogExtended(WebsiteBlog):
                 'blogs': updated_blogs,
             })
         return blog_super
+
+    @http.route()
+    def blogs(self, page=1, **post):
+        blog_super = super(WebsiteBlogExtended, self).blogs(page, **post)
+
+        if request.env.context.get('uid', 0) == SUPERUSER_ID:
+            post_env = blog_super.qcontext['posts']
+            updated_posts = post_env.search(request.env.ref('website_multi_company_blog.post_rule_all').domain)
+            blog_super.qcontext.update({
+                'posts': updated_posts,
+            })
+        return blog_super
