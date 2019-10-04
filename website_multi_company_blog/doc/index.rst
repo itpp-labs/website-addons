@@ -10,7 +10,7 @@ Installation
 Configuration
 =============
 
-* Create and configure websites according to the `website_multi_company <https://apps.odoo.com/apps/modules/12.0/website_multi_company_blog/>`__ module documentation
+* Create and configure websites according to the `website_multi_company <https://apps.odoo.com/apps/modules/13.0/website_multi_company_blog/>`__ module documentation
 * Open menu ``[[ Website ]] >> Blog >> Blogs``
 * Select at **Allowed Websites** field the websites your blog will be available on (leave empty if you wish to post the blog on each website)
 * Open menu ``[[ Website ]] >> Configuration >> Menus``

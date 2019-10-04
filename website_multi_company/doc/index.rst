@@ -26,8 +26,8 @@ Additional modules
 
 Due to technical reasons some multi-website features are located in separate modules, install them depending on your needs:
 
-* if you use ``website_sale`` (eCommerce) module, then install `Real Multi Website (eCommerce extension) <https://www.odoo.com/apps/modules/12.0/website_multi_company_sale/>`__ too
-* if you use ``website_portal`` (Portal) module, then install `Real Multi Website (portal extension) <https://www.odoo.com/apps/modules/12.0/website_multi_company_portal/>`__ too
+* if you use ``website_sale`` (eCommerce) module, then install `Real Multi Website (eCommerce extension) <https://www.odoo.com/apps/modules/13.0/website_multi_company_sale/>`__ too
+* if you use ``website_portal`` (Portal) module, then install `Real Multi Website (portal extension) <https://www.odoo.com/apps/modules/13.0/website_multi_company_portal/>`__ too
 
 Domain Names
 ------------
@@ -369,4 +369,4 @@ E.g. to use different Paypal accounts for different websites you need to make th
   * **Paypal Merchant ID**
   * **Paypal PDT Token**
 
-Follow the `instruction <https://www.odoo.com/documentation/user/12.0/ecommerce/shopper_experience/paypal.html>`__ to know how to configure Paypal account and get Paypal Identity Token
+Follow the `instruction <https://www.odoo.com/documentation/user/13.0/ecommerce/shopper_experience/paypal.html>`__ to know how to configure Paypal account and get Paypal Identity Token

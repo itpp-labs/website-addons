@@ -31,7 +31,7 @@ Maintainers
 -----------
 * `IT-Projects LLC <https://it-projects.info>`__
 
-      To get a guaranteed support you are kindly requested to purchase the module at `odoo apps store <https://apps.odoo.com/apps/modules/12.0/website_multi_company_sale/>`__.
+      To get a guaranteed support you are kindly requested to purchase the module at `odoo apps store <https://apps.odoo.com/apps/modules/13.0/website_multi_company_sale/>`__.
 
       Thank you for understanding!
 
@@ -40,9 +40,9 @@ Maintainers
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/website-addons/12.0
+Demo: http://runbot.it-projects.info/demo/website-addons/13.0
 
-HTML Description: https://apps.odoo.com/apps/modules/12.0/website_multi_company_sale/
+HTML Description: https://apps.odoo.com/apps/modules/13.0/website_multi_company_sale/
 
 Usage instructions: `<doc/index.rst>`_
 
