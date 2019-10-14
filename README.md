@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/it-projects-llc/website-addons.svg?branch=10.0)](https://travis-ci.com/it-projects-llc/website-addons)
+[![Build Status](https://travis-ci.com/it-projects-llc/website-addons.svg?branch=12.0)](https://travis-ci.com/it-projects-llc/website-addons)
 
 # website-addons
 Odoo website addons
