@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
@@ -29,8 +29,9 @@ msgid "  ROLEX Deepsea Deep Blue Dial Stainless Steel Oyster Automatic Men's Wat
 msgstr ""
 
 #. module: website_multi_company_demo
-#: model_terms:ir.ui.view,arch_db:website_multi_company_demo.website_page_homepage_bikes_ir_ui_view
-#: model_terms:website.page,arch_db:website_multi_company_demo.website_page_homepage_bikes
+#: model:ir.ui.view,arch_db:website_multi_company_demo.website_page_homepage_bikes_ir_ui_view
+#: model:ir.ui.view,arch_db:website_multi_company_demo.website_view_bikes
+#: model:website.page,arch_db:website_multi_company_demo.website_page_homepage_bikes
 msgid "&amp;nbsp;\n"
 "                <span style=\"color: rgb(66, 66, 66); font-family: arial, sans-serif; font-weight: bold; text-align: left;\">Shop\n"
 "                </span><span style=\"color: rgb(66, 66, 66); font-family: arial, sans-serif; text-align: left;\">&amp;nbsp;now at <b>Fast Wheel</b>&amp;nbsp;- Best price, best selection and best brands for&amp;nbsp;\n"
@@ -43,8 +44,9 @@ msgid "&amp;nbsp;\n"
 msgstr ""
 
 #. module: website_multi_company_demo
-#: model_terms:ir.ui.view,arch_db:website_multi_company_demo.website_page_homepage_watches_ir_ui_view
-#: model_terms:website.page,arch_db:website_multi_company_demo.website_page_homepage_watches
+#: model:ir.ui.view,arch_db:website_multi_company_demo.website_page_homepage_watches_ir_ui_view
+#: model:ir.ui.view,arch_db:website_multi_company_demo.website_view_watches
+#: model:website.page,arch_db:website_multi_company_demo.website_page_homepage_watches
 msgid "&amp;nbsp;<font style=\"font-size: 18px;\">Time to buy a watch!&amp;nbsp;</font><span style=\"font-family: Lato, sans-serif;\"><font style=\"font-size: 18px;\">We don't want you to choose between the best price and the best service. That's why we price match every product we sell against any ACCREDITED retailer. Just supply us with the product you're interested in and the price you've found it at and we'll do the rest!</font></span>"
 msgstr ""
 
@@ -54,24 +56,27 @@ msgid "3-Ingredient Cocktails: An Opinionated Guide to the Most Enduring Drinks 
 msgstr ""
 
 #. module: website_multi_company_demo
-#: model_terms:ir.ui.view,arch_db:website_multi_company_demo.website_page_homepage_books_ir_ui_view
-#: model_terms:website.page,arch_db:website_multi_company_demo.website_page_homepage_books
+#: model:ir.ui.view,arch_db:website_multi_company_demo.website_page_homepage_books_ir_ui_view
+#: model:ir.ui.view,arch_db:website_multi_company_demo.website_view_books
+#: model:website.page,arch_db:website_multi_company_demo.website_page_homepage_books
 msgid "<b>\n"
 "                  <font style=\"font-size: 18px;\">About Us</font>\n"
 "                </b>"
 msgstr ""
 
 #. module: website_multi_company_demo
-#: model_terms:ir.ui.view,arch_db:website_multi_company_demo.website_page_homepage_books_ir_ui_view
-#: model_terms:website.page,arch_db:website_multi_company_demo.website_page_homepage_books
+#: model:ir.ui.view,arch_db:website_multi_company_demo.website_page_homepage_books_ir_ui_view
+#: model:ir.ui.view,arch_db:website_multi_company_demo.website_view_books
+#: model:website.page,arch_db:website_multi_company_demo.website_page_homepage_books
 msgid "<b>\n"
 "              <font style=\"font-size: 36px;\">BLACK BOOKS</font>\n"
 "            </b>"
 msgstr ""
 
 #. module: website_multi_company_demo
-#: model_terms:ir.ui.view,arch_db:website_multi_company_demo.website_page_homepage_bikes_ir_ui_view
-#: model_terms:website.page,arch_db:website_multi_company_demo.website_page_homepage_bikes
+#: model:ir.ui.view,arch_db:website_multi_company_demo.website_page_homepage_bikes_ir_ui_view
+#: model:ir.ui.view,arch_db:website_multi_company_demo.website_view_bikes
+#: model:website.page,arch_db:website_multi_company_demo.website_page_homepage_bikes
 msgid "<font style=\"color: rgb(74, 123, 140); font-size: 62px;\">\n"
 "                  <b>FAST WHEEL</b>\n"
 "                </font>\n"
@@ -79,14 +84,16 @@ msgid "<font style=\"color: rgb(74, 123, 140); font-size: 62px;\">\n"
 msgstr ""
 
 #. module: website_multi_company_demo
-#: model_terms:ir.ui.view,arch_db:website_multi_company_demo.website_page_homepage_watches_ir_ui_view
-#: model_terms:website.page,arch_db:website_multi_company_demo.website_page_homepage_watches
+#: model:ir.ui.view,arch_db:website_multi_company_demo.website_page_homepage_watches_ir_ui_view
+#: model:ir.ui.view,arch_db:website_multi_company_demo.website_view_watches
+#: model:website.page,arch_db:website_multi_company_demo.website_page_homepage_watches
 msgid "<font style=\"font-size: 36px;\">What time is it?</font>"
 msgstr ""
 
 #. module: website_multi_company_demo
-#: model_terms:ir.ui.view,arch_db:website_multi_company_demo.website_page_homepage_books_ir_ui_view
-#: model_terms:website.page,arch_db:website_multi_company_demo.website_page_homepage_books
+#: model:ir.ui.view,arch_db:website_multi_company_demo.website_page_homepage_books_ir_ui_view
+#: model:ir.ui.view,arch_db:website_multi_company_demo.website_view_books
+#: model:website.page,arch_db:website_multi_company_demo.website_page_homepage_books
 msgid "<span style=\"color: rgb(0, 0, 0); font-family: Arial, sans-serif; font-size: 18px;\">We love to read and discovered that we could share our hundreds of books with others by selling them online</span>\n"
 "                <font style=\"font-size: 18px;\">&amp;nbsp;</font>"
 msgstr ""
@@ -128,8 +135,9 @@ msgid "Cannondale ADVENTURE 2 WMS"
 msgstr ""
 
 #. module: website_multi_company_demo
-#: model_terms:ir.ui.view,arch_db:website_multi_company_demo.website_page_homepage_books_ir_ui_view
-#: model_terms:website.page,arch_db:website_multi_company_demo.website_page_homepage_books
+#: model:ir.ui.view,arch_db:website_multi_company_demo.website_page_homepage_books_ir_ui_view
+#: model:ir.ui.view,arch_db:website_multi_company_demo.website_view_books
+#: model:website.page,arch_db:website_multi_company_demo.website_page_homepage_books
 msgid "Contact us »"
 msgstr ""
 
@@ -240,20 +248,23 @@ msgid "OMEGA Seamaster Planet Ocean Chronograph Automatic Men's Watch"
 msgstr ""
 
 #. module: website_multi_company_demo
-#: model_terms:ir.ui.view,arch_db:website_multi_company_demo.website_page_homepage_books_ir_ui_view
-#: model_terms:website.page,arch_db:website_multi_company_demo.website_page_homepage_books
+#: model:ir.ui.view,arch_db:website_multi_company_demo.website_page_homepage_books_ir_ui_view
+#: model:ir.ui.view,arch_db:website_multi_company_demo.website_view_books
+#: model:website.page,arch_db:website_multi_company_demo.website_page_homepage_books
 msgid "Odoo CMS - a big picture"
 msgstr ""
 
 #. module: website_multi_company_demo
-#: model_terms:ir.ui.view,arch_db:website_multi_company_demo.website_page_homepage_watches_ir_ui_view
-#: model_terms:website.page,arch_db:website_multi_company_demo.website_page_homepage_watches
+#: model:ir.ui.view,arch_db:website_multi_company_demo.website_page_homepage_watches_ir_ui_view
+#: model:ir.ui.view,arch_db:website_multi_company_demo.website_view_watches
+#: model:website.page,arch_db:website_multi_company_demo.website_page_homepage_watches
 msgid "Odoo image and text block"
 msgstr ""
 
 #. module: website_multi_company_demo
-#: model_terms:ir.ui.view,arch_db:website_multi_company_demo.website_page_homepage_bikes_ir_ui_view
-#: model_terms:website.page,arch_db:website_multi_company_demo.website_page_homepage_bikes
+#: model:ir.ui.view,arch_db:website_multi_company_demo.website_page_homepage_bikes_ir_ui_view
+#: model:ir.ui.view,arch_db:website_multi_company_demo.website_view_bikes
+#: model:website.page,arch_db:website_multi_company_demo.website_page_homepage_bikes
 msgid "Odoo text and image block"
 msgstr ""
 
@@ -322,41 +333,18 @@ msgid "Top Menu"
 msgstr ""
 
 #. module: website_multi_company_demo
-#: model:product.template,uom_name:website_multi_company_demo.product_template_35
-#: model:product.template,uom_name:website_multi_company_demo.product_template_36
-#: model:product.template,uom_name:website_multi_company_demo.product_template_37
-#: model:product.template,uom_name:website_multi_company_demo.product_template_38
-#: model:product.template,uom_name:website_multi_company_demo.product_template_39
-#: model:product.template,uom_name:website_multi_company_demo.product_template_40
-#: model:product.template,uom_name:website_multi_company_demo.product_template_41
-#: model:product.template,uom_name:website_multi_company_demo.product_template_42
-#: model:product.template,uom_name:website_multi_company_demo.product_template_43
-#: model:product.template,uom_name:website_multi_company_demo.product_template_44
-#: model:product.template,uom_name:website_multi_company_demo.product_template_45
-#: model:product.template,uom_name:website_multi_company_demo.product_template_46
-#: model:product.template,uom_name:website_multi_company_demo.product_template_47
-#: model:product.template,uom_name:website_multi_company_demo.product_template_48
-#: model:product.template,uom_name:website_multi_company_demo.product_template_49
-#: model:product.template,uom_name:website_multi_company_demo.product_template_50
-#: model:product.template,uom_name:website_multi_company_demo.product_template_51
-#: model:product.template,uom_name:website_multi_company_demo.product_template_52
-#: model:product.template,uom_name:website_multi_company_demo.product_template_53
-#: model:product.template,uom_name:website_multi_company_demo.product_template_54
-#: model:product.template,uom_name:website_multi_company_demo.product_template_55
-#: model:product.template,uom_name:website_multi_company_demo.product_template_56
-#: model:product.template,uom_name:website_multi_company_demo.product_template_57
-#: model:product.template,uom_name:website_multi_company_demo.product_template_58
-msgid "Unit(s)"
-msgstr ""
-
-#. module: website_multi_company_demo
 #: model:ir.model,name:website_multi_company_demo.model_res_users
 msgid "Users"
 msgstr ""
 
 #. module: website_multi_company_demo
-#: model_terms:ir.ui.view,arch_db:website_multi_company_demo.aboutus
+#: model:ir.ui.view,arch_db:website_multi_company_demo.footer_default
 msgid "We sell only goods that we love ourselves! Enjoy!"
+msgstr ""
+
+#. module: website_multi_company_demo
+#: model:ir.model,name:website_multi_company_demo.model_website
+msgid "Website"
 msgstr ""
 
 #. module: website_multi_company_demo
@@ -365,40 +353,12 @@ msgid "Website Product Category"
 msgstr ""
 
 #. module: website_multi_company_demo
-#: model_terms:ir.ui.view,arch_db:website_multi_company_demo.aboutus
+#: model:ir.ui.view,arch_db:website_multi_company_demo.footer_default
 msgid "Welcome to our website!"
 msgstr ""
 
 #. module: website_multi_company_demo
 #: model:product.template,name:website_multi_company_demo.product_template_55
 msgid "When Breath Becomes Air "
-msgstr ""
-
-#. module: website_multi_company_demo
-#: model:product.template,weight_uom_name:website_multi_company_demo.product_template_35
-#: model:product.template,weight_uom_name:website_multi_company_demo.product_template_36
-#: model:product.template,weight_uom_name:website_multi_company_demo.product_template_37
-#: model:product.template,weight_uom_name:website_multi_company_demo.product_template_38
-#: model:product.template,weight_uom_name:website_multi_company_demo.product_template_39
-#: model:product.template,weight_uom_name:website_multi_company_demo.product_template_40
-#: model:product.template,weight_uom_name:website_multi_company_demo.product_template_41
-#: model:product.template,weight_uom_name:website_multi_company_demo.product_template_42
-#: model:product.template,weight_uom_name:website_multi_company_demo.product_template_43
-#: model:product.template,weight_uom_name:website_multi_company_demo.product_template_44
-#: model:product.template,weight_uom_name:website_multi_company_demo.product_template_45
-#: model:product.template,weight_uom_name:website_multi_company_demo.product_template_46
-#: model:product.template,weight_uom_name:website_multi_company_demo.product_template_47
-#: model:product.template,weight_uom_name:website_multi_company_demo.product_template_48
-#: model:product.template,weight_uom_name:website_multi_company_demo.product_template_49
-#: model:product.template,weight_uom_name:website_multi_company_demo.product_template_50
-#: model:product.template,weight_uom_name:website_multi_company_demo.product_template_51
-#: model:product.template,weight_uom_name:website_multi_company_demo.product_template_52
-#: model:product.template,weight_uom_name:website_multi_company_demo.product_template_53
-#: model:product.template,weight_uom_name:website_multi_company_demo.product_template_54
-#: model:product.template,weight_uom_name:website_multi_company_demo.product_template_55
-#: model:product.template,weight_uom_name:website_multi_company_demo.product_template_56
-#: model:product.template,weight_uom_name:website_multi_company_demo.product_template_57
-#: model:product.template,weight_uom_name:website_multi_company_demo.product_template_58
-msgid "kg"
 msgstr ""
 

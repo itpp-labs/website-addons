@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
@@ -14,26 +14,20 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: website_multi_company_sale
-#: model_terms:ir.ui.view,arch_db:website_multi_company_sale.view_website_config_settings
-msgid "<span class=\"o_form_label\">Billing</span>"
-msgstr ""
-
-#. module: website_multi_company_sale
-#: model:ir.model.fields,field_description:website_multi_company_sale.field_payment_acquirer__website_ids
-#: model:ir.model.fields,field_description:website_multi_company_sale.field_product_product__website_ids
-#: model:ir.model.fields,field_description:website_multi_company_sale.field_product_template__website_ids
+#: model:ir.model.fields,field_description:website_multi_company_sale.field_payment_acquirer_website_ids
+#: model:ir.model.fields,field_description:website_multi_company_sale.field_product_product_website_ids
+#: model:ir.model.fields,field_description:website_multi_company_sale.field_product_template_website_ids
 msgid "Allowed websites"
 msgstr ""
 
 #. module: website_multi_company_sale
-#: model:ir.model.fields,field_description:website_multi_company_sale.field_res_config_settings__website_billing_country_ids
-#: model:ir.model.fields,field_description:website_multi_company_sale.field_website__billing_country_ids
-msgid "Billing Countries"
+#: model:ir.ui.view,arch_db:website_multi_company_sale.view_website_multi_company_form
+msgid "Assignation of online orders"
 msgstr ""
 
 #. module: website_multi_company_sale
-#: model:ir.model,name:website_multi_company_sale.model_res_config_settings
-msgid "Config Settings"
+#: model:ir.model.fields,field_description:website_multi_company_sale.field_website_billing_country_ids
+msgid "Billing Countries"
 msgstr ""
 
 #. module: website_multi_company_sale
@@ -65,30 +59,23 @@ msgid "Error! Only the company's websites are allowed.                     Leave
 msgstr ""
 
 #. module: website_multi_company_sale
-#: model_terms:ir.ui.view,arch_db:website_multi_company_sale.sale_order_view_search_inherit_quotation_inherit_website_multi_company_sale
-#: model_terms:ir.ui.view,arch_db:website_multi_company_sale.sale_order_view_search_inherit_sale_inherit_website_multi_company_sale
+#: model:ir.ui.view,arch_db:website_multi_company_sale.sale_order_view_search_inherit_quotation_inherit_website_multi_company_sale
+#: model:ir.ui.view,arch_db:website_multi_company_sale.sale_order_view_search_inherit_sale_inherit_website_multi_company_sale
 msgid "Group By"
 msgstr ""
 
 #. module: website_multi_company_sale
-#: model:ir.model.fields,help:website_multi_company_sale.field_res_config_settings__website_billing_country_ids
-#: model:ir.model.fields,help:website_multi_company_sale.field_website__billing_country_ids
+#: model:ir.model.fields,help:website_multi_company_sale.field_website_billing_country_ids
 msgid "Keep empty to allow all Countries"
 msgstr ""
 
 #. module: website_multi_company_sale
-#: model:ir.model.fields,field_description:website_multi_company_sale.field_res_partner__last_website_so_id
-#: model:ir.model.fields,field_description:website_multi_company_sale.field_res_users__last_website_so_id
-msgid "Last Online Sales Order"
-msgstr ""
-
-#. module: website_multi_company_sale
-#: model:ir.model.fields,help:website_multi_company_sale.field_product_public_category__website_ids
+#: model:ir.model.fields,help:website_multi_company_sale.field_product_public_category_website_ids
 msgid "On which websites show category. Keep empty to show at all websites. The value is ignored if there is Parent Category"
 msgstr ""
 
 #. module: website_multi_company_sale
-#: model:ir.model.fields,field_description:website_multi_company_sale.field_sale_order__website_id
+#: model:ir.model.fields,field_description:website_multi_company_sale.field_sale_order_website_id
 msgid "Online Order Website"
 msgstr ""
 
@@ -109,24 +96,24 @@ msgstr ""
 
 #. module: website_multi_company_sale
 #: model:ir.model,name:website_multi_company_sale.model_sale_order
-msgid "Sale Order"
+msgid "Quotation"
 msgstr ""
 
 #. module: website_multi_company_sale
-#: model:ir.model.fields,help:website_multi_company_sale.field_payment_acquirer__website_ids
+#: model:ir.model.fields,help:website_multi_company_sale.field_payment_acquirer_website_ids
 msgid "Set the websites this payment acquirer should be available on. Leave empty to allow all."
 msgstr ""
 
 #. module: website_multi_company_sale
-#: model:ir.model.fields,help:website_multi_company_sale.field_product_product__website_ids
-#: model:ir.model.fields,help:website_multi_company_sale.field_product_template__website_ids
+#: model:ir.model.fields,help:website_multi_company_sale.field_product_product_website_ids
+#: model:ir.model.fields,help:website_multi_company_sale.field_product_template_website_ids
 msgid "Set the websites this product should be available on. Leave empty to allow all."
 msgstr ""
 
 #. module: website_multi_company_sale
 #: model:ir.model,name:website_multi_company_sale.model_website
-#: model_terms:ir.ui.view,arch_db:website_multi_company_sale.sale_order_view_search_inherit_quotation_inherit_website_multi_company_sale
-#: model_terms:ir.ui.view,arch_db:website_multi_company_sale.sale_order_view_search_inherit_sale_inherit_website_multi_company_sale
+#: model:ir.ui.view,arch_db:website_multi_company_sale.sale_order_view_search_inherit_quotation_inherit_website_multi_company_sale
+#: model:ir.ui.view,arch_db:website_multi_company_sale.sale_order_view_search_inherit_sale_inherit_website_multi_company_sale
 msgid "Website"
 msgstr ""
 
@@ -136,12 +123,7 @@ msgid "Website Product Category"
 msgstr ""
 
 #. module: website_multi_company_sale
-#: model:ir.model.fields,help:website_multi_company_sale.field_sale_order__website_id
-msgid "Website through which this order was placed."
-msgstr ""
-
-#. module: website_multi_company_sale
-#: model:ir.model.fields,field_description:website_multi_company_sale.field_product_public_category__website_ids
+#: model:ir.model.fields,field_description:website_multi_company_sale.field_product_public_category_website_ids
 msgid "Websites"
 msgstr ""
 

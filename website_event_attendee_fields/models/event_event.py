@@ -23,7 +23,7 @@ class Event(models.Model):
     def partner_is_participating(self, partner_id):
         self.ensure_one()
         registration = self.env['event.registration'].sudo().search([
-            ('event_id', '=', partner_id),
+            ('event_id', '=', self.id),
             ('partner_id', '=', partner_id),
             ('state', '=', 'open'),
         ])

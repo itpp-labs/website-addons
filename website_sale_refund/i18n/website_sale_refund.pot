@@ -1,0 +1,47 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_sale_refund
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_sale_refund
+#: model:ir.model.fields,help:website_sale_refund.field_sale_order_line_refund_source_line_id
+msgid "Order line that is used for refund"
+msgstr ""
+
+#. module: website_sale_refund
+#: model:ir.model.fields,field_description:website_sale_refund.field_sale_order_line_refund_source_line_id
+msgid "Refund Source Line"
+msgstr ""
+
+#. module: website_sale_refund
+#: model:product.product,name:website_sale_refund.refund_product
+#: model:product.template,name:website_sale_refund.refund_product_product_template
+msgid "Refund at eCommerce"
+msgstr ""
+
+#. module: website_sale_refund
+#: model:ir.model,name:website_sale_refund.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: website_sale_refund
+#: model:ir.model,name:website_sale_refund.model_sale_order_line
+msgid "Sales Order Line"
+msgstr ""
+
+#. module: website_sale_refund
+#: code:addons/website_sale_refund/controllers/main.py:14
+#, python-format
+msgid "Total amount is negative. Please add more products"
+msgstr ""
+
