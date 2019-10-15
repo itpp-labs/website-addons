@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
@@ -14,51 +14,45 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: website_multi_company
-#. openerp-web
-#: code:addons/website_multi_company/static/src/xml/web_editor.xml:7
-#, python-format
-msgid "Convert to Multi-Website"
+#: model:ir.model,name:website_multi_company.model_ir_actions_act_url
+msgid "Action URL"
 msgstr ""
 
 #. module: website_multi_company
-#: model:ir.ui.view,arch_db:website_multi_company.view_users_form_inherit_website_multi_company
+#: model:ir.model,name:website_multi_company.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: website_multi_company
+#: model_terms:ir.ui.view,arch_db:website_multi_company.view_users_form_inherit_website_multi_company
 msgid "Design Websites"
 msgstr ""
 
 #. module: website_multi_company
-#: code:addons/website_multi_company/models/website.py:43
+#: code:addons/website_multi_company/models/website.py:22
 #, python-format
 msgid "Don't use slash symbol for domain"
 msgstr ""
 
 #. module: website_multi_company
-#: model:ir.model.fields,field_description:website_multi_company.field_res_users_editor_website_ids
+#: model:ir.model.fields,field_description:website_multi_company.field_res_users__editor_website_ids
 msgid "Editor on websites"
 msgstr ""
 
 #. module: website_multi_company
-#: model:ir.model.fields,help:website_multi_company.field_res_users_editor_website_ids
+#: model:ir.model.fields,help:website_multi_company.field_res_users__editor_website_ids
 msgid "Empty list allows edit any website"
 msgstr ""
 
 #. module: website_multi_company
-#: code:addons/website_multi_company/models/res_users.py:35
+#: code:addons/website_multi_company/models/res_users.py:23
 #, python-format
 msgid "Error! You can select as editable only the allowed companies's websites - check the 'Editor on websites' field in preferences"
 msgstr ""
 
 #. module: website_multi_company
-#: code:addons/website_multi_company/models/ir_ui_view.py:25
-#, python-format
-msgid "Following Websites don't have Multi Theme: %s\n"
-" You need to update them first"
-msgstr ""
-
-#. module: website_multi_company
-#: code:addons/website_multi_company/models/ir_ui_view.py:35
-#, python-format
-msgid "Following multi-themes don't have Default Theme as Sub-Theme: %s\n"
-" You need to update them first"
+#: model:ir.model.fields,field_description:website_multi_company.field_res_config_settings__website_homepage_id
+msgid "Homepage"
 msgstr ""
 
 #. module: website_multi_company
@@ -67,66 +61,19 @@ msgid "Module"
 msgstr ""
 
 #. module: website_multi_company
-#: model:ir.ui.view,arch_db:website_multi_company.view_website_multi_company_form
-msgid "Multi Theme"
-msgstr ""
-
-#. module: website_multi_company
-#: model:ir.actions.act_window,name:website_multi_company.website_theme_action
-#: model:ir.ui.menu,name:website_multi_company.website_theme_menu
-msgid "Multi-Themes"
-msgstr ""
-
-#. module: website_multi_company
-#: model:ir.ui.view,arch_db:website_multi_company.view_website_theme_form
-msgid "Multi-theme"
-msgstr ""
-
-#. module: website_multi_company
-#: code:addons/website_multi_company/models/website.py:45
+#: code:addons/website_multi_company/models/website.py:24
 #, python-format
 msgid "Not a valid domain"
 msgstr ""
 
 #. module: website_multi_company
-#: code:addons/website_multi_company/models/ir_ui_view.py:19
-#, python-format
-msgid "Oops, Something is wrong: Default theme is not found. Try to update module website_multi_theme"
-msgstr ""
-
-#. module: website_multi_company
-#: model:ir.ui.view,arch_db:website_multi_company.view_website_config_settings
-msgid "Reload Theme List &amp; Update all websites"
-msgstr ""
-
-#. module: website_multi_company
-#: model:ir.ui.view,arch_db:website_multi_company.view_website_multi_company_form
-msgid "Reload Themes"
-msgstr ""
-
-#. module: website_multi_company
-#: model:ir.ui.view,arch_db:website_multi_company.view_website_multi_company_form
-msgid "Update Theme for current website. Normally used when theme is changed"
-msgstr ""
-
-#. module: website_multi_company
-#: model:ir.ui.view,arch_db:website_multi_company.view_website_multi_company_form
-msgid "Update Website Theme"
-msgstr ""
-
-#. module: website_multi_company
-#: model:ir.ui.view,arch_db:website_multi_company.view_website_multi_company_form
-msgid "Use it if you installed theme, but cannot find it in the list"
+#: model:ir.actions.client,name:website_multi_company.action_client_website_menu
+msgid "Open Website Menu"
 msgstr ""
 
 #. module: website_multi_company
 #: model:ir.model,name:website_multi_company.model_res_users
 msgid "Users"
-msgstr ""
-
-#. module: website_multi_company
-#: model:ir.ui.view,arch_db:website_multi_company.view_website_theme_form
-msgid "Views"
 msgstr ""
 
 #. module: website_multi_company
@@ -140,22 +87,12 @@ msgid "Website Menu"
 msgstr ""
 
 #. module: website_multi_company
-#: model:ir.ui.view,arch_db:website_multi_company.menu_form
+#: model:ir.actions.act_window,name:website_multi_company.website_menu_action
+msgid "Website Menus"
+msgstr ""
+
+#. module: website_multi_company
+#: model_terms:ir.ui.view,arch_db:website_multi_company.menu_form
 msgid "Website menu"
-msgstr ""
-
-#. module: website_multi_company
-#: model:ir.model,name:website_multi_company.model_ir_actions_act_url
-msgid "ir.actions.act_url"
-msgstr ""
-
-#. module: website_multi_company
-#: model:ir.model,name:website_multi_company.model_ir_ui_view
-msgid "ir.ui.view"
-msgstr ""
-
-#. module: website_multi_company
-#: model:ir.model,name:website_multi_company.model_website_theme
-msgid "website.theme"
 msgstr ""
 
