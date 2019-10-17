@@ -22,7 +22,6 @@ class ResUsers(models.Model):
             if record.company_ids and record.editor_website_ids and not websites_companies <= record.company_ids:
                 raise ValidationError(_("Error! You can select as editable only the allowed companies's websites - check the 'Editor on websites' field in preferences"))
 
-    @api.multi
     def switch_multi_company(self, company):
         """
         :returns: True if company value was changed, otherwise False -- no access to change, None -- no need to change

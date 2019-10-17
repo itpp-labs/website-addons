@@ -17,7 +17,6 @@ class IRAttachmentBackground(models.Model):
 
     use_as_background = fields.Boolean("Use as login page background", default=False)
 
-    @api.multi
     def check(self, mode, values=None):
         ids = self.ids
         cr = self.env.cr

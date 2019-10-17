@@ -39,7 +39,6 @@ class EventRegistration(models.Model):
     event_id = fields.Many2one(track_visibility='onchange')
     event_ticket_id = fields.Many2one(track_visibility='onchange')
 
-    @api.multi
     @api.depends('sale_order_id', 'sale_order_id.order_line')
     def _compute_origin_registration(self):
         for r in self:
@@ -50,7 +49,6 @@ class EventRegistration(models.Model):
                     order = refunded_lines[0].order_id
             r.origin_registration = order and self.search([('state', '=', 'cancel'), ('sale_order_id', '=', order.id)], limit=1)
 
-    @api.multi
     @api.depends('was_transferred', 'origin_registration')
     def _compute_was_updated(self):
         for r in self:
@@ -58,7 +56,6 @@ class EventRegistration(models.Model):
             if r.was_transferred or r.origin_registration:
                 r.was_updated = True
 
-    @api.multi
     def transferring_started(self, receiver):
         self.ensure_one()
         self.write({
@@ -74,7 +71,6 @@ class EventRegistration(models.Model):
             lambda s: s.interval_type == 'transferring_started')
         onsubscribe_schedulers.execute(self)  # self is a registration
 
-    @api.multi
     def transferring_finished(self):
         self.ensure_one()
         receiver = self.attendee_partner_id

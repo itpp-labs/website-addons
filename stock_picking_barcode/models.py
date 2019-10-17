@@ -17,7 +17,6 @@ class StockMoveLine(models.Model):
 class StockPicking(models.Model):
     _inherit = "stock.picking"
 
-    @api.multi
     def process_barcode_from_ui(self, barcode_str, visible_op_ids):
         """This function is called each time there barcode scanner reads an input"""
         self.ensure_one()
@@ -97,7 +96,6 @@ class StockPicking(models.Model):
             packop_ids = [op.id for op in picking.move_line_ids]
             self.env['stock.move.line'].write(packop_ids, {'owner_id': picking.owner_id.id})
 
-    @api.multi
     def process_product_id_from_ui(self, product_id, op_id, increment=True):
         self.ensure_one()
         pack_op = self.env['stock.move.line'].search(
@@ -175,7 +173,6 @@ class StockPicking(models.Model):
             'action_package_view',
         )
 
-    @api.multi
     def open_barcode_interface(self):
         picking_ids = self.ids
         final_url = "/barcode/web/#action=stock.ui&picking_id=" + str(picking_ids[0])
@@ -194,7 +191,6 @@ class StockPackOperation(models.Model):
     _inherit = "stock.move.line"
     # _inherit = "stock.pack.operation"
 
-    @api.multi
     def _increment(self, picking_id, domain, filter_visible=False, visible_op_ids=False, increment=True):
         """Search for an operation with given 'domain' in a picking, if it exists increment the qty (+1) otherwise create it
 
@@ -251,7 +247,6 @@ class StockPackOperation(models.Model):
             op_obj = self.create(values)
         return op_obj
 
-    @api.multi
     def create_and_assign_lot(self, name):
         """ Used by barcode interface to create a new lot and assign it to the operation """
         self.ensure_one()

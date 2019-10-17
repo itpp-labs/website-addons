@@ -4,7 +4,6 @@ from odoo import models, api, fields
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    @api.multi
     def add_refund_line(self, refund_source_line, name):
         self.ensure_one()
         refund_price = refund_source_line.price_total
@@ -27,7 +26,6 @@ class SaleOrder(models.Model):
         order_line = SaleOrderLineSudo.create(values)
         return order_line
 
-    @api.multi
     def _cart_update(self, product_id=None, line_id=None, add_qty=0, set_qty=0, attributes=None, **kwargs):
         order_lines = False
         if line_id is not False:
@@ -48,7 +46,6 @@ class SaleOrder(models.Model):
 
         return super(SaleOrder, self)._cart_update(product_id=product_id, line_id=line_id, add_qty=add_qty, set_qty=set_qty, attributes=attributes, **kwargs)
 
-    @api.multi
     def action_confirm(self):
         self.ensure_one()
         res = super(SaleOrder, self).action_confirm()
@@ -63,7 +60,6 @@ class SaleOrderLine(models.Model):
 
     refund_source_line_id = fields.Many2one('sale.order.line', 'Refund Source Line', help='Order line that is used for refund')
 
-    @api.multi
     def _cancel_line(self, origin=None):
         # Origin - sale order, that cancels this line
         # TODO: cancel delivery, etc

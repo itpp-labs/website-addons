@@ -4,7 +4,6 @@ from odoo import models, api
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    @api.multi
     def _cart_update(self, product_id=None, line_id=None, add_qty=0, set_qty=0, attributes=None, **kwargs):
         order_lines = False
         if line_id is not False:

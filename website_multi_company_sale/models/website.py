@@ -17,7 +17,6 @@ class Website(models.Model):
         # call undecorated super method. See odoo/tools/cache.py::ormcache and http://decorator.readthedocs.io/en/stable/tests.documentation.html#getting-the-source-code
         return WebsiteOriginal._get_pl_partner_order.__wrapped__(self, country_code, show_visible, website_pl, current_pl, all_pl, partner_pl=partner_pl, order_pl=order_pl)
 
-    @api.multi
     def sale_get_order(self, force_create=False, code=None, update_pricelist=False, force_pricelist=False):
         company = request.website.company_id
         if not request.session.get('sale_order_id'):
