@@ -24,14 +24,12 @@ class SEOURL(models.AbstractModel):
         vals = self._check_seo_url(vals)
         return super(SEOURL, self).create(vals)
 
-    @api.multi
     def write(self, vals):
         for r in self:
             vals = r._check_seo_url(vals, id=r.id)
             super(SEOURL, r).write(vals)
         return True
 
-    @api.multi
     def __check_seo_url_uniq(self):
         for r in self:
             value = getattr(r.with_context(lang=self.env.user.lang), self._seo_url_field)

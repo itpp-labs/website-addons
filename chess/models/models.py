@@ -57,7 +57,6 @@ class ChessGame(models.Model):
     def load_time(self, game_id, turn):
         return self.search([('id', '=', game_id)]).search_time(turn)
 
-    @api.multi
     def search_time(self, turn):
         self.ensure_one()
         if self.env.user.id == self.first_user_id.id:
@@ -87,7 +86,6 @@ class ChessGame(models.Model):
                     new_result = 0
                 return {'author_time': int(new_result), 'another_user_time': int(author_time)}
 
-    @api.multi
     def write_time(self, message, game_id):
         data = message['data']
         if self.first_user_id.name == data['user']:
@@ -95,7 +93,6 @@ class ChessGame(models.Model):
         else:
             return self.write({'second_user_time': int(data['value'])})
 
-    @api.multi
     def write_game_status(self, message, game_id):
         notifications = []
         data = message['data']
@@ -113,7 +110,6 @@ class ChessGame(models.Model):
         else:
             return self.write({"status": data['status']})
 
-    @api.multi
     def game_over(self, status, time_limit_id):
         if self.system_status == 'Game Over':
             return False
@@ -191,7 +187,6 @@ class ChessGame(models.Model):
                 'second_user_score': second_game_result,
             })
 
-    @api.multi
     def accept_chess_game(self):
         vals = {
             'status': 'Active game',
@@ -207,7 +202,6 @@ class ChessGame(models.Model):
             'target': 'self',
         }
 
-    @api.multi
     def refuse_chess_game(self):
         vals = {
             'status': 'Denied',
@@ -223,7 +217,6 @@ class ChessGame(models.Model):
             'type': 'ir.actions.act_window',
         }
 
-    @api.multi
     def open_chess_game(self):
         url = '/chess/game/%d/' % (self.id)
         return {
@@ -233,7 +226,6 @@ class ChessGame(models.Model):
             'target': 'self',
         }
 
-    @api.multi
     def cancel_chess_game(self):
         vals = {
             'status': 'Canceled',
@@ -263,7 +255,6 @@ class ChessGame(models.Model):
         notifications.append([str(channel), message])
         self.env['bus.bus'].sendmany(notifications)
 
-    @api.multi
     def game_information(self):
         self.ensure_one()
         if self.first_user_id.id == self.env.user.id:

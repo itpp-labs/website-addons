@@ -8,7 +8,6 @@ class SaleOrder(models.Model):
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-    @api.multi
     def _cancel_line(self, origin=None):
         res = super(SaleOrderLine, self)._cancel_line(origin=origin)
 

@@ -69,7 +69,6 @@ class WebsiteConfigSettings(models.TransientModel):
         )
         return res
 
-    @api.multi
     def set_values(self):
         super(WebsiteConfigSettings, self).set_values()
         config_parameters = self.env["ir.config_parameter"].sudo()

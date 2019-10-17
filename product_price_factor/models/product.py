@@ -5,7 +5,6 @@ import odoo.addons.decimal_precision as dp
 class ProductAttributeValue(models.Model):
     _inherit = "product.attribute.value"
 
-    @api.multi
     def _get_price_factor(self):
         active_id = self.env.context.get('active_id')
         if not active_id:
@@ -50,7 +49,6 @@ class ProductTemplateAttributeValue(models.Model):
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
-    @api.multi
     def price_compute(self, price_type, uom=False, currency=False, company=False):
         # TDE FIXME: delegate to template or not ? fields are reencoded here ...
         # compatibility about context keys used a bit everywhere in the code

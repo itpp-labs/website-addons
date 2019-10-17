@@ -23,7 +23,6 @@ class EventMailScheduler(models.Model):
         ('transferring_finished', 'Transferring finished'),
     ])
 
-    @api.multi
     @api.depends('event_id.state', 'event_id.date_begin', 'interval_type', 'interval_unit', 'interval_nbr')
     def _compute_scheduled_date(self):
         for rself in self:
@@ -36,7 +35,6 @@ class EventMailScheduler(models.Model):
                 date, sign = rself.event_id.create_date, 1
                 rself.scheduled_date = datetime.strptime(date, tools.DEFAULT_SERVER_DATETIME_FORMAT) + _INTERVALS[rself.interval_unit](sign * rself.interval_nbr)
 
-    @api.multi
     def execute(self, registration=None):
         for rself in self:
             if rself.interval_type not in ['transferring_started', 'transferring_finished']:

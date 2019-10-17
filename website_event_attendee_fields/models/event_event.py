@@ -7,19 +7,16 @@ class Event(models.Model):
     attendee_field_ids = fields.Many2many('event.event.attendee_field')
     use_attendees_header = fields.Boolean(compute='_compute_use_attendees_header')
 
-    @api.multi
     def _compute_use_attendees_header(self):
         for r in self:
             total_width = sum([int(f.width) or 1 for f in self.attendee_field_ids])
             r.use_attendees_header = total_width <= 12
 
-    @api.multi
     def check_partner_for_new_ticket(self, partner_id):
         if self.partner_is_participating(partner_id):
             return _('This email address is already signed up for the event')
         return None
 
-    @api.multi
     def partner_is_participating(self, partner_id):
         self.ensure_one()
         registration = self.env['event.registration'].sudo().search([
@@ -65,14 +62,12 @@ class AttendeeField(models.Model):
 
     domain = fields.Char('Domain')
 
-    @api.multi
     def name_get(self):
         return [
             (r.id, '#%s: %s (width=%s)' % (r.sequence, r.field_name, r.width, ))
             for r in self
         ]
 
-    @api.multi
     def get_select_options(self):
         self.ensure_one()
         domain = safe_eval(self.domain or '[]')
@@ -86,7 +81,6 @@ class AttendeeField(models.Model):
         ]
         return res
 
-    @api.multi
     def get_value(self, partner):
         self.ensure_one()
         v = getattr(partner, self.field_name)

@@ -17,7 +17,6 @@ class Event(models.Model):
         default=True,
     )
 
-    @api.multi
     def check_partner_for_new_ticket(self, partner_id):
         registration = self.partner_is_participating(partner_id)
         if registration:
