@@ -12,3 +12,7 @@ Disables "Add to cart" feature if product is discontinued.
 Tested on Odoo 8.0 f8d5a6727d3e8d428d9bef93da7ba6b11f344284.
 
 Further information and discussion: http://yelizariev.github.io/odoo/module/2015/02/20/ecommerce-stock-status.html
+
+Maintainers
+------------
+This module is not maintainable since Odoo 11.0, because lack of interests from customers.
