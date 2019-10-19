@@ -11,7 +11,7 @@
     "support": "apps@it-projects.info",
     "website": "https://it-projects.info/team/yelizariev",
     "license": "AGPL-3",
-    "price": 190.00,
+    "price": 95.00,
     "currency": "EUR",
 
     "depends": [
