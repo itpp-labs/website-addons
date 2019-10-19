@@ -9,7 +9,7 @@
     'license': 'GPL-3',
     "support": "apps@it-projects.info",
     'website': 'https://twitter.com/yelizariev',
-    'price': 30.0,
+    'price': 15.0,
     'currency': 'EUR',
     'images': ['images/search.png'],
     'depends': ['website_sale', 'product_tags'],
