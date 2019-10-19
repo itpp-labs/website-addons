@@ -12,7 +12,7 @@
     "support": "apps@it-projects.info",
     "website": "https://it-projects.info/team/trojikman",
     "license": "LGPL-3",
-    "price": 45.00,
+    "price": 23.00,
     "currency": "EUR",
 
     "depends": [
