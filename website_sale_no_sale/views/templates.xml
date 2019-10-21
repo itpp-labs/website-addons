@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright 2018 Denis Mudarisov <https://it-projects.info/team/trojikman>
+Copyright 2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
+-->
+<odoo>
+
+    <template id="hide_products_prices" name="Hide Prices" inherit_id="website_sale.products_item" active="True" customize_show="True" priority="23">
+        <xpath expr="//div[hasclass('product_price')]" position="replace"/>
+    </template>
+
+    <template id="hide_add_to_cart" inherit_id="website_sale.product" active="True" customize_show="True" name="Hide Add to Cart" priority="24">
+        <a id="add_to_cart" position="attributes">
+            <attribute name="class">btn btn-primary btn-lg mt8 js_check_product a-submit o_hidden</attribute>
+        </a>
+    </template>
+
+    <template id="find_nearest_dealer" inherit_id="website_sale.product" active="True" customize_show="True" name="Use Find Your Nearest Dealer Button" priority="24">
+        <a id="add_to_cart" position="replace">
+            <t t-if="request.website.is_public_user()">
+                <a role="button" id="find_dealer" class="btn btn-primary btn-lg mt8"
+                   t-attf-href="#{website.hide_add_to_cart_url or '/shop'}">Find Your Nearest Dealer</a>
+            </t>
+            <t t-else="">
+                <a role="button" id="add_to_cart" class="btn btn-primary btn-lg mt8 js_check_product a-submit"
+                   href="#">Add to Cart</a>
+            </t>
+        </a>
+    </template>
+
+    <template id="hide_price" inherit_id="website_sale.product" active="True" customize_show="True" name="Hide Price" priority="24">
+        <xpath expr="//t[@t-call='website_sale.product_price']" position="replace"/>
+        <xpath expr="//t[@t-call='sale.variants']/*" position="replace">
+            <t t-set="ul_class" t-value="'nav-stacked'" />
+            <t t-set="hide_price" t-value="1" />
+        </xpath>
+    </template>
+
+    <template id="hide_variants_price_badge" inherit_id="website_sale.product_variants">
+        <xpath expr="//span[hasclass('badge')]" position="replace">
+            <span class="badge" t-if="diff_price and not hide_price">
+                <span class="badge badge-pill badge-secondary" t-if="diff_price != 0">
+                    <t t-esc="diff_price > 0 and '+' or '-'"/>
+                    <span t-esc="abs(combination_info['price'] - template_combination_info['price'])"
+                          t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                </span>
+            </span>
+        </xpath>
+    </template>
+
+<!--    <template id="hide_my_cart" inherit_id="website_sale.header" active="True" customize_show="True" name="Hide Header Shop My Cart Link">-->
+<!--        <xpath expr="//li[@id='my_cart']" position="replace">-->
+<!--            <li id="my_cart" t-attf-class="nav-item">-->
+<!--                <a t-attf-href="#{website.hide_add_to_cart_url or '/shop'}" class="nav-link">-->
+<!--                    Find Your Nearest Dealer-->
+<!--                </a>-->
+<!--            </li>-->
+<!--        </xpath>-->
+<!--    </template>-->
+
+    <template id="website_sale_stock_product" inherit_id="website_sale_stock.website_sale_stock_product"
+              active="True" customize_show="True" priority="10"
+              name="Hide Product Availability for Public Users">
+        <xpath expr="//div[hasclass('availability_messages', 'o_not_editable')]" position="replace">
+            <t t-if="not request.website.is_public_user()">
+                <div class="availability_messages o_not_editable"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="show_price_with_taxes" inherit_id="website_sale.product_price" active="True" customize_show="True" name="Show Prices With Taxes for Public Users" priority="24">
+        <xpath expr="//b[hasclass('oe_price')]" position="replace">
+            <t t-if="request.website.is_public_user()">
+                <b class="oe_price_with_taxes" style="white-space: nowrap;" t-esc="combination_info['price_with_taxes']"
+                   t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+            </t>
+            <t t-else="">
+                <b class="oe_price" style="white-space: nowrap;" t-esc="combination_info['price']"
+                   t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>
