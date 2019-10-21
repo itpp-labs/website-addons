@@ -6,25 +6,11 @@ License MIT (https://opensource.org/licenses/MIT).
 -->
 <odoo>
 
-    <template
-        id="hide_products_prices"
-        name="Hide Prices"
-        inherit_id="website_sale.products_item"
-        active="False"
-        customize_show="True"
-        priority="23"
-    >
-        <xpath expr="//div[hasclass('product_price')]" position="replace" />
+    <template id="hide_products_prices" name="Hide Prices" inherit_id="website_sale.products_item" active="True" customize_show="True" priority="23">
+        <xpath expr="//div[hasclass('product_price')]" position="replace"/>
     </template>
 
-    <template
-        id="hide_add_to_cart"
-        inherit_id="website_sale.product"
-        active="False"
-        customize_show="True"
-        name="Hide Add to Cart"
-        priority="24"
-    >
+    <template id="hide_add_to_cart" inherit_id="website_sale.product" active="True" customize_show="True" name="Hide Add to Cart" priority="24">
         <a id="add_to_cart" position="attributes">
             <attribute
                 name="class"
@@ -32,15 +18,8 @@ License MIT (https://opensource.org/licenses/MIT).
         </a>
     </template>
 
-    <template
-        id="hide_price"
-        inherit_id="website_sale.product"
-        active="False"
-        customize_show="True"
-        name="Hide Price"
-        priority="24"
-    >
-        <xpath expr="//t[@t-call='website_sale.product_price']" position="replace" />
+    <template id="hide_price" inherit_id="website_sale.product" active="True" customize_show="True" name="Hide Price" priority="24">
+        <xpath expr="//t[@t-call='website_sale.product_price']" position="replace"/>
         <xpath expr="//t[@t-call='sale.variants']/*" position="replace">
             <t t-set="ul_class" t-value="'nav-stacked'" />
             <t t-set="hide_price" t-value="1" />
@@ -51,11 +30,9 @@ License MIT (https://opensource.org/licenses/MIT).
         <xpath expr="//span[hasclass('badge')]" position="replace">
             <span class="badge" t-if="diff_price and not hide_price">
                 <span class="badge badge-pill badge-secondary" t-if="diff_price != 0">
-                    <t t-esc="diff_price > 0 and '+' or '-'" />
-                    <span
-                        t-esc="abs(combination_info['price'] - template_combination_info['price'])"
-                        t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"
-                    />
+                    <t t-esc="diff_price > 0 and '+' or '-'"/>
+                    <span t-esc="abs(combination_info['price'] - template_combination_info['price'])"
+                          t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
                 </span>
             </span>
         </xpath>
