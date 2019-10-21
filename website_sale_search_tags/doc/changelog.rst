@@ -1,3 +1,8 @@
+`1.0.3`
+-------
+
+- **FIX:** incorrect domain modification in product search query
+
 `1.0.2`
 -------
 

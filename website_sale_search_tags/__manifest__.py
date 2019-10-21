@@ -3,12 +3,12 @@
     'name': "Website Search Product Tags",
     'summary': """Search website products by tags""",
     'category': 'eCommerce',
-    'version': '10.0.1.0.2',
+    'version': '10.0.1.0.3',
     'application': False,
-    'author': 'IT-Projects LLC, Ivan Yelizariev, Savoir-faire Linux',
+    'author': 'IT-Projects LLC, Ivan Yelizariev, Savoir-faire Linux, Eugene Molotov',
     'license': 'GPL-3',
     "support": "apps@it-projects.info",
-    'website': 'https://twitter.com/yelizariev',
+    'website': 'https://it-projects.info',
     'price': 30.0,
     'currency': 'EUR',
     'images': ['images/search.png'],
@@ -19,4 +19,7 @@
 
     'auto_install': False,
     'installable': True,
+    'data': [
+        'views/tours.xml',
+    ],
 }

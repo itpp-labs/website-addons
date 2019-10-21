@@ -1,0 +1,150 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_sale_checkout_store
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_sale_checkout_store
+#: model:ir.ui.view,arch_db:website_sale_checkout_store.website_sale_checkout_store_cart
+msgid "<span class=\"hidden-xs\">Pay now and get delivery</span>\n"
+"                            <span class=\"visible-xs-inline\">Pay now and get delivery</span>\n"
+"                            <span class=\"fa fa-long-arrow-right\"/>"
+msgstr ""
+
+#. module: website_sale_checkout_store
+#: model:ir.ui.view,arch_db:website_sale_checkout_store.website_sale_checkout_store_cart
+msgid "<span class=\"hidden-xs\">Pay on delivery</span>\n"
+"                            <span class=\"visible-xs-inline\">Pay on delivery</span>\n"
+"                            <span class=\"fa fa-long-arrow-right\"/>"
+msgstr ""
+
+#. module: website_sale_checkout_store
+#: model:ir.ui.view,arch_db:website_sale_checkout_store.website_sale_checkout_store_cart
+msgid "<span class=\"hidden-xs\">Pickup and pay at store</span>\n"
+"                            <span class=\"visible-xs-inline\">Pickup and pay at store</span>\n"
+"                            <span class=\"fa fa-long-arrow-right\"/>"
+msgstr ""
+
+#. module: website_sale_checkout_store
+#: model:ir.ui.view,arch_db:website_sale_checkout_store.website_sale_checkout_store_cart
+msgid "<span class=\"hidden-xs\">Pickup at store but pay now</span>\n"
+"                            <span class=\"visible-xs-inline\">Pickup at store but pay now</span>\n"
+"                            <span class=\"fa fa-long-arrow-right\"/>"
+msgstr ""
+
+#. module: website_sale_checkout_store
+#: model:ir.ui.view,arch_db:website_sale_checkout_store.orders_followup
+#: model:ir.ui.view,arch_db:website_sale_checkout_store.website_sale_checkout_store_confirmation
+msgid "<strong>Delivery:</strong>"
+msgstr ""
+
+#. module: website_sale_checkout_store
+#: model:ir.ui.view,arch_db:website_sale_checkout_store.website_sale_checkout_store_confirmation
+msgid "<strong>Payment Method:</strong>"
+msgstr ""
+
+#. module: website_sale_checkout_store
+#: model:ir.ui.view,arch_db:website_sale_checkout_store.orders_followup
+#: model:ir.ui.view,arch_db:website_sale_checkout_store.website_sale_checkout_store_confirmation
+msgid "<strong>Payment:</strong>"
+msgstr ""
+
+#. module: website_sale_checkout_store
+#: model:ir.model.fields,field_description:website_sale_checkout_store.field_sale_order_buy_way
+msgid "Buy way"
+msgstr ""
+
+#. module: website_sale_checkout_store
+#: model:ir.ui.view,arch_db:website_sale_checkout_store.address
+msgid "Contact Information\n"
+"                        <small> or </small>"
+msgstr ""
+
+#. module: website_sale_checkout_store
+#: model:ir.model.fields,field_description:website_sale_checkout_store.field_sale_order_delivery_method_information
+msgid "Delivery method information"
+msgstr ""
+
+#. module: website_sale_checkout_store
+#: code:addons/website_sale_checkout_store/models/main_model.py:23
+#, python-format
+msgid "Pay at store"
+msgstr ""
+
+#. module: website_sale_checkout_store
+#: model:ir.model.fields,field_description:website_sale_checkout_store.field_website_config_settings_bill_ship
+#: selection:website.config.settings,default_option:0
+msgid "Pay now and get delivery"
+msgstr ""
+
+#. module: website_sale_checkout_store
+#: code:addons/website_sale_checkout_store/models/main_model.py:21
+#: model:ir.model.fields,field_description:website_sale_checkout_store.field_website_config_settings_nobill_ship
+#: selection:website.config.settings,default_option:0
+#, python-format
+msgid "Pay on delivery"
+msgstr ""
+
+#. module: website_sale_checkout_store
+#: model:ir.model.fields,field_description:website_sale_checkout_store.field_sale_order_payment_method_information
+msgid "Payment method information"
+msgstr ""
+
+#. module: website_sale_checkout_store
+#: model:ir.model.fields,field_description:website_sale_checkout_store.field_website_config_settings_nobill_noship
+#: selection:website.config.settings,default_option:0
+msgid "Pickup and pay at store"
+msgstr ""
+
+#. module: website_sale_checkout_store
+#: code:addons/website_sale_checkout_store/models/main_model.py:28
+#, python-format
+msgid "Pickup at store"
+msgstr ""
+
+#. module: website_sale_checkout_store
+#: model:ir.model.fields,field_description:website_sale_checkout_store.field_website_config_settings_bill_noship
+#: selection:website.config.settings,default_option:0
+msgid "Pickup at store but pay now"
+msgstr ""
+
+#. module: website_sale_checkout_store
+#: model:ir.model,name:website_sale_checkout_store.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: website_sale_checkout_store
+#: model:ir.model.fields,field_description:website_sale_checkout_store.field_website_config_settings_default_option
+msgid "Selected by default"
+msgstr ""
+
+#. module: website_sale_checkout_store
+#: model:ir.ui.view,arch_db:website_sale_checkout_store.website_sale_checkout_store_settings_view
+msgid "Shipping and billing"
+msgstr ""
+
+#. module: website_sale_checkout_store
+#: model:ir.ui.view,arch_db:website_sale_checkout_store.website_sale_checkout_store_settings_view
+msgid "Ways of sale"
+msgstr ""
+
+#. module: website_sale_checkout_store
+#: model:ir.ui.view,arch_db:website_sale_checkout_store.address
+msgid "Your Address\n"
+"                        <small> or </small>"
+msgstr ""
+
+#. module: website_sale_checkout_store
+#: model:ir.model,name:website_sale_checkout_store.model_website_config_settings
+msgid "website.config.settings"
+msgstr ""
+
