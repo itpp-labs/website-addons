@@ -1,5 +1,5 @@
 ===================
- Website Demo Data
+ Multi Website Demo
 ===================
 
 If you are looking for *Mult Website* feature use module `Real Multi Website <https://apps.odoo.com/apps/modules/12.0/website_multi_company>`_ instead.
