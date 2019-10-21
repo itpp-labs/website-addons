@@ -2,9 +2,9 @@
    :target: https://opensource.org/licenses/MIT
    :alt: License: MIT
 
-===================
- Stop Online Sales
-===================
+==================
+ B2B Online Sales
+==================
 
 Adds options to disable all sales and hide all prices, but keep products visible at website
 
