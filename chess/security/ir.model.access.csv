@@ -1,7 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_chess_game,access_chess_game,model_chess_game,base.group_user,1,1,1,1
-access_chess_game_line,access_chess_game_line,model_chess_game_line,base.group_user,1,0,1,0
-access_chess_game_chat,access_chess_game_chat,model_chess_game_chat,base.group_user,1,0,1,0
-access_res_users,access_res_users,model_res_users,base.group_user,1,1,0,0
-access_chess_tournament,access_chess_tournament,model_chess_tournament,base.group_user,1,1,1,1
-
