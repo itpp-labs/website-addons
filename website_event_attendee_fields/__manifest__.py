@@ -5,7 +5,7 @@
     "category": "Marketing",
     # "live_test_url": "http://apps.it-projects.info/shop/product/portal-event-tickets?version=10.0",
     "images": ["images/banner.jpg"],
-    "version": "10.0.2.0.2",
+    "version": "10.0.2.0.3",
     "application": False,
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "support": "apps@itpp.dev",

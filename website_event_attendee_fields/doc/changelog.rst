@@ -1,3 +1,8 @@
+`2.0.3`
+-------
+
+- **Fix** Unavailablity to publish/unpublish an event on a website
+
 `2.0.2`
 -------
 
