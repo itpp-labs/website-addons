@@ -1,5 +1,5 @@
 {
-    "name": """Multi Website Demo"""",
+    "name": """Multi Website Demo""",
     "summary": """Provides demo websites""",
     "category": "Hidden",
     # "live_test_URL": "",
