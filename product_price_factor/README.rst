@@ -7,6 +7,6 @@ Maintainers
 -----------
 * `IT-Projects LLC <https://it-projects.info>`__
 
-	  This module is not maintainable since Odoo 13.0
+	  This module is not maintained since Odoo 13.0
 
 Tested on Odoo 11.0 51a9f30e1971155b6315c6bd888d56048191bddd
