@@ -11,7 +11,7 @@ Disables "Add to cart" feature if product is discontinued.
 
 Maintainers
 -----------
-This module is not maintainable since Odoo 11.0
+This module is not maintained since Odoo 11.0
 
 Tested on Odoo 8.0 f8d5a6727d3e8d428d9bef93da7ba6b11f344284.
 
