@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="assets_frontend" name="website_sale_search_tags assets" inherit_id="website_sale.assets_frontend">
+            <xpath expr="." position="inside">
+                <script src="/website_sale_search_tags/static/src/js/website_sale_search_tags_tour.js" type="text/javascript"></script>
+            </xpath>
+        </template>
+    </data>
+</openerp>

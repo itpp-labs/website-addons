@@ -1,3 +1,9 @@
+`1.5.2`
+-------
+- **Fix:** Access error on clicking `Defaul Access Rights` button
+- **Fix:** Blank page on signing up after order payment confirmation
+- **Fix:** Orders were not shown for portal users
+
 `1.5.1`
 -------
 - **Improvement:** better organized code
