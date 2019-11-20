@@ -3,4 +3,3 @@ OCA_web https://github.com/it-projects-llc/web
 access-addons https://github.com/it-projects-llc/access-addons.git
 mail-addons https://github.com/it-projects-llc/mail-addons
 misc-addons https://github.com/it-projects-llc/misc-addons
-OCA_product-attribute https://github.com/it-projects-llc/product-attribute.git
