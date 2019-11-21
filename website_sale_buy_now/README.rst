@@ -1,5 +1,6 @@
-'Buy Now' button in web shop
-============================
+======================
+ Buy Now in eCommerce
+======================
 
 Add a settings to Product, that allows to sale:
 
@@ -14,4 +15,10 @@ After clicking on "buy now" at web shop:
 * page /shop/cart is still availabe, but
   * it doesn't have "continue shopping button"
 
+Maintainers
+-----------
+* `IT-Projects LLC <https://it-projects.info>`__
+
+	  This module is not maintained since Odoo 9.0
+   
 Tested on Odoo 8.0 f89220a51313e1bf46ec82175f2449c2e1a0455c
