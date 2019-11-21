@@ -1,5 +1,6 @@
-'Buy Now' button in web shop
-============================
+======================
+ Buy Now in eCommerce
+======================
 
 Add a settings to Product, that allows to sale:
 
