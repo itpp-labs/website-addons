@@ -1,3 +1,8 @@
+`1.0.5`
+-------
+
+**Fix:** The compatibility with website_sale_delivery
+
 `1.0.4`
 -------
 
