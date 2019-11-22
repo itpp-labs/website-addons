@@ -74,10 +74,9 @@ class WebsiteSaleExtended(WebsiteSale):
 
     def _get_mandatory_fields(self):
         order = request.website.sale_get_order()
-        if not order.buy_way or ('nobill' not in order.buy_way and 'noship' not in order.buy_way) or \
-                ('nobill' in order.buy_way and 'noship' not in order.buy_way):
+        if not order.buy_way or 'noship' not in order.buy_way:
             return ["name", "phone", "email", "street", "city", "country_id"]
-        elif 'noship' in order.buy_way:
+        else:
             if 'nobill' in order.buy_way:
                 return ["name", "phone", "email"]
             else:
