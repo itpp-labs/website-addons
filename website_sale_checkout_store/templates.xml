@@ -110,16 +110,18 @@
                 <attribute name="ship">1</attribute>
             </xpath>
 
-            <xpath expr="//select[@name='country_id']/.." position="attributes">
-                <attribute name="bill">1</attribute>
-            </xpath>
             <xpath expr="//input[@name='company_name']/.." position="attributes">
                 <attribute name="ship">1</attribute>
             </xpath>
 
-            <xpath expr="//select[@name='state_id']/.." position="attributes">
-                <attribute name="bill">1</attribute>
+            <xpath expr="//select[@name='country_id']/.." position="attributes">
+                <attribute name="ship_bill">1</attribute>
             </xpath>
+
+            <xpath expr="//select[@name='state_id']/.." position="attributes">
+                <attribute name="ship_bill">1</attribute>
+            </xpath>
+
             <xpath expr="//input[@name='vat']/.." position="attributes">
                 <attribute name="style">display: none</attribute>
             </xpath>
@@ -144,6 +146,46 @@
         <template id="website_sale_checkout_store_wizard_checkout" name="my_wizard_checkout" inherit_id="website_sale.wizard_checkout">
             <xpath expr="//li[@id='step40']" position="attributes">
                 <attribute name="bill">1</attribute>
+            </xpath>
+        </template>
+
+        <template id="payment" inherit_id="website_sale.payment" name="Payment">
+            <xpath expr="//div[@id='payment_method']" position="replace">
+                <!-- based on https://github.com/odoo/odoo/blob/9e67525418b3b0a48a796044ef24b227946ceb8f/addons/website_sale/views/templates.xml#L1318 -->
+                <div id="payment_method" class="col-md-12 o_website_sale_rightfit" t-if="(form_acquirers or s2s_acquirers or tokens) and website_sale_order.amount_total and bill_enabled=='1'">
+                    <h3 class="mb24">Pay with </h3>
+                    <t t-call="payment.payment_tokens_list">
+                        <t t-set="mode" t-value="'payment'"/>
+                        <t t-set="submit_txt">Pay Now</t>
+                        <t t-set="icon_class" t-value="'fa-lock'"/>
+                        <t t-set="pms" t-value="tokens"/>
+                        <t t-set="form_action" t-value="'/shop/payment/token'"/>
+                        <t t-set="prepare_tx_url" t-value="'/shop/payment/transaction/'"/>
+                        <t t-set="partner_id" t-value="partner"/>
+                    </t>
+                </div>
+                <!-- based on https://github.com/odoo/odoo/blob/9e67525418b3b0a48a796044ef24b227946ceb8f/addons/website_sale/views/templates.xml#L1338 -->
+                <div class="js_payment mb64 row" t-if="(not website_sale_order.amount_total) and bill_enabled=='1'" id="payment_method">
+                    <div class="col-sm-12">
+                        <form target="_self" action="/shop/payment/validate" method="post" class="pull-right">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                            <a class="btn btn-primary a-submit">
+                                <span t-if="order.amount_total &gt; 0">Pay Now <span class="fa fa-long-arrow-right"></span></span>
+                                <span t-if="order.amount_total == 0">Confirm Order <span class="fa fa-long-arrow-right"></span></span>
+                            </a>
+                        </form>
+                    </div>
+                </div>
+                <div class="js_payment mb64 row" t-if="bill_enabled=='0'" id="payment_method">
+                    <div class="col-sm-12">
+                        <form target="_self" action="/shop/payment/validate" method="post" class="pull-right">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                            <a class="btn btn-primary a-submit">
+                                <span>Confirm Order <span class="fa fa-long-arrow-right"></span></span>
+                            </a>
+                        </form>
+                    </div>
+                </div>
             </xpath>
         </template>
 
