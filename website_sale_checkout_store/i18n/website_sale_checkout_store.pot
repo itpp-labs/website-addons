@@ -42,6 +42,11 @@ msgid "<span class=\"hidden-xs\">Pickup at store but pay now</span>\n"
 msgstr ""
 
 #. module: website_sale_checkout_store
+#: model:ir.ui.view,arch_db:website_sale_checkout_store.payment
+msgid "<span>Confirm Order <span class=\"fa fa-long-arrow-right\"/></span>"
+msgstr ""
+
+#. module: website_sale_checkout_store
 #: model:ir.ui.view,arch_db:website_sale_checkout_store.orders_followup
 #: model:ir.ui.view,arch_db:website_sale_checkout_store.website_sale_checkout_store_confirmation
 msgid "<strong>Delivery:</strong>"
@@ -64,6 +69,11 @@ msgid "Buy Way"
 msgstr ""
 
 #. module: website_sale_checkout_store
+#: model:ir.ui.view,arch_db:website_sale_checkout_store.payment
+msgid "Confirm Order <span class=\"fa fa-long-arrow-right\"/>"
+msgstr ""
+
+#. module: website_sale_checkout_store
 #: model:ir.ui.view,arch_db:website_sale_checkout_store.address
 msgid "Contact Information\n"
 "                        <small> or </small>"
@@ -72,6 +82,16 @@ msgstr ""
 #. module: website_sale_checkout_store
 #: model:ir.model.fields,field_description:website_sale_checkout_store.field_sale_order_delivery_method_information
 msgid "Delivery Method Information"
+msgstr ""
+
+#. module: website_sale_checkout_store
+#: model:ir.ui.view,arch_db:website_sale_checkout_store.payment
+msgid "Pay Now"
+msgstr ""
+
+#. module: website_sale_checkout_store
+#: model:ir.ui.view,arch_db:website_sale_checkout_store.payment
+msgid "Pay Now <span class=\"fa fa-long-arrow-right\"/>"
 msgstr ""
 
 #. module: website_sale_checkout_store
@@ -96,6 +116,11 @@ msgstr ""
 #: selection:test.config.settings,default_option:0
 #, python-format
 msgid "Pay on delivery"
+msgstr ""
+
+#. module: website_sale_checkout_store
+#: model:ir.ui.view,arch_db:website_sale_checkout_store.payment
+msgid "Pay with"
 msgstr ""
 
 #. module: website_sale_checkout_store
