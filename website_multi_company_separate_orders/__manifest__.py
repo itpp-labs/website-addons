@@ -19,6 +19,7 @@
     "depends": [
         "website_multi_company_sale",
         "website_sale",
+        "portal"
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [

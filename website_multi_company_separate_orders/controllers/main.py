@@ -6,6 +6,7 @@ import logging
 from odoo import http
 from odoo.http import request
 from odoo.addons.website_sale.controllers.main import WebsiteSale
+from odoo.addons.portal.controllers.portal import CustomerPortal
 
 _logger = logging.getLogger(__name__)
 
@@ -29,12 +30,14 @@ class WebsiteSaleExtended(WebsiteSale):
             return False
         sale_order_child = sale_order.order_child_ids.filtered(lambda so: so.company_id.id == product_company_id)
         if not sale_order_child:
+            pricelist_id = sale_order.pricelist_id.id
             sale_order_child = sale_order.sudo().create({
                 'order_parent_id': sale_order.id,
                 'company_id': product_company_id,
                 'partner_id': sale_order.partner_id.id,
                 'partner_invoice_id': sale_order.partner_invoice_id.id,
                 'partner_shipping_id': sale_order.partner_shipping_id.id,
+                'pricelist_id': pricelist_id
             })
             sale_order.write({
                 'order_child_ids': [(4, sale_order_child.id)]
@@ -95,3 +98,29 @@ class WebsiteSaleExtended(WebsiteSale):
             prod = line.product_id
             result.append(self._check_and_update_child_order(order, prod, False, line.product_uom_qty, 'Force'))
         return all(result)
+
+
+# class MultiCompanyPortal(CustomerPortal):
+#     def _prepare_portal_layout_values(self):
+#         res = super(MultiCompanyPortal, self)._prepare_portal_layout_values()
+#         user = request.env.user
+#         partner = user.partner_id
+#         company_id = request.env.user.company_id
+#
+#         SaleOrder = request.env['sale.order'].sudo()
+#         quotation_count = SaleOrder.search_count([
+#             ('message_partner_ids', 'child_of', [partner.commercial_partner_id.id]),
+#             ('state', 'in', ['sent', 'cancel']),
+#             ('company_id', 'in', [company_id.id] + company_id.child_ids.ids)
+#         ])
+#         order_count = SaleOrder.search_count([
+#             ('message_partner_ids', 'child_of', [partner.commercial_partner_id.id]),
+#             ('state', 'in', ['sale', 'done']),
+#             ('company_id', 'in', [company_id.id] + company_id.child_ids.ids)
+#         ])
+#         res.update({
+#             'quotation_count': quotation_count,
+#             'order_count': order_count,
+#         })
+#         import wdb; wdb.set_trace()
+#         return res
