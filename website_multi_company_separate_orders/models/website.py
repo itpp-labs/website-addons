@@ -13,9 +13,9 @@ from odoo import models, api, tools, fields
 class Website(models.Model):
     _inherit = "website"
 
-    order_duplicating = fields.Boolean(string='Automatic Order Duplicating',
-                                       help='Duplicate orders for Daughter companies')
-    order_duplicating_companies = fields.Many2many('res.company', string='Order Duplicating Companies',
+    split_orders = fields.Boolean(string='Automatic Order Splitting',
+                                       help='Split orders for Daughter companies')
+    split_orders_companies = fields.Many2many('res.company', string='Order Duplicating Companies',
                                                    help='Daughter companies where order is being automatically duplicated to')
 
     @api.model

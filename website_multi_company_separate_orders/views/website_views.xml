@@ -9,9 +9,9 @@
         <field name="inherit_id" ref="website.view_website_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='default_lang_id']" position="after">
-                <field name="order_duplicating"/>
-                <field name="order_duplicating_companies"
-                       attrs="{'invisible': [('order_duplicating', '=', False)]}"
+                <field name="split_orders"/>
+                <field name="split_orders_companies"
+                       attrs="{'invisible': [('split_orders', '=', False)]}"
                        widget="many2many_tags"/>
             </xpath>
         </field>

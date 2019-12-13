@@ -9,7 +9,7 @@ var sAnimations = require('website.content.snippets.animation');
 sAnimations.registry.WebsiteSale.include({
 
     read_events: _.extend(sAnimations.registry.WebsiteSale.prototype.read_events, {
-        'click td.td-product_name .separate_order': '_duplicate_order_request',
+        'click td.td-product_name .separate_order:not(.child_order)': '_duplicate_order_request',
     }),
 
     _duplicate_order_request: function(event) {
@@ -17,10 +17,11 @@ sAnimations.registry.WebsiteSale.include({
         if (!cid) {
             return;
         }
-        session.rpc("/shop/duplicate_orders_for_daughter_companies/" + cid, {})
+        session.rpc("/shop/split_order_for_daughter_companies/" + cid, {})
             .then(function(result) {
                 if (result) {
-                    alert('Order was duplicated');
+                    //        alert('Order was duplicated');
+                    location.reload();
                 }
             });
     },

@@ -48,26 +48,26 @@ class SaleOrder(models.Model):
         return result
 
 
-class AccountInvoice(models.Model):
-    _inherit = 'account.invoice'
-
-    @api.multi
-    def register_payment(self, payment_line, writeoff_acc_id=False, writeoff_journal_id=False):
-        result = super(AccountInvoice, self).register_payment(payment_line, writeoff_acc_id, writeoff_journal_id)
-        for record in self:
-            if record.state != 'paid':
-                return result
-            sale_line_ids = record.invoice_line_ids[0].sale_line_ids
-            if sale_line_ids:
-                order = sale_line_ids[0].order_id.sudo()
-                children = order.order_child_ids.filtered(lambda o: o.invoice_status not in ['cancel', 'invoiced'])
-                if children:
-                    children.action_cancel()
-                parent = order.order_parent_id
-                if parent:
-                    product_ids = order.order_line.mapped(lambda ol: ol.product_id.id)
-                    order_line_ids = parent.order_line.filtered(lambda ol: ol.product_id.id in product_ids)
-                    order_line_ids.write({
-                        'product_uom_qty': 0,
-                    })
-        return result
+# class AccountInvoice(models.Model):
+#     _inherit = 'account.invoice'
+#
+#     @api.multi
+#     def register_payment(self, payment_line, writeoff_acc_id=False, writeoff_journal_id=False):
+#         result = super(AccountInvoice, self).register_payment(payment_line, writeoff_acc_id, writeoff_journal_id)
+#         for record in self:
+#             if record.state != 'paid':
+#                 return result
+#             sale_line_ids = record.invoice_line_ids[0].sale_line_ids
+#             if sale_line_ids:
+#                 order = sale_line_ids[0].order_id.sudo()
+#                 children = order.order_child_ids.filtered(lambda o: o.invoice_status not in ['cancel', 'invoiced'])
+#                 if children:
+#                     children.action_cancel()
+#                 parent = order.order_parent_id
+#                 if parent:
+#                     product_ids = order.order_line.mapped(lambda ol: ol.product_id.id)
+#                     order_line_ids = parent.order_line.filtered(lambda ol: ol.product_id.id in product_ids)
+#                     order_line_ids.write({
+#                         'product_uom_qty': 0,
+#                     })
+#         return result
