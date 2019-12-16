@@ -180,40 +180,43 @@
 
         <template id="payment" inherit_id="website_sale.payment" name="Payment">
             <xpath expr="//div[@id='payment_method']" position="replace">
-                <!-- based on https://github.com/odoo/odoo/blob/9e67525418b3b0a48a796044ef24b227946ceb8f/addons/website_sale/views/templates.xml#L1318 -->
-                <div id="payment_method" class="col-md-12 o_website_sale_rightfit" t-if="(form_acquirers or s2s_acquirers or tokens) and website_sale_order.amount_total and bill_enabled=='1'">
+                <!-- based on https://github.com/odoo/odoo/blob/97f89dc0484902c58dec5dbb9de65f17661163f4/addons/website_sale/views/templates.xml#L1340 -->
+                <div id="payment_method" class="mt-3" t-if="(acquirers or tokens) and website_sale_order.amount_total and bill_enabled=='1'">
                     <h3 class="mb24">Pay with </h3>
                     <t t-call="payment.payment_tokens_list">
                         <t t-set="mode" t-value="'payment'"/>
                         <t t-set="submit_txt">Pay Now</t>
-                        <t t-set="icon_class" t-value="'fa-lock'"/>
+                        <t t-set="icon_right" t-value="1"/>
+                        <t t-set="icon_class" t-value="'fa-chevron-right'"/>
+                        <t t-set="submit_class" t-value="'btn btn-primary'"/>
                         <t t-set="pms" t-value="tokens"/>
                         <t t-set="form_action" t-value="'/shop/payment/token'"/>
                         <t t-set="prepare_tx_url" t-value="'/shop/payment/transaction/'"/>
                         <t t-set="partner_id" t-value="partner"/>
+
+                        <t t-set="back_button_icon_class" t-value="'fa-chevron-left'"/>
+                        <t t-set="back_button_txt">Return to Cart</t>
+                        <t t-set="back_button_class" t-value="'btn btn-secondary'"/>
+                        <t t-set="back_button_link" t-value="'/shop/cart'"/>
                     </t>
                 </div>
-                <!-- based on https://github.com/odoo/odoo/blob/9e67525418b3b0a48a796044ef24b227946ceb8f/addons/website_sale/views/templates.xml#L1338 -->
-                <div class="js_payment mb64 row" t-if="(not website_sale_order.amount_total) and bill_enabled=='1'" id="payment_method">
-                    <div class="col-sm-12">
-                        <form target="_self" action="/shop/payment/validate" method="post" class="pull-right">
-                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
-                            <a class="btn btn-primary a-submit">
-                                <span t-if="order.amount_total &gt; 0">Pay Now <span class="fa fa-long-arrow-right"></span></span>
-                                <span t-if="order.amount_total == 0">Confirm Order <span class="fa fa-long-arrow-right"></span></span>
-                            </a>
-                        </form>
-                    </div>
+                <!-- based on https://github.com/odoo/odoo/blob/97f89dc0484902c58dec5dbb9de65f17661163f4/addons/website_sale/views/templates.xml#L1367 -->
+                <div class="js_payment mt-3" t-if="(not website_sale_order.amount_total) and bill_enabled=='1'" id="payment_method">
+                    <form target="_self" action="/shop/payment/validate" method="post" class="float-right">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                        <a role="button" class="btn btn-primary a-submit" href="#">
+                            <span t-if="order.amount_total &gt; 0">Pay Now <span class="fa fa-chevron-right"></span></span>
+                            <span t-if="order.amount_total == 0">Confirm Order <span class="fa fa-chevron-right"></span></span>
+                        </a>
+                    </form>
                 </div>
-                <div class="js_payment mb64 row" t-if="bill_enabled=='0'" id="payment_method">
-                    <div class="col-sm-12">
-                        <form target="_self" action="/shop/payment/validate" method="post" class="pull-right">
-                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
-                            <a class="btn btn-primary a-submit">
-                                <span>Confirm Order <span class="fa fa-long-arrow-right"></span></span>
-                            </a>
-                        </form>
-                    </div>
+                <div class="js_payment mt-3" t-if="bill_enabled=='0'" id="payment_method">
+                    <form target="_self" action="/shop/payment/validate" method="post" class="float-right">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                        <a role="button" class="btn btn-primary a-submit" href="#">
+                            <span>Confirm Order <span class="fa fa-chevron-right"></span></span>
+                        </a>
+                    </form>
                 </div>
             </xpath>
         </template>
