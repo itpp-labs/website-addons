@@ -76,17 +76,17 @@ tour.register('shop_mandatory_fields_nobill_ship', {
             trigger: 'a:contains("Next")',
         },
         {
-            content: "click confirm",
-            trigger: 'a[href="/shop/confirm_order"]',
+            content: "click confirm (Step - Confirm Order)",
+            trigger: 'form[action="/shop/payment/validate"] .btn.btn-primary.a-submit',
         },
         {
-            content: "click confirm",
-            trigger: '.btn.btn-primary.a-submit',
-        },
-        {
-            content: "Confirm checkout",
-            extra_trigger: 'h2:contains(Thank you for your order)',
-            trigger: 'h2:contains(Thank you for your order)'
+            // porting 11.0 -> 12.0 note:
+            // previous "Thank you" message check was taken away
+            // 'cos there is extra check, that hides it
+            // https://github.com/odoo/odoo/blob/bf81e38f685abbd4632c7be5cc381dfa38a9b7b8/addons/website_sale/views/templates.xml#L1477
+            content: "Get order info",
+            extra_trigger: 'h1 > span:contains("Order")',
+            trigger: 'h1 > span:contains("Order")'
         },
     ]
 );
