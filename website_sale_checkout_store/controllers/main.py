@@ -78,7 +78,7 @@ class WebsiteSaleExtended(WebsiteSale):
             return ["name", "phone", "email", "street", "city", "country_id"]
         else:
             if 'nobill' in order.buy_way:
-                fields = ["name", "phone"]
+                return ["name", "phone", "email"]
             else:
                 return ["name", "phone", "email", "country_id"]
 
