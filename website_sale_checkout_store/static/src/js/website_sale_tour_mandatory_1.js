@@ -60,8 +60,13 @@ tour.register('shop_mandatory_fields_nobill_noship', {
             trigger: 'a:contains("Next")',
         },
         {
-            content: "Confirm payment method",
-            trigger: "td:contains('Pay at store')",
+            content: "click confirm",
+            trigger: '.btn.btn-primary.a-submit',
+        },
+        {
+            content: "Confirm checkout",
+            extra_trigger: 'h2:contains(Thank you for your order)',
+            trigger: 'h2:contains(Thank you for your order)',
         },
         {
             content: "Confirm delivery method",

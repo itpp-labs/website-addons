@@ -67,12 +67,26 @@ tour.register('shop_mandatory_fields_nobill_ship', {
             run: "text city",
         },
         {
+            content: "filling in a country",
+            trigger: '#country_id',
+            run: 'text 6',
+        },
+        {
             content: "Confirm checkout",
             trigger: 'a:contains("Next")',
         },
         {
-            content: "Confirm payment method",
-            trigger: "td:contains('Pay on delivery')",
+            content: "click confirm",
+            trigger: 'a[href="/shop/confirm_order"]',
+        },
+        {
+            content: "click confirm",
+            trigger: '.btn.btn-primary.a-submit',
+        },
+        {
+            content: "Confirm checkout",
+            extra_trigger: 'h2:contains(Thank you for your order)',
+            trigger: 'h2:contains(Thank you for your order)'
         },
     ]
 );
