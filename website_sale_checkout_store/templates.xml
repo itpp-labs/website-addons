@@ -123,6 +123,9 @@
         </template>
 
         <template id="address" name="my_checkout" inherit_id="website_sale.address">
+            <xpath expr="//t[@t-if=&quot;partner_id == website_sale_order.partner_shipping_id.id == website_sale_order.partner_invoice_id.id&quot;]" position="attributes">
+                <attribute name="t-if">partner_id == website_sale_order.partner_shipping_id.id == website_sale_order.partner_invoice_id.id and ship_enabled == '1'</attribute>
+            </xpath>
             <xpath expr="//div[hasclass('container','oe_website_sale')]" position="attributes">
                 <attribute name="t-attf-ship_enabled">#{ship_enabled}</attribute>
                 <attribute name="t-attf-bill_enabled">#{bill_enabled}</attribute>
@@ -148,10 +151,6 @@
             </xpath>
             <xpath expr="//input[@name='company_name']/.." position="attributes">
                 <attribute name="ship">1</attribute>
-            </xpath>
-
-            <xpath expr="//select[@name='state_id']/.." position="attributes">
-                <attribute name="bill">1</attribute>
             </xpath>
             <xpath expr="//input[@name='vat']/.." position="attributes">
                 <attribute name="style">display: none</attribute>
@@ -183,18 +182,21 @@
                     </tbody>
                 </table>
             </xpath>
-            <xpath expr="//div[hasclass('oe_cart')]/div[hasclass('card', 'mt-3')]/div[hasclass('card-body')]/div" position="replace">
-                <t t-if="order.buy_way == 'bill_noship'">
-                    <div><b>Billing : </b><span t-esc='order.partner_id' t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=' ')" class="address-inline"/></div>
-                </t>
-                <t t-if="order.buy_way == 'nobill_ship'">
-                    <div><b><t t-if="same_shipping and not only_services">Shipping</t>: </b><span t-esc='order.partner_id' t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')" class="address-inline"/></div>
-                    <div t-if="not same_shipping and not only_services" groups="sale.group_delivery_invoice_address"><b>Shipping: </b><span t-esc='order.partner_shipping_id' t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')"  class="address-inline"/></div>
-                </t>
-                <t t-if="order.buy_way == 'bill_ship'">
-                    <div><b>Billing <t t-if="same_shipping and not only_services"> &amp; Shipping</t>: </b><span t-esc='order.partner_id' t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')" class="address-inline"/></div>
-                    <div t-if="not same_shipping and not only_services" groups="sale.group_delivery_invoice_address"><b>Shipping: </b><span t-esc='order.partner_shipping_id' t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')"  class="address-inline"/></div>
-                </t>
+            <xpath expr="//div[hasclass('oe_cart')]/div[hasclass('card', 'mt-3')]/div[hasclass('card-body')]/." position="replace">
+                <div class="card-body">
+                    <t t-set="same_shipping" t-value="bool(order.partner_shipping_id==order.partner_id or only_services)" />
+                    <t t-if="order.buy_way == 'bill_noship'">
+                        <div><b>Billing : </b><span t-esc='order.partner_id' t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=' ')" class="address-inline"/></div>
+                    </t>
+                    <t t-if="order.buy_way == 'nobill_ship'">
+                        <div t-if="same_shipping and not only_services"><b>Shipping: </b><span t-esc='order.partner_id' t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')" class="address-inline"/></div>
+                        <div t-if="not same_shipping and not only_services" groups="sale.group_delivery_invoice_address"><b>Shipping: </b><span t-esc='order.partner_shipping_id' t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')"  class="address-inline"/></div>
+                    </t>
+                    <t t-if="order.buy_way == 'bill_ship'">
+                        <div><b>Billing <t t-if="same_shipping and not only_services"> &amp; Shipping</t>: </b><span t-esc='order.partner_id' t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')" class="address-inline"/></div>
+                        <div t-if="not same_shipping and not only_services" groups="sale.group_delivery_invoice_address"><b>Shipping: </b><span t-esc='order.partner_shipping_id' t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')"  class="address-inline"/></div>
+                    </t>
+                </div>
             </xpath>
         </template>
 </odoo>

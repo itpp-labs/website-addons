@@ -1,0 +1,45 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_seo_url
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_seo_url
+#: model:ir.model.fields,field_description:website_seo_url.field_website_seo_url_display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: website_seo_url
+#: model:ir.model,name:website_seo_url.model_ir_http
+msgid "HTTP routing"
+msgstr ""
+
+#. module: website_seo_url
+#: model:ir.model.fields,field_description:website_seo_url.field_website_seo_url_id
+msgid "ID"
+msgstr ""
+
+#. module: website_seo_url
+#: model:ir.model.fields,field_description:website_seo_url.field_website_seo_url___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: website_seo_url
+#: constraint:website_seo_url:0
+msgid "SEO URL must be unique! Auto changing name failed. Try different name."
+msgstr ""
+
+#. module: website_seo_url
+#: model:ir.model,name:website_seo_url.model_website_seo_url
+msgid "website_seo_url"
+msgstr ""
+

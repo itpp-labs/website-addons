@@ -22,7 +22,7 @@ tour.register('shop_add_to_cart', {
         },
         {
             content: "add Apple Wireless Keyboard to cart",
-            extra_trigger: '.oe_product_cart a:contains("Apple Wireless Keyboard")',
+            extra_trigger: '.oe_product_cart:eq(0) a:contains("Apple Wireless Keyboard")',
             trigger: '.quick_add_to_cart input',
             run: "text 1",
         },

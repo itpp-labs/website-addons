@@ -1,10 +1,15 @@
+# Copyright 2017-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2018 Ilmir Karamov <https://it-projects.info/team/ilmir-k>
+# Copyright 2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
+# Copyright 2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 {
     "name": """Real Multi Website (eCommerce extension)""",
     "summary": """Multi Website support in eCommerce""",
     "category": "eCommerce",
     # "live_test_url": "http://apps.it-projects.info/shop/product/website-multi-company?version=12.0",
     "images": ["images/website_multi_company_sale_main.png"],
-    "version": "12.0.1.5.1",
+    "version": "12.0.1.5.2",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev",

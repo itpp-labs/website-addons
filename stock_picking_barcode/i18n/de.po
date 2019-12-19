@@ -1,0 +1,367 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * stock_picking_barcode
+# 
+# Translators:
+# Dawid Runowski <dawrun@outlook.com>, 2019
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-24 10:19+0000\n"
+"PO-Revision-Date: 2018-04-21 00:25+0000\n"
+"Last-Translator: Dawid Runowski <dawrun@outlook.com>, 2019\n"
+"Language-Team: German (https://www.transifex.com/it-projects-llc/teams/76080/de/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:266
+#, python-format
+msgid "< Previous"
+msgstr "<vorheriger"
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/js/widgets.js:731
+#, python-format
+msgid "<p>We could not find a picking to display.</p>"
+msgstr ""
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:28
+#, python-format
+msgid "Change Location"
+msgstr "Lokalisation ändern"
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:176
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:179
+#, python-format
+msgid "Change destination location"
+msgstr ""
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:175
+#, python-format
+msgid "Change source location"
+msgstr ""
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:15
+#, python-format
+msgid "Choose a location"
+msgstr "Wähle eine Lokalisation"
+
+#. module: stock_picking_barcode
+#: model:ir.actions.act_window,help:stock_picking_barcode.action_picking_form
+msgid "Click here to create a new transfer."
+msgstr "Klicke hier, um eine neue Überweisung zu erstellen."
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/js/test_barcode_ui.js:17
+#: model:ir.ui.view,arch_db:stock_picking_barcode.picking_stock_picking_type_kanban
+#, python-format
+msgid "Click to launch the barcode interface"
+msgstr ""
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:27
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:46
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:70
+#, python-format
+msgid "Close"
+msgstr "Schließen"
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:58
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:181
+#, python-format
+msgid "Configure package"
+msgstr ""
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:172
+#, python-format
+msgid "Create / Change Lot"
+msgstr ""
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:39
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:47
+#, python-format
+msgid "Create Lot"
+msgstr ""
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:84
+#, python-format
+msgid "Create backorder"
+msgstr ""
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:105
+#, python-format
+msgid "Filter by location..."
+msgstr "nach dem Ort sortieren..."
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:128
+#, python-format
+msgid "From"
+msgstr "au"
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:263
+#, python-format
+msgid "Menu"
+msgstr ""
+
+#. module: stock_picking_barcode
+#: model:ir.actions.act_window,name:stock_picking_barcode.action_picking_form
+msgid "New Transfer"
+msgstr "neue Überweisung"
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:267
+#, python-format
+msgid "Next >"
+msgstr "nächster>"
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/js/widgets.js:724
+#, python-format
+msgid "No Picking Available"
+msgstr ""
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:201
+#, python-format
+msgid "No picking found."
+msgstr ""
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/js/widgets.js:726
+#, python-format
+msgid "Ok"
+msgstr "Ok"
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/js/test_barcode_ui.js:14
+#, python-format
+msgid "Open inventory dashboard"
+msgstr ""
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:97
+#, python-format
+msgid "Operations Processed"
+msgstr ""
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:96
+#, python-format
+msgid "Operations ToDo"
+msgstr ""
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:61
+#, python-format
+msgid "Package type"
+msgstr "Verpackungsart"
+
+#. module: stock_picking_barcode
+#: model:ir.model,name:stock_picking_barcode.model_stock_move_line
+msgid "Packing Operation"
+msgstr ""
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:85
+#, python-format
+msgid "Print"
+msgstr "Drucken"
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:183
+#, python-format
+msgid "Print package label"
+msgstr ""
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:125
+#, python-format
+msgid "Product"
+msgstr "Produkt"
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:115
+#, python-format
+msgid "Put in Cart"
+msgstr ""
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:114
+#, python-format
+msgid "Put in Pack"
+msgstr ""
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:224
+#, python-format
+msgid "Quit"
+msgstr "Verlassen"
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:275
+#, python-format
+msgid "Recompute"
+msgstr ""
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:182
+#, python-format
+msgid "Remove from package"
+msgstr ""
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:18
+#, python-format
+msgid "Scan a location or select it in the list below"
+msgstr ""
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:42
+#, python-format
+msgid ""
+"Scan a lot or type it below (leave empty to generate one automatically)"
+msgstr ""
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:126
+#, python-format
+msgid "Scanned"
+msgstr ""
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:232
+#, python-format
+msgid "Scanned picking could not be found"
+msgstr ""
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:221
+#, python-format
+msgid "Search"
+msgstr "Suchen"
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:197
+#, python-format
+msgid "Search Results"
+msgstr ""
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:231
+#, python-format
+msgid "Select your operation"
+msgstr ""
+
+#. module: stock_picking_barcode
+#: model:ir.model,name:stock_picking_barcode.model_stock_picking_type
+msgid "The operation type determines the picking view"
+msgstr ""
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:274
+#, python-format
+msgid "The reserved stock changed. You might want to"
+msgstr ""
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:129
+#, python-format
+msgid "To"
+msgstr "zu"
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:127
+#, python-format
+msgid "Todo"
+msgstr ""
+
+#. module: stock_picking_barcode
+#: model:ir.model,name:stock_picking_barcode.model_stock_picking
+msgid "Transfer"
+msgstr "Überweisun"
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:71
+#, python-format
+msgid "Validate package"
+msgstr ""
+
+#. module: stock_picking_barcode
+#: model:ir.actions.act_window,help:stock_picking_barcode.action_picking_form
+msgid ""
+"You can either do it immediatly or mark it as Todo for future processing. "
+"Use your scanner to validate the transferred quantity quicker."
+msgstr ""
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:249
+#, python-format
+msgid "picking(s)"
+msgstr ""
+
+#. module: stock_picking_barcode
+#. openerp-web
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:275
+#, python-format
+msgid "the operations."
+msgstr "die Operationen."

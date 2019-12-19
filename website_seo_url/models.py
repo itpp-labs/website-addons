@@ -8,15 +8,15 @@ class SEOURL(models.AbstractModel):
     _seo_url_field = 'seo_url'
 
     @api.model
-    def _check_seo_url(self, vals, id=0):
+    def _check_seo_url(self, vals, record_id=0):
         field = self._seo_url_field
         vals = vals or {}
         value = vals.get(field)
         if value:
             vals[field] = value = slugify(value)
-            res = self.search([(field, '=', value), ('id', '!=', id)])
+            res = self.search([(field, '=', value), ('id', '!=', record_id)])
             if res:
-                vals[field] = '%s-%s' % (vals[field], id)
+                vals[field] = '%s-%s' % (vals[field], record_id)
         return vals
 
     @api.model
@@ -27,7 +27,7 @@ class SEOURL(models.AbstractModel):
     @api.multi
     def write(self, vals):
         for r in self:
-            vals = r._check_seo_url(vals, id=r.id)
+            vals = r._check_seo_url(vals, record_id=r.id)
             super(SEOURL, r).write(vals)
         return True
 

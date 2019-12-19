@@ -160,11 +160,6 @@ msgid "Selected by default"
 msgstr ""
 
 #. module: website_sale_checkout_store
-#: model_terms:ir.ui.view,arch_db:website_sale_checkout_store.website_sale_checkout_store_confirmation
-msgid "Shipping"
-msgstr ""
-
-#. module: website_sale_checkout_store
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_store.res_config_settings_view_form
 msgid "Shipping and billing"
 msgstr ""

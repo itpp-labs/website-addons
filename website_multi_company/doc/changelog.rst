@@ -1,4 +1,9 @@
-`2.4.0`
+`3.0.1`
+-------
+
+- **Fix:** Non-admin users now have access to read company logo in a website
+
+`3.0.0`
 -------
 
 - **New:** compatibility with mail_multi_website
@@ -33,7 +38,7 @@
 `2.0.4`
 -------
 
-- **Fix:** Public users now have access to read company logo in a website
+- **FIX:** Public users now have access to read company logo in a website
 
 `2.0.3`
 -------

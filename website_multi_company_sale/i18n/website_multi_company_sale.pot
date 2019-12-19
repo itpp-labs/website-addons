@@ -32,6 +32,11 @@ msgid "Billing Countries"
 msgstr ""
 
 #. module: website_multi_company_sale
+#: model:ir.model,name:website_multi_company_sale.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: website_multi_company_sale
 #: model:ir.model,name:website_multi_company_sale.model_res_config_settings
 msgid "Config Settings"
 msgstr ""
@@ -121,6 +126,11 @@ msgstr ""
 #: model:ir.model.fields,help:website_multi_company_sale.field_product_product__website_ids
 #: model:ir.model.fields,help:website_multi_company_sale.field_product_template__website_ids
 msgid "Set the websites this product should be available on. Leave empty to allow all."
+msgstr ""
+
+#. module: website_multi_company_sale
+#: model:ir.model,name:website_multi_company_sale.model_res_users
+msgid "Users"
 msgstr ""
 
 #. module: website_multi_company_sale

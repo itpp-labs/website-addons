@@ -1,6 +1,4 @@
-====================
-product_price_factor
-====================
+Product price factor
 
 Installation
 ============

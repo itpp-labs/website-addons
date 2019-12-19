@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--Copyright 2016 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
     Copyright 2016 Pavel Romanchenko
+    Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).-->
 
 <templates id="template" xml:space="preserve">
@@ -50,7 +51,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="js_PackConfModal" tabindex="-1" role="dialog" aria-labelledby="PackConfModal" aria-hidden="true">
+        <!--<div class="modal fade" id="js_PackConfModal" tabindex="-1" role="dialog" aria-labelledby="PackConfModal" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -72,7 +73,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
 
         <div class="row">
                 <div>
@@ -179,7 +180,7 @@
                                         <t t-if="row.cols.head_container">
                                             <li><a class="js_pack_change_dst" href="#">Change destination location</a></li>
                                             <li class="divider"></li>
-                                            <li><a class="js_pack_configure" href="#">Configure package</a></li>
+                                            <!--<li><a class="js_pack_configure" href="#">Configure package</a></li>-->
                                             <li><a class="js_delete_pack" href="#">Remove from package</a></li>
                                             <li><a class="js_print_pack" href="#">Print package label</a></li>
                                         </t>

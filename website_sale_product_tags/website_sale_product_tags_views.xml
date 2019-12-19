@@ -2,8 +2,8 @@
 <openerp><data>
 
 <record id="product_tag_form" model="ir.ui.view">
-    <field name="model">product.tag</field>
-    <field name="inherit_id" ref="product_tags.product_tag_form"/>
+    <field name="model">product.template.tag</field>
+    <field name="inherit_id" ref="product_template_tags.product_template_tag_form_view"/>
     <field name="arch" type="xml">
         <xpath expr="//field[@name='name']" position="after">
             <field name="style"/>
