@@ -10,7 +10,7 @@ Installation
 Configuration
 =============
 
-Follow instruction of the base module `Real Multi Website <https://www.odoo.com/apps/modules/11.0/website_multi_company/>`__.
+Follow instruction of the base module `Real Multi Website <https://www.odoo.com/apps/modules/12.0/website_multi_company/>`__.
 
 For internal (employee) users multi-company mode in portal works only for companies specified in  **Allowed Companies**	field.
 
