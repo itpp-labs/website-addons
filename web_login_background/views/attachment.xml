@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
-  <data>
+<odoo>
     <record id="web_login_background" model="ir.ui.view">
       <field name="model">ir.attachment</field>
       <field name="inherit_id" ref="base.view_attachment_form"/>
@@ -12,5 +11,4 @@
         </xpath>
       </field>
     </record>
-  </data>
-</openerp>
+</odoo>

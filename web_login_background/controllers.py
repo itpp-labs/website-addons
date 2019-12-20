@@ -8,7 +8,7 @@ from odoo.addons.auth_signup.controllers.main import AuthSignupHome
 
 class Background(Home):
 
-    @http.route('/web/login', type='http', auth="public")
+    @http.route()
     def web_login(self, redirect=None, **kw):
         picture_url = request.env['ir.attachment'].get_background_pic()
         if picture_url:
