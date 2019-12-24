@@ -2,7 +2,7 @@
 from random import choice
 import hashlib
 
-from odoo import fields, api
+from odoo import fields, api, SUPERUSER_ID
 from odoo import models
 from odoo.tools import pycompat
 
@@ -17,6 +17,7 @@ class IRAttachmentBackground(models.Model):
 
     use_as_background = fields.Boolean("Use as login page background", default=False)
 
+    @api.model
     def check(self, mode, values=None):
         ids = self.ids
         cr = self.env.cr
@@ -37,7 +38,7 @@ class IRAttachmentBackground(models.Model):
 
     @api.model
     def get_background_pic(self):
-        pictures = self.search(self._get_background_images_domain())
+        pictures = self.with_user(SUPERUSER_ID).search(self._get_background_images_domain())
         if pictures:
             p = choice(pictures)
             picture_url = p.url or _attachment2url(p)

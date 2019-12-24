@@ -4,7 +4,7 @@
     "summary": """Get a random background at the login page""",
     "category": "Extra Tools",
     "images": ['images/login.png'],
-    "version": "12.0.1.0.3",
+    "version": "13.0.1.0.3",
 
     "author": "IT-Projects LLC, Ildar Nasyrov, Nicolas JEUDY",
     "support": "apps@it-projects.info",
@@ -24,7 +24,7 @@
     "demo": [
         'demo/demo.xml',
     ],
-    "installable": False,
+    "installable": True,
     "auto_install": False,
 
 }
