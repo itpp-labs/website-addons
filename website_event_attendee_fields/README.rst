@@ -1,6 +1,6 @@
-=============================================
- Customizable fields for attendees on Events
-=============================================
+==========================
+ Event guest Custom Field
+==========================
 
 By default ``website_event`` module asks only three fields to fill about attendees (name, email, phone). This module allows to customize any set of fields.
 

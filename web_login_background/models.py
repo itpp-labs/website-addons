@@ -26,9 +26,9 @@ class IRAttachmentBackground(models.Model):
                 ids = [ids]
             ids = ids[:]  # make a copy
             cr.execute('SELECT id,use_as_background FROM ir_attachment WHERE id = ANY (%s)', (ids,))
-            for id, use_as_background in cr.fetchall():
+            for attachment_id, use_as_background in cr.fetchall():
                 if use_as_background:
-                    ids.remove(id)
+                    ids.remove(attachment_id)
             if not ids:
                 return
         return super(IRAttachmentBackground, self).check(mode, values=values)

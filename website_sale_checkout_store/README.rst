@@ -35,7 +35,7 @@ Maintainers
 
       To get a guaranteed support
       you are kindly requested to purchase the module
-      at `odoo apps store <https://apps.odoo.com/apps/modules/11.0/website_sale_checkout_store/>`__.
+      at `odoo apps store <https://apps.odoo.com/apps/modules/12.0/website_sale_checkout_store/>`__.
 
       Thank you for understanding!
 
@@ -44,14 +44,14 @@ Maintainers
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/website-addons/11.0
+Demo: http://runbot.it-projects.info/demo/website-addons/12.0
 
-HTML Description: https://apps.odoo.com/apps/modules/11.0/website_sale_checkout_store/
+HTML Description: https://apps.odoo.com/apps/modules/12.0/website_sale_checkout_store/
 
 Usage instructions: `<doc/index.rst>`_
 
 Changelog: `<doc/changelog.rst>`_
 
-Notifications on updates: `via Atom <https://github.com/it-projects-llc/website-addons/commits/11.0/website_sale_checkout_store.atom>`_, `by Email <https://blogtrottr.com/?subscribe=https://github.com/it-projects-llc/website-addons/commits/11.0/website_sale_checkout_store.atom>`_
+Notifications on updates: `via Atom <https://github.com/it-projects-llc/website-addons/commits/12.0/website_sale_checkout_store.atom>`_, `by Email <https://blogtrottr.com/?subscribe=https://github.com/it-projects-llc/website-addons/commits/12.0/website_sale_checkout_store.atom>`_
 
-Tested on Odoo 11.0 475027b9889c0701f8fe5e0373a40663f6a831e1
+Tested on Odoo 12.0 412117c2a789a24191cda040614d01fe290e77cc
