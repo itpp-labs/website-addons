@@ -1,5 +1,4 @@
-<openerp>
-  <data>
+<odoo>
 
     <template id="variants_factor" inherit_id="website_sale.variants">
       <xpath expr="//option/span[@t-if='value_id.price_extra']" position="after">
@@ -14,5 +13,4 @@
       </xpath>
     </template>
 
-  </data>
-</openerp>
+</odoo>

@@ -42,6 +42,18 @@ class SaleOrder(models.Model):
             'bill_enabled': 'nobill' not in self.buy_way and '1' or '0',
         }
 
+    def remove_is_delivery(self):
+        for line in self.order_line:
+            if hasattr(line, 'is_delivery') and line.is_delivery:
+                line.unlink()
+
+    def recalc_has_delivery(self):
+        if hasattr(self, '_compute_has_delivery'):
+            if self.buy_way and 'noship' in self.buy_way:
+                self.has_delivery = False
+            else:
+                self._compute_has_delivery()
+
 
 class WebsiteConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'

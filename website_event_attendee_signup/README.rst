@@ -1,6 +1,6 @@
-===================================
- Sign-up event attendees to portal
-===================================
+==========================
+ Auto Sign Up Event guest
+==========================
 
 The modules creates ``res.user`` from every ``event.registration`` (*attendee*)
 and calls ``signup_prepare()`` method to allow to send an email with signup url to access the portal.

@@ -1,0 +1,65 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_event_attendee_signup
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_event_attendee_signup
+#: model:mail.template,body_html:website_event_attendee_signup.email_template_signup
+msgid "\n"
+"    \n"
+"        <p>\n"
+"            Hello ${object.attendee_partner_id.name},<br />\n"
+"\n"
+"            You was registered as attendee of ${object.event_id.name}.\n"
+"\n"
+"            % if object.attendee_partner_id.signup_token:\n"
+"                Use the link below to sing-up on portal to access your event dashboard:\n"
+"                    <div style=\"padding:0px;width:600px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777\">\n"
+"                        <div style=\"text-align: center; margin-top: 16px;\">\n"
+"                             <a href=\"${object.attendee_partner_id.signup_url}\" style=\"padding: 5px 10px; font-size: 12px; line-height: 18px; color: #FFFFFF; border-color:#875A7B; text-decoration: none; display: inline-block; margin-bottom: 0px; font-weight: 400; text-align: center; vertical-align: middle; cursor: pointer; white-space: nowrap; background-image: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius:3px\">Accept invitation to portal</a>\n"
+"                        </div>\n"
+"                    </div>\n"
+"            % endif\n"
+"        </p>\n"
+"        <p>\n"
+"        </p>\n"
+"        <p>Best regards,</p>\n"
+"    \n"
+"        "
+msgstr ""
+
+#. module: website_event_attendee_signup
+#: model:ir.model,name:website_event_attendee_signup.model_event_registration
+msgid "Attendee"
+msgstr ""
+
+#. module: website_event_attendee_signup
+#: model:ir.model,name:website_event_attendee_signup.model_event_event
+msgid "Event"
+msgstr ""
+
+#. module: website_event_attendee_signup
+#: model:ir.model.fields,help:website_event_attendee_signup.field_event_event_attendee_signup
+msgid "Every attendee receives email to confirm email and set password to access to portal"
+msgstr ""
+
+#. module: website_event_attendee_signup
+#: model:ir.model.fields,field_description:website_event_attendee_signup.field_event_event_attendee_signup
+msgid "Signup attendees to portal"
+msgstr ""
+
+#. module: website_event_attendee_signup
+#: model:mail.template,subject:website_event_attendee_signup.email_template_signup
+msgid "Welcome to our Portal!"
+msgstr ""
+

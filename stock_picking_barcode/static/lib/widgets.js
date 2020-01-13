@@ -108,7 +108,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                                     head_container: true,
                                     processed_boolean: packopline.processed_boolean,
                                     package_id: myPackage.id,
-                                    ul_id: myPackage.ul_id[0],
+                                    ul_id: packopline.id,
                                     barcode: packopline.product_barcode
                             },
                             classes: ('success container_head ') + (packopline.processed_boolean === "true"
@@ -195,13 +195,11 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             $('.modal_prod_description').children().remove();
             modal.addClass('opened');
             $('.modal_waiting').show();
-            console.log(this);
         },
         close_add_pack_modal: function(){
             var modal = $('#add_pack_modal');
             modal.hide();
             modal.removeClass('opened');
-            console.log(this);
         },
         new_qty_modal: function(pid, qty) {
             this.close_add_pack_modal();
@@ -229,7 +227,9 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             this.$('.js_pick_done').click(function(){
                 self.getParent().done();
             });
-//            $('#add_pack_modal').hide();
+            this.$('.js_pick_print').click(function(){
+                self.getParent().print_picking();
+            });
             this.$('.js_add_pack').click(function(){
                 self.open_add_pack_modal();
             });
@@ -403,13 +403,13 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
 
                 }
             });
-            this.$('.js_pack_configure').click(function(){
-                var pack_id = $(this).parents(".js_pack_op_line:first").data('package-id');
-                var ul_id = $(this).parents(".js_pack_op_line:first").data('ulid');
-                self.$('#js_packconf_select').val(ul_id);
-                self.$('#js_packconf_select').data('pack-id',pack_id);
-                self.$el.siblings('#js_PackConfModal').modal();
-            });
+//            this.$('.js_pack_configure').click(function(){
+//                var pack_id = $(this).parents(".js_pack_op_line:first").data('package-id');
+//                var ul_id = $(this).parents(".js_pack_op_line:first").data('ulid');
+//                self.$('#js_packconf_select').val(ul_id);
+//                self.$('#js_packconf_select').data('pack-id',pack_id);
+//                self.$el.siblings('#js_PackConfModal').modal();
+//            });
             this.$('.js_validate_pack').click(function(){
                 //get current selection
                 var select_dom_element = self.$('#js_packconf_select');
@@ -634,7 +634,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             $(window).trigger('hashchange');
         },
         goto_last_picking_of_type: function(type_id){
-            $.bbq.pushState('#action=stock.ui&picking_type_id='+type_id);
+            $.bbq.pushState('#action=stock.ui&picking_type_id='+ type_id);
             $(window).trigger('hashchange');
         },
         search_picking: function(barcode){
@@ -735,9 +735,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                 }
             });
             var init_hash = $.bbq.getState();
-            this.picking_type_id = init_hash.picking_type_id
-                ? init_hash.picking_type_id[0] || init_hash.picking_type_id
-                :0;
+            this.picking_type_id = init_hash.picking_type_id || 0;
             this.picking_id = init_hash.picking_id
                 ? init_hash.picking_id
                 : void 0;
@@ -767,7 +765,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                     model: 'stock.picking',
                     method: 'get_next_picking_for_ui',
                     args: [
-                        [], { picking_type_id : parseInt(type_id)}
+                        parseInt(type_id)
                     ]
                 }).then(function(picking_ids){
                         if(!picking_ids || picking_ids.length === 0){
@@ -894,10 +892,10 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                     self.lot_ids = [];
 
                     for(var i = 0; i < operations.length; i++){
-                        if(package_ids.length && !_.contains(package_ids,operations[i].result_package_id[0])){
-                            if (operations[i].pack_lot_ids.length) {
-                                self.lot_ids = self.lot_ids.concat(operations[i].pack_lot_ids);
-                            }
+                        if(operations[i].result_package_id && !_.contains(package_ids,operations[i].result_package_id[0])){
+//                            if (operations[i].pack_lot_ids && operations[i].pack_lot_ids.length) {
+//                                self.lot_ids = self.lot_ids.concat(operations[i].pack_lot_ids);
+//                            }
                             if (operations[i].result_package_id[0]){
                                 package_ids.push(operations[i].result_package_id[0]);
                             }
@@ -1057,9 +1055,8 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                 return r.cols.barcode;
             });
             var prod_to_show = _.filter(this.picking_editor.rows, function(r){
-                return r.cols.barcode === ean;
+                return r.cols.barcode === ean || _.include(r.cols.barcode, ean);
             })[0];
-            console.log(ean);
             if (prod_to_show) {
                 var desc = qweb.render('ModalInformation',{row:prod_to_show});
                 this.modal_product = prod_to_show.cols.product_id;
@@ -1209,7 +1206,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             var self = this;
             return rpc.query({
                     model: 'stock.quant.package',
-                    method: 'action_print',
+                    method: 'do_print_package',
                     args: [
                         [package_id]
                     ]
@@ -1264,16 +1261,12 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             return rpc.query({
                 model: 'stock.move.line',
                 method: 'search',
-                args: [
-                    [[['result_package_id', '=', pack_id]]]
-                ]
+                args: [[['result_package_id', '=', pack_id]]]
             }).then(function(op_ids) {
                 return rpc.query({
                     model: 'stock.move.line',
                     method: 'write',
-                    args: [
-                        [op_ids, {'result_package_id':false}]
-                    ]
+                    args: [op_ids, {'result_package_id':false}]
                 }).then(function() {
                     return self.refresh_ui(self.picking.id);
                 });
@@ -1334,4 +1327,11 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
         }
     });
     core.action_registry.add('stock.ui', PickingMainWidget);
+
+    return {
+        PickingMainWidget: PickingMainWidget,
+        PickingMenuWidget: PickingMenuWidget,
+        PickingEditorWidget: PickingEditorWidget,
+        MobileWidget: MobileWidget
+    };
 });

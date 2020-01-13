@@ -1,0 +1,50 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_multi_company_sale_delivery
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_multi_company_sale_delivery
+#: model:ir.model.fields,field_description:website_multi_company_sale_delivery.field_delivery_carrier_website_ids
+msgid "Allowed websites"
+msgstr ""
+
+#. module: website_multi_company_sale_delivery
+#: model:ir.model,name:website_multi_company_sale_delivery.model_delivery_carrier
+msgid "Carrier"
+msgstr ""
+
+#. module: website_multi_company_sale_delivery
+#: model:ir.model,name:website_multi_company_sale_delivery.model_res_country
+msgid "Country"
+msgstr ""
+
+#. module: website_multi_company_sale_delivery
+#: model:ir.model,name:website_multi_company_sale_delivery.model_sale_order
+msgid "Quotation"
+msgstr ""
+
+#. module: website_multi_company_sale_delivery
+#: model:ir.model.fields,help:website_multi_company_sale_delivery.field_delivery_carrier_website_ids
+msgid "Set the websites this delivery carrier should be available on. Leave empty to allow all."
+msgstr ""
+
+#. module: website_multi_company_sale_delivery
+#: model:res.groups,name:website_multi_company_sale_delivery.group_read_permssion_on_delivery_carrier
+msgid "Technical group for website_multi_company_sale_delivery module"
+msgstr ""
+
+#. module: website_multi_company_sale_delivery
+#: model:ir.ui.view,arch_db:website_multi_company_sale_delivery.view_delivery_carrier_form_website_multi_company_sale
+msgid "Website"
+msgstr ""
+

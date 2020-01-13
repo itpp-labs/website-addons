@@ -1,0 +1,87 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_debranding
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_debranding
+#: model:ir.ui.view,arch_db:website_debranding.s_parallax_slider
+#: model:ir.ui.view,arch_db:website_debranding.s_references
+msgid "<small>Author of this quote</small>"
+msgstr ""
+
+#. module: website_debranding
+#: model:ir.ui.view,arch_db:website_debranding.s_parallax_slider
+#: model:ir.ui.view,arch_db:website_debranding.s_references
+msgid "<small>John Doe, CEO</small>"
+msgstr ""
+
+#. module: website_debranding
+#: model:ir.ui.view,arch_db:website_debranding.s_button
+msgid "<strong>We provide the best software for companies.</strong>"
+msgstr ""
+
+#. module: website_debranding
+#: model:ir.ui.view,arch_db:website_debranding.s_banner
+msgid "Banner Image"
+msgstr ""
+
+#. module: website_debranding
+#: model:ir.ui.view,arch_db:website_debranding.s_button
+msgid "Join us and make your company a better place."
+msgstr ""
+
+#. module: website_debranding
+#: model:ir.ui.view,arch_db:website_debranding.s_references
+msgid "Logo"
+msgstr ""
+
+#. module: website_debranding
+#: model:ir.ui.view,arch_db:website_debranding.s_references
+msgid "More than 500 happy customers."
+msgstr ""
+
+#. module: website_debranding
+#: model:ir.ui.view,arch_db:website_debranding.s_references
+msgid "Our References"
+msgstr ""
+
+#. module: website_debranding
+#: model:ir.ui.view,arch_db:website_debranding.s_parallax_slider
+msgid "Software provides essential platform for our project management.\n"
+"                                                Things are better organized and more visible with it."
+msgstr ""
+
+#. module: website_debranding
+#: model:ir.ui.view,arch_db:website_debranding.s_references
+msgid "Software provides essential platform for our project management.\n"
+"                            Things are better organized and more visible with it."
+msgstr ""
+
+#. module: website_debranding
+#: model:ir.ui.view,arch_db:website_debranding.s_image_text
+#: model:ir.ui.view,arch_db:website_debranding.s_text_image
+msgid "Text and image block"
+msgstr ""
+
+#. module: website_debranding
+#: model:ir.ui.view,arch_db:website_debranding.s_parallax_slider
+msgid "Write a quote here from one of your customers. Quotes are a\n"
+"                                                great way to build confidence in your products or services."
+msgstr ""
+
+#. module: website_debranding
+#: model:ir.ui.view,arch_db:website_debranding.s_references
+msgid "Write a quote here from one of your customers. Quotes are a\n"
+"                            great way to build confidence in your products or services."
+msgstr ""
+

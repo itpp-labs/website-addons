@@ -1,10 +1,10 @@
 {
-    "name": """Customizable fields for attendees on Events""",
+    "name": """Event guest Custom Field""",
     "summary": """Do you need more information about attendees than three default fields (name, email, phone)?""",
     "category": "Marketing",
     # "live_test_url": "http://apps.it-projects.info/shop/product/portal-event-tickets?version=10.0",
     "images": ["images/banner.jpg"],
-    "version": "10.0.2.0.0",
+    "version": "11.0.2.0.2",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev",
