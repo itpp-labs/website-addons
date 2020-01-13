@@ -67,12 +67,26 @@ tour.register('shop_mandatory_fields_nobill_ship', {
             run: "text city",
         },
         {
+            content: "filling in a country",
+            trigger: '#country_id',
+            run: 'text 6',
+        },
+        {
             content: "Confirm checkout",
             trigger: 'a:contains("Next")',
         },
         {
-            content: "Confirm payment method",
-            trigger: "td:contains('Pay on delivery')",
+            content: "click confirm (Step - Confirm Order)",
+            trigger: 'form[action="/shop/payment/validate"] .btn.btn-primary.a-submit',
+        },
+        {
+            // porting 11.0 -> 12.0 note:
+            // previous "Thank you" message check was taken away
+            // 'cos there is extra check, that hides it
+            // https://github.com/odoo/odoo/blob/bf81e38f685abbd4632c7be5cc381dfa38a9b7b8/addons/website_sale/views/templates.xml#L1477
+            content: "Get order info",
+            extra_trigger: 'h1 > span:contains("Order")',
+            trigger: 'h1 > span:contains("Order")'
         },
     ]
 );

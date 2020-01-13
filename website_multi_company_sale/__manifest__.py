@@ -4,7 +4,7 @@
 # Copyright 2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 {
-    "name": """Real Multi Website (eCommerce extension)""",
+    "name": """Multi Ecommerce""",
     "summary": """Multi Website support in eCommerce""",
     "category": "eCommerce",
     # "live_test_url": "http://apps.it-projects.info/shop/product/website-multi-company?version=12.0",

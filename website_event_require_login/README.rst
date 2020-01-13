@@ -1,6 +1,6 @@
-=====================================================
- Tickets purchasing: force user to sign in / sign up
-=====================================================
+==========================
+ No tickets without Email
+==========================
 
 The module updates ``/event/EVENT-ID/register`` page when user is not authenticated:
 
