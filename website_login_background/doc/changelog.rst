@@ -1,3 +1,8 @@
+`1.0.3`
+-------
+
+- **Fix:** Removed glitch, where login/signup form overlaps footer
+
 `1.0.2`
 -------
 

@@ -62,6 +62,11 @@ msgid "<span class=\"visible-xs-inline\">Pickup at store but pay now</span>\n"
 msgstr ""
 
 #. module: website_sale_checkout_store
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_store.payment
+msgid "<span>Confirm Order <span class=\"fa fa-chevron-right\"/></span>"
+msgstr ""
+
+#. module: website_sale_checkout_store
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_store.website_sale_checkout_store_confirmation
 msgid "<strong>Delivery: </strong>"
 msgstr ""
@@ -92,6 +97,11 @@ msgid "Config Settings"
 msgstr ""
 
 #. module: website_sale_checkout_store
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_store.payment
+msgid "Confirm Order <span class=\"fa fa-chevron-right\"/>"
+msgstr ""
+
+#. module: website_sale_checkout_store
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_store.address
 msgid "Contact Information"
 msgstr ""
@@ -99,6 +109,16 @@ msgstr ""
 #. module: website_sale_checkout_store
 #: model:ir.model.fields,field_description:website_sale_checkout_store.field_sale_order__delivery_method_information
 msgid "Delivery Method Information"
+msgstr ""
+
+#. module: website_sale_checkout_store
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_store.payment
+msgid "Pay Now"
+msgstr ""
+
+#. module: website_sale_checkout_store
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_store.payment
+msgid "Pay Now <span class=\"fa fa-chevron-right\"/>"
 msgstr ""
 
 #. module: website_sale_checkout_store
@@ -119,6 +139,11 @@ msgstr ""
 #: selection:res.config.settings,bill_ship_option:0
 #, python-format
 msgid "Pay on delivery"
+msgstr ""
+
+#. module: website_sale_checkout_store
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_store.payment
+msgid "Pay with"
 msgstr ""
 
 #. module: website_sale_checkout_store
@@ -147,6 +172,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:website_sale_checkout_store.field_res_config_settings__bill_noship
 #: selection:res.config.settings,bill_ship_option:0
 msgid "Pickup at store but pay now"
+msgstr ""
+
+#. module: website_sale_checkout_store
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_store.payment
+msgid "Return to Cart"
 msgstr ""
 
 #. module: website_sale_checkout_store
