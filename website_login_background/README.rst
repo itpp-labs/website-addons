@@ -17,12 +17,12 @@ Maintainers
 
 Further information
 ===================
-Demo: http://runbot.it-projects.info/demo/website-addons/10.0
+Demo: http://runbot.it-projects.info/demo/website-addons/12.0
 
-HTML Description: https://apps.odoo.com/apps/modules/10.0/website_login_background/
+HTML Description: https://apps.odoo.com/apps/modules/12.0/website_login_background/
 
 Usage instructions: `<doc/index.rst>`_
 
 Changelog: `<doc/changelog.rst>`_
 
-Tested on Odoo 10.0 03bc8c5f9ac53a3349c1caac222f7619a632ccd8
+Tested on Odoo 12.0 97f89dc0484902c58dec5dbb9de65f17661163f4
