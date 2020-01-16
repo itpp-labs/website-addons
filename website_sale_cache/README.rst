@@ -48,12 +48,12 @@ Maintainers
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/website-addons/10.0
+Demo: http://runbot.it-projects.info/demo/website-addons/12.0
 
-HTML Description: https://apps.odoo.com/apps/modules/10.0/website_sale_cache/
+HTML Description: https://apps.odoo.com/apps/modules/12.0/website_sale_cache/
 
 Usage instructions: `<doc/index.rst>`_
 
 Changelog: `<doc/changelog.rst>`_
 
-Tested on Odoo 10.0 1ffe85f1cb3defcbf932138e2fc13f3a81b34787
+Tested on Odoo 12.0 97f89dc0484902c58dec5dbb9de65f17661163f4

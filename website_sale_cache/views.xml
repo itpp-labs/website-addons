@@ -1,7 +1,7 @@
 <!--Copyright 2017 Artyom Losev
     Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>-->
 <odoo>
-    <data>
+
         <template
             id="category_cached"
             name="Categories Cached"
@@ -39,5 +39,5 @@
                 <t t-call="website_sale.option_collapse_categories_recursive" />
             </t>
         </template>
-    </data>
+
 </odoo>
