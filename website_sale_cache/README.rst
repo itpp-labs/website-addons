@@ -13,7 +13,9 @@ When multiple odoo workers are used, the cache is updated for each one separatel
 before updating the cache for each worker. Once the latter is done, the page will be loading faster,
 as far as the advantages of caching allow.
 
-The speed is not increased at the first load, because the data has not been cached yet. After update the list of
+The speed is not increased at the first load, because the data has not been cached yet.
+You need to visit every category page in shop to cache it in both collapsed and non collapsed.
+After update the list of
 categories (deleting a category, updating or creating a new one), the cache is updated and once again the speed
 will increase only after the first load.
 
