@@ -1,3 +1,8 @@
+`1.0.2`
+-------
+
+- **Fix:** Active category was not highlighted, that could also lead to bad preview in collapsed state
+
 `1.0.1`
 -------
 

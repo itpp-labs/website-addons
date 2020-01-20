@@ -10,7 +10,7 @@
         >
             <xpath expr="//t[@t-foreach='categories']" position="replace">
                 <span
-                    t-raw="website.category_cache(categories, slug, keep, parent_category_ids)"
+                    t-raw="website.category_cache(category, categories, slug, keep, parent_category_ids)"
                 />
             </xpath>
         </template>
@@ -27,7 +27,7 @@
         >
             <xpath expr="//t[@t-foreach='categories']" position="replace">
                 <span
-                    t-raw="website.category_cache(categories, slug, keep, parent_category_ids, collapsed=True)"
+                    t-raw="website.category_cache(category, categories, slug, keep, parent_category_ids, collapsed=True)"
                 />
             </xpath>
         </template>

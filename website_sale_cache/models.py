@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Copyright 2017 Artyom Losev
 # Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+# Copyright 2020 Eugene Molotov <https://it-projects.info/team/em230418>
 # License MIT (https://opensource.org/licenses/MIT).
 
 import logging
@@ -14,8 +15,10 @@ class WebsiteCategoryCache(models.Model):
 
     _inherit = "website"
 
-    @tools.cache()
-    def category_cache(self, cats, slug, keep, parent_category_ids, collapsed=False):
+    @tools.cache("current_cat", "collapsed")
+    def category_cache(
+        self, current_cat, cats, slug, keep, parent_category_ids, collapsed=False
+    ):
         if collapsed:
             template = "website_sale_cache.categories_collapsed_cache_template"
         else:
@@ -24,6 +27,7 @@ class WebsiteCategoryCache(models.Model):
         return self.env["ir.ui.view"].render_template(
             template,
             {
+                "category": current_cat,
                 "categories": cats,
                 "slug": slug,
                 "keep": keep,
