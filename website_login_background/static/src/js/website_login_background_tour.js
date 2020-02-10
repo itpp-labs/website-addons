@@ -4,12 +4,10 @@ odoo.define('website_login_background.tour', function (require) {
 'use strict';
 
 var tour = require("web_tour.tour");
-var base = require("web_editor.base");
 
 tour.register('website_login_background_check', {
     test: true,
     url: '/',
-    wait_for: base.ready()
 },
     [
         {
