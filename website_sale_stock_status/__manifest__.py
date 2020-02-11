@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "Product status at website shop",
-    "version": "1.0.1",
+    "vesion": "10.0.1.0.1",
     "author": "IT-Projects LLC, Ivan Yelizariev, LasLabs",
     "license": "LGPL-3",
     "category": "eCommerce",

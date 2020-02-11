@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "Simplified website checkout",
-    "version": "1.0.0",
+    "vesion": "10.0.1.0.0",
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "license": "LGPL-3",
     "category": "eCommerce",
