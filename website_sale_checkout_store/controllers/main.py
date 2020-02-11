@@ -26,7 +26,7 @@ class WebsiteSaleExtended(WebsiteSale):
         checkout_super = super(WebsiteSaleExtended, self).checkout(**post)
         try:
             order.buy_way = post["buyMethod"]
-        except:
+        except Exception:
             pass
         if not checkout_super.location:
             # no need to update variables if super does a redirection
