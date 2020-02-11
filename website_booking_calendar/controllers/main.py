@@ -3,7 +3,7 @@ import re
 
 import pytz
 import simplejson
-from openerp.addons.website_sale.controllers.main import website_sale as WebsiteSale
+from odoo.addons.website_sale.controllers.main import website_sale as WebsiteSale
 
 from odoo import SUPERUSER_ID, fields, http
 from odoo.http import request

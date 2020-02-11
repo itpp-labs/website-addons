@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from openerp import http, models
+from odoo import http, models
 
 
 class SaleOrder(models.Model):
