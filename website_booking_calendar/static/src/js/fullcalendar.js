@@ -7,15 +7,12 @@
 (function(factory) {
     if (typeof define === 'function' && define.amd) {
         define([ 'jquery', 'moment' ], factory);
-    }
-    else if (typeof exports === 'object') { // Node/CommonJS
+    } else if (typeof exports === 'object') { // Node/CommonJS
         module.exports = factory(require('jquery'), require('moment'));
-    }
-    else {
+    } else {
         factory(jQuery, moment);
     }
-})(function($, moment) {
-
+}(function($, moment) {
 
 
 var fc = $.fullCalendar = { version: "2.4.0" };
@@ -82,7 +79,7 @@ function massageOverrides(input) {
             // could the value be a legacy View-Option-Hash?
             if (
                 $.isPlainObject(val) &&
-                !/(time|duration|interval)$/i.test(name) && // exclude duration options. might be given as objects
+                !(/(time|duration|interval)$/i).test(name) && // exclude duration options. might be given as objects
                 $.inArray(name, complexOptions) == -1 // complex options aren't allowed to be View-Option-Hashes
             ) {
                 subObj = null;
@@ -91,13 +88,12 @@ function massageOverrides(input) {
                 $.each(val, function(subName, subVal) {
 
                     // is the property targeting a view?
-                    if (/^(month|week|day|default|basic(Week|Day)?|agenda(Week|Day)?)$/.test(subName)) {
+                    if ((/^(month|week|day|default|basic(Week|Day)?|agenda(Week|Day)?)$/).test(subName)) {
                         if (!overrides.views[subName]) { // ensure the view-target entry exists
                             overrides.views[subName] = {};
                         }
                         overrides.views[subName][name] = subVal; // record the value in the `views` object
-                    }
-                    else { // a non-View-Option-Hash property
+                    } else { // a non-View-Option-Hash property
                         if (!subObj) {
                             subObj = {};
                         }
@@ -108,8 +104,7 @@ function massageOverrides(input) {
                 if (subObj) { // non-View-Option-Hash properties? transfer them as-is
                     overrides[name] = subObj;
                 }
-            }
-            else {
+            } else {
                 overrides[name] = val; // transfer normal options as-is
             }
         }
@@ -117,7 +112,6 @@ function massageOverrides(input) {
 
     return overrides;
 }
-
 
 
 // exports
@@ -204,8 +198,7 @@ function distributeHeight(els, availableHeight, shouldRedistribute) {
             flexEls.push(el);
             flexOffsets.push(naturalOffset);
             flexHeights.push($(el).height());
-        }
-        else {
+        } else {
             // this element stretches past recommended height (non-expandable). mark the space as occupied.
             usedHeight += naturalOffset;
         }
@@ -364,8 +357,7 @@ function getScrollbarWidths(el) {
 
     if (getIsLeftRtlScrollbars() && el.css('direction') == 'rtl') { // is the scrollbar on the left side?
         widths.left = leftRightWidth;
-    }
-    else {
+    } else {
         widths.right = leftRightWidth;
     }
 
@@ -480,11 +472,9 @@ function parseFieldSpecs(input) {
 
     if (typeof input === 'string') {
         tokens = input.split(/\s*,\s*/);
-    }
-    else if (typeof input === 'function') {
+    } else if (typeof input === 'function') {
         tokens = [ input ];
-    }
-    else if ($.isArray(input)) {
+    } else if ($.isArray(input)) {
         tokens = input;
     }
 
@@ -493,12 +483,11 @@ function parseFieldSpecs(input) {
 
         if (typeof token === 'string') {
             specs.push(
-                token.charAt(0) == '-' ?
-                    { field: token.substring(1), order: -1 } :
-                    { field: token, order: 1 }
+                token.charAt(0) == '-'
+                    ? { field: token.substring(1), order: -1 }
+                    : { field: token, order: 1 }
             );
-        }
-        else if (typeof token === 'function') {
+        } else if (typeof token === 'function') {
             specs.push({ func: token });
         }
     }
@@ -568,17 +557,15 @@ function intersectionToSeg(subjectRange, constraintRange) {
         if (subjectStart >= constraintStart) {
             segStart = subjectStart.clone();
             isStart = true;
-        }
-        else {
+        } else {
             segStart = constraintStart.clone();
-            isStart =  false;
+            isStart = false;
         }
 
         if (subjectEnd <= constraintEnd) {
             segEnd = subjectEnd.clone();
             isEnd = true;
-        }
-        else {
+        } else {
             segEnd = constraintEnd.clone();
             isEnd = false;
         }
@@ -661,13 +648,12 @@ function computeRangeAs(unit, start, end) {
 
     if (end != null) { // given start, end
         return end.diff(start, unit, true);
-    }
-    else if (moment.isDuration(start)) { // given duration
+    } else if (moment.isDuration(start)) { // given duration
         return start.as(unit);
     }
-    else { // given { start, end } range object
+     // given { start, end } range object
         return start.end.diff(start.start, unit, true);
-    }
+
 }
 
 
@@ -727,13 +713,13 @@ function durationHasTime(dur) {
 
 
 function isNativeDate(input) {
-    return  Object.prototype.toString.call(input) === '[object Date]' || input instanceof Date;
+    return Object.prototype.toString.call(input) === '[object Date]' || input instanceof Date;
 }
 
 
 // Returns a boolean about whether the given input is a time string, like "06:40:00" or "06:00"
 function isTimeString(str) {
-    return /^\d+\:\d+(?:\:\d+\.?(?:\d{3})?)?$/.test(str);
+    return (/^\d+\:\d+(?:\:\d+\.?(?:\d{3})?)?$/).test(str);
 }
 
 
@@ -754,9 +740,9 @@ fc.warn = function() {
     if (console && console.warn) {
         return console.warn.apply(console, arguments);
     }
-    else {
+
         return fc.log.apply(fc, arguments);
-    }
+
 };
 
 
@@ -786,8 +772,7 @@ function mergeProps(propObjs, complexProps) {
 
                 if (typeof val === 'object') {
                     complexObjs.unshift(val);
-                }
-                else if (val !== undefined) {
+                } else if (val !== undefined) {
                     dest[name] = val; // if there were no objects, this value will be used
                     break;
                 }
@@ -855,7 +840,7 @@ function hasOwnProp(obj, name) {
 
 // Is the given value a non-object non-function value?
 function isAtomic(val) {
-    return /undefined|null|boolean|number|string/.test($.type(val));
+    return (/undefined|null|boolean|number|string/).test($.type(val));
 }
 
 
@@ -884,7 +869,7 @@ function firstDefined() {
 
 
 function htmlEscape(s) {
-    return (s + '').replace(/&/g, '&amp;')
+    return (String(s)).replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/'/g, '&#039;')
@@ -950,11 +935,10 @@ function debounce(func, wait) {
     var context;
     var timestamp; // of most recent call
     var later = function() {
-        var last = +new Date() - timestamp;
+        var last = Number(new Date()) - timestamp;
         if (last < wait && last > 0) {
             timeoutId = setTimeout(later, wait - last);
-        }
-        else {
+        } else {
             timeoutId = null;
             func.apply(context, args);
             if (!timeoutId) {
@@ -966,13 +950,12 @@ function debounce(func, wait) {
     return function() {
         context = this;
         args = arguments;
-        timestamp = +new Date();
+        timestamp = Number(new Date());
         if (!timeoutId) {
             timeoutId = setTimeout(later, wait);
         }
     };
 }
-
 
 
 var ambigDateOfMonthRegex = /^\s*\d{4}-\d\d$/;
@@ -1031,11 +1014,9 @@ function makeMoment(args, parseAsUTC, parseZone) {
     if (moment.isMoment(input)) {
         mom = moment.apply(null, args); // clone it
         transferAmbigs(input, mom); // the ambig flags weren't transfered with the clone
-    }
-    else if (isNativeDate(input) || input === undefined) {
+    } else if (isNativeDate(input) || input === undefined) {
         mom = moment.apply(null, args); // will be local
-    }
-    else { // "parsing" is required
+    } else { // "parsing" is required
         isAmbigTime = false;
         isAmbigZone = false;
 
@@ -1046,13 +1027,11 @@ function makeMoment(args, parseAsUTC, parseZone) {
                 args = [ input ]; // for when we pass it on to moment's constructor
                 isAmbigTime = true;
                 isAmbigZone = true;
-            }
-            else if ((ambigMatch = ambigTimeOrZoneRegex.exec(input))) {
+            } else if ((ambigMatch = ambigTimeOrZoneRegex.exec(input))) {
                 isAmbigTime = !ambigMatch[5]; // no time part?
                 isAmbigZone = true;
             }
-        }
-        else if ($.isArray(input)) {
+        } else if ($.isArray(input)) {
             // arrays have no timezone information, so assume ambiguous zone
             isAmbigZone = true;
         }
@@ -1060,24 +1039,20 @@ function makeMoment(args, parseAsUTC, parseZone) {
 
         if (parseAsUTC || isAmbigTime) {
             mom = moment.utc.apply(moment, args);
-        }
-        else {
+        } else {
             mom = moment.apply(null, args);
         }
 
         if (isAmbigTime) {
             mom._ambigTime = true;
             mom._ambigZone = true; // ambiguous time always means ambiguous zone
-        }
-        else if (parseZone) { // let's record the inputted zone somehow
+        } else if (parseZone) { // let's record the inputted zone somehow
             if (isAmbigZone) {
                 mom._ambigZone = true;
-            }
-            else if (isSingleString) {
+            } else if (isSingleString) {
                 if (mom.utcOffset) {
                     mom.utcOffset(input); // if not a valid zone, will assign UTC
-                }
-                else {
+                } else {
                     mom.zone(input); // for moment-pre-2.9
                 }
             }
@@ -1117,8 +1092,7 @@ newMomentProto.week = newMomentProto.weeks = function(input) {
 
     if (input == null && typeof weekCalc === 'function') { // custom function only works for getter
         return weekCalc(this);
-    }
-    else if (weekCalc === 'ISO') {
+    } else if (weekCalc === 'ISO') {
         return oldMomentProto.isoWeek.apply(this, arguments); // ISO getter/setter
     }
 
@@ -1152,7 +1126,7 @@ newMomentProto.time = function(time) {
             milliseconds: this.milliseconds()
         });
     }
-    else { // setter
+     // setter
 
         this._ambigTime = false; // mark that the moment now has a time
 
@@ -1173,7 +1147,7 @@ newMomentProto.time = function(time) {
             .minutes(time.minutes())
             .seconds(time.seconds())
             .milliseconds(time.milliseconds());
-    }
+
 };
 
 // Converts the moment to UTC, stripping out its time-of-day and timezone offset,
@@ -1353,12 +1327,12 @@ newMomentProto.isSame = function(input, units) {
         a = commonlyAmbiguate([ this, input ], true); // normalize timezones but don't erase times
         return oldMomentProto.isSame.call(a[0], a[1], units);
     }
-    else {
+
         input = fc.moment.parseZone(input); // normalize input
         return oldMomentProto.isSame.call(this, input) &&
             Boolean(this._ambigTime) === Boolean(input._ambigTime) &&
             Boolean(this._ambigZone) === Boolean(input._ambigZone);
-    }
+
 };
 
 // Make these query methods work with ambiguous moments
@@ -1411,8 +1385,7 @@ function commonlyAmbiguate(inputs, preserveTime) {
         mom = moms[i];
         if (!preserveTime && anyAmbigTime && !mom._ambigTime) {
             moms[i] = mom.clone().stripTime();
-        }
-        else if (anyAmbigZone && !mom._ambigZone) {
+        } else if (anyAmbigZone && !mom._ambigZone) {
             moms[i] = mom.clone().stripZone();
         }
     }
@@ -1425,15 +1398,13 @@ function commonlyAmbiguate(inputs, preserveTime) {
 function transferAmbigs(src, dest) {
     if (src._ambigTime) {
         dest._ambigTime = true;
-    }
-    else if (dest._ambigTime) {
+    } else if (dest._ambigTime) {
         dest._ambigTime = false;
     }
 
     if (src._ambigZone) {
         dest._ambigZone = true;
-    }
-    else if (dest._ambigZone) {
+    } else if (dest._ambigZone) {
         dest._ambigZone = false;
     }
 }
@@ -1466,7 +1437,7 @@ setUTCValues = allowValueOptimization ? function(mom, a) {
 // Assumes the given moment is already in local mode.
 setLocalValues = allowValueOptimization ? function(mom, a) {
     // simlate what moment's accessors do
-    mom._d.setTime(+new Date( // FYI, there is now way to apply an array of args to a constructor
+    mom._d.setTime(Number(new Date( // FYI, there is now way to apply an array of args to a constructor
         a[0] || 0,
         a[1] || 0,
         a[2] || 0,
@@ -1474,10 +1445,9 @@ setLocalValues = allowValueOptimization ? function(mom, a) {
         a[4] || 0,
         a[5] || 0,
         a[6] || 0
-    ));
+    )));
     moment.updateOffset(mom, false); // keepTime=false
 } : setMomentValues;
-
 
 
 // Single Date Formatting
@@ -1526,14 +1496,12 @@ function formatDateWithChunk(date, chunk) {
 
     if (typeof chunk === 'string') { // a literal string
         return chunk;
-    }
-    else if ((token = chunk.token)) { // a token, like "YYYY"
+    } else if ((token = chunk.token)) { // a token, like "YYYY"
         if (tokenOverrides[token]) {
             return tokenOverrides[token](date); // use our custom token
         }
         return oldMomentFormat(date, token);
-    }
-    else if (chunk.maybe) { // a grouping of other chunks that must be non-zero
+    } else if (chunk.maybe) { // a grouping of other chunks that must be non-zero
         maybeStr = formatDateWithChunks(date, chunk.maybe);
         if (maybeStr.match(/[1-9]/)) {
             return maybeStr;
@@ -1618,8 +1586,7 @@ function formatRangeWithChunks(date1, date2, chunks, separator, isRTL) {
     if (middleStr1 || middleStr2) {
         if (isRTL) {
             middleStr = middleStr2 + separator + middleStr1;
-        }
-        else {
+        } else {
             middleStr = middleStr1 + separator + middleStr2;
         }
     }
@@ -1654,8 +1621,7 @@ function formatSimilarChunk(date1, date2, chunk) {
 
     if (typeof chunk === 'string') { // a literal string
         return chunk;
-    }
-    else if ((token = chunk.token)) {
+    } else if ((token = chunk.token)) {
         unit = similarUnitMap[token.charAt(0)];
         // are the dates the same for this unit of measurement?
         if (unit && date1.isSame(date2, unit)) {
@@ -1693,21 +1659,17 @@ function chunkFormatString(formatStr) {
     while ((match = chunker.exec(formatStr))) {
         if (match[1]) { // a literal string inside [ ... ]
             chunks.push(match[1]);
-        }
-        else if (match[2]) { // non-zero formatting inside ( ... )
+        } else if (match[2]) { // non-zero formatting inside ( ... )
             chunks.push({ maybe: chunkFormatString(match[2]) });
-        }
-        else if (match[3]) { // a formatting token
+        } else if (match[3]) { // a formatting token
             chunks.push({ token: match[3] });
-        }
-        else if (match[5]) { // an unenclosed literal string
+        } else if (match[5]) { // an unenclosed literal string
             chunks.push(match[5]);
         }
     }
 
     return chunks;
 }
-
 
 
 fc.Class = Class; // export
@@ -1923,11 +1885,9 @@ var Popover = Class.extend({
         top = options.top || 0;
         if (options.left !== undefined) {
             left = options.left;
-        }
-        else if (options.right !== undefined) {
+        } else if (options.right !== undefined) {
             left = options.right - width; // derive the left value from the right value
-        }
-        else {
+        } else {
             left = 0;
         }
 
@@ -1935,8 +1895,7 @@ var Popover = Class.extend({
             viewportEl = windowEl;
             viewportTop = 0; // the window is always at the top left
             viewportLeft = 0; // (and .offset() won't work if called here)
-        }
-        else {
+        } else {
             viewportOffset = viewportEl.offset();
             viewportTop = viewportOffset.top;
             viewportLeft = viewportOffset.left;
@@ -1971,7 +1930,6 @@ var Popover = Class.extend({
     }
 
 });
-
 
 
 /* A "coordinate map" converts pixel coordinates into an associated cell, which has an associated date
@@ -2067,9 +2025,9 @@ var GridCoordMap = Class.extend({
 
     // If there is a containerEl, compute the bounds into min/max values
     computeBounds: function() {
-        this.bounds = this.containerEl ?
-            getClientRect(this.containerEl) : // area within scrollbars
-            null;
+        this.bounds = this.containerEl
+            ? getClientRect(this.containerEl) // area within scrollbars
+            : null;
     },
 
 
@@ -2136,7 +2094,6 @@ var ComboCoordMap = Class.extend({
     }
 
 });
-
 
 
 /* Tracks a drag's mouse movement, firing various handlers
@@ -2222,8 +2179,7 @@ var DragListener = fc.DragListener = Class.extend({
             if (ev) {
                 this.originX = ev.pageX;
                 this.originY = ev.pageY;
-            }
-            else {
+            } else {
                 // if no starting information was given, origin will be the topleft corner of the screen.
                 // if so, dx/dy in the future will be the absolute coordinates.
                 this.originX = 0;
@@ -2412,16 +2368,14 @@ var DragListener = fc.DragListener = Class.extend({
             // mouse must be completely in bounds for velocity to happen.
             if (topCloseness >= 0 && topCloseness <= 1) {
                 topVel = topCloseness * this.scrollSpeed * -1; // negative. for scrolling up
-            }
-            else if (bottomCloseness >= 0 && bottomCloseness <= 1) {
+            } else if (bottomCloseness >= 0 && bottomCloseness <= 1) {
                 topVel = bottomCloseness * this.scrollSpeed;
             }
 
             // translate horizontal closeness into velocity
             if (leftCloseness >= 0 && leftCloseness <= 1) {
                 leftVel = leftCloseness * this.scrollSpeed * -1; // negative. for scrolling left
-            }
-            else if (rightCloseness >= 0 && rightCloseness <= 1) {
+            } else if (rightCloseness >= 0 && rightCloseness <= 1) {
                 leftVel = rightCloseness * this.scrollSpeed;
             }
         }
@@ -2456,8 +2410,7 @@ var DragListener = fc.DragListener = Class.extend({
             if (el.scrollTop() <= 0) { // already scrolled all the way up?
                 this.scrollTopVel = 0;
             }
-        }
-        else if (this.scrollTopVel > 0) { // scrolling down?
+        } else if (this.scrollTopVel > 0) { // scrolling down?
             if (el.scrollTop() + el[0].clientHeight >= el[0].scrollHeight) { // already scrolled all the way down?
                 this.scrollTopVel = 0;
             }
@@ -2467,8 +2420,7 @@ var DragListener = fc.DragListener = Class.extend({
             if (el.scrollLeft() <= 0) { // already scrolled all the left?
                 this.scrollLeftVel = 0;
             }
-        }
-        else if (this.scrollLeftVel > 0) { // scrolling right?
+        } else if (this.scrollLeftVel > 0) { // scrolling right?
             if (el.scrollLeft() + el[0].clientWidth >= el[0].scrollWidth) { // already scrolled all the way right?
                 this.scrollLeftVel = 0;
             }
@@ -2524,7 +2476,6 @@ var DragListener = fc.DragListener = Class.extend({
     }
 
 });
-
 
 
 /* Tracks mouse movements over a CoordMap and raises events about which cell the mouse is over.
@@ -2586,8 +2537,7 @@ var CellDragListener = DragListener.extend({
             }
 
             this.coordAdjust = diffPoints(point, origPoint); // point - origPoint
-        }
-        else {
+        } else {
             this.origCell = null;
             this.coordAdjust = null;
         }
@@ -2718,7 +2668,6 @@ function isCellsEqual(cell1, cell2) {
 }
 
 
-
 /* Creates a clone of an element and lets it track the mouse as it moves
 ----------------------------------------------------------------------------------------------------------------------*/
 
@@ -2805,8 +2754,7 @@ var MouseFollower = Class.extend({
                     duration: revertDuration,
                     complete: complete
                 });
-            }
-            else {
+            } else {
                 complete();
             }
         }
@@ -2905,7 +2853,6 @@ var MouseFollower = Class.extend({
 });
 
 
-
 /* A utility class for rendering <tr> rows.
 ----------------------------------------------------------------------------------------------------------------------*/
 // It leverages methods of the subclass and the View to determine custom rendering behavior for each row "type"
@@ -2959,9 +2906,9 @@ var RowRenderer = Class.extend({
         if (typeof cells === 'string') {
             return prependHtml + cells + appendHtml;
         }
-        else { // a jQuery <tr> element
+         // a jQuery <tr> element
             return cells.prepend(prependHtml).append(appendHtml);
-        }
+
     },
 
 
@@ -2983,14 +2930,11 @@ var RowRenderer = Class.extend({
 
         if (specificName && (renderer = view[specificName])) {
             provider = view;
-        }
-        else if (specificName && (renderer = this[specificName])) {
+        } else if (specificName && (renderer = this[specificName])) {
             provider = this;
-        }
-        else if ((renderer = view[generalName])) {
+        } else if ((renderer = view[generalName])) {
             provider = view;
-        }
-        else if ((renderer = this[generalName])) {
+        } else if ((renderer = this[generalName])) {
             provider = this;
         }
 
@@ -3007,7 +2951,6 @@ var RowRenderer = Class.extend({
     }
 
 });
-
 
 
 /* An abstract class comprised of a "grid" of cells that each represent a specific datetime
@@ -3153,9 +3096,9 @@ var Grid = fc.Grid = RowRenderer.extend({
         if (this.largeUnit) {
             return diffByUnit(a, b, this.largeUnit);
         }
-        else {
+
             return diffDayTime(a, b);
-        }
+
     },
 
 
@@ -3173,8 +3116,7 @@ var Grid = fc.Grid = RowRenderer.extend({
             if (typeof row === 'number') { // a single-number offset
                 col = row % this.colCnt;
                 row = Math.floor(row / this.colCnt);
-            }
-            else { // an object with row/col properties
+            } else { // an object with row/col properties
                 col = row.col;
                 row = row.row;
             }
@@ -3382,8 +3324,7 @@ var Grid = fc.Grid = RowRenderer.extend({
                         selectionRange = _this.computeSelection(origCell, cell);
                         if (selectionRange) {
                             _this.renderSelection(selectionRange);
-                        }
-                        else {
+                        } else {
                             disableCursor();
                         }
                     }
@@ -3680,11 +3621,9 @@ var Grid = fc.Grid = RowRenderer.extend({
                 'fc-today',
                 view.highlightStateClass
             );
-        }
-        else if (date < today) {
+        } else if (date < today) {
             classes.push('fc-past');
-        }
-        else {
+        } else {
             classes.push('fc-future');
         }
 
@@ -3692,7 +3631,6 @@ var Grid = fc.Grid = RowRenderer.extend({
     }
 
 });
-
 
 
 /* Event-rendering and event-interaction methods for the abstract Grid class
@@ -3719,8 +3657,7 @@ Grid.mixin({
 
             if (isBgEvent(seg.event)) {
                 bgSegs.push(seg);
-            }
-            else {
+            } else {
                 fgSegs.push(seg);
             }
         }
@@ -3892,8 +3829,7 @@ Grid.mixin({
                 mousedown: function(seg, ev) {
                     if ($(ev.target).is('.fc-resizer') && view.isEventResizable(seg.event)) {
                         _this.segResizeMousedown(seg, ev, $(ev.target).is('.fc-start-resizer'));
-                    }
-                    else if (view.isEventDraggable(seg.event)) {
+                    } else if (view.isEventDraggable(seg.event)) {
                         _this.segDragMousedown(seg, ev);
                     }
                 }
@@ -3990,8 +3926,7 @@ Grid.mixin({
                 // if a valid drop location, have the subclass render a visual indication
                 if (dropLocation && view.renderDrag(dropLocation, seg)) {
                     mouseFollower.hide(); // if the subclass is already using a mock event "helper", hide our own
-                }
-                else {
+                } else {
                     mouseFollower.show(); // otherwise, have the helper follow the mouse (no snapping)
                 }
 
@@ -4078,8 +4013,7 @@ Grid.mixin({
             if (dropLocation.end) {
                 dropLocation.end.add(delta);
             }
-        }
-        else {
+        } else {
             // if switching from day <-> timed, start should be reset to the dropped date, and the end cleared
             dropLocation = {
                 start: dragEnd.clone(),
@@ -4147,8 +4081,7 @@ Grid.mixin({
                 dropLocation = _this.computeExternalDrop(cell, meta);
                 if (dropLocation) {
                     _this.renderDrag(dropLocation); // called without a seg parameter
-                }
-                else { // invalid drop cell
+                } else { // invalid drop cell
                     disableCursor();
                 }
             },
@@ -4200,7 +4133,6 @@ Grid.mixin({
     },
 
 
-
     /* Drag Rendering (for both events and an external elements)
     ------------------------------------------------------------------------------------------------------------------*/
 
@@ -4246,9 +4178,9 @@ Grid.mixin({
                 _this.segResizeStart(seg, ev);
             },
             cellOver: function(cell, isOrig, origCell) {
-                resizeLocation = isStart ?
-                    _this.computeEventStartResize(origCell, cell, event) :
-                    _this.computeEventEndResize(origCell, cell, event);
+                resizeLocation = isStart
+                    ? _this.computeEventStartResize(origCell, cell, event)
+                    : _this.computeEventEndResize(origCell, cell, event);
 
                 if (resizeLocation) {
                     if (!calendar.isEventRangeAllowed(resizeLocation, event)) {
@@ -4339,9 +4271,9 @@ Grid.mixin({
         // if the event was compressed too small, find a new reasonable duration for it
         if (!range.start.isBefore(range.end)) {
 
-            defaultDuration = event.allDay ?
-                calendar.defaultAllDayEventDuration :
-                calendar.defaultTimedEventDuration;
+            defaultDuration = event.allDay
+                ? calendar.defaultAllDayEventDuration
+                : calendar.defaultTimedEventDuration;
 
             // between the cell's duration and the event's default duration, use the smaller of the two.
             // example: if year-length slots, and compressed to one slot, we don't want the event to be a year long
@@ -4351,8 +4283,7 @@ Grid.mixin({
 
             if (type == 'start') { // resizing the start?
                 range.start = range.end.clone().subtract(defaultDuration);
-            }
-            else { // resizing the end?
+            } else { // resizing the end?
                 range.end = range.start.clone().add(defaultDuration);
             }
         }
@@ -4397,9 +4328,9 @@ Grid.mixin({
             if (displayEnd && range.end) {
                 return this.view.formatRange(range, formatStr);
             }
-            else {
+
                 return range.start.format(formatStr);
-            }
+
         }
 
         return '';
@@ -4498,9 +4429,9 @@ Grid.mixin({
             if (eventGroup.length) {
                 ranges.push.apply(
                     ranges,
-                    isInverseBgEvent(eventGroup[0]) ?
-                        _this.eventsToInverseRanges(eventGroup) :
-                        _this.eventsToNormalRanges(eventGroup)
+                    isInverseBgEvent(eventGroup[0])
+                        ? _this.eventsToInverseRanges(eventGroup)
+                        : _this.eventsToNormalRanges(eventGroup)
                 );
             }
         });
@@ -4527,7 +4458,7 @@ Grid.mixin({
                 event: event,
                 start: eventStart,
                 end: eventEnd,
-                eventStartMS: +eventStart,
+                eventStartMS: Number(eventStart),
                 eventDurationMS: eventEnd - eventStart
             });
         }
@@ -4589,8 +4520,7 @@ Grid.mixin({
 
         if (rangeToSegsFunc) {
             segs = rangeToSegsFunc(eventRange);
-        }
-        else {
+        } else {
             segs = this.rangeToSegs(eventRange); // defined by the subclass
         }
 
@@ -4678,20 +4608,23 @@ function getDraggedElMeta(el) {
     var duration;
     var stick;
 
-    if (prefix) { prefix += '-'; }
+    if (prefix) {
+ prefix += '-';
+}
     eventProps = el.data(prefix + 'event') || null;
 
     if (eventProps) {
         if (typeof eventProps === 'object') {
             eventProps = $.extend({}, eventProps); // make a copy
-        }
-        else { // something like 1 or true. still signal event creation
+        } else { // something like 1 or true. still signal event creation
             eventProps = {};
         }
 
         // pluck special-cased date/time properties
         startTime = eventProps.start;
-        if (startTime == null) { startTime = eventProps.time; } // accept 'time' as well
+        if (startTime == null) {
+ startTime = eventProps.time;
+} // accept 'time' as well
         duration = eventProps.duration;
         stick = eventProps.stick;
         delete eventProps.start;
@@ -4701,10 +4634,18 @@ function getDraggedElMeta(el) {
     }
 
     // fallback to standalone attribute values for each of the date/time properties
-    if (startTime == null) { startTime = el.data(prefix + 'start'); }
-    if (startTime == null) { startTime = el.data(prefix + 'time'); } // accept 'time' as well
-    if (duration == null) { duration = el.data(prefix + 'duration'); }
-    if (stick == null) { stick = el.data(prefix + 'stick'); }
+    if (startTime == null) {
+ startTime = el.data(prefix + 'start');
+}
+    if (startTime == null) {
+ startTime = el.data(prefix + 'time');
+} // accept 'time' as well
+    if (duration == null) {
+ duration = el.data(prefix + 'duration');
+}
+    if (stick == null) {
+ stick = el.data(prefix + 'stick');
+}
 
     // massage into correct data types
     startTime = startTime != null ? moment.duration(startTime) : null;
@@ -4713,8 +4654,6 @@ function getDraggedElMeta(el) {
 
     return { eventProps: eventProps, startTime: startTime, duration: duration, stick: stick };
 }
-
-
 
 
 /* A component that renders a grid of whole-days that runs horizontally. There can be multiple rows, one per week.
@@ -4800,11 +4739,11 @@ var DayGrid = Grid.extend({
                 '</div>' +
                 '<div class="fc-content-skeleton">' +
                     '<table>' +
-                        (this.numbersVisible ?
-                            '<thead>' +
+                        (this.numbersVisible
+                            ? '<thead>' +
                                 this.rowHtml('number', row) + // leverages RowRenderer. View will define render method
-                            '</thead>' :
-                            ''
+                            '</thead>'
+                            : ''
                             ) +
                     '</table>' +
                 '</div>' +
@@ -4828,13 +4767,12 @@ var DayGrid = Grid.extend({
     computeColHeadFormat: function() {
         if (this.rowCnt > 1) { // more than one week row. day numbers will be in each cell
             return 'ddd'; // "Sat"
-        }
-        else if (this.colCnt > 1) { // multiple days, so full single date string WON'T be in title text
+        } else if (this.colCnt > 1) { // multiple days, so full single date string WON'T be in title text
             return this.view.opt('dayOfMonthFormat'); // "Sat 12/10"
         }
-        else { // single day, so full single date string will probably be in title text
+         // single day, so full single date string will probably be in title text
             return 'dddd'; // "Saturday"
-        }
+
     },
 
 
@@ -4872,8 +4810,7 @@ var DayGrid = Grid.extend({
                 }
             }
             rowCnt = Math.ceil(cellDates.length / colCnt);
-        }
-        else {
+        } else {
             rowCnt = 1;
             colCnt = cellDates.length;
         }
@@ -4894,8 +4831,7 @@ var DayGrid = Grid.extend({
         while (date.isBefore(this.end)) { // loop each day from start to end
             if (view.isHiddenDay(date)) {
                 offsets.push(offset + 0.5); // mark that it's between offsets
-            }
-            else {
+            } else {
                 offset++;
                 offsets.push(offset);
                 dates.push(date.clone());
@@ -4993,8 +4929,7 @@ var DayGrid = Grid.extend({
                 if (isRTL) {
                     seg.leftCol = colCnt - segLast - 1;
                     seg.rightCol = colCnt - segFirst - 1;
-                }
-                else {
+                } else {
                     seg.leftCol = segFirst;
                     seg.rightCol = segLast;
                 }
@@ -5017,13 +4952,12 @@ var DayGrid = Grid.extend({
 
         if (day < 0) {
             return offsets[0] - 1;
-        }
-        else if (day >= offsets.length) {
+        } else if (day >= offsets.length) {
             return offsets[offsets.length - 1] + 1;
         }
-        else {
+
             return offsets[day];
-        }
+
     },
 
 
@@ -5097,8 +5031,7 @@ var DayGrid = Grid.extend({
             // If there is an original segment, match the top position. Otherwise, put it at the row's top level
             if (sourceSeg && sourceSeg.row === row) {
                 skeletonTop = sourceSeg.el.position().top;
-            }
-            else {
+            } else {
                 skeletonTop = rowEl.find('.fc-content-skeleton tbody').position().top;
             }
 
@@ -5187,7 +5120,6 @@ var DayGrid = Grid.extend({
     }
 
 });
-
 
 
 /* Event-rendering methods for the DayGrid class
@@ -5310,28 +5242,28 @@ DayGrid.mixin({
             '</span>';
 
         return '<a class="' + classes.join(' ') + '"' +
-                (event.url ?
-                    ' href="' + htmlEscape(event.url) + '"' :
-                    ''
+                (event.url
+                    ? ' href="' + htmlEscape(event.url) + '"'
+                    : ''
                     ) +
-                (skinCss ?
-                    ' style="' + skinCss + '"' :
-                    ''
+                (skinCss
+                    ? ' style="' + skinCss + '"'
+                    : ''
                     ) +
             '>' +
                 '<div class="fc-content">' +
-                    (this.isRTL ?
-                        titleHtml + ' ' + timeHtml : // put a natural space in between
-                        timeHtml + ' ' + titleHtml   //
+                    (this.isRTL
+                        ? titleHtml + ' ' + timeHtml // put a natural space in between
+                        : timeHtml + ' ' + titleHtml //
                         ) +
                 '</div>' +
-                (isResizableFromStart ?
-                    '<div class="fc-resizer fc-start-resizer" />' :
-                    ''
+                (isResizableFromStart
+                    ? '<div class="fc-resizer fc-start-resizer" />'
+                    : ''
                     ) +
-                (isResizableFromEnd ?
-                    '<div class="fc-resizer fc-end-resizer" />' :
-                    ''
+                (isResizableFromEnd
+                    ? '<div class="fc-resizer fc-end-resizer" />'
+                    : ''
                     ) +
             '</a>';
     },
@@ -5364,8 +5296,7 @@ DayGrid.mixin({
                         'rowspan',
                         parseInt(td.attr('rowspan') || 1, 10) + 1
                     );
-                }
-                else {
+                } else {
                     td = $('<td/>');
                     tr.append(td);
                 }
@@ -5396,8 +5327,7 @@ DayGrid.mixin({
                     td = $('<td class="fc-event-container"/>').append(seg.el);
                     if (seg.leftCol != seg.rightCol) {
                         td.attr('colspan', seg.rightCol - seg.leftCol + 1);
-                    }
-                    else { // a single-column segment
+                    } else { // a single-column segment
                         loneCellMatrix[i][col] = td;
                     }
 
@@ -5507,7 +5437,6 @@ function compareDaySegCols(a, b) {
 }
 
 
-
 /* Methods relate to limiting the number events for a given day on a DayGrid
 ----------------------------------------------------------------------------------------------------------------------*/
 // NOTE: all the segs being passed around in here are foreground segs
@@ -5537,11 +5466,9 @@ DayGrid.mixin({
 
             if (!levelLimit) {
                 rowLevelLimit = false;
-            }
-            else if (typeof levelLimit === 'number') {
+            } else if (typeof levelLimit === 'number') {
                 rowLevelLimit = levelLimit;
-            }
-            else {
+            } else {
                 rowLevelLimit = this.computeRowLevelLimit(row);
             }
 
@@ -5724,8 +5651,7 @@ DayGrid.mixin({
 
                 if (clickOption === 'popover') {
                     _this.showSegPopover(cell, moreEl, reslicedAllSegs);
-                }
-                else if (typeof clickOption === 'string') { // a view name
+                } else if (typeof clickOption === 'string') { // a view name
                     view.calendar.zoomTo(date, clickOption);
                 }
             });
@@ -5742,8 +5668,7 @@ DayGrid.mixin({
 
         if (this.rowCnt == 1) {
             topEl = view.el; // will cause the popover to cover any sort of header
-        }
-        else {
+        } else {
             topEl = this.rowEls.eq(cell.row); // will align with top of row
         }
 
@@ -5766,8 +5691,7 @@ DayGrid.mixin({
         // We use the moreWrap instead of the <td> to avoid border confusion.
         if (this.isRTL) {
             options.right = moreWrap.offset().left + moreWrap.outerWidth() + 1; // +1 to be over cell border
-        }
-        else {
+        } else {
             options.left = moreWrap.offset().left - 1; // -1 to be over cell border
         }
 
@@ -5850,9 +5774,9 @@ DayGrid.mixin({
         if (typeof opt === 'function') {
             return opt(num);
         }
-        else {
+
             return '+' + num + ' ' + opt;
-        }
+
     },
 
 
@@ -5876,7 +5800,6 @@ DayGrid.mixin({
     }
 
 });
-
 
 
 /* A component that renders one or more columns of vertical time slots
@@ -5951,7 +5874,7 @@ var TimeGrid = Grid.extend({
         var view = this.view;
         var isRTL = this.isRTL;
         var html = '';
-        var slotTime = moment.duration(+this.minTime); // wish there was .clone() for durations
+        var slotTime = moment.duration(Number(this.minTime)); // wish there was .clone() for durations
         var slotDate; // will be on the view's first day, but we only care about its time
         var isLabeled;
         var axisHtml;
@@ -5963,11 +5886,11 @@ var TimeGrid = Grid.extend({
 
             axisHtml =
                 '<td class="fc-axis fc-time ' + view.widgetContentClass + '" ' + view.axisStyleAttr() + '>' +
-                    (isLabeled ?
-                        '<span>' + // for matchCellWidths
+                    (isLabeled
+                        ? '<span>' + // for matchCellWidths
                             htmlEscape(slotDate.format(this.labelFormat)) +
-                        '</span>' :
-                        ''
+                        '</span>'
+                        : ''
                         ) +
                 '</td>';
 
@@ -6019,9 +5942,9 @@ var TimeGrid = Grid.extend({
             view.opt('smallTimeFormat'); // the computed default
 
         input = view.opt('slotLabelInterval');
-        this.labelInterval = input ?
-            moment.duration(input) :
-            this.computeLabelInterval(slotDuration);
+        this.labelInterval = input
+            ? moment.duration(input)
+            : this.computeLabelInterval(slotDuration);
     },
 
 
@@ -6049,9 +5972,9 @@ var TimeGrid = Grid.extend({
         if (this.colCnt > 1) { // multiple days, so full single date string WON'T be in title text
             return this.view.opt('dayOfMonthFormat'); // "Sat 12/10"
         }
-        else { // single day, so full single date string will probably be in title text
+         // single day, so full single date string will probably be in title text
             return 'dddd'; // "Saturday"
-        }
+
     },
 
 
@@ -6219,9 +6142,9 @@ var TimeGrid = Grid.extend({
             slatBottom = this.slatTops[slatIndex + 1];
             return slatTop + (slatBottom - slatTop) * slatRemainder; // part-way between slots
         }
-        else {
+
             return slatTop;
-        }
+
     },
 
 
@@ -6257,10 +6180,10 @@ var TimeGrid = Grid.extend({
 
             return true; // signal that a helper has been rendered
         }
-        else {
+
             // otherwise, just render a highlight
             this.renderHighlight(this.eventRangeToSegs(dropLocation));
-        }
+
     },
 
 
@@ -6338,8 +6261,7 @@ var TimeGrid = Grid.extend({
     renderSelection: function(range) {
         if (this.view.opt('selectHelper')) { // this setting signals that a mock helper event should be rendered
             this.renderRangeHelper(range);
-        }
-        else {
+        } else {
             this.renderHighlight(this.selectionRangeToSegs(range));
         }
     },
@@ -6411,7 +6333,6 @@ var TimeGrid = Grid.extend({
     }
 
 });
-
 
 
 /* Event-rendering methods for the TimeGrid class
@@ -6528,8 +6449,7 @@ TimeGrid.mixin({
 
                 // if there are no forward segments, this segment should butt up against the edge
                 seg.forwardCoord = 1;
-            }
-            else {
+            } else {
 
                 // sort highest pressure first
                 this.sortForwardSlotSegs(forwardSegs);
@@ -6614,30 +6534,30 @@ TimeGrid.mixin({
         }
 
         return '<a class="' + classes.join(' ') + '"' +
-            (event.url ?
-                ' href="' + htmlEscape(event.url) + '"' :
-                ''
+            (event.url
+                ? ' href="' + htmlEscape(event.url) + '"'
+                : ''
                 ) +
-            (skinCss ?
-                ' style="' + skinCss + '"' :
-                ''
+            (skinCss
+                ? ' style="' + skinCss + '"'
+                : ''
                 ) +
             '>' +
                 '<div class="fc-content">' +
-                    (timeText ?
-                        '<div class="fc-time"' +
+                    (timeText
+                        ? '<div class="fc-time"' +
                         ' data-start="' + htmlEscape(startTimeText) + '"' +
                         ' data-full="' + htmlEscape(fullTimeText) + '"' +
                         '>' +
                             '<span>' + htmlEscape(timeText) + '</span>' +
-                        '</div>' :
-                        ''
+                        '</div>'
+                        : ''
                         ) +
-                    (event.title ?
-                        '<div class="fc-title">' +
+                    (event.title
+                        ? '<div class="fc-title">' +
                             htmlEscape(event.title) +
-                        '</div>' :
-                        ''
+                        '</div>'
+                        : ''
                         ) +
                 '</div>' +
                 '<div class="fc-bg"/>' +
@@ -6647,9 +6567,9 @@ TimeGrid.mixin({
                     ''
                     ) +
                 */
-                (isResizableFromEnd ?
-                    '<div class="fc-resizer fc-end-resizer" />' :
-                    ''
+                (isResizableFromEnd
+                    ? '<div class="fc-resizer fc-end-resizer" />'
+                    : ''
                     ) +
             '</a>';
     },
@@ -6673,8 +6593,7 @@ TimeGrid.mixin({
         if (this.isRTL) {
             left = 1 - forwardCoord;
             right = backwardCoord;
-        }
-        else {
+        } else {
             left = backwardCoord;
             right = 1 - forwardCoord;
         }
@@ -6833,7 +6752,6 @@ function isSlotSegCollision(seg1, seg2) {
 }
 
 
-
 /* An abstract class from which other views inherit from
 ----------------------------------------------------------------------------------------------------------------------*/
 
@@ -6958,11 +6876,10 @@ var View = fc.View = Class.extend({
         var start, end;
 
         // normalize the range's time-ambiguity
-        if (/year|month|week|day/.test(intervalUnit)) { // whole-days?
+        if ((/year|month|week|day/).test(intervalUnit)) { // whole-days?
             intervalStart.stripTime();
             intervalEnd.stripTime();
-        }
-        else { // needs to have a time?
+        } else { // needs to have a time?
             if (!intervalStart.hasTime()) {
                 intervalStart = this.calendar.rezoneDate(intervalStart); // convert to current timezone, with 00:00
             }
@@ -7042,16 +6959,14 @@ var View = fc.View = Class.extend({
     computeTitleFormat: function() {
         if (this.intervalUnit == 'year') {
             return 'YYYY';
-        }
-        else if (this.intervalUnit == 'month') {
+        } else if (this.intervalUnit == 'month') {
             return this.opt('monthYearFormat'); // like "September 2014"
-        }
-        else if (this.intervalDuration.as('days') > 1) {
+        } else if (this.intervalDuration.as('days') > 1) {
             return 'll'; // multi-day range. shorter, like "Sep 9 - 10 2014"
         }
-        else {
+
             return 'LL'; // one day. longer, like "September 9 2014"
-        }
+
     },
 
 
@@ -7139,9 +7054,9 @@ var View = fc.View = Class.extend({
                 return _this.clearView(); // might return a promise. chain it
             });
         }
-        else {
+
             return $.when(); // an immediately-resolved promise
-        }
+
     },
 
 
@@ -7416,8 +7331,7 @@ var View = fc.View = Class.extend({
 
         if (custom === false) { // means don't render at all
             el = null;
-        }
-        else if (custom && custom !== true) {
+        } else if (custom && custom !== true) {
             el = $(custom);
         }
 
@@ -7752,7 +7666,7 @@ var View = fc.View = Class.extend({
 
         if (end) {
             endDay = end.clone().stripTime(); // the beginning of the day the range exclusively ends
-            endTimeMS = +end.time(); // # of milliseconds into `endDay`
+            endTimeMS = Number(end.time()); // # of milliseconds into `endDay`
 
             // If the end time is actually inclusively part of the next day and is equal to or
             // beyond the next day threshold, adjust the end to be the exclusive end of `endDay`.
@@ -7780,7 +7694,6 @@ var View = fc.View = Class.extend({
     }
 
 });
-
 
 
 var Calendar = fc.Calendar = Class.extend({
@@ -7916,7 +7829,7 @@ var Calendar = fc.Calendar = Class.extend({
 
         spec = mergeProps(specChain);
         spec.type = requestedViewType;
-        if (!spec['class']) {
+        if (!spec.class) {
             return false;
         }
 
@@ -7990,7 +7903,7 @@ var Calendar = fc.Calendar = Class.extend({
     instantiateView: function(viewType) {
         var spec = this.getViewSpec(viewType);
 
-        return new spec['class'](this, viewType, spec.options, spec.duration);
+        return new spec.class(this, viewType, spec.options, spec.duration);
     },
 
 
@@ -8022,11 +7935,9 @@ var Calendar = fc.Calendar = Class.extend({
         start = this.moment(start);
         if (end) {
             end = this.moment(end);
-        }
-        else if (start.hasTime()) {
+        } else if (start.hasTime()) {
             end = start.clone().add(this.defaultTimedEventDuration);
-        }
-        else {
+        } else {
             end = start.clone().add(this.defaultAllDayEventDuration);
         }
 
@@ -8074,7 +7985,6 @@ function Calendar_constructor(element, overrides) {
     t.trigger = trigger;
 
 
-
     // Language-data Internals
     // -----------------------------------------------------------------------------------
     // Apply overrides to the current language's data
@@ -8106,15 +8016,12 @@ function Calendar_constructor(element, overrides) {
     localeData._fullCalendar_weekCalc = (function(weekCalc) {
         if (typeof weekCalc === 'function') {
             return weekCalc;
-        }
-        else if (weekCalc === 'local') {
+        } else if (weekCalc === 'local') {
             return weekCalc;
-        }
-        else if (weekCalc === 'iso' || weekCalc === 'ISO') {
+        } else if (weekCalc === 'iso' || weekCalc === 'ISO') {
             return 'ISO';
         }
-    })(options.weekNumberCalculation);
-
+    }(options.weekNumberCalculation));
 
 
     // Calendar-specific Date Utilities
@@ -8137,18 +8044,15 @@ function Calendar_constructor(element, overrides) {
             if (mom.hasTime()) { // don't give ambiguously-timed moments a local zone
                 mom.local();
             }
-        }
-        else if (options.timezone === 'UTC') {
+        } else if (options.timezone === 'UTC') {
             mom = fc.moment.utc.apply(null, arguments); // process as UTC
-        }
-        else {
+        } else {
             mom = fc.moment.parseZone.apply(null, arguments); // let the input decide the zone
         }
 
         if ('_locale' in mom) { // moment 2.8 and above
             mom._locale = localeData;
-        }
-        else { // pre-moment-2.8
+        } else { // pre-moment-2.8
             mom._lang = localeData;
         }
 
@@ -8186,9 +8090,9 @@ function Calendar_constructor(element, overrides) {
         if (event.end) {
             return event.end.clone();
         }
-        else {
+
             return t.getDefaultEventEnd(event.allDay, event.start);
-        }
+
     };
 
 
@@ -8198,8 +8102,7 @@ function Calendar_constructor(element, overrides) {
 
         if (allDay) {
             end.stripTime().add(t.defaultAllDayEventDuration);
-        }
-        else {
+        } else {
             end.add(t.defaultTimedEventDuration);
         }
 
@@ -8219,7 +8122,6 @@ function Calendar_constructor(element, overrides) {
     };
 
 
-
     // Imports
     // -----------------------------------------------------------------------------------
 
@@ -8227,7 +8129,6 @@ function Calendar_constructor(element, overrides) {
     EventManager.call(t, options);
     var isFetchNeeded = t.isFetchNeeded;
     var fetchEvents = t.fetchEvents;
-
 
 
     // Locals
@@ -8248,15 +8149,13 @@ function Calendar_constructor(element, overrides) {
     var events = [];
 
 
-
     // Main Rendering
     // -----------------------------------------------------------------------------------
 
 
     if (options.defaultDate != null) {
         date = t.moment(options.defaultDate);
-    }
-    else {
+    } else {
         date = t.getNow();
     }
 
@@ -8264,8 +8163,7 @@ function Calendar_constructor(element, overrides) {
     function render() {
         if (!content) {
             initialRender();
-        }
-        else if (elementVisible()) {
+        } else if (elementVisible()) {
             // mainly for the public API
             calcSize();
             renderView();
@@ -8279,15 +8177,13 @@ function Calendar_constructor(element, overrides) {
 
         if (options.isRTL) {
             element.addClass('fc-rtl');
-        }
-        else {
+        } else {
             element.addClass('fc-ltr');
         }
 
         if (options.theme) {
             element.addClass('ui-widget');
-        }
-        else {
+        } else {
             element.addClass('fc-unthemed');
         }
 
@@ -8330,7 +8226,6 @@ function Calendar_constructor(element, overrides) {
     function elementVisible() {
         return element.is(':visible');
     }
-
 
 
     // View Rendering
@@ -8392,7 +8287,6 @@ function Calendar_constructor(element, overrides) {
     }
 
 
-
     // Resizing
     // -----------------------------------------------------------------------------------
 
@@ -8436,12 +8330,10 @@ function Calendar_constructor(element, overrides) {
     function _calcSize() { // assumes elementVisible
         if (typeof options.contentHeight === 'number') { // exists and not 'auto'
             suggestedViewHeight = options.contentHeight;
-        }
-        else if (typeof options.height === 'number') { // exists and not 'auto'
+        } else if (typeof options.height === 'number') { // exists and not 'auto'
             suggestedViewHeight = options.height - (headerElement ? headerElement.outerHeight(true) : 0);
-        }
-        else {
-            suggestedViewHeight = Math.round(content.width() / Math.max(options.aspectRatio, .5));
+        } else {
+            suggestedViewHeight = Math.round(content.width() / Math.max(options.aspectRatio, 0.5));
         }
     }
 
@@ -8457,7 +8349,6 @@ function Calendar_constructor(element, overrides) {
             }
         }
     }
-
 
 
     /* Event Fetching/Rendering
@@ -8490,8 +8381,7 @@ function Calendar_constructor(element, overrides) {
     function getAndRenderEvents() {
         if (!options.lazyFetching || isFetchNeeded(currentView.start, currentView.end)) {
             fetchAndRenderEvents();
-        }
-        else {
+        } else {
             renderEvents();
         }
     }
@@ -8517,7 +8407,6 @@ function Calendar_constructor(element, overrides) {
     }
 
 
-
     /* Header Updating
     -----------------------------------------------------------------------------*/
 
@@ -8531,12 +8420,10 @@ function Calendar_constructor(element, overrides) {
         var now = t.getNow();
         if (now.isWithin(currentView.intervalStart, currentView.intervalEnd)) {
             header.disableButton('today');
-        }
-        else {
+        } else {
             header.enableButton('today');
         }
     }
-
 
 
     /* Selection
@@ -8555,7 +8442,6 @@ function Calendar_constructor(element, overrides) {
             currentView.unselect();
         }
     }
-
 
 
     /* Date
@@ -8622,7 +8508,6 @@ function Calendar_constructor(element, overrides) {
     }
 
 
-
     /* Height "Freezing"
     -----------------------------------------------------------------------------*/
     // TODO: move this into the view
@@ -8644,7 +8529,6 @@ function Calendar_constructor(element, overrides) {
             overflow: ''
         });
     }
-
 
 
     /* Misc
@@ -8685,7 +8569,6 @@ function Calendar_constructor(element, overrides) {
 
     t.initialize();
 }
-
 
 
 Calendar.defaults = {
@@ -8757,7 +8640,7 @@ Calendar.defaults = {
     },
 
     //eventResizableFromStart: false,
-    dragOpacity: .75,
+    dragOpacity: 0.75,
     dragRevertDuration: 500,
     dragScroll: true,
 
@@ -8804,7 +8687,6 @@ Calendar.rtlDefaults = { // right-to-left defaults
         prevYear: 'seek-next'
     }
 };
-
 
 
 var langOptionHash = fc.langs = {}; // initialize and expose
@@ -8893,9 +8775,9 @@ var dpComputableOptions = {
 
     // Produces format strings like "MMMM YYYY" -> "September 2014"
     monthYearFormat: function(dpOptions) {
-        return dpOptions.showMonthAfterYear ?
-            'YYYY[' + dpOptions.yearSuffix + '] MMMM' :
-            'MMMM YYYY[' + dpOptions.yearSuffix + ']';
+        return dpOptions.showMonthAfterYear
+            ? 'YYYY[' + dpOptions.yearSuffix + '] MMMM'
+            : 'MMMM YYYY[' + dpOptions.yearSuffix + ']';
     }
 
 };
@@ -8911,8 +8793,7 @@ var momComputableOptions = {
 
         if (fcOptions.isRTL) {
             format += ' ddd'; // for RTL, add day-of-week to end
-        }
-        else {
+        } else {
             format = 'ddd ' + format; // for LTR, add day-of-week to beginning
         }
         return format;
@@ -8962,23 +8843,23 @@ var instanceComputableOptions = { // TODO: best place for this? related to lang?
 
     // Produces format strings for results like "Mo 16"
     smallDayDateFormat: function(options) {
-        return options.isRTL ?
-            'D dd' :
-            'dd D';
+        return options.isRTL
+            ? 'D dd'
+            : 'dd D';
     },
 
     // Produces format strings for results like "Wk 5"
     weekFormat: function(options) {
-        return options.isRTL ?
-            'w[ ' + options.weekNumberTitle + ']' :
-            '[' + options.weekNumberTitle + ' ]w';
+        return options.isRTL
+            ? 'w[ ' + options.weekNumberTitle + ']'
+            : '[' + options.weekNumberTitle + ' ]w';
     },
 
     // Produces format strings for results like "Wk5"
     smallWeekFormat: function(options) {
-        return options.isRTL ?
-            'w[' + options.weekNumberTitle + ']' :
-            '[' + options.weekNumberTitle + ']w';
+        return options.isRTL
+            ? 'w[' + options.weekNumberTitle + ']'
+            : '[' + options.weekNumberTitle + ']w';
     }
 
 };
@@ -9004,7 +8885,6 @@ function getMomentLocaleData(langCode) {
 // Initialize English by forcing computation of moment-derived options.
 // Also, sets it as the default.
 fc.lang('en', Calendar.englishDefaults);
-
 
 
 /* Top toolbar area with buttons and title
@@ -9078,8 +8958,7 @@ function Header(calendar, options) {
                     if (buttonName == 'title') {
                         groupChildren = groupChildren.add($('<h2>&nbsp;</h2>')); // we always want it to take up height
                         isOnlyButtons = false;
-                    }
-                    else {
+                    } else {
                         if ((customButtonProps = (calendar.options.customButtons || {})[buttonName])) {
                             buttonClick = function(ev) {
                                 if (customButtonProps.click) {
@@ -9088,16 +8967,14 @@ function Header(calendar, options) {
                             };
                             overrideText = ''; // icons will override text
                             defaultText = customButtonProps.text;
-                        }
-                        else if ((viewSpec = calendar.getViewSpec(buttonName))) {
+                        } else if ((viewSpec = calendar.getViewSpec(buttonName))) {
                             buttonClick = function() {
                                 calendar.changeView(buttonName);
                             };
                             viewsWithButtons.push(buttonName);
                             overrideText = viewSpec.buttonTextOverride;
                             defaultText = viewSpec.buttonTextDefault;
-                        }
-                        else if (calendar[buttonName]) { // a calendar method
+                        } else if (calendar[buttonName]) { // a calendar method
                             buttonClick = function() {
                                 calendar[buttonName]();
                             };
@@ -9108,25 +8985,22 @@ function Header(calendar, options) {
                         if (buttonClick) {
 
                             themeIcon =
-                                customButtonProps ?
-                                    customButtonProps.themeIcon :
-                                    options.themeButtonIcons[buttonName];
+                                customButtonProps
+                                    ? customButtonProps.themeIcon
+                                    : options.themeButtonIcons[buttonName];
 
                             normalIcon =
-                                customButtonProps ?
-                                    customButtonProps.icon :
-                                    options.buttonIcons[buttonName];
+                                customButtonProps
+                                    ? customButtonProps.icon
+                                    : options.buttonIcons[buttonName];
 
                             if (overrideText) {
                                 innerHtml = htmlEscape(overrideText);
-                            }
-                            else if (themeIcon && options.theme) {
+                            } else if (themeIcon && options.theme) {
                                 innerHtml = "<span class='ui-icon ui-icon-" + themeIcon + "'></span>";
-                            }
-                            else if (normalIcon && !options.theme) {
+                            } else if (normalIcon && !options.theme) {
                                 innerHtml = "<span class='fc-icon fc-icon-" + normalIcon + "'></span>";
-                            }
-                            else {
+                            } else {
                                 innerHtml = htmlEscape(defaultText);
                             }
 
@@ -9204,8 +9078,7 @@ function Header(calendar, options) {
                     }
                     groupEl.append(groupChildren);
                     sectionEl.append(groupEl);
-                }
-                else {
+                } else {
                     sectionEl.append(groupChildren); // 1 or 0 children
                 }
             });
@@ -9251,7 +9124,6 @@ function Header(calendar, options) {
     }
 
 }
-
 
 
 fc.sourceNormalizers = [];
@@ -9308,7 +9180,6 @@ function EventManager(options) { // assumed to be a calendar
     );
 
 
-
     /* Fetching
     -----------------------------------------------------------------------------*/
 
@@ -9348,8 +9219,7 @@ function EventManager(options) { // assumed to be a calendar
 
                         if (isArraySource) { // array sources have already been convert to Event Objects
                             abstractEvent = eventInput;
-                        }
-                        else {
+                        } else {
                             abstractEvent = buildEventFromInput(eventInput, source);
                         }
 
@@ -9389,8 +9259,7 @@ function EventManager(options) { // assumed to be a calendar
             if (res === true) {
                 // the fetcher is in charge. made its own async request
                 return;
-            }
-            else if (typeof res == 'object') {
+            } else if (typeof res === 'object') {
                 // the fetcher returned a new source. process it
                 _fetchEventSource(res, callback);
                 return;
@@ -9411,11 +9280,9 @@ function EventManager(options) { // assumed to be a calendar
                         t.popLoading();
                     }
                 );
-            }
-            else if ($.isArray(events)) {
+            } else if ($.isArray(events)) {
                 callback(events);
-            }
-            else {
+            } else {
                 callback();
             }
         }else{
@@ -9430,8 +9297,7 @@ function EventManager(options) { // assumed to be a calendar
                 if ($.isFunction(source.data)) {
                     // supplied as a function that returns a key/value object
                     customData = source.data();
-                }
-                else {
+                } else {
                     // supplied as a straight key/value object
                     customData = source.data;
                 }
@@ -9481,7 +9347,6 @@ function EventManager(options) { // assumed to be a calendar
     }
 
 
-
     /* Sources
     -----------------------------------------------------------------------------*/
 
@@ -9503,11 +9368,9 @@ function EventManager(options) { // assumed to be a calendar
 
         if ($.isFunction(sourceInput) || $.isArray(sourceInput)) {
             source = { events: sourceInput };
-        }
-        else if (typeof sourceInput === 'string') {
+        } else if (typeof sourceInput === 'string') {
             source = { url: sourceInput };
-        }
-        else if (typeof sourceInput === 'object') {
+        } else if (typeof sourceInput === 'object') {
             source = $.extend({}, sourceInput); // shallow copy
         }
 
@@ -9519,8 +9382,7 @@ function EventManager(options) { // assumed to be a calendar
                     source.className = source.className.split(/\s+/);
                 }
                 // otherwise, assumed to be an array
-            }
-            else {
+            } else {
                 source.className = [];
             }
 
@@ -9560,13 +9422,12 @@ function EventManager(options) { // assumed to be a calendar
 
     function getSourcePrimitive(source) {
         return (
-            (typeof source === 'object') ? // a normalized event source?
-                (source.origArray || source.googleCalendarId || source.url || source.events) : // get the primitive
-                null
+            (typeof source === 'object') // a normalized event source?
+                ? (source.origArray || source.googleCalendarId || source.url || source.events) // get the primitive
+                : null
         ) ||
         source; // the given argument *is* the primitive
     }
-
 
 
     /* Manipulation
@@ -9580,8 +9441,7 @@ function EventManager(options) { // assumed to be a calendar
         event.start = t.moment(event.start);
         if (event.end) {
             event.end = t.moment(event.end);
-        }
-        else {
+        } else {
             event.end = null;
         }
 
@@ -9607,7 +9467,7 @@ function EventManager(options) { // assumed to be a calendar
 
     // non-date-related, non-id-related, non-secret
     function isMiscEventPropName(name) {
-        return !/^_|^(id|allDay|start|end)$/.test(name);
+        return !(/^_|^(id|allDay|start|end)$/).test(name);
     }
 
 
@@ -9646,10 +9506,11 @@ function EventManager(options) { // assumed to be a calendar
         var i;
 
         if (filter == null) { // null or undefined. remove all events
-            filter = function() { return true; }; // will always match
-        }
-        else if (!$.isFunction(filter)) { // an event ID
-            eventID = filter + '';
+            filter = function() {
+ return true;
+}; // will always match
+        } else if (!$.isFunction(filter)) { // an event ID
+            eventID = String(filter);
             filter = function(event) {
                 return event._id == eventID;
             };
@@ -9674,16 +9535,14 @@ function EventManager(options) { // assumed to be a calendar
     function clientEvents(filter) {
         if ($.isFunction(filter)) {
             return $.grep(cache, filter);
-        }
-        else if (filter != null) { // not null, not undefined. an event ID
-            filter += '';
+        } else if (filter != null) { // not null, not undefined. an event ID
+            filter = String(filter);
             return $.grep(cache, function(e) {
                 return e._id == filter;
             });
         }
         return cache; // else, return all
     }
-
 
 
     /* Event Normalization
@@ -9714,17 +9573,15 @@ function EventManager(options) { // assumed to be a calendar
             out.source = source;
         }
 
-        out._id = input._id || (input.id === undefined ? '_fc' + eventGUID++ : input.id + '');
+        out._id = input._id || (input.id === undefined ? '_fc' + eventGUID++ : String(input.id));
 
         if (input.className) {
-            if (typeof input.className == 'string') {
+            if (typeof input.className === 'string') {
                 out.className = input.className.split(/\s+/);
-            }
-            else { // assumed to be an array
+            } else { // assumed to be an array
                 out.className = input.className;
             }
-        }
-        else {
+        } else {
             out.className = [];
         }
 
@@ -9745,8 +9602,7 @@ function EventManager(options) { // assumed to be a calendar
             out.start = start ? moment.duration(start) : null; // will be a Duration or null
             out.end = end ? moment.duration(end) : null; // will be a Duration or null
             out._recurring = true; // our internal marker
-        }
-        else {
+        } else {
 
             if (start) {
                 start = t.moment(start);
@@ -9802,8 +9658,7 @@ function EventManager(options) { // assumed to be a calendar
         if (!props.end) {
             if (options.forceEventDuration) {
                 props.end = t.getDefaultEventEnd(props.allDay, props.start);
-            }
-            else {
+            } else {
                 props.end = null;
             }
         }
@@ -9822,8 +9677,7 @@ function EventManager(options) { // assumed to be a calendar
                 // TODO: consider nextDayThreshold here? If so, will require a lot of testing and adjustment
                 range.end.stripTime();
             }
-        }
-        else {
+        } else {
             if (!range.start.hasTime()) {
                 range.start = t.rezoneDate(range.start); // will assign a 00:00 time
             }
@@ -9911,15 +9765,13 @@ function EventManager(options) { // assumed to be a calendar
 
                     date.add(1, 'days');
                 }
-            }
-            else {
+            } else {
                 events.push(abstractEvent); // return the original event. will be a one-item array
             }
         }
 
         return events;
     }
-
 
 
     /* Event Modification Math
@@ -9946,13 +9798,12 @@ function EventManager(options) { // assumed to be a calendar
         function diffDates(date1, date0) { // date1 - date0
             if (largeUnit) {
                 return diffByUnit(date1, date0, largeUnit);
-            }
-            else if (newProps.allDay) {
+            } else if (newProps.allDay) {
                 return diffDay(date1, date0);
             }
-            else {
+
                 return diffDayTime(date1, date0);
-            }
+
         }
 
         newProps = newProps || {};
@@ -9988,8 +9839,7 @@ function EventManager(options) { // assumed to be a calendar
         if (newProps.end) {
             endDelta = diffDates(newProps.end, oldProps.end);
             durationDelta = endDelta.subtract(startDelta);
-        }
-        else {
+        } else {
             durationDelta = null;
         }
 
@@ -10036,8 +9886,12 @@ function EventManager(options) { // assumed to be a calendar
         var undoFunctions = [];
 
         // normalize zero-length deltas to be null
-        if (dateDelta && !dateDelta.valueOf()) { dateDelta = null; }
-        if (durationDelta && !durationDelta.valueOf()) { durationDelta = null; }
+        if (dateDelta && !dateDelta.valueOf()) {
+ dateDelta = null;
+}
+        if (durationDelta && !durationDelta.valueOf()) {
+ durationDelta = null;
+}
 
         $.each(events, function(i, event) {
             var oldProps;
@@ -10066,8 +9920,7 @@ function EventManager(options) { // assumed to be a calendar
             // strip or ensure the end date
             if (clearEnd) {
                 newProps.end = null;
-            }
-            else if (durationDelta && !newProps.end) { // the duration translation requires an end date
+            } else if (durationDelta && !newProps.end) { // the duration translation requires an end date
                 newProps.end = t.getDefaultEventEnd(newProps.allDay, newProps.start);
             }
 
@@ -10206,12 +10059,12 @@ function EventManager(options) { // assumed to be a calendar
         if (event) {
             return isEventRangeAllowed(range, event);
         }
-        else { // treat it as a selection
+         // treat it as a selection
 
             range = ensureVisibleEventRange(range); // ensure a proper range with an end for isSelectionRangeAllowed
 
             return isSelectionRangeAllowed(range);
-        }
+
     }
 
 
@@ -10252,7 +10105,7 @@ function EventManager(options) { // assumed to be a calendar
 
         peerEvents = t.getPeerEvents(event, range);
 
-        for (i = 0; i < peerEvents.length; i++)  {
+        for (i = 0; i < peerEvents.length; i++) {
             peerEvent = peerEvents[i];
 
             // there needs to be an actual intersection before disallowing anything
@@ -10364,7 +10217,6 @@ function backupEventDates(event) {
 }
 
 
-
 /* An abstract class for the "basic" views, as well as month view. Renders one or more rows of day cells.
 ----------------------------------------------------------------------------------------------------------------------*/
 // It is a manager for a DayGrid subcomponent, which does most of the heavy lifting.
@@ -10392,7 +10244,7 @@ var BasicView = View.extend({
     setRange: function(range) {
         View.prototype.setRange.call(this, range); // call the super-method
 
-        this.dayGrid.breakOnWeeks = /year|month|week/.test(this.intervalUnit); // do before setRange
+        this.dayGrid.breakOnWeeks = (/year|month|week/).test(this.intervalUnit); // do before setRange
         this.dayGrid.setRange(range);
     },
 
@@ -10402,7 +10254,7 @@ var BasicView = View.extend({
         var range = View.prototype.computeRange.call(this, date); // get value from the super-method
 
         // year and month views should be aligned with weeks. this is already done for week
-        if (/year|month/.test(range.intervalUnit)) {
+        if ((/year|month/).test(range.intervalUnit)) {
             range.start.startOf('week');
             range.start = this.skipHiddenDays(range.start);
 
@@ -10612,8 +10464,7 @@ var BasicView = View.extend({
     setGridHeight: function(height, isAuto) {
         if (isAuto) {
             undistributeHeight(this.dayGrid.rowEls); // let the rows be their natural height with no expanding
-        }
-        else {
+        } else {
             distributeHeight(this.dayGrid.rowEls, height, true); // true = compensate for height-hogging rows
         }
     },
@@ -10680,7 +10531,6 @@ var BasicView = View.extend({
 });
 
 
-
 /* A month view with day cells running in rows (one-per-week) and columns
 ----------------------------------------------------------------------------------------------------------------------*/
 
@@ -10725,7 +10575,6 @@ var MonthView = BasicView.extend({
     }
 
 });
-
 
 
 fcViews.basic = {
@@ -10781,8 +10630,7 @@ var AgendaView = View.extend({
                 this.dayGrid.coordMap,
                 this.timeGrid.coordMap
             ]);
-        }
-        else {
+        } else {
             this.coordMap = this.timeGrid.coordMap;
         }
     },
@@ -10868,10 +10716,10 @@ var AgendaView = View.extend({
                 '<tbody class="fc-body">' +
                     '<tr>' +
                         '<td class="' + this.widgetContentClass + '">' +
-                            (this.dayGrid ?
-                                '<div class="fc-day-grid"/>' +
-                                '<hr class="fc-divider ' + this.widgetHeaderClass + '"/>' :
-                                ''
+                            (this.dayGrid
+                                ? '<div class="fc-day-grid"/>' +
+                                '<hr class="fc-divider ' + this.widgetHeaderClass + '"/>'
+                                : ''
                                 ) +
                             '<div class="fc-time-grid-container">' +
                                 '<div class="fc-time-grid"/>' +
@@ -10900,9 +10748,9 @@ var AgendaView = View.extend({
                     '</span>' +
                 '</th>';
         }
-        else {
+
             return '<th class="fc-axis ' + this.widgetHeaderClass + '" ' + this.axisStyleAttr() + '></th>';
-        }
+
     },
 
 
@@ -11000,8 +10848,7 @@ var AgendaView = View.extend({
                 // and reapply the desired height to the scroller.
                 scrollerHeight = this.computeScrollerHeight(totalHeight);
                 this.scrollerEl.height(scrollerHeight);
-            }
-            else { // no scrollbars
+            } else { // no scrollbars
                 // still, force a height and display the bottom rule (marks the end of day)
                 this.scrollerEl.height(scrollerHeight).css('overflow', 'hidden'); // in case <hr> goes outside
                 this.bottomRuleEl.show();
@@ -11042,8 +10889,7 @@ var AgendaView = View.extend({
         for (i = 0; i < events.length; i++) {
             if (events[i].allDay) {
                 dayEvents.push(events[i]);
-            }
-            else {
+            } else {
                 timedEvents.push(events[i]);
             }
         }
@@ -11090,8 +10936,7 @@ var AgendaView = View.extend({
     renderDrag: function(dropLocation, seg) {
         if (dropLocation.start.hasTime()) {
             return this.timeGrid.renderDrag(dropLocation, seg);
-        }
-        else if (this.dayGrid) {
+        } else if (this.dayGrid) {
             return this.dayGrid.renderDrag(dropLocation, seg);
         }
     },
@@ -11113,8 +10958,7 @@ var AgendaView = View.extend({
     renderSelection: function(range) {
         if (range.start.hasTime() || range.end.hasTime()) {
             this.timeGrid.renderSelection(range);
-        }
-        else if (this.dayGrid) {
+        } else if (this.dayGrid) {
             this.dayGrid.renderSelection(range);
         }
     },
@@ -11129,7 +10973,6 @@ var AgendaView = View.extend({
     }
 
 });
-
 
 
 var AGENDA_ALL_DAY_EVENT_LIMIT = 5;
@@ -11168,4 +11011,4 @@ fcViews.agendaWeek = {
 
 
 return fc; // export for Node/CommonJS
-});
+}));

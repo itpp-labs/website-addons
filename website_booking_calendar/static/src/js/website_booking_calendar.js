@@ -85,10 +85,14 @@
        name = name.replace(/[\[\]]/g, "\\$&");
        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
            results = regex.exec(url);
-       if (!results) return null;
-       if (!results[2]) return '';
+       if (!results) {
+return null;
+}
+       if (!results[2]) {
+return '';
+}
        return decodeURIComponent(results[2].replace(/\+/g, " "));
-    }
+    };
 
     /* initialize the external events
     -----------------------------------------------------------------*/
@@ -129,26 +133,26 @@
 
         $('#booking-dialog-confirm').click(function(){
             var $form = $('#booking-dialog').find('form');
-            var $msg = $('#booking-taken-msg')
+            var $msg = $('#booking-taken-msg');
             var d = new Date();
             $form.find("[name=timezone]").val(d.getTimezoneOffset());
             var tr_counter = 0;
             var validated_counter = 0;
             var deferreds = [];
             $form.find('tbody tr').each(function() {
-               var tr_element = $(this)
-               tr_counter = tr_counter + 1;
+               var tr_element = $(this);
+               tr_counter += 1;
                deferreds.push(
                   openerp.jsonRpc('/booking/validator', 'call', {'booking': $(this).find('select').attr('name')}).then(function(result) {
                      if(result) {
                         tr_element.css({'color': 'red'});
                         $msg.css({'visibility': 'visible'});
                      } else {
-                        validated_counter = validated_counter + 1;
+                        validated_counter += 1;
                      }
                   })
                );
-            })
+            });
 
 
             $.when.apply($, deferreds).done(function() {
@@ -162,7 +166,7 @@
         });
 
        if (self.getParameterByName('expired')) {
-          self.warn('Your shopping cart has expired. All the bookings has been cleared')
+          self.warn('Your shopping cart has expired. All the bookings has been cleared');
        }
 
     };

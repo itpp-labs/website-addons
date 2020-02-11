@@ -1,4 +1,4 @@
-﻿odoo.define('chess.tournament', function (require) {
+odoo.define('chess.tournament', function (require) {
 'use strict';
 var Widget = require('web.Widget');
 var Model = require('web.Model');

@@ -26,8 +26,8 @@ $(document).ready(function () {
             return ajax.jsonRpc("/shop/cart/update_json", 'call', {
                 'line_id': parseInt($input.data('line-id'),10),
                 'product_id': parseInt($input.data('product-id') || $('input.product_id').val(),10),
-                'set_qty': value}).
-            then(function (data) {
+                'set_qty': value})
+            .then(function (data) {
                 if (!data.quantity) {
                     location.reload();
                     return;

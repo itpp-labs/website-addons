@@ -4,7 +4,8 @@ function validateForm() {
     var participate = document.getElementById("participate");
     for (var i=0; i < element.options.length; i++){
         if (element.options[i].selected==true) {
-            result.push(element.options[i].value);}
+            result.push(element.options[i].value);
+}
             document.getElementById('players').value = result;
     }
     var number_of_players = (!participate.checked) ? result.length : result.length += 1;

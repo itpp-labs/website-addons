@@ -1,6 +1,7 @@
 $(document).ready(function () {
-    if (!$('#modelaccept'))
-        return;
+    if (!$('#modelaccept')) {
+return;
+}
     $('a.js_update_line_json').on('click', function (ev) {
         ev.preventDefault();
         var $link = $(ev.currentTarget);
@@ -38,14 +39,16 @@ $(document).ready(function () {
     var sending = false;
     $('form.js_accept_json').submit(function(ev){
         ev.preventDefault();
-        if (sending)
-            return;
+        if (sending) {
+return;
+}
         var $link = $(ev.currentTarget);
         var href = $link.attr("action");
         var proposal_id = href.match(/accept\/([0-9]+)/);
         var token = href.match(/token=(.*)/);
-        if (token)
-            token = token[1];
+        if (token) {
+token = token[1];
+}
 
         var signer_name = $("#name").val();
         var sign = $("#signature").jSignature("getData",'image');
@@ -53,8 +56,9 @@ $(document).ready(function () {
         $('#signer').toggleClass('has-error', ! signer_name);
         $('#drawsign').toggleClass('panel-danger', is_empty).toggleClass('panel-default', ! is_empty);
 
-        if (is_empty || ! signer_name)
-            return false;
+        if (is_empty || ! signer_name) {
+return false;
+}
 
         sending=true;
         $('#modelaccept .status_label').show();

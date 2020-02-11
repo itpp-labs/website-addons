@@ -82,7 +82,7 @@ odoo.define('chess.common', function (require) {
             if(message.system_status=="Active game") {
                 window.new_game = new ChessGame.GameConversation(window.model_game_id, window.model_dbname, window.model_author_id);
                 window.new_game.game_pgn_click();
-                swal({   title: "Lets go!",   timer: 1000,   showConfirmButton: false });
+                swal({ title: "Lets go!", timer: 1000, showConfirmButton: false });
                 $('.header p:nth-child(2)').html(message.system_status);
                 storage.setItem("bus_last", this.bus.last);
             }
@@ -407,8 +407,10 @@ odoo.define('chess.common', function (require) {
         },
 
         onOrientation: function(){
-            if (this.author_color==='black') return 'black';
-            else return 'white';
+            if (this.author_color==='black') {
+return 'black';
+}
+            return 'white';
         },
         onBoard: function(){
             this.cfg = {
@@ -431,9 +433,7 @@ odoo.define('chess.common', function (require) {
             var self = this;
             if(self.system_status=='Game Over'){
                 $('.chess_information .chess_time_usr').hide();
-            }
-            else {
-                if (game_type == 'blitz') {
+            } else if (game_type == 'blitz') {
                     $('.chess_information .chess_time_usr').show();
                     if (game.turn() === 'b') {
                         self.reset(Math.round(another_user_time), Math.round(author_time));
@@ -441,8 +441,7 @@ odoo.define('chess.common', function (require) {
                     if (game.turn() === 'w') {
                         self.reset(Math.round(author_time), Math.round(another_user_time));
                     }
-                } else {
-                    if (game_type == 'limited time') {
+                } else if (game_type == 'limited time') {
                         $('.chess_information .chess_time_usr').show();
                         if (game.turn() === 'b') {
                             self.reset(Math.round(another_user_time), Math.round(author_time));
@@ -454,8 +453,6 @@ odoo.define('chess.common', function (require) {
                     } else {
                         $('.chess_information .chess_time_usr').hide();
                     }
-                }
-            }
         },
 
         call_load_system_message: function(game_id) {
@@ -484,8 +481,7 @@ odoo.define('chess.common', function (require) {
                     }else {
                         self.load_time_history(history, result);
                     }
-                }
-                else{
+                } else{
                     var cookie_name = ChessGame.COOKIE_NAME+self.game_id;
                     var cookie = utils.get_cookie(cookie_name);
                     var coockie_game = JSON.parse(cookie);
@@ -532,8 +528,7 @@ odoo.define('chess.common', function (require) {
                                     self.onGameType(self.game_type, self.author_time, self.another_user_time);
                                     self.showConfirmation(history, resultat);
                                 }
-                            } else {
-                                if (self.author_time == 0 || self.another_user_time == 0) {
+                            } else if (self.author_time == 0 || self.another_user_time == 0) {
                                     self.onGameType(self.game_type, self.author_time, self.another_user_time);
                                     var status = '';
                                     if ((game.turn() === 'w' && turn === 'white') || (game.turn() === 'b' && turn === 'black')) {
@@ -549,10 +544,8 @@ odoo.define('chess.common', function (require) {
                                     self.onGameType(self.game_type, self.author_time, self.another_user_time);
                                     self.showConfirmation(history, resultat);
                                 }
-                            }
                         });
-                }
-                else {
+                } else {
                     self.showConfirmation(history, resultat);
                 }
             }
@@ -587,8 +580,7 @@ odoo.define('chess.common', function (require) {
                                 var status = 'Game over, you lose. You surrender';
                                 self.user_surrender(status);
                                 self.game_over_status = self.author_color;
-                            }
-                            else {
+                            } else {
                                 var status = 'Game over, you win! '+self.another_user_name + ' is surrender';
                                 self.game_over_status = self.another_user_color;
                                 self.user_surrender(status);
@@ -622,7 +614,8 @@ odoo.define('chess.common', function (require) {
                                             self.send_move(message);
                                             self.user_surrender(status);
                                         }
-                                    });},1000);
+                                    });
+},1000);
                             }
 
                         } break;
@@ -639,8 +632,9 @@ odoo.define('chess.common', function (require) {
                             console.log("No match in the system messages");
                         } break;
                     }
-                }
-                else {console.log("No system messages");}
+                } else {
+console.log("No system messages");
+}
             }
             this.history=false;
         },
@@ -649,12 +643,10 @@ odoo.define('chess.common', function (require) {
             var self = this;
             board.position(game.fen());
             var game_queue=false;
-            if(game.turn() === 'w' && turn == 'white')
-            {
+            if(game.turn() === 'w' && turn == 'white') {
                 game_queue=true;
             }
-            if(game.turn() === 'b' && turn == 'black')
-            {
+            if(game.turn() === 'b' && turn == 'black') {
                 game_queue=true;
             }
             if(game_queue==true) {
@@ -663,8 +655,7 @@ odoo.define('chess.common', function (require) {
                     (game.turn() === 'b' && piece.search(/^w/) !== -1)) {
                     return false;
                 }
-            }
-            else{
+            } else{
                 return false;
             }
         },
@@ -678,14 +669,16 @@ odoo.define('chess.common', function (require) {
                 promotion: 'q' // NOTE: always promote to a queen for example simplicity
             });
             // illegal move
-            if (move === null) return 'snapback';
-            else {
+            if (move === null) {
+return 'snapback';
+}
+
                 if (self.history_loading != true) {
                     var data = {'source': source, 'target': target, 'fen': game.fen()};
                     var message = {'type': 'move', 'data': data};
                     new_game.send_move(message);
                 }
-            }
+
             new_game.onDelFigure();
             new_game.updateStatus();
         },
@@ -733,11 +726,9 @@ odoo.define('chess.common', function (require) {
                             }
                         }
                         first_step_move = false;
-                    }
-                    else if (result=='system') {
+                    } else if (result=='system') {
                         //console.log("Send system message");
-                    }
-                    else {
+                    } else {
                         console.log("ERROR, please make the right move");
                         return self.user_surrender('ERROR, please make the right move');
                     }
@@ -778,7 +769,8 @@ odoo.define('chess.common', function (require) {
                             }
                         }
                         )
-                    ;}, 100);
+                    ;
+}, 100);
                     status = moveColor + ' is in checkmate. You lose';
                 }
                 if((game.turn()=== 'b' && self.author_color=='white') || (game.turn()=== 'w' && self.author_color=='black')) {
@@ -795,7 +787,8 @@ odoo.define('chess.common', function (require) {
                             }
                         }
                         )
-                    ;}, 100);
+                    ;
+}, 100);
                     status = moveColor + ' is in checkmate. You win!';
                 }
                 self.game_over_status = moveColor;
@@ -821,7 +814,8 @@ odoo.define('chess.common', function (require) {
                         }
                     }
                     )
-                    ;}, 100);
+                    ;
+}, 100);
                 self.game_over_status='drawn';
                 if (self.game_status!='Game Over') {
                     self.game_over("Game Over, is drawn position");
@@ -978,11 +972,11 @@ odoo.define('chess.common', function (require) {
                     var index = newArr.indexOf(elem);
                     if (index != -1) {
                         newArr.splice(index, 1);
-                    }
-                    else {
-                        if (pattern.test(elem)) WhiteArr.push(elem);
-                        else BlackArr.push(elem);
-                    }
+                    } else if (pattern.test(elem)) {
+WhiteArr.push(elem);
+} else {
+BlackArr.push(elem);
+}
                 }
 
                 if (WhiteArr.length > 0) {
@@ -1047,7 +1041,7 @@ odoo.define('chess.common', function (require) {
                     this.DelBEl.html(DelBF);
                 }
 
-                this.lenOldFen = this.lenOldFen - 1;
+                this.lenOldFen -= 1;
             }
         },
 
@@ -1076,7 +1070,7 @@ odoo.define('chess.common', function (require) {
             var self = this;
             this.clearInterval();
             this.removeClass(this.currentClock, 'expired');
-            if ((game.turn() === 'b' && turn=='black') ||  (game.turn() === 'w' && turn=='black')) {
+            if ((game.turn() === 'b' && turn=='black') || (game.turn() === 'w' && turn=='black')) {
                     self.reset(Math.round(self.another_user_time), Math.round(self.author_time));
             }
             if ((game.turn() === 'w' && turn=='white') || (game.turn() === 'b' && turn=='white')) {
@@ -1231,12 +1225,20 @@ odoo.define('chess.common', function (require) {
             hours = Math.floor(hours % 24);
 
             var result = "";
-            if (days != 0) result += days + "d ";
-            if (hours < 10) result +="0";
+            if (days != 0) {
+result += days + "d ";
+}
+            if (hours < 10) {
+result +="0";
+}
             result += hours + ":";
-            if (minutes < 10) result += "0";
+            if (minutes < 10) {
+result += "0";
+}
             result += minutes + ":";
-            if (seconds < 10) result += "0";
+            if (seconds < 10) {
+result += "0";
+}
             result += seconds;
 
             return result;

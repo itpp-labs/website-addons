@@ -67,8 +67,7 @@ odoo.define('chess.chesschat', function (require) {
                 ready = session.rpc("/chess/game/chat/history", {game_id: game.game_id}).then(function (history) {
                     if (history) {
                         self.load_history(history);
-                    }
-                    else{
+                    } else{
                         console.log("Error. Not load history. (chat)");
                     }
                 });
@@ -150,8 +149,7 @@ odoo.define('chess.chesschat', function (require) {
             var message = {};
             message.data = $(".chat #message_text").val();
 
-            if (message.data == '' || message.data == ' ')
-            {
+            if (message.data == '' || message.data == ' ') {
                 $('.chat #window_chat')
                 .append('<div class="error"><span class="fa fa-times">ERROR. Input message.</span></div>');
                 $(".chat #window_chat").each(function () {
@@ -178,9 +176,9 @@ odoo.define('chess.chesschat', function (require) {
     $(document).ready(function() {
     if (window.model_game_id===undefined) {
         return false;
-    } else {
-         var my_chat = new ChessChat.Conversation(model_game_id, model_dbname, model_author_id);
     }
+         var my_chat = new ChessChat.Conversation(model_game_id, model_dbname, model_author_id);
+
 
     $(".toggle_chat").click(function(){
         my_chat.checked_chat(this);

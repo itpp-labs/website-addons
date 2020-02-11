@@ -14,7 +14,9 @@
                 minimumInputLength: 1,
                 placeholder: _t("File name"),
                 query: function (q) {
-                    if (q.term == last) return;
+                    if (q.term == last) {
+return;
+}
                     last = q.term;
                     $.when(
                         self.fetch_files(q.term)
@@ -157,8 +159,12 @@
 
         set_file: function (file_name, url, error) {
             var self = this;
-            if (url) this.link = url;
-            if (file_name) this.file_name = file_name;
+            if (url) {
+this.link = url;
+}
+            if (file_name) {
+this.file_name = file_name;
+}
             this.$('input.url').val('');
             this.fetch_existing().then(function () {
                 self.selected_existing(url);
@@ -298,4 +304,4 @@
     });
 
 
-})();
+}());
