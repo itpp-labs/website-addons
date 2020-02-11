@@ -32,5 +32,5 @@
         <field name="width">3</field>
         <field name="is_required" eval="False"/>
     </record>
-    
+
 </odoo>

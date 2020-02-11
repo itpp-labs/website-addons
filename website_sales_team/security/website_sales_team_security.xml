@@ -107,7 +107,7 @@
             <field name="global" eval="False"/>
         </record>
 
-        
+
         <record model="ir.rule" id="rule_product_product_all_read">
             <field name="name">product.product:  read all</field>
             <field name="model_id" ref="product.model_product_product"/>

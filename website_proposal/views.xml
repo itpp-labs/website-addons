@@ -94,7 +94,7 @@
                               <div class="mt8" t-if="order_valid">
                                   <a type="submit" href="#discussion">
                                       Ask Changes
-                                  </a> or 
+                                  </a> or
                                   <a data-toggle="modal" data-target="#modeldecline">
                                       Reject
                                   </a>
@@ -123,7 +123,7 @@
                               </div>
                               <div class="text-center mb16" t-if="proposal.amount_undiscounted &gt; proposal.amount_total">
                                   <p class="text-muted mb8">Your advantage:</p>
-                                  <strong t-field="proposal.amount_total" 
+                                  <strong t-field="proposal.amount_total"
                                         t-field-options='{"widget": "monetary", "display_currency": "proposal.pricelist_id.currency_id"}'/>
                                   <strong t-field="proposal.amount_undiscounted"
                                         t-field-options='{"widget": "monetary", "display_currency": "proposal.pricelist_id.currency_id"}'
@@ -171,7 +171,7 @@
                                   <!--
                                   I agree that by signing this proposal, I
                                   accept it on the behalf of <b t-field="proposal.company_id"/>,
-                                  for an amount of 
+                                  for an amount of
                                   <b data-id="total_amount" t-field="proposal.amount_total"
                                     t-field-options='{"widget": "monetary", "display_currency": "proposal.pricelist_id.currency_id"}'/>
                                   with payment terms: <b t-field="proposal.payment_term"/>.
@@ -365,7 +365,7 @@
                             Header in exported document (pdf)
                         </div>
                         <div t-field="template.page_header"/>
-                        
+
 
                         <div class="alert alert-info alert-dismissable" t-ignore="True">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&amp;times;</button>
@@ -404,7 +404,7 @@
 
                   <group>
                       <group>
-                          <field name="res_model"/> 
+                          <field name="res_model"/>
                       </group>
                   </group>
                   <notebook>

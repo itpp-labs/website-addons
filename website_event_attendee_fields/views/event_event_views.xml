@@ -37,8 +37,8 @@
                         <field name="is_required"/>
                         <field name="form_type"/>
                         <field name="field_model" invisible="1"/>
-                        <field name="domain" 
-                               widget="char_domain" 
+                        <field name="domain"
+                               widget="char_domain"
                                attrs="{'invisible': [('form_type', 'not in', ['many2one'])]}"
                                options="{'model_field': 'field_model'}"
                                />

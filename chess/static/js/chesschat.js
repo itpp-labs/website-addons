@@ -235,4 +235,3 @@ odoo.define('chess.chesschat', function (require) {
     };
 
 });
-

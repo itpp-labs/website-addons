@@ -262,4 +262,3 @@ return { TournamentDetail: TournamentDetail,
          };
 
 });
-

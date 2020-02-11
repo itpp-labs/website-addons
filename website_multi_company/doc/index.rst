@@ -21,18 +21,18 @@ Additional modules
 
 Due to technical reasons some multi-website features are located in separate modules, install them depending on your needs:
 
-* if you use ``website_sale`` (eCommerce) module, then install `Real Multi Website (eCommerce extension) <https://www.odoo.com/apps/modules/10.0/website_multi_company_sale/>`__ too 
-* if you use ``website_portal`` (Portal) module, then install `Real Multi Website (portal extension) <https://www.odoo.com/apps/modules/10.0/website_multi_company_portal/>`__ too 
+* if you use ``website_sale`` (eCommerce) module, then install `Real Multi Website (eCommerce extension) <https://www.odoo.com/apps/modules/10.0/website_multi_company_sale/>`__ too
+* if you use ``website_portal`` (Portal) module, then install `Real Multi Website (portal extension) <https://www.odoo.com/apps/modules/10.0/website_multi_company_portal/>`__ too
 
 Domain Names
 ------------
 
-You will be able to use any website domain names (not only subdomains), e.g. shop1.com, shop2.com, etc. In this case you need to setup DNS entries on your DNS hosting provider. 
+You will be able to use any website domain names (not only subdomains), e.g. shop1.com, shop2.com, etc. In this case you need to setup DNS entries on your DNS hosting provider.
 
 For example:
 
-* shop1.com::   
-	
+* shop1.com::
+
 	@   A   your_server_ip_address
 
 * shop2.com::
@@ -47,12 +47,12 @@ Your webserver (e.g. Apache or Nginx) must pass header ``Host`` to odoo, otherwi
 
 
 
-Single database deployment 
+Single database deployment
 --------------------------
 
 No updates in odoo config is required if you use only one database.
 
-Multi database deployment 
+Multi database deployment
 -------------------------
 For multi-database instance odoo has to know which database to use when handle new request without
 session information. There are two ways to do it:
@@ -70,7 +70,7 @@ For TESTING purpose you can use the following configuration:
 * database name: example
 
   * host names:
-  
+
     * example.shop1.local
     * example.shop2.local
     * example.shop3.local
@@ -97,7 +97,7 @@ Then you can use following configuration
 * database name: example.com
 
   * host names:
-  
+
     * shop1.example.com
     * shop2.example.com
     * shop3.example.com
@@ -105,7 +105,7 @@ Then you can use following configuration
 * database name: example.org
 
   * host names:
-  
+
     * shop1.example.org
     * shop2.example.org
     * shop3.example.org
@@ -120,7 +120,7 @@ In short, you need to add following line to your nginx config (other webservers 
 
 Note, that you probably need to set usual ``db_filter`` to ``.*``, because ``dbfilter_from_header`` module uses that filter first and then applies filter from header.
 
-Example (we use top level domain ``.example`` due to copyright issues, but it could be any top level domains at any combinations): 
+Example (we use top level domain ``.example`` due to copyright issues, but it could be any top level domains at any combinations):
 
 * dbfilter: .*
 * database name: software_business
@@ -130,7 +130,7 @@ Example (we use top level domain ``.example`` due to copyright issues, but it co
     * miscrosoft-products.example
     * antivirus.example
     * android.antivirus.example
-    
+
 * database name: delivery_business
 
   * host names:
@@ -147,7 +147,7 @@ Example (we use top level domain ``.example`` due to copyright issues, but it co
         proxy_set_header Host $host;
         proxy_set_header X-Odoo-dbfilter ^software_business\Z;
 
-        location /longpolling {        
+        location /longpolling {
             proxy_pass http://127.0.0.1:8072;
         }
 
@@ -209,7 +209,7 @@ Configuration
   * **Website Domain** -- website address, e.g. *shop1.example.com*
   * **Company** -- which company is used for this *website*
   * **Favicon** -- upload website favicon
-  * **Multi Theme** -- select a theme you wish to apply for website, e.g. *theme_bootswatch* 
+  * **Multi Theme** -- select a theme you wish to apply for website, e.g. *theme_bootswatch*
 
     * if you install any of supported themes after installing this module, you should click on **Reload** button to be able to use them
     * for unsupported themes extra actions are required as described `below <#multi-theme>`__
@@ -247,12 +247,12 @@ Multi-theme
 After installing theme, navigate to ``[[ Website Admin ]] >> Configuration >> Multi-Themes``. Check that the theme is presented in the list, otherwise add one.
 
 Note: themes that depend on ``theme_common`` don't work in demo installation. To avoid this, you have to create database without demo data or comment out demo files in ``__manifest__.py`` file of ``theme_common`` module like this::
- 
+
   'demo': [
        # 'demo/demo.xml',
     ],
 
-	
+
 Websites designing
 ------------------
 
@@ -291,7 +291,7 @@ Steps for eCommerce
 
   * use ``[Action] -> Duplicate`` button
   * don't forget to click ``[Unpublished On Website]`` button to activate it
-  
+
 * open ``[[ Sales ]] >> Products`` and create product per each company if they don't exist. If a product doesn't belong to any company (i.e. "Company" field is empty), this product will be available on each website you created.
 * open HOST1/shop, make order, open backend -- created order belongs to COMPANY1
 * open HOST2/shop, make order, open backend -- created order belongs to COMPANY2

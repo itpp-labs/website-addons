@@ -5,8 +5,7 @@ from odoo.http import request
 
 
 class PosWebsiteSale(http.Controller):
-
-    @http.route(['/shop/get_order_numbers'], type='json', auth="public", website=True)
+    @http.route(["/shop/get_order_numbers"], type="json", auth="public", website=True)
     def get_order_numbers(self):
         res = {}
         order = request.website.sale_get_order()

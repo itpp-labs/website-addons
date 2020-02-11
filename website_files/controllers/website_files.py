@@ -1,48 +1,52 @@
 # -*- coding: utf-8 -*-
-import re
 import json
+import logging
+import re
+
 from odoo import http
 from odoo.http import request
 
 from odoo.addons.website.controllers.main import Website
 
-import logging
 _logger = logging.getLogger(__name__)
 
 
 class WebsiteFile(Website):
-
     def _find_website_filename(self, filename):
-        name = ext = ''
-        res = re.match(r'(.*)(\.[^.]+)', filename)
+        name = ext = ""
+        res = re.match(r"(.*)(\.[^.]+)", filename)
         if res:
             name = res.group(1)
             ext = res.group(2)
         else:
             name = filename
 
-        pattern = '%s-[0-9]+%s' % (name, ext)
+        pattern = "{}-[0-9]+{}".format(name, ext)
 
-        request.cr.execute("""
+        request.cr.execute(
+            """
         SELECT count(*)
         FROM ir_attachment
         WHERE datas_fname SIMILAR TO %s
-        """, (pattern,))
+        """,
+            (pattern,),
+        )
 
         count = request.cr.fetchone()[0]
 
-        return '%s-%s%s' % (name, count + 1, ext)
+        return "{}-{}{}".format(name, count + 1, ext)
 
-    @http.route('/website/attach_file', type='http', auth='user',
-                methods=['POST'], website=True)
+    @http.route(
+        "/website/attach_file", type="http", auth="user", methods=["POST"], website=True
+    )
     def attach_file(self, func, upload=None, overwrite=False):
         filename = website_file_url = message = None
         try:
-            file_data = upload.read().encode('base64')
-            filename = upload.filename or 'undefined'
-            attachment = request.env['ir.attachment'].search([
-                ('website_file', '=', True),
-                ('datas_fname', '=', filename)])
+            file_data = upload.read().encode("base64")
+            filename = upload.filename or "undefined"
+            attachment = request.env["ir.attachment"].search(
+                [("website_file", "=", True), ("datas_fname", "=", filename)]
+            )
             if attachment:
                 attachment = attachment[0]
                 if overwrite:
@@ -52,12 +56,14 @@ class WebsiteFile(Website):
                     attachment = None
 
             if not attachment:
-                attachment = request.env['ir.attachment'].create({
-                    'name': filename,
-                    'datas': file_data,
-                    'datas_fname': filename,
-                    'website_file': True,
-                })
+                attachment = request.env["ir.attachment"].create(
+                    {
+                        "name": filename,
+                        "datas": file_data,
+                        "datas_fname": filename,
+                        "website_file": True,
+                    }
+                )
 
             website_file_url = attachment.website_file_url
         except Exception as e:
@@ -66,7 +72,9 @@ class WebsiteFile(Website):
 
         return """<script type='text/javascript'>
             window.parent['%s'](%s, %s, %s);
-        </script>""" % (func,
-                        json.dumps(filename),
-                        json.dumps(website_file_url),
-                        json.dumps(message))
+        </script>""" % (
+            func,
+            json.dumps(filename),
+            json.dumps(website_file_url),
+            json.dumps(message),
+        )

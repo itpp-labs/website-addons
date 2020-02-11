@@ -40,7 +40,7 @@
             <t t-foreach="event.attendee_field_ids" t-as="field">
                 <t t-set="field_value" t-value="autofill_user and field.get_value(autofill_user.partner_id) or ''"/>
                 <div t-attf-class="col-md-{{field.width}} mb8 mt8">
-                    
+
                     <strong t-if="not event.use_attendees_header"><t t-esc="field.field_description"/><t t-if="not field.is_required"> <span class="text-muted">(Optional)</span></t></strong>
                     <t t-if="field.form_type in ['many2one']">
                         <select

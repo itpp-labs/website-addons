@@ -10,4 +10,3 @@
             self.env.ref('website_event_attendee_fields.attendee_field_function').id,
         ])]
     })
- 

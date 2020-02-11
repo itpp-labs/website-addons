@@ -4,7 +4,7 @@
 
 import logging
 
-from odoo import models, api
+from odoo import api, models
 
 _logger = logging.getLogger(__name__)
 
@@ -26,9 +26,7 @@ class Website(models.Model):
 
     @api.multi
     def _multi_theme_activate(self):
-        if not self.env.context.get('skip_converting_assets'):
+        if not self.env.context.get("skip_converting_assets"):
             # reload dependencies before activating
-            self.mapped('multi_theme_id')\
-                .upstream_dependencies()\
-                ._convert_assets()
+            self.mapped("multi_theme_id").upstream_dependencies()._convert_assets()
         return super(Website, self)._multi_theme_activate()

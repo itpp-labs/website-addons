@@ -9,7 +9,7 @@
     <field name="arch" type="xml">
       <group name="domain">
         <label for="multi_theme_id"/>
-        <div> 
+        <div>
           <field name="multi_theme_id" string="Multi Theme" required="True"/>
           <!--Edit mode-->
           <button icon="fa-refresh"
@@ -26,7 +26,7 @@
                 groups="base.group_no_one"
                 class="oe_inline oe_read_only ml8"
                 name="multi_theme_reload"/>
-        </div> 
+        </div>
         <field name="favicon" widget="image" class="oe_avatar oe_left"/>
       </group>
       <xpath expr="//header" position="replace"/>
