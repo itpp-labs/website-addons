@@ -123,10 +123,7 @@ class ChessGame(models.Model):
             secound_user_id = self.second_user_id.id
 
         channel = '["{}","{}",["{}","{}"]]'.format(
-            self._cr.dbname,
-            "chess.game",
-            secound_user_id,
-            game_id,
+            self._cr.dbname, "chess.game", secound_user_id, game_id
         )
         notifications.append([str(channel), message])
         self.env["bus.bus"].sendmany(notifications)
@@ -296,10 +293,7 @@ class ChessGame(models.Model):
             secound_user_id = self.second_user_id.id
 
         channel = '["{}","{}",["{}","{}"]]'.format(
-            self._cr.dbname,
-            "chess.game.info",
-            secound_user_id,
-            self.id,
+            self._cr.dbname, "chess.game.info", secound_user_id, self.id
         )
         message = {"system_status": self.status}
         notifications.append([str(channel), message])
@@ -404,10 +398,7 @@ class ChessGameLine(models.Model):
                 secound_user_id = ps.second_user_id.id
 
             channel = '["{}","{}",["{}","{}"]]'.format(
-                self._cr.dbname,
-                "chess.game.line",
-                secound_user_id,
-                game_id,
+                self._cr.dbname, "chess.game.line", secound_user_id, game_id
             )
             notifications.append([str(channel), message])
 
@@ -450,10 +441,7 @@ class ChatMessage(models.Model):
                 secound_user_id = ps.second_user_id.id
 
             channel = '["{}","{}",["{}","{}"]]'.format(
-                self._cr.dbname,
-                "chess.game.chat",
-                secound_user_id,
-                game_id,
+                self._cr.dbname, "chess.game.chat", secound_user_id, game_id
             )
             notifications.append([str(channel), message])
 

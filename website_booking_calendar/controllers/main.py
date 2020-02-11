@@ -3,11 +3,12 @@ import re
 
 import pytz
 import simplejson
-from odoo.addons.website_sale.controllers.main import website_sale as WebsiteSale
 
 from odoo import SUPERUSER_ID, fields, http
 from odoo.http import request
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
+
+from odoo.addons.website_sale.controllers.main import website_sale as WebsiteSale
 
 
 class WebsiteBookingCalendar(http.Controller):
