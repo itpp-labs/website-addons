@@ -1,3 +1,4 @@
+/* eslint-disable */
 odoo.define("chess.create_game", function(require) {
     "use strict";
     var Widget = require("web.Widget");

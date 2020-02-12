@@ -1,3 +1,5 @@
+/* global new_game */
+/* eslint-disable */
 odoo.define("chess.common", function(require) {
     "use strict";
     var pos = [];
@@ -45,7 +47,7 @@ odoo.define("chess.common", function(require) {
                 [uid, model_game_id],
             ]);
             var bus_last = 0;
-            Number(storage.getItem("bus_last")) == null
+            Number(storage.getItem("bus_last")) === null
                 ? (bus_last = this.bus.last)
                 : (bus_last = Number(storage.getItem("bus_last")));
             // Start the polling
@@ -99,7 +101,7 @@ odoo.define("chess.common", function(require) {
         },
 
         create_game: function(message) {
-            if (message.system_status == "Active game") {
+            if (message.system_status === "Active game") {
                 window.new_game = new ChessGame.GameConversation(
                     window.model_game_id,
                     window.model_dbname,
@@ -110,7 +112,7 @@ odoo.define("chess.common", function(require) {
                 $(".header p:nth-child(2)").html(message.system_status);
                 storage.setItem("bus_last", this.bus.last);
             }
-            if (message.system_status == "Canceled") {
+            if (message.system_status === "Canceled") {
                 window.create_new_game.stop_polling();
                 swal(
                     {
@@ -129,7 +131,7 @@ odoo.define("chess.common", function(require) {
                 );
                 return false;
             }
-            if (message.system_status == "Denied") {
+            if (message.system_status === "Denied") {
                 window.create_new_game.stop_polling();
                 swal(
                     {
@@ -198,10 +200,10 @@ odoo.define("chess.common", function(require) {
                 if (!message) {
                     return false;
                 }
-                if (message.type == "move") {
+                if (message.type === "move") {
                     self.onDrop(message.data.source, message.data.target);
                     board.position(game.fen());
-                    if (new_game.game_type == "blitz") {
+                    if (new_game.game_type === "blitz") {
                         if (game.turn() === "b") {
                             new_game.clockClicked(1);
                             new_game.clockClicked(0);
@@ -211,7 +213,7 @@ odoo.define("chess.common", function(require) {
                             new_game.clockClicked(1);
                         }
                     }
-                    if (new_game.game_type == "limited time" && ref_bw) {
+                    if (new_game.game_type === "limited time" && ref_bw) {
                         if (game.turn() === "b") {
                             new_game.clockClicked(1);
                             new_game.clockClicked(0);
@@ -224,8 +226,8 @@ odoo.define("chess.common", function(require) {
                     }
                     storage.setItem("bus_last", this.bus.last);
                 }
-                if (message.type == "system") {
-                    if (message.data.status == "surrender") {
+                if (message.type === "system") {
+                    if (message.data.status === "surrender") {
                         swal(
                             {
                                 title: "You win!",
@@ -247,7 +249,7 @@ odoo.define("chess.common", function(require) {
                         var status = "You win, " + message.data.user + " surrendered";
                         new_game.user_surrender(status);
                     }
-                    if (message.data.status == "draw") {
+                    if (message.data.status === "draw") {
                         swal(
                             {
                                 title: "Draw",
@@ -293,7 +295,7 @@ odoo.define("chess.common", function(require) {
                             }
                         );
                     }
-                    if (message.data.status == "draw_rejection") {
+                    if (message.data.status === "draw_rejection") {
                         swal({
                             title: "Refusal",
                             text: "Your opponent refused to a draw.",
@@ -302,7 +304,7 @@ odoo.define("chess.common", function(require) {
                             showConfirmButton: false,
                         });
                     }
-                    if (message.data.status == "agreement") {
+                    if (message.data.status === "agreement") {
                         $("#surrender").hide();
                         $("#suggest_a_draw").hide();
                         var status = "Game over, draw position";
@@ -327,7 +329,7 @@ odoo.define("chess.common", function(require) {
                             }
                         );
                     }
-                    if (message.data.status == "") {
+                    if (message.data.status === "") {
                         return false;
                     }
                     storage.setItem("bus_last", this.bus.last);
@@ -409,7 +411,7 @@ odoo.define("chess.common", function(require) {
                         self.game_status = result.information.status;
                         self.system_status = result.information.system_status;
                         self.orientation = self.onOrientation();
-                        if (self.system_status == "Game Over") {
+                        if (self.system_status === "Game Over") {
                             $(".chess_information .chess_time_usr").hide();
                             self.clockStop();
                         }
@@ -463,7 +465,7 @@ odoo.define("chess.common", function(require) {
                 self.system_status = coockie_game.information.system_status;
                 author_player_color = self.author_id;
                 another_player_color = self.another_user_id;
-                if (self.system_status == "Game Over") {
+                if (self.system_status === "Game Over") {
                     $(".chess_information .chess_time_usr").hide();
                     self.clockStop();
                 }
@@ -498,9 +500,9 @@ odoo.define("chess.common", function(require) {
 
         onGameType: function(game_type, author_time, another_user_time) {
             var self = this;
-            if (self.system_status == "Game Over") {
+            if (self.system_status === "Game Over") {
                 $(".chess_information .chess_time_usr").hide();
-            } else if (game_type == "blitz") {
+            } else if (game_type === "blitz") {
                 $(".chess_information .chess_time_usr").show();
                 if (game.turn() === "b") {
                     self.reset(Math.round(another_user_time), Math.round(author_time));
@@ -508,7 +510,7 @@ odoo.define("chess.common", function(require) {
                 if (game.turn() === "w") {
                     self.reset(Math.round(author_time), Math.round(another_user_time));
                 }
-            } else if (game_type == "limited time") {
+            } else if (game_type === "limited time") {
                 $(".chess_information .chess_time_usr").show();
                 if (game.turn() === "b") {
                     self.reset(Math.round(another_user_time), Math.round(author_time));
@@ -544,7 +546,7 @@ odoo.define("chess.common", function(require) {
                             self.onSnapEnd();
                             first_step_move = false;
                         });
-                        if (self.system_status == "Game Over") {
+                        if (self.system_status === "Game Over") {
                             $(".chess_information .chess_time_usr").hide();
                             self.load_time_history(history, result);
                         } else {
@@ -582,7 +584,7 @@ odoo.define("chess.common", function(require) {
                 if (game.turn() === "b" && turn === "black") {
                     time_turn = "bb";
                 }
-                if (self.game_type == "blitz" || self.game_type == "limited time") {
+                if (self.game_type === "blitz" || self.game_type === "limited time") {
                     session
                         .rpc("/chess/game/load_time", {
                             game_id: self.game_id,
@@ -591,10 +593,10 @@ odoo.define("chess.common", function(require) {
                         .then(function(result) {
                             self.author_time = result.author_time;
                             self.another_user_time = result.another_user_time;
-                            if (self.system_status == "Game Over") {
+                            if (self.system_status === "Game Over") {
                                 if (
-                                    self.author_time == 0 ||
-                                    self.another_user_time == 0
+                                    self.author_time === 0 ||
+                                    self.another_user_time === 0
                                 ) {
                                     var status = "";
                                     if (
@@ -619,8 +621,8 @@ odoo.define("chess.common", function(require) {
                                     self.showConfirmation(history, resultat);
                                 }
                             } else if (
-                                self.author_time == 0 ||
-                                self.another_user_time == 0
+                                self.author_time === 0 ||
+                                self.another_user_time === 0
                             ) {
                                 self.onGameType(
                                     self.game_type,
@@ -661,7 +663,7 @@ odoo.define("chess.common", function(require) {
         showConfirmation: function(history, result) {
             var self = this;
             if (this.history) {
-                if (self.game_type == "blitz") {
+                if (self.game_type === "blitz") {
                     if (game.turn() === "b") {
                         self.clockClicked(1);
                     }
@@ -670,7 +672,7 @@ odoo.define("chess.common", function(require) {
                     }
                 }
 
-                if (self.game_type == "limited time" && start_time_refer) {
+                if (self.game_type === "limited time" && start_time_refer) {
                     if (game.turn() === "b") {
                         self.clockClicked(1);
                     }
@@ -680,11 +682,11 @@ odoo.define("chess.common", function(require) {
                 }
                 start_time_refer = false;
                 self.onSnapEnd();
-                if (result.type == "system") {
+                if (result.type === "system") {
                     switch (result.data.status) {
                         case "surrender":
                             {
-                                if (result.data.user == self.author_name) {
+                                if (result.data.user === self.author_name) {
                                     var status = "Game over, you lose. You surrender";
                                     self.user_surrender(status);
                                     self.game_over_status = self.author_color;
@@ -700,7 +702,7 @@ odoo.define("chess.common", function(require) {
                             break;
                         case "draw":
                             {
-                                if (result.data.user != self.author_name) {
+                                if (result.data.user !== self.author_name) {
                                     setTimeout(function() {
                                         swal(
                                             {
@@ -774,13 +776,13 @@ odoo.define("chess.common", function(require) {
             var self = this;
             board.position(game.fen());
             var game_queue = false;
-            if (game.turn() === "w" && turn == "white") {
+            if (game.turn() === "w" && turn === "white") {
                 game_queue = true;
             }
-            if (game.turn() === "b" && turn == "black") {
+            if (game.turn() === "b" && turn === "black") {
                 game_queue = true;
             }
-            if (game_queue == true) {
+            if (game_queue === true) {
                 if (
                     game.game_over() === true ||
                     (game.turn() === "w" && piece.search(/^b/) !== -1) ||
@@ -806,7 +808,7 @@ odoo.define("chess.common", function(require) {
                 return "snapback";
             }
 
-            if (self.history_loading != true) {
+            if (self.history_loading !== true) {
                 var data = {source: source, target: target, fen: game.fen()};
                 var message = {type: "move", data: data};
                 new_game.send_move(message);
@@ -824,8 +826,8 @@ odoo.define("chess.common", function(require) {
             session
                 .rpc("/chess/game/send/", {message: message, game_id: self.game_id})
                 .then(function(result) {
-                    if (result == "move") {
-                        if (self.game_type == "blitz") {
+                    if (result === "move") {
+                        if (self.game_type === "blitz") {
                             if (game.turn() === "w") {
                                 var data = {
                                     status: "time",
@@ -851,7 +853,7 @@ odoo.define("chess.common", function(require) {
                                 }
                             }
                         }
-                        if (self.game_type == "limited time") {
+                        if (self.game_type === "limited time") {
                             if (game.turn() === "w") {
                                 self.reset(
                                     Math.round(self.another_user_time),
@@ -868,7 +870,7 @@ odoo.define("chess.common", function(require) {
                             }
                         }
                         first_step_move = false;
-                    } else if (result == "system") {
+                    } else if (result === "system") {
                         // Console.log("Send system message");
                     } else {
                         console.log("ERROR, please make the right move");
@@ -892,14 +894,14 @@ odoo.define("chess.common", function(require) {
             }
             var typea = "success",
                 check = "";
-            if (moveColor == "White") {
+            if (moveColor === "White") {
                 typea = "warning";
             }
             // Checkmate?
             if (game.in_checkmate() === true) {
                 if (
-                    (game.turn() === "b" && self.author_color == "black") ||
-                    (game.turn() === "w" && self.author_color == "white")
+                    (game.turn() === "b" && self.author_color === "black") ||
+                    (game.turn() === "w" && self.author_color === "white")
                 ) {
                     setTimeout(function() {
                         swal(
@@ -922,8 +924,8 @@ odoo.define("chess.common", function(require) {
                     status = moveColor + " is in checkmate. You lose";
                 }
                 if (
-                    (game.turn() === "b" && self.author_color == "white") ||
-                    (game.turn() === "w" && self.author_color == "black")
+                    (game.turn() === "b" && self.author_color === "white") ||
+                    (game.turn() === "w" && self.author_color === "black")
                 ) {
                     setTimeout(function() {
                         swal(
@@ -947,7 +949,7 @@ odoo.define("chess.common", function(require) {
                 }
                 self.game_over_status = moveColor;
                 $(".chess_information .chess_time_usr").hide();
-                if (self.game_status != "Game Over") {
+                if (self.game_status !== "Game Over") {
                     self.game_over(moveColor + " is in checkmate.");
                 }
                 self.user_surrender(status);
@@ -974,7 +976,7 @@ odoo.define("chess.common", function(require) {
                     );
                 }, 100);
                 self.game_over_status = "drawn";
-                if (self.game_status != "Game Over") {
+                if (self.game_status !== "Game Over") {
                     self.game_over("Game Over, is drawn position");
                 }
             }
@@ -983,7 +985,7 @@ odoo.define("chess.common", function(require) {
                 status = moveColor + " to move";
                 // Check?
                 if (game.in_check() === true) {
-                    if (self.check_status == false) {
+                    if (self.check_status === false) {
                         status += ", " + moveColor + " is in check";
                         setTimeout(function() {
                             swal({
@@ -1001,7 +1003,7 @@ odoo.define("chess.common", function(require) {
                 }
             }
             // Surrender?
-            if (this.surrender_status == false) {
+            if (this.surrender_status === false) {
                 $(".end_game #surrender").click(function() {
                     this.surrender_status = true;
                     setTimeout(function() {
@@ -1094,7 +1096,7 @@ odoo.define("chess.common", function(require) {
         },
 
         game_over: function(status) {
-            if (this.system_status == "Game Over") {
+            if (this.system_status === "Game Over") {
                 return false;
             }
             $(".chess_information .chess_time_usr").hide();
@@ -1140,14 +1142,14 @@ odoo.define("chess.common", function(require) {
             this.OldFenPosition = oldArr.join("");
             this.NewFenPosition = newArr.join("");
             /* If not the same as the length of the old with the new, then removed figure*/
-            if (this.lenOldFen != this.NewFenPosition.length) {
+            if (this.lenOldFen !== this.NewFenPosition.length) {
                 var WhiteArr = [],
                     BlackArr = [];
                 var pattern = /[A-Z]/;
                 for (var i = 0; i < oldArr.length; i++) {
                     var elem = oldArr[i];
                     var index = newArr.indexOf(elem);
-                    if (index != -1) {
+                    if (index !== -1) {
                         newArr.splice(index, 1);
                     } else if (pattern.test(elem)) {
                         WhiteArr.push(elem);
@@ -1258,8 +1260,8 @@ odoo.define("chess.common", function(require) {
             this.clearInterval();
             this.removeClass(this.currentClock, "expired");
             if (
-                (game.turn() === "b" && turn == "black") ||
-                (game.turn() === "w" && turn == "black")
+                (game.turn() === "b" && turn === "black") ||
+                (game.turn() === "w" && turn === "black")
             ) {
                 self.reset(
                     Math.round(self.another_user_time),
@@ -1267,8 +1269,8 @@ odoo.define("chess.common", function(require) {
                 );
             }
             if (
-                (game.turn() === "w" && turn == "white") ||
-                (game.turn() === "b" && turn == "white")
+                (game.turn() === "w" && turn === "white") ||
+                (game.turn() === "b" && turn === "white")
             ) {
                 self.reset(
                     Math.round(self.author_time),
@@ -1278,20 +1280,20 @@ odoo.define("chess.common", function(require) {
         },
 
         clockClicked: function(id) {
-            if (game.game_over() == false) {
+            if (game.game_over() === false) {
                 var self = this;
-                if (this.status == "stopped") {
+                if (this.status === "stopped") {
                     /* Start the clock */
                     this.status = "running";
                     this.currentClock = id;
                     this.setInterval();
                     this.addClass(this.currentClock, "running");
-                } else if (this.status == "running") {
+                } else if (this.status === "running") {
                     /* Clock is already running */
-                    if (this.currentClock == id) {
+                    if (this.currentClock === id) {
                         /* Change the current clock */
                         this.removeClass(this.currentClock, "running");
-                        if (this.currentClock == 0) {
+                        if (this.currentClock === 0) {
                             this.currentClock = 1;
                         } else {
                             this.currentClock = 0;
@@ -1322,7 +1324,7 @@ odoo.define("chess.common", function(require) {
                 new_game.times[new_game.currentClock]
             );
             /* Check if zero has been reached */
-            if (new_game.times[new_game.currentClock] == 0) {
+            if (new_game.times[new_game.currentClock] === 0) {
                 /* Stop the interval */
                 new_game.clearInterval();
                 new_game.status = "expired";
@@ -1375,7 +1377,7 @@ odoo.define("chess.common", function(require) {
                     not_win_user_id = another_player_color;
                     time_limited = true;
                 }
-                if (self.system_status != "Game Over") {
+                if (self.system_status !== "Game Over") {
                     new_game.game_over(status);
                 }
             }
@@ -1405,12 +1407,12 @@ odoo.define("chess.common", function(require) {
 
         updateClock: function(id, time) {
             var self = this;
-            element = document.getElementById("clock" + id);
+            var element = document.getElementById("clock" + id);
             var formattedTime = this.formatTime(time);
             element.innerHTML = formattedTime;
 
             /* Change the class if time is up */
-            if (time == 0) {
+            if (time === 0) {
                 this.addClass(id, "expired");
                 this.clearInterval();
             } else {
@@ -1420,12 +1422,12 @@ odoo.define("chess.common", function(require) {
         },
 
         addClass: function(id, className) {
-            element = document.getElementById("clock" + id);
+            var element = document.getElementById("clock" + id);
             element.className += " " + className;
         },
 
         removeClass: function(id, className) {
-            element = document.getElementById("clock" + id);
+            var element = document.getElementById("clock" + id);
             var exp = new RegExp(className);
             element.className = element.className.replace(exp, "");
         },
@@ -1439,7 +1441,7 @@ odoo.define("chess.common", function(require) {
             hours = Math.floor(hours % 24);
 
             var result = "";
-            if (days != 0) {
+            if (days !== 0) {
                 result += days + "d ";
             }
             if (hours < 10) {

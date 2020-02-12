@@ -1,3 +1,4 @@
+/* eslint-disable */
 odoo.define("chess.tournament_frontend", function(require) {
     "use strict";
     var Widget = require("web.Widget");
