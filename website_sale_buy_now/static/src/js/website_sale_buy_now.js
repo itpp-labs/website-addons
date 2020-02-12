@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    "use strict";
     $(".oe_website_sale .a-submit-buy-now")
         .off("click")
         .on("click", function() {
