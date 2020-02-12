@@ -1,4 +1,5 @@
 odoo.define("website_event_attendee_fields.registration_form", function(require) {
+    "use strict";
     var ajax = require("web.ajax");
     var core = require("web.core");
     var website_event = require("website_event.website_event");
