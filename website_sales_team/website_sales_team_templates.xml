@@ -1,23 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <openerp><data>
 
-<template id="website.editor_head" inherit_id="website.layout" name="Editor" groups="base.group_website_publisher,base.group_website_designer,website_sales_team.group_team_manager">
+<template
+            id="website.editor_head"
+            inherit_id="website.layout"
+            name="Editor"
+            groups="base.group_website_publisher,base.group_website_designer,website_sales_team.group_team_manager"
+        >
     <xpath expr='//t[@t-call-assets="website.assets_frontend"][@t-js]' position="after">
-        <t t-call-assets="website.assets_editor" t-js="false"/>
+        <t t-call-assets="website.assets_editor" t-js="false" />
     </xpath>
-    <xpath expr='//t[@t-call-assets="website.assets_frontend"][@t-css]' position="after">
-        <t t-call-assets="website.assets_editor" t-css="false"/>
+    <xpath
+                expr='//t[@t-call-assets="website.assets_frontend"][@t-css]'
+                position="after"
+            >
+        <t t-call-assets="website.assets_editor" t-css="false" />
     </xpath>
 </template>
 
 <template id="product" inherit_id="website_sale.product">
     <xpath expr="//hr[@t-if='product.description_sale']" position="before">
         <t t-if="product.section_id">
-            <hr/>
+            <hr />
             <div>
-                <p><span>Seller:</span> <a t-attf-href="/seller/#{slug(product.section_id)}" t-field="product.section_id"/></p>
+                <p><span>Seller:</span> <a
+                                t-attf-href="/seller/#{slug(product.section_id)}"
+                                t-field="product.section_id"
+                            /></p>
                 <!--<p><span>Rating:</span> ...</p>-->
-                <p><span>Seller's shop:</span> <a t-attf-href="/shop/#{slug(product.section_id)}"><span t-esc="len(product.section_id.product_ids)"/> items</a></p>
+                <p><span>Seller's shop:</span> <a
+                                t-attf-href="/shop/#{slug(product.section_id)}"
+                            ><span
+                                    t-esc="len(product.section_id.product_ids)"
+                                /> items</a></p>
             </div>
         </t>
     </xpath>
@@ -25,11 +40,15 @@
 
 <template id="seller" name="Seller">
   <t t-call="website.layout">
-      <t t-set="additional_title" t-value="seller.name"/>
+      <t t-set="additional_title" t-value="seller.name" />
       <div id="wrap">
         <div class="container oe_website_sale">
-            <h1 t-field="seller.name"/>
-            <div t-field="seller.website_description" class="oe_structure mt16" id="seller_description"/>
+            <h1 t-field="seller.name" />
+            <div
+                            t-field="seller.website_description"
+                            class="oe_structure mt16"
+                            id="seller_description"
+                        />
         </div>
       </div>
   </t>
@@ -40,12 +59,14 @@
     <field name="email_from">${(object.user_id.email or '')|safe}</field>
     <field name="subject">Order details ${object.date_order}</field>
     <field name="partner_to">${object.partner_id.id}</field>
-    <field name="model_id" ref="sale.model_sale_order"/>
-    <field name="auto_delete" eval="True"/>
+    <field name="model_id" ref="sale.model_sale_order" />
+    <field name="auto_delete" eval="True" />
     <!--<field name="report_template" ref="report_sale_order"/>-->
     <!--<field name="report_name">${(object.name or '').replace('/','_')}_${object.state == 'draft' and 'draft' or ''}</field>-->
     <field name="lang">${object.partner_id.lang}</field>
-    <field name="body_html"><![CDATA[
+    <field
+                name="body_html"
+            ><![CDATA[
     <p>Your order is accepted!</p>
 
     <p>You specified contact information as follows:</p>

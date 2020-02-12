@@ -5,7 +5,7 @@
         <li><a href="#editor-media-file" data-toggle="tab">File</a></li>
     </t>
     <t t-jquery="#editor-media-video" t-operation="after">
-        <div class="tab-pane fade" id="editor-media-file"></div>
+        <div class="tab-pane fade" id="editor-media-file" />
     </t>
     <t t-jquery="li.search:has(.pager)" t-operation="after">
         <li class="search-file hidden" style="float: right;">
@@ -26,37 +26,52 @@
                     File
                 </label>
             </h4>
-            <input class="page form-control url-source"
-                   id="link-file" type="hidden"/>
+            <input class="page form-control url-source" id="link-file" type="hidden" />
         </li>
     </t>
 </t>
 
 <t t-name="website.editor.dialog.file">
     <div>
-        <form method="POST"
-              action="/website/attach_file"
-              enctype="multipart/form-data"
-              target="fileframe"
-              class="form-inline">
+        <form
+                method="POST"
+                action="/website/attach_file"
+                enctype="multipart/form-data"
+                target="fileframe"
+                class="form-inline"
+            >
             <div class="well">
                 <div class="form-group" style="margin-right:16px;">
-                    <input type="file" name="upload" style="position: absolute; opacity: 0; width: 1px; height: 1px;"/>
-                    <button type="button" class="btn btn-primary filepicker">Upload new file</button>
-                    <button type="button" class="btn hidden wait" disabled="disabled">Uploading...</button>
+                    <input
+                            type="file"
+                            name="upload"
+                            style="position: absolute; opacity: 0; width: 1px; height: 1px;"
+                        />
+                    <button
+                            type="button"
+                            class="btn btn-primary filepicker"
+                        >Upload new file</button>
+                    <button
+                            type="button"
+                            class="btn hidden wait"
+                            disabled="disabled"
+                        >Uploading...</button>
                 </div>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="overwrite"/> Overwrite existing file
+                        <input
+                                type="checkbox"
+                                name="overwrite"
+                            /> Overwrite existing file
                     </label>
                 </div>
             </div>
-            <input type="hidden" name="func"/>
-            <div class="help-block"/>
-            <div class="existing-attachments-files"/>
+            <input type="hidden" name="func" />
+            <div class="help-block" />
+            <div class="existing-attachments-files" />
         </form>
     </div>
-    <iframe src="about:blank" name="fileframe" class="hidden"/>
+    <iframe src="about:blank" name="fileframe" class="hidden" />
 </t>
 
 
@@ -77,12 +92,21 @@
 
             <tbody>
                 <tr class="file" t-foreach="cur_records" t-as="r">
-                  <td class="text-left"><t t-esc="r.datas_fname"/></td>
-                  <td class="text-right"><t t-esc="r.file_size"/></td>
-                  <td class="text-right"><t t-esc="r.write_date"/></td>
-                  <td class="text-center"><t t-esc="r.website_file_count and r.website_file_count + 'x' or '-'"/></td>
-                  <td class="text-center"><a class="download" t-att-href="r.website_file_url" t-att-title="r.datas_fname"><div><i class="fa fa-arrow-circle-down"></i></div></a></td>
-                  <td class="text-center"><a href="#"><i class="fa fa-trash existing-attachment-file-remove" t-att-data-id="r.id"></i></a></td>
+                  <td class="text-left"><t t-esc="r.datas_fname" /></td>
+                  <td class="text-right"><t t-esc="r.file_size" /></td>
+                  <td class="text-right"><t t-esc="r.write_date" /></td>
+                  <td class="text-center"><t
+                                t-esc="r.website_file_count and r.website_file_count + 'x' or '-'"
+                            /></td>
+                  <td class="text-center"><a
+                                class="download"
+                                t-att-href="r.website_file_url"
+                                t-att-title="r.datas_fname"
+                            ><div><i class="fa fa-arrow-circle-down" /></div></a></td>
+                  <td class="text-center"><a href="#"><i
+                                    class="fa fa-trash existing-attachment-file-remove"
+                                    t-att-data-id="r.id"
+                                /></a></td>
                 </tr>
             </tbody>
         </table>
@@ -95,7 +119,7 @@
         <ul t-foreach="views" t-as="view">
             <li>
                 <a t-attf-href="/web#model=ir.ui.view&amp;id=#{view.id}">
-                    <t t-esc="view.name"/>
+                    <t t-esc="view.name" />
                 </a>
             </li>
         </ul>

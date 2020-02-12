@@ -1,31 +1,34 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="iso-8859-1" ?>
 <openerp>
     <data>
         <template id="report_proposal">
             <t t-set="head">
                 <t t-foreach="docs" t-as="o">
-                    <t t-raw="o.head"/>
+                    <t t-raw="o.head" />
                 </t>
             </t>
             <t t-call="report.html_container">
                 <t t-foreach="docs" t-as="o">
                     <div class="header">
-                        <t t-raw="o.page_header"/>
+                        <t t-raw="o.page_header" />
                     </div>
                     <div class="page">
-                        <div t-field="o.website_description"/>
+                        <div t-field="o.website_description" />
                         <div class="clearfix">
-                            <img class="pull-right" t-attf-src="data:image/png;base64,#{o.sign}"/>
+                            <img
+                                class="pull-right"
+                                t-attf-src="data:image/png;base64,#{o.sign}"
+                            />
                         </div>
                         <div class="clearfix">
-                            <div class="pull-right" t-field="o.signer"/>
+                            <div class="pull-right" t-field="o.signer" />
                         </div>
                         <div class="clearfix">
-                            <div class="pull-right" t-field="o.sign_date"/>
+                            <div class="pull-right" t-field="o.sign_date" />
                         </div>
                     </div>
                     <div class="footer">
-                        <t t-raw="o.page_footer"/>
+                        <t t-raw="o.page_footer" />
                     </div>
                 </t>
             </t>
@@ -47,22 +50,25 @@
         -->
         <template id="report_proposal_template">
             <t t-set="head">
-                <link rel='stylesheet' href='/website_proposal/static/src/css/website_proposal_template.css'/>
+                <link
+                    rel='stylesheet'
+                    href='/website_proposal/static/src/css/website_proposal_template.css'
+                />
                 <t t-foreach="docs" t-as="o">
-                    <t t-raw="o.head"/>
+                    <t t-raw="o.head" />
                 </t>
             </t>
 
             <t t-call="report.html_container">
                 <t t-foreach="docs" t-as="o">
                     <div class="header">
-                        <t t-raw="o.page_header"/>
+                        <t t-raw="o.page_header" />
                     </div>
                     <div class="page">
-                        <div t-field="o.website_description"/>
+                        <div t-field="o.website_description" />
                     </div>
                     <div class="footer">
-                        <t t-raw="o.page_footer"/>
+                        <t t-raw="o.page_footer" />
                     </div>
                 </t>
             </t>

@@ -1,33 +1,37 @@
-$(document).ready(function () {
-    if (! $('#cart_products') ) {
+$(document).ready(function() {
+    if (!$("#cart_products")) {
         return;
     }
 
-    var input_selector = 'input[data-product-id]';
+    var input_selector = "input[data-product-id]";
 
-    function check(el){
-        if (!el){
+    function check(el) {
+        if (!el) {
             el = input_selector;
         }
 
         var available = true;
-        $(el).each(function(){
+        $(el).each(function() {
             var quantity = parseInt($(this).val());
-            var $tr = $(this).parent().parent().parent();
-            var virtual_available = parseInt($tr.find('[name="virtual_available"]').text());
+            var $tr = $(this)
+                .parent()
+                .parent()
+                .parent();
+            var virtual_available = parseInt(
+                $tr.find('[name="virtual_available"]').text()
+            );
             var enough = quantity <= virtual_available;
-            $tr.toggleClass('warning', !enough);
+            $tr.toggleClass("warning", !enough);
             if (!enough) {
                 available = false;
             }
         });
-        $('a[href$="/shop/checkout"]').toggleClass('disabled', !available);
+        $('a[href$="/shop/checkout"]').toggleClass("disabled", !available);
     }
 
-    $(input_selector).on('change', function(){
+    $(input_selector).on("change", function() {
         check(this);
     });
 
     check();
-
 });

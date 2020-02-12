@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <openerp>
 <data>
 
@@ -8,14 +8,21 @@
 </record>
 
 <template id="product_quantity" inherit_id="website_sale.product_quantity">
-  <xpath expr="//div[@class='css_quantity input-group oe_website_spinner']" position="attributes">
-    <attribute name="t-att-style">not product.select_quantity and 'display:none' or ''</attribute>
+  <xpath
+                expr="//div[@class='css_quantity input-group oe_website_spinner']"
+                position="attributes"
+            >
+    <attribute
+                    name="t-att-style"
+                >not product.select_quantity and 'display:none' or ''</attribute>
   </xpath>
 </template>
 
 <template id="cart" inherit_id="website_sale.cart">
     <xpath expr="//div[@class='input-group oe_website_spinner']" position="attributes">
-      <attribute name="t-att-style">line.product_id.sale_one_only and 'display:none' or ''</attribute>
+      <attribute
+                    name="t-att-style"
+                >line.product_id.sale_one_only and 'display:none' or ''</attribute>
     </xpath>
     <xpath expr="//div[@class='input-group oe_website_spinner']" position="after">
       <t t-if="line.product_id.sale_one_only">

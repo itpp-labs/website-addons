@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_event_registration_ticket_form" model="ir.ui.view">
         <field name="name">event.registration.form.inherit</field>
@@ -6,13 +6,16 @@
         <field name="inherit_id" ref="event.view_event_registration_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='sale_order_line_id']" position="after">
-                <field name="is_transferring"/>
-                <field name="was_transferred"/>
-                <field name="origin_registration"/>
+                <field name="is_transferring" />
+                <field name="was_transferred" />
+                <field name="origin_registration" />
             </xpath>
             <xpath expr="//sheet/*[1]" position="before">
                 <!-- put it before first element in the form -->
-                <p attrs="{'invisible': [('is_transferring', '=', False)]}" style="color: red">Ticket transferring was started, but haven't finished!</p>
+                <p
+                    attrs="{'invisible': [('is_transferring', '=', False)]}"
+                    style="color: red"
+                >Ticket transferring was started, but haven't finished!</p>
             </xpath>
         </field>
     </record>
