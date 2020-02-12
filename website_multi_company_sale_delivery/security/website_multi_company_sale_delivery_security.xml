@@ -21,7 +21,11 @@
     <field name="name">Delivery carrier read access user</field>
     <field name="active" eval="False" />
   </record>
-  <record id="delivery_carrier_read_user" model="res.users">
+  <record
+        id="delivery_carrier_read_user"
+        model="res.users"
+        context="{'no_reset_password': True}"
+    >
     <field
             name="name"
         >Technical user for website_multi_company_sale_delivery module</field>
