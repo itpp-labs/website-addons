@@ -25,7 +25,7 @@ class QueryURL(object):
                 else:
                     lst.append(werkzeug.url_encode([(k, v)]))
         if lst:
-            path += "?" + "&".join(l)
+            path += "?" + "&".join(lst)
         return path
 
 
