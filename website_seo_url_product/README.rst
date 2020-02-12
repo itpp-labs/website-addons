@@ -6,7 +6,7 @@ Customisable URLs for product pages, that don't depend on product name and produ
 
     /shop/product/configurable-seo-url-for-the-best-product
 
-	  instead of
+    instead of
 
     /shop/product/name-of-product-123
 
