@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    "use strict";
     if (!$("#cart_products")) {
         return;
     }
@@ -12,13 +13,14 @@ $(document).ready(function() {
 
         var available = true;
         $(el).each(function() {
-            var quantity = parseInt($(this).val());
+            var quantity = parseInt($(this).val(), 10);
             var $tr = $(this)
                 .parent()
                 .parent()
                 .parent();
             var virtual_available = parseInt(
-                $tr.find('[name="virtual_available"]').text()
+                $tr.find('[name="virtual_available"]').text(),
+                10
             );
             var enough = quantity <= virtual_available;
             $tr.toggleClass("warning", !enough);
