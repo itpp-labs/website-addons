@@ -30,7 +30,7 @@ odoo.define('chess.chesschat', function (require) {
         },
 
         on_notification_do: function (channel, message) {
-            var channel = JSON.parse(channel);
+            channel = JSON.parse(channel);
             var error = false;
             if (Array.isArray(channel) && channel[1] === 'chess.game.chat') {
                 try {
@@ -52,16 +52,10 @@ odoo.define('chess.chesschat', function (require) {
             //when game to finished is coockies is delete
             var cookie = utils.get_cookie(cookie_name);
             var ready;
-            if (!cookie) {
-                ready = session.rpc("/chess/game/chat/init", {game_id: self.game_id}).then(function (result) {
-                    self.author_name = result.author_name; // current user
-                    self.author_id = result.author_id;
-                    self.game_id = result.game_id;
-                    set_cookie(cookie_name, JSON.stringify({'game_id': self.game_id, 'author_name': self.author_name, 'author_id': self.author_id}), 30*24*60*60);
-                });
-            } else {
+            if (cookie) {
                 var game = JSON.parse(cookie);
-                self.author_name = game.author_name; // current user
+                // current user
+                self.author_name = game.author_name;
                 self.author_id = game.author_id;
                 self.game_id = game.game_id;
                 ready = session.rpc("/chess/game/chat/history", {game_id: game.game_id}).then(function (history) {
@@ -71,17 +65,26 @@ odoo.define('chess.chesschat', function (require) {
                         console.log("Error. Not load history. (chat)");
                     }
                 });
+            } else {
+                ready = session.rpc("/chess/game/chat/init", {game_id: self.game_id}).then(function (result) {
+                    // current user
+                    self.author_name = result.author_name;
+                    self.author_id = result.author_id;
+                    self.game_id = result.game_id;
+                    set_cookie(cookie_name, JSON.stringify({'game_id': self.game_id, 'author_name': self.author_name, 'author_id': self.author_id}), 30*24*60*60);
+                });
             }
             return ready;
         },
 
         load_history: function(history){
-            if(this.history) {
-                history.forEach(function (item, i, history) {
+            if (this.history) {
+                history.forEach(function (item, i) {
                     $(".chat #window_chat").append("<p><span class='user'>" + (item.author_name) +
                         ":</span> " + (item.message.replace(/&/gm,'&amp;').replace(/</gm,'&lt;').replace(/>/gm,'&gt;')) + "<br> <span class='time_message'>" +
                         (item.date_message) + "</span></p>");
-                    $('.chat .user').seedColors(); //the random color current user
+                    //the random color current user
+                    $('.chat .user').seedColors();
                     $(".chat #window_chat").each(function () {
                         this.scrollTop = this.scrollHeight;
                     });
@@ -135,7 +138,7 @@ odoo.define('chess.chesschat', function (require) {
         },
 
         keydown: function(e) {
-            if (e.keyCode == 13 && e.ctrlKey){
+            if (e.keyCode === 13 && e.ctrlKey){
                this.select_message();
             }
         },
@@ -149,7 +152,7 @@ odoo.define('chess.chesschat', function (require) {
             var message = {};
             message.data = $(".chat #message_text").val();
 
-            if (message.data == '' || message.data == ' ') {
+            if (message.data === '' || message.data === ' ') {
                 $('.chat #window_chat')
                 .append('<div class="error"><span class="fa fa-times">ERROR. Input message.</span></div>');
                 $(".chat #window_chat").each(function () {
@@ -170,14 +173,15 @@ odoo.define('chess.chesschat', function (require) {
             name + '=' + value,
             'path=/',
             'max-age=' + ttl,
-            'expires=' + new Date(new Date().getTime() + ttl*1000).toGMTString()
+            'expires=' + new Date(new Date().getTime() + (ttl*1000)).toGMTString()
         ].join(';');
     };
     $(document).ready(function() {
-    if (window.model_game_id===undefined) {
+    if (typeof window.model_game_id === "undefined") {
         return false;
     }
-         var my_chat = new ChessChat.Conversation(model_game_id, model_dbname, model_author_id);
+        /*global model_game_id, model_dbname, model_author_id*/
+        var my_chat = new ChessChat.Conversation(model_game_id, model_dbname, model_author_id);
 
 
     $(".toggle_chat").click(function(){
@@ -214,7 +218,7 @@ odoo.define('chess.chesschat', function (require) {
 
     function openbox(id, toggler) {
         var div = document.getElementById(id);
-        if(div.style.display == 'block') {
+        if(div.style.display === 'block') {
             div.style.display = 'none';
             toggler.innerHTML = 'Setting';
         } else {
