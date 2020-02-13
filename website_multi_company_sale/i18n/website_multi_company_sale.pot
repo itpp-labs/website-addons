@@ -41,19 +41,19 @@ msgid "Country"
 msgstr ""
 
 #. module: website_multi_company_sale
-#: code:addons/website_multi_company_sale/models/payment_acquirer.py:20
+#: code:addons/website_multi_company_sale/models/payment_acquirer.py:34
 #, python-format
 msgid "Error! Only the company's websites are allowed"
 msgstr ""
 
 #. module: website_multi_company_sale
-#: code:addons/website_multi_company_sale/models/product_template.py:21
+#: code:addons/website_multi_company_sale/models/product_template.py:34
 #, python-format
 msgid "Error! Only the company's websites are allowed.                                         Leave the Company field empty if you want websites from different companies"
 msgstr ""
 
 #. module: website_multi_company_sale
-#: code:addons/website_multi_company_sale/models/product_pricelist.py:35
+#: code:addons/website_multi_company_sale/models/product_pricelist.py:39
 #, python-format
 msgid "Error! Only the company's websites are allowed.                     Leave the Company field empty or select corresponding company"
 msgstr ""
