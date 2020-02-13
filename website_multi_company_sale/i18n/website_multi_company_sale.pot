@@ -22,13 +22,13 @@ msgid "Allowed websites"
 msgstr ""
 
 #. module: website_multi_company_sale
-#: code:addons/website_multi_company_sale/models/payment_acquirer.py:22
+#: code:addons/website_multi_company_sale/models/payment_acquirer.py:36
 #, python-format
 msgid "Error! Only the company's websites are allowed"
 msgstr ""
 
 #. module: website_multi_company_sale
-#: code:addons/website_multi_company_sale/models/product_template.py:22
+#: code:addons/website_multi_company_sale/models/product_template.py:36
 #, python-format
 msgid "Error! Only the company's websites are allowed.                                         Leave the Company field empty if you want websites from different companies"
 msgstr ""
