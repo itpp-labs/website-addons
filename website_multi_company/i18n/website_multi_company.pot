@@ -15,7 +15,7 @@ msgstr ""
 
 #. module: website_multi_company
 #. openerp-web
-#: code:addons/website_multi_company/static/src/xml/web_editor.xml:7
+#: code:addons/website_multi_company/static/src/xml/web_editor.xml:11
 #, python-format
 msgid "Convert to Multi-Website"
 msgstr ""
@@ -26,7 +26,7 @@ msgid "Design Websites"
 msgstr ""
 
 #. module: website_multi_company
-#: code:addons/website_multi_company/models/website.py:43
+#: code:addons/website_multi_company/models/website.py:41
 #, python-format
 msgid "Don't use slash symbol for domain"
 msgstr ""
@@ -42,20 +42,20 @@ msgid "Empty list allows edit any website"
 msgstr ""
 
 #. module: website_multi_company
-#: code:addons/website_multi_company/models/res_users.py:35
+#: code:addons/website_multi_company/models/res_users.py:52
 #, python-format
 msgid "Error! You can select as editable only the allowed companies's websites - check the 'Editor on websites' field in preferences"
 msgstr ""
 
 #. module: website_multi_company
-#: code:addons/website_multi_company/models/ir_ui_view.py:25
+#: code:addons/website_multi_company/models/ir_ui_view.py:31
 #, python-format
 msgid "Following Websites don't have Multi Theme: %s\n"
 " You need to update them first"
 msgstr ""
 
 #. module: website_multi_company
-#: code:addons/website_multi_company/models/ir_ui_view.py:35
+#: code:addons/website_multi_company/models/ir_ui_view.py:45
 #, python-format
 msgid "Following multi-themes don't have Default Theme as Sub-Theme: %s\n"
 " You need to update them first"
@@ -83,13 +83,13 @@ msgid "Multi-theme"
 msgstr ""
 
 #. module: website_multi_company
-#: code:addons/website_multi_company/models/website.py:45
+#: code:addons/website_multi_company/models/website.py:43
 #, python-format
 msgid "Not a valid domain"
 msgstr ""
 
 #. module: website_multi_company
-#: code:addons/website_multi_company/models/ir_ui_view.py:19
+#: code:addons/website_multi_company/models/ir_ui_view.py:21
 #, python-format
 msgid "Oops, Something is wrong: Default theme is not found. Try to update module website_multi_theme"
 msgstr ""
