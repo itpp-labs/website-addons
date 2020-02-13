@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
   <data>
     <record id="view_new_chess_game" model="ir.ui.view">
@@ -6,13 +6,13 @@
       <field name="model">chess.game</field>
       <field name="arch" type="xml">
         <tree create="false">
-          <field name="game_type" string="Game Type"/>
-          <field name="date_start" string ="Start Date" />
-          <field name="first_user_id" string="User Name"/>
-          <field name="first_color_figure" string="Figure Color"/>
-          <field name="second_user_time" string="Time"/>
-          <button name="accept_chess_game" string="Accept" type="object"/>
-          <button name="refuse_chess_game" string="Refuse" type="object"/>
+          <field name="game_type" string="Game Type" />
+          <field name="date_start" string="Start Date" />
+          <field name="first_user_id" string="User Name" />
+          <field name="first_color_figure" string="Figure Color" />
+          <field name="second_user_time" string="Time" />
+          <button name="accept_chess_game" string="Accept" type="object" />
+          <button name="refuse_chess_game" string="Refuse" type="object" />
         </tree>
       </field>
     </record>
@@ -24,10 +24,10 @@
         <tree create="false">
           <field name="game_type" stating="Game Type" />
           <field name="date_start" string="Start Date" />
-          <field name="first_user_id" string="User Name"/>
-          <field name="first_color_figure" string="Figure Color"/>
-          <field name="second_user_time" string="Time"/>
-          <button name="open_chess_game" string="Go to the Game" type="object"/>
+          <field name="first_user_id" string="User Name" />
+          <field name="first_color_figure" string="Figure Color" />
+          <field name="second_user_time" string="Time" />
+          <button name="open_chess_game" string="Go to the Game" type="object" />
         </tree>
       </field>
     </record>
@@ -37,11 +37,11 @@
       <field name="model">chess.game</field>
       <field name="arch" type="xml">
         <tree create="false">
-          <field name="game_type" string="Game Type"/>
-          <field name="date_start" string="Start Date"/>
+          <field name="game_type" string="Game Type" />
+          <field name="date_start" string="Start Date" />
           <field name="date_finish" string="Finish Date" />
-          <field name="first_user_id" string="First User Name"/>
-          <field name="second_user_id" string="Second User Name"/>
+          <field name="first_user_id" string="First User Name" />
+          <field name="second_user_id" string="Second User Name" />
         </tree>
       </field>
     </record>
@@ -51,9 +51,9 @@
       <field name="model">chess.game</field>
       <field name="arch" type="xml">
         <tree create="false">
-          <field name="game_type" string="Game Type"/>
+          <field name="game_type" string="Game Type" />
           <field name="date_start" string="Start Date" />
-          <field name="second_user_id" string="User Name"/>
+          <field name="second_user_id" string="User Name" />
         </tree>
       </field>
     </record>
@@ -63,12 +63,12 @@
       <field name="model">chess.game</field>
       <field name="arch" type="xml">
         <tree create="false">
-          <field name="game_type" string="Game Type"/>
+          <field name="game_type" string="Game Type" />
           <field name="date_start" string="Start Date" />
-          <field name="second_user_id" string="User Name"/>
-          <field name="second_color_figure" string="Figure Color"/>
-          <field name="second_user_time" string="Time"/>
-          <button name="cancel_chess_game" string="Cancel" type="object"/>
+          <field name="second_user_id" string="User Name" />
+          <field name="second_color_figure" string="Figure Color" />
+          <field name="second_user_time" string="Time" />
+          <button name="cancel_chess_game" string="Cancel" type="object" />
         </tree>
       </field>
     </record>
@@ -78,12 +78,12 @@
       <field name="model">chess.game</field>
       <field name="arch" type="xml">
         <tree create="false">
-          <field name="game_type" string="Game Type"/>
-          <field name="date_start" string="Start Date"/>
-          <field name="second_user_id" string="User Name"/>
-          <field name="second_color_figure" string="Figure Color"/>
-          <field name="second_user_time" string="Time"/>
-          <field name="status" string="Status"/>
+          <field name="game_type" string="Game Type" />
+          <field name="date_start" string="Start Date" />
+          <field name="second_user_id" string="User Name" />
+          <field name="second_color_figure" string="Figure Color" />
+          <field name="second_user_time" string="Time" />
+          <field name="status" string="Status" />
         </tree>
       </field>
     </record>
@@ -100,9 +100,11 @@
       <field name="type">ir.actions.act_window</field>
       <field name="res_model">chess.game</field>
       <field name="view_type">form</field>
-      <field name="view_id" ref="chess.view_new_chess_game"/>
+      <field name="view_id" ref="chess.view_new_chess_game" />
       <field name="view_mode">tree</field>
-      <field name="domain">[('system_status', '=', 'Waiting'), ('first_user_id', '!=', uid)]</field>
+      <field
+                name="domain"
+            >[('system_status', '=', 'Waiting'), ('first_user_id', '!=', uid)]</field>
     </record>
 
     <record id="action_active_chess_game" model="ir.actions.act_window">
@@ -110,7 +112,7 @@
       <field name="type">ir.actions.act_window</field>
       <field name="res_model">chess.game</field>
       <field name="view_type">form</field>
-      <field name="view_id" ref="chess.view_active_chess_game"/>
+      <field name="view_id" ref="chess.view_active_chess_game" />
       <field name="view_mode">tree</field>
       <field name="domain">[('system_status', '=', 'Active game')]</field>
     </record>
@@ -120,9 +122,11 @@
       <field name="type">ir.actions.act_window</field>
       <field name="res_model">chess.game</field>
       <field name="view_type">form</field>
-      <field name="view_id" ref="chess.view_denied_chess_game"/>
+      <field name="view_id" ref="chess.view_denied_chess_game" />
       <field name="view_mode">tree</field>
-      <field name="domain">[('system_status', '=', 'Denied'), ('first_user_id', '=', uid)]</field>
+      <field
+                name="domain"
+            >[('system_status', '=', 'Denied'), ('first_user_id', '=', uid)]</field>
     </record>
 
     <record id="action_completed_chess_game" model="ir.actions.act_window">
@@ -130,7 +134,7 @@
       <field name="type">ir.actions.act_window</field>
       <field name="res_model">chess.game</field>
       <field name="view_type">form</field>
-      <field name="view_id" ref="chess.view_completed_chess_game"/>
+      <field name="view_id" ref="chess.view_completed_chess_game" />
       <field name="view_mode">tree</field>
       <field name="domain">[('system_status', '=', 'Game Over')]</field>
     </record>
@@ -140,9 +144,11 @@
       <field name="type">ir.actions.act_window</field>
       <field name="res_model">chess.game</field>
       <field name="view_type">form</field>
-      <field name="view_id" ref="chess.view_invitations_chess_game"/>
+      <field name="view_id" ref="chess.view_invitations_chess_game" />
       <field name="view_mode">tree</field>
-      <field name="domain">[('system_status', '=', 'Waiting'), ('first_user_id', '=', uid)]</field>
+      <field
+                name="domain"
+            >[('system_status', '=', 'Waiting'), ('first_user_id', '=', uid)]</field>
     </record>
 
     <record id="action_canceled_chess_game" model="ir.actions.act_window">
@@ -150,9 +156,11 @@
       <field name="type">ir.actions.act_window</field>
       <field name="res_model">chess.game</field>
       <field name="view_type">form</field>
-      <field name="view_id" ref="chess.view_canceled_chess_game"/>
+      <field name="view_id" ref="chess.view_canceled_chess_game" />
       <field name="view_mode">tree</field>
-      <field name="domain">[('system_status', '=', 'Canceled'), ('first_user_id', '=', uid)]</field>
+      <field
+                name="domain"
+            >[('system_status', '=', 'Canceled'), ('first_user_id', '=', uid)]</field>
     </record>
 
 
@@ -164,33 +172,41 @@
     </record>
 
 
-    <menuitem sequence="0" id="menu_chess" name="Chess"/>
+    <menuitem sequence="0" id="menu_chess" name="Chess" />
 
-    <menuitem id="menu_chess_content" parent="menu_chess"
-              name="Chess"/>
-    <menuitem id="menu_games_content" parent="menu_chess"
-              name="My Invitations"/>
-    <menuitem id="menu_all_games_content" parent="menu_chess"
-              name="Games"/>
+    <menuitem id="menu_chess_content" parent="menu_chess" name="Chess" />
+    <menuitem id="menu_games_content" parent="menu_chess" name="My Invitations" />
+    <menuitem id="menu_all_games_content" parent="menu_chess" name="Games" />
 
-    <menuitem id="menu_new_chess_content"
-              parent="menu_chess_content"
-
-              action="action_new_chess_game"/>
-    <menuitem id="menu_active_chess_content"
-              parent="menu_chess_content"
-              action="action_active_chess_game"/>
-    <menuitem id="menu_completed_chess_content"
-              parent="menu_chess_content"
-              action="action_completed_chess_game"/>
-    <menuitem id="menu_invitations_games_content"
-              parent="menu_games_content"
-              action="action_my_invitations_chess_game"/>
-    <menuitem id="menu_denied_games_content"
-              parent="menu_all_games_content"
-              action="action_denied_chess_game"/>
-    <menuitem id="menu_canceled_games_content"
-              parent="menu_all_games_content"
-              action="action_canceled_chess_game"/>
+    <menuitem
+            id="menu_new_chess_content"
+            parent="menu_chess_content"
+            action="action_new_chess_game"
+        />
+    <menuitem
+            id="menu_active_chess_content"
+            parent="menu_chess_content"
+            action="action_active_chess_game"
+        />
+    <menuitem
+            id="menu_completed_chess_content"
+            parent="menu_chess_content"
+            action="action_completed_chess_game"
+        />
+    <menuitem
+            id="menu_invitations_games_content"
+            parent="menu_games_content"
+            action="action_my_invitations_chess_game"
+        />
+    <menuitem
+            id="menu_denied_games_content"
+            parent="menu_all_games_content"
+            action="action_denied_chess_game"
+        />
+    <menuitem
+            id="menu_canceled_games_content"
+            parent="menu_all_games_content"
+            action="action_canceled_chess_game"
+        />
   </data>
 </odoo>

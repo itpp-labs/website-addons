@@ -6,31 +6,21 @@
     "images": ["images/website_multi_company_portal_main.png"],
     "version": "12.0.1.0.0",
     "application": False,
-
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "support": "apps@it-projects.info",
     "website": "https://it-projects.info/team/yelizariev",
     "license": "LGPL-3",
     "price": 9.00,
     "currency": "EUR",
-
-    "depends": [
-        "website_multi_company",
-        "portal",
-    ],
+    "depends": ["website_multi_company", "portal",],
     "external_dependencies": {"python": [], "bin": []},
-    "data": [
-    ],
-    "qweb": [
-    ],
-    "demo": [
-    ],
-
+    "data": [],
+    "qweb": [],
+    "demo": [],
     "post_load": None,
     "pre_init_hook": None,
     "post_init_hook": None,
     "uninstall_hook": None,
-
     "auto_install": False,
     "installable": False,
 }

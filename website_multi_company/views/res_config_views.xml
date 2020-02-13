@@ -1,17 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_website_config_settings" model="ir.ui.view">
         <field name="name">Multi-Website settings</field>
         <field name="model">res.config.settings</field>
-        <field name="inherit_id" ref="website.res_config_settings_view_form"/>
+        <field name="inherit_id" ref="website.res_config_settings_view_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='website_id']" position="attributes">
-                <attribute name="invisible"></attribute>
+                <attribute name="invisible" />
             </xpath>
             <xpath expr="//field[@name='favicon']/.." position="after">
                 <div class="row">
                     <label class="col-lg-3 o_light_label" for="website_homepage_id" />
-                    <field name="website_homepage_id"></field>
+                    <field name="website_homepage_id" />
                 </div>
             </xpath>
         </field>

@@ -79,7 +79,7 @@
 `1.2.1`
 -------
 
-- **Fix:** Emails were rendered with wrong company domain 
+- **Fix:** Emails were rendered with wrong company domain
 
 `1.2.0`
 -------
