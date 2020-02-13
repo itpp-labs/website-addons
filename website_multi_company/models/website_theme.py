@@ -49,7 +49,7 @@ class WebsiteTheme(models.Model):
         themes = self.search([("converted_theme_addon", "in", modules)])
         try:
             themes |= self.env.ref("website_multi_theme.theme_default")
-        except:
+        except Exception:
             pass
         return {
             "dependency_ids": [(6, 0, themes.ids)],
