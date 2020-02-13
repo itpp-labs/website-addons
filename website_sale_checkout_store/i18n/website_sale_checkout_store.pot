@@ -122,7 +122,7 @@ msgid "Pay Now <span class=\"fa fa-chevron-right\"/>"
 msgstr ""
 
 #. module: website_sale_checkout_store
-#: code:addons/website_sale_checkout_store/models/main_model.py:24
+#: code:addons/website_sale_checkout_store/models/main_model.py:31
 #, python-format
 msgid "Pay at store"
 msgstr ""
@@ -134,7 +134,7 @@ msgid "Pay now and get delivery"
 msgstr ""
 
 #. module: website_sale_checkout_store
-#: code:addons/website_sale_checkout_store/models/main_model.py:22
+#: code:addons/website_sale_checkout_store/models/main_model.py:29
 #: model:ir.model.fields,field_description:website_sale_checkout_store.field_res_config_settings__nobill_ship
 #: selection:res.config.settings,bill_ship_option:0
 #, python-format
@@ -163,7 +163,7 @@ msgid "Pickup and pay at store"
 msgstr ""
 
 #. module: website_sale_checkout_store
-#: code:addons/website_sale_checkout_store/models/main_model.py:29
+#: code:addons/website_sale_checkout_store/models/main_model.py:36
 #, python-format
 msgid "Pickup at store"
 msgstr ""
