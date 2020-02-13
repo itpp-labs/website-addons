@@ -1,4 +1,3 @@
-
 import odoo.tests
 
 
@@ -12,5 +11,5 @@ class TestUi(odoo.tests.HttpCase):
                 console.log('ok');
             }, 3000);
         """
-        link = '/web/login'
+        link = "/web/login"
         self.phantom_js(link, code, "", login="admin")

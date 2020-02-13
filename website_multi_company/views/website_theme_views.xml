@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
     <record id="view_website_theme_form" model="ir.ui.view">
@@ -8,17 +8,17 @@
             <form string="Multi-theme">
                 <sheet>
                     <group>
-                        <field name="name"/>
-                        <field name="converted_theme_addon"/>
-                        <field name="dependency_ids"
-                               widget="many2many_tags"
-                               />
-                        <field name="id" invisible="1"/>
-                        <field name="asset_ids"
-                               string="Views"
-                               widget="many2many_tags"
-                               context="{'default_theme_id': id}"
-                               domain="[('auto', '=', False)]"/>
+                        <field name="name" />
+                        <field name="converted_theme_addon" />
+                        <field name="dependency_ids" widget="many2many_tags" />
+                        <field name="id" invisible="1" />
+                        <field
+                            name="asset_ids"
+                            string="Views"
+                            widget="many2many_tags"
+                            context="{'default_theme_id': id}"
+                            domain="[('auto', '=', False)]"
+                        />
                     </group>
                 </sheet>
             </form>
@@ -30,8 +30,8 @@
         <field name="model">website.theme</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="name"/>
-                <field name="converted_theme_addon"/>
+                <field name="name" />
+                <field name="converted_theme_addon" />
             </tree>
         </field>
     </record>
@@ -48,6 +48,7 @@
         parent="website.menu_website_global_configuration"
         name="Multi-Themes"
         sequence="200"
-        action="website_theme_action"/>
+        action="website_theme_action"
+    />
 
 </odoo>

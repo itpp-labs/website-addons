@@ -6,25 +6,33 @@
             <style type="text/css">
               body.container {
               background: none;
-              background-image: url(<t t-raw="picture_url"/>);
+              background-image: url(<t t-raw="picture_url" />);
               background-size: cover;
               }
             </style>
           </t>
         </xpath>
       </template>
-      <template id="web_login_background_loginborder" priority="4" inherit_id="web.login_layout" name="loginborder">
+      <template
+            id="web_login_background_loginborder"
+            priority="4"
+            inherit_id="web.login_layout"
+            name="loginborder"
+        >
           <xpath expr="//div[hasclass('o_database_list')]" position="replace">
           <div class="o_database_list">
               <div class="text-center">
-                <img t-attf-src="/web/binary/company_logo{{ '?dbname='+db if db else '' }}"/>
+                <img
+                            t-attf-src="/web/binary/company_logo{{ '?dbname='+db if db else '' }}"
+                        />
               </div>
-              <t t-raw="0"/>
+              <t t-raw="0" />
               <div class="text-center" t-if="not disable_footer">
                   <t t-if="not disable_database_manager">
                     <a class="" href="/web/database/manager">Manage Databases</a> |
                   </t>
-                  <a href="https://www.odoo.com" target="_blank">Powered by <span>Odoo</span></a>
+                  <a href="https://www.odoo.com" target="_blank">Powered by <span
+                            >Odoo</span></a>
               </div>
           </div>
           </xpath>
@@ -32,7 +40,7 @@
             <attribute name="class">web_login_background</attribute>
         </xpath>
         <xpath expr="//div[hasclass('web_login_background')]/.." position="before">
-          <link rel="stylesheet" href="/web_login_background/static/css/login.css"/>
+          <link rel="stylesheet" href="/web_login_background/static/css/login.css" />
         </xpath>
       </template>
     </data>

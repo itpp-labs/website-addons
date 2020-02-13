@@ -1,18 +1,16 @@
-
-from random import choice
 import hashlib
+from random import choice
 
-from odoo import fields, api
-from odoo import models
+from odoo import api, fields, models
 
 
 def _attachment2url(att):
-    sha = hashlib.sha1(getattr(att, '__last_update').encode('utf-8')).hexdigest()[0:7]
-    return '/web/image/%s-%s' % (att.id, sha)
+    sha = hashlib.sha1(getattr(att, "__last_update").encode("utf-8")).hexdigest()[0:7]
+    return "/web/image/{}-{}".format(att.id, sha)
 
 
 class IRAttachmentBackground(models.Model):
-    _inherit = 'ir.attachment'
+    _inherit = "ir.attachment"
 
     use_as_background = fields.Boolean("Use as login page background", default=False)
 
@@ -20,11 +18,14 @@ class IRAttachmentBackground(models.Model):
     def check(self, mode, values=None):
         ids = self.ids
         cr = self.env.cr
-        if ids and mode == 'read':
+        if ids and mode == "read":
             if isinstance(ids, int):
                 ids = [ids]
             ids = ids[:]  # make a copy
-            cr.execute('SELECT id,use_as_background FROM ir_attachment WHERE id = ANY (%s)', (ids,))
+            cr.execute(
+                "SELECT id,use_as_background FROM ir_attachment WHERE id = ANY (%s)",
+                (ids,),
+            )
             for attachment_id, use_as_background in cr.fetchall():
                 if use_as_background:
                     ids.remove(attachment_id)
@@ -34,7 +35,7 @@ class IRAttachmentBackground(models.Model):
 
     @api.model
     def get_background_pic(self):
-        pictures = self.search([('use_as_background', '=', True)])
+        pictures = self.search([("use_as_background", "=", True)])
         if pictures:
             p = choice(pictures)
             picture_url = p.url or _attachment2url(p)

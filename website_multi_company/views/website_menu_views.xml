@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <!-- TODO: uncomment this in odoo 12, because there will be no
          website_multi_theme module anymore with updates that overlap updates of
@@ -20,10 +20,10 @@
     <record id="menu_tree" model="ir.ui.view">
         <field name="name">website.menu.tree</field>
         <field name="model">website.menu</field>
-        <field name="inherit_id" ref="website.menu_tree"/>
+        <field name="inherit_id" ref="website.menu_tree" />
         <field name="arch" type="xml">
             <xpath expr="//tree" position="attributes">
-                <attribute name="editable"></attribute>
+                <attribute name="editable" />
             </xpath>
         </field>
     </record>
@@ -35,15 +35,20 @@
             <form string="Website menu" editable="bottom">
                 <sheet>
                     <group>
-                        <field name="website_id" options="{'no_create': True}" required="1"/>
-                        <field name="name"/>
-                        <field name="url"/>
-                        <field name="page_id"/>
-                        <field name="new_window"/>
-                        <field name="parent_id"
-                               context="{'default_website_id': website_id}"
-                               domain="[('website_id', '=', website_id)]"
-                               />
+                        <field
+                            name="website_id"
+                            options="{'no_create': True}"
+                            required="1"
+                        />
+                        <field name="name" />
+                        <field name="url" />
+                        <field name="page_id" />
+                        <field name="new_window" />
+                        <field
+                            name="parent_id"
+                            context="{'default_website_id': website_id}"
+                            domain="[('website_id', '=', website_id)]"
+                        />
                     </group>
                 </sheet>
             </form>

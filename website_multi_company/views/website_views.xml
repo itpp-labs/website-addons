@@ -1,32 +1,36 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
   <record id="view_website_multi_company_form" model="ir.ui.view">
     <field name="model">website</field>
-    <field name="inherit_id" ref="website.view_website_form"/>
+    <field name="inherit_id" ref="website.view_website_form" />
     <field name="mode">primary</field>
-    <field name="priority" eval="132"/>
+    <field name="priority" eval="132" />
     <field name="arch" type="xml">
       <group name="domain">
-        <label for="multi_theme_id"/>
-        <div> 
-          <field name="multi_theme_id" string="Multi Theme" required="True"/>
+        <label for="multi_theme_id" />
+        <div>
+          <field name="multi_theme_id" string="Multi Theme" required="True" />
           <!--Edit mode-->
-          <button icon="fa-refresh"
-                string="Reload Themes"
-                help="Use it if you installed theme, but cannot find it in the list"
-                type="object"
-                class="oe_inline oe_edit_only"
-                name="multi_theme_reload_list"/>
+          <button
+                        icon="fa-refresh"
+                        string="Reload Themes"
+                        help="Use it if you installed theme, but cannot find it in the list"
+                        type="object"
+                        class="oe_inline oe_edit_only"
+                        name="multi_theme_reload_list"
+                    />
           <!--Read mode (non-edit) AND debug mode-->
-          <button icon="fa-refresh"
-                string="Update Website Theme"
-                help="Update Theme for current website. Normally used when theme is changed"
-                type="object"
-                groups="base.group_no_one"
-                class="oe_inline oe_read_only ml8"
-                name="multi_theme_reload"/>
-        </div> 
+          <button
+                        icon="fa-refresh"
+                        string="Update Website Theme"
+                        help="Update Theme for current website. Normally used when theme is changed"
+                        type="object"
+                        groups="base.group_no_one"
+                        class="oe_inline oe_read_only ml8"
+                        name="multi_theme_reload"
+                    />
+        </div>
 
     <!-- TODO: uncomment this in odoo 12, because there will be no
          website_multi_theme module anymore with updates that overlap updates of
@@ -34,9 +38,9 @@
         <field name="favicon" widget="image" class="oe_avatar oe_left"/>
     -->
       </group>
-      <xpath expr="//header" position="replace"/>
+      <xpath expr="//header" position="replace" />
       <xpath expr="//field[@name='domain']" position="after">
-          <field name="homepage_id"/>
+          <field name="homepage_id" />
       </xpath>
     </field>
   </record>
@@ -44,10 +48,10 @@
   <record id="view_website_tree" model="ir.ui.view">
       <field name="name">website.tree</field>
       <field name="model">website</field>
-      <field name="inherit_id" ref="website.view_website_tree"/>
+      <field name="inherit_id" ref="website.view_website_tree" />
       <field name="arch" type="xml">
           <xpath expr="//field[@name='name']" position="after">
-              <field name="domain"/>
+              <field name="domain" />
           </xpath>
       </field>
   </record>
@@ -75,11 +79,16 @@
     -->
 
     <!--Code below is not needed in odoo 12 -->
-    <record id="website_multi_theme.action_configure_multi_website" model="ir.actions.act_window">
-        <field name="view_ids"
-               eval="[(5, 0, 0),
+    <record
+        id="website_multi_theme.action_configure_multi_website"
+        model="ir.actions.act_window"
+    >
+        <field
+            name="view_ids"
+            eval="[(5, 0, 0),
                      (0, 0, {'view_mode': 'tree'}),
-                     (0, 0, {'view_mode': 'form', 'view_id': ref('view_website_multi_company_form')})]"/>
+                     (0, 0, {'view_mode': 'form', 'view_id': ref('view_website_multi_company_form')})]"
+        />
     </record>
 
 </odoo>

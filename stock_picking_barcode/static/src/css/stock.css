@@ -3,7 +3,8 @@
     min-height: 100px;
 }
 
-.oe_product_img, .oe_product_desc {
+.oe_product_img,
+.oe_product_desc {
     display: inline-block;
     vertical-align: top;
 }
@@ -87,12 +88,22 @@
 .openerp .oe_kanban_view .oe_kanban_stock_picking_type .oe_items_list a:hover {
     text-decoration: underline !important;
 }
-.openerp .oe_kanban_view .oe_kanban_stock_picking_type .oe_items_list div a:nth-child(2n) {
+.openerp
+    .oe_kanban_view
+    .oe_kanban_stock_picking_type
+    .oe_items_list
+    div
+    a:nth-child(2n) {
     position: absolute;
     left: 150px;
     top: 0;
 }
-.openerp .oe_kanban_view .oe_kanban_stock_picking_type .oe_items_list div:nth-child(2n) a:nth-child(2n) {
+.openerp
+    .oe_kanban_view
+    .oe_kanban_stock_picking_type
+    .oe_items_list
+    div:nth-child(2n)
+    a:nth-child(2n) {
     left: 150px;
 }
 .openerp .oe_kanban_view .oe_kanban_stock_picking_type .oe_sparkline_bar {
@@ -105,24 +116,24 @@
     top: 100px;
 }
 .oe_stock_scan_image {
-   opacity: 0.2;
-   margin: 0 5px 0;
+    opacity: 0.2;
+    margin: 0 5px 0;
 }
 .oe_stock_scan_image:hover {
-   opacity: 1;
+    opacity: 1;
 }
 .oe_gauge_labels {
-   width: 100%;
+    width: 100%;
 }
 .oe_gauge_labels .oe_gauge_label_column {
-   width: 49%;
-   text-align: center;
-   display: inline-block;
-   margin: -7px;
+    width: 49%;
+    text-align: center;
+    display: inline-block;
+    margin: -7px;
 }
 
 .oe_stock_scan_image_btn {
-   /*height : 42px;*/
+    /*height : 42px;*/
 }
 .oe_stock_scan_button {
     border: none !important;

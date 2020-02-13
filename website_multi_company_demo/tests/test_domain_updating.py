@@ -7,8 +7,6 @@ class TestDomainUpdating(common.HttpCase):
 
     def test_authenticate(self):
         db_name = common.get_db_name()
-        env = dict(
-            base_location="http://build-123.runbot.example.com",
-        )
-        uid = self.registry['res.users'].authenticate(db_name, 'admin', 'admin', env)
+        env = dict(base_location="http://build-123.runbot.example.com",)
+        uid = self.registry["res.users"].authenticate(db_name, "admin", "admin", env)
         self.assertEqual(uid, 1)

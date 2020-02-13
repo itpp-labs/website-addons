@@ -4,4 +4,3 @@ access_chess_game_line,access_chess_game_line,model_chess_game_line,base.group_u
 access_chess_game_chat,access_chess_game_chat,model_chess_game_chat,base.group_user,1,0,1,0
 access_res_users,access_res_users,model_res_users,base.group_user,1,1,0,0
 access_chess_tournament,access_chess_tournament,model_chess_tournament,base.group_user,1,1,1,1
-
