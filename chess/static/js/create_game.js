@@ -59,12 +59,11 @@ odoo.define("chess.create_game", function(require) {
         if (window.model_game_id === undefined) {
             return false;
         }
-            window.create_new_game = new CreateGame.GameStatusManager(
-                window.model_game_id,
-                window.model_dbname,
-                window.model_author_id
-            );
-
+        window.create_new_game = new CreateGame.GameStatusManager(
+            window.model_game_id,
+            window.model_dbname,
+            window.model_author_id
+        );
 
         if (window.new_game === undefined) {
             return false;
