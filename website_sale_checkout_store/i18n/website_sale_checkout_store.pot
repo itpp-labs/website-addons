@@ -95,7 +95,7 @@ msgid "Pay Now <span class=\"fa fa-long-arrow-right\"/>"
 msgstr ""
 
 #. module: website_sale_checkout_store
-#: code:addons/website_sale_checkout_store/models/main_model.py:22
+#: code:addons/website_sale_checkout_store/models/main_model.py:26
 #, python-format
 msgid "Pay at store"
 msgstr ""
@@ -109,7 +109,7 @@ msgid "Pay now and get delivery"
 msgstr ""
 
 #. module: website_sale_checkout_store
-#: code:addons/website_sale_checkout_store/models/main_model.py:20
+#: code:addons/website_sale_checkout_store/models/main_model.py:24
 #: model:ir.model.fields,field_description:website_sale_checkout_store.field_res_config_settings_nobill_ship
 #: model:ir.model.fields,field_description:website_sale_checkout_store.field_test_config_settings_nobill_ship
 #: selection:res.config.settings,default_option:0
@@ -137,7 +137,7 @@ msgid "Pickup and pay at store"
 msgstr ""
 
 #. module: website_sale_checkout_store
-#: code:addons/website_sale_checkout_store/models/main_model.py:27
+#: code:addons/website_sale_checkout_store/models/main_model.py:31
 #, python-format
 msgid "Pickup at store"
 msgstr ""
