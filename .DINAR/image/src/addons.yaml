@@ -5,7 +5,7 @@ ENV:
   DEFAULT_REPO_PATTERN: https://github.com/it-projects-llc/{}.git
 
 partner:
-  - "*"
+  - "partner_person"
 
 ---
 ENV:
