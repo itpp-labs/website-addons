@@ -17,5 +17,3 @@ Usage
 * Type a tag specified in a product into the search field
 * Click on the search button
 * See the results
-
-

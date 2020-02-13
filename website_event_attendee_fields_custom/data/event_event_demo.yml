@@ -1,5 +1,4 @@
--
-  !python {model: event.event}: |
+- !python {model: event.event}: |
     self.search([]).write({
         'attendee_field_ids': [(6,0,[
             self.env.ref('website_event_attendee_fields_custom.attendee_field_firstname').id,

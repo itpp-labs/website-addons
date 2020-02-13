@@ -6,14 +6,12 @@
     "images": ["images/banner.jpg"],
     "version": "10.0.1.1.1",
     "application": False,
-
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "support": "apps@it-projects.info",
     "website": "https://it-projects.info/team/yelizariev",
     "license": "LGPL-3",
     "price": 150.00,
     "currency": "EUR",
-
     "depends": [
         "event_sale",
         "website_portal",
@@ -28,26 +26,22 @@
         "views/event_event.xml",
         "data/mail_template_data.xml",
     ],
-    "qweb": [
-    ],
-    "demo": [
-        "views/assets_demo.xml",
-        "data/res_users_demo.xml",
-    ],
-
+    "qweb": [],
+    "demo": ["views/assets_demo.xml", "data/res_users_demo.xml",],
     "post_load": None,
     "pre_init_hook": None,
     "post_init_hook": None,
     "uninstall_hook": None,
-
     "auto_install": False,
     "installable": False,
-
     "demo_title": "Event extensions",
-    "demo_addons": ["website_event_attendee_fields", "website_event_attendee_signup", "website_event_require_login"],
+    "demo_addons": [
+        "website_event_attendee_fields",
+        "website_event_attendee_signup",
+        "website_event_require_login",
+    ],
     "demo_addons_hidden": ["website_event_attendee_fields_custom"],
     "demo_url": "portal-event-tickets",
     "demo_summary": "Set of modules to extend Event application.",
-    "demo_images": [
-    ]
+    "demo_images": [],
 }

@@ -1,15 +1,15 @@
 @charset "UTF-8";
 
 main .oe_login_form {
-  padding: 10px;
-  margin: 0px;
+    padding: 10px;
+    margin: 0px;
 }
 
 main .oe_signup_form {
-  padding: 10px;
+    padding: 10px;
 }
 
 main .oe_website_login_container {
-  width: 300px;
-  margin: 40px auto;
+    width: 300px;
+    margin: 40px auto;
 }

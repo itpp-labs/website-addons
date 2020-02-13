@@ -5,7 +5,7 @@
             <style type="text/css">
               body {
               background: none;
-              background-image: url(<t t-raw="picture_url"/>);
+              background-image: url(<t t-raw="picture_url" />);
               background-size: cover;
               }
             </style>

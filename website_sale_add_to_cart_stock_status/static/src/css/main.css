@@ -1,3 +1,3 @@
-form.disable_to_order[action="/shop/cart/update"] .quick_add_to_cart{
-	display:none;
+form.disable_to_order[action="/shop/cart/update"] .quick_add_to_cart {
+    display: none;
 }
