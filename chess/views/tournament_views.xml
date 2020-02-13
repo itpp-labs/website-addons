@@ -12,9 +12,9 @@
             <field name="model">chess.tournament</field>
             <field name="arch" type="xml">
                 <tree create="false">
-                    <field name="create_uid"/>
-                    <field name="start_date"/>
-                    <field name="tournament_type"/>
+                    <field name="create_uid" />
+                    <field name="start_date" />
+                    <field name="tournament_type" />
                 </tree>
             </field>
         </record>
@@ -28,7 +28,7 @@
                         <group>
                             <notebook>
                                 <page string="Players">
-                                    <field name="players"/>
+                                    <field name="players" />
                                 </page>
                             </notebook>
                         </group>
@@ -42,13 +42,21 @@
             <field name="tag">tournament_action</field>
         </record>
 
-        <menuitem id="tournaments_menu" name="Tournaments" parent="menu_chess"/>
+        <menuitem id="tournaments_menu" name="Tournaments" parent="menu_chess" />
 
-        <menuitem id="tournaments_main" name="Tournaments" parent="tournaments_menu"
-           action="tournament_action"/>
+        <menuitem
+            id="tournaments_main"
+            name="Tournaments"
+            parent="tournaments_menu"
+            action="tournament_action"
+        />
 
-        <menuitem id="menu_active_tournaments" name="Tournaments Manager" parent="tournaments_menu"
-          action="tournaments_list"/>
+        <menuitem
+            id="menu_active_tournaments"
+            name="Tournaments Manager"
+            parent="tournaments_menu"
+            action="tournaments_list"
+        />
 
     </data>
 </odoo>

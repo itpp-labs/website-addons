@@ -22,4 +22,3 @@ Usage
   * Click on the search button
   * Click on any category link
   * The search is cleared
-

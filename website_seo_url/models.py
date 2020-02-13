@@ -1,11 +1,12 @@
-from odoo import models, api
+from odoo import api, models
+
 from odoo.addons.website.models.website import slugify
 
 
 class SEOURL(models.AbstractModel):
-    _name = 'website_seo_url'
+    _name = "website_seo_url"
 
-    _seo_url_field = 'seo_url'
+    _seo_url_field = "seo_url"
 
     @api.model
     def _check_seo_url(self, vals, record_id=0):
@@ -14,9 +15,9 @@ class SEOURL(models.AbstractModel):
         value = vals.get(field)
         if value:
             vals[field] = value = slugify(value)
-            res = self.search([(field, '=', value), ('id', '!=', record_id)])
+            res = self.search([(field, "=", value), ("id", "!=", record_id)])
             if res:
-                vals[field] = '%s-%s' % (vals[field], record_id)
+                vals[field] = "{}-{}".format(vals[field], record_id)
         return vals
 
     @api.model
@@ -34,11 +35,25 @@ class SEOURL(models.AbstractModel):
     @api.multi
     def __check_seo_url_uniq(self):
         for r in self:
-            value = getattr(r.with_context(lang=self.env.user.lang), self._seo_url_field)
-            if value and len(self.with_context(lang=self.env.user.lang).search([(self._seo_url_field, '=', value)])) > 1:
+            value = getattr(
+                r.with_context(lang=self.env.user.lang), self._seo_url_field
+            )
+            if (
+                value
+                and len(
+                    self.with_context(lang=self.env.user.lang).search(
+                        [(self._seo_url_field, "=", value)]
+                    )
+                )
+                > 1
+            ):
                 return False
         return True
 
     _constraints = [
-        (__check_seo_url_uniq, 'SEO URL must be unique! Auto changing name failed. Try different name.', ['eq_seo_name']),
+        (
+            __check_seo_url_uniq,
+            "SEO URL must be unique! Auto changing name failed. Try different name.",
+            ["eq_seo_name"],
+        ),
     ]

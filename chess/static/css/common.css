@@ -1,7 +1,7 @@
-.chess-content
-{
-    font: 12px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Sans-Serif;
-    color: #EEE;
+.chess-content {
+    font: 12px "Noto Sans", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana,
+        Sans-Serif;
+    color: #eee;
     background: url("/chess/static/img/background.png") repeat;
     display: flex;
     min-width: 950px;
@@ -14,7 +14,8 @@
     margin-bottom: 50px;
     margin-top: 20px;
 }
-#create_game #time, #play_with_a_friend #time{
+#create_game #time,
+#play_with_a_friend #time {
     display: none;
 }
 .chess_services a:first-child {
@@ -22,10 +23,8 @@
 }
 
 .chess_services li {
-    margin-top:10px;
+    margin-top: 10px;
 }
 .game-infos {
-text-align: left;
+    text-align: left;
 }
-
-
