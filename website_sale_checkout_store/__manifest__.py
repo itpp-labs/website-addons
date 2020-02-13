@@ -20,6 +20,6 @@
     "depends": ["website_sale"],
     "external_dependencies": {"python": [], "bin": []},
     "data": ["templates.xml", "views.xml", "data/data.xml"],
-    "installable": True,
+    "installable": False,
     "auto_install": False,
 }
