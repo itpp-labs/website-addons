@@ -15,36 +15,36 @@ msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:262
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:438
 #, python-format
 msgid "< Previous"
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:24
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:46
 #, python-format
 msgid "Change Location"
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:172
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:175
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:306
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:312
 #, python-format
 msgid "Change destination location"
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:171
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:302
 #, python-format
 msgid "Change source location"
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:11
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:23
 #, python-format
 msgid "Choose a location"
 msgstr ""
@@ -61,60 +61,60 @@ msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:23
 #: code:addons/stock_picking_barcode/static/src/xml/picking.xml:42
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:66
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:81
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:128
 #, python-format
 msgid "Close"
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:54
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:177
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:108
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:317
 #, python-format
 msgid "Configure package"
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:168
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:294
 #, python-format
 msgid "Create / Change Lot"
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:35
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:43
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:69
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:85
 #, python-format
 msgid "Create Lot"
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:80
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:148
 #, python-format
 msgid "Create backorder"
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:101
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:182
 #, python-format
 msgid "Filter by location..."
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:124
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:214
 #, python-format
 msgid "From"
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:259
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:432
 #, python-format
 msgid "Menu"
 msgstr ""
@@ -126,35 +126,35 @@ msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:263
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:442
 #, python-format
 msgid "Next >"
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:197
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:343
 #, python-format
 msgid "No picking found."
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:93
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:170
 #, python-format
 msgid "Operations Processed"
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:92
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:166
 #, python-format
 msgid "Operations ToDo"
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:57
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:111
 #, python-format
 msgid "Package type"
 msgstr ""
@@ -166,105 +166,105 @@ msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:81
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:152
 #, python-format
 msgid "Print"
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:179
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:325
 #, python-format
 msgid "Print package label"
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:121
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:211
 #, python-format
 msgid "Product"
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:111
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:201
 #, python-format
 msgid "Put in Cart"
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:110
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:197
 #, python-format
 msgid "Put in Pack"
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:220
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:378
 #, python-format
 msgid "Quit"
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:271
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:452
 #, python-format
 msgid "Recompute"
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:178
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:321
 #, python-format
 msgid "Remove from package"
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:14
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:26
 #, python-format
 msgid "Scan a location or select it in the list below"
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:38
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:73
 #, python-format
 msgid "Scan a lot or type it below (leave empty to generate one automatically)"
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:122
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:212
 #, python-format
 msgid "Scanned"
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:228
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:386
 #, python-format
 msgid "Scanned picking could not be found"
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:217
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:372
 #, python-format
 msgid "Search"
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:193
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:339
 #, python-format
 msgid "Search Results"
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:227
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:385
 #, python-format
 msgid "Select your operation"
 msgstr ""
@@ -276,21 +276,21 @@ msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:270
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:449
 #, python-format
 msgid "The reserved stock changed. You might want to"
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:125
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:215
 #, python-format
 msgid "To"
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:123
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:213
 #, python-format
 msgid "Todo"
 msgstr ""
@@ -302,7 +302,7 @@ msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:67
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:132
 #, python-format
 msgid "Validate package"
 msgstr ""
@@ -314,14 +314,14 @@ msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:245
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:415
 #, python-format
 msgid "picking(s)"
 msgstr ""
 
 #. module: stock_picking_barcode
 #. openerp-web
-#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:271
+#: code:addons/stock_picking_barcode/static/src/xml/picking.xml:452
 #, python-format
 msgid "the operations."
 msgstr ""
