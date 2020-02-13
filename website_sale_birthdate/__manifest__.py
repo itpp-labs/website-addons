@@ -5,7 +5,7 @@
     "support": "apps@it-projects.info",
     "website": "https://yelizariev.github.io",
     "category": "eCommerce",
-    "version": "1.0",
+    "vesion": "11.0.1.0",
     "depends": ["website_sale", "partner_person"],
     "data": ["views.xml",],
     "installable": False,

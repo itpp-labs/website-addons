@@ -3,7 +3,7 @@
     "summary": """Allows to disable product sales via eCommerce for any reason""",
     "category": "eCommerce",
     "images": [],
-    "version": "1.0.0",
+    "vesion": "11.0.1.0.0",
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "support": "apps@it-projects.info",
     "website": "https://it-projects.info",
