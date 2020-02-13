@@ -12,7 +12,6 @@ class TestUi(odoo.tests.HttpCase):
             "/",
             "odoo.__DEBUG__.services['web_tour.tour'].run('website_sale_search_tags', 500)",
             "odoo.__DEBUG__.services['web_tour.tour'].tours.website_sale_search_tags.ready",
-            login="admin",
         )
 
 
