@@ -14,7 +14,7 @@ Configuration
 * Open menu ``[[ Website ]] >> Blog >> Blogs``
 * Select at **Allowed Websites** field the websites your blog will be available on (leave empty if you wish to post the blog on each website)
 * Open menu ``[[ Website ]] >> Configuration >> Menus``
-* Make sure that there is a menu to open the blog, otherwise create a new one 
+* Make sure that there is a menu to open the blog, otherwise create a new one
 
 Usage
 =====

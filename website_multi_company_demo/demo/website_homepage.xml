@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
     <record id="website_bikes" model="website">
@@ -21,7 +21,7 @@
      -->
 
     <record id="website.website2_homepage_page" model="website.page">
-        <field name="website_ids" eval="[(6, 0, [ref('website.website2')])]"/>
+        <field name="website_ids" eval="[(6, 0, [ref('website.website2')])]" />
     </record>
 
 </odoo>

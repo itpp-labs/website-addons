@@ -4,7 +4,7 @@
 import logging
 import re
 
-from odoo import models, api, _
+from odoo import _, api, models
 from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
@@ -29,19 +29,17 @@ class Website(models.Model):
 
     @api.multi
     def _multi_theme_activate(self):
-        if not self.env.context.get('skip_converting_assets'):
+        if not self.env.context.get("skip_converting_assets"):
             # reload dependencies before activating
-            self.mapped('multi_theme_id')\
-                .upstream_dependencies()\
-                ._convert_assets()
+            self.mapped("multi_theme_id").upstream_dependencies()._convert_assets()
         return super(Website, self)._multi_theme_activate()
 
-    @api.constrains('domain')
+    @api.constrains("domain")
     def _check_domain(self):
         if self.domain and not re.match(DOMAIN_REGEXP, self.domain):
-            if '/' in self.domain:
-                msg = _('Don\'t use slash symbol for domain')
+            if "/" in self.domain:
+                msg = _("Don't use slash symbol for domain")
             else:
-                msg = _('Not a valid domain')
+                msg = _("Not a valid domain")
 
             raise ValidationError(msg)
