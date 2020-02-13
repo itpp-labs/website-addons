@@ -219,12 +219,11 @@ odoo.define("chess.chesschat", function(require) {
         if (window.model_game_id === undefined) {
             return false;
         }
-            var my_chat = new ChessChat.Conversation(
-                model_game_id,
-                model_dbname,
-                model_author_id
-            );
-
+        var my_chat = new ChessChat.Conversation(
+            model_game_id,
+            model_dbname,
+            model_author_id
+        );
 
         $(".toggle_chat").click(function() {
             my_chat.checked_chat(this);
