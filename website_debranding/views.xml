@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
 <template id="layout_footer_copyright" inherit_id="website.layout_footer_copyright">
@@ -8,50 +8,50 @@
 
 <record id="view_company_form_inherit_website" model="ir.ui.view">
     <field name="model">res.company</field>
-    <field name="inherit_id" ref="website.view_company_form_inherit_website"/>
+    <field name="inherit_id" ref="website.view_company_form_inherit_website" />
     <field name="arch" type="xml">
         <xpath expr="//field[@name='social_twitter']" position="attributes">
-            <attribute name="placeholder"></attribute>
+            <attribute name="placeholder" />
         </xpath>
         <xpath expr="//field[@name='social_facebook']" position="attributes">
-            <attribute name="placeholder"></attribute>
+            <attribute name="placeholder" />
         </xpath>
         <xpath expr="//field[@name='social_github']" position="attributes">
-            <attribute name="placeholder"></attribute>
+            <attribute name="placeholder" />
         </xpath>
         <xpath expr="//field[@name='social_linkedin']" position="attributes">
-            <attribute name="placeholder"></attribute>
+            <attribute name="placeholder" />
         </xpath>
         <xpath expr="//field[@name='social_youtube']" position="attributes">
-            <attribute name="placeholder"></attribute>
+            <attribute name="placeholder" />
         </xpath>
         <xpath expr="//field[@name='social_googleplus']" position="attributes">
-            <attribute name="placeholder"></attribute>
+            <attribute name="placeholder" />
         </xpath>
     </field>
 </record>
 
 <record id="view_website_form" model="ir.ui.view">
     <field name="model">website</field>
-    <field name="inherit_id" ref="website.view_website_form"/>
+    <field name="inherit_id" ref="website.view_website_form" />
     <field name="arch" type="xml">
         <xpath expr="//field[@name='social_twitter']" position="attributes">
-            <attribute name="placeholder"></attribute>
+            <attribute name="placeholder" />
         </xpath>
         <xpath expr="//field[@name='social_facebook']" position="attributes">
-            <attribute name="placeholder"></attribute>
+            <attribute name="placeholder" />
         </xpath>
         <xpath expr="//field[@name='social_github']" position="attributes">
-            <attribute name="placeholder"></attribute>
+            <attribute name="placeholder" />
         </xpath>
         <xpath expr="//field[@name='social_linkedin']" position="attributes">
-            <attribute name="placeholder"></attribute>
+            <attribute name="placeholder" />
         </xpath>
         <xpath expr="//field[@name='social_youtube']" position="attributes">
-            <attribute name="placeholder"></attribute>
+            <attribute name="placeholder" />
         </xpath>
         <xpath expr="//field[@name='social_googleplus']" position="attributes">
-            <attribute name="placeholder"></attribute>
+            <attribute name="placeholder" />
         </xpath>
     </field>
 </record>
@@ -64,26 +64,41 @@
 </template>
 
 <template id="s_text_image" inherit_id="website.s_text_image">
-    <xpath expr="//img[@src='/web/image/website.s_text_image_default_image']" position="attributes">
+    <xpath
+            expr="//img[@src='/web/image/website.s_text_image_default_image']"
+            position="attributes"
+        >
         <attribute name="alt">Text and image block</attribute>
         <attribute name="src">/website/static/src/img/library/ipad.png</attribute>
     </xpath>
 </template>
 <template id="s_image_text" inherit_id="website.s_image_text">
-    <xpath expr="//img[@src='/web/image/website.s_image_text_default_image']" position="attributes">
+    <xpath
+            expr="//img[@src='/web/image/website.s_image_text_default_image']"
+            position="attributes"
+        >
         <attribute name="alt">Text and image block</attribute>
         <attribute name="src">/website/static/src/img/library/ipad.png</attribute>
     </xpath>
 </template>
 <template id="s_three_columns" inherit_id="website.s_three_columns">
-    <xpath expr="//img[@src='/web/image/website.library_image_11']" position="attributes">
-        <attribute name="alt"></attribute>
+    <xpath
+            expr="//img[@src='/web/image/website.library_image_11']"
+            position="attributes"
+        >
+        <attribute name="alt" />
     </xpath>
-    <xpath expr="//img[@src='/web/image/website.library_image_13']" position="attributes">
-        <attribute name="alt"></attribute>
+    <xpath
+            expr="//img[@src='/web/image/website.library_image_13']"
+            position="attributes"
+        >
+        <attribute name="alt" />
     </xpath>
-    <xpath expr="//img[@src='/web/image/website.library_image_07']" position="attributes">
-        <attribute name="alt"></attribute>
+    <xpath
+            expr="//img[@src='/web/image/website.library_image_07']"
+            position="attributes"
+        >
+        <attribute name="alt" />
     </xpath>
 </template>
 <template id="s_button" inherit_id="website.s_button">
@@ -129,22 +144,46 @@
                     </blockquote>
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6">
-                  <img src="/logo.png" class="img img-responsive img-thumbnail" alt="Logo"/>
+                  <img
+                                src="/logo.png"
+                                class="img img-responsive img-thumbnail"
+                                alt="Logo"
+                            />
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6">
-                  <img src="/logo.png" class="img img-responsive img-thumbnail" alt="Logo"/>
+                  <img
+                                src="/logo.png"
+                                class="img img-responsive img-thumbnail"
+                                alt="Logo"
+                            />
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6">
-                  <img src="/logo.png" class="img img-responsive img-thumbnail" alt="Logo"/>
+                  <img
+                                src="/logo.png"
+                                class="img img-responsive img-thumbnail"
+                                alt="Logo"
+                            />
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6">
-                  <img src="/logo.png" class="img img-responsive img-thumbnail" alt="Logo"/>
+                  <img
+                                src="/logo.png"
+                                class="img img-responsive img-thumbnail"
+                                alt="Logo"
+                            />
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6">
-                  <img src="/logo.png" class="img img-responsive img-thumbnail" alt="Logo"/>
+                  <img
+                                src="/logo.png"
+                                class="img img-responsive img-thumbnail"
+                                alt="Logo"
+                            />
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6">
-                  <img src="/logo.png" class="img img-responsive img-thumbnail" alt="Logo"/>
+                  <img
+                                src="/logo.png"
+                                class="img img-responsive img-thumbnail"
+                                alt="Logo"
+                            />
                 </div>
             </div>
         </div>
@@ -162,7 +201,9 @@
                                 <div class="content">
 
                                     <div class="row">
-                                        <blockquote class="mt48 mb16 col-md-4 col-md-offset-4">
+                                        <blockquote
+                                    class="mt48 mb16 col-md-4 col-md-offset-4"
+                                >
                                             <p>
                                                 Write a quote here from one of your customers. Quotes are a
                                                 great way to build confidence in your products or services.
@@ -180,7 +221,9 @@
                                 <div class="content">
 
                                     <div class="row">
-                                        <blockquote class="mt48 mb16 col-md-4 col-md-offset-4">
+                                        <blockquote
+                                    class="mt48 mb16 col-md-4 col-md-offset-4"
+                                >
                                             <p>
                                                 Software provides essential platform for our project management.
                                                 Things are better organized and more visible with it.
@@ -198,7 +241,7 @@
 </template>
 
 <record id="website.website_info" model="ir.ui.view">
-    <field name="active" eval="False"/>
+    <field name="active" eval="False" />
 </record>
 
 </odoo>

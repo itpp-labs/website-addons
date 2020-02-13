@@ -32,7 +32,7 @@ If you have several Websites with the same company, you can filter Leads by Webs
 * Click ``[Save]``
 * Refresh page in browser (F5)
 * Go to ``[[ CRM ]] >> Pipeline >> Pipeline``
-* There is a *Website Switcher* in top-right hand corner 
+* There is a *Website Switcher* in top-right hand corner
 * RESULT: Once you change Website lead from other Websites are filtered out
 
 Note: it doesn't work Superuser (Administrator, ID 1), because access rule are not applied for him.
