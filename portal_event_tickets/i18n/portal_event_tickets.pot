@@ -27,7 +27,7 @@ msgid "\n"
 "                             <a href=\"/my/tickets/transfer/receive?transfer_ticket=${object.id}\" style=\"padding: 5px 10px; font-size: 12px; line-height: 18px; color: #FFFFFF; border-color:#875A7B; text-decoration: none; display: inline-block; margin-bottom: 0px; font-weight: 400; text-align: center; vertical-align: middle; cursor: pointer; white-space: nowrap; background-image: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius:3px\">Finish ticket transferring</a>\n"
 "                        </div>\n"
 "                    </div>\n"
-"                 You \n"
+"                 You\n"
 "        </p>\n"
 "        <p>\n"
 "        </p>\n"
@@ -199,7 +199,7 @@ msgid "Ticket Type"
 msgstr ""
 
 #. module: portal_event_tickets
-#: code:addons/portal_event_tickets/controllers/main.py:279
+#: code:addons/portal_event_tickets/controllers/main.py:338
 #, python-format
 msgid "Ticket change: %s"
 msgstr ""
@@ -246,7 +246,7 @@ msgid "Tickets"
 msgstr ""
 
 #. module: portal_event_tickets
-#: code:addons/portal_event_tickets/controllers/main.py:292
+#: code:addons/portal_event_tickets/controllers/main.py:352
 #, python-format
 msgid "Total amount is negative. Please add more tickets or products"
 msgstr ""
