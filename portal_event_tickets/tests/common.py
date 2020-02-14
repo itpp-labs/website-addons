@@ -28,10 +28,10 @@ class TourCase(HttpCase):
             }
         )
         self.ticket_type_1 = self.env.ref("event_sale.event_0_ticket_1").copy(
-            {"event_id": self.event.id,}
+            {"event_id": self.event.id}
         )
         self.ticket_type_2 = self.env.ref("event_sale.event_0_ticket_2").copy(
-            {"event_id": self.event.id,}
+            {"event_id": self.event.id}
         )
 
         self.event.write(

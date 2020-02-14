@@ -12,17 +12,17 @@ class TestRender(TransactionCase):
     def _create_view(self, xml_id, arch):
         module, name = xml_id.split(".")
         view = self.env["ir.ui.view"].create(
-            {"arch": arch, "key": xml_id, "type": "qweb",}
+            {"arch": arch, "key": xml_id, "type": "qweb"}
         )
         self.env["ir.model.data"].create(
-            {"name": name, "model": "ir.ui.view", "module": module, "res_id": view.id,}
+            {"name": name, "model": "ir.ui.view", "module": module, "res_id": view.id}
         )
         return view
 
     def _search_view(self, xml_id, website):
         View = self.env["ir.ui.view"].with_context(active_test=False)
         # Get website-specific view if possible
-        return View.search([("website_id", "=", website.id), ("key", "=", xml_id),])
+        return View.search([("website_id", "=", website.id), ("key", "=", xml_id)])
 
     def _render(self, template, website):
         """It's similar to request.render(), but doesn't require to have "request" variable"""
@@ -50,7 +50,7 @@ class TestRender(TransactionCase):
         # add view to asset_ids ("Views") field of the default theme
         default_theme = self.env.ref("website_multi_theme.theme_default")
         self.env["website.theme.asset"].create(
-            {"name": xml_id, "theme_id": default_theme.id,}
+            {"name": xml_id, "theme_id": default_theme.id}
         )
 
         # reload themes

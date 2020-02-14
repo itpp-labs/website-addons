@@ -18,7 +18,5 @@ class WebsiteMultiCompanySale(WebsiteSale):
                 ("website_ids", "in", [request.website.id]),
             ]
         )
-        response.qcontext.update(
-            {"categories": categs,}
-        )
+        response.qcontext.update({"categories": categs})
         return response
