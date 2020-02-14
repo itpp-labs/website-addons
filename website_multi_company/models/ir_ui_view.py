@@ -49,8 +49,6 @@ class IrUiView(models.Model):
             )
 
         Asset = self.env["website.theme.asset"]
-        Asset.create(
-            {"name": self.xml_id, "theme_id": default_theme.id}
-        )
+        Asset.create({"name": self.xml_id, "theme_id": default_theme.id})
         self.env["res.config.settings"].multi_theme_reload()
         return True
