@@ -15,7 +15,7 @@
     "license": "LGPL-3",
     "price": 89.00,
     "currency": "EUR",
-    "depends": ["stock", "web_editor", "website",],
+    "depends": ["stock", "web_editor", "website"],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
         "views/package_report.xml",
@@ -23,7 +23,7 @@
         "views/stock_view.xml",
         "views/stock_dashboard.xml",
     ],
-    "qweb": ["static/src/xml/picking.xml",],
+    "qweb": ["static/src/xml/picking.xml"],
     "demo": [],
     "post_load": None,
     "pre_init_hook": None,

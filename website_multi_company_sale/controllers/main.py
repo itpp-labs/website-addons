@@ -22,9 +22,7 @@ class WebsiteMultiCompanySale(WebsiteSale):
                 ("website_ids", "in", [request.website.id]),
             ]
         )
-        response.qcontext.update(
-            {"categories": categs,}
-        )
+        response.qcontext.update({"categories": categs})
         return response
 
     def values_postprocess(self, order, mode, values, errors, error_msg):

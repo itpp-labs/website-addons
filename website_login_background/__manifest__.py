@@ -10,10 +10,10 @@
     "license": "LGPL-3",
     # "price": 25.00,
     # "currency": "EUR",
-    "depends": ["web_login_background", "website",],
+    "depends": ["web_login_background", "website"],
     "external_dependencies": {"python": [], "bin": []},
-    "data": ["templates.xml",],
-    "demo": ["demo/demo.xml",],
+    "data": ["templates.xml"],
+    "demo": ["demo/demo.xml"],
     "installable": True,
     "auto_install": True,
 }

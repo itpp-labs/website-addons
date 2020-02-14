@@ -7,6 +7,6 @@
     "category": "eCommerce",
     "vesion": "12.0.1.0",
     "depends": ["website_sale", "partner_person"],
-    "data": ["views.xml",],
+    "data": ["views.xml"],
     "installable": False,
 }
