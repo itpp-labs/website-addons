@@ -27,9 +27,7 @@ class WebsiteBlogExtended(WebsiteBlog):
                     request.env.ref("website_multi_company_blog.blog_rule_all")
                 )
             )
-            blog_super.qcontext.update(
-                {"blogs": updated_blogs}
-            )
+            blog_super.qcontext.update({"blogs": updated_blogs})
         return blog_super
 
     @http.route()
@@ -43,7 +41,5 @@ class WebsiteBlogExtended(WebsiteBlog):
                     request.env.ref("website_multi_company_blog.post_rule_all")
                 )
             )
-            blog_super.qcontext.update(
-                {"posts": updated_posts}
-            )
+            blog_super.qcontext.update({"posts": updated_posts})
         return blog_super
