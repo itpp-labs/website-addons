@@ -123,7 +123,7 @@ class Chess(http.Controller):
             raise NotFound()
         return http.request.render(
             "chess.gamepage",
-            {"games": games_object, "user": user, "dbname": request.cr.dbname,},
+            {"games": games_object, "user": user, "dbname": request.cr.dbname},
         )
 
     @http.route("/chess/game/", auth="public", website=True)
