@@ -18,7 +18,7 @@
     "images": ["images/available.png"],
     "price": 9.00,
     "currency": "EUR",
-    "depends": ["website_sale", "stock", "delivery",],
-    "data": ["views/website_sale_available_views.xml",],
+    "depends": ["website_sale", "stock", "delivery"],
+    "data": ["views/website_sale_available_views.xml"],
     "installable": True,
 }

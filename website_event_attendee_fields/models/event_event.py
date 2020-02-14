@@ -94,7 +94,7 @@ class AttendeeField(models.Model):
         self.ensure_one()
         domain = safe_eval(self.domain or "[]")
         records = self.env[self.field_model].search(domain)
-        res = [{"id": r.id, "name": r.display_name,} for r in records]
+        res = [{"id": r.id, "name": r.display_name} for r in records]
         return res
 
     @api.multi

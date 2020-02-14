@@ -17,7 +17,7 @@ class TestLead(TransactionCase):
         lead = (
             self.env["crm.lead"]
             .with_context(website_id=self.website.id,)
-            .create({"name": "Test Lead",})
+            .create({"name": "Test Lead"})
         )
         self.assertEqual(lead.website_id, self.website, "Incorrect Website value")
         self.assertEqual(lead.company_id, self.company, "Incorrect Company value")
@@ -32,6 +32,6 @@ class TestLead(TransactionCase):
                 company_ids=[(4, self.company.id)],
             )
         )
-        lead = self.env["crm.lead"].create({"name": "Test Lead",})
+        lead = self.env["crm.lead"].create({"name": "Test Lead"})
         self.assertEqual(lead.website_id, self.website, "Incorrect Website value")
         self.assertEqual(lead.company_id, self.company, "Incorrect Company value")

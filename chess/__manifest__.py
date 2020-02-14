@@ -7,8 +7,8 @@
     "support": "apps@it-projects.info",
     "website": "https://twitter.com/gabbasov_dinar",
     "license": "LGPL-3",
-    "depends": ["base", "website", "bus", "web",],
-    "external_dependencies": {"python": ["chess",], "bin": []},
+    "depends": ["base", "website", "bus", "web"],
+    "external_dependencies": {"python": ["chess"], "bin": []},
     "data": [
         "security/ir.model.access.csv",
         "security/security.xml",

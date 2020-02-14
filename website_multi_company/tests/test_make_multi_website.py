@@ -12,10 +12,10 @@ class TestCreate(TransactionCase):
     def _create_view(self, xml_id, arch):
         module, name = xml_id.split(".")
         view = self.env["ir.ui.view"].create(
-            {"arch": arch, "key": xml_id, "type": "qweb",}
+            {"arch": arch, "key": xml_id, "type": "qweb"}
         )
         self.env["ir.model.data"].create(
-            {"name": name, "model": "ir.ui.view", "module": module, "res_id": view.id,}
+            {"name": name, "model": "ir.ui.view", "module": module, "res_id": view.id}
         )
         return view
 

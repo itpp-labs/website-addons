@@ -15,9 +15,9 @@
     "license": "LGPL-3",
     "price": 30.00,
     "currency": "EUR",
-    "depends": ["website_sale", "web_multi_attachment_base",],
+    "depends": ["website_sale", "web_multi_attachment_base"],
     "external_dependencies": {"python": [], "bin": []},
-    "data": ["views/view.xml",],
+    "data": ["views/view.xml"],
     "qweb": [],
     "demo": [],
     "post_load": None,
@@ -31,5 +31,5 @@
     "demo_addons_hidden": [],
     "demo_url": "multi-product-images",
     "demo_summary": "Upload Multiple Images at Once",
-    "demo_images": ["images/multi_images_main.jpg",],
+    "demo_images": ["images/multi_images_main.jpg"],
 }

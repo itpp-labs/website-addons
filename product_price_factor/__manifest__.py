@@ -11,6 +11,6 @@
     "currency": "EUR",
     "version": "11.0.1.0.0",
     "depends": ["product"],
-    "data": ["views/product_view.xml",],
+    "data": ["views/product_view.xml"],
     "installable": True,
 }

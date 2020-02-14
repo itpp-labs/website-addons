@@ -12,7 +12,7 @@
     "license": "LGPL-3",
     "price": 200.00,
     "currency": "EUR",
-    "depends": ["website_event_sale", "website_event", "partner_event",],
+    "depends": ["website_event_sale", "website_event", "partner_event"],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
         "views/website_event_templates.xml",

@@ -26,7 +26,7 @@
         "views/website_event_templates.xml",
     ],
     "qweb": [],
-    "demo": ["data/event_event_demo.yml",],
+    "demo": ["data/event_event_demo.yml"],
     "post_load": None,
     "pre_init_hook": None,
     "post_init_hook": None,
