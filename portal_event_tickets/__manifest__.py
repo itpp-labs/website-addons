@@ -27,7 +27,7 @@
         "data/mail_template_data.xml",
     ],
     "qweb": [],
-    "demo": ["views/assets_demo.xml", "data/res_users_demo.xml",],
+    "demo": ["views/assets_demo.xml", "data/res_users_demo.xml"],
     "post_load": None,
     "pre_init_hook": None,
     "post_init_hook": None,

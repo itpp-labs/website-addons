@@ -23,7 +23,7 @@ class WebsiteMultiCompanySale(WebsiteSale):
             ]
         )
         response.qcontext.update(
-            {"categories": categs,}
+            {"categories": categs}
         )
         return response
 
