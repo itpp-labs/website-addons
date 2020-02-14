@@ -32,6 +32,6 @@ class ResUsers(models.Model):
             limit=1,
         )
         new_property = default_property.sudo().copy(
-            {"company_id": company_id.id, "value_text": new_template_user.id,}
+            {"company_id": company_id.id, "value_text": new_template_user.id}
         )
         return new_template_user, new_property

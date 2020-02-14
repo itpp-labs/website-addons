@@ -16,7 +16,7 @@ class EventRegistration(models.Model):
                     self.env["res.users"]
                     .sudo()
                     ._signup_create_user(
-                        {"login": login, "partner_id": res.attendee_partner_id.id,}
+                        {"login": login, "partner_id": res.attendee_partner_id.id}
                     )
                 )
                 user.partner_id.signup_prepare()

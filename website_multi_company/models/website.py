@@ -9,7 +9,7 @@ from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
 # from https://stackoverflow.com/a/26987741/222675
-DOMAIN_REGEXP = r"^(((?!-))(xn--|_{1,1})?[a-z0-9-]{0,61}[a-z0-9]{1,1}\.)*(xn--)?([a-z0-9\-]{1,61}|[a-z0-9-]{1,30}\.[a-z]{2,})$"
+DOMAIN_REGEXP = r"^(((?!-))(xn--|_{1,1})?[a-z0-9-]{0,61}[a-z0-9]{1,1}\.)*(xn--)?([a-z0-9\-]{1,61}|[a-z0-9-]{1,30}\.[a-z]{2})$"
 
 
 class Website(models.Model):

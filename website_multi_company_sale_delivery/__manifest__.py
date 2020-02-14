@@ -14,7 +14,7 @@
     "license": "LGPL-3",
     "price": 10.00,
     "currency": "EUR",
-    "depends": ["website_sale_delivery", "ir_rule_website", "website_multi_company",],
+    "depends": ["website_sale_delivery", "ir_rule_website", "website_multi_company"],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
         "security/website_multi_company_sale_delivery_security.xml",

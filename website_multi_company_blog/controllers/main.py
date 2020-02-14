@@ -28,7 +28,7 @@ class WebsiteBlogExtended(WebsiteBlog):
                 )
             )
             blog_super.qcontext.update(
-                {"blogs": updated_blogs,}
+                {"blogs": updated_blogs}
             )
         return blog_super
 
@@ -44,6 +44,6 @@ class WebsiteBlogExtended(WebsiteBlog):
                 )
             )
             blog_super.qcontext.update(
-                {"posts": updated_posts,}
+                {"posts": updated_posts}
             )
         return blog_super

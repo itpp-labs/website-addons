@@ -10,7 +10,7 @@
     "license": "LGPL-3",
     "price": 55.00,
     "currency": "EUR",
-    "depends": ["website",],
+    "depends": ["website"],
     "external_dependencies": {"python": [], "bin": []},
     "data": [],
     "qweb": [],

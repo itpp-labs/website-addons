@@ -11,7 +11,7 @@
     "website": "https://twitter.com/nasyrov_ildar",
     "version": "11.0.1.0.0",
     "depends": ["website_sale", "product_price_factor"],
-    "data": ["views/templates.xml",],
+    "data": ["views/templates.xml"],
     "auto_install": True,
     "installable": False,
 }

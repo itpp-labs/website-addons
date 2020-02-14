@@ -63,7 +63,7 @@ class PortalEvent(website_account):
         tickets_count = request.env["event.registration"].search_count(domain)
 
         response.qcontext.update(
-            {"tickets_count": tickets_count,}
+            {"tickets_count": tickets_count}
         )
         return response
 
@@ -159,7 +159,7 @@ class PortalEvent(website_account):
         ticket_sudo = ticket.sudo()
 
         values.update(
-            {"ticket": ticket_sudo,}
+            {"ticket": ticket_sudo}
         )
         return request.render("portal_event_tickets.portal_ticket_page", values)
 
@@ -213,7 +213,7 @@ class PortalEvent(website_account):
         error = self._ticket_transfer(request.env, to_email, ticket_id)
 
         values.update(
-            {"to_email": to_email, "error": error,}
+            {"to_email": to_email, "error": error}
         )
         return request.render("portal_event_tickets.portal_ticket_transfer", values)
 

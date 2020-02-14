@@ -18,5 +18,5 @@
     "post_init_hook": None,
     "auto_install": False,
     "installable": False,
-    "data": ["views/tours.xml",],
+    "data": ["views/tours.xml"],
 }
