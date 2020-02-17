@@ -6,7 +6,7 @@
     "application": False,
     "author": "IT-Projects LLC, Ivan Yelizariev, Savoir-faire Linux, "
     "Quartile Limited Tim Lai, Eugene Molotov",
-    "license": "GPL-3",
+    "license": "Other OSI approved licence",  # MIT
     "support": "apps@it-projects.info",
     "website": "https://twitter.com/yelizariev",
     "price": 15.0,

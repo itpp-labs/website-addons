@@ -9,7 +9,7 @@
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "support": "apps@it-projects.info",
     "website": "https://it-projects.info/team/yelizariev",
-    "license": "AGPL-3",
+    "license": "Other OSI approved licence",  # MIT
     "price": 95.00,
     "currency": "EUR",
     "depends": ["event", "partner_event"],
