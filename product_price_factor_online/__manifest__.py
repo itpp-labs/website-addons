@@ -2,7 +2,7 @@
     "name": "Product price factor for web shop",
     "summary": """Multiplies price depending on product attributes""",
     "category": "Website",
-    "license": "GPL-3",
+    "license": "Other OSI approved licence",  # MIT
     "author": "IT-Projects LLC, Ildar Nasyrov",
     "price": 10.00,
     "currency": "EUR",
