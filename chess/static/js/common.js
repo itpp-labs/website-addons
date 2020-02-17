@@ -1,3 +1,4 @@
+/* eslint-disable */
 odoo.define("chess.common", function(require) {
     "use strict";
     var pos = [];
