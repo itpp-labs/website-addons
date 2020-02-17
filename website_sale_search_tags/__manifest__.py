@@ -6,7 +6,7 @@
     "version": "10.0.1.0.3",
     "application": False,
     "author": "IT-Projects LLC, Ivan Yelizariev, Savoir-faire Linux, Eugene Molotov",
-    "license": "GPL-3",
+    "license": "Other OSI approved licence",  # MIT
     "support": "apps@it-projects.info",
     "website": "https://it-projects.info",
     "price": 30.0,
