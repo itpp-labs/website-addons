@@ -9,7 +9,7 @@
     "version": "12.0.3.0.1",
     "application": False,
     "author": "IT-Projects LLC, Ivan Yelizariev, Nicolas JEUDY",
-    "support": "apps@it-projects.info",
+    "support": "apps@itpp.dev",
     "website": "https://twitter.com/yelizariev",
     "license": "Other OSI approved licence",  # MIT
     "price": 200.00,
