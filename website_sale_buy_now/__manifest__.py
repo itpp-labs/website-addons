@@ -3,7 +3,7 @@
     "name": 'E-commerce "Buy Now"',
     "summary": "Quick checkout to buy product",
     "author": "IT-Projects LLC, Ivan Yelizariev",
-    "license": "GPL-3",
+    "license": "Other OSI approved licence",  # MIT
     "category": "Website",
     "price": 65.00,
     "currency": "EUR",
