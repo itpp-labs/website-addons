@@ -6,7 +6,7 @@
     "images": ["images/5.png"],
     "vesion": "10.0.1.0.1",
     "author": "IT-Projects LLC",
-    "support": "apps@it-projects.info",
+    "support": "apps@itpp.dev",
     "website": "https://it-projects.info",
     "license": "Other OSI approved licence",  # MIT
     # "price": 25.00,

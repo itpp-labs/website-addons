@@ -7,7 +7,7 @@
     "application": False,
     "author": "IT-Projects LLC, Ivan Yelizariev, Savoir-faire Linux",
     "license": "Other OSI approved licence",  # MIT
-    "support": "apps@it-projects.info",
+    "support": "apps@itpp.dev",
     "website": "https://twitter.com/yelizariev",
     "price": 30.0,
     "currency": "EUR",

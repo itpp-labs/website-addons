@@ -5,7 +5,7 @@
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "license": "Other OSI approved licence",  # MIT
     "category": "eCommerce",
-    "support": "apps@it-projects.info",
+    "support": "apps@itpp.dev",
     "website": "https://yelizariev.github.io",
     "depends": ["website_sale_add_to_cart", "website_sale_stock_status"],
     "data": ["views.xml"],

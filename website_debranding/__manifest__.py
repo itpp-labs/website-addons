@@ -6,7 +6,7 @@
     "license": "Other OSI approved licence",  # MIT
     "category": "Debranding",
     "images": ["images/website_debranding.jpg"],
-    "support": "apps@it-projects.info",
+    "support": "apps@itpp.dev",
     "website": "https://twitter.com/yelizariev",
     # 'price': 60.00,
     # 'currency': 'EUR',
