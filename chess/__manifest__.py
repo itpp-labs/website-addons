@@ -4,7 +4,7 @@
     "category": "Website",
     "vesion": "12.0.1.0.0",
     "author": "IT-Projects LLC, Dinar Gabbasov",
-    "support": "apps@it-projects.info",
+    "support": "apps@itpp.dev",
     "website": "https://twitter.com/gabbasov_dinar",
     "license": "Other OSI approved licence",  # MIT
     "depends": ["base", "website", "bus", "web"],
