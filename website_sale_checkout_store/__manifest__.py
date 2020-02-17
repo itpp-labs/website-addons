@@ -12,7 +12,7 @@
     "images": ["images/1.png"],
     "version": "10.0.1.0.5",
     "author": "IT-Projects LLC",
-    "support": "apps@it-projects.info",
+    "support": "apps@itpp.dev",
     "website": "https://it-projects.info",
     "license": "Other OSI approved licence",  # MIT
     "price": 90.00,

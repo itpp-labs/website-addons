@@ -6,7 +6,7 @@
     "images": ["images/login.png"],
     "version": "10.0.1.0.1",
     "author": "IT-Projects LLC, Ildar Nasyrov",
-    "support": "apps@it-projects.info",
+    "support": "apps@itpp.dev",
     "website": "https://it-projects.info",
     "license": "Other OSI approved licence",  # MIT
     "price": 40.00,

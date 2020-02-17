@@ -10,7 +10,7 @@
     "version": "10.0.2.0.5",
     "application": False,
     "author": "IT-Projects LLC, Ivan Yelizariev",
-    "support": "apps@it-projects.info",
+    "support": "apps@itpp.dev",
     "website": "https://twitter.com/yelizariev",
     "license": "Other OSI approved licence",  # MIT
     "price": 400.00,

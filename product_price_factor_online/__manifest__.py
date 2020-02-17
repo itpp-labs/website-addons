@@ -9,7 +9,7 @@
     "price": 20.00,
     "currency": "EUR",
     "images": ["images/1.png"],
-    "support": "apps@it-projects.info",
+    "support": "apps@itpp.dev",
     "website": "https://twitter.com/nasyrov_ildar",
     "depends": ["website_sale", "product_price_factor"],
     "data": ["views/templates.xml"],
