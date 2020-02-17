@@ -10,7 +10,7 @@
     "images": ["images/stock_picking_barcode_main.png"],
     "version": "11.0.1.1.1",
     "author": "IT-Projects LLC, Kolushov Alexandr",
-    "support": "apps@it-projects.info",
+    "support": "apps@itpp.dev",
     "website": "https://it-projects.info/team/KolushovAlexandr",
     "license": "Other OSI approved licence",  # MIT
     "price": 89.00,

@@ -8,7 +8,7 @@
     "images": ["images/websale_cache.png"],
     "version": "10.0.1.0.1",
     "author": "IT-Projects LLC, Artyom Losev",
-    "support": "apps@it-projects.info",
+    "support": "apps@itpp.dev",
     "website": "https://www.it-projects.info",
     "license": "Other OSI approved licence",  # MIT
     "price": 25.00,
