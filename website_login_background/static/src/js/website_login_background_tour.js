@@ -1,5 +1,5 @@
 /* Copyright 2019 Denis Mudarisov <https://it-projects.info/team/trojikman>
-   License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html). */
+   License MIT (https://opensource.org/licenses/MIT). */
 odoo.define("website_login_background.tour", function(require) {
     "use strict";
 

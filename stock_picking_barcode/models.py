@@ -3,7 +3,7 @@
 # Copyright 2016 Pavel Romanchenko
 # Copyright 2017 Artyom Losev
 # Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+# License MIT (https://opensource.org/licenses/MIT).
 
 from odoo import api, fields, models
 

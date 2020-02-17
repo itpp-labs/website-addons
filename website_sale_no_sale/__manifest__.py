@@ -1,6 +1,6 @@
 # Copyright 2018 Denis Mudarisov <https://it-projects.info/team/trojikman>
 # Copyright 2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+# License MIT (https://opensource.org/licenses/MIT).
 {
     "name": """Stop Online Sales""",
     "summary": """Adds options to disable all sales and hide all prices, but keep products visible at website""",
@@ -11,7 +11,7 @@
     "author": "IT-Projects LLC, Denis Mudarisov",
     "support": "apps@it-projects.info",
     "website": "https://it-projects.info/team/trojikman",
-    "license": "LGPL-3",
+    "license": "Other OSI approved licence",  # MIT
     "price": 23.00,
     "currency": "EUR",
     "depends": ["website_sale"],
