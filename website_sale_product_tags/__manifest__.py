@@ -3,7 +3,7 @@
     "name": "Product tags at eCommerce",
     "vesion": "10.0.1.0.0",
     "author": "IT-Projects LLC, Ivan Yelizariev",
-    "license": "LGPL-3",
+    "license": "Other OSI approved licence",  # MIT
     "category": "eCommerce",
     "support": "apps@it-projects.info",
     "website": "https://yelizariev.github.io",

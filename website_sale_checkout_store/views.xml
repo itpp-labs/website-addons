@@ -2,7 +2,7 @@
 <!--# Copyright 2016 Ilyas <https://github.com/ilyasProgrammer>
     # Copyright 2016 Ildar Nasyrov <https://www.it-projects.info/team/iledarn>
     # Copyright 2016 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
-    # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).-->
+    # License MIT (https://opensource.org/licenses/MIT).-->
 <odoo>
     <record id="website_sale_checkout_store_settings_view" model="ir.ui.view">
         <field

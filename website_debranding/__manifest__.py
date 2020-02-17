@@ -3,7 +3,7 @@
     "name": "Website debranding",
     "version": "10.0.1.0.1",
     "author": "IT-Projects LLC, Ivan Yelizariev",
-    "license": "LGPL-3",
+    "license": "Other OSI approved licence",  # MIT
     "category": "Debranding",
     "images": ["images/website_debranding.jpg"],
     "support": "apps@it-projects.info",
