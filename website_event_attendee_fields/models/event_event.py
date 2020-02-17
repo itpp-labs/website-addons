@@ -70,7 +70,7 @@ class AttendeeField(models.Model):
     )
 
     width = fields.Selection(
-        [(str(v), str(v)) for v in xrange(1, 13)],  # 13 is not included
+        [(str(v), str(v)) for v in range(1, 13)],  # 13 is not included
         string="Width",
         required=True,
         default="4",
