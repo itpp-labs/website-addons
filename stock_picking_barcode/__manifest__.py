@@ -8,7 +8,7 @@
     "author": "IT-Projects LLC, Pavel Romanchenko",
     "support": "apps@it-projects.info",
     "website": "https://it-projects.info",
-    "license": "LGPL-3",
+    "license": "Other OSI approved licence",  # MIT
     "price": 89.00,
     "currency": "EUR",
     "depends": ["stock", "web_editor", "website"],

@@ -2,7 +2,7 @@
 {
     "name": "website_sale_birthdate",
     "author": "IT-Projects LLC, Ivan Yelizariev",
-    "license": "LGPL-3",
+    "license": "Other OSI approved licence",  # MIT
     "support": "apps@it-projects.info",
     "website": "https://yelizariev.github.io",
     "category": "eCommerce",
