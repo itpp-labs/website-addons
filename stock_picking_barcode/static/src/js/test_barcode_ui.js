@@ -23,23 +23,6 @@ odoo.define("stock_picking_barcode.tour", function(require) {
         ];
     }
 
-    function add_product_by_barcode(barcode) {
-        return [
-            {
-                content: "dummy action",
-                //            Trigger: '.text-left:contains("Product")',
-                trigger: ".o_notification_manager",
-                // 'run text' doesnt work for barcode simulating, it puts barcode string inside a selected element
-                run: "text " + barcode,
-            },
-            {
-                content: "check the product addition",
-                extra_trigger: 'tr:contains("Ice Cream")',
-                trigger: '.text-left:contains("Product")',
-            },
-        ];
-    }
-
     function add_product() {
         return [
             {
@@ -55,7 +38,6 @@ odoo.define("stock_picking_barcode.tour", function(require) {
 
     var steps = [];
     steps = steps.concat(open_inventory_ui());
-    //    Steps = steps.concat(add_product_by_barcode('0000000000017'));
     steps = steps.concat(add_product());
 
     tour.register("tour_stock_picking_barcode", {test: true, url: "/web"}, steps);
