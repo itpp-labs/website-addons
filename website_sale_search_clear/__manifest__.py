@@ -5,7 +5,7 @@
     "version": "11.0.1.0.1",
     "application": False,
     "author": "IT-Projects LLC, Ivan Yelizariev, Savoir-faire Linux, Nicolas JEUDY, Quartile Limited Tim Lai",
-    "license": "GPL-3",
+    "license": "Other OSI approved licence",  # MIT
     "support": "apps@it-projects.info",
     "website": "https://twitter.com/yelizariev",
     "price": 30.0,
