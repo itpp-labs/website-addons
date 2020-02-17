@@ -6,7 +6,7 @@
     "author": "IT-Projects LLC, Dinar Gabbasov",
     "support": "apps@it-projects.info",
     "website": "https://twitter.com/gabbasov_dinar",
-    "license": "LGPL-3",
+    "license": "Other OSI approved licence",  # MIT
     "depends": ["base", "website", "bus", "web"],
     "external_dependencies": {"python": ["chess"], "bin": []},
     "data": [

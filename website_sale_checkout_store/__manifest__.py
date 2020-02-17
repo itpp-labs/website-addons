@@ -2,7 +2,7 @@
 # Copyright 2016-2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2017-2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
 # Copyright 2019 Karamov Ilmir <https://it-projects.info/team/ilmir-k>
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+# License MIT (https://opensource.org/licenses/MIT).
 
 {
     "name": """Pickup and pay at store""",
@@ -13,7 +13,7 @@
     "author": "IT-Projects LLC",
     "support": "apps@it-projects.info",
     "website": "https://it-projects.info",
-    "license": "LGPL-3",
+    "license": "Other OSI approved licence",  # MIT
     "price": 90.00,
     "currency": "EUR",
     "depends": ["website_sale"],
