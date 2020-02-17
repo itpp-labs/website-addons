@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
-     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html). -->
+     License MIT (https://opensource.org/licenses/MIT). -->
 <odoo>
     <record id="crm_lead_rule_multi_website" model="ir.rule">
         <field name="name">Multi-Website Leads</field>

@@ -2,7 +2,7 @@
 # Copyright 2018 Ilmir Karamov <https://it-projects.info/team/ilmir-k>
 # Copyright 2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
 # Copyright 2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
-# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
+# License MIT (https://opensource.org/licenses/MIT).
 {
     "name": """Multi Ecommerce""",
     "summary": """Multi Website support in eCommerce""",
@@ -14,7 +14,7 @@
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "support": "apps@it-projects.info",
     "website": "https://it-projects.info/team/yelizariev",
-    "license": "LGPL-3",
+    "license": "Other OSI approved licence",  # MIT
     "price": 9.00,
     "currency": "EUR",
     "depends": ["website_multi_company", "website_sale", "ir_rule_website"],

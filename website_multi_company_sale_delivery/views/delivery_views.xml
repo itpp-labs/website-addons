@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 Ildar Nasyrov <https://it-projects.info/team/iledarn> -->
-<!-- License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html). -->
+<!-- License MIT (https://opensource.org/licenses/MIT). -->
 <odoo>
   <record id="view_delivery_carrier_form_website_multi_company_sale" model="ir.ui.view">
     <field name="name">delivery.carrier.form.inherit.website_multi_company_sale</field>

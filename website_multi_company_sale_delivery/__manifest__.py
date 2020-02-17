@@ -1,5 +1,5 @@
 # Copyright 2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+# License MIT (https://opensource.org/licenses/MIT).
 {
     "name": """Real Multi Website (eCommerce Delivery extension)""",
     "summary": """Configure Delivery Carriers list per website""",
@@ -11,7 +11,7 @@
     "author": "IT-Projects LLC, Ildar Nasyrov",
     "support": "apps@it-projects.info",
     "website": "https://it-projects.info/team/iledarn",
-    "license": "LGPL-3",
+    "license": "Other OSI approved licence",  # MIT
     "price": 19.00,
     "currency": "EUR",
     "depends": ["website_sale_delivery", "ir_rule_website", "website_multi_company"],
