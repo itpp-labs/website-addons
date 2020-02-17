@@ -31,7 +31,6 @@
         "views/website_navbar_templates.xml",
         "views/res_users_view.xml",
         "views/assets.xml",
-        # "data/first_action.xml", TODO: uncomment in odoo 12
         "security/res_security.xml",
     ],
     "qweb": ["static/src/xml/web_editor.xml"],
