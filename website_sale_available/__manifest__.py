@@ -1,4 +1,4 @@
-# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
+# License MIT (https://opensource.org/licenses/MIT).
 # Copyright 2015-2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2015 Veronika veryberry <https://github.com/veryberry>
 # Copyright 2016 Ilmir Karamov <https://it-projects.info/team/ilmir-k>
@@ -11,7 +11,7 @@
     "summary": """Sale only available products on Website""",
     "version": "11.0.1.0.0",
     "author": "IT-Projects LLC, Ivan Yelizariev",
-    "license": "LGPL-3",
+    "license": "Other OSI approved licence",  # MIT
     "category": "eCommerce",
     "support": "apps@it-projects.info",
     "website": "https://yelizariev.github.io",

@@ -1,4 +1,4 @@
-# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
+# License MIT (https://opensource.org/licenses/MIT).
 # Copyright 2017 Kolushov Alexandr <https://github.com/KolushovAlexandr>
 
 import odoo.tests
