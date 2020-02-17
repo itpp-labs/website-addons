@@ -1,6 +1,6 @@
 # Copyright 2017 Artyom Losev
 # Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+# License MIT (https://opensource.org/licenses/MIT).
 {
     "name": """E-commerce Category Cache""",
     "summary": """Use this module to greatly accelerate the loading of a page with a large number of product categories""",
@@ -10,7 +10,7 @@
     "author": "IT-Projects LLC, Artyom Losev",
     "support": "apps@it-projects.info",
     "website": "https://www.it-projects.info",
-    "license": "LGPL-3",
+    "license": "Other OSI approved licence",  # MIT
     "price": 25.00,
     "currency": "EUR",
     "depends": ["website_sale", "website", "base_action_rule"],
