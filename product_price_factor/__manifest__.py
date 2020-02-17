@@ -1,7 +1,7 @@
 {
     "name": "Product price factor",
     "summary": """Variate your product prices with multiplier""",
-    "license": "LGPL-3",
+    "license": "Other OSI approved licence",  # MIT
     "author": "IT-Projects LLC, Ildar Nasyrov, Nicolas JEUDY",
     "support": "apps@it-projects.info",
     "website": "https://twitter.com/nasyrov_ildar",
