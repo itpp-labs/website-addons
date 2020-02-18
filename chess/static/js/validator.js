@@ -1,3 +1,4 @@
+/* eslint-disable */
 function validateForm() {
     var result = [];
     var element = document.getElementById("players_selector");
