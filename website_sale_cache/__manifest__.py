@@ -6,7 +6,7 @@
     "summary": """Use this module to greatly accelerate the loading of a page with a large number of product categories""",
     "category": "Website",
     "images": ["images/websale_cache.png"],
-    "version": "10.0.1.0.1",
+    "version": "12.0.1.0.1",
     "author": "IT-Projects LLC, Artyom Losev",
     "support": "apps@itpp.dev",
     "website": "https://www.it-projects.info",

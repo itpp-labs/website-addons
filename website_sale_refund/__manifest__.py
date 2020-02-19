@@ -4,7 +4,7 @@
     "category": "eCommerce",
     # "live_test_url": "",
     "images": ["images/banner.jpg"],
-    "version": "10.0.1.0.1",
+    "version": "12.0.1.0.1",
     "application": False,
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "support": "apps@itpp.dev",
