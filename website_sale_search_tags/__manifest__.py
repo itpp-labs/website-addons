@@ -2,7 +2,7 @@
     "name": "Website Search Product Tags",
     "summary": """Search website products by tags""",
     "category": "eCommerce",
-    "version": "11.0.1.0.3",
+    "version": "13.0.1.0.3",
     "application": False,
     "author": "IT-Projects LLC, Ivan Yelizariev, Savoir-faire Linux, "
     "Quartile Limited Tim Lai, Eugene Molotov",

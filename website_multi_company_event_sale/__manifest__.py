@@ -6,7 +6,7 @@
     "category": "Marketing",
     # "live_test_url": "",
     "images": ["images/website_multi_company_event_sale.jpg"],
-    "version": "10.0.1.0.0",
+    "version": "13.0.1.0.0",
     "application": False,
     "author": "IT-Projects LLC, Ildar Nasyrov",
     "support": "apps@itpp.dev",

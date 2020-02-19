@@ -7,7 +7,7 @@
     "category": "Extra Tools",
     # "live_test_url": "http://apps.it-projects.info/shop/product/multi-product-images?version=11.0",
     "images": ["images/multi_images_main.jpg"],
-    "version": "11.0.1.0.0",
+    "version": "13.0.1.0.0",
     "application": False,
     "author": "IT-Projects LLC, Dinar Gabbasov, Kolushov Alexandr",
     "support": "apps@itpp.dev",

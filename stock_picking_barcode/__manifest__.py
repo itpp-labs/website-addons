@@ -8,7 +8,7 @@
     "summary": """The module allows you to process Pickings by barcode scanner via special page /barcode/web (the same as it was in odoo 8.0)""",
     "category": "Warehouse",
     "images": ["images/stock_picking_barcode_main.png"],
-    "version": "11.0.1.1.1",
+    "version": "13.0.1.1.1",
     "author": "IT-Projects LLC, Kolushov Alexandr",
     "support": "apps@itpp.dev",
     "website": "https://it-projects.info/team/KolushovAlexandr",
