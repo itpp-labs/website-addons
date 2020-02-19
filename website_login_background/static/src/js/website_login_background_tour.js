@@ -20,10 +20,10 @@ odoo.define("website_login_background.tour", function(require) {
                 content: "check background",
                 trigger: ".oe_website_login_container",
                 run: function() {
-                    if ($("body").css("background-image") !== "none") {
-                        console.log("ok");
-                    } else {
+                    if ($("body").css("background-image") === "none") {
                         console.log("error");
+                    } else {
+                        console.log("ok");
                     }
                 },
             },
