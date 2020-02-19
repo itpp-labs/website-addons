@@ -1,6 +1,6 @@
 {
     "name": "Quick add items to shopping cart",
-    "version": "11.0.1.0.2",
+    "version": "13.0.1.0.2",
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "license": "Other OSI approved licence",  # MIT
     "category": "eCommerce",

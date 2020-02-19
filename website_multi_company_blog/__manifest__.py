@@ -4,7 +4,7 @@
     "category": "eCommerce",
     # "live_test_url": "http://apps.it-projects.info/shop/product/website-multi-company?version=12.0",
     "images": ["images/multi_blog_main.png"],
-    "version": "12.0.1.0.1",
+    "version": "13.0.1.0.1",
     "application": False,
     "author": "IT-Projects LLC, Ildar Nasyrov",
     "support": "apps@itpp.dev",

@@ -16,15 +16,15 @@ class QueryURL(object):
             if is_category and k == "search":
                 continue
             kw.setdefault(k, v)
-        l = []
+        urls = []
         for k, v in list(kw.items()):
             if v:
                 if isinstance(v, list) or isinstance(v, set):
-                    l.append(werkzeug.url_encode([(k, i) for i in v]))
+                    urls.append(werkzeug.url_encode([(k, i) for i in v]))
                 else:
-                    l.append(werkzeug.url_encode([(k, v)]))
-        if l:
-            path += "?" + "&".join(l)
+                    urls.append(werkzeug.url_encode([(k, v)]))
+        if urls:
+            path += "?" + "&".join(urls)
         return path
 
 

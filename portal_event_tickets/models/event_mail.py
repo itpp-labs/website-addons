@@ -1,3 +1,4 @@
+# pylint: disable=api-one-deprecated
 from datetime import datetime
 
 from dateutil.relativedelta import relativedelta

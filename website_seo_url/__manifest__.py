@@ -3,7 +3,7 @@
     "summary": """Allows to make custom SEO URL for pages related to some record""",
     "category": "Website",
     "images": [],
-    "version": "11.0.1.0.0",
+    "version": "13.0.1.0.0",
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "support": "apps@itpp.dev",
     "website": "https://it-projects.info",
