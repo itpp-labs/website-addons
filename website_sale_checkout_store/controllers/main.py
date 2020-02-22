@@ -78,15 +78,24 @@ class WebsiteSaleExtended(WebsiteSale):
         order.force_quotation_send()
         request.website.sale_reset()
 
-    def _get_mandatory_fields(self):
+    def _get_mandatory_fields(self, shipping=None):
         order = request.website.sale_get_order()
-        if not order.buy_way or "noship" not in order.buy_way:
-            return ["name", "phone", "email", "street", "city", "country_id"]
-        else:
+        if (
+            not order.buy_way
+            or "nobill" not in order.buy_way
+            and "noship" not in order.buy_way
+        ):
+            fields = ["name", "phone", "street", "city", "country_id"]
+        elif "noship" in order.buy_way:
             if "nobill" in order.buy_way:
-                return ["name", "phone", "email"]
+                fields = ["name", "phone"]
             else:
-                return ["name", "phone", "email", "country_id"]
+                fields = ["name", "phone", "country_id"]
+        else:
+            fields = ["name", "phone", "street", "city"]
+        if not shipping:
+            fields.append("email")
+        return fields
 
     def _get_mandatory_billing_fields(self):
         return self._get_mandatory_fields()
