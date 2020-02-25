@@ -4,7 +4,7 @@
     "summary": """Allows to disable product sales via eCommerce for any reason""",
     "category": "eCommerce",
     "images": [],
-    "vesion": "10.0.1.0.0",
+    "vesion": "10.0.1.0.1",
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "support": "apps@itpp.dev",
     "website": "https://it-projects.info",
