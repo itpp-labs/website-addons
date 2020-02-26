@@ -10,7 +10,7 @@
                         <!--<script type="text/javascript" src="/website_sale_stock_status/static/src/js/website_sale_stock_status.js"></script>-->
                         <link
                     rel='stylesheet'
-                    href='/website_sale_stock_status/static/src/css/website_sale_stock_status.css'
+                    href='/website_sale_add_to_cart_disable/static/src/css/website_sale_add_to_cart_disable.css'
                 />
                   </xpath>
             </template>
