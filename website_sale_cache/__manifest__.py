@@ -13,16 +13,7 @@
     "license": "Other OSI approved licence",  # MIT
     "price": 49.00,
     "currency": "EUR",
-
-    "depends": [
-        "website_sale",
-        "website",
-        "base_automation",
-    ],
-    "data": [
-        "views.xml",
-        "data/ir_action_server.xml",
-        "data/base_automation.xml",
-    ],
+    "depends": ["website_sale", "website", "base_automation"],
+    "data": ["views.xml", "data/ir_action_server.xml", "data/base_automation.xml"],
     "installable": True,
 }
