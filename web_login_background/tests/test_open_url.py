@@ -1,4 +1,3 @@
-
 import odoo.tests
 
 
@@ -15,5 +14,5 @@ class TestUi(odoo.tests.HttpCase):
                 }
             }, 3000);
         """
-        link = '/web/login'
+        link = "/web/login"
         self.browser_js(link, code)

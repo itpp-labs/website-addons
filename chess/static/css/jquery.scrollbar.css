@@ -26,7 +26,8 @@
 .scroll-element {
     display: none;
 }
-.scroll-element, .scroll-element div {
+.scroll-element,
+.scroll-element div {
     box-sizing: content-box;
 }
 
@@ -66,8 +67,7 @@
     width: 0;
 }
 .window_chat > .scroll-element,
-.window_chat > .scroll-element div
-{
+.window_chat > .scroll-element div {
     background: none;
     border: none;
     margin: 0;
@@ -84,12 +84,14 @@
     width: 100%;
 }
 
-.window_chat > .scroll-element .scroll-element_track { display: none; }
+.window_chat > .scroll-element .scroll-element_track {
+    display: none;
+}
 .window_chat > .scroll-element .scroll-bar {
-    background-color: #6C6E71;
+    background-color: #6c6e71;
     display: block;
 
-    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
     filter: alpha(opacity=0);
     opacity: 0;
 
@@ -105,11 +107,10 @@
 }
 .window_chat:hover > .scroll-element .scroll-bar,
 .window_chat > .scroll-element.scroll-draggable .scroll-bar {
-    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
     filter: alpha(opacity=70);
     opacity: 0.7;
 }
-
 
 .window_chat > .scroll-element.scroll-x {
     bottom: 0px;
@@ -129,15 +130,35 @@
 }
 
 /* scrollbar height/width & offset from container borders */
-.window_chat > .scroll-element.scroll-x .scroll-bar { height: 7px; min-width: 10px; top: -9px; }
-.window_chat > .scroll-element.scroll-y .scroll-bar { left: -9px; min-height: 10px; width: 7px; }
+.window_chat > .scroll-element.scroll-x .scroll-bar {
+    height: 7px;
+    min-width: 10px;
+    top: -9px;
+}
+.window_chat > .scroll-element.scroll-y .scroll-bar {
+    left: -9px;
+    min-height: 10px;
+    width: 7px;
+}
 
-.window_chat > .scroll-element.scroll-x .scroll-element_outer { left: 2px; }
-.window_chat > .scroll-element.scroll-x .scroll-element_size { left: -4px; }
+.window_chat > .scroll-element.scroll-x .scroll-element_outer {
+    left: 2px;
+}
+.window_chat > .scroll-element.scroll-x .scroll-element_size {
+    left: -4px;
+}
 
-.window_chat > .scroll-element.scroll-y .scroll-element_outer { top: 2px; }
-.window_chat > .scroll-element.scroll-y .scroll-element_size { top: -4px; }
+.window_chat > .scroll-element.scroll-y .scroll-element_outer {
+    top: 2px;
+}
+.window_chat > .scroll-element.scroll-y .scroll-element_size {
+    top: -4px;
+}
 
 /* update scrollbar offset if both scrolls are visible */
-.window_chat > .scroll-element.scroll-x.scroll-scrolly_visible .scroll-element_size { left: -11px; }
-.window_chat > .scroll-element.scroll-y.scroll-scrollx_visible .scroll-element_size { top: -11px; }
+.window_chat > .scroll-element.scroll-x.scroll-scrolly_visible .scroll-element_size {
+    left: -11px;
+}
+.window_chat > .scroll-element.scroll-y.scroll-scrollx_visible .scroll-element_size {
+    top: -11px;
+}

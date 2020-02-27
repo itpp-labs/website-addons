@@ -1,35 +1,36 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!--# Copyright 2016 Ilyas <https://github.com/ilyasProgrammer>
     # Copyright 2016 Ildar Nasyrov <https://www.it-projects.info/team/iledarn>
     # Copyright 2016 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
-    # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).-->
-
+    # License MIT (https://opensource.org/licenses/MIT).-->
 <odoo>
     <record id="res_config_settings_view_form" model="ir.ui.view">
-        <field name="name">res.config.settings.view.form.inherit.website.sale.checkout.store</field>
+        <field
+            name="name"
+        >res.config.settings.view.form.inherit.website.sale.checkout.store</field>
         <field name="model">res.config.settings</field>
-        <field name="inherit_id" ref="website.res_config_settings_view_form"/>
+        <field name="inherit_id" ref="website.res_config_settings_view_form" />
         <field name="arch" type="xml">
             <div id="sale_shipping_settings" position="after">
                 <h2>Shipping and billing</h2>
                 <group name="shipping_billing">
-                    <label for="nobill_noship" string="Ways of sale"/>
+                    <label for="nobill_noship" string="Ways of sale" />
                     <div>
                         <div>
-                            <field name="nobill_noship"/>
-                            <label for="nobill_noship"/>
+                            <field name="nobill_noship" />
+                            <label for="nobill_noship" />
                         </div>
                         <div>
                             <field name="bill_noship" />
-                            <label for="bill_noship"/>
+                            <label for="bill_noship" />
                         </div>
                         <div>
                             <field name="bill_ship" />
-                            <label for="bill_ship"/>
+                            <label for="bill_ship" />
                         </div>
                         <div>
                             <field name="nobill_ship" />
-                            <label for="nobill_ship"/>
+                            <label for="nobill_ship" />
                         </div>
                     </div>
                     <field name="bill_ship_option" />

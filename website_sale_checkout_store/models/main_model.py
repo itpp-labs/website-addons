@@ -3,18 +3,25 @@
 # Copyright 2016 Dinar Gabbasov <https://www.it-projects.info/team/GabbasovDinar>
 # Copyright 2016-2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2017 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+# License MIT (https://opensource.org/licenses/MIT).
 
-from odoo import api, models, fields, _
+from odoo import _, api, fields, models
 
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
     buy_way = fields.Char()
-    payment_method_information = fields.Char(compute='_compute_payment_method_information')
-    delivery_method_information = fields.Char(compute='_compute_delivery_method_information')
-    payment_acquirer_id = fields.Many2one('payment.acquirer', string='Payment Acquirer',
-                                          compute='_compute_payment_acquirer_id')
+    payment_method_information = fields.Char(
+        compute="_compute_payment_method_information"
+    )
+    delivery_method_information = fields.Char(
+        compute="_compute_delivery_method_information"
+    )
+    payment_acquirer_id = fields.Many2one(
+        "payment.acquirer",
+        string="Payment Acquirer",
+        compute="_compute_payment_acquirer_id",
+    )
 
     def _compute_payment_method_information(self):
         self.payment_method_information = False
@@ -34,50 +41,64 @@ class SaleOrder(models.Model):
     def get_shipping_billing(self):
         if not self.buy_way:
             return {
-                'ship_enabled': '1',
-                'bill_enabled': '1',
+                "ship_enabled": "1",
+                "bill_enabled": "1",
             }
         return {
-            'ship_enabled': 'noship' not in self.buy_way and '1' or '0',
-            'bill_enabled': 'nobill' not in self.buy_way and '1' or '0',
+            "ship_enabled": "noship" not in self.buy_way and "1" or "0",
+            "bill_enabled": "nobill" not in self.buy_way and "1" or "0",
         }
 
     def remove_is_delivery(self):
         for line in self.order_line:
-            if hasattr(line, 'is_delivery') and line.is_delivery:
+            if hasattr(line, "is_delivery") and line.is_delivery:
                 line.unlink()
 
     def recalc_has_delivery(self):
-        if hasattr(self, '_compute_has_delivery'):
-            if self.buy_way and 'noship' in self.buy_way:
+        if hasattr(self, "_compute_has_delivery"):
+            if self.buy_way and "noship" in self.buy_way:
                 self.has_delivery = False
             else:
                 self._compute_has_delivery()
 
 
 class WebsiteConfigSettings(models.TransientModel):
-    _inherit = 'res.config.settings'
+    _inherit = "res.config.settings"
     nobill_noship = fields.Boolean("Pickup and pay at store")
     bill_noship = fields.Boolean("Pickup at store but pay now")
     bill_ship = fields.Boolean("Pay now and get delivery")
     nobill_ship = fields.Boolean("Pay on delivery")
-    bill_ship_option = fields.Selection([
-        ('nobill_noship', 'Pickup and pay at store'),
-        ('bill_noship', 'Pickup at store but pay now'),
-        ('bill_ship', 'Pay now and get delivery'),
-        ('nobill_ship', 'Pay on delivery'),
-    ], string='Selected by default', default='nobill_noship')
+    bill_ship_option = fields.Selection(
+        [
+            ("nobill_noship", "Pickup and pay at store"),
+            ("bill_noship", "Pickup at store but pay now"),
+            ("bill_ship", "Pay now and get delivery"),
+            ("nobill_ship", "Pay on delivery"),
+        ],
+        string="Selected by default",
+        default="nobill_noship",
+    )
 
     @api.model
     def get_values(self):
         res = super(WebsiteConfigSettings, self).get_values()
         config_parameters = self.env["ir.config_parameter"].sudo()
         res.update(
-            nobill_noship=config_parameters.get_param("website_sale_checkout_store.nobill_noship", default=False),
-            bill_noship=config_parameters.get_param("website_sale_checkout_store.bill_noship", default=False),
-            bill_ship=config_parameters.get_param("website_sale_checkout_store.bill_ship", default=False),
-            nobill_ship=config_parameters.get_param("website_sale_checkout_store.nobill_ship", default=False),
-            bill_ship_option=config_parameters.get_param("website_sale_checkout_store.bill_ship_option", default='nobill_noship'),
+            nobill_noship=config_parameters.get_param(
+                "website_sale_checkout_store.nobill_noship", default=False
+            ),
+            bill_noship=config_parameters.get_param(
+                "website_sale_checkout_store.bill_noship", default=False
+            ),
+            bill_ship=config_parameters.get_param(
+                "website_sale_checkout_store.bill_ship", default=False
+            ),
+            nobill_ship=config_parameters.get_param(
+                "website_sale_checkout_store.nobill_ship", default=False
+            ),
+            bill_ship_option=config_parameters.get_param(
+                "website_sale_checkout_store.bill_ship_option", default="nobill_noship"
+            ),
         )
         return res
 
@@ -85,8 +106,19 @@ class WebsiteConfigSettings(models.TransientModel):
         super(WebsiteConfigSettings, self).set_values()
         config_parameters = self.env["ir.config_parameter"].sudo()
         for record in self:
-            config_parameters.set_param("website_sale_checkout_store.nobill_noship", record.nobill_noship or '')
-            config_parameters.set_param("website_sale_checkout_store.bill_noship", record.bill_noship or '')
-            config_parameters.set_param("website_sale_checkout_store.bill_ship", record.bill_ship or '')
-            config_parameters.set_param("website_sale_checkout_store.nobill_ship", record.nobill_ship or '')
-            config_parameters.set_param("website_sale_checkout_store.bill_ship_option", record.bill_ship_option or '')
+            config_parameters.set_param(
+                "website_sale_checkout_store.nobill_noship", record.nobill_noship or ""
+            )
+            config_parameters.set_param(
+                "website_sale_checkout_store.bill_noship", record.bill_noship or ""
+            )
+            config_parameters.set_param(
+                "website_sale_checkout_store.bill_ship", record.bill_ship or ""
+            )
+            config_parameters.set_param(
+                "website_sale_checkout_store.nobill_ship", record.nobill_ship or ""
+            )
+            config_parameters.set_param(
+                "website_sale_checkout_store.bill_ship_option",
+                record.bill_ship_option or "",
+            )

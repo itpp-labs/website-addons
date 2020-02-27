@@ -1,107 +1,197 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!--# Copyright 2016 Ilyas <https://github.com/ilyasProgrammer>
     # Copyright 2016 Ildar Nasyrov <https://www.it-projects.info/team/iledarn>
     # Copyright 2016 Dinar Gabbasov <https://www.it-projects.info/team/GabbasovDinar>
     # Copyright 2016-2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
     # Copyright 2017 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
-    # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).-->
-
-<odoo  noupdate="0">
-        <template id="website_sale_checkout_store_assets_frontend" name="website_sale_checkout_store assets" inherit_id="website_sale.assets_frontend">
+    # License MIT (https://opensource.org/licenses/MIT).-->
+<odoo noupdate="0">
+        <template
+        id="website_sale_checkout_store_assets_frontend"
+        name="website_sale_checkout_store assets"
+        inherit_id="website_sale.assets_frontend"
+    >
             <xpath expr="." position="inside">
-                <script src="/website_sale_checkout_store/static/src/js/website_sale_tour_mandatory_1.js" type="text/javascript"></script>
-                <script src="/website_sale_checkout_store/static/src/js/website_sale_tour_mandatory_2.js" type="text/javascript"></script>
-                <script src="/website_sale_checkout_store/static/src/js/website_sale_tour_mandatory_3.js" type="text/javascript"></script>
-                <script src="/website_sale_checkout_store/static/src/js/website_sale_tour_mandatory_4.js" type="text/javascript"></script>
-                <link rel="stylesheet" href="/website_sale_checkout_store/static/src/css/website_sale_checkout_store.css"/>
+                <script
+                src="/website_sale_checkout_store/static/src/js/website_sale_tour_mandatory_1.js"
+                type="text/javascript"
+            />
+                <script
+                src="/website_sale_checkout_store/static/src/js/website_sale_tour_mandatory_2.js"
+                type="text/javascript"
+            />
+                <script
+                src="/website_sale_checkout_store/static/src/js/website_sale_tour_mandatory_3.js"
+                type="text/javascript"
+            />
+                <script
+                src="/website_sale_checkout_store/static/src/js/website_sale_tour_mandatory_4.js"
+                type="text/javascript"
+            />
+                <link
+                rel="stylesheet"
+                href="/website_sale_checkout_store/static/src/css/website_sale_checkout_store.css"
+            />
             </xpath>
         </template>
 
-        <template id="website_sale_checkout_store_short_cart_summary" inherit_id="website_sale.short_cart_summary" name="Short Cart tmp">
+        <template
+        id="website_sale_checkout_store_short_cart_summary"
+        inherit_id="website_sale.short_cart_summary"
+        name="Short Cart tmp"
+    >
             <xpath expr="//a[@href='/shop/checkout?express=1']" position="replace">
                     <div>
-                        <a t-if="nobill_noship and not optional_products and website_sale_order and website_sale_order.website_order_line"
-                           id="nobill_noship" t-att-class="button_class"
-                           href="/shop/checkout?buyMethod=nobill_noship" style="width: 100%; margin-bottom: 5px">
-                            <span class="visible-xs-inline">Pickup and pay at store</span>
-                            <span class="fa fa-long-arrow-right"/>
+                        <a
+                    t-if="nobill_noship and not optional_products and website_sale_order and website_sale_order.website_order_line"
+                    id="nobill_noship"
+                    t-att-class="button_class"
+                    href="/shop/checkout?buyMethod=nobill_noship"
+                    style="width: 100%; margin-bottom: 5px"
+                >
+                            <span
+                        class="visible-xs-inline"
+                    >Pickup and pay at store</span>
+                            <span class="fa fa-long-arrow-right" />
                         </a>
                     </div>
                     <div>
-                        <a t-if="bill_noship and not optional_products and website_sale_order and website_sale_order.website_order_line"
-                           id="bill_noship" t-att-class="button_class"
-                           href="/shop/checkout?buyMethod=bill_noship" style="width: 100%; margin-bottom: 5px">
-                            <span class="visible-xs-inline">Pickup at store but pay now</span>
-                            <span class="fa fa-long-arrow-right"/>
+                        <a
+                    t-if="bill_noship and not optional_products and website_sale_order and website_sale_order.website_order_line"
+                    id="bill_noship"
+                    t-att-class="button_class"
+                    href="/shop/checkout?buyMethod=bill_noship"
+                    style="width: 100%; margin-bottom: 5px"
+                >
+                            <span
+                        class="visible-xs-inline"
+                    >Pickup at store but pay now</span>
+                            <span class="fa fa-long-arrow-right" />
                         </a>
                     </div>
                     <div>
-                        <a t-if="bill_ship and not optional_products and website_sale_order and website_sale_order.website_order_line"
-                           id="bill_ship" t-att-class="button_class"
-                           href="/shop/checkout?buyMethod=bill_ship" style="width: 100%; margin-bottom: 5px">
-                            <span class="visible-xs-inline">Pay now and get delivery</span>
-                            <span class="fa fa-long-arrow-right"/>
+                        <a
+                    t-if="bill_ship and not optional_products and website_sale_order and website_sale_order.website_order_line"
+                    id="bill_ship"
+                    t-att-class="button_class"
+                    href="/shop/checkout?buyMethod=bill_ship"
+                    style="width: 100%; margin-bottom: 5px"
+                >
+                            <span
+                        class="visible-xs-inline"
+                    >Pay now and get delivery</span>
+                            <span class="fa fa-long-arrow-right" />
                         </a>
                     </div>
                     <div>
-                        <a t-if="nobill_ship and not optional_products and website_sale_order and website_sale_order.website_order_line"
-                           id="nobill_ship" t-att-class="button_class"
-                           href="/shop/checkout?buyMethod=nobill_ship" style="width: 100%; margin-bottom: 5px">
+                        <a
+                    t-if="nobill_ship and not optional_products and website_sale_order and website_sale_order.website_order_line"
+                    id="nobill_ship"
+                    t-att-class="button_class"
+                    href="/shop/checkout?buyMethod=nobill_ship"
+                    style="width: 100%; margin-bottom: 5px"
+                >
                             <span class="visible-xs-inline">Pay on delivery</span>
-                            <span class="fa fa-long-arrow-right"/>
+                            <span class="fa fa-long-arrow-right" />
                         </a>
                     </div>
             </xpath>
         </template>
 
-        <template id="website_sale_checkout_store_cart" name="my_cart" inherit_id="website_sale.cart" priority="50">
-            <xpath expr="//div[hasclass('row')]//a[hasclass('btn','btn-primary')][@href='/shop/checkout?express=1']" position="replace">
+        <template
+        id="website_sale_checkout_store_cart"
+        name="my_cart"
+        inherit_id="website_sale.cart"
+        priority="50"
+    >
+            <xpath
+            expr="//div[hasclass('row')]//a[hasclass('btn','btn-primary')][@href='/shop/checkout?express=1']"
+            position="replace"
+        >
               <t t-if="not hide_checkout_button">
-                <t t-set="button_class" t-value="suggest_create_account and 'btn btn-default pull-right' or 'btn btn-primary pull-right'"/>
+                <t
+                    t-set="button_class"
+                    t-value="suggest_create_account and 'btn btn-default pull-right' or 'btn btn-primary pull-right'"
+                />
                 <!--<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
-                <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
-                <t t-set="nobill_noship"
-                   t-value="website.env['ir.config_parameter'].sudo().get_param('website_sale_checkout_store.nobill_noship')"/>
-                <t t-set="bill_noship"
-                   t-value="website.env['ir.config_parameter'].sudo().get_param('website_sale_checkout_store.bill_noship')"/>
-                <t t-set="bill_ship"
-                   t-value="website.env['ir.config_parameter'].sudo().get_param('website_sale_checkout_store.bill_ship')"/>
-                <t t-set="nobill_ship"
-                   t-value="website.env['ir.config_parameter'].sudo().get_param('website_sale_checkout_store.nobill_ship')"/>
-                <t t-set="bill_ship_option"
-                   t-value="website.env['ir.config_parameter'].sudo().get_param('website_sale_checkout_store.bill_ship_option')"/>
-                <t t-set="list_options" t-value="[nobill_noship, bill_noship, bill_ship, nobill_ship]"/>
+                <t t-set="website_sale_order" t-value="website.sale_get_order()" />
+                <t
+                    t-set="nobill_noship"
+                    t-value="website.env['ir.config_parameter'].sudo().get_param('website_sale_checkout_store.nobill_noship')"
+                />
+                <t
+                    t-set="bill_noship"
+                    t-value="website.env['ir.config_parameter'].sudo().get_param('website_sale_checkout_store.bill_noship')"
+                />
+                <t
+                    t-set="bill_ship"
+                    t-value="website.env['ir.config_parameter'].sudo().get_param('website_sale_checkout_store.bill_ship')"
+                />
+                <t
+                    t-set="nobill_ship"
+                    t-value="website.env['ir.config_parameter'].sudo().get_param('website_sale_checkout_store.nobill_ship')"
+                />
+                <t
+                    t-set="bill_ship_option"
+                    t-value="website.env['ir.config_parameter'].sudo().get_param('website_sale_checkout_store.bill_ship_option')"
+                />
+                <t
+                    t-set="list_options"
+                    t-value="[nobill_noship, bill_noship, bill_ship, nobill_ship]"
+                />
                 <div class="pull-right">
                     <div>
-                        <a t-if="nobill_noship and not optional_products and website_sale_order and website_sale_order.website_order_line"
-                           id="nobill_noship" t-att-class="button_class"
-                           href="/shop/checkout?buyMethod=nobill_noship" style="width: 100%; margin-bottom: 5px">
-                            <span class="visible-xs-inline">Pickup and pay at store</span>
-                            <span class="fa fa-long-arrow-right"/>
+                        <a
+                            t-if="nobill_noship and not optional_products and website_sale_order and website_sale_order.website_order_line"
+                            id="nobill_noship"
+                            t-att-class="button_class"
+                            href="/shop/checkout?buyMethod=nobill_noship"
+                            style="width: 100%; margin-bottom: 5px"
+                        >
+                            <span
+                                class="visible-xs-inline"
+                            >Pickup and pay at store</span>
+                            <span class="fa fa-long-arrow-right" />
                         </a>
                     </div>
                     <div>
-                        <a t-if="bill_noship and not optional_products and website_sale_order and website_sale_order.website_order_line"
-                           id="bill_noship" t-att-class="button_class"
-                           href="/shop/checkout?buyMethod=bill_noship" style="width: 100%; margin-bottom: 5px">
-                            <span class="visible-xs-inline">Pickup at store but pay now</span>
-                            <span class="fa fa-long-arrow-right"/>
+                        <a
+                            t-if="bill_noship and not optional_products and website_sale_order and website_sale_order.website_order_line"
+                            id="bill_noship"
+                            t-att-class="button_class"
+                            href="/shop/checkout?buyMethod=bill_noship"
+                            style="width: 100%; margin-bottom: 5px"
+                        >
+                            <span
+                                class="visible-xs-inline"
+                            >Pickup at store but pay now</span>
+                            <span class="fa fa-long-arrow-right" />
                         </a>
                     </div>
                     <div>
-                        <a t-if="bill_ship and not optional_products and website_sale_order and website_sale_order.website_order_line"
-                           id="bill_ship" t-att-class="button_class"
-                           href="/shop/checkout?buyMethod=bill_ship" style="width: 100%; margin-bottom: 5px">
-                            <span class="visible-xs-inline">Pay now and get delivery</span>
-                            <span class="fa fa-long-arrow-right"/>
+                        <a
+                            t-if="bill_ship and not optional_products and website_sale_order and website_sale_order.website_order_line"
+                            id="bill_ship"
+                            t-att-class="button_class"
+                            href="/shop/checkout?buyMethod=bill_ship"
+                            style="width: 100%; margin-bottom: 5px"
+                        >
+                            <span
+                                class="visible-xs-inline"
+                            >Pay now and get delivery</span>
+                            <span class="fa fa-long-arrow-right" />
                         </a>
                     </div>
                     <div>
-                        <a t-if="nobill_ship and not optional_products and website_sale_order and website_sale_order.website_order_line"
-                           id="nobill_ship" t-att-class="button_class"
-                           href="/shop/checkout?buyMethod=nobill_ship" style="width: 100%; margin-bottom: 5px">
+                        <a
+                            t-if="nobill_ship and not optional_products and website_sale_order and website_sale_order.website_order_line"
+                            id="nobill_ship"
+                            t-att-class="button_class"
+                            href="/shop/checkout?buyMethod=nobill_ship"
+                            style="width: 100%; margin-bottom: 5px"
+                        >
                             <span class="visible-xs-inline">Pay on delivery</span>
-                            <span class="fa fa-long-arrow-right"/>
+                            <span class="fa fa-long-arrow-right" />
                         </a>
                     </div>
                 </div>
@@ -110,23 +200,37 @@
         </template>
 
         <template id="checkout" name="my_checkout" inherit_id="website_sale.checkout">
-            <xpath expr="//div[hasclass('container','oe_website_sale')]" position="attributes">
+            <xpath
+            expr="//div[hasclass('container','oe_website_sale')]"
+            position="attributes"
+        >
                 <attribute name="t-attf-ship_enabled">#{ship_enabled}</attribute>
                 <attribute name="t-attf-bill_enabled">#{bill_enabled}</attribute>
             </xpath>
             <xpath expr="//div[hasclass('row','all_shipping')]" position="attributes">
                 <attribute name="t-att-ship">1</attribute>
             </xpath>
-            <xpath expr="//div[./h3[contains(.,'Shipping Address')]]" position="attributes">
+            <xpath
+            expr="//div[./h3[contains(.,'Shipping Address')]]"
+            position="attributes"
+        >
                 <attribute name="t-att-ship">1</attribute>
             </xpath>
         </template>
 
         <template id="address" name="my_checkout" inherit_id="website_sale.address">
-            <xpath expr="//t[@t-if=&quot;partner_id == website_sale_order.partner_shipping_id.id == website_sale_order.partner_invoice_id.id&quot;]" position="attributes">
-                <attribute name="t-if">partner_id == website_sale_order.partner_shipping_id.id == website_sale_order.partner_invoice_id.id and ship_enabled == '1'</attribute>
+            <xpath
+            expr="//t[@t-if=&quot;partner_id == website_sale_order.partner_shipping_id.id == website_sale_order.partner_invoice_id.id&quot;]"
+            position="attributes"
+        >
+                <attribute
+                name="t-if"
+            >partner_id == website_sale_order.partner_shipping_id.id == website_sale_order.partner_invoice_id.id and ship_enabled == '1'</attribute>
             </xpath>
-            <xpath expr="//div[hasclass('container','oe_website_sale')]" position="attributes">
+            <xpath
+            expr="//div[hasclass('container','oe_website_sale')]"
+            position="attributes"
+        >
                 <attribute name="t-attf-ship_enabled">#{ship_enabled}</attribute>
                 <attribute name="t-attf-bill_enabled">#{bill_enabled}</attribute>
             </xpath>
@@ -163,87 +267,196 @@
             </xpath>
             <xpath expr="//h2" position="replace">
                 <h2 class="page-header mt16">
-                    <t t-if="ship_enabled == '0' and bill_enabled == '0'">Contact Information</t>
+                    <t
+                    t-if="ship_enabled == '0' and bill_enabled == '0'"
+                >Contact Information</t>
                     <t t-else="">Your Address</t>
                     <small> or </small>
-                    <t t-set='connect' t-value="request.env['ir.config_parameter'].sudo().get_param('auth_signup.allow_uninvited') == 'True' and ('signup', 'Sign Up') or ('login', 'Log In')"/>
-                    <a t-attf-href='/web/{{connect[0]}}?redirect=/shop/checkout' class='btn btn-primary' style="margin-top: -11px"><t t-esc='connect[1]'/></a>
+                    <t
+                    t-set='connect'
+                    t-value="request.env['ir.config_parameter'].sudo().get_param('auth_signup.allow_uninvited') == 'True' and ('signup', 'Sign Up') or ('login', 'Log In')"
+                />
+                    <a
+                    t-attf-href='/web/{{connect[0]}}?redirect=/shop/checkout'
+                    class='btn btn-primary'
+                    style="margin-top: -11px"
+                ><t t-esc='connect[1]' /></a>
                 </h2>
             </xpath>
-            <xpath expr="//t[@t-if=&quot;mode == (&apos;new&apos;, &apos;billing&apos;) and not only_services&quot;]" position="attributes">
-                <attribute name="t-if">mode == ('new', 'billing') and not only_services and ship_enabled == '1'</attribute>
+            <xpath
+            expr="//t[@t-if=&quot;mode == (&apos;new&apos;, &apos;billing&apos;) and not only_services&quot;]"
+            position="attributes"
+        >
+                <attribute
+                name="t-if"
+            >mode == ('new', 'billing') and not only_services and ship_enabled == '1'</attribute>
             </xpath>
             <xpath expr='//form[@action="/shop/address"]/*' position="after">
-                <input t-if="ship_enabled == '0'" type="hidden" name="use_same" value="1" />
+                <input
+                t-if="ship_enabled == '0'"
+                type="hidden"
+                name="use_same"
+                value="1"
+            />
             </xpath>
         </template>
 
         <template id="payment" inherit_id="website_sale.payment" name="Payment">
             <xpath expr="//div[@id='payment_method']" position="replace">
                 <!-- based on https://github.com/odoo/odoo/blob/97f89dc0484902c58dec5dbb9de65f17661163f4/addons/website_sale/views/templates.xml#L1340 -->
-                <div id="payment_method" class="mt-3" t-if="(acquirers or tokens) and website_sale_order.amount_total and bill_enabled=='1'">
+                <div
+                id="payment_method"
+                class="mt-3"
+                t-if="(acquirers or tokens) and website_sale_order.amount_total and bill_enabled=='1'"
+            >
                     <h3 class="mb24">Pay with </h3>
                     <t t-call="payment.payment_tokens_list">
-                        <t t-set="mode" t-value="'payment'"/>
+                        <t t-set="mode" t-value="'payment'" />
                         <t t-set="submit_txt">Pay Now</t>
-                        <t t-set="icon_right" t-value="1"/>
-                        <t t-set="icon_class" t-value="'fa-chevron-right'"/>
-                        <t t-set="submit_class" t-value="'btn btn-primary'"/>
-                        <t t-set="pms" t-value="tokens"/>
-                        <t t-set="form_action" t-value="'/shop/payment/token'"/>
-                        <t t-set="prepare_tx_url" t-value="'/shop/payment/transaction/'"/>
-                        <t t-set="partner_id" t-value="partner"/>
+                        <t t-set="icon_right" t-value="1" />
+                        <t t-set="icon_class" t-value="'fa-chevron-right'" />
+                        <t t-set="submit_class" t-value="'btn btn-primary'" />
+                        <t t-set="pms" t-value="tokens" />
+                        <t t-set="form_action" t-value="'/shop/payment/token'" />
+                        <t
+                        t-set="prepare_tx_url"
+                        t-value="'/shop/payment/transaction/'"
+                    />
+                        <t t-set="partner_id" t-value="partner" />
 
-                        <t t-set="back_button_icon_class" t-value="'fa-chevron-left'"/>
+                        <t t-set="back_button_icon_class" t-value="'fa-chevron-left'" />
                         <t t-set="back_button_txt">Return to Cart</t>
-                        <t t-set="back_button_class" t-value="'btn btn-secondary'"/>
-                        <t t-set="back_button_link" t-value="'/shop/cart'"/>
+                        <t t-set="back_button_class" t-value="'btn btn-secondary'" />
+                        <t t-set="back_button_link" t-value="'/shop/cart'" />
                     </t>
                 </div>
                 <!-- based on https://github.com/odoo/odoo/blob/97f89dc0484902c58dec5dbb9de65f17661163f4/addons/website_sale/views/templates.xml#L1367 -->
-                <div class="js_payment mt-3" t-if="(not website_sale_order.amount_total) and bill_enabled=='1'" id="payment_method">
-                    <form target="_self" action="/shop/payment/validate" method="post" class="float-right">
-                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                <div
+                class="js_payment mt-3"
+                t-if="(not website_sale_order.amount_total) and bill_enabled=='1'"
+                id="payment_method"
+            >
+                    <form
+                    target="_self"
+                    action="/shop/payment/validate"
+                    method="post"
+                    class="float-right"
+                >
+                        <input
+                        type="hidden"
+                        name="csrf_token"
+                        t-att-value="request.csrf_token()"
+                    />
                         <a role="button" class="btn btn-primary a-submit" href="#">
-                            <span t-if="order.amount_total &gt; 0">Pay Now <span class="fa fa-chevron-right"></span></span>
-                            <span t-if="order.amount_total == 0">Confirm Order <span class="fa fa-chevron-right"></span></span>
+                            <span t-if="order.amount_total &gt; 0">Pay Now <span
+                                class="fa fa-chevron-right"
+                            /></span>
+                            <span t-if="order.amount_total == 0">Confirm Order <span
+                                class="fa fa-chevron-right"
+                            /></span>
                         </a>
                     </form>
                 </div>
-                <div class="js_payment mt-3" t-if="bill_enabled=='0'" id="payment_method">
-                    <form target="_self" action="/shop/payment/validate" method="post" class="float-right">
-                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                <div
+                class="js_payment mt-3"
+                t-if="bill_enabled=='0'"
+                id="payment_method"
+            >
+                    <form
+                    target="_self"
+                    action="/shop/payment/validate"
+                    method="post"
+                    class="float-right"
+                >
+                        <input
+                        type="hidden"
+                        name="csrf_token"
+                        t-att-value="request.csrf_token()"
+                    />
                         <a role="button" class="btn btn-primary a-submit" href="#">
-                            <span>Confirm Order <span class="fa fa-chevron-right"></span></span>
+                            <span>Confirm Order <span
+                                class="fa fa-chevron-right"
+                            /></span>
                         </a>
                     </form>
                 </div>
             </xpath>
         </template>
 
-        <template id="website_sale_checkout_store_confirmation" name="my_confirmation" inherit_id="website_sale.confirmation">
+        <template
+        id="website_sale_checkout_store_confirmation"
+        name="my_confirmation"
+        inherit_id="website_sale.confirmation"
+    >
             <xpath expr="//div[hasclass('oe_cart')][last()]" position="after">
                 <table>
                     <tbody>
-                            <t t-if="not order.payment_acquirer_id.name"><tr><td class="col-md-8"><strong>Payment: </strong><t t-esc="order.payment_method_information"/></td></tr></t>
-                            <t t-if="order.payment_acquirer_id.name"><tr><td class="col-md-8"><strong>Payment Method: </strong><t t-esc="order.payment_acquirer_id.name"/></td></tr></t>
-                            <t t-if="order.delivery_method_information"><tr><td class="col-md-8"><strong>Delivery: </strong><t t-esc="order.delivery_method_information"/></td></tr></t>
+                            <t t-if="not order.payment_acquirer_id.name"><tr><td
+                                class="col-md-8"
+                            ><strong>Payment: </strong><t
+                                    t-esc="order.payment_method_information"
+                                /></td></tr></t>
+                            <t t-if="order.payment_acquirer_id.name"><tr><td
+                                class="col-md-8"
+                            ><strong>Payment Method: </strong><t
+                                    t-esc="order.payment_acquirer_id.name"
+                                /></td></tr></t>
+                            <t t-if="order.delivery_method_information"><tr><td
+                                class="col-md-8"
+                            ><strong>Delivery: </strong><t
+                                    t-esc="order.delivery_method_information"
+                                /></td></tr></t>
                     </tbody>
                 </table>
             </xpath>
-            <xpath expr="//div[hasclass('oe_cart')]/div[hasclass('card', 'mt-3')]/div[hasclass('card-body')]/." position="replace">
+            <xpath
+            expr="//div[hasclass('oe_cart')]/div[hasclass('card', 'mt-3')]/div[hasclass('card-body')]/."
+            position="replace"
+        >
                 <div class="card-body">
-                    <t t-set="same_shipping" t-value="bool(order.partner_shipping_id==order.partner_id or only_services)" />
+                    <t
+                    t-set="same_shipping"
+                    t-value="bool(order.partner_shipping_id==order.partner_id or only_services)"
+                />
                     <t t-if="order.buy_way == 'bill_noship'">
-                        <div><b>Billing : </b><span t-esc='order.partner_id' t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=' ')" class="address-inline"/></div>
+                        <div><b>Billing : </b><span
+                            t-esc='order.partner_id'
+                            t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=' ')"
+                            class="address-inline"
+                        /></div>
                     </t>
                     <t t-if="order.buy_way == 'nobill_ship'">
-                        <div t-if="same_shipping and not only_services"><b>Shipping: </b><span t-esc='order.partner_id' t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')" class="address-inline"/></div>
-                        <div t-if="not same_shipping and not only_services" groups="sale.group_delivery_invoice_address"><b>Shipping: </b><span t-esc='order.partner_shipping_id' t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')"  class="address-inline"/></div>
+                        <div t-if="same_shipping and not only_services"><b
+                        >Shipping: </b><span
+                            t-esc='order.partner_id'
+                            t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')"
+                            class="address-inline"
+                        /></div>
+                        <div
+                        t-if="not same_shipping and not only_services"
+                        groups="sale.group_delivery_invoice_address"
+                    ><b>Shipping: </b><span
+                            t-esc='order.partner_shipping_id'
+                            t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')"
+                            class="address-inline"
+                        /></div>
                     </t>
                     <t t-if="order.buy_way == 'bill_ship'">
-                        <div><b>Billing <t t-if="same_shipping and not only_services"> &amp; Shipping</t>: </b><span t-esc='order.partner_id' t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')" class="address-inline"/></div>
-                        <div t-if="not same_shipping and not only_services" groups="sale.group_delivery_invoice_address"><b>Shipping: </b><span t-esc='order.partner_shipping_id' t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')"  class="address-inline"/></div>
+                        <div><b>Billing <t
+                                t-if="same_shipping and not only_services"
+                            > &amp; Shipping</t>: </b><span
+                            t-esc='order.partner_id'
+                            t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')"
+                            class="address-inline"
+                        /></div>
+                        <div
+                        t-if="not same_shipping and not only_services"
+                        groups="sale.group_delivery_invoice_address"
+                    ><b>Shipping: </b><span
+                            t-esc='order.partner_shipping_id'
+                            t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')"
+                            class="address-inline"
+                        /></div>
                     </t>
                 </div>
             </xpath>

@@ -1,7 +1,6 @@
 import logging
 
-from odoo import models, api, _
-
+from odoo import _, api, models
 
 _logger = logging.getLogger(__name__)
 
@@ -12,12 +11,10 @@ class EventRegistration(models.Model):
     @api.model
     def create(self, vals):
         partner_exists = False
-        if vals.get('email'):
-            Partner = self.env['res.partner']
-            email = vals.get('email').replace('%', '').replace('_', '\\_')
-            partner_exists = Partner.search([
-                ('email', '=ilike', email)
-            ], limit=1)
+        if vals.get("email"):
+            Partner = self.env["res.partner"]
+            email = vals.get("email").replace("%", "").replace("_", "\\_")
+            partner_exists = Partner.search([("email", "=ilike", email)], limit=1)
 
         res = super(EventRegistration, self).create(vals)
 
@@ -40,7 +37,12 @@ class EventRegistration(models.Model):
 
                     # FIXME partner_vals always has more than one field (e.g. event_ticket_id, origin, etc).
                     # So, this message is always posted
-                    res.message_post(_("Attendee partner record are not updated for security reasons:<br/> %s ") % partner_vals)
+                    res.message_post(
+                        _(
+                            "Attendee partner record are not updated for security reasons:<br/> %s "
+                        )
+                        % partner_vals
+                    )
 
         return res
 
@@ -50,14 +52,20 @@ class EventRegistration(models.Model):
         we skip partner_id field to avoid email field overriding.
         """
         data = super(EventRegistration, self)._prepare_attendee_values(registration)
-        partner_fields = self.env['res.partner']._fields
-        data.update({key: registration[key] for key in registration.keys() if key in partner_fields and key != 'partner_id'})
-        _logger.debug('_prepare_attendee_values: %s', data)
+        partner_fields = self.env["res.partner"]._fields
+        data.update(
+            {
+                key: registration[key]
+                for key in registration.keys()
+                if key in partner_fields and key != "partner_id"
+            }
+        )
+        _logger.debug("_prepare_attendee_values: %s", data)
         return data
 
     def _prepare_partner(self, vals):
         """method from partner_event module"""
-        event = self.env['event.event'].browse(vals['event_id'])
+        event = self.env["event.event"].browse(vals["event_id"])
         if not event.attendee_field_ids:
             # attendee_field_ids is not configure
             # May happen in tests of other modules, which don't suppose that this module is installed.
@@ -66,11 +74,11 @@ class EventRegistration(models.Model):
 
         # copy partner fields to return and removes non-registration fields from vals
         res = {}
-        partner_fields = self.env['res.partner']._fields
-        _logger.debug('registration vals before removing: %s', vals)
+        partner_fields = self.env["res.partner"]._fields
+        _logger.debug("registration vals before removing: %s", vals)
         for field in event.attendee_field_ids:
             fn = field.field_name
-            if field.field_model == 'res.partner' or fn in partner_fields:
+            if field.field_model == "res.partner" or fn in partner_fields:
                 # partner fields
                 value = vals.get(field.field_name)
                 if value:
@@ -83,6 +91,6 @@ class EventRegistration(models.Model):
                 if fn in vals:
                     del vals[fn]
 
-        _logger.debug('registration vals after removing: %s', vals)
-        _logger.debug('partner values: %s', res)
+        _logger.debug("registration vals after removing: %s", vals)
+        _logger.debug("partner values: %s", res)
         return res
