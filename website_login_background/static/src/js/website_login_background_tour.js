@@ -9,13 +9,9 @@ odoo.define("website_login_background.tour", function(require) {
         "website_login_background_check",
         {
             test: true,
-            url: "/",
+            url: "/web/login",
         },
         [
-            {
-                content: "click on sign in",
-                trigger: 'a:contains("Sign in")',
-            },
             {
                 content: "check background",
                 trigger: ".oe_website_login_container",
