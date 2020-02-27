@@ -3,7 +3,7 @@
     "summary": """""",
     "category": "Website",
     "images": [],
-    "vesion": "13.0.1.0.0",
+    "version": "13.0.1.0.0",
     "author": "IT-Projects LLC",
     "support": "apps@itpp.dev",
     "website": "https://it-projects.info",
@@ -14,6 +14,6 @@
     "external_dependencies": {"python": [], "bin": []},
     "data": ["views.xml"],
     "demo": [],
-    "installable": False,
+    "installable": True,
     "auto_install": False,
 }
