@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!--
 Copyright 2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
 License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
@@ -7,10 +7,10 @@ License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
     <record id="res_config_settings_view_form" model="ir.ui.view">
         <field name="name">website.form.hide</field>
         <field name="model">website</field>
-        <field name="inherit_id" ref="website.view_website_form"/>
+        <field name="inherit_id" ref="website.view_website_form" />
         <field name="arch" type="xml">
             <field name="default_lang_id" position="after">
-                <field name="hide_add_to_cart_url"/>
+                <field name="hide_add_to_cart_url" />
             </field>
         </field>
     </record>
