@@ -14,10 +14,10 @@ class TestUi(odoo.tests.HttpCase):
     def test_checkout_nobill_noship(self):
         self.phantom_js(
             "/",
-            "odoo.__DEBUG__.services['web_tour.tour'].run('shop_mandatory_fields_nobill_noship', 10000)",
+            "odoo.__DEBUG__.services['web_tour.tour'].run('shop_mandatory_fields_nobill_noship', 15000)",
             "odoo.__DEBUG__.services['web_tour.tour'].tours.shop_mandatory_fields_nobill_noship.ready",
             login=None,
-            timeout=160,
+            timeout=220,
         )
 
     def test_checkout_bill_noship(self):
@@ -41,8 +41,8 @@ class TestUi(odoo.tests.HttpCase):
     def test_checkout_nobill_ship(self):
         self.phantom_js(
             "/",
-            "odoo.__DEBUG__.services['web_tour.tour'].run('shop_mandatory_fields_nobill_ship', 10000)",
+            "odoo.__DEBUG__.services['web_tour.tour'].run('shop_mandatory_fields_nobill_ship', 15000)",
             "odoo.__DEBUG__.services['web_tour.tour'].tours.shop_mandatory_fields_nobill_ship.ready",
             login=None,
-            timeout=190,
+            timeout=270,
         )

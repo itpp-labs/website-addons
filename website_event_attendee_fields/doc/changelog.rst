@@ -1,3 +1,9 @@
+`2.0.3`
+-------
+
+- **Fix** Unavailablity to publish/unpublish an event on a website
+- **Fix** Check for variable after the variable is used
+
 `2.0.2`
 -------
 

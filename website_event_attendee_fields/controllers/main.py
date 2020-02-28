@@ -73,10 +73,10 @@ class WebsiteEventControllerExtended(WebsiteEventController):
                     limit=1,
                 )
             )
-            partner_email = remove_spaces(partner.email)
             if not partner:
                 return {}
             # It's a workaround in order to prevent duplicating partner accounts when buying a ticket
+            partner_email = remove_spaces(partner.email)
             partner.write({"email": partner_email})
 
         event = request.env["event.event"].sudo().browse(event_id)
