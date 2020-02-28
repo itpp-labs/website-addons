@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!--
 Copyright 2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
 License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
@@ -6,7 +6,10 @@ License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 <odoo>
     <template id="assets_frontend" inherit_id="website.assets_frontend" name="Shop">
         <xpath expr="." position="inside">
-            <link rel='stylesheet' href='/website_sale_no_sale/static/src/css/website.css'/>
+            <link
+                rel='stylesheet'
+                href='/website_sale_no_sale/static/src/css/website.css'
+            />
         </xpath>
     </template>
 </odoo>

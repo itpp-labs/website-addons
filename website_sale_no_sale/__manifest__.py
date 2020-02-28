@@ -14,17 +14,9 @@
     "license": "Other OSI approved licence",  # MIT
     "price": 45.00,
     "currency": "EUR",
-
-    "depends": [
-        "website_sale_stock",
-    ],
+    "depends": ["website_sale_stock"],
     "external_dependencies": {"python": [], "bin": []},
-    "data": [
-        "views/templates.xml",
-        "views/website.xml",
-        "views/assets.xml",
-    ],
-
+    "data": ["views/templates.xml", "views/website.xml", "views/assets.xml"],
     "post_load": None,
     "pre_init_hook": None,
     "post_init_hook": None,
