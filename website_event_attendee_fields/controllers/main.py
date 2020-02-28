@@ -59,19 +59,25 @@ class WebsiteEventControllerExtended(WebsiteEventController):
                 return s
 
             email = remove_spaces(email)
-            partner = request.env['res.partner'].sudo().search([
-                '|', '|',
-                ('email', '=ilike', '% ' + email),
-                ('email', '=ilike', '% ' + email + ' %'),
-                ('email', '=ilike', email + ' %')
-            ], limit=1)
+            partner = (
+                request.env["res.partner"]
+                .sudo()
+                .search(
+                    [
+                        "|",
+                        "|",
+                        ("email", "=ilike", "% " + email),
+                        ("email", "=ilike", "% " + email + " %"),
+                        ("email", "=ilike", email + " %"),
+                    ],
+                    limit=1,
+                )
+            )
             if not partner:
                 return {}
             # It's a workaround in order to prevent duplicating partner accounts when buying a ticket
             partner_email = remove_spaces(partner.email)
-            partner.write({
-                'email': partner_email
-            })
+            partner.write({"email": partner_email})
 
         event = request.env["event.event"].sudo().browse(event_id)
         error_msg = event.check_partner_for_new_ticket(partner.id)
