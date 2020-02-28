@@ -25,7 +25,7 @@ msgid "Allowed websites"
 msgstr ""
 
 #. module: website_multi_company_event_sale
-#: code:addons/website_multi_company_event_sale/models/event.py:24
+#: code:addons/website_multi_company_event_sale/models/event.py:39
 #, python-format
 msgid "Error! Only the company's websites are allowed"
 msgstr ""

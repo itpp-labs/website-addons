@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # Copyright 2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
-# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
+# License MIT (https://opensource.org/licenses/MIT).
 
 import logging
 
-from odoo import models, api
+from odoo import api, models
 
 _logger = logging.getLogger(__name__)
 
@@ -26,9 +26,7 @@ class Website(models.Model):
 
     @api.multi
     def _multi_theme_activate(self):
-        if not self.env.context.get('skip_converting_assets'):
+        if not self.env.context.get("skip_converting_assets"):
             # reload dependencies before activating
-            self.mapped('multi_theme_id')\
-                .upstream_dependencies()\
-                ._convert_assets()
+            self.mapped("multi_theme_id").upstream_dependencies()._convert_assets()
         return super(Website, self)._multi_theme_activate()

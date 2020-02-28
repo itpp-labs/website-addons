@@ -16,7 +16,7 @@ msgstr ""
 #. module: website_event_attendee_signup
 #: model:mail.template,body_html:website_event_attendee_signup.email_template_signup
 msgid "\n"
-"    \n"
+"\n"
 "        <p>\n"
 "            Hello ${object.attendee_partner_id.name},<br />\n"
 "\n"
@@ -34,7 +34,7 @@ msgid "\n"
 "        <p>\n"
 "        </p>\n"
 "        <p>Best regards,</p>\n"
-"    \n"
+"\n"
 "        "
 msgstr ""
 

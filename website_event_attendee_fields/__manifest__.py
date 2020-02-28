@@ -5,21 +5,15 @@
     "category": "Marketing",
     # "live_test_url": "http://apps.it-projects.info/shop/product/portal-event-tickets?version=10.0",
     "images": ["images/banner.jpg"],
-    "version": "10.0.2.0.2",
+    "version": "10.0.2.0.3",
     "application": False,
-
     "author": "IT-Projects LLC, Ivan Yelizariev",
-    "support": "apps@it-projects.info",
+    "support": "apps@itpp.dev",
     "website": "https://it-projects.info/team/yelizariev",
-    "license": "LGPL-3",
+    "license": "Other OSI approved licence",  # MIT
     "price": 200.00,
     "currency": "EUR",
-
-    "depends": [
-        "website_event_sale",
-        "website_event",
-        "partner_event",
-    ],
+    "depends": ["website_event_sale", "website_event", "partner_event"],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
         "views/website_event_templates.xml",
@@ -27,18 +21,15 @@
         "security/ir.model.access.csv",
         "views/assets.xml",
     ],
-    "qweb": [
-    ],
+    "qweb": [],
     "demo": [
         "data/event_event_attendee_field_demo.xml",
         "data/event_event_demo.yml",
         "views/assets_demo.xml",
     ],
-
     "post_load": None,
     "pre_init_hook": None,
     "post_init_hook": None,
-
     "auto_install": False,
     "installable": True,
 }

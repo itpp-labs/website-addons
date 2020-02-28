@@ -12,8 +12,8 @@
 
     <t t-name="TournamentListElement">
         <div class="tournament_list_element" t-att-data-id="item.id">
-            Started:<p><t t-esc="item.start_date"/></p>
-            Game Type:<p><t t-esc="item.tournament_type"/></p>
+            Started:<p><t t-esc="item.start_date" /></p>
+            Game Type:<p><t t-esc="item.tournament_type" /></p>
         </div>
     </t>
 

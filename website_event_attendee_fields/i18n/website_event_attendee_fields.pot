@@ -49,7 +49,7 @@ msgid "Attendee field ids"
 msgstr ""
 
 #. module: website_event_attendee_fields
-#: code:addons/website_event_attendee_fields/models/event_registration.py:44
+#: code:addons/website_event_attendee_fields/models/event_registration.py:42
 #, python-format
 msgid "Attendee partner record are not updated for security reasons:<br/> %s "
 msgstr ""
@@ -218,7 +218,7 @@ msgstr ""
 
 #. module: website_event_attendee_fields
 #. openerp-web
-#: code:addons/website_event_attendee_fields/static/src/js/registration_form.js:75
+#: code:addons/website_event_attendee_fields/static/src/js/registration_form.js:86
 #, python-format
 msgid "Sorry, but each attendee has to have unique email."
 msgstr ""
@@ -230,7 +230,7 @@ msgstr ""
 
 #. module: website_event_attendee_fields
 #. openerp-web
-#: code:addons/website_event_attendee_fields/static/src/js/registration_form.js:96
+#: code:addons/website_event_attendee_fields/static/src/js/registration_form.js:109
 #, python-format
 msgid "This email address has already an account. Data will be taken from this account"
 msgstr ""

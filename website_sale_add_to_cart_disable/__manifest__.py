@@ -4,28 +4,18 @@
     "summary": """Allows to disable product sales via eCommerce for any reason""",
     "category": "eCommerce",
     "images": [],
-    "version": "1.0.0",
-
+    "vesion": "10.0.1.0.1",
     "author": "IT-Projects LLC, Ivan Yelizariev",
-    "support": "apps@it-projects.info",
+    "support": "apps@itpp.dev",
     "website": "https://it-projects.info",
-    "license": "LGPL-3",
+    "license": "Other OSI approved licence",  # MIT
     # "price": 9.00,
     # "currency": "EUR",
-
-    "depends": [
-        "website_sale",
-    ],
+    "depends": ["website_sale"],
     "external_dependencies": {"python": [], "bin": []},
-    "data": [
-        "views.xml",
-        "templates.xml",
-    ],
-    "qweb": [
-    ],
-    "demo": [
-    ],
-
+    "data": ["views.xml", "templates.xml"],
+    "qweb": [],
+    "demo": [],
     "post_load": None,
     "pre_init_hook": None,
     "post_init_hook": None,

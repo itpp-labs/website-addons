@@ -1,26 +1,27 @@
 .tournaments_list {
-    display:block;
-    max-width:1000px;
-    text-align:center;
-    margin:0 auto;
+    display: block;
+    max-width: 1000px;
+    text-align: center;
+    margin: 0 auto;
 }
 
 .tournament_list_element {
-    display:inline-block;
-	margin-top: 10px;
-	margin-left: 10px;
-	background-color: #414141;
-	height: 150px;
-	width: 250px;
-	border: 1px solid #e2e2e2;
-	padding: 20px;
-	text-align: center;
-	font-size: 16px;
-	box-shadow: 0 0 2px rgba(128, 179, 235, 0.5), inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+    display: inline-block;
+    margin-top: 10px;
+    margin-left: 10px;
+    background-color: #414141;
+    height: 150px;
+    width: 250px;
+    border: 1px solid #e2e2e2;
+    padding: 20px;
+    text-align: center;
+    font-size: 16px;
+    box-shadow: 0 0 2px rgba(128, 179, 235, 0.5), inset 0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 
-.tournament_list_element, p {
-    color: #F0FFFF;
+.tournament_list_element,
+p {
+    color: #f0ffff;
 }
 
 .tournament_list_element:hover {
@@ -30,29 +31,29 @@
 .tournament-table {
     border: 1px solid #e2e2e2;
     margin-top: 10px;
-	margin-left: 10px;
+    margin-left: 10px;
     text-align: center;
-    font-size:14px;
+    font-size: 14px;
     background-color: #2f2b2b;
-    color: #F0FFFF;
+    color: #f0ffff;
 }
 
-th, td {
-border-style: solid;
-border-width: 0 1px 1px 0;
-border-color: white;
+th,
+td {
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    border-color: white;
 }
 
 .header-cell {
     width: 200px;
-    height:50px;
+    height: 50px;
 }
 
 .row-title {
     width: 200px;
     height: 150px;
 }
-
 
 .empty-cell {
     background-color: #2f2b2b;
@@ -73,7 +74,7 @@ border-color: white;
 }
 
 .score-cell {
-    width:150px;
+    width: 150px;
 }
 
 .finished-game {
@@ -81,13 +82,9 @@ border-color: white;
 }
 
 .in-progress {
-    background-color: #2E5EAA;
+    background-color: #2e5eaa;
 }
 
 .has_not_started {
     background-color: #875454;
 }
-
-
-
-

@@ -1,6 +1,6 @@
-.. image:: https://img.shields.io/badge/license-LGPL--3-blue.png
-   :target: https://www.gnu.org/licenses/lgpl
-   :alt: License: LGPL-3
+.. image:: https://img.shields.io/badge/license-MIT-blue.svg
+   :target: https://opensource.org/licenses/MIT
+   :alt: License: MIT
 
 =========================
  Pickup and pay at store
@@ -17,6 +17,11 @@ The "Pay now and get delivery" option use usual workflow.
 
 On the admin side an addition to the configuration page where they would enable or disable one or both of these options.
 
+Roadmap
+=======
+
+* The modules doesn't work in Odoo 10.0 after [breaking changes](https://github.com/odoo/odoo/pull/38885) in odoo.
+
 Credits
 =======
 
@@ -31,6 +36,7 @@ Sponsors
 
 Maintainers
 -----------
+
 * `IT-Projects LLC <https://it-projects.info>`__
 
       To get a guaranteed support

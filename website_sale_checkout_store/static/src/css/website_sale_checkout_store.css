@@ -3,14 +3,18 @@
 /*}*/
 /*hide if bill = 1*/
 
-.oe_website_sale[bill_enabled='0'] [bill='1']{
-    display:none;
+.oe_website_sale[bill_enabled="0"] [bill="1"] {
+    display: none;
 }
 
-.oe_website_sale[ship_enabled='0'] [ship='1']{
-    display:none !important;
+.oe_website_sale[ship_enabled="0"] [ship="1"] {
+    display: none !important;
 }
 
-.oe_website_sale[bill_enabled='1'] [bill='1']{
-    display:block;
+.oe_website_sale[bill_enabled="1"] [bill="1"] {
+    display: block;
+}
+
+.oe_website_sale[bill_enabled="0"][ship_enabled="0"] [ship_bill="1"] {
+    display: none !important;
 }

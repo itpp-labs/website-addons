@@ -29,13 +29,13 @@ msgid "Empty list allows edit any website"
 msgstr ""
 
 #. module: website_multi_company
-#: code:addons/website_multi_company/models/res_users.py:24
+#: code:addons/website_multi_company/models/res_users.py:41
 #, python-format
 msgid "Error! You can select as editable only the allowed companies's websites - check the 'Editor on websites' field in preferences"
 msgstr ""
 
 #. module: website_multi_company
-#: code:addons/website_multi_company/models/module.py:67
+#: code:addons/website_multi_company/models/module.py:80
 #, python-format
 msgid "Install"
 msgstr ""
@@ -129,13 +129,13 @@ msgid "Websites"
 msgstr ""
 
 #. module: website_multi_company
-#: code:addons/website_multi_company/models/ir_ui_view.py:21
+#: code:addons/website_multi_company/models/ir_ui_view.py:30
 #, python-format
 msgid "You are trying to edit the %r website but can only edit the %r websites. Please contact your system administrator"
 msgstr ""
 
 #. module: website_multi_company
-#: code:addons/website_multi_company/models/module.py:62
+#: code:addons/website_multi_company/models/module.py:73
 #, python-format
 msgid "You are trying to install incompatible themes:\n"
 "%s\n"
