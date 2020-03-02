@@ -1,9 +1,9 @@
 {
-    "name": """Website Demo Data""",
+    "name": """Multi Website Demo""",
     "summary": """Provides demo websites""",
     "category": "Hidden",
     # "live_test_URL": "",
-    "images": [],
+    "images": ["images/website_multi_company_demo.jpg"],
     "version": "12.0.1.0.0",
     "application": False,
     "author": "IT-Projects LLC, Ivan Yelizariev",
