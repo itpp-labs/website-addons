@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    "name": """Hide the "Sign in" button in Website""",
+    "name": """No “Sign in” in Website""",
     "summary": """""",
     "category": "Website",
     "images": [],

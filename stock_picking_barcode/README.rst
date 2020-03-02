@@ -1,6 +1,6 @@
-===========================================
- Barcode scanner support for Stock Picking
-===========================================
+===========================
+ Barcode scanner for Stock
+===========================
 
 The module allows you to process Pickings by barcode scanner via special page /barcode/web (the same as it was in odoo 8.0)
 

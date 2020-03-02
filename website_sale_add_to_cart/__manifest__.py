@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "Quick add items to shopping cart",
+    "name": "Quick online shopping",
     "version": "10.0.1.0.1",
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "license": "Other OSI approved licence",  # MIT

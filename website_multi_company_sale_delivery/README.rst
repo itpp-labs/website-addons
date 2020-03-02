@@ -2,9 +2,9 @@
    :target: https://opensource.org/licenses/MIT
    :alt: License: MIT
 
-===================================================
- Real Multi Website (eCommerce Delivery extension)
-===================================================
+========================
+ Multi Website Delivery
+========================
 
 Restrict access to delivery carriers depending on list of allowed websites
 

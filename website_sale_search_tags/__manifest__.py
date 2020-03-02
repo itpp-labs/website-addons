@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "Website Search Product Tags",
+    "name": "Website #tag searching",
     "summary": """Search website products by tags""",
     "category": "eCommerce",
     "version": "10.0.1.0.3",
