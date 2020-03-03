@@ -2,9 +2,9 @@
    :target: https://opensource.org/licenses/MIT
    :alt: License: MIT
 
-=========================================
- Sale only available products on Website
-=========================================
+======================
+ Stop Sale on Website
+======================
 
 Warns a customer and disable the possibility to continue sale if not enough products present.
 

@@ -1,5 +1,5 @@
 {
-    "name": """Real Multi Website (portal extension)""",
+    "name": """Multi Website Portal""",
     "summary": """Multi Website support in Portal""",
     "category": "Portal",
     # "live_test_url": "http://apps.it-projects.info/shop/product/website-multi-company?version=10.0",

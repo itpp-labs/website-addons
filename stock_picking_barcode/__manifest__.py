@@ -4,7 +4,7 @@
 # Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
 # License MIT (https://opensource.org/licenses/MIT).
 {
-    "name": "Barcode scanner support for Stock Picking",
+    "name": """Barcode scanner for Stock""",
     "summary": """The module allows you to process Pickings by barcode scanner via special page /barcode/web (the same as it was in odoo 8.0)""",
     "category": "Warehouse",
     "images": ["images/stock_picking_barcode_main.png"],
