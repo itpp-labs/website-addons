@@ -2,9 +2,9 @@
    :target: https://opensource.org/licenses/MIT
    :alt: License: MIT
 
-=======================================================
- Real Multi Website (Online Event's Tickets extension)
-=======================================================
+=========================
+ Multi Website e-Tickets
+=========================
 
 Configure Events' Tickets per website.
 
