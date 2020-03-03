@@ -2,9 +2,9 @@
    :target: https://opensource.org/licenses/MIT
    :alt: License: MIT
 
-===================================
- Product price factor for web shop
-===================================
+==========================
+ Product Price Multiplier
+==========================
 
 Multiplies price depending on product attributes
 

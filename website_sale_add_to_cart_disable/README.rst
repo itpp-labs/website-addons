@@ -1,6 +1,6 @@
-=============================================
- Hide "Add To Cart" button from product page
-=============================================
+====================
+ Stop Product sales
+====================
 
 Allows to disable product sales via eCommerce for any reason.
 

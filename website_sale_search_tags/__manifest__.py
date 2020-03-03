@@ -1,5 +1,5 @@
 {
-    "name": "Website Search Product Tags",
+    "name": "Website #tag searching",
     "summary": """Search website products by tags""",
     "category": "eCommerce",
     "version": "12.0.1.0.3",
