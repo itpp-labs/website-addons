@@ -23,11 +23,14 @@
 
 <template id="event_description_full" inherit_id="website_event.event_description_full">
     <xpath expr="//div[hasclass('card', 'mt-3')]" position="inside">
-        <t t-call="website_event_attendee_fields.polyfill"/>
+        <t t-call="website_event_attendee_fields.polyfill" />
     </xpath>
 </template>
 
-<template id="registration_attendee_details" inherit_id="website_event.registration_attendee_details">
+<template
+        id="registration_attendee_details"
+        inherit_id="website_event.registration_attendee_details"
+    >
     <xpath expr="//t[@t-foreach='tickets']/div[hasclass('row')]" position="replace">
         <div class="row" t-if="event.use_attendees_header">
             <t t-foreach="event.attendee_field_ids" t-as="field">
@@ -40,9 +43,16 @@
         </div>
     </xpath>
 
-    <xpath expr="//t[@t-as='att_counter']/div[hasclass('row', 'mb4')]" position="replace">
-        <div class="row" t-att-data-counter="counter" t-att-style="att_counter_odd and 'background-color:#E7E7E7'">
-            <div class="message col-md-12"></div>
+    <xpath
+            expr="//t[@t-as='att_counter']/div[hasclass('row', 'mb4')]"
+            position="replace"
+        >
+        <div
+                class="row"
+                t-att-data-counter="counter"
+                t-att-style="att_counter_odd and 'background-color:#E7E7E7'"
+            >
+            <div class="message col-md-12" />
             <t t-set="attendee_placeholder">[Attendee #%s] </t>
             <t t-set="is_public_user" t-value="env.user == website.user_id" />
             <t
@@ -56,7 +66,11 @@
                     />
                 <div t-attf-class="col-md-{{field.width}} mb8 mt8">
 
-                    <strong t-if="not event.use_attendees_header"><t t-esc="field.field_description"/><t t-if="not field.is_required"> <span class="text-muted">(Optional)</span></t></strong>
+                    <strong t-if="not event.use_attendees_header"><t
+                                t-esc="field.field_description"
+                            /><t t-if="not field.is_required"> <span
+                                    class="text-muted"
+                                >(Optional)</span></t></strong>
                     <t t-if="field.form_type in ['many2one']">
                         <select
                                 class="form-control"
@@ -90,7 +104,12 @@
                 </div>
 
             </t>
-            <input class='d-none' type='text' t-attf-name="#{counter}-ticket_id" t-attf-value="#{ticket['id']}"/>
+            <input
+                    class='d-none'
+                    type='text'
+                    t-attf-name="#{counter}-ticket_id"
+                    t-attf-value="#{ticket['id']}"
+                />
             <!-- allows to extend form (e.g. in portal_event module) -->
             <t t-raw="0" />
         </div>

@@ -26,9 +26,7 @@
         "views/assets.xml",
     ],
     "qweb": [],
-    "demo": [
-        "views/assets_demo.xml",
-    ],
+    "demo": ["views/assets_demo.xml"],
     "post_load": None,
     "pre_init_hook": None,
     "post_init_hook": None,
