@@ -245,7 +245,7 @@ jobs:
           docker-compose -p DINAR -f DINAR/workflow-files/docker-compose-DINAR-pr.yml pull
           docker-compose -p DINAR -f DINAR/workflow-files/docker-compose-DINAR-pr.yml up --no-start
       - name: Apply new-deps artifact
-        if: env.ARTIFACT != '0'
+        if: "env.ARTIFACT != '0'"
         run: |
           bash DINAR/workflow-files/load-docker-layers.sh new-deps/
 
