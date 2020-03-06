@@ -221,12 +221,15 @@ jobs:
       - name: Install python tools
         run: |
           pip install plumbum pyyaml
+      - name: Set artifact is success
+        run: |
+          echo "::set-env name=ARTIFACT::1"
       - name: Download Additional Dependencies artifact
         uses: actions/download-artifact@v1
         with:
           name: new-deps
           path: new-deps/
-      - name: Check artifact
+      - name: Check artifact is failed
         if: failure()
         run: |
           echo "::set-env name=ARTIFACT::0"
