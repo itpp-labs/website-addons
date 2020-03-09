@@ -1,3 +1,8 @@
+# Copyright 2017-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
+# Copyright 2019 Ruslan Ronzhin <https://it-projects.info/team/rusllan/>
+# Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
+# License MIT (https://opensource.org/licenses/MIT).
 {
     "name": """No tickets without Email""",
     "summary": """User registration at your portal is always a plus for marketing""",
@@ -21,5 +26,5 @@
     "pre_init_hook": None,
     "post_init_hook": None,
     "auto_install": False,
-    "installable": False,
+    "installable": True,
 }
