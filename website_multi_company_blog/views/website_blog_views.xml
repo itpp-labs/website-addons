@@ -4,31 +4,30 @@
     Copyright 2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
     License MIT (https://opensource.org/licenses/MIT). -->
 <odoo>
-  <record id="view_blog_blog_form_inherit_website_multi" model="ir.ui.view">
-    <field name="name">blog.blog.form.inherit.website_multi</field>
-    <field name="model">blog.blog</field>
-    <field name="inherit_id" ref="website_blog.view_blog_blog_form" />
-    <field name="arch" type="xml">
-      <xpath expr="//sheet" position="inside">
-        <group
+    <record id="view_blog_blog_form_inherit_website_multi" model="ir.ui.view">
+        <field name="name">blog.blog.form.inherit.website_multi</field>
+        <field name="model">blog.blog</field>
+        <field name="inherit_id" ref="website_blog.view_blog_blog_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group
                     name='real_multi_website'
                     string='Multi Website'
                     groups="base.group_multi_company"
                 >
-          <field name="website_ids" widget="many2many_tags" />
-        </group>
-      </xpath>
-    </field>
-  </record>
-
-  <record id="view_blog_blog_list" model="ir.ui.view">
-      <field name="name">blog.blog.list</field>
-      <field name="model">blog.blog</field>
-      <field name="inherit_id" ref="website_blog.view_blog_blog_list" />
-      <field name="arch" type="xml">
-        <field name="name" position="after">
-          <field name="website_ids" widget="many2many_tags" />
+                    <field name="website_ids" widget="many2many_tags" />
+                </group>
+            </xpath>
         </field>
-      </field>
-  </record>
+    </record>
+    <record id="view_blog_blog_list" model="ir.ui.view">
+        <field name="name">blog.blog.list</field>
+        <field name="model">blog.blog</field>
+        <field name="inherit_id" ref="website_blog.view_blog_blog_list" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="website_ids" widget="many2many_tags" />
+            </field>
+        </field>
+    </record>
 </odoo>

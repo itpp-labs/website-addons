@@ -47,7 +47,7 @@
             <field name="perm_read" eval="1" />
             <field name="perm_create" eval="0" />
         </record>
-         <record id="tournament_edit_rule" model="ir.rule">
+        <record id="tournament_edit_rule" model="ir.rule">
             <field name="name">Can only read write delete and create tournament</field>
             <field name="model_id" ref="model_chess_tournament" />
             <field name="groups" eval="[(6,0,[ref('base.group_user')])]" />
@@ -67,6 +67,5 @@
             <field name="perm_read" eval="1" />
             <field name="perm_create" eval="0" />
         </record>
-
     </data>
 </openerp>

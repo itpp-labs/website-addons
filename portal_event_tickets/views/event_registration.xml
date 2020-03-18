@@ -19,7 +19,6 @@
             </xpath>
         </field>
     </record>
-
     <record model="ir.ui.view" id="view_event_registration_tree_inherited">
         <field name="name">event.registration.tree</field>
         <field name="model">event.registration</field>

@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
-  <record id="view_website_multi_company_form" model="ir.ui.view">
-    <field name="model">website</field>
-    <field name="inherit_id" ref="website.view_website_form" />
-    <field name="mode">primary</field>
-    <field name="priority" eval="132" />
-    <field name="arch" type="xml">
-      <group name="domain">
-        <label for="multi_theme_id" />
-        <div>
-          <field name="multi_theme_id" string="Multi Theme" required="True" />
-          <!--Edit mode-->
-          <button
+    <record id="view_website_multi_company_form" model="ir.ui.view">
+        <field name="model">website</field>
+        <field name="inherit_id" ref="website.view_website_form" />
+        <field name="mode">primary</field>
+        <field name="priority" eval="132" />
+        <field name="arch" type="xml">
+            <group name="domain">
+                <label for="multi_theme_id" />
+                <div>
+                    <field name="multi_theme_id" string="Multi Theme" required="True" />
+                    <!--Edit mode-->
+                    <button
                         icon="fa-refresh"
                         string="Reload Theme List"
                         help="Use it if you installed theme, but cannot find it in the list"
@@ -20,8 +19,8 @@
                         class="oe_inline oe_edit_only"
                         name="multi_theme_reload_list"
                     />
-          <!--Read mode (non-edit) AND debug mode-->
-          <button
+                    <!--Read mode (non-edit) AND debug mode-->
+                    <button
                         icon="fa-refresh"
                         string="Update Website Theme"
                         help="Update Theme for current website. Normally used when theme is changed"
@@ -30,25 +29,22 @@
                         class="oe_inline oe_read_only ml8"
                         name="multi_theme_reload"
                     />
-        </div>
-        <field name="favicon" widget="image" class="oe_avatar oe_left" />
-      </group>
-      <xpath expr="//header" position="replace" />
-    </field>
-  </record>
-
-  <record id="view_website_tree" model="ir.ui.view">
-      <field name="name">website.tree</field>
-      <field name="model">website</field>
-      <field name="inherit_id" ref="website.view_website_tree" />
-      <field name="arch" type="xml">
-          <xpath expr="//field[@name='name']" position="after">
-              <field name="domain" />
-          </xpath>
-      </field>
-  </record>
-
-
+                </div>
+                <field name="favicon" widget="image" class="oe_avatar oe_left" />
+            </group>
+            <xpath expr="//header" position="replace" />
+        </field>
+    </record>
+    <record id="view_website_tree" model="ir.ui.view">
+        <field name="name">website.tree</field>
+        <field name="model">website</field>
+        <field name="inherit_id" ref="website.view_website_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="domain" />
+            </xpath>
+        </field>
+    </record>
     <record id="website_action" model="ir.actions.act_window">
         <field name="name">Websites</field>
         <field name="res_model">website</field>
@@ -60,7 +56,6 @@
                      (0, 0, {'view_mode': 'form', 'view_id': ref('view_website_multi_company_form')})]"
         />
     </record>
-
     <menuitem
         id="website_menu"
         parent="website.menu_website_global_configuration"
@@ -68,5 +63,4 @@
         sequence="100"
         action="website_action"
     />
-
 </odoo>
