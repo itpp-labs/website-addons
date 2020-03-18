@@ -2,7 +2,6 @@
     Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>-->
 <odoo>
     <data>
-
         <template
             id="category_cached"
             name="Categories Cached"
@@ -10,18 +9,16 @@
             priority="8"
         >
             <xpath expr="//t[@t-foreach='categories']" position="replace">
-                    <span
+                <span
                     t-raw="website.category_cache(categories, slug, keep, parent_category_ids)"
                 />
             </xpath>
         </template>
-
         <template id="categories_cache_template" name="cache_template">
             <t t-foreach="categories" t-as="c">
-              <t t-call="website_sale.categories_recursive" />
-          </t>
+                <t t-call="website_sale.categories_recursive" />
+            </t>
         </template>
-
         <template
             id="collapsible_categories_list_cached"
             name="Collapsible Category List Cached"
@@ -29,20 +26,18 @@
             priority="8"
         >
             <xpath expr="//t[@t-foreach='categories']" position="replace">
-                    <span
+                <span
                     t-raw="website.category_cache(categories, slug, keep, parent_category_ids, collapsed=True)"
                 />
             </xpath>
         </template>
-
         <template
             id="categories_collapsed_cache_template"
             name="Cache Collapse Category Recursive"
         >
-                <t t-foreach="categories" t-as="categ">
-                    <t t-call="website_sale.option_collapse_categories_recursive" />
-                </t>
+            <t t-foreach="categories" t-as="categ">
+                <t t-call="website_sale.option_collapse_categories_recursive" />
+            </t>
         </template>
-
     </data>
 </odoo>

@@ -4,28 +4,28 @@
     Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
     License MIT (https://opensource.org/licenses/MIT).-->
 <odoo>
-       <record id="picking_stock_picking_type_kanban" model="ir.ui.view">
-            <field name="name">stock.picking.type.kanban</field>
-            <field name="model">stock.picking.type</field>
-            <field name="inherit_id" ref="stock.stock_picking_type_kanban" />
-            <field name="arch" type="xml">
-                <xpath
+    <record id="picking_stock_picking_type_kanban" model="ir.ui.view">
+        <field name="name">stock.picking.type.kanban</field>
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock.stock_picking_type_kanban" />
+        <field name="arch" type="xml">
+            <xpath
                 expr="//div[hasclass('container','o_kanban_card_content')]/div[hasclass('row')]"
                 position="before"
             >
-                    <div class="row">
-                        <div class="col-xs-6 col-xs-offset-6 o_kanban_primary_right">
-                            <a name="open_barcode_interface" type="object">
-                                <img
+                <div class="row">
+                    <div class="col-xs-6 col-xs-offset-6 o_kanban_primary_right">
+                        <a name="open_barcode_interface" type="object">
+                            <img
                                 src="/stock_picking_barcode/static/src/img/scan.png"
                                 alt="Click to launch the barcode interface"
                                 class="oe_stock_scan_image"
                                 title="Click to launch the barcode interface"
                             />
-                            </a>
-                        </div>
+                        </a>
                     </div>
-                </xpath>
-            </field>
-        </record>
+                </div>
+            </xpath>
+        </field>
+    </record>
 </odoo>

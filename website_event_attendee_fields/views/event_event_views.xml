@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
     <record model="ir.ui.view" id="view_event_event_form">
         <field name="name">event.event.form (with attendee_field_ids)</field>
         <field name="model">event.event</field>
@@ -21,7 +20,6 @@
             </xpath>
         </field>
     </record>
-
     <record model="ir.ui.view" id="view_event_attendee_field_form">
         <field name="name">event.event.attendee_field.form</field>
         <field name="model">event.event.attendee_field</field>
@@ -49,7 +47,6 @@
             </form>
         </field>
     </record>
-
     <record model="ir.ui.view" id="view_event_attendee_field_tree">
         <field name="name">event.event.attendee_field.tree</field>
         <field name="model">event.event.attendee_field</field>
@@ -64,5 +61,4 @@
             </tree>
         </field>
     </record>
-
 </odoo>

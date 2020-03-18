@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
     <record model="ir.ui.view" id="view_event_event_form">
         <field name="name">Events (Singup)</field>
         <field name="model">event.event</field>
@@ -11,5 +10,4 @@
             </xpath>
         </field>
     </record>
-
 </odoo>

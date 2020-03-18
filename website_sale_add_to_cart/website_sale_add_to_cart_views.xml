@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <openerp>
     <data>
-
         <template id="assets_frontend" inherit_id="website.assets_frontend" name="Shop">
             <xpath expr="." position="inside">
                 <script
@@ -14,7 +13,6 @@
                 />
             </xpath>
         </template>
-
         <template
             id="website_sale_checkout_store_assets_frontend"
             name="website_sale_checkout_store assets"
@@ -27,7 +25,6 @@
                 />
             </xpath>
         </template>
-
         <template
             id="products_item"
             inherit_id="website_sale.products_item"
@@ -62,7 +59,6 @@
                 </div>
             </xpath>
         </template>
-
         <template
             id="product"
             inherit_id="website_sale.product"
@@ -87,7 +83,6 @@
                 >Add to Cart</a>
             </xpath>
         </template>
-
         <template
             id="quantity_null"
             inherit_id="website_sale.product_quantity"
@@ -105,6 +100,5 @@
                 />
             </xpath>
         </template>
-
     </data>
 </openerp>

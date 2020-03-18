@@ -6,7 +6,6 @@
         <field name="inherit_id" ref="website.res_config_settings_view_form" />
         <field name="arch" type="xml">
             <xpath expr="//div[@id='checkout_assignation_setting']" position="after">
-
                 <div
                     class="col-12 col-lg-6 o_setting_box"
                     id="billing_countries_setting"
@@ -27,7 +26,6 @@
                         </div>
                     </div>
                 </div>
-
             </xpath>
         </field>
     </record>

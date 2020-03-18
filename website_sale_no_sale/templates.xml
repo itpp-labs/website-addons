@@ -5,7 +5,6 @@ Copyright 2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr
 License MIT (https://opensource.org/licenses/MIT).
 -->
 <odoo>
-
     <template
         id="hide_products_prices"
         name="Hide Prices"
@@ -16,7 +15,6 @@ License MIT (https://opensource.org/licenses/MIT).
     >
         <xpath expr="//div[hasclass('product_price')]" position="replace" />
     </template>
-
     <template
         id="hide_add_to_cart"
         inherit_id="website_sale.product"
@@ -31,7 +29,6 @@ License MIT (https://opensource.org/licenses/MIT).
             >btn btn-primary btn-lg mt8 js_check_product a-submit o_hidden</attribute>
         </a>
     </template>
-
     <template
         id="hide_price"
         inherit_id="website_sale.product"
@@ -46,7 +43,6 @@ License MIT (https://opensource.org/licenses/MIT).
             <t t-set="hide_price" t-value="1" />
         </xpath>
     </template>
-
     <template id="hide_variants_price_badge" inherit_id="website_sale.product_variants">
         <xpath expr="//span[hasclass('badge')]" position="replace">
             <span class="badge" t-if="diff_price and not hide_price">
@@ -60,5 +56,4 @@ License MIT (https://opensource.org/licenses/MIT).
             </span>
         </xpath>
     </template>
-
 </odoo>
