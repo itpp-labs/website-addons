@@ -2,9 +2,8 @@
 <!--Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
     License MIT (https://opensource.org/licenses/MIT).-->
 <odoo>
-
     <template id="report_package_stock_picking_barcode">
-         <t t-call="web.html_container">
+        <t t-call="web.html_container">
             <t t-foreach="docs" t-as="doc">
                 <t t-call="web.external_layout">
                     <div class="page">
@@ -44,7 +43,7 @@
                                     <tbody>
                                         <tr t-foreach="doc.move_line_ids" t-as="l">
                                             <td>
-                                               <span t-field="l.product_id.name" />
+                                                <span t-field="l.product_id.name" />
                                             </td>
                                             <td class="text-right">
                                                 <span t-field="l.qty_done" />
@@ -54,9 +53,9 @@
                                                 />
                                             </td>
                                             <td>
-                                                <t t-if="l.lot_id"><span
-                                                        t-field="l.lot_id.name"
-                                                    /></t>
+                                                <t t-if="l.lot_id">
+                                                    <span t-field="l.lot_id.name" />
+                                                </t>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -66,9 +65,8 @@
                     </div>
                 </t>
             </t>
-         </t>
+        </t>
     </template>
-
     <report
         string="Package BarCode with Contents"
         id="action_report_package_stock_picking_barcode"
@@ -77,5 +75,4 @@
         name="stock_picking_barcode.report_package_stock_picking_barcode"
         file="stock_picking_barcode.report_package_stock_picking_barcode"
     />
-
 </odoo>

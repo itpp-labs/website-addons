@@ -8,7 +8,7 @@
             name="Clear Cart Button"
             priority="32"
         >
-        <xpath expr="//a[@href='/shop/checkout']" position="before">
+            <xpath expr="//a[@href='/shop/checkout']" position="before">
                 <t t-if="website_sale_order and website_sale_order.website_order_line">
                     <a href="" id="clear_cart_button" class="btn btn-default mb32"><span
                             class="fa fa-trash-o"
@@ -16,7 +16,6 @@
                 </t>
             </xpath>
         </template>
-
         <template id="assets_frontend" inherit_id="website.assets_frontend" name="Shop">
             <xpath expr="." position="inside">
                 <script

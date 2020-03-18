@@ -27,7 +27,6 @@
             </xpath>
         </field>
     </record>
-
     <record id="menu_form" model="ir.ui.view">
         <field name="name">website.menu.form</field>
         <field name="model">website.menu</field>
@@ -54,5 +53,4 @@
             </form>
         </field>
     </record>
-
 </odoo>
