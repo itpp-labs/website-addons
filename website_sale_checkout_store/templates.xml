@@ -6,46 +6,45 @@
     # Copyright 2017 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
     # License MIT (https://opensource.org/licenses/MIT).-->
 <odoo noupdate="0">
-        <template
+    <template
         id="website_sale_checkout_store_assets_frontend"
         name="website_sale_checkout_store assets"
         inherit_id="website_sale.assets_frontend"
     >
-            <xpath expr="." position="inside">
-                <script
+        <xpath expr="." position="inside">
+            <script
                 src="/website_sale_checkout_store/static/src/js/website_sale_tour_mandatory_1.js"
                 type="text/javascript"
             />
-                <script
+            <script
                 src="/website_sale_checkout_store/static/src/js/website_sale_tour_mandatory_2.js"
                 type="text/javascript"
             />
-                <script
+            <script
                 src="/website_sale_checkout_store/static/src/js/website_sale_tour_mandatory_3.js"
                 type="text/javascript"
             />
-                <script
+            <script
                 src="/website_sale_checkout_store/static/src/js/website_sale_tour_mandatory_4.js"
                 type="text/javascript"
             />
-                <link
+            <link
                 rel="stylesheet"
                 href="/website_sale_checkout_store/static/src/css/website_sale_checkout_store.css"
             />
-            </xpath>
-        </template>
-
-        <template
+        </xpath>
+    </template>
+    <template
         id="website_sale_checkout_store_cart"
         name="my_cart"
         inherit_id="website_sale.cart"
         priority="50"
     >
-            <xpath
+        <xpath
             expr="//div[hasclass('row')]//a[hasclass('btn','btn-primary','pull-right')][@href='/shop/checkout']"
             position="replace"
         >
-              <t t-if="not hide_checkout_button">
+            <t t-if="not hide_checkout_button">
                 <t
                     t-set="button_class"
                     t-value="suggest_create_account and 'btn btn-default pull-right' or 'btn btn-primary pull-right'"
@@ -136,71 +135,65 @@
                         </a>
                     </div>
                 </div>
-              </t>
-            </xpath>
-        </template>
-
-        <template id="checkout" name="my_checkout" inherit_id="website_sale.checkout">
-            <xpath
+            </t>
+        </xpath>
+    </template>
+    <template id="checkout" name="my_checkout" inherit_id="website_sale.checkout">
+        <xpath
             expr="//div[hasclass('container','oe_website_sale')]"
             position="attributes"
         >
-                <attribute name="t-attf-ship_enabled">#{ship_enabled}</attribute>
-                <attribute name="t-attf-bill_enabled">#{bill_enabled}</attribute>
-            </xpath>
-            <xpath expr="//div[hasclass('row','all_shipping')]" position="attributes">
-                <attribute name="t-att-ship">1</attribute>
-            </xpath>
-            <xpath
+            <attribute name="t-attf-ship_enabled">#{ship_enabled}</attribute>
+            <attribute name="t-attf-bill_enabled">#{bill_enabled}</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('row','all_shipping')]" position="attributes">
+            <attribute name="t-att-ship">1</attribute>
+        </xpath>
+        <xpath
             expr="//div[hasclass('col-md-12') and ./h2[contains(.,'Shipping Address')]]"
             position="attributes"
         >
-                <attribute name="t-att-ship">1</attribute>
-            </xpath>
-        </template>
-
-        <template id="address" name="my_checkout" inherit_id="website_sale.address">
-            <xpath
+            <attribute name="t-att-ship">1</attribute>
+        </xpath>
+    </template>
+    <template id="address" name="my_checkout" inherit_id="website_sale.address">
+        <xpath
             expr="//div[hasclass('container','oe_website_sale')]"
             position="attributes"
         >
-                <attribute name="t-attf-ship_enabled">#{ship_enabled}</attribute>
-                <attribute name="t-attf-bill_enabled">#{bill_enabled}</attribute>
-            </xpath>
-            <xpath expr="//input[@name='street']/.." position="attributes">
-                <attribute name="ship">1</attribute>
-            </xpath>
-            <xpath expr="//input[@name='street2']/.." position="attributes">
-                <attribute name="style">display: none</attribute>
-            </xpath>
-            <xpath expr="//input[@name='city']/.." position="attributes">
-                <attribute name="ship">1</attribute>
-            </xpath>
-            <xpath expr="(//input[@name='zip'])[1]/.." position="attributes">
-                <attribute name="ship">1</attribute>
-            </xpath>
-            <xpath expr="(//input[@name='zip'])[2]/.." position="attributes">
-                <attribute name="ship">1</attribute>
-            </xpath>
-
-            <xpath expr="//input[@name='company_name']/.." position="attributes">
-                <attribute name="ship">1</attribute>
-            </xpath>
-
-            <xpath expr="//select[@name='country_id']/.." position="attributes">
-                <attribute name="ship_bill">1</attribute>
-            </xpath>
-
-            <xpath expr="//select[@name='state_id']/.." position="attributes">
-                <attribute name="ship_bill">1</attribute>
-            </xpath>
-
-            <xpath expr="//input[@name='vat']/.." position="attributes">
-                <attribute name="style">display: none</attribute>
-            </xpath>
-            <xpath expr="//h2" position="replace">
-                <t t-if="shipping == '0' and billing == '0'">
-                    <h2 class="page-header mt16">Contact Information
+            <attribute name="t-attf-ship_enabled">#{ship_enabled}</attribute>
+            <attribute name="t-attf-bill_enabled">#{bill_enabled}</attribute>
+        </xpath>
+        <xpath expr="//input[@name='street']/.." position="attributes">
+            <attribute name="ship">1</attribute>
+        </xpath>
+        <xpath expr="//input[@name='street2']/.." position="attributes">
+            <attribute name="style">display: none</attribute>
+        </xpath>
+        <xpath expr="//input[@name='city']/.." position="attributes">
+            <attribute name="ship">1</attribute>
+        </xpath>
+        <xpath expr="(//input[@name='zip'])[1]/.." position="attributes">
+            <attribute name="ship">1</attribute>
+        </xpath>
+        <xpath expr="(//input[@name='zip'])[2]/.." position="attributes">
+            <attribute name="ship">1</attribute>
+        </xpath>
+        <xpath expr="//input[@name='company_name']/.." position="attributes">
+            <attribute name="ship">1</attribute>
+        </xpath>
+        <xpath expr="//select[@name='country_id']/.." position="attributes">
+            <attribute name="ship_bill">1</attribute>
+        </xpath>
+        <xpath expr="//select[@name='state_id']/.." position="attributes">
+            <attribute name="ship_bill">1</attribute>
+        </xpath>
+        <xpath expr="//input[@name='vat']/.." position="attributes">
+            <attribute name="style">display: none</attribute>
+        </xpath>
+        <xpath expr="//h2" position="replace">
+            <t t-if="shipping == '0' and billing == '0'">
+                <h2 class="page-header mt16">Contact Information
                         <small> or </small>
                         <t
                         t-set='connect'
@@ -210,11 +203,13 @@
                         t-attf-href='/web/{{connect[0]}}?redirect=/shop/checkout'
                         class='btn btn-primary'
                         style="margin-top: -11px"
-                    ><t t-esc='connect[1]' /></a>
+                    >
+                        <t t-esc='connect[1]' />
+                    </a>
                     </h2>
-                </t>
-                <t t-else="">
-                    <h2 class="page-header mt16">Your Address
+            </t>
+            <t t-else="">
+                <h2 class="page-header mt16">Your Address
                         <small> or </small>
                         <t
                         t-set='connect'
@@ -224,151 +219,147 @@
                         t-attf-href='/web/{{connect[0]}}?redirect=/shop/checkout'
                         class='btn btn-primary'
                         style="margin-top: -11px"
-                    ><t t-esc='connect[1]' /></a>
+                    >
+                        <t t-esc='connect[1]' />
+                    </a>
                     </h2>
-                </t>
-            </xpath>
-        </template>
-
-        <template
+            </t>
+        </xpath>
+    </template>
+    <template
         id="website_sale_checkout_store_wizard_checkout"
         name="my_wizard_checkout"
         inherit_id="website_sale.wizard_checkout"
     >
-            <xpath expr="//li[@id='step40']" position="attributes">
-                <attribute name="bill">1</attribute>
-            </xpath>
-        </template>
-
-        <template id="payment" inherit_id="website_sale.payment" name="Payment">
-            <xpath expr="//div[@id='payment_method']" position="replace">
-                <!-- based on https://github.com/odoo/odoo/blob/9e67525418b3b0a48a796044ef24b227946ceb8f/addons/website_sale/views/templates.xml#L1318 -->
-                <div
+        <xpath expr="//li[@id='step40']" position="attributes">
+            <attribute name="bill">1</attribute>
+        </xpath>
+    </template>
+    <template id="payment" inherit_id="website_sale.payment" name="Payment">
+        <xpath expr="//div[@id='payment_method']" position="replace">
+            <!-- based on https://github.com/odoo/odoo/blob/9e67525418b3b0a48a796044ef24b227946ceb8f/addons/website_sale/views/templates.xml#L1318 -->
+            <div
                 id="payment_method"
                 class="col-md-12 o_website_sale_rightfit"
                 t-if="(form_acquirers or s2s_acquirers or tokens) and website_sale_order.amount_total and bill_enabled=='1'"
             >
-                    <h3 class="mb24">Pay with </h3>
-                    <t t-call="payment.payment_tokens_list">
-                        <t t-set="mode" t-value="'payment'" />
-                        <t t-set="submit_txt">Pay Now</t>
-                        <t t-set="icon_class" t-value="'fa-lock'" />
-                        <t t-set="pms" t-value="tokens" />
-                        <t t-set="form_action" t-value="'/shop/payment/token'" />
-                        <t
-                        t-set="prepare_tx_url"
-                        t-value="'/shop/payment/transaction/'"
-                    />
-                        <t t-set="partner_id" t-value="partner" />
-                    </t>
-                </div>
-                <!-- based on https://github.com/odoo/odoo/blob/9e67525418b3b0a48a796044ef24b227946ceb8f/addons/website_sale/views/templates.xml#L1338 -->
-                <div
+                <h3 class="mb24">Pay with </h3>
+                <t t-call="payment.payment_tokens_list">
+                    <t t-set="mode" t-value="'payment'" />
+                    <t t-set="submit_txt">Pay Now</t>
+                    <t t-set="icon_class" t-value="'fa-lock'" />
+                    <t t-set="pms" t-value="tokens" />
+                    <t t-set="form_action" t-value="'/shop/payment/token'" />
+                    <t t-set="prepare_tx_url" t-value="'/shop/payment/transaction/'" />
+                    <t t-set="partner_id" t-value="partner" />
+                </t>
+            </div>
+            <!-- based on https://github.com/odoo/odoo/blob/9e67525418b3b0a48a796044ef24b227946ceb8f/addons/website_sale/views/templates.xml#L1338 -->
+            <div
                 class="js_payment mb64 row"
                 t-if="(not website_sale_order.amount_total) and bill_enabled=='1'"
                 id="payment_method"
             >
-                    <div class="col-sm-12">
-                        <form
+                <div class="col-sm-12">
+                    <form
                         target="_self"
                         action="/shop/payment/validate"
                         method="post"
                         class="pull-right"
                     >
-                            <input
+                        <input
                             type="hidden"
                             name="csrf_token"
                             t-att-value="request.csrf_token()"
                         />
-                            <a class="btn btn-primary a-submit">
-                                <span t-if="order.amount_total &gt; 0">Pay Now <span
+                        <a class="btn btn-primary a-submit">
+                            <span t-if="order.amount_total &gt; 0">Pay Now <span
                                     class="fa fa-long-arrow-right"
                                 /></span>
-                                <span t-if="order.amount_total == 0">Confirm Order <span
+                            <span t-if="order.amount_total == 0">Confirm Order <span
                                     class="fa fa-long-arrow-right"
                                 /></span>
-                            </a>
-                        </form>
-                    </div>
+                        </a>
+                    </form>
                 </div>
-                <div
+            </div>
+            <div
                 class="js_payment mb64 row"
                 t-if="bill_enabled=='0'"
                 id="payment_method"
             >
-                    <div class="col-sm-12">
-                        <form
+                <div class="col-sm-12">
+                    <form
                         target="_self"
                         action="/shop/payment/validate"
                         method="post"
                         class="pull-right"
                     >
-                            <input
+                        <input
                             type="hidden"
                             name="csrf_token"
                             t-att-value="request.csrf_token()"
                         />
-                            <a class="btn btn-primary a-submit">
-                                <span>Confirm Order <span
+                        <a class="btn btn-primary a-submit">
+                            <span>Confirm Order <span
                                     class="fa fa-long-arrow-right"
                                 /></span>
-                            </a>
-                        </form>
-                    </div>
+                        </a>
+                    </form>
                 </div>
-            </xpath>
-        </template>
-
-        <template
+            </div>
+        </xpath>
+    </template>
+    <template
         id="website_sale_checkout_store_confirmation"
         name="my_confirmation"
         inherit_id="website_sale.confirmation"
     >
-            <xpath expr="//div[hasclass('oe_cart')]/table[2]/tr" position="after">
-                <t t-if="order.delivery_method_information">
-                    <tr>
-                        <td colspan="2">
-                            <strong>Delivery:</strong>
-                            <t t-esc="order.delivery_method_information" />
-                        </td>
-                    </tr>
-                </t>
-            </xpath>
-            <xpath expr="//div[hasclass('oe_cart')]/table[2]/tr/td" position="replace">
-                <t t-if="not order.payment_acquirer_id.name">
-                    <td class="col-md-8">
+        <xpath expr="//div[hasclass('oe_cart')]/table[2]/tr" position="after">
+            <t t-if="order.delivery_method_information">
+                <tr>
+                    <td colspan="2">
+                        <strong>Delivery:</strong>
+                        <t t-esc="order.delivery_method_information" />
+                    </td>
+                </tr>
+            </t>
+        </xpath>
+        <xpath expr="//div[hasclass('oe_cart')]/table[2]/tr/td" position="replace">
+            <t t-if="not order.payment_acquirer_id.name">
+                <td class="col-md-8">
                     <strong>Payment:</strong>
                     <t t-esc="order.payment_method_information" />
-                    </td>
-                </t>
-                <t t-if="order.payment_acquirer_id.name">
-                    <td class="col-md-8">
+                </td>
+            </t>
+            <t t-if="order.payment_acquirer_id.name">
+                <td class="col-md-8">
                     <strong>Payment Method:</strong>
                     <t t-esc="order.payment_acquirer_id.name" />
-                    </td>
-                </t>
-            </xpath>
-        </template>
-        <template
+                </td>
+            </t>
+        </xpath>
+    </template>
+    <template
         id="orders_followup"
         name="Sales Order"
         inherit_id="sale.portal_order_page"
     >
-            <xpath expr="//div[hasclass('panel-body')]/div[1]" position="after">
-                <div class="mb8">
+        <xpath expr="//div[hasclass('panel-body')]/div[1]" position="after">
+            <div class="mb8">
                 <t t-if="order.payment_method_information">
                     <strong>Payment:</strong>
                     <span t-field="order.payment_method_information" />
                 </t>
-                    <br />
+                <br />
                 <t t-if="order.delivery_method_information">
                     <strong>Delivery:</strong>
                     <span t-field="order.delivery_method_information" />
                 </t>
-                </div>
-            </xpath>
-        </template>
-        <!--
+            </div>
+        </xpath>
+    </template>
+    <!--
         <template id="report_shop_saleorder_document" inherit_id="sale.report_saleorder_document">
             <xpath expr="//div[@name='payment_term']" position="after">
                 <div name="payment_information" t-if="doc.payment_method_information" class="col-xs-3">

@@ -12,7 +12,6 @@
             </xpath>
         </field>
     </record>
-
     <record id="crm_case_form_view_oppor_multi_website" model="ir.ui.view">
         <field name="name">crm.lead.oppor.multi-website</field>
         <field name="model">crm.lead</field>
@@ -28,5 +27,4 @@
             </xpath>
         </field>
     </record>
-
 </odoo>

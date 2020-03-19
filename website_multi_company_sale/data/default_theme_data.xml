@@ -2,12 +2,10 @@
 <!-- Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
      License MIT (https://opensource.org/licenses/MIT).-->
 <odoo>
-
     <record model="website.theme.asset" id="theme_default_website_sale_product">
         <field name="name">website_sale.product</field>
         <field name="theme_id" ref="website_multi_theme.theme_default" />
     </record>
-
     <!-- This method prepare assets and applies default theme for all websites -->
     <function model="res.config.settings" name="multi_theme_reload" eval="([],)" />
 </odoo>

@@ -2,12 +2,12 @@
 <!-- Copyright 2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
      License MIT (https://opensource.org/licenses/MIT). -->
 <odoo>
-  <record id="website_multi_company_event_sale_rule_all" model="ir.rule">
-    <field name="name">Events available only for specifed websites (shops)</field>
-    <field name="model_id" ref="model_event_event" />
-    <field
+    <record id="website_multi_company_event_sale_rule_all" model="ir.rule">
+        <field name="name">Events available only for specifed websites (shops)</field>
+        <field name="model_id" ref="model_event_event" />
+        <field
             name="domain_force"
         >['|', ('website_ids', 'in', [website_id]), ('website_ids', '=', False)]</field>
-    <field name="backend_behaviour">true</field>
-  </record>
+        <field name="backend_behaviour">true</field>
+    </record>
 </odoo>
