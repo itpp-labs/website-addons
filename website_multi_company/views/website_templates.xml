@@ -2,13 +2,11 @@
 <!-- Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
      License MIT (https://opensource.org/licenses/MIT). -->
 <odoo>
-
     <!-- set priority lower than default (16) to apply update earlier than in
          website_logo (if installed) -->
     <template id="layout_logo_show" inherit_id="website.layout_logo_show" priority="8">
         <xpath expr="//a//img" position="attributes">
             <attribute name="src">/logo.png?company={{res_company.id}}</attribute>
         </xpath>
-</template>
-
+    </template>
 </odoo>
