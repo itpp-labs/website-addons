@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-  <record id="view_website_tree" model="ir.ui.view">
-      <field name="name">website.tree</field>
-      <field name="model">website</field>
-      <field name="inherit_id" ref="website.view_website_tree" />
-      <field name="arch" type="xml">
-          <xpath expr="//field[@name='name']" position="after">
-              <field name="domain" />
-          </xpath>
-      </field>
-  </record>
-
+    <record id="view_website_tree" model="ir.ui.view">
+        <field name="name">website.tree</field>
+        <field name="model">website</field>
+        <field name="inherit_id" ref="website.view_website_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="domain" />
+            </xpath>
+        </field>
+    </record>
     <record model="ir.ui.menu" id="website.menu_website_websites_list">
         <field name="groups_id" eval="[(5,0,0)]" />
     </record>
-
 </odoo>
