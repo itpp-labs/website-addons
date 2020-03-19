@@ -1,247 +1,228 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
-<template id="layout_footer_copyright" inherit_id="website.layout_footer_copyright">
-    <xpath expr="//div[@t-ignore='true']" position="replace">
+    <template id="layout_footer_copyright" inherit_id="website.layout_footer_copyright">
+        <xpath expr="//div[@t-ignore='true']" position="replace">
     </xpath>
-</template>
-
-<record id="view_company_form_inherit_website" model="ir.ui.view">
-    <field name="model">res.company</field>
-    <field name="inherit_id" ref="website.view_company_form_inherit_website" />
-    <field name="arch" type="xml">
-        <xpath expr="//field[@name='social_twitter']" position="attributes">
-            <attribute name="placeholder" />
+    </template>
+    <record id="view_company_form_inherit_website" model="ir.ui.view">
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="website.view_company_form_inherit_website" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='social_twitter']" position="attributes">
+                <attribute name="placeholder" />
+            </xpath>
+            <xpath expr="//field[@name='social_facebook']" position="attributes">
+                <attribute name="placeholder" />
+            </xpath>
+            <xpath expr="//field[@name='social_github']" position="attributes">
+                <attribute name="placeholder" />
+            </xpath>
+            <xpath expr="//field[@name='social_linkedin']" position="attributes">
+                <attribute name="placeholder" />
+            </xpath>
+            <xpath expr="//field[@name='social_youtube']" position="attributes">
+                <attribute name="placeholder" />
+            </xpath>
+            <xpath expr="//field[@name='social_googleplus']" position="attributes">
+                <attribute name="placeholder" />
+            </xpath>
+        </field>
+    </record>
+    <record id="view_website_form" model="ir.ui.view">
+        <field name="model">website</field>
+        <field name="inherit_id" ref="website.view_website_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='social_twitter']" position="attributes">
+                <attribute name="placeholder" />
+            </xpath>
+            <xpath expr="//field[@name='social_facebook']" position="attributes">
+                <attribute name="placeholder" />
+            </xpath>
+            <xpath expr="//field[@name='social_github']" position="attributes">
+                <attribute name="placeholder" />
+            </xpath>
+            <xpath expr="//field[@name='social_linkedin']" position="attributes">
+                <attribute name="placeholder" />
+            </xpath>
+            <xpath expr="//field[@name='social_youtube']" position="attributes">
+                <attribute name="placeholder" />
+            </xpath>
+            <xpath expr="//field[@name='social_googleplus']" position="attributes">
+                <attribute name="placeholder" />
+            </xpath>
+        </field>
+    </record>
+    <template id="s_banner" inherit_id="website.s_banner">
+        <xpath expr="//img[hasclass('img-responsive')]" position="attributes">
+            <attribute name="alt">Banner Image</attribute>
+            <attribute name="src">/website/static/src/img/library/ipad.png</attribute>
         </xpath>
-        <xpath expr="//field[@name='social_facebook']" position="attributes">
-            <attribute name="placeholder" />
-        </xpath>
-        <xpath expr="//field[@name='social_github']" position="attributes">
-            <attribute name="placeholder" />
-        </xpath>
-        <xpath expr="//field[@name='social_linkedin']" position="attributes">
-            <attribute name="placeholder" />
-        </xpath>
-        <xpath expr="//field[@name='social_youtube']" position="attributes">
-            <attribute name="placeholder" />
-        </xpath>
-        <xpath expr="//field[@name='social_googleplus']" position="attributes">
-            <attribute name="placeholder" />
-        </xpath>
-    </field>
-</record>
-
-<record id="view_website_form" model="ir.ui.view">
-    <field name="model">website</field>
-    <field name="inherit_id" ref="website.view_website_form" />
-    <field name="arch" type="xml">
-        <xpath expr="//field[@name='social_twitter']" position="attributes">
-            <attribute name="placeholder" />
-        </xpath>
-        <xpath expr="//field[@name='social_facebook']" position="attributes">
-            <attribute name="placeholder" />
-        </xpath>
-        <xpath expr="//field[@name='social_github']" position="attributes">
-            <attribute name="placeholder" />
-        </xpath>
-        <xpath expr="//field[@name='social_linkedin']" position="attributes">
-            <attribute name="placeholder" />
-        </xpath>
-        <xpath expr="//field[@name='social_youtube']" position="attributes">
-            <attribute name="placeholder" />
-        </xpath>
-        <xpath expr="//field[@name='social_googleplus']" position="attributes">
-            <attribute name="placeholder" />
-        </xpath>
-    </field>
-</record>
-
-<template id="s_banner" inherit_id="website.s_banner">
-    <xpath expr="//img[hasclass('img-responsive')]" position="attributes">
-        <attribute name="alt">Banner Image</attribute>
-        <attribute name="src">/website/static/src/img/library/ipad.png</attribute>
-    </xpath>
-</template>
-
-<template id="s_text_image" inherit_id="website.s_text_image">
-    <xpath
+    </template>
+    <template id="s_text_image" inherit_id="website.s_text_image">
+        <xpath
             expr="//img[@src='/web/image/website.s_text_image_default_image']"
             position="attributes"
         >
-        <attribute name="alt">Text and image block</attribute>
-        <attribute name="src">/website/static/src/img/library/ipad.png</attribute>
-    </xpath>
-</template>
-<template id="s_image_text" inherit_id="website.s_image_text">
-    <xpath
+            <attribute name="alt">Text and image block</attribute>
+            <attribute name="src">/website/static/src/img/library/ipad.png</attribute>
+        </xpath>
+    </template>
+    <template id="s_image_text" inherit_id="website.s_image_text">
+        <xpath
             expr="//img[@src='/web/image/website.s_image_text_default_image']"
             position="attributes"
         >
-        <attribute name="alt">Text and image block</attribute>
-        <attribute name="src">/website/static/src/img/library/ipad.png</attribute>
-    </xpath>
-</template>
-<template id="s_three_columns" inherit_id="website.s_three_columns">
-    <xpath
+            <attribute name="alt">Text and image block</attribute>
+            <attribute name="src">/website/static/src/img/library/ipad.png</attribute>
+        </xpath>
+    </template>
+    <template id="s_three_columns" inherit_id="website.s_three_columns">
+        <xpath
             expr="//img[@src='/web/image/website.library_image_11']"
             position="attributes"
         >
-        <attribute name="alt" />
-    </xpath>
-    <xpath
+            <attribute name="alt" />
+        </xpath>
+        <xpath
             expr="//img[@src='/web/image/website.library_image_13']"
             position="attributes"
         >
-        <attribute name="alt" />
-    </xpath>
-    <xpath
+            <attribute name="alt" />
+        </xpath>
+        <xpath
             expr="//img[@src='/web/image/website.library_image_07']"
             position="attributes"
         >
-        <attribute name="alt" />
-    </xpath>
-</template>
-<template id="s_button" inherit_id="website.s_button">
-    <xpath expr="//div[hasclass('col-md-9')]" position="replace">
-        <div class="col-md-9">
-            <p class="mb0">
-                <strong>We provide the best software for companies.</strong>
-                </p><p class="mb0">
+            <attribute name="alt" />
+        </xpath>
+    </template>
+    <template id="s_button" inherit_id="website.s_button">
+        <xpath expr="//div[hasclass('col-md-9')]" position="replace">
+            <div class="col-md-9">
+                <p class="mb0">
+                    <strong>We provide the best software for companies.</strong>
+                </p>
+                <p class="mb0">
                 Join us and make your company a better place.
             </p>
-        </div>
-    </xpath>
-</template>
-<template id="s_references" inherit_id="website.s_references">
-    <xpath expr="//section" position="replace">
-    <section class="s_references">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h1 class="text-center">
+            </div>
+        </xpath>
+    </template>
+    <template id="s_references" inherit_id="website.s_references">
+        <xpath expr="//section" position="replace">
+            <section class="s_references">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1 class="text-center">
                         Our References
                     </h1>
-                    <h3 class="text-muted text-center">
+                            <h3 class="text-muted text-center">
                         More than 500 happy customers.
                     </h3>
-                </div>
-                <div class="col-md-4 col-xs-12 col-md-offset-1 mt16 mb32">
-                    <blockquote>
-                        <p>
+                        </div>
+                        <div class="col-md-4 col-xs-12 col-md-offset-1 mt16 mb32">
+                            <blockquote>
+                                <p>
                             Write a quote here from one of your customers. Quotes are a
                             great way to build confidence in your products or services.
                         </p>
-                        <small>Author of this quote</small>
-                    </blockquote>
-                </div>
-                <div class="col-md-4 col-xs-12 col-md-offset-2 mt16 mb32">
-                    <blockquote>
-                        <p>
+                                <small>Author of this quote</small>
+                            </blockquote>
+                        </div>
+                        <div class="col-md-4 col-xs-12 col-md-offset-2 mt16 mb32">
+                            <blockquote>
+                                <p>
                             Software provides essential platform for our project management.
                             Things are better organized and more visible with it.
                         </p>
-                        <small>John Doe, CEO</small>
-                    </blockquote>
-                </div>
-                <div class="col-md-2 col-sm-4 col-xs-6">
-                  <img
+                                <small>John Doe, CEO</small>
+                            </blockquote>
+                        </div>
+                        <div class="col-md-2 col-sm-4 col-xs-6">
+                            <img
                                 src="/logo.png"
                                 class="img img-responsive img-thumbnail"
                                 alt="Logo"
                             />
-                </div>
-                <div class="col-md-2 col-sm-4 col-xs-6">
-                  <img
+                        </div>
+                        <div class="col-md-2 col-sm-4 col-xs-6">
+                            <img
                                 src="/logo.png"
                                 class="img img-responsive img-thumbnail"
                                 alt="Logo"
                             />
-                </div>
-                <div class="col-md-2 col-sm-4 col-xs-6">
-                  <img
+                        </div>
+                        <div class="col-md-2 col-sm-4 col-xs-6">
+                            <img
                                 src="/logo.png"
                                 class="img img-responsive img-thumbnail"
                                 alt="Logo"
                             />
-                </div>
-                <div class="col-md-2 col-sm-4 col-xs-6">
-                  <img
+                        </div>
+                        <div class="col-md-2 col-sm-4 col-xs-6">
+                            <img
                                 src="/logo.png"
                                 class="img img-responsive img-thumbnail"
                                 alt="Logo"
                             />
-                </div>
-                <div class="col-md-2 col-sm-4 col-xs-6">
-                  <img
+                        </div>
+                        <div class="col-md-2 col-sm-4 col-xs-6">
+                            <img
                                 src="/logo.png"
                                 class="img img-responsive img-thumbnail"
                                 alt="Logo"
                             />
-                </div>
-                <div class="col-md-2 col-sm-4 col-xs-6">
-                  <img
+                        </div>
+                        <div class="col-md-2 col-sm-4 col-xs-6">
+                            <img
                                 src="/logo.png"
                                 class="img img-responsive img-thumbnail"
                                 alt="Logo"
                             />
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
-    </xpath>
-</template>
-
-
-<template id="s_parallax_slider" inherit_id="website.s_parallax_slider">
-    <xpath expr="//div[hasclass('carousel-inner')]" position="replace">
-                    <div class="carousel-inner">
-
-                        <div class="item text_only active">
-                            <div class="container">
-                                <div class="content">
-
-                                    <div class="row">
-                                        <blockquote
-                                    class="mt48 mb16 col-md-4 col-md-offset-4"
-                                >
-                                            <p>
+            </section>
+        </xpath>
+    </template>
+    <template id="s_parallax_slider" inherit_id="website.s_parallax_slider">
+        <xpath expr="//div[hasclass('carousel-inner')]" position="replace">
+            <div class="carousel-inner">
+                <div class="item text_only active">
+                    <div class="container">
+                        <div class="content">
+                            <div class="row">
+                                <blockquote class="mt48 mb16 col-md-4 col-md-offset-4">
+                                    <p>
                                                 Write a quote here from one of your customers. Quotes are a
                                                 great way to build confidence in your products or services.
                                             </p>
-                                            <small>Author of this quote</small>
-                                        </blockquote>
-                                    </div>
-
-                                </div>
+                                    <small>Author of this quote</small>
+                                </blockquote>
                             </div>
                         </div>
-
-                        <div class="item text_only">
-                            <div class="container">
-                                <div class="content">
-
-                                    <div class="row">
-                                        <blockquote
-                                    class="mt48 mb16 col-md-4 col-md-offset-4"
-                                >
-                                            <p>
+                    </div>
+                </div>
+                <div class="item text_only">
+                    <div class="container">
+                        <div class="content">
+                            <div class="row">
+                                <blockquote class="mt48 mb16 col-md-4 col-md-offset-4">
+                                    <p>
                                                 Software provides essential platform for our project management.
                                                 Things are better organized and more visible with it.
                                             </p>
-                                            <small>John Doe, CEO</small>
-                                        </blockquote>
-                                    </div>
-
-                                </div>
+                                    <small>John Doe, CEO</small>
+                                </blockquote>
                             </div>
-
                         </div>
                     </div>
-    </xpath>
-</template>
-
-<record id="website.website_info" model="ir.ui.view">
-    <field name="active" eval="False" />
-</record>
-
+                </div>
+            </div>
+        </xpath>
+    </template>
+    <record id="website.website_info" model="ir.ui.view">
+        <field name="active" eval="False" />
+    </record>
 </odoo>

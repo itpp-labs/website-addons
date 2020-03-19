@@ -4,9 +4,7 @@
     Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
     License MIT (https://opensource.org/licenses/MIT).-->
 <templates id="template" xml:space="preserve">
-
     <t t-name='PickingEditorWidget'>
-
         <div
             class="modal fade"
             id="js_LocationChooseModal"
@@ -34,7 +32,9 @@
                                 <option
                                     class="js_loc_option"
                                     t-att-data-loc-id="loc.id"
-                                ><t t-esc="loc.name" /></option>
+                                >
+                                    <t t-esc="loc.name" />
+                                </option>
                             </t>
                         </select>
                     </div>
@@ -52,7 +52,6 @@
                 </div>
             </div>
         </div>
-
         <div
             class="modal fade"
             id="js_LotChooseModal"
@@ -91,7 +90,6 @@
                 </div>
             </div>
         </div>
-
         <!--<div class="modal fade" id="js_PackConfModal" tabindex="-1" role="dialog" aria-labelledby="PackConfModal" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -115,14 +113,12 @@
                 </div>
             </div>
         </div>-->
-
         <div class="row">
-                <div>
-                    <div class="col-sm-4 col-xs-6">
-                        <h2 class="oe_pick_app_header" />
-                    </div>
-                    <div class="col-sm-8 col-xs⁻6 text-right">
-
+            <div>
+                <div class="col-sm-4 col-xs-6">
+                    <h2 class="oe_pick_app_header" />
+                </div>
+                <div class="col-sm-8 col-xs⁻6 text-right">
                     <button
                         type="button"
                         class='btn btn-default js_pick_done'
@@ -131,26 +127,25 @@
                         type="button"
                         class='btn btn-default js_pick_print'
                     > Print </button>
-
-                    </div>
                 </div>
+            </div>
         </div>
-
         <div class="row">
             <div>
                 <div class="col-md-3 col-sm-4 col-xs-6">
-                    <h3><strong>
-                        <select id="js_select" class="form-control">
-                            <option
+                    <h3>
+                        <strong>
+                            <select id="js_select" class="form-control">
+                                <option
                                     value="ToDo"
                                     id="js_select_todo"
                                 >Operations ToDo</option>
-                            <option
+                                <option
                                     value="Processed"
                                     id="js_select_processed"
                                 >Operations Processed</option>
-                        </select>
-                    </strong>
+                            </select>
+                        </strong>
                     </h3>
                 </div>
                 <div class="col-md-3 col-sm-4 col-xs-6">
@@ -188,7 +183,6 @@
                 </div>
             </div>
         </div>
-
         <div>
             <table class='table table-condensed js_op_table_todo'>
                 <thead>
@@ -200,7 +194,6 @@
                         <th>To</th>
                     </tr>
                 </thead>
-
                 <tbody>
                     <t t-foreach="widget.get_rows()" t-as="row">
                         <tr
@@ -215,10 +208,12 @@
                             >
                                 <t
                                     t-if="!row.cols.head_container &amp;&amp; row.cols.container"
-                                ><span
+                                >
+                                    <span
                                         class="fa fa-level-up fa-rotate-90"
                                         style="margin-left:10px;margin-right:10px;"
-                                    /></t>
+                                    />
+                                </t>
                                 <t t-esc="row.cols.product" />
                             </td>
                             <td class='brctbl-col2 text-center js_row_qty'>
@@ -227,9 +222,11 @@
                                         <span
                                             class="input-group-addon js_minus input-sm"
                                             t-att-data-product-id='row.cols.product_id'
-                                        ><a href="#"><i
-                                                    class="fa fa-minus"
-                                                /></a></span>
+                                        >
+                                            <a href="#">
+                                                <i class="fa fa-minus" />
+                                            </a>
+                                        </span>
                                         <form class="js_submit_value">
                                             <input
                                                 type="text"
@@ -241,7 +238,11 @@
                                         <span
                                             class="input-group-addon js_plus input-sm"
                                             t-att-data-product-id='row.cols.product_id'
-                                        ><a href="#"><i class="fa fa-plus" /></a></span>
+                                        >
+                                            <a href="#">
+                                                <i class="fa fa-plus" />
+                                            </a>
+                                        </span>
                                     </div>
                                 </t>
                                 <t t-if="row.cols.container">
@@ -252,60 +253,74 @@
                                 <t t-log="row.cols.rem" />
                             </td>
                             <td class="brctbl-col3 text-center">
-                                <t t-esc="row.cols.qty" /> <t t-esc="row.cols.uom" />
+                                <t t-esc="row.cols.qty" />
+                                <t t-esc="row.cols.uom" />
                             </td>
                             <td class="brctbl-col4 js_loc">
                                 <t t-esc="row.cols.loc" />
-                                <t t-if="row.cols.pack"><span> : <t
-                                            t-esc="row.cols.pack"
-                                        /></span></t>
-                                <t t-if="row.cols.lots"><span> : <t
-                                            t-esc="row.cols.lots"
-                                        /></span></t>
+                                <t t-if="row.cols.pack">
+                                    <span> : <t t-esc="row.cols.pack" /></span>
+                                </t>
+                                <t t-if="row.cols.lots">
+                                    <span> : <t t-esc="row.cols.lots" /></span>
+                                </t>
                             </td>
-                            <td class="brctbl-col5 js_loc"> <t t-esc="row.cols.dest" />
+                            <td class="brctbl-col5 js_loc">
+                                <t t-esc="row.cols.dest" />
                                 <div class="pull-right btn-group">
                                     <button
                                         type="button"
                                         class="btn btn-default dropdown-toggle fa fa-cog"
                                         data-toggle="dropdown"
                                     >
-                                     <span class="caret" />
+                                        <span class="caret" />
                                     </button>
                                     <ul class="dropdown-menu" role="menu">
                                         <t t-if="row.cols.product_id">
-                                            <li><a
+                                            <li>
+                                                <a
                                                     class="js_create_lot"
                                                     href="#"
-                                                >Create &#47; Change Lot</a></li>
+                                                >Create &#47; Change Lot</a>
+                                            </li>
                                         </t>
                                         <t
                                             t-if="!row.cols.head_container &amp;&amp; !row.cols.container"
                                         >
-                                            <li><a
+                                            <li>
+                                                <a
                                                     class="js_change_src"
                                                     href="#"
-                                                >Change source location</a></li>
-                                            <li><a
+                                                >Change source location</a>
+                                            </li>
+                                            <li>
+                                                <a
                                                     class="js_change_dst"
                                                     href="#"
-                                                >Change destination location</a></li>
+                                                >Change destination location</a>
+                                            </li>
                                         </t>
                                         <t t-if="row.cols.head_container">
-                                            <li><a
+                                            <li>
+                                                <a
                                                     class="js_pack_change_dst"
                                                     href="#"
-                                                >Change destination location</a></li>
+                                                >Change destination location</a>
+                                            </li>
                                             <li class="divider" />
                                             <!--<li><a class="js_pack_configure" href="#">Configure package</a></li>-->
-                                            <li><a
+                                            <li>
+                                                <a
                                                     class="js_delete_pack"
                                                     href="#"
-                                                >Remove from package</a></li>
-                                            <li><a
+                                                >Remove from package</a>
+                                            </li>
+                                            <li>
+                                                <a
                                                     class="js_print_pack"
                                                     href="#"
-                                                >Print package label</a></li>
+                                                >Print package label</a>
+                                            </li>
                                         </t>
                                     </ul>
                                 </div>
@@ -315,9 +330,7 @@
                 </tbody>
             </table>
         </div>
-
         <div id="add_pack_modal" style="display: none;">
-
             <div class="modal-content">
                 <p class="modal_waiting">Waiting for scan..</p>
                 <div class="modal_prod_description">
@@ -338,10 +351,8 @@
                     > Close </button>
                 </h3>
             </div>
-
         </div>
     </t>
-
     <t t-name='ModalInformation'>
         <table class='table table-condensed js_op_table_todo'>
             <thead>
@@ -351,28 +362,22 @@
                     <th class='text-center'>Todo</th>
                 </tr>
             </thead>
-
             <tbody>
                 <tr>
                     <td>
                         <t t-esc="row.cols.product" />
                     </td>
-
                     <td>
                         <t t-esc="row.cols.rem" />
                     </td>
-
                     <td>
                         <t t-esc="row.cols.qty" /> <t t-esc="row.cols.uom" />>
                     </td>
                 </tr>
             </tbody>
         </table>
-
         <input type="text" class="form-control text-center modal_qty" />
-
     </t>
-
     <t t-name="PickingSearchResults">
         <div class="panel-heading">
             <h3 class="panel-title">Search Results</h3>
@@ -389,9 +394,9 @@
                             t-att-data-id="picking.id"
                         >
                             <div class="panel-body">
-                                <strong class='oe_picking_name'><t
-                                        t-esc="picking.name"
-                                    /></strong>
+                                <strong class='oe_picking_name'>
+                                    <t t-esc="picking.name" />
+                                </strong>
                             </div>
                         </div>
                     </div>
@@ -399,7 +404,6 @@
             </t>
         </div>
     </t>
-
     <t t-name="PickingMenuWidget">
         <div class="navbar navbar-inverse navbar-static-top" role="navigation">
             <div class="container">
@@ -416,19 +420,15 @@
                         class="btn btn-danger js_pick_quit pull-right"
                     >Quit</button>
                 </div>
-
             </div>
         </div>
         <div class="container">
-
             <h1 class="js_title_label">Select your operation</h1>
             <div class='js_picking_not_found alert alert-warning hidden'>
                 Scanned picking could not be found
             </div>
-
             <div class='js_picking_search_results panel panel-info hidden'>
             </div>
-
             <div class="row js_picking_categories">
                 <t t-foreach="widget.picking_types" t-as="type">
                     <div class="col-lg-3 col-md-4">
@@ -436,31 +436,33 @@
                             t-att-class="'oe_kanban oe_picking oe_kanban_color_' + type.color + ' ' + (widget.pickings_by_type[type.id].length === 0 ? 'oe_empty':'js_pick_last') "
                             t-att-data-id="type.id"
                         >
-                            <t t-if="type.code == 'incoming'"><span
-                                    class="fa fa-sign-in fa-2x"
-                                /></t>
-                            <t t-if="type.code == 'outgoing'"><span
-                                    class="fa fa-truck fa-2x fa-flip-horizontal"
-                                /></t>
-                            <t t-if="type.code == 'internal'"><span
-                                    class="fa fa-retweet fa-2x"
-                                /></t>
-                            <strong><span><t
-                                        t-esc="type.display_name"
-                                    /></span></strong>
-                            <div><t t-if="widget.pickings_by_type[type.id].length > 0">
-                                <span class='badge'><t
+                            <t t-if="type.code == 'incoming'">
+                                <span class="fa fa-sign-in fa-2x" />
+                            </t>
+                            <t t-if="type.code == 'outgoing'">
+                                <span class="fa fa-truck fa-2x fa-flip-horizontal" />
+                            </t>
+                            <t t-if="type.code == 'internal'">
+                                <span class="fa fa-retweet fa-2x" />
+                            </t>
+                            <strong>
+                                <span>
+                                    <t t-esc="type.display_name" />
+                                </span>
+                            </strong>
+                            <div>
+                                <t t-if="widget.pickings_by_type[type.id].length > 0">
+                                    <span class='badge'><t
                                             t-esc="widget.pickings_by_type[type.id].length"
                                         /> picking(s) </span>
-                            </t></div>
+                                </t>
+                            </div>
                         </div>
                     </div>
                 </t>
             </div>
         </div>
     </t>
-
-
     <t t-name="PickingMainWidget">
         <div class="navbar navbar-inverse navbar-static-top" role="navigation">
             <div class="container">
@@ -482,7 +484,6 @@
                 </div>
             </div>
         </div>
-
         <div class="container">
             <div class='oe_placeholder_picking_editor' />
             <div class="text-right small oe_reload_op">
@@ -492,5 +493,4 @@
             </div>
         </div>
     </t>
-
 </templates>
