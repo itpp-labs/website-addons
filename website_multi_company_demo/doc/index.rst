@@ -1,6 +1,6 @@
-===================
- Website Demo Data
-===================
+====================
+ Multi Website Demo
+====================
 
 After installation:
 
