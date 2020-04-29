@@ -1,19 +1,21 @@
 # Copyright 2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
-from odoo import models, fields, api
+from odoo import api, fields, models
 
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    order_parent_id = fields.Many2one('sale.order', 'Parent Order', readonly=True)
-    order_child_ids = fields.One2many('sale.order', 'order_parent_id', 'Child Orders', readonly=True)
+    order_parent_id = fields.Many2one("sale.order", "Parent Order", readonly=True)
+    order_child_ids = fields.One2many(
+        "sale.order", "order_parent_id", "Child Orders", readonly=True
+    )
 
     @api.multi
     def action_done(self):
         result = super(SaleOrder, self).action_done()
-        children = self.mapped('order_child_ids')
+        children = self.mapped("order_child_ids")
         if children:
             children.action_done()
         return result
@@ -21,7 +23,7 @@ class SaleOrder(models.Model):
     @api.multi
     def action_confirm(self):
         result = super(SaleOrder, self).action_confirm()
-        children = self.mapped('order_child_ids')
+        children = self.mapped("order_child_ids")
         if children:
             children.action_confirm()
         return result
@@ -29,7 +31,7 @@ class SaleOrder(models.Model):
     @api.multi
     def action_cancel(self):
         result = super(SaleOrder, self).action_cancel()
-        children = self.mapped('order_child_ids')
+        children = self.mapped("order_child_ids")
         if children:
             children.action_cancel()
         return result
@@ -37,14 +39,16 @@ class SaleOrder(models.Model):
     @api.multi
     def write(self, values):
         result = super(SaleOrder, self).write(values)
-        if 'partner_id' in values:
+        if "partner_id" in values:
             for record in self:
                 if record.order_child_ids:
-                    record.order_child_ids.write({
-                        'partner_id': values['partner_id'],
-                        'partner_invoice_id': values['partner_id'],
-                        'partner_shipping_id': values['partner_id'],
-                    })
+                    record.order_child_ids.write(
+                        {
+                            "partner_id": values["partner_id"],
+                            "partner_invoice_id": values["partner_id"],
+                            "partner_shipping_id": values["partner_id"],
+                        }
+                    )
         return result
 
 

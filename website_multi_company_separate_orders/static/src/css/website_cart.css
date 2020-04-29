@@ -1,9 +1,9 @@
 .separate_order {
-     color: #00A09D;
-     font-size: 13px;
+    color: #00a09d;
+    font-size: 13px;
 }
 
 .separate_order:not(.child_order) {
-     cursor:pointer;
-     text-decoration:underline;
+    cursor: pointer;
+    text-decoration: underline;
 }
