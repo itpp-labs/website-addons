@@ -25,6 +25,11 @@ Cache is updated every time on creation, editing or deletion the product public 
 This can lead to issues, e. g. when importing a large number of categories.
 It is recommended to temporarily uninstall the module in this case.
 
+Roadmap
+-------
+
+* TODO: deal with too many cache options that can cause memory loss
+
 Credits
 =======
 
