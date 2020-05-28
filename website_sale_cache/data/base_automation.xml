@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--Copyright 2017 Artyom Losev
+    License MIT (https://opensource.org/licenses/MIT).-->
+<odoo>
+    <record id="product_public_category_update_cache_action" model="base.automation">
+        <field name="name">Website_sale: Update cache for categories</field>
+        <field name="model_id" ref="website_sale.model_product_public_category" />
+        <field name="sequence">1</field>
+        <field name="trigger">on_create_or_write</field>
+        <field name="action_server_id" ref="action_update_cache" />
+    </record>
+    <record
+        id="product_public_category_update_cache_on_delete_action"
+        model="base.automation"
+    >
+        <field name="name">Website_sale: Update cache for categories on delete</field>
+        <field name="model_id" ref="website_sale.model_product_public_category" />
+        <field name="sequence">1</field>
+        <field name="trigger">on_unlink</field>
+        <field name="action_server_id" ref="action_update_cache" />
+    </record>
+</odoo>

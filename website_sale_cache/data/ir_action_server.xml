@@ -2,15 +2,12 @@
 <!--Copyright 2017 Artyom Losev
     Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
     License MIT (https://opensource.org/licenses/MIT).-->
-<openerp>
-    <data>
-        <record id="action_update_cache" model="ir.actions.server">
-            <field name="name">Update category cache</field>
-            <field name="model_id" ref="website.model_website" />
-            <field name="condition">True</field>
-            <field name="type">ir.actions.server</field>
-            <field name="state">code</field>
-            <field name="code">model.action_update_cache()</field>
-        </record>
-    </data>
-</openerp>
+<odoo>
+    <record id="action_update_cache" model="ir.actions.server">
+        <field name="name">Update category cache</field>
+        <field name="model_id" ref="website.model_website" />
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="code">env['website'].action_update_cache()</field>
+    </record>
+</odoo>
