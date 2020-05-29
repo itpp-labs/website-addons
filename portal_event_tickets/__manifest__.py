@@ -37,7 +37,7 @@
     "post_init_hook": None,
     "uninstall_hook": None,
     "auto_install": False,
-    "installable": True,
+    "installable": False,
     "demo_title": "Event extensions",
     "demo_addons": [
         "website_event_attendee_fields",
