@@ -1,3 +1,5 @@
+# Copyright 2017-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# License MIT (https://opensource.org/licenses/MIT).
 import re
 
 from odoo import http

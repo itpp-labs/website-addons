@@ -3,3 +3,6 @@ OCA_web https://github.com/it-projects-llc/web
 access-addons https://github.com/it-projects-llc/access-addons.git
 mail-addons https://github.com/it-projects-llc/mail-addons
 misc-addons https://github.com/it-projects-llc/misc-addons
+partner-contact https://github.com/it-projects-llc/partner-contact
+event https://github.com/it-projects-llc/event
+OCA_server-ux https://github.com/OCA/server-ux

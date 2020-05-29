@@ -1,3 +1,5 @@
+# Copyright 2017-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# License MIT (https://opensource.org/licenses/MIT).
 from odoo import _, api, fields, models
 from odoo.tools.safe_eval import safe_eval
 
@@ -39,6 +41,7 @@ class Event(models.Model):
 class AttendeeField(models.Model):
 
     _name = "event.event.attendee_field"
+    _description = "event attendee field"
 
     sequence = fields.Integer("Sequence")
     field_id = fields.Many2one(

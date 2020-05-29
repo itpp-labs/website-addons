@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!--Copyright 2017-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+    Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
+    # License MIT (https://opensource.org/licenses/MIT).-->
 <odoo>
     <template id="polyfill">
         <!-- solution from https://stackoverflow.com/questions/22983013/how-to-get-html-5-input-type-date-working-in-firefox-and-or-ie-10 -->
@@ -19,7 +22,7 @@
         id="event_description_full"
         inherit_id="website_event.event_description_full"
     >
-        <xpath expr="//t[@t-set='head']" position="inside">
+        <xpath expr="//div[hasclass('card', 'mt-3')]" position="inside">
             <t t-call="website_event_attendee_fields.polyfill" />
         </xpath>
     </template>
@@ -27,7 +30,7 @@
         id="registration_attendee_details"
         inherit_id="website_event.registration_attendee_details"
     >
-        <xpath expr="//t[@t-foreach='tickets']/div[@class='row']" position="replace">
+        <xpath expr="//t[@t-foreach='tickets']/div[hasclass('row')]" position="replace">
             <div class="row" t-if="event.use_attendees_header">
                 <t t-foreach="event.attendee_field_ids" t-as="field">
                     <div t-attf-class="col-md-{{field.width}}">
@@ -39,7 +42,10 @@
                 </t>
             </div>
         </xpath>
-        <xpath expr="//t[@t-as='att_counter']/div[@class='row mb4']" position="replace">
+        <xpath
+            expr="//t[@t-as='att_counter']/div[hasclass('row', 'mb4')]"
+            position="replace"
+        >
             <div
                 class="row"
                 t-att-data-counter="counter"
@@ -97,7 +103,7 @@
                     </div>
                 </t>
                 <input
-                    class='hidden'
+                    class='d-none'
                     type='text'
                     t-attf-name="#{counter}-ticket_id"
                     t-attf-value="#{ticket['id']}"

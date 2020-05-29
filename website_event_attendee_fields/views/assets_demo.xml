@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!--Copyright 2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+    # License MIT (https://opensource.org/licenses/MIT).-->
 <odoo>
     <template id="test_tour" inherit_id="website.assets_frontend" name="Test Tour">
         <xpath expr="." position="inside">
