@@ -1,3 +1,8 @@
+# Copyright 2017-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexand
+# Copyright 2018-2019 Ruslan Ronzhin <https://it-projects.info/team/rusllan/>
+# Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
+# License MIT (https://opensource.org/licenses/MIT).
 {
     "name": """Event guest info""",
     "summary": """Ask information on registration and stores at Partner record""",
@@ -26,7 +31,7 @@
         "views/website_event_templates.xml",
     ],
     "qweb": [],
-    "demo": ["data/event_event_demo.yml"],
+    "demo": [],
     "post_load": None,
     "pre_init_hook": None,
     "post_init_hook": None,

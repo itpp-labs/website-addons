@@ -31,12 +31,12 @@ Maintainers
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/website-addons/10.0
+Demo: http://runbot.it-projects.info/demo/website-addons/12.0
 
-HTML Description: https://apps.odoo.com/apps/modules/10.0/website_event_attendee_fields_custom/
+HTML Description: https://apps.odoo.com/apps/modules/12.0/website_event_attendee_fields_custom/
 
 Usage instructions: `<doc/index.rst>`_
 
 Changelog: `<doc/changelog.rst>`_
 
-Tested on Odoo 10.0 51861e889ab7c8795cccc3eaca27b90b62ceb89c
+Tested on Odoo 12.0 dbd8afa825556b8710aa07061d6b1560620f41b6
