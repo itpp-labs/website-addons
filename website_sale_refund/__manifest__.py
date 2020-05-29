@@ -1,3 +1,6 @@
+# Copyright 2017-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
+# License MIT (https://opensource.org/licenses/MIT).
 {
     "name": """Product swap at eCommerce""",
     "summary": """Product upgrading / changing feature for your online shop""",

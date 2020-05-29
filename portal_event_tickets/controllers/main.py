@@ -1,3 +1,6 @@
+# Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
+# License MIT (https://opensource.org/licenses/MIT).
 import logging
 
 from odoo import _, http
@@ -5,15 +8,23 @@ from odoo.exceptions import AccessError
 from odoo.fields import Date
 from odoo.http import request
 
-from odoo.addons.website.models.website import slug
+from odoo.addons.http_routing.models.ir_http import slug
+from odoo.addons.portal.controllers.portal import CustomerPortal
 from odoo.addons.website_event.controllers.main import WebsiteEventController
-from odoo.addons.website_portal.controllers.main import website_account
 from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 _logger = logging.getLogger(__name__)
 
 
-class PortalEvent(website_account):
+class PortalEvent(CustomerPortal):
+    def _prepare_portal_layout_values(self):
+        values = super(PortalEvent, self)._prepare_portal_layout_values()
+        domain = self._tickets_domain()
+        tickets_count = request.env["event.registration"].search_count(domain)
+
+        values.update({"tickets_count": tickets_count})
+        return values
+
     def _get_archive_groups(
         self,
         model,
@@ -105,6 +116,8 @@ class PortalEvent(website_account):
                 "pager": pager,
                 "archive_groups": archive_groups,
                 "default_url": "/my/tickets",
+                "page_name": "ticket",
+                "report_type": "html",
             }
         )
         return request.render("portal_event_tickets.portal_my_tickets", values)
@@ -156,7 +169,16 @@ class PortalEvent(website_account):
 
         ticket_sudo = ticket.sudo()
 
-        values.update({"ticket": ticket_sudo})
+        values.update(
+            {
+                "ticket": ticket_sudo,
+                "bootstrap_formatting": True,
+                "partner_id": ticket_sudo.partner_id.id,
+                "report_type": "html",
+                "page_name": "ticket",
+                "type_name": "Ticket",
+            }
+        )
         return request.render("portal_event_tickets.portal_ticket_page", values)
 
     @http.route(
@@ -169,9 +191,9 @@ class PortalEvent(website_account):
             return request.render("website.403")
 
         pdf = (
-            request.env["report"]
+            request.env.ref("sale.action_report_saleorder")
             .sudo()
-            .get_pdf([ticket.id], "event.event_registration_report_template_badge")
+            .render_qweb_pdf([ticket.sale_order_id.id])[0]
         )
         pdfhttpheaders = [
             ("Content-Type", "application/pdf"),

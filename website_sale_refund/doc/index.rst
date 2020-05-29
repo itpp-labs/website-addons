@@ -9,7 +9,7 @@ Installation
 
 You may need one of the following modules, which provide UI to refund some time of products:
 
-* `portal_event_tickets <https://apps.odoo.com/apps/modules/10.0/portal_event_tickets/>`__ -- works with tickets
+* `portal_event_tickets <https://apps.odoo.com/apps/modules/12.0/portal_event_tickets/>`__ -- works with tickets
 
 Configuration
 =============

@@ -1,3 +1,8 @@
+# Copyright 2017-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexand
+# Copyright 2018-2019 Ruslan Ronzhin <https://it-projects.info/team/rusllan/>
+# Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
+# License MIT (https://opensource.org/licenses/MIT).
 {
     "name": """Customer Event Portal""",
     "summary": """Allows to customers see their tickets for events at the Portal""",
@@ -14,8 +19,7 @@
     "currency": "EUR",
     "depends": [
         "event_sale",
-        "website_portal",
-        "partner_event",
+        "portal",
         "website_event_attendee_fields",
         "website_sale_refund",
     ],

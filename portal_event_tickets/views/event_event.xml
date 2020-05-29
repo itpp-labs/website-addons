@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!--Copyright 2017-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+    # License MIT (https://opensource.org/licenses/MIT).-->
 <odoo>
     <record model="ir.ui.view" id="view_event_event_form">
         <field name="name">Events (Singup)</field>
