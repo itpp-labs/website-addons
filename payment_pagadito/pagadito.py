@@ -17,7 +17,7 @@ except ImportError as err:
 
 PG_CONNECT_SUCCESS = "PG1001"  # Connection successful.	X	X	Conexión exitosa del Pagadito Comercio con el WSPG.
 PG_EXEC_TRANS_SUCCESS = "PG1002"  # Transaction register successful.	X	X	La transacción enviada por el Pagadito Comercio fue registrada correctamente por el WSPG.
-PG_GET_STATUS_SUCCESS = "PG1003"  # 	Transaction status.	X	X	Ha sido procesada correctamente la petición de estado de transacción.
+PG_GET_STATUS_SUCCESS = "PG1003"  # Transaction status.	X	X	Ha sido procesada correctamente la petición de estado de transacción.
 # PG_ = "PG1004"  #	Exchange Rate.	X	X	Ha sido procesada correctamente la petición de tasa de cambio.
 # PG_ = "PG2001"  #	Incomplete data.		X	El Pagadito Comercio no envió todos los parámetros necesarios.
 # PG_ = "PG2002"  #	Incorrect format data.		X	El formato de los datos enviados por el Pagadito Comercio no es el correcto.

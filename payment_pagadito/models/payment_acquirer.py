@@ -6,7 +6,7 @@ import urllib.parse as urlparse
 
 from zeep import xsd
 
-from odoo import api, exceptions, fields, models
+from odoo import _, api, exceptions, fields, models
 from odoo.http import request
 
 from .. import pagadito
@@ -31,11 +31,11 @@ class AcquirerPagadito(models.Model):
     @api.multi
     def _pagadito_connect(self, sandbox=True):
         res = self._pagadito_call(
-            pagadito.OP_CONNECT, {"uid": self.pagadito_uid, "wsk": self.pagadito_wsk,}
+            pagadito.OP_CONNECT, {"uid": self.pagadito_uid, "wsk": self.pagadito_wsk}
         )
         if res.get("code") != pagadito.PG_CONNECT_SUCCESS:
             raise exceptions.UserError(
-                "Method Connect doesn't work. Wrong credentials?\n%s",
+                _("Method Connect doesn't work. Wrong credentials?\n%s"),
                 res.get("message"),
             )
         return res["value"]
@@ -73,7 +73,7 @@ class AcquirerPagadito(models.Model):
         )
         if res.get("code") != pagadito.PG_EXEC_TRANS_SUCCESS:
             raise exceptions.UserError(
-                "Method Connect doesn't work:\n%s" % res.get("message")
+                _("Method Connect doesn't work:\n%s"), res.get("message")
             )
         raw_url = res["value"]
         self.action_url = res["value"]

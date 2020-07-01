@@ -4,7 +4,7 @@ import logging
 
 import dateutil.parser
 
-from odoo import api, exceptions, fields, models
+from odoo import _, api, exceptions, fields, models
 
 from .. import pagadito
 
@@ -31,7 +31,7 @@ class TransactionPagadito(models.Model):
         )
         if status_data.get("code") != pagadito.PG_GET_STATUS_SUCCESS:
             raise exceptions.UserError(
-                "Method get_status doesn't work:\n%s", status_data.get("message")
+                _("Method get_status doesn't work:\n%s"), status_data.get("message")
             )
 
         status = status_data["value"].get("status")

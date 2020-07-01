@@ -14,7 +14,7 @@
     "license": "LGPL-3",
     # "price": 9.00,
     # "currency": "EUR",
-    "depends": ["payment", "website_sale", "sale",],
+    "depends": ["payment", "website_sale", "sale"],
     "external_dependencies": {"python": ["zeep"], "bin": []},
     "data": [
         "views/payment_pagadito_templates.xml",
