@@ -16,7 +16,7 @@ Sandbox
 
 You can play with a module via sandbox account created on this website: https://sandbox.pagadito.com.
 
-If you get error "¡Lo sentimos! Pagadito Comercios aún no está disponible en su país o región" (Pagadito is not supported in your country), contact support team to add your IP to whilelist
+If you get error "¡Lo sentimos! Pagadito Comercios aún no está disponible en su país o región" (Pagadito is not supported in your country), contact support team to add your IP to whitelist
 
 Installation
 ============
