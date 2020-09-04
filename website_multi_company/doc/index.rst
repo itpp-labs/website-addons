@@ -11,7 +11,7 @@ Installation
 Firstly install the external dependencies::
 
 	apt-get install ruby-compass
-	gem install compass bootstrap-sass
+	gem install compass bootstrap-sass:3.1.1.0
 
 Then `install <https://odoo-development.readthedocs.io/en/latest/odoo/usage/install-module.html>`__ this module in a usual way.
 
