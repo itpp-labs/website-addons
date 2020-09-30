@@ -17,4 +17,4 @@ List of repositories:
 
 Donation
 ========
-Feel free to support our efforts by purchasing our [Website](https://apps.odoo.com/apps/modules/category/Website/browse?price=Paid&order=Newest&author=IT-Projects+LLC) or [eCommerce](https://apps.odoo.com/apps/modules/category/eCommerce/browse?price=Paid&order=Newest&author=IT-Projects+LLC) modules at app store.
+If all this helped you in any manner you can support us by purchasing our [Website](https://apps.odoo.com/apps/modules/category/Website/browse?price=Paid&order=Newest&author=IT-Projects+LLC) or [eCommerce](https://apps.odoo.com/apps/modules/category/eCommerce/browse?price=Paid&order=Newest&author=IT-Projects+LLC) modules at app store.
