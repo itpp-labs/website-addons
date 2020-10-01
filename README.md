@@ -5,7 +5,7 @@
 
 # LIST OF REPOSITORIES:
 
-#### https://github.com/it-projects-llc/misc-addons####
+#### https://github.com/it-projects-llc/misc-addons
 #### https://github.com/it-projects-llc/pos-addons
 #### https://github.com/it-projects-llc/mail-addons
 #### https://github.com/it-projects-llc/access-addons
