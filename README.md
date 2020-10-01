@@ -3,7 +3,7 @@
 # website-addons
 Odoo website addons
 
-List of repositories:
+List of some repositories:
 ---------------------
 
 * https://github.com/it-projects-llc/misc-addons
