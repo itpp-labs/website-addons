@@ -1,3 +1,8 @@
+Website addons
+==============
+
+Odoo addons for website/ecommerce
+
 List of repositories
 ====================
 
