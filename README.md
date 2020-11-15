@@ -1,5 +1,5 @@
 [![help@itpp.dev](https://itpp.dev/images/infinity-readme.png)](mailto:help@itpp.dev)
-# [14.0] Odoo website addons
+# [14.0] Odoo Website Addons
 
 
 Other Addons
