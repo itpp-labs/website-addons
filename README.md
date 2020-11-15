@@ -1,5 +1,5 @@
 [![help@itpp.dev](https://itpp.dev/images/infinity-readme.png)](mailto:help@itpp.dev)
-# [10.0] Odoo website addons
+# [10.0] Odoo Website Addons
 
 <br/>:heavy_check_mark: [chess](https://apps.odoo.com/apps/modules/10.0/chess/)
 <br/>:heavy_check_mark: [payment_pagadito](https://apps.odoo.com/apps/modules/10.0/payment_pagadito/)
@@ -22,17 +22,11 @@
 <br/>:heavy_check_mark: [website_multi_company_portal](https://apps.odoo.com/apps/modules/10.0/website_multi_company_portal/)
 <br/>:heavy_check_mark: [website_multi_company_sale](https://apps.odoo.com/apps/modules/10.0/website_multi_company_sale/)
 <br/>:heavy_check_mark: [website_multi_company_sale_delivery](https://apps.odoo.com/apps/modules/10.0/website_multi_company_sale_delivery/)
-<br/>:heavy_check_mark: [website_redirect](https://apps.odoo.com/apps/modules/10.0/website_redirect/)
 <br/>:heavy_check_mark: [website_sale_add_to_cart](https://apps.odoo.com/apps/modules/10.0/website_sale_add_to_cart/)
 <br/>:heavy_check_mark: [website_sale_add_to_cart_disable](https://apps.odoo.com/apps/modules/10.0/website_sale_add_to_cart_disable/)
-<br/>:heavy_check_mark: [website_sale_add_to_cart_stock_status](https://apps.odoo.com/apps/modules/10.0/website_sale_add_to_cart_stock_status/)
 <br/>:heavy_check_mark: [website_sale_available](https://apps.odoo.com/apps/modules/10.0/website_sale_available/)
-<br/>:heavy_check_mark: [website_sale_birthdate](https://apps.odoo.com/apps/modules/10.0/website_sale_birthdate/)
-<br/>:heavy_check_mark: [website_sale_buy_now](https://apps.odoo.com/apps/modules/10.0/website_sale_buy_now/)
 <br/>:heavy_check_mark: [website_sale_cache](https://apps.odoo.com/apps/modules/10.0/website_sale_cache/)
-<br/>:heavy_check_mark: [website_sale_checkout_store](https://apps.odoo.com/apps/modules/10.0/website_sale_checkout_store/)
 <br/>:heavy_check_mark: [website_sale_clear_cart](https://apps.odoo.com/apps/modules/10.0/website_sale_clear_cart/)
-<br/>:heavy_check_mark: [website_sale_product_tags](https://apps.odoo.com/apps/modules/10.0/website_sale_product_tags/)
 <br/>:heavy_check_mark: [website_sale_refund](https://apps.odoo.com/apps/modules/10.0/website_sale_refund/)
 <br/>:heavy_check_mark: [website_sale_search_clear](https://apps.odoo.com/apps/modules/10.0/website_sale_search_clear/)
 <br/>:heavy_check_mark: [website_sale_search_custom](https://apps.odoo.com/apps/modules/10.0/website_sale_search_custom/)
