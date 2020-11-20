@@ -1,7 +1,7 @@
 [![help@itpp.dev](https://itpp.dev/images/infinity-readme.png)](mailto:help@itpp.dev)
 # [12.0] Odoo Website Addons
 
-<br/>:heavy_check_mark: [payment_pagadito](https://apps.odoo.com/apps/modules/12.0/payment_pagadito/)
+:heavy_check_mark: [payment_pagadito](https://apps.odoo.com/apps/modules/12.0/payment_pagadito/)
 <br/>:heavy_check_mark: [web_login_background](https://apps.odoo.com/apps/modules/12.0/web_login_background/)
 <br/>:heavy_check_mark: [website_event_attendee_signup](https://apps.odoo.com/apps/modules/12.0/website_event_attendee_signup/)
 <br/>:heavy_check_mark: [website_event_require_login](https://apps.odoo.com/apps/modules/12.0/website_event_require_login/)
