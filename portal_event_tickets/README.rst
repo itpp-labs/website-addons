@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 =======================
  Customer Event Portal
 =======================
@@ -57,35 +61,25 @@ We don't split module in two where one doesn't depend on ``event_sale`` (e.g. ``
 * free events are still usable even if ``event_sale`` module is installed
 
 portal_event
-------------
+============
 
 ``portal_event`` should be more proper name for this module, but it's occupied by repository odoo/odoo and which makes it impossible to use it in odoo apps store.
 
 
-Credits
-=======
+Questions?
+==========
+
+To get an assistance on this module contact us by email :arrow_right: help@itpp.dev
 
 Contributors
-------------
+============
 * `Ivan Yelizariev <https://it-projects.info/team/yelizariev>`__
 
-Sponsors
---------
-* `IT-Projects LLC <https://it-projects.info>`__
-
-Maintainers
------------
-* `IT-Projects LLC <https://it-projects.info>`__
 
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/website-addons/10.0
+Odoo Apps Store: https://apps.odoo.com/apps/modules/10.0/portal_event_tickets/
 
-HTML Description: https://apps.odoo.com/apps/modules/10.0/portal_event_tickets/
 
-Usage instructions: `<doc/index.rst>`_
-
-Changelog: `<doc/changelog.rst>`_
-
-Tested on Odoo 10.0 6c1c1f6e9e03322771169b920d3c14c5e33111e9
+Tested on `Odoo 10.0 <https://github.com/odoo/odoo/commit/6c1c1f6e9e03322771169b920d3c14c5e33111e9>`_
