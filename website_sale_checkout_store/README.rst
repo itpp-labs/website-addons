@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 Different ways of checkout in web store
 =======================================
 
@@ -12,5 +16,4 @@ The "Pay now and get delivery" option use usual workflow.
 
 On the admin side an addition to the configuration page where they would enable or disable one or both of these options.
 
-
-Tested on Odoo 9.0 994cb2cb79b8fb91ec83b273213044f15b61095e
+Tested on `Odoo 9.0 <https://github.com/odoo/odoo/commit/994cb2cb79b8fb91ec83b273213044f15b61095e>`_

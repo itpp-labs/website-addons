@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 eCommerce: autoconfirm order
 ============================
 
@@ -11,4 +15,4 @@ The option `is built-in in 10.0 <https://github.com/odoo/odoo/commit/8a761721d1e
 Further information
 ===================
 
-Tested on Odoo 8.0 78a20a3dba07762d2de1e22072c20be1bc59d20f
+Tested on `Odoo 8.0 <https://github.com/odoo/odoo/commit/78a20a3dba07762d2de1e22072c20be1bc59d20f>`_
