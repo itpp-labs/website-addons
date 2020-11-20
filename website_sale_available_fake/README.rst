@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 Sale limited and private products on Website
 ============================================
 
@@ -13,4 +17,4 @@ If decide to uninstall this module, please update module "website_sale" to reset
 
 The module is not maintained since Odoo 9.0.
 
-Tested on Odoo 8.0 78a20a3dba07762d2de1e22072c20be1bc59d20f
+Tested on `Odoo 8.0 <https://github.com/odoo/odoo/commit/78a20a3dba07762d2de1e22072c20be1bc59d20f>`_

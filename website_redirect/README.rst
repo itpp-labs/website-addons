@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 Page redirections
 =================
 
@@ -7,4 +11,4 @@ The module allows configure redirections rules. E.g.
 
 unix-style wildcards can be used: https://docs.python.org/2/library/fnmatch.html
 
-Tested on Odoo 8.0 ea60fed97af1c139e4647890bf8f68224ea1665b
+Tested on `Odoo 8.0 <https://github.com/odoo/odoo/commit/ea60fed97af1c139e4647890bf8f68224ea1665b>`_
