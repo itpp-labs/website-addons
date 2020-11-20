@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 ==========================
  Event guest Custom Field
 ==========================
@@ -26,37 +30,26 @@ Also,
 * Prevents changing qty for event lines (TODO: move this to a separate module)
 * Custom redirection after filling ticket form, e.g. to cart page to ask for coupons (TODO: move this to a separate module). Create System Parameter ``website_event_sale.redirection`` to configure it.
 
-
 Demo mode
 ---------
 In demo installation:
 
 * on installation each Event gets standard fields (Name, Email, Phone) and two fields from partner (Country, Job Position)
 
-Credits
-=======
+Questions?
+==========
+
+To get an assistance on this module contact us by email :arrow_right: help@itpp.dev
 
 Contributors
-------------
+============
 * `Ivan Yelizariev <https://it-projects.info/team/yelizariev>`__
 
-Sponsors
---------
-* `IT-Projects LLC <https://it-projects.info>`__
-
-Maintainers
------------
-* `IT-Projects LLC <https://it-projects.info>`__
 
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/website-addons/12.0
+Odoo Apps Store: https://apps.odoo.com/apps/modules/12.0/website_event_attendee_fields/
 
-HTML Description: https://apps.odoo.com/apps/modules/12.0/website_event_attendee_fields/
 
-Usage instructions: `<doc/index.rst>`_
-
-Changelog: `<doc/changelog.rst>`_
-
-Tested on Odoo 12.0 fbc14ac649f80ff391f5a70ef41443111dff5739
+Tested on `Odoo 12.0 <https://github.com/odoo/odoo/commit/fbc14ac649f80ff391f5a70ef41443111dff5739>`_

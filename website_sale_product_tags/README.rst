@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 Product tags at eCommerce
 =========================
 
@@ -9,4 +13,4 @@ Note
 By default /shop?search=TAG search on product name rather than on tags. 
 This is fixed by module **website_sale_search_custom**, but latter also change default behaviour on searching by category. Check **website_sale_search_custom**'s description for more information.
 
-Tested on Odoo 11.0 c7171795f891335e8a8b6d5a6b796c28cea77fea
+Tested on `Odoo 11.0 <https://github.com/odoo/odoo/commit/c7171795f891335e8a8b6d5a6b796c28cea77fea>`_
