@@ -1,47 +1,31 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 ====================
  Website debranding
 ====================
 
 Build and enhance your Brand by removing references to `odoo.com <https://www.odoo.com/>`__
 
-Credits
-=======
+Questions?
+==========
+
+To get an assistance on this module contact us by email :arrow_right: help@itpp.dev
 
 Contributors
-------------
+============
 * `Ivan Yelizariev <https://it-projects.info/team/yelizariev>`__
-
-Sponsors
---------
-* `IT-Projects LLC <https://it-projects.info>`__
-
-Maintainers
------------
-* `IT-Projects LLC <https://it-projects.info>`__
-
-      To get a guaranteed support
-      you are kindly requested to purchase the module
-      at `odoo apps store <https://apps.odoo.com/apps/modules/10.0/web_debranding/>`__.
-
-      Thank you for understanding!
-
-      `IT-Projects Team <https://www.it-projects.info/team>`__
 
 
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/website-addons/11.0
+Odoo Apps Store: https://www.odoo.com/apps/modules/11.0/website_debranding/
 
-HTML Description: https://www.odoo.com/apps/modules/11.0/website_debranding/
-
-Usage instructions: `<doc/index.rst>`__
-
-Changelog: `<doc/changelog.rst>`__
 
 Notifications on updates: `via Atom <https://github.com/it-projects-llc/website-addons/commits/11.0/website_debranding.atom>`_, `by Email <https://blogtrottr.com/?subscribe=https://github.com/it-projects-llc/website-addons/commits/10.0/website_debranding.atom>`_
 
-Tested on Odoo 11.0 c7171795f891335e8a8b6d5a6b796c28cea77fea
-
+Tested on `Odoo 11.0 <https://github.com/odoo/odoo/commit/c7171795f891335e8a8b6d5a6b796c28cea77fea>`_
 
 
