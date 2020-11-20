@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 ====================
  Real Multi Website
 ====================
@@ -41,32 +45,22 @@ Roadmap
 
 * TODO: **Editor on websites** field should be hidden for not designers (if configuring user has no at least ``Restricted Editor`` in Website security)
 
-Credits
-=======
+Questions?
+==========
+
+To get an assistance on this module contact us by email :arrow_right: help@itpp.dev
 
 Contributors
-------------
+============
 * Ivan Yelizariev <yelizariev@it-projects.info>
 
-Sponsors
---------
-* `IT-Projects LLC <https://it-projects.info>`__
-
-Maintainers
------------
-* `IT-Projects LLC <https://it-projects.info>`__
 
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/website-addons/10.0
+Odoo Apps Store: https://apps.odoo.com/apps/modules/10.0/website_multi_company/
 
-HTML Description: https://apps.odoo.com/apps/modules/10.0/website_multi_company/
-
-Usage instructions: `<doc/index.rst>`_
-
-Changelog: `<doc/changelog.rst>`_
 
 Notifications on updates: `via Atom <https://github.com/it-projects-llc/website-addons/commits/10.0/website_multi_company.atom>`_, `by Email <https://blogtrottr.com/?subscribe=https://github.com/it-projects-llc/website-addons/commits/10.0/website_multi_company.atom>`_
 
-Tested on Odoo 10.0 ffba5c688ff74a0630f9f70be1d7760a43a7deba
+Tested on `Odoo 10.0 <https://github.com/odoo/odoo/commit/ffba5c688ff74a0630f9f70be1d7760a43a7deba>`_
