@@ -9,3 +9,9 @@ addons:
 
   server_wide_modules:
     - web
+
+repo_readme:
+  addons:
+    - website_debranding
+    - website_multi_company
+    - website_multi_company_sale
