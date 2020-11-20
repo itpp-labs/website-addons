@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 ==================
 Website sale cache
 ==================
@@ -19,23 +23,16 @@ Cache is updated every time on creation, editing or deletion the product public 
 This can lead to issues, e. g. when importing a large number of categories.
 It is recommended to temporarily uninstall the module in this case.
 
-Credits
-=======
+Questions?
+==========
+
+To get an assistance on this module contact us by email :arrow_right: help@itpp.dev
 
 Contributors
-------------
+============
 * Artyom Losev <losev@it-projects.info>
 
-Sponsors
---------
-* `IT-Projects LLC <https://it-projects.info>`__
-
-Maintainers
------------
-* `IT-Projects LLC <https://it-projects.info>`__
 
 Further information
 ===================
-Usage instructions: `<doc/index.rst>`_
 
-Changelog: `<doc/changelog.rst>`_

@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 ======================
  Autopay in eCommerce
 ======================
@@ -12,4 +16,4 @@ After customer make an online payment (e.g. via paypal), new invoice is created 
 Further information
 ===================
 
-Tested on Odoo 9.0 bdfc75e613b45afcc5e9ada58f2d6c3d42b7732a
+Tested on `Odoo 9.0 <https://github.com/odoo/odoo/commit/bdfc75e613b45afcc5e9ada58f2d6c3d42b7732a>`_
