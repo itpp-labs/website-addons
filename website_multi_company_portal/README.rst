@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 ======================
  Multi Website Portal
 ======================
@@ -10,36 +14,18 @@ Multi Website support in Portal:
   * pay invoices via proper payment processor. See `search condition of acquirer_id in pay method <https://github.com/odoo/odoo/blob/12.0/addons/website_payment/controllers/main.py#L40-L42>`__.
   * don't get access error when download invoice via controller ``/report/pdf/account.report_invoice/123``
 
-Credits
-=======
+Questions?
+==========
+
+To get an assistance on this module contact us by email :arrow_right: help@itpp.dev
 
 Contributors
-------------
+============
 * `Ivan Yelizariev <https://it-projects.info/team/yelizariev>`__
 
-Sponsors
---------
-* `IT-Projects LLC <https://it-projects.info>`__
-
-Maintainers
------------
-* `IT-Projects LLC <https://it-projects.info>`__
-
-      To get a guaranteed support you are kindly requested to purchase the module at `odoo apps store <https://apps.odoo.com/apps/modules/12.0/website_multi_company_portal/>`__.
-
-      Thank you for understanding!
-
-      `IT-Projects Team <https://www.it-projects.info/team>`__
-
-Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/website-addons/12.0
+Odoo Apps Store: https://apps.odoo.com/apps/modules/12.0/website_multi_company_portal/
 
-HTML Description: https://apps.odoo.com/apps/modules/12.0/website_multi_company_portal/
 
-Usage instructions: `<doc/index.rst>`_
-
-Changelog: `<doc/changelog.rst>`_
-
-Tested on Odoo 12.0 cae336478391f53b1d66644337da4152c8cbc14a
+Tested on `Odoo 12.0 <https://github.com/odoo/odoo/commit/cae336478391f53b1d66644337da4152c8cbc14a>`_

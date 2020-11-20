@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 .. image:: https://img.shields.io/badge/license-MIT-blue.svg
    :target: https://opensource.org/licenses/MIT
    :alt: License: MIT
@@ -30,37 +34,19 @@ Roadmap
 
 * TODO: deal with too many cache options that can cause memory loss
 
-Credits
-=======
+Questions?
+==========
+
+To get an assistance on this module contact us by email :arrow_right: help@itpp.dev
 
 Contributors
-------------
+============
 * Artyom Losev <apps@it-projects.info>
 * Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
 
-Sponsors
---------
-* `IT-Projects LLC <https://it-projects.info>`__
-
-Maintainers
------------
-* `IT-Projects LLC <https://it-projects.info>`__
-
-      To get a guaranteed support you are kindly requested to purchase the module at `odoo apps store <https://apps.odoo.com/apps/modules/12.0/website_sale_cache/>`__.
-
-      Thank you for understanding!
-
-      `IT-Projects Team <https://www.it-projects.info/team>`__
-
-Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/website-addons/12.0
+Odoo Apps Store: https://apps.odoo.com/apps/modules/12.0/website_sale_cache/
 
-HTML Description: https://apps.odoo.com/apps/modules/12.0/website_sale_cache/
 
-Usage instructions: `<doc/index.rst>`_
-
-Changelog: `<doc/changelog.rst>`_
-
-Tested on Odoo 12.0 97f89dc0484902c58dec5dbb9de65f17661163f4
+Tested on `Odoo 12.0 <https://github.com/odoo/odoo/commit/97f89dc0484902c58dec5dbb9de65f17661163f4>`_
