@@ -2,7 +2,7 @@
 # [10.0] Odoo Website Addons
 
 :heavy_check_mark: [chess](https://apps.odoo.com/apps/modules/10.0/chess/)
-<br/>:heavy_check_mark: [payment_pagadito](https://apps.odoo.com/apps/modules/10.0/payment_pagadito/)
+<br/>:heavy_check_mark: [payment_pagadito_itpp](https://apps.odoo.com/apps/modules/10.0/payment_pagadito_itpp/)
 <br/>:heavy_check_mark: [portal_event_tickets](https://apps.odoo.com/apps/modules/10.0/portal_event_tickets/)
 <br/>:heavy_check_mark: [product_price_factor](https://apps.odoo.com/apps/modules/10.0/product_price_factor/)
 <br/>:heavy_check_mark: [product_price_factor_online](https://apps.odoo.com/apps/modules/10.0/product_price_factor_online/)
