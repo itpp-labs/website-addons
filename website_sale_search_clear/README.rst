@@ -22,4 +22,4 @@ Contributors
 Odoo Apps Store: https://apps.odoo.com/apps/modules/13.0/website_sale_search_clear/
 
 
-Tested on `Odoo 12.0 <https://github.com/odoo/odoo/commit/9d4aad2d67019a3dd2ff5c45c89f3cc1a6202e78>`_
+Tested on `Odoo 13.0 <https://github.com/odoo/odoo/commit/acb26cf02f554009ba99510acc5631d29616dd10>`_
