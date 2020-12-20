@@ -1,9 +1,9 @@
-odoo.define("website_sale_add_to_cart", function(require) {
+odoo.define("website_sale_add_to_cart", function (require) {
     "use strict";
 
     var ajax = require("web.ajax");
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         // For page of a product
         var page_product_id = $("input.product_id").val();
 
@@ -18,9 +18,9 @@ odoo.define("website_sale_add_to_cart", function(require) {
         }
         var update_json = $.Deferred();
         update_json.resolve();
-        $(".input-group > input.form-control").change(function() {
+        $(".input-group > input.form-control").change(function () {
             var $input = $(this);
-            update_json = update_json.then(function() {
+            update_json = update_json.then(function () {
                 var value = parseInt($input.val(), 10);
                 if (isNaN(value)) {
                     value = 0;
@@ -34,18 +34,14 @@ odoo.define("website_sale_add_to_cart", function(require) {
                         ),
                         set_qty: value,
                     })
-                    .then(function(data) {
+                    .then(function (data) {
                         if (!data.quantity) {
                             location.reload();
                             return;
                         }
                         var $q = $(".my_cart_quantity");
-                        $q.parent()
-                            .parent()
-                            .removeClass("hidden", !data.quantity);
-                        $q.html(data.cart_quantity)
-                            .hide()
-                            .fadeIn(600);
+                        $q.parent().parent().removeClass("hidden", !data.quantity);
+                        $q.html(data.cart_quantity).hide().fadeIn(600);
                         // $input.val(data.quantity);
                         $("#cart_total").replaceWith(data["website_sale.total"]);
                     });
@@ -65,11 +61,11 @@ odoo.define("website_sale_add_to_cart", function(require) {
         if (page_product_id) {
             $("input.form-control.js-quantity").val(0);
         }
-        ajax.jsonRpc("/shop/get_order_numbers", "call").then(function(data) {
+        ajax.jsonRpc("/shop/get_order_numbers", "call").then(function (data) {
             if (!data) {
                 return;
             }
-            $.each(data, function(product_id, num) {
+            $.each(data, function (product_id, num) {
                 if (page_product_id) {
                     if (page_product_id === product_id) {
                         $("input.form-control.js-quantity").val(num);

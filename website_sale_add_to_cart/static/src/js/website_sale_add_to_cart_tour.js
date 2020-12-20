@@ -1,4 +1,4 @@
-odoo.define("website_sale_add_to_cart.tour", function(require) {
+odoo.define("website_sale_add_to_cart.tour", function (require) {
     "use strict";
 
     var tour = require("web_tour.tour");
