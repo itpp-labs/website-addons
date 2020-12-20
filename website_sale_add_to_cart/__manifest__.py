@@ -11,5 +11,5 @@
     "depends": ["website_sale"],
     "images": ["images/shop.png"],
     "data": ["website_sale_add_to_cart_views.xml"],
-    "installable": False,
+    "installable": True,
 }
