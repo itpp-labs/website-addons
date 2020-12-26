@@ -5,8 +5,6 @@
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "license": "Other OSI approved licence",  # MIT
     "category": "Website",
-    "price": 65.00,
-    "currency": "EUR",
     "images": ["images/buy_now.png"],
     "website": "https://twitter.com/yelizariev",
     "vesion": "10.0.1.0.0",

@@ -7,8 +7,6 @@
     "category": "eCommerce",
     "support": "apps@itpp.dev",
     "website": "https://twitter.com/yelizariev",
-    "price": 15.00,
-    "currency": "EUR",
     "depends": ["website_sale"],
     "images": ["images/shop.png"],
     "data": ["website_sale_add_to_cart_views.xml"],

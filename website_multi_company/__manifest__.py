@@ -13,8 +13,6 @@
     "support": "apps@itpp.dev",
     "website": "https://twitter.com/yelizariev",
     "license": "Other OSI approved licence",  # MIT
-    "price": 400.00,
-    "currency": "EUR",
     "depends": [
         "website",
         "website_multi_theme",
