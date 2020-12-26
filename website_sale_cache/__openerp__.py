@@ -10,8 +10,6 @@
     "support": "apps@it-projects.info",
     'website': "https://www.it-projects.info",
     "license": "LGPL-3",
-    "price": 49.00,
-    "currency": "EUR",
 
     "depends": [
         "website_sale",

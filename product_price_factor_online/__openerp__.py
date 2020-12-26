@@ -5,8 +5,6 @@
     'category': 'Website',
     'license': 'GPL-3',
     'author': "IT-Projects LLC, Ildar Nasyrov",
-    'price': 20.00,
-    'currency': 'EUR',
     'images': ['images/1.png'],
     'website': "https://twitter.com/nasyrov_ildar",
     'depends': ['website_sale', 'product_price_factor'],
