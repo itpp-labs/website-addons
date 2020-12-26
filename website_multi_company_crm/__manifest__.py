@@ -12,8 +12,6 @@
     "support": "apps@itpp.dev",
     "website": "https://it-projects.info/team/yelizariev",
     "license": "Other OSI approved licence",  # MIT
-    "price": 19.00,
-    "currency": "EUR",
     "depends": ["crm", "website_multi_company"],
     "external_dependencies": {"python": [], "bin": []},
     "data": ["views/crm_lead_views.xml", "security/crm_lead_security.xml"],
