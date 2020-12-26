@@ -8,8 +8,6 @@
     'author': 'IT-Projects LLC, Ivan Yelizariev, Savoir-faire Linux',
     'license': 'GPL-3',
     'website': 'https://twitter.com/yelizariev',
-    'price': 30.0,
-    'currency': 'EUR',
     'images': ['images/search.png'],
     'depends': ['website_sale', 'product_tags'],
     'post_load': None,
