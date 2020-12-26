@@ -4,8 +4,6 @@
     "category": "Website",
     "license": "Other OSI approved licence",  # MIT
     "author": "IT-Projects LLC, Ildar Nasyrov",
-    "price": 10.00,
-    "currency": "EUR",
     "images": ["images/1.png"],
     "support": "apps@itpp.dev",
     "website": "https://twitter.com/nasyrov_ildar",
