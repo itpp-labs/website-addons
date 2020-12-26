@@ -12,8 +12,6 @@
     "support": "apps@itpp.dev",
     "website": "https://it-projects.info/team/iledarn",
     "license": "Other OSI approved licence",  # MIT
-    "price": 19.00,
-    "currency": "EUR",
     "depends": ["website_multi_company", "website_event_sale", "ir_rule_website"],
     "external_dependencies": {"python": [], "bin": []},
     "data": ["views/event_views.xml", "security/event_security.xml"],
