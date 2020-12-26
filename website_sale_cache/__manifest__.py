@@ -12,8 +12,6 @@
     "support": "apps@itpp.dev",
     "website": "https://www.it-projects.info",
     "license": "Other OSI approved licence",  # MIT
-    "price": 49.00,
-    "currency": "EUR",
     "depends": ["website_sale", "website", "base_action_rule"],
     "data": ["views.xml", "data/ir_action_server.xml", "data/base_action_rules.xml"],
     "installable": True,
