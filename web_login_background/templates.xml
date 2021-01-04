@@ -1,0 +1,15 @@
+<odoo>
+    <template id="web_login_background_template" inherit_id="web.layout">
+        <xpath expr="//head" position="inside">
+            <t t-if="picture_url">
+                <style type="text/css">
+              body {
+              background: none;
+              background-image: url(<t t-raw="picture_url" />);
+              background-size: cover;
+              }
+            </style>
+            </t>
+        </xpath>
+    </template>
+</odoo>

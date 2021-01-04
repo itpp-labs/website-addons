@@ -1,0 +1,19 @@
+<odoo>
+    <function
+        model="ir.config_parameter"
+        name="set_param"
+        eval="('auth_signup.allow_uninvited', True)"
+    />
+    <record id="demo_web_login_background" model="ir.attachment">
+        <field name="public" eval="True" />
+        <field name="name">Demo attachment picture</field>
+        <field name="store_fname">demo.jpg</field>
+        <field name="use_as_background">True</field>
+        <field name="type">binary</field>
+        <field
+            name="datas"
+            type="base64"
+            file="web_login_background/static/img/demo.jpg"
+        />
+    </record>
+</odoo>
