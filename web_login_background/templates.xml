@@ -3,12 +3,14 @@
         <xpath expr="//head" position="inside">
             <t t-if="picture_url">
                 <style type="text/css">
-              body {
+                    body {
               background: none;
-              background-image: url(<t t-raw="picture_url" />);
+              background-image: url(
+                    <t t-raw="picture_url" />
+                    );
               background-size: cover;
               }
-            </style>
+                </style>
             </t>
         </xpath>
     </template>
