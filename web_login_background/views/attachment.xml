@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 Denis Mudarisov <https://github.com/trojikman>
+     License MIT (https://opensource.org/licenses/MIT). -->
+<odoo>
+    <record id="web_login_background" model="ir.ui.view">
+        <field name="model">ir.attachment</field>
+        <field name="inherit_id" ref="base.view_attachment_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="after">
+                <group string="Website">
+                    <field name="use_as_background" />
+                </group>
+            </xpath>
+            <field name="public" position="attributes">
+                <attribute name="attrs">
+                    {'readonly': [('use_as_background', '=', True)]}
+                </attribute>
+            </field>
+        </field>
+    </record>
+</odoo>
