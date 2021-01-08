@@ -14,7 +14,7 @@ Configuration
 * add several images:
 
   * From menu ``[[ Settings ]] >> Technical >> Database Structure >> Attachments`` create a new image attachment
-  * In the attachment form put a checkmark in the "Use as login page background" checkbox and click on ``[Save]`` button
+  * In the attachment form put a checkmarks in the "Use as login page background" and the "Is public document" checkboxes and click on ``[Save]`` button
 
 Usage
 =====
