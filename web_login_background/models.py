@@ -1,3 +1,5 @@
+# Copyright 2021 Denis Mudarisov <https://github.com/trojikman>
+# License MIT (https://opensource.org/licenses/MIT).
 import hashlib
 from random import choice
 
@@ -13,26 +15,14 @@ def _attachment2url(att):
 class IRAttachmentBackground(models.Model):
     _inherit = "ir.attachment"
 
-    use_as_background = fields.Boolean("Use as login page background", default=False)
+    use_as_background = fields.Boolean(
+        "Use as login page background", default=False, index=True
+    )
 
-    @api.model
-    def check(self, mode, values=None):
-        ids = self.ids
-        cr = self.env.cr
-        if ids and mode == "read":
-            if isinstance(ids, int):
-                ids = [ids]
-            ids = ids[:]  # make a copy
-            cr.execute(
-                "SELECT id,use_as_background FROM ir_attachment WHERE id = ANY (%s)",
-                (ids,),
-            )
-            for attachment_id, use_as_background in cr.fetchall():
-                if use_as_background:
-                    ids.remove(attachment_id)
-            if not ids:
-                return
-        return super(IRAttachmentBackground, self).check(mode, values=values)
+    @api.onchange("use_as_background")
+    def _onchange_use_as_background(self):
+        if self.use_as_background:
+            self.public = True
 
     def _get_background_images_domain(self):
         return [("use_as_background", "=", True)]

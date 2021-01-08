@@ -1,3 +1,5 @@
+# Copyright 2021 Denis Mudarisov <https://github.com/trojikman>
+# License MIT (https://opensource.org/licenses/MIT).
 {
     "name": """Web login background""",
     "summary": """Get a random background at the login page""",
