@@ -1,7 +1,7 @@
 import odoo.tests
 
 
-@odoo.tests.tagged("at_install", "post_install")
+@odoo.tests.tagged("-at_install", "post_install")
 class TestUi(odoo.tests.HttpCase):
     def test_open_url(self):
         # wait till page loaded
