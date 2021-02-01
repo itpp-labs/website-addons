@@ -1,9 +1,11 @@
+# License MIT (https://opensource.org/licenses/MIT).
+# Copyright 2021 Ivan Yelizariev <https://twitter.com/yelizariev>
 {
     "name": """Web login background""",
     "summary": """Get a random background at the login page""",
     "category": "Extra Tools",
     "images": ["images/login.png"],
-    "version": "12.0.1.0.3",
+    "version": "12.0.1.0.4",
     "author": "IT-Projects LLC, Ildar Nasyrov, Nicolas JEUDY",
     "support": "apps@itpp.dev",
     "website": "https://it-projects.info",
