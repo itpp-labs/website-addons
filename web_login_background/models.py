@@ -1,3 +1,5 @@
+# License MIT (https://opensource.org/licenses/MIT).
+# Copyright 2021 Denis Mudarisov <https://github.com/trojikman>
 import hashlib
 from random import choice
 
@@ -14,6 +16,11 @@ class IRAttachmentBackground(models.Model):
     _inherit = "ir.attachment"
 
     use_as_background = fields.Boolean("Use as login page background", default=False)
+
+    @api.onchange("use_as_background")
+    def _onchange_use_as_background(self):
+        if self.use_as_background:
+            self.public = True
 
     @api.model
     def check(self, mode, values=None):

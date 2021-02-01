@@ -1,3 +1,13 @@
+`1.0.5`
+-------
+
+- **Improvement:** mark attachment public by default if attachment uses as a background
+
+`1.0.4`
+-------
+
+- **Fix:** support Odoo EE
+
 `1.0.3`
 -------
 
