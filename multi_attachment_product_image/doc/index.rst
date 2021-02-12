@@ -7,10 +7,16 @@ Installation
 
 * `Install <https://odoo-development.readthedocs.io/en/latest/odoo/usage/install-module.html>`__ this module in a usual way
 
+Configuration
+=============
+
+* Go to ``[[ Website ]] >> Configuration >> Settings``
+* Check the box Multi-Images In Product Catalog section
+
 Usage
 =====
 
-* Go to ``[[Sales]] >> Catalog >> Products`` menu
+* Go to ``[[ Website ]] >> Catalog >> Products`` menu
 * Open a product
 * Go to ``Images`` tab
 * Click ``[Edit]``
