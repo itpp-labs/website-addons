@@ -7,7 +7,7 @@
     "vesion": "10.0.1.0.1",
     "author": "IT-Projects LLC",
     "support": "apps@itpp.dev",
-    "website": "https://it-projects.info",
+    "website": "https://twitter.com/OdooFree",
     "license": "Other OSI approved licence",  # MIT
     "depends": ["web_login_background", "website"],
     "external_dependencies": {"python": [], "bin": []},

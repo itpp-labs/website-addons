@@ -7,7 +7,7 @@
     "vesion": "10.0.1.0.3",
     "author": "IT-Projects LLC, Pavel Romanchenko",
     "support": "apps@itpp.dev",
-    "website": "https://it-projects.info",
+    "website": "https://twitter.com/OdooFree",
     "license": "Other OSI approved licence",  # MIT
     "depends": ["stock", "web_editor", "website"],
     "external_dependencies": {"python": [], "bin": []},
