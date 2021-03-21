@@ -8,7 +8,7 @@
     "author": "IT-Projects LLC, Ivan Yelizariev, Savoir-faire Linux, Eugene Molotov",
     "license": "Other OSI approved licence",  # MIT
     "support": "apps@itpp.dev",
-    "website": "https://it-projects.info",
+    "website": "https://twitter.com/OdooFree",
     "images": ["images/search.png"],
     "depends": ["website_sale", "product_tags"],
     "post_load": None,
