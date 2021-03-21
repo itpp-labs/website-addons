@@ -10,7 +10,7 @@
     "application": False,
     "author": "IT-Projects LLC, Ildar Nasyrov",
     "support": "apps@itpp.dev",
-    "website": "https://it-projects.info/team/iledarn",
+    "website": "https://twitter.com/OdooFree",
     "license": "Other OSI approved licence",  # MIT
     "depends": ["website_sale_delivery", "ir_rule_website", "website_multi_company"],
     "external_dependencies": {"python": [], "bin": []},
