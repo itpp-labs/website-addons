@@ -6,7 +6,7 @@
     "vesion": "12.0.1.0.0",
     "author": "IT-Projects LLC",
     "support": "apps@itpp.dev",
-    "website": "https://it-projects.info",
+    "website": "https://itpp.dev",
     "license": "Other OSI approved licence",  # MIT
     # "price": 20.00,
     # "currency": "EUR",
