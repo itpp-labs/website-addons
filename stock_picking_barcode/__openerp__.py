@@ -7,7 +7,7 @@
     "version": "9.0.1.0.3",
 
     "author": "IT-Projects LLC, Pavel Romanchenko",
-    "website": "https://it-projects.info",
+    "website": "https://twitter.com/OdooFree",
     "license": "LGPL-3",
 
     "depends": [

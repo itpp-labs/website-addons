@@ -7,7 +7,7 @@
     "version": "1.0.1",
 
     "author": "IT-Projects LLC",
-    "website": "https://it-projects.info",
+    "website": "https://twitter.com/OdooFree",
     "license": "LGPL-3",
 
     "depends": [
