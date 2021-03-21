@@ -6,7 +6,7 @@
     "version": "13.0.1.0.0",
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "support": "apps@itpp.dev",
-    "website": "https://it-projects.info",
+    "website": "https://itpp.dev",
     "license": "Other OSI approved licence",  # MIT
     "price": 55.00,
     "currency": "EUR",

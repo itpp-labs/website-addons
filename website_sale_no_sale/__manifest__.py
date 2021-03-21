@@ -10,7 +10,7 @@
     "application": False,
     "author": "IT-Projects LLC, Denis Mudarisov",
     "support": "apps@itpp.dev",
-    "website": "https://it-projects.info/team/trojikman",
+    "website": "https://itpp.dev",
     "license": "Other OSI approved licence",  # MIT
     "price": 23.00,
     "currency": "EUR",

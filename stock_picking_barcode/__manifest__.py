@@ -11,7 +11,7 @@
     "version": "13.0.1.1.1",
     "author": "IT-Projects LLC, Kolushov Alexandr",
     "support": "apps@itpp.dev",
-    "website": "https://it-projects.info/team/KolushovAlexandr",
+    "website": "https://itpp.dev",
     "license": "Other OSI approved licence",  # MIT
     "price": 89.00,
     "currency": "EUR",
