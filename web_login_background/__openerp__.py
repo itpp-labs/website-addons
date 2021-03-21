@@ -7,7 +7,7 @@
     "version": "1.0.1",
 
     "author": "IT-Projects LLC, Ildar Nasyrov",
-    "website": "https://it-projects.info",
+    "website": "https://twitter.com/OdooFree",
     "license": "GPL-3",
 
     "depends": [
