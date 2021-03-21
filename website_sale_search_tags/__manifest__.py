@@ -8,7 +8,7 @@
     "Quartile Limited Tim Lai, Eugene Molotov",
     "license": "Other OSI approved licence",  # MIT
     "support": "apps@itpp.dev",
-    "website": "https://it-projects.info",
+    "website": "https://itpp.dev",
     "price": 30.0,
     "currency": "EUR",
     "images": ["images/search.png"],

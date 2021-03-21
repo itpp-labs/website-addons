@@ -12,7 +12,7 @@
     "version": "11.0.1.0.6",
     "author": "IT-Projects LLC",
     "support": "apps@itpp.dev",
-    "website": "https://it-projects.info",
+    "website": "https://itpp.dev",
     "license": "Other OSI approved licence",  # MIT
     "price": 90.00,
     "currency": "EUR",
