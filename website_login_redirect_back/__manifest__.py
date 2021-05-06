@@ -1,13 +1,12 @@
 # Copyright 2020 Ildar Nasyrov <iledarn@gmail.com.com>
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
-
+# License MIT (https://opensource.org/licenses/MIT).
 {
-    "name": "Website Login Redirect Back",
-    "summary": "Redirects the user at the same page from where she logs in",
+    "name": "Login Page Redirection",
+    "summary": "Redirects portal user to the page which was right before authentication",
     "version": "13.0.1.0.0",
     "category": "Website",
-    "website": "https://github.com/iledarn",
-    "author": "iledarn",
+    "website": "https://twitter.com/OdooFree",
+    "author": "IT Projects Labs, Ildar Nasyrov",
     "license": "Other OSI approved licence",  # MIT
     "application": False,
     "installable": True,
