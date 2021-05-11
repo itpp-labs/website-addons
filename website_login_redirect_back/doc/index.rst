@@ -1,5 +1,5 @@
 ========================
- Login Page Redirection 
+ Login Page Redirection
 ========================
 
 Installation
@@ -10,13 +10,13 @@ Installation
 Configuration
 =============
 
-Make sure that you have a user with **User Type**->*Portal*. 
+Make sure that you have a user with **User Type**->*Portal*.
 if you have demo data installed, there is a portal user with following credentials:
 
    * Email: ``portal``
    * Password: ``portal``
 
-Or just create a new user with **User Type** -> *Portal* 
+Or just create a new user with **User Type** -> *Portal*
 
 Usage
 =====
