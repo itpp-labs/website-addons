@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="portal_show_sign_in"
+        inherit_id="portal.portal_show_sign_in"
+        name="Login"
+    >
+        <xpath expr="//a[@t-attf-href='/web/login']" position="replace">
+            <a
+                t-attf-href="/web/login?init_page={{request.httprequest.path}}"
+                class="nav-link"
+            >
+                <b>Sign in</b>
+            </a>
+        </xpath>
+    </template>
+</odoo>

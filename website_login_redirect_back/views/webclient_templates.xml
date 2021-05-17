@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="website_login_redirect_back.login"
+        inherit_id="web.login"
+        name="Login"
+    >
+        <xpath expr="//input[@name='redirect']" position="after">
+            <input type="hidden" name="init_page" t-att-value="init_page" />
+        </xpath>
+    </template>
+</odoo>
