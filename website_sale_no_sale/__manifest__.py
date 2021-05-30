@@ -9,11 +9,9 @@
     "version": "12.0.1.0.0",
     "application": False,
     "author": "IT-Projects LLC, Denis Mudarisov",
-    "support": "apps@itpp.dev",
-    "website": "https://itpp.dev",
+    "support": "help@itpp.dev",
+    "website": "https://twitter.com/OdooFree",
     "license": "Other OSI approved licence",  # MIT
-    "price": 45.00,
-    "currency": "EUR",
     "depends": ["website_sale_stock"],
     "external_dependencies": {"python": [], "bin": []},
     "data": ["views/templates.xml", "views/website.xml", "views/assets.xml"],
