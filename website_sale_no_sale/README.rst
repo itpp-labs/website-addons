@@ -6,9 +6,9 @@
    :target: https://opensource.org/licenses/MIT
    :alt: License: MIT
 
-===================
- Stop Online Sales
-===================
+==================
+ B2B Online Sales
+==================
 
 Adds options to disable all sales and hide all prices, but keep products visible at website
 
@@ -28,6 +28,6 @@ Further information
 Odoo Apps Store: https://apps.odoo.com/apps/modules/12.0/website_sale_no_sale/
 
 
-Notifications on updates: `via Atom <https://github.com/it-projects-llc/website-addons/commits/12.0/website_sale_no_sale.atom>`_, `by Email <https://blogtrottr.com/?subscribe=https://github.com/it-projects-llc/website_sale/commits/12.0/website_sale_no_sale.atom>`_
+Notifications on updates: `via Atom <https://github.com/itpp-labs/website-addons/commits/12.0/website_sale_no_sale.atom>`_, `by Email <https://blogtrottr.com/?subscribe=https://github.com/itpp-labs/website_sale/commits/12.0/website_sale_no_sale.atom>`_
 
 Tested on `Odoo 12.0 <https://github.com/odoo/odoo/commit/25b8aeb9e2e9f2d1a3745ce5e7ee43ed3eef6872>`_

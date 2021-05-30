@@ -2,21 +2,19 @@
 # Copyright 2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
 # License MIT (https://opensource.org/licenses/MIT).
 {
-    "name": """Stop Online Sales""",
+    "name": """B2B Online Sales""",
     "summary": """Adds options to disable all sales and hide all prices, but keep products visible at website""",
     "category": "eCommerce",
     "images": ["images/main.jpg"],
     "version": "12.0.1.0.0",
     "application": False,
     "author": "IT-Projects LLC, Denis Mudarisov",
-    "support": "apps@itpp.dev",
-    "website": "https://itpp.dev",
+    "support": "help@itpp.dev",
+    "website": "https://twitter.com/OdooFree",
     "license": "Other OSI approved licence",  # MIT
-    "price": 45.00,
-    "currency": "EUR",
-    "depends": ["website_sale"],
+    "depends": ["website_sale_stock"],
     "external_dependencies": {"python": [], "bin": []},
-    "data": ["templates.xml"],
+    "data": ["views/templates.xml", "views/website.xml", "views/assets.xml"],
     "post_load": None,
     "pre_init_hook": None,
     "post_init_hook": None,
