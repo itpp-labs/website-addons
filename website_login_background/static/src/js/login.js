@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     "use strict";
     if ($(".oe_website_login_container").length) {
         var headerHeight = $("header").innerHeight();

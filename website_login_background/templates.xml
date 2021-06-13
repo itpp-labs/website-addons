@@ -3,12 +3,14 @@
         <xpath expr="//div[hasclass('oe_website_login_container')]" position="after">
             <t t-if="picture_url">
                 <style type="text/css">
-                        main {
+                    main {
                         background: none;
-                        background-image: url(<t t-raw="picture_url" />);
+                        background-image: url(
+                    <t t-raw="picture_url" />
+                    );
                         background-size: cover;
                         }
-                    </style>
+                </style>
             </t>
         </xpath>
         <xpath
