@@ -1,0 +1,5 @@
+<odoo>
+    <record id="web_login_background.demo_web_login_background" model="ir.attachment">
+        <field name="website_id" ref="website.default_website" />
+    </record>
+</odoo>
