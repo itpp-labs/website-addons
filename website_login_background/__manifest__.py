@@ -5,8 +5,8 @@
     "images": ["images/5.png"],
     "version": "14.0.1.0.3",
     "author": "IT-Projects LLC",
-    "support": "apps@itpp.dev",
-    "website": "https://itpp.dev",
+    "support": "help@itpp.dev",
+    "website": "https://twitter.com/OdooFree",
     "license": "Other OSI approved licence",  # MIT
     "depends": ["web_login_background", "website"],
     "external_dependencies": {"python": [], "bin": []},

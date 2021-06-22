@@ -6,6 +6,7 @@ Installation
 ============
 
 * `Install <https://odoo-development.readthedocs.io/en/latest/odoo/usage/install-module.html>`__ this module in a usual way
+* If you use Website app, you also need to install `website_login_background <https://apps.odoo.com/apps/modules/14.0/website_login_background/>`__
 
 Configuration
 =============

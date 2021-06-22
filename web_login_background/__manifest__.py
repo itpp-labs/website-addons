@@ -9,7 +9,7 @@
     "images": ["images/login.png"],
     "version": "14.0.1.0.4",
     "author": "IT-Projects LLC, Ildar Nasyrov, Nicolas JEUDY",
-    "support": "apps@itpp.dev",
+    "support": "help@itpp.dev",
     "website": "https://twitter.com/OdooFree",
     "license": "Other OSI approved licence",  # MIT
     "depends": ["base"],
