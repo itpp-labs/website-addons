@@ -33,4 +33,4 @@ Further information
 Odoo Apps Store: https://apps.odoo.com/apps/modules/11.0/website_seo_url/
 
 
-Tested on `Odoo 11.0 <https://github.com/odoo/odoo/commit/3bc4d91e9b87286a2c0a43b775e80afbbb7c8122>`_
+Tested on `Odoo 11.0 <https://github.com/odoo/odoo/commit/5b281c3cfbb0b8fc86c62171f321cde0fadfaf14>`_
