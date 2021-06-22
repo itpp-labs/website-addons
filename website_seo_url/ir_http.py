@@ -1,11 +1,14 @@
+# Copyright 2021 Denis Mudarisov <https://github.com/trojikman>
+# License MIT (https://opensource.org/licenses/MIT).
 import re
 
 from odoo import api, models
 from odoo.http import request
 
+from odoo.addons.base.ir.ir_http import RequestUID
+from odoo.addons.http_routing.models.ir_http import slug as slug_super
 from odoo.addons.website.models import website as website_file
-from odoo.addons.website.models.ir_http import ModelConverter, RequestUID
-from odoo.addons.website.models.website import slug as slug_super
+from odoo.addons.website.models.ir_http import ModelConverter
 
 
 def slug(value):
