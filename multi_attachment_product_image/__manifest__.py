@@ -25,7 +25,7 @@
     "post_init_hook": None,
     "uninstall_hook": None,
     "auto_install": False,
-    "installable": False,
+    "installable": True,
     "demo_title": "Upload Multiple Images at Once",
     "demo_addons": [],
     "demo_addons_hidden": [],
