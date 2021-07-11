@@ -2,7 +2,7 @@
 {
     "name": "Stop Sale on Website",
     "summary": """Sale only available products on Website""",
-    "vesion": "10.0.1.0.0",
+    "version": "10.0.1.0.0",
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "license": "Other OSI approved licence",  # MIT
     "category": "eCommerce",

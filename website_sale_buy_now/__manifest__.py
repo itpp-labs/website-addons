@@ -7,7 +7,7 @@
     "category": "Website",
     "images": ["images/buy_now.png"],
     "website": "https://twitter.com/yelizariev",
-    "vesion": "10.0.1.0.0",
+    "version": "10.0.1.0.0",
     "depends": ["website_sale"],
     "installable": False,
     "data": ["views/product.xml", "views/templates.xml"],
