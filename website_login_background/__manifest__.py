@@ -4,7 +4,7 @@
     "summary": """Random background image to your taste at the website login page""",
     "category": "Website",
     "images": ["images/5.png"],
-    "vesion": "10.0.1.0.1",
+    "version": "10.0.1.0.1",
     "author": "IT-Projects LLC",
     "support": "apps@itpp.dev",
     "website": "https://twitter.com/OdooFree",

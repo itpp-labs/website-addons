@@ -4,7 +4,7 @@
     "summary": """""",
     "category": "Website",
     "images": [],
-    "vesion": "10.0.1.0.0",
+    "version": "10.0.1.0.0",
     "author": "IT-Projects LLC",
     "support": "apps@itpp.dev",
     "website": "https://twitter.com/OdooFree",
