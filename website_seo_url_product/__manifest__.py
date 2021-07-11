@@ -8,8 +8,6 @@
     "support": "apps@itpp.dev",
     "website": "https://itpp.dev",
     "license": "Other OSI approved licence",  # MIT
-    "price": 10.00,
-    "currency": "EUR",
     "depends": ["website_seo_url", "product"],
     "external_dependencies": {"python": [], "bin": []},
     "data": ["views.xml"],
