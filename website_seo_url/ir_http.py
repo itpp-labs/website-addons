@@ -36,7 +36,7 @@ class ModelConverterCustom(ModelConverter):
         record_id = None
         field = getattr(request.registry[self.model], "_seo_url_field", None)
         if field and field in request.registry[self.model]._fields:
-            cur_lang = request.lang
+            cur_lang = (request.context or {}).get("lang", "en_US")
             langs = [cur_lang] + [
                 lang
                 for lang, _ in env["res.lang"].sudo().get_installed()
