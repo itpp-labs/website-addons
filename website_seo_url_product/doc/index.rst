@@ -7,6 +7,10 @@ Installation
 
 The module doesn't depend on eCommerce module (``website_sale``), so you need to install it manually.
 
+Recommended python package to install:
+
+    python3 -m pip install python-slugify
+
 Usage
 =====
 
