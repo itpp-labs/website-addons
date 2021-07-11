@@ -35,6 +35,6 @@ To get an assistance on this module contact us by email :arrow_right: help@itpp.
 Further information
 ===================
 
-Odoo Apps Store: https://apps.odoo.com/apps/modules/11.0/website_seo_url/
+Odoo Apps Store: https://apps.odoo.com/apps/modules/12.0/website_seo_url/
 
-Tested on `Odoo 11.0 <https://github.com/odoo/odoo/commit/5b281c3cfbb0b8fc86c62171f321cde0fadfaf14>`_
+Tested on `Odoo 12.0 <https://github.com/odoo/odoo/commit/ff2f64b02d720e504a03629dac9c4ef669d4d95e>`_
