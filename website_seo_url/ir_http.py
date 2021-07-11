@@ -6,7 +6,7 @@ from odoo import api, models
 from odoo.http import request
 
 import odoo.addons.http_routing.models.ir_http as ir_http_file
-from odoo.addons.base.ir.ir_http import RequestUID
+from odoo.addons.base.models.ir_http import RequestUID
 from odoo.addons.http_routing.models.ir_http import _UNSLUG_RE, slug as slug_super
 from odoo.addons.website.models.ir_http import ModelConverter
 
