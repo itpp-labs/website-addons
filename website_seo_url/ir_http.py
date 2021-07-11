@@ -1,37 +1,33 @@
 # Copyright 2021 Denis Mudarisov <https://github.com/trojikman>
+# Copyright 2021 Ivan Yelizariev <https://twitter.com/yelizariev>
 # License MIT (https://opensource.org/licenses/MIT).
-import re
 
 from odoo import api, models
 from odoo.http import request
 
+import odoo.addons.http_routing.models.ir_http as ir_http_file
 from odoo.addons.base.ir.ir_http import RequestUID
-from odoo.addons.http_routing.models.ir_http import slug as slug_super
-from odoo.addons.website.models import website as website_file
+from odoo.addons.http_routing.models.ir_http import _UNSLUG_RE, slug as slug_super
 from odoo.addons.website.models.ir_http import ModelConverter
 
 
 def slug(value):
     field = getattr(value, "_seo_url_field", None)
     if field and isinstance(value, models.BaseModel) and hasattr(value, field):
-        name = getattr(value, field)
+        name = value[field]
         if name:
             return name
     return slug_super(value)
 
 
-website_file.slug = slug
+ir_http_file.slug = slug
 
 
 class ModelConverterCustom(ModelConverter):
     def __init__(self, url_map, model=False, domain="[]"):
         super(ModelConverter, self).__init__(url_map, model)
-        self.domain = domain
         #   Original:'(?:(\w{1,2}|\w[A-Za-z0-9-_]+?\w)-)?(-?\d+)(?=$|/)')
         self.regex = r"(?:(\w{1,2}|\w[A-Za-z0-9-_]+?))(?=$|/)"
-
-    def to_url(self, value):
-        return slug(value)
 
     def to_python(self, value):
         _uid = RequestUID(value=value, converter=self)
@@ -41,34 +37,28 @@ class ModelConverterCustom(ModelConverter):
         field = getattr(request.registry[self.model], "_seo_url_field", None)
         if field and field in request.registry[self.model]._fields:
             cur_lang = request.lang
-            langs = []
-            if request.website:
-                langs = [
-                    lg[0] for lg in request.website.get_languages() if lg[0] != cur_lang
-                ]
-            langs = [cur_lang] + langs
-            context = (request.context or {}).copy()
+            langs = [cur_lang] + [
+                lang
+                for lang, _ in env["res.lang"].sudo().get_installed()
+                if lang != cur_lang
+            ]
             for lang in langs:
-                context["lang"] = lang
-                res = env[self.model].sudo().search([(field, "=", value)])
+                res = (
+                    env[self.model]
+                    .with_context(lang=lang)
+                    .sudo()
+                    .search([(field, "=", value)])
+                )
                 if res:
                     record_id = res[0].id
                     break
-        if not record_id:
-            # try to handle it as it a usual link
-            m = re.search(r"-?(-?\d+?)(?=$|/)", value)
-            if m:
-                record_id = int(m.group(1))
 
-        if not record_id:
-            return None
+        if record_id:
+            return env[self.model].browse(record_id)
 
-        if record_id < 0:
-            # limited support for negative IDs due to our slug pattern, assume abs() if not found
-            if not request.registry[self.model].exists(request.cr, _uid, [record_id]):
-                record_id = abs(record_id)
-
-        return env[self.model].browse(record_id)
+        # fallback to original implementation
+        self.regex = _UNSLUG_RE.pattern
+        return super().to_python(value)
 
 
 class IrHttp(models.AbstractModel):
