@@ -2,7 +2,7 @@
     "name": """Chess""",
     "summary": """Play Chess with other users in Odoo!""",
     "category": "Website",
-    "vesion": "13.0.1.0.0",
+    "version": "13.0.1.0.0",
     "author": "IT-Projects LLC, Dinar Gabbasov",
     "support": "apps@itpp.dev",
     "website": "https://twitter.com/gabbasov_dinar",
