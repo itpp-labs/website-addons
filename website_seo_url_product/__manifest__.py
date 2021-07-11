@@ -3,7 +3,7 @@
     "summary": """Customisable URLs for product pages, that don't depend on product name and product ID""",
     "category": "eCommerce",
     "images": [],
-    "vesion": "13.0.1.0.0",
+    "version": "13.0.1.0.0",
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "support": "apps@itpp.dev",
     "website": "https://itpp.dev",

@@ -5,7 +5,7 @@
     "support": "apps@itpp.dev",
     "website": "https://yelizariev.github.io",
     "category": "eCommerce",
-    "vesion": "13.0.1.0",
+    "version": "13.0.1.0",
     "depends": ["website_sale", "partner_person"],
     "data": ["views.xml"],
     "installable": False,
