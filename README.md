@@ -1,6 +1,8 @@
 [![help@itpp.dev](https://itpp.dev/images/infinity-readme.png)](mailto:help@itpp.dev)
 # [12.0] Odoo Website Addons
 
+:open_file_folder: Get a **.zip** file with all needed dependencies:
+
 :heavy_check_mark: [payment_pagadito_itpp](https://apps.odoo.com/apps/modules/12.0/payment_pagadito_itpp/)
 <br/>:heavy_check_mark: [portal_debranding](https://apps.odoo.com/apps/modules/12.0/portal_debranding/)
 <br/>:heavy_check_mark: [web_login_background](https://apps.odoo.com/apps/modules/12.0/web_login_background/)
@@ -16,6 +18,12 @@
 <br/>:heavy_check_mark: [website_sale_checkout_store](https://apps.odoo.com/apps/modules/12.0/website_sale_checkout_store/)
 <br/>:heavy_check_mark: [website_sale_no_sale](https://apps.odoo.com/apps/modules/12.0/website_sale_no_sale/)
 <br/>:heavy_check_mark: [website_sale_search_clear](https://apps.odoo.com/apps/modules/12.0/website_sale_search_clear/)
+<br/>:heavy_check_mark: [website_seo_url](https://apps.odoo.com/apps/modules/12.0/website_seo_url/)
+<br/>:heavy_check_mark: [website_seo_url_product](https://apps.odoo.com/apps/modules/12.0/website_seo_url_product/)
+
+:star: Star this repo if you **like** it!
+
+:heart: [Sponsor us](https://patreon.com/itpp) if you **love** it!
 
 Other Addons
 ============
