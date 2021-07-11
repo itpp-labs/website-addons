@@ -1,6 +1,8 @@
 [![help@itpp.dev](https://itpp.dev/images/infinity-readme.png)](mailto:help@itpp.dev)
 # [11.0] Odoo Website Addons
 
+:open_file_folder: Get a **.zip** file with all needed dependencies:
+
 :heavy_check_mark: [multi_attachment_product_image](https://apps.odoo.com/apps/modules/11.0/multi_attachment_product_image/)
 <br/>:heavy_check_mark: [product_price_factor](https://apps.odoo.com/apps/modules/11.0/product_price_factor/)
 <br/>:heavy_check_mark: [product_price_factor_online](https://apps.odoo.com/apps/modules/11.0/product_price_factor_online/)
@@ -20,6 +22,12 @@
 <br/>:heavy_check_mark: [website_sale_no_sale](https://apps.odoo.com/apps/modules/11.0/website_sale_no_sale/)
 <br/>:heavy_check_mark: [website_sale_product_tags](https://apps.odoo.com/apps/modules/11.0/website_sale_product_tags/)
 <br/>:heavy_check_mark: [website_sale_search_clear](https://apps.odoo.com/apps/modules/11.0/website_sale_search_clear/)
+<br/>:heavy_check_mark: [website_seo_url](https://apps.odoo.com/apps/modules/11.0/website_seo_url/)
+<br/>:heavy_check_mark: [website_seo_url_product](https://apps.odoo.com/apps/modules/11.0/website_seo_url_product/)
+
+:star: Star this repo if you **like** it!
+
+:heart: [Sponsor us](https://patreon.com/itpp) if you **love** it!
 
 Other Addons
 ============
