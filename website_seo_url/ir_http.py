@@ -2,7 +2,7 @@
 # Copyright 2021 Ivan Yelizariev <https://twitter.com/yelizariev>
 # License MIT (https://opensource.org/licenses/MIT).
 
-from odoo import api, models
+from odoo import SUPERUSER_ID, api, models
 from odoo.http import request
 
 import odoo.addons.http_routing.models.ir_http as ir_http_file
@@ -36,17 +36,30 @@ class ModelConverterCustom(ModelConverter):
         record_id = None
         field = getattr(request.registry[self.model], "_seo_url_field", None)
         if field and field in request.registry[self.model]._fields:
-            cur_lang = request.lang
+            cur_lang = request.env.lang
             langs = [cur_lang] + [
                 lang
                 for lang, _ in env["res.lang"].sudo().get_installed()
                 if lang != cur_lang
             ]
+            # Workaround for error in Odoo 13.0
+            #
+            #   File "/opt/odoo/custom/src/odoo/odoo/tools/misc.py", line 1177, in get_lang
+            #     for code in [lang_code, env.context.get('lang'), env.user.company_id.partner_id.lang, langs[0]]:
+            #   File "/opt/odoo/custom/src/odoo/odoo/tools/func.py", line 24, in __get__
+            #     value = self.fget(obj)
+            #   File "/opt/odoo/custom/src/odoo/odoo/api.py", line 522, in user
+            #     return self(su=True)['res.users'].browse(self.uid)
+            #   File "/opt/odoo/custom/src/odoo/odoo/models.py", line 5072, in browse
+            #     ids = tuple(ids)
+            # TypeError: 'RequestUID' object is not iterable - - -
+            #
+            # Fixed in Odoo 14: https://github.com/odoo/odoo/commit/9247c5e8fde001d9bd53ea2c7cf9144326eda6e0
+            env_sudo = api.Environment(request.cr, SUPERUSER_ID, request.context)
             for lang in langs:
                 res = (
-                    env[self.model]
+                    env_sudo[self.model]
                     .with_context(lang=lang)
-                    .sudo()
                     .search([(field, "=", value)])
                 )
                 if res:
