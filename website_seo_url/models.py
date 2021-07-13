@@ -1,13 +1,16 @@
 # Copyright 2021 Ivan Yelizariev <https://twitter.com/yelizariev>
+# Copyright 2021 Denis Mudarisov <https://github.com/trojikman>
 # License MIT (https://opensource.org/licenses/MIT).
 
-from odoo import api, models
+from odoo import _, api, models
+from odoo.exceptions import ValidationError
 
 from odoo.addons.website.models.website import slugify
 
 
 class SEOURL(models.AbstractModel):
     _name = "website_seo_url"
+    _description = "Website SEO URL"
 
     _seo_url_field = "seo_url"
 
@@ -34,7 +37,8 @@ class SEOURL(models.AbstractModel):
             super(SEOURL, r).write(vals)
         return True
 
-    def __check_seo_url_uniq(self):
+    @api.constrains("_seo_url_field")
+    def _check_seo_url_uniq(self):
         for r in self:
             value = getattr(
                 r.with_context(lang=self.env.user.lang), self._seo_url_field
@@ -48,13 +52,8 @@ class SEOURL(models.AbstractModel):
                 )
                 > 1
             ):
-                return False
-        return True
-
-    _constraints = [
-        (
-            __check_seo_url_uniq,
-            "SEO URL must be unique! Auto changing name failed. Try different name.",
-            ["eq_seo_name"],
-        ),
-    ]
+                raise ValidationError(
+                    _(
+                        "SEO URL must be unique! Auto changing name failed. Try different name."
+                    )
+                )
