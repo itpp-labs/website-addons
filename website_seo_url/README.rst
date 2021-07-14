@@ -6,17 +6,26 @@
    :target: https://opensource.org/licenses/MIT
    :alt: License: MIT
 
-=======================
- SEO URLs in eCommerce
-=======================
+==========
+ SEO URLs
+==========
 
-Customisable URLs for product pages, that don't depend on product name and product ID.
+Allows to make custom SEO URL for pages related to some record.
+
+E.g.
 
     /shop/product/configurable-seo-url-for-the-best-product
 
-    instead of
+instead of
 
     /shop/product/name-of-product-123
+
+See ``website_seo_url_product`` module as an example of usage.
+
+Roadmap
+=======
+
+* Rename abstract model `website_seo_url` to  `website_seo_url.mixin`
 
 Questions?
 ==========

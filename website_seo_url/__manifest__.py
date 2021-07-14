@@ -1,19 +1,21 @@
+# Copyright 2021 Denis Mudarisov <https://github.com/trojikman>
+# License MIT (https://opensource.org/licenses/MIT).
 {
-    "name": """SEO URLs in eCommerce""",
-    "summary": """Customisable URLs for product pages, that don't depend on product name and product ID""",
-    "category": "eCommerce",
+    "name": """SEO URLs""",
+    "summary": """Allows to make custom SEO URL for pages related to some record""",
+    "category": "Website",
     "images": [],
     "version": "14.0.1.0.0",
     "author": "IT-Projects LLC, Ivan Yelizariev",
-    "support": "apps@itpp.dev",
+    "support": "help@itpp.dev",
     "website": "https://twitter.com/OdooFree",
     "license": "Other OSI approved licence",  # MIT
-    "depends": ["website_seo_url", "product"],
+    "depends": ["website"],
     "external_dependencies": {"python": [], "bin": []},
-    "data": ["views.xml"],
+    "data": [],
     "qweb": [],
     "demo": [],
-    "post_load": None,
+    "post_load": "post_load",
     "pre_init_hook": None,
     "post_init_hook": None,
     "installable": True,
