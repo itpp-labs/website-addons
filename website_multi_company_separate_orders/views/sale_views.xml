@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+     License MIT (https://opensource.org/licenses/MIT). -->
+<odoo>
+    <record
+        id="view_order_form_inherit_website_multi_company_separate_orders"
+        model="ir.ui.view"
+    >
+        <field name="name">sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="order_parent_id" readonly="1" />
+                <field name="order_child_ids" readonly="1" />
+            </xpath>
+        </field>
+    </record>
+    <record id="view_order_form_inherit_website_multi_company_tree" model="ir.ui.view">
+        <field name="name">sale.order.tree</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_status']" position="attributes">
+                <attribute name="invisible" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

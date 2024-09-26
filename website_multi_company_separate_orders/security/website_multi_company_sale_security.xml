@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+     License MIT (https://opensource.org/licenses/MIT). -->
+<odoo>
+    <!--Company Rules-->
+    <record id="website_multi_company_sale_product_rule_company" model="ir.rule">
+        <field
+            name="name"
+        >Users with current company_id field specified have access only for products from specified company and child companies</field>
+        <field name="model_id" ref="product.model_product_template" />
+        <field
+            name="domain_force"
+        >['|', '|', ('company_id', '=', user.company_id.id), ('company_id', '=', False), ('company_id', 'in', user.company_id.child_ids.ids)]</field>
+    </record>
+    <delete
+        model="ir.rule"
+        id="website_multi_company_sale.website_multi_company_sale_order_all"
+    />
+    <record id="website_multi_company_sale_order_all" model="ir.rule">
+        <field
+            name="name"
+        >Users with backend_website_id field specified have access only for sale orders from specied website</field>
+        <field name="model_id" ref="model_sale_order" />
+        <field
+            name="domain_force"
+        >[('website_id', 'in', [user.backend_website_id.id, user.website_id.id, False])]</field>
+        <field name="backend_behaviour">true</field>
+    </record>
+    <!--Not sure that it's needed smh works with websites rules only-->
+    <record id="website_multi_company_sale_order_company" model="ir.rule">
+        <field
+            name="name"
+        >Users with current company_id field specified have access only for sale orders from specified company and child companies</field>
+        <field name="model_id" ref="model_sale_order" />
+        <field
+            name="domain_force"
+        >[('company_id', 'in', [user.company_id.id, False] + user.company_id.child_ids.ids)]</field>
+    </record>
+    <record
+        id="website_multi_company_sale_product_public_categoey_rule_company"
+        model="ir.rule"
+    >
+        <field
+            name="name"
+        >Users with current company_id field specified have access only for productpublic categories from specified company and child companies</field>
+        <field name="model_id" ref="model_product_public_category" />
+        <field
+            name="domain_force"
+        >['|', '|', ('company_id', '=', user.company_id.id), ('company_id', '=', False), ('company_id', 'in', user.company_id.child_ids.ids)]</field>
+    </record>
+</odoo>
