@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="portal.portal_show_sign_in" model="ir.ui.view">
+        <field name="active" eval="False" />
+    </record>
+</odoo>
